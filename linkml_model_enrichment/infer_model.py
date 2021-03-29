@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Infer a schema from a TSV
 
 """
@@ -15,9 +16,9 @@ import yaml
 import csv
 import time
 
-from biolinkml.meta import SchemaDefinition
-from biolinkml.utils.generator import Generator, shared_arguments
-from biolinkml.utils.yamlutils import as_yaml
+from linkml_model.meta import SchemaDefinition
+from linkml.utils.generator import Generator, shared_arguments
+from linkml.utils.yamlutils import as_yaml
 from dateutil.parser import parse
 
 def infer_model(tsvfile: str, sep="\t", class_name='example',
@@ -117,9 +118,9 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
         'id': f'https://w3id.org/{schema_name}',
         'name': schema_name,
         'description': schema_name,
-        'imports': ['biolinkml:types'],
+        'imports': ['linkml:types'],
         'prefixes': {
-            'biolinkml': 'https://w3id.org/biolink/biolinkml/',
+            'linkml': 'https://w3id.org/link/linkml/',
             schema_name: f'https://w3id.org/{schema_name}'
         },
         'default_prefix': schema_name,
