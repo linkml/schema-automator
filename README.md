@@ -1,17 +1,17 @@
-# LinkML Model Inferences
+# LinkML Model Enrichments
 
 [![Python](https://img.shields.io/badge/python-3.7+-blue.svg)]()
-![Run tests](https://github.com/linkml/linkml-model-inference/workflows/Run%20tests/badge.svg)[![Documentation Status](https://readthedocs.org/projects/linkml_model_inference/badge/?version=latest)](https://linkml_model_inference.readthedocs.io/en/latest/?badge=latest)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_inference&metric=alert_status)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_inference)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_inference&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_inference)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_inference&metric=coverage)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_inference)
-[![PyPI](https://img.shields.io/pypi/v/linkml_model_inference)](https://img.shields.io/pypi/v/linkml_model_inference)
-[![Docker](https://img.shields.io/static/v1?label=Docker&message=linkml/linkml-model-inference:latest&color=orange&logo=docker)](https://hub.docker.com/r/linkml/linkml-model-inference)
+![Run tests](https://github.com/linkml/linkml-model-enrichment/workflows/Run%20tests/badge.svg)[![Documentation Status](https://readthedocs.org/projects/linkml_model_enrichment/badge/?version=latest)](https://linkml_model_enrichment.readthedocs.io/en/latest/?badge=latest)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=alert_status)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=coverage)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
+[![PyPI](https://img.shields.io/pypi/v/linkml_model_enrichment)](https://img.shields.io/pypi/v/linkml_model_enrichment)
+[![Docker](https://img.shields.io/static/v1?label=Docker&message=linkml/linkml-model-enrichment:latest&color=orange&logo=docker)](https://hub.docker.com/r/linkml/linkml-model-enrichment)
 
 
 ## Installation
 
-The installation for LINKML_MODEL_INFERENCE requires Python 3.7 or greater.
+The installation for LINKML_MODEL_ENRICHMENT requires Python 3.7 or greater.
 
 
 ### Installation for users
@@ -19,17 +19,17 @@ The installation for LINKML_MODEL_INFERENCE requires Python 3.7 or greater.
 
 #### Installing from PyPI
 
-LINKML_MODEL_INFERENCE is available on PyPI and can be installed using
+LINKML_MODEL_ENRICHMENT is available on PyPI and can be installed using
 [pip](https://pip.pypa.io/en/stable/installing/) as follows,
 
 ```bash
-pip install linkml_model_inference
+pip install linkml_model_enrichment
 ```
 
-To install a particular version of LINKML_MODEL_INFERENCE, be sure to specify the version number,
+To install a particular version of LINKML_MODEL_ENRICHMENT, be sure to specify the version number,
 
 ```bash
-pip install linkml_model_inference==0.5.0
+pip install linkml_model_enrichment==0.5.0
 ```
 
 
@@ -38,8 +38,8 @@ pip install linkml_model_inference==0.5.0
 Clone the GitHub repository and then install,
 
 ```bash
-git clone https://github.com/linkml/linkml-model-inference
-cd linkml_model_inference
+git clone https://github.com/linkml/linkml-model-enrichment
+cd linkml_model_enrichment
 python setup.py install
 ```
 
@@ -51,8 +51,8 @@ python setup.py install
 To build directly from source, first clone the GitHub repository,
 
 ```bash
-git clone https://github.com/linkml/linkml-model-inference
-cd linkml_model_inference
+git clone https://github.com/linkml/linkml-model-enrichment
+cd linkml_model_enrichment
 ```
 
 Then install the necessary dependencies listed in ``requirements.txt``,
@@ -72,7 +72,7 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-To install LINKML_MODEL_INFERENCE you can do one of the following,
+To install LINKML_MODEL_ENRICHMENT you can do one of the following,
 
 ```bash
 pip install .
