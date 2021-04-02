@@ -18,7 +18,7 @@ import click
 #   UNLESS --help is explicitly invoked
 
 # TODO writing output to STDOUT
-#   give option for writing directly to file?
+#   add option for writing directly to file?
 
 # TODO overwrites meanings if they already exist
 
@@ -72,7 +72,7 @@ def extract_mapping_items(annotation_json, bpkey):
         try:
             class_details = get_bp_json(result['annotatedClass']['links']['self'], bpkey)
         except urllib.error.HTTPError:
-            print(f'Error retrieving {result["annotatedClass"]["@id"]}')
+            eprint(f'Error retrieving {result["annotatedClass"]["@id"]}')
             continue
         result_dict = {'text': annotated_text['text'], 'matchType': annotated_text['matchType'],
                        'id': class_details['@id'], 'prefLabel': class_details['prefLabel']}
@@ -113,7 +113,7 @@ def replace(string, substitutions):
               help='Delimiter for tabular files, reading AND writing. Defaults to \t',
               required=True, type=str, show_default=False)
 @click.option('--modelfile', '-f',
-              default='src/schema/synbio.yaml',
+              default='inferred-models/synbio.yaml',
               help='Path to a YAML linkml file containing enumerated values.',
               required=True, type=click.Path(exists=True), show_default=True)
 # what's the right term
@@ -128,15 +128,15 @@ def replace(string, substitutions):
 def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontoprefix, quiet):
     # # don't emit nulls in YAML
     # # but is this really necessary?
-    # SafeDumper.add_representer(
-    #     type(None),
-    #     lambda dumper, value: dumper.represent_scalar(u'tag:yaml.org,2002:null', '')
-    # )
+    SafeDumper.add_representer(
+        type(None),
+        lambda dumper, value: dumper.represent_scalar(u'tag:yaml.org,2002:null', '')
+    )
 
-    # print(bpkey)
-    print(quiet)
+    # eprint(bpkey)
+    # eprint(quiet)
     verbose = not quiet
-    print(verbose)
+    # eprint(verbose)
 
     # not necessary if always writing to STDOUT
     # modelfile_bits = os.path.splitext(modelfile)
@@ -165,6 +165,8 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
     # for key in inferred_enums.keys():
     #     print(key)
 
+    # eprint(inferred_enums)
+
     for text_line in inferred_enums:
         tidied_line = re.sub(r'[_,.\-;@#?!&$]+ *', ' ', text_line)
         built_url = bpendpoint + '/annotator?longest_only=true&ontologies=' + ontoprefix + \
@@ -180,29 +182,44 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
             used_pref_dist = cosine_obj.distance(extracted_mapping_items['text'].lower(),
                                                  extracted_mapping_items['prefLabel'].lower())
             used_pref_dist_str = '{:0.3f}'.format(used_pref_dist)
+
+            # for non-quiet/verbose reporting
             joined_mapping_items = delim.join(extracted_mapping_items.values())
             final_joined_mapping = text_line + '\t' + tidied_line + '\t' + joined_mapping_items + '\t' + \
                                    input_used_dist_str + '\t' + used_pref_dist_str
             # add meaning slots to the enums if a matches are found
             #   and the cosine distance is acceptable
             if input_used_dist < maxdist:
+                # eprint('projecting meaning')
                 curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
                 inferred_enums[text_line] = {'meaning': curie}
+            # else:
+            #     eprint('no projection')
+
         else:
             final_joined_mapping = text_line
 
-        # TODO optional verbose mode?
-        eprint(final_joined_mapping)
+        if verbose:
+            eprint(final_joined_mapping)
 
     # not necessary if always writing to STDOUT
     # updated_yaml_file = modelfile_bits[0] + '_updated' + modelfile_bits[1]
+
+    # eprint(modelslice)
+    # eprint(inferred_enums)
+    # yaml.safe_dump(inferred_enums, stdout, default_flow_style=False)
+
+    inferred_model['enums'][modelslice]['permissible_values'] = inferred_enums
+
+    # eprint(inferred_model)
+    yaml.safe_dump(inferred_model, stdout, default_flow_style=False)
 
     # TODO explicitly close in and out files
     # close SQLite connections (not relevant here)
     # TODO also resume support for writing directly to a file?
     # with open(updated_yaml_file, 'w') as file:
     #     yaml.safe_dump(inferred_model, file, default_flow_style=False)
-    yaml.safe_dump(inferred_model, stdout)
+    # yaml.safe_dump(inferred_model, stdout, default_flow_style=False)
     # doesn't even seem to need the default_flow_style=False
 
 
