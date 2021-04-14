@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from __future__ import print_function
 import json
 import sys
@@ -206,7 +208,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
     if len(ontoprefix) > 0 and ontoprefix != 'NONE':
         op_url_part = '&ontologies=' + ontoprefix
     else:
-        eprint('NO BIOPORTAL PREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
+        eprint('NO ONTOPREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
 
     for text_line in inferred_enums:
         tidied_line = re.sub(r'[_,.\-;@#?!&$]+ *', ' ', text_line)
