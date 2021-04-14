@@ -1,4 +1,4 @@
-linkml
+linkml~=0.0.6
 # biolinkml >= 1.7.0
 mkdocs
 
@@ -11,3 +11,7 @@ strsimpy >= 0.2.0
 click>=7.1.2
 pandas>=1.2.3
 dataclasses>=0.6
+
+setuptools~=54.2.0
+requests~=2.25.1
+python-dateutil~=2.8.1

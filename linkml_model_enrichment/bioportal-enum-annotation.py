@@ -8,9 +8,33 @@ from sys import stdout
 from strsimpy.cosine import Cosine
 import yaml
 import re
-# import os
 from yaml import SafeDumper
 import click
+
+# import os
+# import requests
+# from curieutil import CurieUtil
+# from prefixcommons import contract_uri
+
+# go_prefixes_url = 'https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld'
+# r = requests.get(go_prefixes_url)
+#
+# mapping = CurieUtil.parseContext(r.json())
+# curie = CurieUtil(mapping)
+
+# WRITES OUTPUT TO STDOUT
+
+# 2021-04-14
+# CURIE HANDLING
+# enums besides species
+# different spreadsheet input
+# would go through Chris' initial inference stage
+# or try from postgres?
+# ask for ontology target if no code_set asserted
+# may not be retaining original yaml ordering
+
+# low priority
+# is cosine the best string distance for this task?
 
 
 # TODO gets bioportal key from $ENUMENRICH_BPKEY or --bpkey
@@ -89,43 +113,55 @@ def replace(string, substitutions):
 
 
 @click.command()
-@click.option('--bpendpoint', '-e',
-              default="http://data.bioontology.org",
-              help='URL for a BioPortal or OntoPortal API endpoint.',
-              required=True, type=str, show_default=True)
-# # get from separate YAML config file?
-# # currently using env var $BIOPORTAL_API_KEY
-# @click.option('--bpkey', prompt=True,
-#               default=lambda: os.environ.get('$BIOPORTAL_API_KEY', ''),
-#               help='API key for BioPortal or OntoPortal endpoint. Taken from $BIOPORTAL_API_KEY by default.',
-#               required=True, type=str)
+# what's the right term
+@click.option('--modelfile', '-f',
+              # default='inferred-models/synbio.yaml',
+              help='Path to a YAML linkml file containing enumerated values.',
+              required=True,
+              type=click.Path(exists=True),
+              # show_default=True
+              )
+@click.option('--enum_source', '-e',
+              # default='species_enum',
+              help='In which part of the model do you want to look for enums?.',
+              required=True,
+              type=str,
+              # show_default=True
+              )
+@click.option('--ontoprefix', '-p',
+              # default='NCBITAXON',
+              help='What BioPortal ontology do you want to use as a reference?.',
+              required=True,
+              type=str,
+              # show_default=True
+              )
 @click.option('--bpkey', '-k',
               help='API key for BioPortal or OntoPortal endpoint. Taken from $ENUMENRICH_BPKEY by default.',
               envvar='ENUMENRICH_BPKEY',
-              required=True, type=str)
-@click.option('--quiet', '-q', is_flag=True, help="Don't report each BioPortal result to STDOUT.")
-@click.option('--maxdist',
-              help='Maximum cosine distance between input and BioPortal PREFERRED match',
+              required=True,
+              type=str)
+@click.option('--bpendpoint', '-e',
+              default="http://data.bioontology.org",
+              help='URL for a BioPortal or OntoPortal API endpoint.',
+              required=True,
+              type=str,
+              show_default=True)
+@click.option('--maxdist', '-x',
+              help='Maximum cosine distance between input and BioPortal PREFERRED match.',
               default=0.1,
-              required=True, type=float, show_default=True)
+              required=True,
+              type=float,
+              show_default=True)
 @click.option('--delim',
               default='\t',
-              help='Delimiter for tabular files, reading AND writing. Defaults to \t',
-              required=True, type=str, show_default=False)
-@click.option('--modelfile', '-f',
-              default='inferred-models/synbio.yaml',
-              help='Path to a YAML linkml file containing enumerated values.',
-              required=True, type=click.Path(exists=True), show_default=True)
-# what's the right term
-@click.option('--modelslice',
-              default='species_enum',
-              help='In which part of the model do you want to look for enums?.',
-              required=True, type=str, show_default=True)
-@click.option('--ontoprefix', '-p',
-              default='NCBITAXON',
-              help='What BIoPortal ontology do you want to use as a reference?.',
-              required=True, type=str, show_default=True)
-def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontoprefix, quiet):
+              help='Delimiter for verbose tabular progress report. Defaults to horizontal tab.',
+              required=True,
+              type=str,
+              show_default=False)
+@click.option('--quiet', '-q',
+              is_flag=True,
+              help="Don't send BioPortal progress to STDOUT.")
+def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontoprefix, quiet):
     # # don't emit nulls in YAML
     # # but is this really necessary?
     SafeDumper.add_representer(
@@ -133,10 +169,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
         lambda dumper, value: dumper.represent_scalar(u'tag:yaml.org,2002:null', '')
     )
 
-    # eprint(bpkey)
-    # eprint(quiet)
     verbose = not quiet
-    # eprint(verbose)
 
     # not necessary if always writing to STDOUT
     # modelfile_bits = os.path.splitext(modelfile)
@@ -146,8 +179,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
 
     # # interpret code_set in order to determine target ontologies?
     # # what if there is no asserted code_set?
-    # ontoprefix = inferred_model['enums'][modelslice]['code_set']
-    # ontoprefix = str(ontoprefix).upper()
+    # ontoprefix = inferred_model['enums'][enum_source]['code_set']
     ontoprefix = str(ontoprefix).upper()
 
     # maybe there's a better way of doing this?
@@ -160,7 +192,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
     # assuming at least one prefix has been defined
     asserted_prefixes = inferred_model['prefixes']
 
-    inferred_enums = inferred_model['enums'][modelslice]['permissible_values']
+    inferred_enums = inferred_model['enums'][enum_source]['permissible_values']
 
     # for key in inferred_enums.keys():
     #     print(key)
@@ -190,11 +222,8 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
             # add meaning slots to the enums if a matches are found
             #   and the cosine distance is acceptable
             if input_used_dist < maxdist:
-                # eprint('projecting meaning')
                 curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
                 inferred_enums[text_line] = {'meaning': curie}
-            # else:
-            #     eprint('no projection')
 
         else:
             final_joined_mapping = text_line
@@ -205,11 +234,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, modelslice, ontopref
     # not necessary if always writing to STDOUT
     # updated_yaml_file = modelfile_bits[0] + '_updated' + modelfile_bits[1]
 
-    # eprint(modelslice)
-    # eprint(inferred_enums)
-    # yaml.safe_dump(inferred_enums, stdout, default_flow_style=False)
-
-    inferred_model['enums'][modelslice]['permissible_values'] = inferred_enums
+    inferred_model['enums'][enum_source]['permissible_values'] = inferred_enums
 
     # eprint(inferred_model)
     yaml.safe_dump(inferred_model, stdout, default_flow_style=False)
