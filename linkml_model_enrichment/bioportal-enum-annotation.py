@@ -70,6 +70,7 @@ import click
 
 # TODO not handling unauthorized access to bioportal yet
 #   bad API key, etc
+#   BAD ONTOPREFIX
 #   or any other REST failures
 
 # inspired by
@@ -131,7 +132,7 @@ def replace(string, substitutions):
 @click.option('--ontoprefix', '-p',
               # default='NCBITAXON',
               help='What BioPortal ontology do you want to use as a reference?.',
-              required=True,
+              # required=True,
               type=str,
               # show_default=True
               )
@@ -199,10 +200,19 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
 
     # eprint(inferred_enums)
 
+    op_url_part = ''
+    # eprint(ontoprefix)
+    # eprint(len(ontoprefix))
+    if len(ontoprefix) > 0 and ontoprefix != 'NONE':
+        op_url_part = '&ontologies=' + ontoprefix
+    else:
+        eprint('NO BIOPORTAL PREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
+
     for text_line in inferred_enums:
         tidied_line = re.sub(r'[_,.\-;@#?!&$]+ *', ' ', text_line)
-        built_url = bpendpoint + '/annotator?longest_only=true&ontologies=' + ontoprefix + \
+        built_url = bpendpoint + '/annotator?longest_only=true' + op_url_part + \
                     '&text=' + urllib.parse.quote(tidied_line)
+        # eprint(built_url)
         # make longest_only a parameter?
         #   if off,  extract_mapping_items will make multiple returns?
         bp_json = get_bp_json(built_url, bpkey)
