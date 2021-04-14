@@ -196,7 +196,9 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
     asserted_prefixes = inferred_model['prefixes']
 
     inferred_enums = inferred_model['enums'][enum_source]['permissible_values']
-
+    inferred_keys = list(inferred_enums.keys())
+    inferred_keys.sort(key=str.casefold)
+    eprint(inferred_keys)
     # for key in inferred_enums.keys():
     #     print(key)
 
@@ -210,7 +212,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
     else:
         eprint('NO ONTOPREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
 
-    for text_line in inferred_enums:
+    for text_line in inferred_keys:
         tidied_line = re.sub(r'[_,.\-;@#?!&$]+ *', ' ', text_line)
         built_url = bpendpoint + '/annotator?longest_only=true' + op_url_part + \
                     '&text=' + urllib.parse.quote(tidied_line)
@@ -235,7 +237,7 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
             #   and the cosine distance is acceptable
             if input_used_dist < maxdist:
                 curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
-                inferred_enums[text_line] = {'meaning': curie}
+                inferred_enums[text_line]['meaning'] = curie
 
         else:
             final_joined_mapping = text_line
