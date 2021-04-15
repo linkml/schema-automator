@@ -44,4 +44,4 @@ cur.close()
 con.close()
 felixframe = pds.DataFrame(rows, columns=felix_modifications_cols)
 
-felixframe.to_csv('data/felix_modifications.csv')
+felixframe.to_csv('data/felix_modifications.tsv', sep='\t')

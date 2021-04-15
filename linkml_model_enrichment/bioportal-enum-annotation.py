@@ -13,6 +13,7 @@ import re
 from yaml import SafeDumper
 import click
 
+
 # import os
 # import requests
 # from curieutil import CurieUtil
@@ -198,49 +199,55 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
     inferred_enums = inferred_model['enums'][enum_source]['permissible_values']
     inferred_keys = list(inferred_enums.keys())
     inferred_keys.sort(key=str.casefold)
+    eprint("List of detected enums")
     eprint(inferred_keys)
-    # for key in inferred_enums.keys():
-    #     print(key)
-
-    # eprint(inferred_enums)
 
     op_url_part = ''
-    # eprint(ontoprefix)
-    # eprint(len(ontoprefix))
     if len(ontoprefix) > 0 and ontoprefix != 'NONE':
         op_url_part = '&ontologies=' + ontoprefix
     else:
         eprint('NO ONTOPREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
 
-    for text_line in inferred_keys:
-        tidied_line = re.sub(r'[_,.\-;@#?!&$]+ *', ' ', text_line)
-        built_url = bpendpoint + '/annotator?longest_only=true' + op_url_part + \
-                    '&text=' + urllib.parse.quote(tidied_line)
-        # eprint(built_url)
-        # make longest_only a parameter?
-        #   if off,  extract_mapping_items will make multiple returns?
-        bp_json = get_bp_json(built_url, bpkey)
-        if len(bp_json) > 0:
-            extracted_mapping_items = extract_mapping_items(bp_json, bpkey)
-            cosine_obj = Cosine(1)
-            input_used_dist = cosine_obj.distance(text_line.lower(), extracted_mapping_items['text'].lower())
-            input_used_dist_str = '{:0.3f}'.format(input_used_dist)
-            used_pref_dist = cosine_obj.distance(extracted_mapping_items['text'].lower(),
-                                                 extracted_mapping_items['prefLabel'].lower())
-            used_pref_dist_str = '{:0.3f}'.format(used_pref_dist)
+    headers = ['orig_enum', 'tidied_enum', 'matched_text', 'match_type', 'term_id', 'pref_label', 'orig_matched_dist', 'matched_pref_dist']
 
-            # for non-quiet/verbose reporting
-            joined_mapping_items = delim.join(extracted_mapping_items.values())
-            final_joined_mapping = text_line + '\t' + tidied_line + '\t' + joined_mapping_items + '\t' + \
-                                   input_used_dist_str + '\t' + used_pref_dist_str
-            # add meaning slots to the enums if a matches are found
-            #   and the cosine distance is acceptable
-            if input_used_dist < maxdist:
-                curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
-                inferred_enums[text_line]['meaning'] = curie
+    if verbose:
+        headers_delim = delim.join(headers)
+        eprint(headers_delim)
 
+    for orig_enum in inferred_keys:
+        tidied_enum = re.sub(r'[_,.\-;@#?!&$ ]+', ' ', orig_enum)
+
+        min_search_chars = 2
+
+        if (len(tidied_enum) >= min_search_chars):
+            built_url = bpendpoint + '/annotator?longest_only=true' + op_url_part + \
+                        '&text=' + urllib.parse.quote(tidied_enum)
+            # make longest_only a parameter?
+            #   if off,  extract_mapping_items will make multiple returns?
+            bp_json = get_bp_json(built_url, bpkey)
+            if len(bp_json) > 0:
+                extracted_mapping_items = extract_mapping_items(bp_json, bpkey)
+                cosine_obj = Cosine(1)
+                orig_matched_dist_num = cosine_obj.distance(orig_enum.lower(), extracted_mapping_items['text'].lower())
+                orig_matched_dist = '{:0.3f}'.format(orig_matched_dist_num)
+                matched_pref_dist_num = cosine_obj.distance(extracted_mapping_items['text'].lower(),
+                                                     extracted_mapping_items['prefLabel'].lower())
+                matched_pref_dist = '{:0.3f}'.format(matched_pref_dist_num)
+
+                # for non-quiet/verbose reporting
+                joined_mapping_items = delim.join(extracted_mapping_items.values())
+                final_joined_mapping = orig_enum + '\t' + tidied_enum + '\t' + joined_mapping_items + '\t' + \
+                                       orig_matched_dist + '\t' + matched_pref_dist
+                # add meaning slots to the enums if a matches are found
+                #   and the cosine distance is acceptable
+                if orig_matched_dist_num < maxdist:
+                    curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
+                    inferred_enums[orig_enum]['meaning'] = curie
+
+            else:
+                final_joined_mapping = orig_enum
         else:
-            final_joined_mapping = text_line
+            final_joined_mapping = orig_enum
 
         if verbose:
             eprint(final_joined_mapping)
@@ -250,7 +257,6 @@ def clickmain(bpendpoint, bpkey, maxdist, delim, modelfile, enum_source, ontopre
 
     inferred_model['enums'][enum_source]['permissible_values'] = inferred_enums
 
-    # eprint(inferred_model)
     yaml.safe_dump(inferred_model, stdout, default_flow_style=False)
 
     # TODO explicitly close in and out files
