@@ -217,13 +217,11 @@ sorted_enums = case_fold_list_sort(the_enums)
 # not merging results back into model yet
 if search_engine == 'BioPortal':
     ontoprefix = str(ontoprefix).upper()
-
     op_url_part = ''
     if len(ontoprefix) > 0 and ontoprefix != 'NONE':
         op_url_part = '&ontologies=' + ontoprefix
     else:
         eprint('NO ONTOPREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
-
     results_list = all_enums_to_bp(inferred_model, sorted_enums)
     results_frame = pds.DataFrame(results_list)
     results_frame.to_csv(outputfile, index=False, sep='\t')
@@ -232,6 +230,12 @@ elif search_engine == 'OLS search':
     # len(all_ols_results)
     # 1015
     ols_results_single_frame = pds.concat(all_ols_results)
+    ols_results_single_frame = ols_results_single_frame[['enum_class', 'query', 'obo_id', 'label',
+                                                         'description', 'ontology_prefix']]
+    cosine_obj = Cosine(1)
+    ols_results_single_frame['query_preferred_cosine'] = \
+        ols_results_single_frame.apply(lambda row: cosine_obj.distance(row['query'].lower(), row['label'].lower()),
+                                       axis=1)
     ols_results_single_frame.to_csv(outputfile, index=False, sep='\t')
 else:
     print('No valid search engine specified')
@@ -247,4 +251,9 @@ else:
 # childrenOf
 # allChildrenOf
 # start
+
+# list(ols_results_single_frame.columns)
+#
+# ['id', 'iri', 'short_form', 'obo_id', 'label', 'description', 'ontology_name', 'ontology_prefix', 'type',
+#  'is_defining_ontology', 'query', 'enum_class']
 
