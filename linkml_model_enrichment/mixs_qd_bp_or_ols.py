@@ -17,21 +17,31 @@ import requests
 # from yaml import SafeDumper
 # import click
 
+# TODO write mapped terms back in as meanings
+#    give option for overwriting?
+# TODO all user to specify enum classes to process
+
 # assuming that the biosample-analysis directory
 # is a sibling of linkml-model-enrichment
-modelfile = '../biosample-analysis/gensc.github.io/src/schema/mixs.yaml'
-outputfile = 'mixs_mappings.tsv'
+# modelfile = '../biosample-analysis/gensc.github.io/src/schema/mixs.yaml'
+modelfile = 'target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml'
+# outputfile = 'mixs_mappings.tsv'
+outputfile = 'target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml_all_ols.tsv'
 bpkey = os.getenv('ENUMENRICH_BPKEY')
 # can be empty, a single ontology abbreviation, or a comma separate list
 # case sensitive?
 # some BP ontology abbreviations aren't exactly what you'd expect
 # ontoprefix = 'ENVO,PATO,MESH,NCIT,LOINC,SNOMED,MPO,MEO,GAZ,GO,MVC,OBI,OMIT,PO,OCHV,GALEN,EFO,PMO'
-ontoprefix = ''
+# NCBITaxon
+ontoprefix = 'NCBITaxon,SO,OMIT'
+# species_enum,host_organism_enum
+enum_list=''
+enum_list = enum_list.split(",")
 bpendpoint = 'http://data.bioontology.org'
-maxdist = 0.1
+maxdist = 0.05
 verbose = True
 min_search_chars = 2
-# BioPortal or 'OLS search'
+# 'BioPortal' or 'OLS search'
 # search_engine = 'BioPortal'
 search_engine = 'OLS search'
 
@@ -105,11 +115,11 @@ def one_enum_to_bp_dict_list(permitteds, min_search_chars_param, one_enum_param:
                         '&text=' + urllib.parse.quote(tidied_enum)
             # make longest_only a parameter?
             #   if off,  extract_mapping_items will make multiple returns?
-            # print(built_url)
+            # eprint(built_url)
             bp_json = get_bp_json(built_url, bpkey)
             if len(bp_json) > 0:
                 extracted_mapping_items = extract_mapping_items(bp_json, bpkey)
-                # print(extracted_mapping_items)
+                # eprint(extracted_mapping_items)
                 cosine_obj = Cosine(1)
                 orig_matched_dist_num = cosine_obj.distance(orig_enum.lower(), extracted_mapping_items['text'].lower())
                 orig_matched_dist = '{:0.3f}'.format(orig_matched_dist_num)
@@ -138,20 +148,25 @@ def one_enum_to_bp_dict_list(permitteds, min_search_chars_param, one_enum_param:
     return result_list
 
 
+# 'envo,pato,mesh,ncit,loinc,snomed,mpo,meo,gaz,' +
+# 'go,mvc,obi,omit,po,ochv,galen,efo,pmo' + '&' +
+# TODO add filter based on min_search_chars_param?
 def one_enum_to_ols_frame_list(permitteds, min_search_chars_param, one_enum_param: object):
-    print(one_enum_param)
+    # eprint(one_enum_param)
     result_list = []
     for orig_enum in permitteds:
-        print(orig_enum)
-        response_param = requests.get('http://www.ebi.ac.uk/ols/api/search?q=' +
-                                      orig_enum + '&' +
-                                      'ontology=' +
-                                      'envo,pato,mesh,ncit,loinc,snomed,mpo,meo,gaz,' +
-                                      'go,mvc,obi,omit,po,ochv,galen,efo,pmo' + '&' +
-                                      'type=class' + '&' +
-                                      'local=true' + '&' +
-                                      'rows=10' + '&' +
-                                      'exact=false')
+        # eprint(one_enum_param + " | " + orig_enum)
+        tidied_enum = re.sub(r'[_,.\-;@#?!&$ ]+', ' ', orig_enum)
+        # eprint(tidied_enum)
+        request_string = 'http://www.ebi.ac.uk/ols/api/search?q=' + \
+                         urllib.parse.quote(tidied_enum) + '&' + \
+                         'ontology=' + ontoprefix.lower() + "&" + \
+                         'type=class' + '&' + \
+                         'local=true' + '&' + \
+                         'rows=10' + '&' + \
+                         'exact=false'
+        # eprint(request_string)
+        response_param = requests.get(request_string)
         rj_param = response_param.json()
         rjrd_param = pds.DataFrame(rj_param['response']['docs'])
         r, c = rjrd_param.shape
@@ -163,14 +178,49 @@ def one_enum_to_ols_frame_list(permitteds, min_search_chars_param, one_enum_para
             rjrd_param = rjrd_param.append(temp_df)
         rjrd_param['query'] = orig_enum
         rjrd_param['enum_class'] = one_enum_param
-        print(rjrd_param)
+        inner_cosine_obj = Cosine(1)
+        # rjrd_param['query_preferred_cosine'] = \
+        #     rjrd_param.apply(lambda row: inner_cosine_obj.distance(row['query'].lower(), row['label'].lower()), axis=1)
+        rjrd_param['query_preferred_cosine'] = \
+            rjrd_param.apply(lambda row: inner_cosine_obj.distance(tidied_enum.lower(), row['label'].lower()), axis=1)
+
+        # eprint(rjrd_param)
         result_list.append(rjrd_param)
+        # insert meaning
+        bestline = rjrd_param.iloc[0, :]
+        # eprint(bestline)
+        # eprint(bestline['query_preferred_cosine'])
+
+        # retrieve the "best" matching term to check it's synonyms
+        # eprint(bestline['iri'])
+        once = urllib.parse.quote(bestline['iri'], safe='')
+        # eprint(once)
+        twice = urllib.parse.quote(once, safe='')
+        # eprint(twice)
+        # eprint(bestline['ontology_name'])
+        term_request_base = 'https://www.ebi.ac.uk/ols/api/ontologies/'
+        term_iri = term_request_base + bestline['ontology_name'] + '/terms/' + twice
+        eprint(term_iri)
+
+        term_details = requests.get(term_iri)
+        term_json = term_details.json()
+        eprint(term_json)
+
+        #
+        # https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_33169
+        #
+
+        if bestline['query_preferred_cosine'] < maxdist:
+            inferred_model['enums'][one_enum_param]['permissible_values'][orig_enum]['meaning'] = bestline['obo_id']
+            eprint(str(one_enum_param) + " | " + str(orig_enum) + " : " + str(bestline['obo_id']))
+        else:
+            eprint(str(one_enum_param) + " | " + str(orig_enum))
     return result_list
 
 
 # add ontoprefix parameter (instead of using it as a global?
 # or allow a list of ontoprefixes instead of just one?
-def all_enums_to_bp(inferred_model_param, the_enums_param):
+def all_enums_to_ols(inferred_model_param, the_enums_param):
     per_enum_class_list = []
     for one_enum in the_enums_param:
         inner_permitted_param = get_one_enum_class(inferred_model_param, one_enum)
@@ -182,7 +232,7 @@ def all_enums_to_bp(inferred_model_param, the_enums_param):
 
 
 # add ontoprefix parameter (instead of using it as a global?
-def all_enums_to_ols(inferred_model_param, the_enums_param):
+def all_enums_to_bp(inferred_model_param, the_enums_param):
     per_enum_class_list = []
     for one_enum in the_enums_param:
         inner_permitted_param = get_one_enum_class(inferred_model_param, one_enum)
@@ -197,7 +247,17 @@ def all_enums_to_ols(inferred_model_param, the_enums_param):
 
 inferred_model = read_yaml_model(modelfile)
 
-the_enums = get_enum_list(inferred_model)
+# eprint(enum_list)
+# eprint(len(enum_list))
+
+# enum_list[0] should not be empty
+# should also test whether user specified enums are actually present in model
+if len(enum_list) == 0 or len(enum_list[0]) == 0:
+    the_enums = get_enum_list(inferred_model)
+else:
+    the_enums = enum_list
+    # eprint(enum_list[0])
+# eprint(the_enums)
 
 sorted_enums = case_fold_list_sort(the_enums)
 
@@ -226,19 +286,20 @@ if search_engine == 'BioPortal':
     results_frame = pds.DataFrame(results_list)
     results_frame.to_csv(outputfile, index=False, sep='\t')
 elif search_engine == 'OLS search':
-    all_ols_results = all_enums_to_bp(inferred_model, sorted_enums)
+    all_ols_results = all_enums_to_ols(inferred_model, sorted_enums)
     # len(all_ols_results)
     # 1015
     ols_results_single_frame = pds.concat(all_ols_results)
     ols_results_single_frame = ols_results_single_frame[['enum_class', 'query', 'obo_id', 'label',
                                                          'description', 'ontology_prefix']]
-    cosine_obj = Cosine(1)
-    ols_results_single_frame['query_preferred_cosine'] = \
-        ols_results_single_frame.apply(lambda row: cosine_obj.distance(row['query'].lower(), row['label'].lower()),
-                                       axis=1)
+    # cosine_obj = Cosine(1)
+    # ols_results_single_frame['query_preferred_cosine'] = \
+    #     ols_results_single_frame.apply(lambda row: cosine_obj.distance(row['query'].lower(), row['label'].lower()),
+    #                                    axis=1)
     ols_results_single_frame.to_csv(outputfile, index=False, sep='\t')
+    yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
 else:
-    print('No valid search engine specified')
+    eprint('No valid search engine specified')
 
 # https://www.ebi.ac.uk/ols/docs/api
 
@@ -256,4 +317,3 @@ else:
 #
 # ['id', 'iri', 'short_form', 'obo_id', 'label', 'description', 'ontology_name', 'ontology_prefix', 'type',
 #  'is_defining_ontology', 'query', 'enum_class']
-
