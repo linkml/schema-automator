@@ -13,14 +13,37 @@ import pandas as pds
 import requests
 import click
 
+
 # BIOPORTAL SEARCHING DISABLED
 # MIN CHARACTERS FOR SEARCH NOT BEING ENFORCED
 # THESE THINGS MAY NOT YET BE REFLECTED IN THE CLICK HELP
 
+# bpkey = os.getenv('ENUMENRICH_BPKEY')
+# bpendpoint = 'http://data.bioontology.org'
 
-# import os
-# from sys import stdout
-# from yaml import SafeDumper
+# TODO write mapped terms back in as meanings
+#    give option for overwriting?
+# TODO all user to specify enum classes to process
+# when verbose, stderr gets status and debugging info
+# stdout gets the modified model as yaml and should be redirected to a file
+
+# BP and OLS dataframe structures are not the same yet
+#   different columns
+#   BP shows one best
+#   OLS lists up to N best
+#   not filtering out small queries in OLS approach yet
+#   (OLS approach?) neither handling nor optimizing for repeat values
+#   not merging results back into model yet
+
+# # bicarbonate
+# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_32139'
+# # fungus
+# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_33169'
+# # sars-cov-2
+# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2697049'
+# # Escherichia phage T7
+# # # http://purl.obolibrary.org/obo/NCBITaxon_10760
+# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_10760'
 
 
 def eprint(*args, **kwargs):
@@ -152,17 +175,18 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param: object):
         if len(qfg) > 1:
             qf_phrase = 'queryFields=' + qfg.lower()
 
+        # requiring local loses EROs annotations of SV40
+        # 'local=true' + '&' + \
         request_string = 'http://www.ebi.ac.uk/ols/api/search?q=' + \
                          urllib.parse.quote(tidied_enum) + '&' + \
                          'type=class' + '&' + \
-                         'local=true' + '&' + \
                          'exact=false' + '&' + \
                          ontologies_phrase + "&" + \
                          'rows=' + str(rrg) + '&' + \
                          qf_phrase
 
-        # if vg:
-        #     eprint(request_string)
+        if vg:
+            eprint(request_string)
 
         response_param = requests.get(request_string)
         ols_string_search_res_j = response_param.json()
@@ -181,18 +205,12 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param: object):
         ols_string_search_res_frame['query'] = orig_enum
         inner_cosine_obj = Cosine(1)
 
-        # if vg:
-        #     eprint(ols_string_search_res_frame)
-
         # insert meaning
         # first, check whether anny of the annotation on any of the hits have an
         # acceptable cosine string distance
 
         annotations_frame = pds.DataFrame(columns=['name', 'obo_id', 'scope', 'type', 'xrefs'])
         for ols_string_search_res_row in ols_string_search_res_frame.itertuples(index=False):
-            # global annotations_frame
-            # if vg:
-            #     eprint(ols_string_search_res_row.iri)
             once = urllib.parse.quote(ols_string_search_res_row.iri, safe='')
             twice = urllib.parse.quote(once, safe='')
             # build url from base
@@ -213,6 +231,7 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param: object):
                 label_frame['pref_lab'] = term_json['label']
                 annotations_frame = annotations_frame.append(label_frame, ignore_index=True)
             # also get other properties?
+
             has_synonyms = 'obo_synonym' in set(term_json.keys())
             if has_synonyms:
                 obo_syn_json = term_json['obo_synonym']
@@ -220,6 +239,20 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param: object):
                 obo_syn_frame['obo_id'] = term_json['obo_id']
                 obo_syn_frame['pref_lab'] = term_json['label']
                 annotations_frame = annotations_frame.append(obo_syn_frame, ignore_index=True)
+
+            # # don't process every kind of annotation, like genetic code
+            # has_annotations = 'annotation' in set(term_json.keys())
+            # if has_annotations:
+            #     obo_ano_json = term_json['annotation']
+            #     for anokey in obo_ano_json.keys():
+            #         for keyval in obo_ano_json[anokey]:
+            #             new_row = {'name': keyval,
+            #                        'obo_id': term_json['obo_id'],
+            #                        'scope': anokey,
+            #                        'type': 'annotation',
+            #                        'xrefs': '',
+            #                        'pref_lab': term_json['label']}
+            #             annotations_frame = annotations_frame.append(new_row, ignore_index=True)
 
             annotations_row_count = len(annotations_frame.index)
 
@@ -231,42 +264,45 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param: object):
             annotations_frame['enum_class'] = one_enum_param
             annotations_frame['query'] = tidied_enum
             annotations_frame['orig_enum'] = orig_enum
-            # annotations_frame['cosine_dist'] = 0.5
-            # eprint(tidied_enum.lower())
-            # eprint(annotations_frame['name'])
-            # annotations_frame = annotations_frame.replace(np.nan, '', regex=True)
             annotations_frame['name'] = annotations_frame['name'].fillna('')
-
             annotations_frame['cosine_dist'] = \
-                annotations_frame.apply(lambda row: inner_cosine_obj.distance(tidied_enum.lower(),
-                                                                              row['name'].lower()),
+                annotations_frame.apply(lambda row: inner_cosine_obj.distance(tidied_enum.strip().lower(),
+                                                                              row['name'].strip().lower()),
                                         axis=1)
             annotations_frame = annotations_frame.sort_values('cosine_dist')
             annotations_frame['dist_ok'] = annotations_frame['cosine_dist'] <= mdg
-
-            if vg:
-                eprint(annotations_frame)
 
             annotations_frame = annotations_frame[
                 ['enum_class', 'orig_enum', 'query', 'obo_id', 'pref_lab', 'name', 'cosine_dist', 'dist_ok', 'type',
                  'scope']]
             # do something with xrefs?
+        if vg:
+            eprint(annotations_frame)
+        # get best acceptable row
+        acceptable_cosine = annotations_frame[annotations_frame['cosine_dist'] <= mdg]
+        acceptable_row_count = len(acceptable_cosine.index)
+        if acceptable_row_count > 0:
+            best_acceptable = acceptable_cosine.iloc[0]
+            if vg:
+                eprint(best_acceptable)
+            meaningless = not has_meaning
+            if meaningless or omg:
+                eprint('will overwrite')
+                eprint(inferred_model['enums'][one_enum_param]['permissible_values'][orig_enum])
+                inferred_model['enums'][one_enum_param]['permissible_values'][orig_enum]['meaning'] = best_acceptable['obo_id']
+                inferred_model['enums'][one_enum_param]['permissible_values'][orig_enum]['description'] = best_acceptable[
+                    'pref_lab']
+                eprint(inferred_model['enums'][one_enum_param]['permissible_values'][orig_enum])
         per_enum_frame = per_enum_frame.append(annotations_frame)
-        # if vg:
-        #     eprint(annotations_frame)
-        #     eprint(per_enum_frame)
     return per_enum_frame
 
 
-# add ontoprefix parameter (instead of using it as a global?
-# or allow a list of ontoprefixes instead of just one?
 def all_enums_to_ols(inferred_model_param, the_enums_param):
-    # per_enum_class_list = []
     multi_enum_frame = pds.DataFrame(columns=['enum_class', 'orig_enum', 'query', 'obo_id', 'pref_lab',
                                               'name', 'cosine_dist', 'dist_ok', 'type', 'scope'])
     for one_enum in the_enums_param:
-        inner_permitted_param = get_one_enum_class(inferred_model_param, one_enum)
-        one_enum_class_list = one_enum_to_ols_frame_list(inner_permitted_param, one_enum)
+        permitteds = get_one_enum_class(inferred_model_param, one_enum)
+        one_enum_class_list = one_enum_to_ols_frame_list(permitteds, one_enum)
         multi_enum_frame = multi_enum_frame.append(one_enum_class_list)
     return multi_enum_frame
 
@@ -275,8 +311,8 @@ def all_enums_to_ols(inferred_model_param, the_enums_param):
 # def all_enums_to_bp(inferred_model_param, the_enums_param):
 #     per_enum_class_list = []
 #     for one_enum in the_enums_param:
-#         inner_permitted_param = get_one_enum_class(inferred_model_param, one_enum)
-#         one_enum_class_list = one_enum_to_bp_dict_list(inner_permitted_param, min_search_chars, one_enum)
+#         permitteds = get_one_enum_class(inferred_model_param, one_enum)
+#         one_enum_class_list = one_enum_to_bp_dict_list(permitteds, min_search_chars, one_enum)
 #         # eprint(one_enum_class_list)
 #         per_enum_class_list.extend(one_enum_class_list)
 #         # eprint(per_enum_class_list)
@@ -298,14 +334,17 @@ global inferred_model, ecg, opg, rrg, qfg, mdg, omg, vg
               show_default=True,
               type=click.Path()
               )
-# have tried NCBITaxon,SO,ENVO,PATO,MESH,NCIT,LOINC,SNOMED,MPO,MEO,GAZ,GO,MVC,OBI,OMIT,PO,OCHV,GALEN,EFO,PMO
-# but probably better to stick witha  smaller list of mostly OBO
 @click.option('--ontoprefix', '-p',
               default='NCBITaxon,SO,ENVO,PATO,GO,OBI',
               help='comma-separated list of (abbreviated) ontologies to search over.',
               show_default=True
               )
-# synbio: species_enum,host_organism_enum
+# synbio example (without redirection of yaml stdout):
+# ./linkml_model_enrichment/mixs_qd_bp_or_ols.py \
+# --modelfile target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
+# --ontoprefix NCBItaxon,SO \
+# --enum_list species_enum,host_organism_enum,category_enum,type_enum,type_long_enum \
+# --verbose
 @click.option('--enum_list', '-e',
               default='',
               help='comma-separated list of enums to search with. '' = all enums.',
@@ -323,7 +362,7 @@ global inferred_model, ecg, opg, rrg, qfg, mdg, omg, vg
 # escaped_chars impacts returned fields too
 # 'SARS-CoV-2' fails if the hyphens are escaped or ???
 @click.option('--escaped_chars', '-c',
-              default='._ ',
+              default='\.\_ ',
               help='characters to replace with whitespace.',
               show_default=True
               )
@@ -361,6 +400,7 @@ global inferred_model, ecg, opg, rrg, qfg, mdg, omg, vg
               )
 def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields, escaped_chars, min_search_chars,
               row_req, maxdist, overwite_meaning, verbose, search_engine):
+    
     enum_list = enum_list.split(",")
 
     global inferred_model, ecg, opg, rrg, qfg, mdg, omg, vg
@@ -378,7 +418,7 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
         temp = get_enum_list(inferred_model)
         temp.sort()
         eprint(temp)
-    # TODO check this
+
     if len(enum_list) == 0 or len(enum_list[0]) == 0:
         the_enums = get_enum_list(inferred_model)
     else:
@@ -401,11 +441,7 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
         if vg:
             eprint(all_ols_results)
         all_ols_results.to_csv(tabular_outputfile, sep='\t')
-        # ols_results_single_frame = pds.concat(all_ols_results)
-        # ols_results_single_frame = ols_results_single_frame[['enum_class', 'query', 'obo_id', 'label',
-        #                                                      'description', 'ontology_prefix']]
-        # ols_results_single_frame.to_csv(tabular_outputfile, index=False, sep='\t')
-        # yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
+        yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
     else:
         eprint('No valid search engine specified')
 
@@ -413,40 +449,3 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
 if __name__ == '__main__':
     pds.set_option('display.expand_frame_repr', False)
     clickmain(auto_envvar_prefix='ENUMENRICH')
-
-# bpkey = os.getenv('ENUMENRICH_BPKEY')
-# bpendpoint = 'http://data.bioontology.org'
-
-# TODO write mapped terms back in as meanings
-#    give option for overwriting?
-# TODO all user to specify enum classes to process
-# when verbose, stderr gets status and debugging info
-# stdout gets the modified model as yaml and should be redirected to a file
-
-# BP and OLS dataframe structures are not the same yet
-#   different columns
-#   BP shows one best
-#   OLS lists up to N best
-#   not filtering out small queries in OLS approach yet
-#   (OLS approach?) neither handling nor optimizing for repeat values
-#   not merging results back into model yet
-
-# # bicarbonate
-# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_32139'
-# # fungus
-# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_33169'
-# # sars-cov-2
-# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2697049'
-# # Escherichia phage T7
-# # # http://purl.obolibrary.org/obo/NCBITaxon_10760
-# # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/ncbitaxon/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_10760'
-
-# # one_enum_param = 'taxon'
-# # orig_enum = 'Homo sapiens'
-# # ecg = '._ '
-# # opg = 'NCBItaxon'
-# # qfg = 'label,annotation'
-# # vg = True
-# # rrg = 10
-# # mdg = 0.05
-# # has_meaning = False
