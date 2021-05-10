@@ -14,6 +14,7 @@ import requests
 import click
 import logging
 import click_log
+import random
 
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
@@ -23,16 +24,12 @@ global inferred_model, ecg, opg, rrg, qfg, mdg, omg
 failures = []
 
 cols2display = ['enum_class', 'orig_enum', 'query', 'obo_id', 'pref_lab',
-                'name', 'cosine_dist', 'dist_ok', 'type', 'scope']
+                'name', 'cosine_dist', 'dist_ok', 'type', 'scope', 'rank']
 
 success_frame = pds.DataFrame(columns=cols2display)
 
-# BIOPORTAL SEARCHING DISABLED
-# MIN CHARACTERS FOR SEARCH NOT BEING ENFORCED
-# THESE THINGS MAY NOT YET BE REFLECTED IN THE CLICK HELP
 
-# bpkey = os.getenv('ENUMENRICH_BPKEY')
-# bpendpoint = 'http://data.bioontology.org'
+# MIN CHARACTERS FOR SEARCH NOT BEING ENFORCED
 
 # TODO write mapped terms back in as meanings
 #    give option for overwriting?
@@ -40,14 +37,15 @@ success_frame = pds.DataFrame(columns=cols2display)
 # when verbose, stderr gets status and debugging info
 # stdout gets the modified model as yaml and should be redirected to a file
 
-# BP and OLS dataframe structures are not the same yet
+# OLS dataframe structure not identical to previous BP dataframes:
 #   different columns
-#   BP shows one best
+#   BP shows one best row
 #   OLS lists up to N best
 #   not filtering out small queries in OLS approach yet
 #   (OLS approach?) neither handling nor optimizing for repeat values
 #   not merging results back into model yet
 
+# examples of previously challenging mappings
 # # bicarbonate
 # # term_iri = 'https://www.ebi.ac.uk/ols/api/ontologies/chebi/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCHEBI_32139'
 # # fungus
@@ -61,93 +59,6 @@ success_frame = pds.DataFrame(columns=cols2display)
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
-
-
-def extract_mapping_items(annotation_json, bpkey_param):
-    for result in annotation_json:
-        # assuming a single annotation because requesting longest match only
-        annotated_text = result['annotations'][0]
-        try:
-            class_details = get_bp_json(result['annotatedClass']['links']['self'], bpkey_param)
-        except urllib.error.HTTPError:
-            temp = 'error retrieving class details from BioPortal'
-            logger.warning(temp)
-            # logger.warning(f'Error retrieving {result["annotatedClass"]["@id"]}')
-            continue
-        result_dict = {'text': annotated_text['text'], 'matchType': annotated_text['matchType'],
-                       'id': class_details['@id'], 'prefLabel': class_details['prefLabel']}
-        return result_dict
-
-
-def get_bp_json(url, bpkey_param):
-    opener = urllib.request.build_opener()
-    opener.addheaders = [('Authorization', 'apikey token=' + bpkey_param)]
-    return json.loads(opener.open(url).read())
-
-
-# def one_enum_to_bp_dict_list(permitteds, min_search_chars_param, one_enum_param: object):
-#     result_list = []
-#     for orig_enum in permitteds:
-#
-#         final_joined_mapping = dict(one_enum_param='', orig_enum='', tidied_enum='',
-#                                     orig_matched_dist='', matched_pref_dist='', matched_text='', matchType='',
-#                                     id='', prefLabel='')
-#
-#         final_joined_mapping['one_enum_param'] = one_enum_param
-#         final_joined_mapping['orig_enum'] = orig_enum
-#
-#         # strip punct
-#         # could also url encode?
-#         tidied_enum = re.sub(r'[_,.\-;@#?!&$ ]+', ' ', orig_enum)
-#         final_joined_mapping['tidied_enum'] = tidied_enum
-#
-#         if len(tidied_enum) >= min_search_chars_param:
-#             built_url = bpendpoint + '/annotator?longest_only=true' + op_url_part + \
-#                         '&text=' + urllib.parse.quote(tidied_enum)
-#             # make longest_only a parameter?
-#             #   if off,  extract_mapping_items will make multiple returns?
-#             # eprint(built_url)
-#             bp_json = get_bp_json(built_url, bpkey)
-#             if len(bp_json) > 0:
-#                 extracted_mapping_items = extract_mapping_items(bp_json, bpkey)
-#                 # eprint(extracted_mapping_items)
-#                 cosine_obj = Cosine(1)
-#                 orig_matched_dist_num = cosine_obj.distance(orig_enum.lower(), extracted_mapping_items['text'].lower())
-#                 orig_matched_dist = '{:0.3f}'.format(orig_matched_dist_num)
-#                 matched_pref_dist_num = cosine_obj.distance(extracted_mapping_items['text'].lower(),
-#                                                             extracted_mapping_items['prefLabel'].lower())
-#                 matched_pref_dist = '{:0.3f}'.format(matched_pref_dist_num)
-#
-#                 final_joined_mapping['orig_matched_dist'] = orig_matched_dist
-#                 final_joined_mapping['matched_pref_dist'] = matched_pref_dist
-#                 final_joined_mapping['matched_text'] = extracted_mapping_items['text']
-#                 final_joined_mapping['matchType'] = extracted_mapping_items['matchType']
-#                 final_joined_mapping['id'] = extracted_mapping_items['id']
-#                 final_joined_mapping['prefLabel'] = extracted_mapping_items['prefLabel']
-#
-#                 # add meaning slots to the enums if matches are found
-#                 #   and the cosine distance is acceptable
-#                 # if orig_matched_dist_num < maxdist:
-#                 #     curie = replace(str(extracted_mapping_items['id']), iri_curie_substitutions)
-#                 #     inferred_enums[orig_enum]['meaning'] = curie
-#
-#         # if verbose:
-#         #     eprint(final_joined_mapping)
-#         result_list.append(final_joined_mapping)
-#         eprint(final_joined_mapping)
-#     return result_list
-
-
-# # add ontoprefix parameter (instead of using it as a global?
-# def all_enums_to_bp(inferred_model_param, the_enums_param):
-#     per_enum_class_list = []
-#     for one_enum in the_enums_param:
-#         permitteds = get_one_enum_class(inferred_model_param, one_enum)
-#         one_enum_class_list = one_enum_to_bp_dict_list(permitteds, min_search_chars, one_enum)
-#         # eprint(one_enum_class_list)
-#         per_enum_class_list.extend(one_enum_class_list)
-#         # eprint(per_enum_class_list)
-#     return per_enum_class_list
 
 
 # TODO add filter based on min_search_chars_param?
@@ -268,10 +179,14 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
                                         axis=1)
             annotations_frame = annotations_frame.sort_values('cosine_dist')
             annotations_frame['dist_ok'] = annotations_frame['cosine_dist'] <= mdg
+            annotations_frame['rank'] = list(range(1, len(annotations_frame.index)+1))
 
-            annotations_frame = annotations_frame[
-                ['enum_class', 'orig_enum', 'query', 'name', 'cosine_dist', 'dist_ok',
-                 'obo_id', 'pref_lab', 'type', 'scope']]
+            # annotations_frame = annotations_frame[
+            #     ['enum_class', 'orig_enum', 'query', 'name', 'cosine_dist', 'dist_ok',
+            #      'obo_id', 'pref_lab', 'type', 'scope']]
+
+            annotations_frame = annotations_frame[cols2display]
+
             # do something with xrefs?
         logger.debug(annotations_frame)
 
@@ -443,15 +358,6 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
         all_ols_results.to_csv(tabular_outputfile, sep='\t')
         yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
     elif search_engine == 'BioPortal':
-        # ontoprefix = str(ontoprefix).upper()
-        # op_url_part = ''
-        # if len(ontoprefix) > 0 and ontoprefix != 'NONE':
-        #     op_url_part = '&ontologies=' + ontoprefix
-        # else:
-        #     eprint('NO ONTOPREFIX PROVIDED. SEARCHING ALL OF BIOPORTAL!')
-        # results_list = all_enums_to_bp(inferred_model, sorted_avaialble)
-        # results_frame = pds.DataFrame(results_list)
-        # results_frame.to_csv(tabular_outputfile, index=False, sep='\t')
         logger.warning('BioPortal search temporarily disabled')
         return
     else:

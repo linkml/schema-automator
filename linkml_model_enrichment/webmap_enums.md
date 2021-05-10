@@ -27,11 +27,11 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 --search_engine OLS > synbio_ncbitaxon_mappings.yaml
 ```
 
-*That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 MB/s network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates what portion of the enum label was matched to which property of the matched terms as part of the search results, but retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
+*That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 Mbps network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates what portion of the enum label was matched to which property of the matched terms as part of the search results, but retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
 
 *The OLS search may be retrieving proper mappings for* Lentivirus.human-immunodeficiency-virus1 (Human immunodeficiency virus 1, NCBITaxon:11676) *and* Nepovirus.Tobacco-ringspot-virus (Tobacco ringspot virus, NCBITaxon:12282), *but terms that combine a genus and a species are handled in any special way, so that is a vulnerability at this time.*
 
-*In the default configuration,* Simian virus 40 *is incorrectly mapped to* Simian virus 41, NCBITaxon:2560766. Changes to the `--enum_list` and  `--query_fields` arguments can result in better mappings for some terms, but degraded mappings for others. In this case, multiple iterations of `webmap_enums.py` can be run in the default no-overwrite mode.
+*In the default configuration,* Simian virus 40 *is incorrectly mapped to* Simian virus 41, NCBITaxon:2560766. NCBITaxon:1891767 'Macaca mulatta polyomavirus 1' is probably the correct mapping, with equivalent name 'Simian virus 40'. NCBITaxon:10633 is an alternative ID. I have not found any configuration of `webmap_enums.py` to retrieve the correct term for this string.
 
 *In the default configuration, no acceptable mappings are found for the following. (The same iterative approach can help here, too.)*
 
