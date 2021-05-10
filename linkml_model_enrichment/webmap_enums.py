@@ -297,6 +297,7 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
         else:
             temp = 'NO ACCEPTABLE MAPPINGS FOR ' + one_enum_param + " " + orig_enum
             logger.warning(temp)
+            # sort and make unique
             failures.append(orig_enum)
         per_enum_frame = per_enum_frame.append(annotations_frame)
     # I think there will be one success frame for each enum
@@ -395,20 +396,18 @@ def read_yaml_model(modelfile_param):
               help='Requested number of search results.',
               show_default=True
               )
-@click.option('--maxdist', '-r',
+@click.option('--maxdist', '-x',
               default=0.05,
               help="Maximum string distance between query and best matching term's best matching property.",
               show_default=True
               )
 @click.option('--overwite_meaning', '-m',
-              default=False,
-              help="Should existing enum meanings be overwritten?.",
-              is_flag=True,
-              show_default=True
+              help="Should existing enum meanings and descriptions be overwritten?",
+              is_flag=True
               )
 @click.option('--search_engine', '-s',
               default='OLS',
-              help="BioPortal option ahs been temporarily disabled.",
+              help="BioPortal option has been temporarily disabled.",
               show_default=True
               )
 def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields, replaced_chars, min_search_chars,
@@ -440,7 +439,7 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
     if search_engine == 'OLS':
         all_ols_results = all_enums_to_ols(inferred_model, settled_enums)
         logger.info("MAPPING FAILURES")
-        logger.info(failures)
+        logger.info(list(set(failures)))
         all_ols_results.to_csv(tabular_outputfile, sep='\t')
         yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
     elif search_engine == 'BioPortal':
