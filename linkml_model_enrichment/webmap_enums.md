@@ -2,23 +2,23 @@
 
 
 
-`webmap_enums.py` reads the lables of the enums in a linkml model and submits them to a web-based term mapping service. Rudimentary code for using the BioPortal annotator has been commented out as the OLS term search has be emphasized in recent develoment effort.
+`webmap_enums.py` reads the labels of enums in a LinkML model and submits them to a web-based term mapping service. Rudimentary code for using the BioPortal annotator has been commented out as the OLS term search has be emphasized in recent development effort.
 
  All of the mappings are written to a TSV (`mappings_log.tsv` by default) file specified by `--tabular_outputfile`
 
-The enums' descriptions and meanings can be poverwritten if the following two conditions are true:
+The enums' descriptions and meanings can be overwritten if the following two conditions are true:
 
-- If the cosine distance between the enum's label and the best search result's label or synonyms is less than or equal to the treshold (`--maxdist`, 0.05)
+- If the cosine distance between the enum's label and the best search result's label or synonyms is less than or equal to the threshold (`--maxdist`, 0.05)
 - If there was no meaning in the input, or if the `--overwite_meaning` is set
 
-The model is written out to `STDOUT`, whether any enums ahve been updated or not.
+The model is written out to `STDOUT`, whether any enums have been updated or not.
 
 `webmap_enums.py` should be executed from the `linkml-model-enrichment` repo's root directory. The input files mentioned in the examples below are not guaranteed to be present in a cloned `linkml-model-enrichment` repo.
 
 **Map taxon-related enums from the IARPA Synthetic Biology project to NCBItaxon terms, without overwriting anything**
 
 ```bash
-./linkml_model_enrichment/webmap_enums.py \     
+./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
 --modelfile target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
 --tabular_outputfile synbio_ncbitaxon_mappings_log.tsv \
@@ -27,28 +27,47 @@ The model is written out to `STDOUT`, whether any enums ahve been updated or not
 --search_engine OLS > synbio_ncbitaxon_mappings.yaml
 ```
 
-*That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 MB/s network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates the what portion of the enum label was matched to which property of the matched terms by default, but retireiving the same information from OLS requires retreiving details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted miltiple times.* 
+*That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 MB/s network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates what portion of the enum label was matched to which property of the matched terms as part of the search results, but retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
 
-*The OLS search may be retrieving proper mapings for* Lentivirus.human-immunodeficiency-virus1 (Human immunodeficiency virus 1, NCBITaxon:11676) *and* Nepovirus.Tobacco-ringspot-virus (Tobacco ringspot virus, NCBITaxon:12282), *but terms that combine a genus and a species are handled in any special way, so that is a vilnerability at this time.*
+*The OLS search may be retrieving proper mappings for* Lentivirus.human-immunodeficiency-virus1 (Human immunodeficiency virus 1, NCBITaxon:11676) *and* Nepovirus.Tobacco-ringspot-virus (Tobacco ringspot virus, NCBITaxon:12282), *but terms that combine a genus and a species are handled in any special way, so that is a vulnerability at this time.*
 
 *In the default configuration,* Simian virus 40 *is incorrectly mapped to* Simian virus 41, NCBITaxon:2560766. Changes to the `--enum_list` and  `--query_fields` arguments can result in better mappings for some terms, but degraded mappings for others. In this case, multiple iterations of `webmap_enums.py` can be run in the default no-overwrite mode.
 
-*In the default configuration, no acceptable mapings are found for the following. (The same iterative approach can help here, too.)*
+*In the default configuration, no acceptable mappings are found for the following. (The same iterative approach can help here, too.)*
 
 - '#N/A'
+
   - *No NCBItaxon mapping expected.*
+
 - 'Saccharomyces cerevisiae/Bacillus subtilis/Bacillus subtilis'
-  - *Multiple taxa. No NCBItaxon mapping expected.*
-- **'herpes.simplex.virus-1'**
+
+  - *Multiple taxa in input. No NCBItaxon mapping expected.*
+
+- 'herpes.simplex.virus-1'
+
+  - NCBITaxon:10298 'Human alphaherpesvirus 1' *has the related genbank synonym* 'Herpes simplex virus 1' *and can be found  by prioritizing non-label annotations with the modification* `--query_fields annotations,label`
+
 - 'Human influenza hemagglutinin'
+
   - *Taxon + protein. No NCBItaxon mapping expected*
+
 - 'NA'
+
   - *No NCBItaxon mapping expected.*
-- **'phage.lambda'**
+
+- 'phage.lambda'
+
+  - NCBITaxon:10710 *has the label* Escherichia virus Lambda. 'Phage lambda' *or* 'lambda phage' *are assigned to several different synonyms and annotations. This hit can be retrieved by prioritizing annotations hits over label hits with* `--query_fields annotations,label`.
+
 - 'Pseudomonas plasmid pVS1'
-  - *The default search retrives* NCBITaxon:219557, *labeled* 'Plasmid pVS1'. *No other relavant annotations are available, so the word 'Pseudomonas' becomes noise in the string distance calculation. Perhaps a string distance metric other than cosine would help?*
-- **'SARS-CoV-2'**
-  - *The default search substitites hypens (among other characters) for whitespace. With that subsitution,* Severe acute respiratory syndrome coronavirus 2, NCBITaxon:2697049 *is just not retrieved*.
+
+  - *The default search retrieves* NCBITaxon:219557, *labeled* 'Plasmid pVS1'. *No other relevant annotations are available, so the word 'Pseudomonas' becomes noise in the string distance calculation. Perhaps a string distance metric other than cosine would help?*
+
+- 'SARS-CoV-2'
+
+  - NCBITaxon:2697049 *has the label* Severe acute respiratory syndrome coronavirus 2 *and the genbank acronym* 'SARS-CoV-2'. *This hit can be retrieved by prioritizing annotations hits over label hits with* `--query_fields annotations,label` *and by disabling the substitution of whitespace for hyphens with something like* `--replaced_chars ._` 
+
+    
 
 **Add Sequence Ontology mappings on top of the IARPA Synthetic Biology NCBItaxon mappings**
 
@@ -63,6 +82,8 @@ The model is written out to `STDOUT`, whether any enums ahve been updated or not
 ```
 
 
+
+**Map MIxS soil types to ENVO terms**
 
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
@@ -132,6 +153,3 @@ Options:
 
   --help                          Show this message and exit.
 ```
-
-
-
