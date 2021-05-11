@@ -1,7 +1,9 @@
-target
+.DS_Store
 .idea
-venv
 data
 inferred-models
+target
 temp
+tests
+venv
 
