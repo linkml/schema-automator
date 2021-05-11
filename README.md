@@ -7,9 +7,14 @@ The installation for LINKML_MODEL_ENRICHMENT requires Python 3.9 or greater.
 ```bash
 git clone https://github.com/linkml/linkml-model-enrichment
 cd linkml_model_enrichment
+python3.9 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt 
 ```
 
 _more to come_
+
+_some unnecessary modules may be present in the requirements.txt_
 
 ----
 
