@@ -15,19 +15,22 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 
 `webmap_enums.py` should be executed from the `linkml-model-enrichment` repo's root directory. The input files mentioned in the examples below are not guaranteed to be present in a cloned `linkml-model-enrichment` repo.
 
+**Convert a TSV file into a LinkML YAML file**
+linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering tests/resources/webmap_enums.tsv > target/webmap_enums.yaml
+
 **Map taxon-related enums from a sample file to NCBItaxon terms, without overwriting anything**
 
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
---modelfile tests/resources/webmap_enums.tsv \
---tabular_outputfile ncbitaxon_mappings_log.tsv \
+--modelfile target/webmap_enums.yaml \
+--tabular_outputfile target/ncbitaxon_mappings_log.tsv \
 --ontoprefix ncbitaxon \
---enum_list host_organism_enum,species_enum \
---search_engine OLS > ncbitaxon_mappings.yaml
+--enum_list Taxon_enum \
+--search_engine OLS > target/ncbitaxon_mappings.yaml
 ```
 
-*That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 Mbps network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates what portion of the enum label was matched to which property of the matched terms as part of the search results, but retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
+*That takes a little less than 2 minutes for 26 enum lables, on a 2020 Intel MacBook Pro with a 200 Mbps network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. While the BioPortal annotator indicates which portion of the enum label was matched to which property of the matched terms as part of the search itself, retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
 
 *The OLS search may be retrieving proper mappings for* Lentivirus.human-immunodeficiency-virus1 (Human immunodeficiency virus 1, NCBITaxon:11676) *and* Nepovirus.Tobacco-ringspot-virus (Tobacco ringspot virus, NCBITaxon:12282), *but terms that combine a genus and a species are handled in any special way, so that is a vulnerability at this time.*
 
@@ -74,25 +77,25 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
---modelfile ncbitaxon_mappings.yaml \
---tabular_outputfile ncbi_so_mappings_log.tsv \
+--modelfile target/ncbitaxon_mappings.yaml \
+--tabular_outputfile target/ncbi_so_mappings_log.tsv \
 --ontoprefix so \
---enum_list type_enum,type_long_enum \
---search_engine OLS > ncbi_so_mappings.yaml
+--enum_list Engineering_enum \
+--search_engine OLS > target/ncbi_so_mappings.yaml
 ```
 
 
 
-**Map MIxS soil types to ENVO terms**
+**Add ENVO mappings for MIxS soil types**
 
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
---modelfile ../biosample-analysis/gensc.github.io/src/schema/mixs.yaml \
---tabular_outputfile mixs_5_fao_envo_mappings_log.tsv \
+--modelfile target/ncbi_so_mappings.yaml \
+--tabular_outputfile target/ncbi_so__envo_mappings.tsv \
 --ontoprefix envo \
---enum_list fao_class_enum \
---search_engine OLS > mixs_5_fao_envo_mappings.yaml
+--enum_list FAO_enum \
+--search_engine OLS > target/ncbi_so__envo_mappings.yaml
 ```
 
 
