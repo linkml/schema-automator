@@ -15,7 +15,7 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 
 `webmap_enums.py` should be executed from the `linkml-model-enrichment` repo's root directory. The input files mentioned in the examples below are not guaranteed to be present in a cloned `linkml-model-enrichment` repo.
 
-**Map taxon-related enums from the IARPA Synthetic Biology project to NCBItaxon terms, without overwriting anything**
+**Map taxon-related enums from a sample file to NCBItaxon terms, without overwriting anything**
 
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
@@ -69,7 +69,7 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 
     
 
-**Add Sequence Ontology mappings on top of the IARPA Synthetic Biology NCBItaxon mappings**
+**Add Sequence Ontology mappings on top of the NCBItaxon mappings**
 
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
