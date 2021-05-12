@@ -20,11 +20,11 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
---modelfile target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
---tabular_outputfile synbio_ncbitaxon_mappings_log.tsv \
+--modelfile tests/resources/webmap_enums.tsv \
+--tabular_outputfile ncbitaxon_mappings_log.tsv \
 --ontoprefix ncbitaxon \
 --enum_list host_organism_enum,species_enum \
---search_engine OLS > synbio_ncbitaxon_mappings.yaml
+--search_engine OLS > ncbitaxon_mappings.yaml
 ```
 
 *That takes 4 minutes on a 2020 Intel MacBook Pro with a 200 Mbps network connection. `webmap_enums.py` has not been optimized for speed in any way. The greatest time cost appears to come from waiting for responses from the search engine. The BioPortal annotator indicates what portion of the enum label was matched to which property of the matched terms as part of the search results, but retrieving the same information from OLS requires retrieving the term details for each matched term. One example of a potential improvement to `webmap_enums.py` would be caching search results so that similar labels would not be submitted multiple times.* 
@@ -74,11 +74,11 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 ```bash
 ./linkml_model_enrichment/webmap_enums.py \
 --verbosity DEBUG \
---modelfile synbio_ncbitaxon_mappings.yaml \
---tabular_outputfile synbio_ncbi_so_mappings_log.tsv \
+--modelfile ncbitaxon_mappings.yaml \
+--tabular_outputfile ncbi_so_mappings_log.tsv \
 --ontoprefix so \
 --enum_list type_enum,type_long_enum \
---search_engine OLS > synbio_ncbi_so_mappings.yaml
+--search_engine OLS > ncbi_so_mappings.yaml
 ```
 
 
