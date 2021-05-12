@@ -1,5 +1,27 @@
 # LinkML Model Enrichments
 
+## Reccomended Installation
+
+`linkml-model-enrichment` and its components require Python 3.9 or greater.
+
+```bash
+git clone https://github.com/linkml/linkml-model-enrichment
+cd linkml_model_enrichment
+python3.9 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt 
+```
+
+_More to come_
+
+_Makefile is not torally relevant anymore_
+
+_some unnecessary modules may be present in the requirements.txt_
+
+----
+
+_Tests temporarily disabled_
+
 [![Python](https://img.shields.io/badge/python-3.7+-blue.svg)]()
 ![Run tests](https://github.com/linkml/linkml-model-enrichment/workflows/Run%20tests/badge.svg)[![Documentation Status](https://readthedocs.org/projects/linkml_model_enrichment/badge/?version=latest)](https://linkml_model_enrichment.readthedocs.io/en/latest/?badge=latest)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=alert_status)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
@@ -11,13 +33,13 @@
 
 ## Installation
 
-The installation for LINKML_MODEL_ENRICHMENT requires Python 3.7 or greater.
-
 
 ### Installation for users
 
 
 #### Installing from PyPI
+
+_Not deployed to PyPI yet_
 
 LINKML_MODEL_ENRICHMENT is available on PyPI and can be installed using
 [pip](https://pip.pypa.io/en/stable/installing/) as follows,
@@ -35,6 +57,8 @@ pip install linkml_model_enrichment==0.5.0
 
 #### Installing from GitHub
 
+_See new, less-automated installation directions above_
+
 Clone the GitHub repository and then install,
 
 ```bash
@@ -45,6 +69,8 @@ python setup.py install
 
 
 ### Installation for developers
+
+_See new, less-automated installation directions above_
 
 #### Setting up a development environment
 
