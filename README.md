@@ -2,7 +2,7 @@
 
 ## Reccomended Installation
 
-The installation for LINKML_MODEL_ENRICHMENT requires Python 3.9 or greater.
+`linkml-model-enrichment` and its components require Python 3.9 or greater.
 
 ```bash
 git clone https://github.com/linkml/linkml-model-enrichment
@@ -12,7 +12,9 @@ source venv/bin/activate
 pip install -r requirements.txt 
 ```
 
-_more to come_
+_More to come_
+
+_Makefile is not torally relevant anymore_
 
 _some unnecessary modules may be present in the requirements.txt_
 
