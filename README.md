@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 _More to come_
 
-_Makefile is not torally relevant anymore_
+_Makefile is not totally relevant anymore_
 
 _some unnecessary modules may be present in the requirements.txt_
 
