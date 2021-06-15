@@ -2,7 +2,8 @@
 # biolinkml >= 1.7.0
 click >= 7.1.2
 dataclasses >= 0.6
-linkml >= 0.0.6
+linkml >= 1.0.0
+linkml-model
 mkdocs
 pandas >= 1.2.3
 python-dateutil >= 2.8.1
