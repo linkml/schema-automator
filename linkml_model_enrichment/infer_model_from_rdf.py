@@ -33,6 +33,9 @@ OMIT_PRED_IN = ['rdf', 'swrl']
 OMIT_CLASS_IN = ['rdf', 'swrl', 'UO']
 
 def remove_prefix(id: str) -> str:
+    """
+    get the local part of a CURIE or URI
+    """
     if 'http' in id:
         if id.startswith('<'):
             id = id.replace('<', '').replace('>', '')
@@ -58,12 +61,25 @@ def remove_prefix(id: str) -> str:
 
 
 def is_literal(x: CURIE) -> bool:
+    """
+    True if the URI is an xsd type
+    """
     return x.startswith('xsd:')
 
 def is_thing_or_individual(x: CURIE) -> bool:
+    """
+    True if the URI is owl Thing or NamedIndividual
+    """
     return x == 'owl:Thing' or x == 'owl:NamedIndividual'
 
 def condense_range_pair(r1: CURIE, r2: CURIE) -> Optional[CURIE]:
+    """
+    Infer a parent range from a pair of ranges
+
+    TODO: use the ontology to do this
+    """
+    if r1 == r2:
+        return r1
     if (r1,r2) in RANGE_COMPOSITION_TABLE:
         return RANGE_COMPOSITION_TABLE[(r1,r2)]
     elif (r2,r1) in RANGE_COMPOSITION_TABLE:
@@ -80,6 +96,11 @@ def condense_range_pair(r1: CURIE, r2: CURIE) -> Optional[CURIE]:
             return None
 
 def condense_ranges(cset: Set[CURIE], classes: dict) -> Optional[str]:
+    """
+    Condense a set of ranges into one range that subsumes them all
+
+    TODO: use the ontology to do this
+    """
     todo = list(cset)
     r = todo.pop()
     while len(todo) > 0:
@@ -90,6 +111,9 @@ def condense_ranges(cset: Set[CURIE], classes: dict) -> Optional[str]:
     return remove_prefix(r)
 
 def new_cls(u: CURIE) -> dict:
+    """
+    Create stub linkml ClassDefinition dict
+    """
     return {'class_uri': u, 'slots': [], 'slot_usage': {}}
 
 def remove_angle_brackets(id: str) -> str:
@@ -107,7 +131,7 @@ def infer_model_from_predicate_summary(tsvfile: str, sep="\t",
                                        enum_threshold=0.1,
                                        max_enum_size=50) -> dict:
     """
-    Given a predicate summary table, infer a schema
+    Given a predicate summary table, infer a linkml schema
     """
     with open(tsvfile, newline='') as tsvfile:
         rr = csv.DictReader(tsvfile, delimiter=sep)
