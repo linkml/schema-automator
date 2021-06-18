@@ -135,6 +135,8 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
     }
     return schema
 
+
+
 def capture_robot_some(s: str) -> str:
     """
     parses an OWL some values from from a robot template
