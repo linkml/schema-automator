@@ -21,7 +21,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 **Map taxon-related enums from a sample file to NCBItaxon terms, without overwriting anything**
 
 ```bash
-./linkml_model_enrichment/webmap_enums.py \
+./linkml_model_enrichment/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/webmap_enums.yaml \
 --tabular_outputfile target/ncbitaxon_mappings_log.tsv \
@@ -75,7 +75,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 **Add Sequence Ontology mappings on top of the NCBItaxon mappings**
 
 ```bash
-./linkml_model_enrichment/webmap_enums.py \
+./linkml_model_enrichment/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/ncbitaxon_mappings.yaml \
 --tabular_outputfile target/ncbi_so_mappings_log.tsv \
@@ -89,7 +89,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 **Add ENVO mappings for MIxS soil types**
 
 ```bash
-./linkml_model_enrichment/webmap_enums.py \
+./linkml_model_enrichment/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/ncbi_so_mappings.yaml \
 --tabular_outputfile target/ncbi_so__envo_mappings.tsv \
@@ -103,7 +103,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 ### Options
 
 ```bash
-webmap_enums.py [OPTIONS]
+enum_annotator.py [OPTIONS]
 
   Uses web-based ontology lookup tools to map the permitted values of enums
   from linkml files to CURIES. Optionally overwrites the meaning with a

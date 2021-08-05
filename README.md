@@ -26,15 +26,70 @@ pip install -r requirements.txt
 
 ## Command Line Usage
 
+### Annotating Enums
+
+This toolkit allows automated annotation of LinkML enums, mapping text strings to ontology terms.
+
+The command line tool `annotate-enums` takes a LinkML schema, with enums and fills in the `meaning` slots.
+
+See the [annotators](linkml_model_enrichment/annotators/) folder for docs
+
 ### Converting TSVs
 
-TODO - document this
+The `tsv2linkml` command infers a single-class schema from a file TSV datafile
+
+```bash
+$ tsv2linkml --help
+Usage: tsv2linkml [OPTIONS] TSVFILE
+
+  Infer a model from a TSV
+
+Options:
+  -o, --output TEXT        Output file
+  -c, --class_name TEXT    Core class name in schema
+  -n, --schema_name TEXT   Schema name
+  -s, --sep TEXT           separator
+  -E, --enum-columns TEXT  column that is forced to be an enum
+  --robot / --no-robot     set if the TSV is a ROBOT template
+  --help                   Show this message and exit.
+```
+
+Example:
+
+```bash
+tsv2linkml tests/resources/biobank-specimens.tsv 
+```
+
+The `tsvs2linkml` command infers a multi-class schema from multiple TSV datafiles
+
+```
+$ tsvs2linkml --help
+Usage: tsvs2linkml [OPTIONS] [TSVFILES]...
+
+  Infer a model from multiple TSVs
+
+Options:
+  -o, --output TEXT         Output file
+  -n, --schema_name TEXT    Schema name
+  -s, --sep TEXT            separator
+  -E, --enum-columns TEXT   column(s) that is forced to be an enum
+  --enum-mask-columns TEXT  column(s) that are excluded from being enums
+  --max-enum-size INTEGER   do not create an enum if more than max distinct
+                            members
+
+  --enum-threshold FLOAT    if the number of distinct values / rows is less
+                            than this, do not make an enum
+
+  --robot / --no-robot      set if the TSV is a ROBOT template
+  --help                    Show this message and exit.
+```
+
 
 ### Converting OWL
 
 ```bash
-$ owl2model --help
-Usage: owl2model [OPTIONS] OWLFILE
+$ owl2linkml --help
+Usage: owl2linkml [OPTIONS] OWLFILE
 
   Infer a model from OWL Ontology
 
@@ -48,7 +103,7 @@ Options:
 Example:
 
 ```bash
-owl2model -n prov tests/resources/prov.ofn > prov.yaml
+owl2linkml -n prov tests/resources/prov.ofn > prov.yaml
 ```
 
 Note this works best on schema-style ontologies such as Prov
@@ -58,8 +113,8 @@ Note this works best on schema-style ontologies such as Prov
 ### Converting RDF instance graphs
 
 ```bash
-$ rdf2model --help
-Usage: rdf2model [OPTIONS] RDFFILE
+$ rdf2linkml --help
+Usage: rdf2linkml [OPTIONS] RDFFILE
 
   Infer a model from RDF instance data
 

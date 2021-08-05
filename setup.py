@@ -38,9 +38,11 @@ setup(
     extras_require=EXTRAS,
     include_package_data=True,
     entry_points={
-        'console_scripts': ['linkml_model_inference=linkml_model_inference.cli:cli',
-                            'rdf2model=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
-                            'owl2model=linkml_model_enrichment.importers.owl_import_engine:owl2model',
+        'console_scripts': ['annotate-enums=linkml_model_enrichment.annotators.enum_annotator:clickmain',
+                            'tsv2linkml=linkml_model_enrichment.importers.csv_import_engine:tsv2model',
+                            'tsvs2linkml=linkml_model_enrichment.importers.csv_import_engine:tsvs2model',
+                            'rdf2linkml=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
+                            'owl2linkml=linkml_model_enrichment.importers.owl_import_engine:owl2model',
                             ]
     }
 )
