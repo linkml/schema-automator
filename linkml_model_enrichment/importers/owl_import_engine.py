@@ -1,5 +1,6 @@
 import click
 import logging
+import yaml
 from typing import Union, Dict, Tuple, List, Any
 from collections import defaultdict
 import os
@@ -76,7 +77,7 @@ class OwlImportEngine(ImportEngine):
                     else:
                         logging.error(f"cannot handle anon parent properties for {a}")
                 else:
-                    print(f"cannot handle anon child properties for {a}")
+                    logging.error(f"cannot handle anon child properties for {a}")
             if isinstance(a, SubDataPropertyOf):
                 sub = a.subDataPropertyExpression.v
                 if isinstance(sub, DataPropertyExpression) and isinstance(sub.v, DataProperty):
@@ -88,7 +89,7 @@ class OwlImportEngine(ImportEngine):
                     else:
                         logging.error(f"cannot handle anon parent properties for {a}")
                 else:
-                    print(f"cannot handle anon child properties for {a}")
+                    logging(f"cannot handle anon child properties for {a}")
             if isinstance(a, SubAnnotationPropertyOf):
                 child = self.iri_to_name(a.sub)
                 parent = self.iri_to_name(a.super)
