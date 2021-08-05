@@ -5,6 +5,5 @@ data
 inferred-models
 target
 temp
-tests
 venv
 local

@@ -39,6 +39,8 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': ['linkml_model_inference=linkml_model_inference.cli:cli',
-                            'rdf2model=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model']
+                            'rdf2model=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
+                            'owl2model=linkml_model_enrichment.importers.owl_import_engine:owl2model',
+                            ]
     }
 )

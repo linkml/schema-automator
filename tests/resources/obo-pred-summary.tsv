@@ -1,0 +1,768 @@
+predicate	subject_type	object_type	num_statements	is_multivalued	predicate_label
+<http://schema.org/image>	owl:Class	owl:Thing	3	0	
+<http://schema.org/image>	owl:Class	xsd:anyURI	1	0	
+<http://www.w3.org/2004/02/skos/core#broadMatch>	owl:Class	owl:Thing	27	1	
+<http://www.w3.org/2004/02/skos/core#closeMatch>	owl:Class	owl:Thing	16468	1	
+<http://www.w3.org/2004/02/skos/core#exactMatch>	owl:Class	owl:Thing	71691	1	
+<http://www.w3.org/2004/02/skos/core#narrowMatch>	owl:Class	owl:Thing	14	1	
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred term~editor preferred label
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred term
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred term
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred label
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred label
+IAO:0000111	owl:AnnotationProperty	xsd:string	4	1	editor preferred term
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred term~editor preferred label
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred term
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred term
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred label
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred label
+IAO:0000111	owl:Class	xsd:string	1731	1	editor preferred term
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred term~editor preferred label
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:DatatypeProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred term~editor preferred label
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred term
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred term
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred label
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred label
+IAO:0000111	owl:NamedIndividual	xsd:string	129	1	editor preferred term
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred term~editor preferred label
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred term
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred term
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred label
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred label
+IAO:0000111	owl:ObjectProperty	xsd:string	46	1	editor preferred term
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred term~editor preferred label
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:SymmetricProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred term~editor preferred label
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred term
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred term
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred label
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred label
+IAO:0000111	owl:Thing	xsd:string	14	1	editor preferred term
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred term~editor preferred label
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred term
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred label
+IAO:0000111	owl:TransitiveProperty	xsd:string	1	1	editor preferred term
+IAO:0000112	owl:Class	xsd:string	670	1	example of usage
+IAO:0000112	owl:Class	xsd:string	670	1	example of usage
+IAO:0000112	owl:Class	xsd:string	670	1	example of usage
+IAO:0000112	owl:DatatypeProperty	xsd:string	1	1	example of usage
+IAO:0000112	owl:DatatypeProperty	xsd:string	1	1	example of usage
+IAO:0000112	owl:DatatypeProperty	xsd:string	1	1	example of usage
+IAO:0000112	owl:NamedIndividual	xsd:string	1	1	example of usage
+IAO:0000112	owl:NamedIndividual	xsd:string	1	1	example of usage
+IAO:0000112	owl:NamedIndividual	xsd:string	1	1	example of usage
+IAO:0000112	owl:ObjectProperty	xsd:string	9	1	example of usage
+IAO:0000112	owl:ObjectProperty	xsd:string	9	1	example of usage
+IAO:0000112	owl:ObjectProperty	xsd:string	9	1	example of usage
+IAO:0000114	owl:AnnotationProperty	IAO:0000078	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	IAO:0000078	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	IAO:0000078	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:NamedIndividual	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:NamedIndividual	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:NamedIndividual	112	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:Thing	56	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:Thing	56	0	has curation status
+IAO:0000114	owl:AnnotationProperty	owl:Thing	56	0	has curation status
+IAO:0000114	owl:Class	IAO:0000078	8294	0	has curation status
+IAO:0000114	owl:Class	IAO:0000078	8294	0	has curation status
+IAO:0000114	owl:Class	IAO:0000078	8294	0	has curation status
+IAO:0000114	owl:Class	owl:NamedIndividual	8294	0	has curation status
+IAO:0000114	owl:Class	owl:NamedIndividual	8294	0	has curation status
+IAO:0000114	owl:Class	owl:NamedIndividual	8294	0	has curation status
+IAO:0000114	owl:Class	owl:Thing	3974	0	has curation status
+IAO:0000114	owl:Class	owl:Thing	3974	0	has curation status
+IAO:0000114	owl:Class	owl:Thing	3974	0	has curation status
+IAO:0000114	owl:DatatypeProperty	IAO:0000078	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	IAO:0000078	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	IAO:0000078	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:NamedIndividual	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:NamedIndividual	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:NamedIndividual	8	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:Thing	4	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:Thing	4	0	has curation status
+IAO:0000114	owl:DatatypeProperty	owl:Thing	4	0	has curation status
+IAO:0000114	owl:FunctionalProperty	IAO:0000078	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	IAO:0000078	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	IAO:0000078	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:NamedIndividual	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:NamedIndividual	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:NamedIndividual	10	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:Thing	5	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:Thing	5	0	has curation status
+IAO:0000114	owl:FunctionalProperty	owl:Thing	5	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	IAO:0000078	2	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	IAO:0000078	2	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	IAO:0000078	2	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	owl:NamedIndividual	2	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	owl:NamedIndividual	2	0	has curation status
+IAO:0000114	owl:IrreflexiveProperty	owl:NamedIndividual	2	0	has curation status
+IAO:0000114	owl:NamedIndividual	IAO:0000078	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	IAO:0000078	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	IAO:0000078	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:NamedIndividual	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:NamedIndividual	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:NamedIndividual	454	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:Thing	227	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:Thing	227	0	has curation status
+IAO:0000114	owl:NamedIndividual	owl:Thing	227	0	has curation status
+IAO:0000114	owl:ObjectProperty	IAO:0000078	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	IAO:0000078	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	IAO:0000078	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:NamedIndividual	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:NamedIndividual	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:NamedIndividual	270	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:Thing	121	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:Thing	121	0	has curation status
+IAO:0000114	owl:ObjectProperty	owl:Thing	121	0	has curation status
+IAO:0000114	owl:SymmetricProperty	IAO:0000078	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	IAO:0000078	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	IAO:0000078	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:NamedIndividual	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:NamedIndividual	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:NamedIndividual	6	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:Thing	3	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:Thing	3	0	has curation status
+IAO:0000114	owl:SymmetricProperty	owl:Thing	3	0	has curation status
+IAO:0000114	owl:Thing	IAO:0000078	28	0	has curation status
+IAO:0000114	owl:Thing	IAO:0000078	28	0	has curation status
+IAO:0000114	owl:Thing	IAO:0000078	28	0	has curation status
+IAO:0000114	owl:Thing	owl:NamedIndividual	28	0	has curation status
+IAO:0000114	owl:Thing	owl:NamedIndividual	28	0	has curation status
+IAO:0000114	owl:Thing	owl:NamedIndividual	28	0	has curation status
+IAO:0000114	owl:Thing	owl:Thing	14	0	has curation status
+IAO:0000114	owl:Thing	owl:Thing	14	0	has curation status
+IAO:0000114	owl:Thing	owl:Thing	14	0	has curation status
+IAO:0000114	owl:TransitiveProperty	IAO:0000078	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	IAO:0000078	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	IAO:0000078	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:NamedIndividual	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:NamedIndividual	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:NamedIndividual	16	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:Thing	7	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:Thing	7	0	has curation status
+IAO:0000114	owl:TransitiveProperty	owl:Thing	7	0	has curation status
+IAO:0000115	owl:AnnotationProperty	xsd:string	8	1	textual definition
+IAO:0000115	owl:AnnotationProperty	xsd:string	8	1	definition
+IAO:0000115	owl:AnnotationProperty	xsd:string	8	1	definition
+IAO:0000115	owl:AnnotationProperty	xsd:string	8	1	definition
+IAO:0000115	owl:Axiom	owl:Thing	1	1	textual definition
+IAO:0000115	owl:Axiom	owl:Thing	1	1	definition
+IAO:0000115	owl:Axiom	owl:Thing	1	1	definition
+IAO:0000115	owl:Axiom	owl:Thing	1	1	definition
+IAO:0000115	owl:Axiom	xsd:string	2	1	textual definition
+IAO:0000115	owl:Axiom	xsd:string	2	1	definition
+IAO:0000115	owl:Axiom	xsd:string	2	1	definition
+IAO:0000115	owl:Axiom	xsd:string	2	1	definition
+IAO:0000115	owl:Class	xsd:string	72736	1	textual definition
+IAO:0000115	owl:Class	xsd:string	72736	1	definition
+IAO:0000115	owl:Class	xsd:string	72736	1	definition
+IAO:0000115	owl:Class	xsd:string	72736	1	definition
+IAO:0000115	owl:NamedIndividual	xsd:string	232	1	textual definition
+IAO:0000115	owl:NamedIndividual	xsd:string	232	1	definition
+IAO:0000115	owl:NamedIndividual	xsd:string	232	1	definition
+IAO:0000115	owl:NamedIndividual	xsd:string	232	1	definition
+IAO:0000115	owl:ObjectProperty	xsd:string	33	1	textual definition
+IAO:0000115	owl:ObjectProperty	xsd:string	33	1	definition
+IAO:0000115	owl:ObjectProperty	xsd:string	33	1	definition
+IAO:0000115	owl:ObjectProperty	xsd:string	33	1	definition
+IAO:0000115	owl:SymmetricProperty	xsd:string	1	1	textual definition
+IAO:0000115	owl:SymmetricProperty	xsd:string	1	1	definition
+IAO:0000115	owl:SymmetricProperty	xsd:string	1	1	definition
+IAO:0000115	owl:SymmetricProperty	xsd:string	1	1	definition
+IAO:0000115	owl:TransitiveProperty	xsd:string	1	1	textual definition
+IAO:0000115	owl:TransitiveProperty	xsd:string	1	1	definition
+IAO:0000115	owl:TransitiveProperty	xsd:string	1	1	definition
+IAO:0000115	owl:TransitiveProperty	xsd:string	1	1	definition
+IAO:0000116	owl:Class	xsd:string	186	1	editor note
+IAO:0000116	owl:Class	xsd:string	186	1	editor note
+IAO:0000116	owl:Class	xsd:string	186	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:boolean	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:boolean	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:boolean	1	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:string	30	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:string	30	1	editor note
+IAO:0000116	owl:ObjectProperty	xsd:string	30	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:anyURI	1	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:string	1	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:string	1	1	editor note
+IAO:0000116	owl:SymmetricProperty	xsd:string	1	1	editor note
+IAO:0000117	owl:AnnotationProperty	xsd:string	4	1	term editor
+IAO:0000117	owl:AnnotationProperty	xsd:string	4	1	term editor
+IAO:0000117	owl:AnnotationProperty	xsd:string	4	1	term editor
+IAO:0000117	owl:Class	owl:Thing	125	1	term editor
+IAO:0000117	owl:Class	owl:Thing	125	1	term editor
+IAO:0000117	owl:Class	owl:Thing	125	1	term editor
+IAO:0000117	owl:Class	xsd:string	3267	1	term editor
+IAO:0000117	owl:Class	xsd:string	3267	1	term editor
+IAO:0000117	owl:Class	xsd:string	3267	1	term editor
+IAO:0000117	owl:DatatypeProperty	xsd:string	2	1	term editor
+IAO:0000117	owl:DatatypeProperty	xsd:string	2	1	term editor
+IAO:0000117	owl:DatatypeProperty	xsd:string	2	1	term editor
+IAO:0000117	owl:NamedIndividual	xsd:string	198	1	term editor
+IAO:0000117	owl:NamedIndividual	xsd:string	198	1	term editor
+IAO:0000117	owl:NamedIndividual	xsd:string	198	1	term editor
+IAO:0000117	owl:ObjectProperty	xsd:string	62	1	term editor
+IAO:0000117	owl:ObjectProperty	xsd:string	62	1	term editor
+IAO:0000117	owl:ObjectProperty	xsd:string	62	1	term editor
+IAO:0000117	owl:Thing	xsd:string	1	1	term editor
+IAO:0000117	owl:Thing	xsd:string	1	1	term editor
+IAO:0000117	owl:Thing	xsd:string	1	1	term editor
+IAO:0000118	owl:Class	xsd:string	867	1	alternative term
+IAO:0000118	owl:Class	xsd:string	867	1	alternative term
+IAO:0000118	owl:Class	xsd:string	867	1	alternative term
+IAO:0000118	owl:NamedIndividual	xsd:string	101	1	alternative term
+IAO:0000118	owl:NamedIndividual	xsd:string	101	1	alternative term
+IAO:0000118	owl:NamedIndividual	xsd:string	101	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:boolean	1	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:boolean	1	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:boolean	1	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:string	9	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:string	9	1	alternative term
+IAO:0000118	owl:ObjectProperty	xsd:string	9	1	alternative term
+IAO:0000119	owl:AnnotationProperty	xsd:string	2	1	definition source
+IAO:0000119	owl:AnnotationProperty	xsd:string	2	1	definition source
+IAO:0000119	owl:AnnotationProperty	xsd:string	2	1	definition source
+IAO:0000119	owl:Axiom	owl:Thing	5	1	definition source
+IAO:0000119	owl:Axiom	owl:Thing	5	1	definition source
+IAO:0000119	owl:Axiom	owl:Thing	5	1	definition source
+IAO:0000119	owl:Class	owl:Thing	23	1	definition source
+IAO:0000119	owl:Class	owl:Thing	23	1	definition source
+IAO:0000119	owl:Class	owl:Thing	23	1	definition source
+IAO:0000119	owl:Class	xsd:anyURI	32	1	definition source
+IAO:0000119	owl:Class	xsd:anyURI	32	1	definition source
+IAO:0000119	owl:Class	xsd:anyURI	32	1	definition source
+IAO:0000119	owl:Class	xsd:string	2903	1	definition source
+IAO:0000119	owl:Class	xsd:string	2903	1	definition source
+IAO:0000119	owl:Class	xsd:string	2903	1	definition source
+IAO:0000119	owl:NamedIndividual	xsd:string	177	1	definition source
+IAO:0000119	owl:NamedIndividual	xsd:string	177	1	definition source
+IAO:0000119	owl:NamedIndividual	xsd:string	177	1	definition source
+IAO:0000119	owl:ObjectProperty	owl:Thing	31	1	definition source
+IAO:0000119	owl:ObjectProperty	owl:Thing	31	1	definition source
+IAO:0000119	owl:ObjectProperty	owl:Thing	31	1	definition source
+IAO:0000119	owl:ObjectProperty	xsd:string	11	1	definition source
+IAO:0000119	owl:ObjectProperty	xsd:string	11	1	definition source
+IAO:0000119	owl:ObjectProperty	xsd:string	11	1	definition source
+IAO:0000119	owl:SymmetricProperty	xsd:string	1	1	definition source
+IAO:0000119	owl:SymmetricProperty	xsd:string	1	1	definition source
+IAO:0000119	owl:SymmetricProperty	xsd:string	1	1	definition source
+IAO:0000119	owl:TransitiveProperty	owl:Thing	3	1	definition source
+IAO:0000119	owl:TransitiveProperty	owl:Thing	3	1	definition source
+IAO:0000119	owl:TransitiveProperty	owl:Thing	3	1	definition source
+IAO:0000231	oio:Subset	IAO:0000225	4	0	has obsolescence reason
+IAO:0000231	oio:Subset	IAO:0000225	4	0	has obsolescence reason
+IAO:0000231	oio:Subset	owl:NamedIndividual	4	0	has obsolescence reason
+IAO:0000231	oio:Subset	owl:NamedIndividual	4	0	has obsolescence reason
+IAO:0000231	oio:Subset	owl:Thing	4	0	has obsolescence reason
+IAO:0000231	oio:Subset	owl:Thing	4	0	has obsolescence reason
+IAO:0000231	owl:Class	IAO:0000078	12	0	has obsolescence reason
+IAO:0000231	owl:Class	IAO:0000078	12	0	has obsolescence reason
+IAO:0000231	owl:Class	IAO:0000225	7398	0	has obsolescence reason
+IAO:0000231	owl:Class	IAO:0000225	7398	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:Class	2	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:Class	2	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:NamedIndividual	7414	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:NamedIndividual	7414	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:Thing	184	0	has obsolescence reason
+IAO:0000231	owl:Class	owl:Thing	184	0	has obsolescence reason
+IAO:0000231	owl:Class	xsd:string	200	0	has obsolescence reason
+IAO:0000231	owl:Class	xsd:string	200	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	IAO:0000225	36	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	IAO:0000225	36	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	owl:NamedIndividual	36	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	owl:NamedIndividual	36	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	owl:Thing	36	0	has obsolescence reason
+IAO:0000231	owl:NamedIndividual	owl:Thing	36	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	IAO:0000225	66	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	IAO:0000225	66	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	owl:NamedIndividual	66	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	owl:NamedIndividual	66	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	owl:Thing	52	0	has obsolescence reason
+IAO:0000231	owl:ObjectProperty	owl:Thing	52	0	has obsolescence reason
+IAO:0000231	owl:Thing	IAO:0000225	28	0	has obsolescence reason
+IAO:0000231	owl:Thing	IAO:0000225	28	0	has obsolescence reason
+IAO:0000231	owl:Thing	owl:NamedIndividual	28	0	has obsolescence reason
+IAO:0000231	owl:Thing	owl:NamedIndividual	28	0	has obsolescence reason
+IAO:0000231	owl:Thing	owl:Thing	28	0	has obsolescence reason
+IAO:0000231	owl:Thing	owl:Thing	28	0	has obsolescence reason
+IAO:0000232	owl:Class	xsd:string	212	1	curator note
+IAO:0000232	owl:Class	xsd:string	212	1	curator note
+IAO:0000232	owl:Class	xsd:string	212	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:anyURI	1	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:anyURI	1	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:anyURI	1	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:string	2	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:string	2	1	curator note
+IAO:0000232	owl:ObjectProperty	xsd:string	2	1	curator note
+IAO:0000233	owl:Class	owl:Thing	212	1	term tracker item
+IAO:0000233	owl:Class	owl:Thing	212	1	term tracker item
+IAO:0000233	owl:Class	owl:Thing	212	1	term tracker item
+IAO:0000233	owl:Class	xsd:anyURI	1378	1	term tracker item
+IAO:0000233	owl:Class	xsd:anyURI	1378	1	term tracker item
+IAO:0000233	owl:Class	xsd:anyURI	1378	1	term tracker item
+IAO:0000233	owl:Class	xsd:integer	1	1	term tracker item
+IAO:0000233	owl:Class	xsd:integer	1	1	term tracker item
+IAO:0000233	owl:Class	xsd:integer	1	1	term tracker item
+IAO:0000233	owl:Class	xsd:string	598	1	term tracker item
+IAO:0000233	owl:Class	xsd:string	598	1	term tracker item
+IAO:0000233	owl:Class	xsd:string	598	1	term tracker item
+IAO:0000233	owl:ObjectProperty	owl:Thing	4	1	term tracker item
+IAO:0000233	owl:ObjectProperty	owl:Thing	4	1	term tracker item
+IAO:0000233	owl:ObjectProperty	owl:Thing	4	1	term tracker item
+IAO:0000234	owl:Class	xsd:string	210	0	ontology term requester
+IAO:0000234	owl:Class	xsd:string	210	0	ontology term requester
+IAO:0000234	owl:NamedIndividual	xsd:string	140	0	ontology term requester
+IAO:0000234	owl:NamedIndividual	xsd:string	140	0	ontology term requester
+IAO:0000412	owl:Class	owl:NamedIndividual	66	1	imported from
+IAO:0000412	owl:Class	owl:NamedIndividual	66	1	imported from
+IAO:0000412	owl:Class	owl:NamedIndividual	66	1	imported from
+IAO:0000412	owl:Class	owl:Thing	756	1	imported from
+IAO:0000412	owl:Class	owl:Thing	756	1	imported from
+IAO:0000412	owl:Class	owl:Thing	756	1	imported from
+IAO:0000412	owl:IrreflexiveProperty	owl:Thing	3	1	imported from
+IAO:0000412	owl:IrreflexiveProperty	owl:Thing	3	1	imported from
+IAO:0000412	owl:IrreflexiveProperty	owl:Thing	3	1	imported from
+IAO:0000412	owl:NamedIndividual	owl:Thing	56	1	imported from
+IAO:0000412	owl:NamedIndividual	owl:Thing	56	1	imported from
+IAO:0000412	owl:NamedIndividual	owl:Thing	56	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:NamedIndividual	28	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:NamedIndividual	28	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:NamedIndividual	28	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:Thing	31	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:Thing	31	1	imported from
+IAO:0000412	owl:ObjectProperty	owl:Thing	31	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:NamedIndividual	4	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:NamedIndividual	4	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:NamedIndividual	4	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:Thing	5	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:Thing	5	1	imported from
+IAO:0000412	owl:TransitiveProperty	owl:Thing	5	1	imported from
+IAO:0000425	owl:AnnotationProperty	xsd:string	1	0	expand assertion to
+IAO:0000425	owl:AnnotationProperty	xsd:string	1	0	expand assertion to
+IAO:0000425	owl:AnnotationProperty	xsd:string	1	0	expand assertion to
+IAO:0000426	owl:ObjectProperty	xsd:string	1	0	first order logic expression
+IAO:0000426	owl:ObjectProperty	xsd:string	1	0	first order logic expression
+IAO:0000589	owl:Class	xsd:string	1	0	OBO foundry unique label
+IAO:0000589	owl:Class	xsd:string	1	0	OBO foundry unique label
+IAO:0000600	owl:ObjectProperty	xsd:boolean	1	1	elucidation
+IAO:0000600	owl:ObjectProperty	xsd:boolean	1	1	elucidation
+IAO:0000600	owl:TransitiveProperty	xsd:boolean	1	1	elucidation
+IAO:0000600	owl:TransitiveProperty	xsd:boolean	1	1	elucidation
+IAO:0000700	owl:Ontology	owl:Class	3	1	has ontology root term
+IAO:0000700	owl:Ontology	owl:Class	3	1	has ontology root term
+IAO:0010000	owl:Axiom	owl:Thing	240	0	has axiom label
+IAO:0010000	owl:Axiom	owl:Thing	240	0	has axiom label
+IAO:0100001	owl:Class	owl:Class	3594	0	term replaced by
+IAO:0100001	owl:Class	owl:Class	3594	0	term replaced by
+IAO:0100001	owl:Class	owl:Class	3594	0	term replaced by
+IAO:0100001	owl:Class	owl:Thing	14	0	term replaced by
+IAO:0100001	owl:Class	owl:Thing	14	0	term replaced by
+IAO:0100001	owl:Class	owl:Thing	14	0	term replaced by
+IAO:0100001	owl:Class	xsd:anyURI	8	0	term replaced by
+IAO:0100001	owl:Class	xsd:anyURI	8	0	term replaced by
+IAO:0100001	owl:Class	xsd:anyURI	8	0	term replaced by
+IAO:0100001	owl:Class	xsd:boolean	1	0	term replaced by
+IAO:0100001	owl:Class	xsd:boolean	1	0	term replaced by
+IAO:0100001	owl:Class	xsd:boolean	1	0	term replaced by
+IAO:0100001	owl:Class	xsd:string	2520	0	term replaced by
+IAO:0100001	owl:Class	xsd:string	2520	0	term replaced by
+IAO:0100001	owl:Class	xsd:string	2520	0	term replaced by
+IAO:0100001	owl:ObjectProperty	owl:ObjectProperty	5	0	term replaced by
+IAO:0100001	owl:ObjectProperty	owl:ObjectProperty	5	0	term replaced by
+IAO:0100001	owl:ObjectProperty	owl:ObjectProperty	5	0	term replaced by
+OBI:0001847	owl:Class	xsd:string	11	0	ISA alternative term
+OBI:9991118	owl:Class	xsd:string	509	0	IEDB alternative term
+RO:0001900	owl:FunctionalProperty	owl:NamedIndividual	1	0	temporal interpretation
+RO:0001900	owl:FunctionalProperty	owl:NamedIndividual	1	0	temporal interpretation
+RO:0001900	owl:FunctionalProperty	owl:NamedIndividual	1	0	temporal interpretation
+RO:0001900	owl:IrreflexiveProperty	owl:NamedIndividual	4	0	temporal interpretation
+RO:0001900	owl:IrreflexiveProperty	owl:NamedIndividual	4	0	temporal interpretation
+RO:0001900	owl:IrreflexiveProperty	owl:NamedIndividual	4	0	temporal interpretation
+RO:0001900	owl:ObjectProperty	owl:NamedIndividual	52	0	temporal interpretation
+RO:0001900	owl:ObjectProperty	owl:NamedIndividual	52	0	temporal interpretation
+RO:0001900	owl:ObjectProperty	owl:NamedIndividual	52	0	temporal interpretation
+RO:0001900	owl:SymmetricProperty	owl:NamedIndividual	2	0	temporal interpretation
+RO:0001900	owl:SymmetricProperty	owl:NamedIndividual	2	0	temporal interpretation
+RO:0001900	owl:SymmetricProperty	owl:NamedIndividual	2	0	temporal interpretation
+RO:0001900	owl:TransitiveProperty	owl:NamedIndividual	16	0	temporal interpretation
+RO:0001900	owl:TransitiveProperty	owl:NamedIndividual	16	0	temporal interpretation
+RO:0001900	owl:TransitiveProperty	owl:NamedIndividual	16	0	temporal interpretation
+RO:0002161	owl:Class	owl:Class	518	1	never_in_taxon
+RO:0002161	owl:Class	owl:Class	518	1	never in taxon
+RO:0002173	owl:Class	owl:Class	4	0	
+RO:0002174	owl:Class	owl:Class	19	0	
+RO:0002174	owl:Class	owl:Thing	1	0	
+RO:0002175	owl:Class	owl:Class	49	1	
+RO:0002175	owl:Class	owl:Thing	19	1	
+RO:0002575	owl:ObjectProperty	owl:ObjectProperty	5	0	
+RO:0002575	owl:ObjectProperty	owl:TransitiveProperty	5	0	
+RO:0002581	owl:Axiom	xsd:boolean	3	0	is a defining property chain axiom
+RO:0002582	owl:Axiom	xsd:boolean	4	0	is a defining property chain axiom where second argument is reflexive
+RO:0002604	owl:Class	owl:Class	128	0	
+RO:0002604	owl:Class	owl:Thing	22	0	
+RO:0004049	owl:ObjectProperty	owl:ObjectProperty	7	0	
+RO:0004049	owl:ObjectProperty	owl:TransitiveProperty	3	0	
+RO:0004049	owl:TransitiveProperty	owl:ObjectProperty	1	0	
+RO:0004049	owl:TransitiveProperty	owl:TransitiveProperty	1	0	
+RO:0004050	owl:ObjectProperty	owl:ObjectProperty	7	0	
+RO:0004050	owl:ObjectProperty	owl:TransitiveProperty	3	0	
+RO:0040042	owl:ObjectProperty	owl:Class	28	1	
+RO:0040042	owl:TransitiveProperty	owl:Class	28	1	
+dce:contributor	owl:Class	owl:Thing	186	1	contributor
+dce:contributor	owl:Class	owl:Thing	186	1	Contributor
+dce:contributor	owl:Class	owl:Thing	186	1	Contributor
+dce:creator	owl:Class	owl:Thing	340	1	Creator
+dce:creator	owl:Class	owl:Thing	340	1	Creator
+dce:creator	owl:Class	xsd:string	35	1	Creator
+dce:creator	owl:Class	xsd:string	35	1	Creator
+dce:creator	owl:NamedIndividual	owl:Thing	24	1	Creator
+dce:creator	owl:NamedIndividual	owl:Thing	24	1	Creator
+dce:date	owl:AnnotationProperty	xsd:dateTime	4	1	Date
+dce:date	owl:AnnotationProperty	xsd:dateTime	4	1	Date
+dce:date	owl:Class	xsd:dateTime	3595	1	Date
+dce:date	owl:Class	xsd:dateTime	3595	1	Date
+dce:date	owl:DatatypeProperty	xsd:dateTime	1	1	Date
+dce:date	owl:DatatypeProperty	xsd:dateTime	1	1	Date
+dce:date	owl:NamedIndividual	xsd:dateTime	3	1	Date
+dce:date	owl:NamedIndividual	xsd:dateTime	3	1	Date
+dce:description	owl:Ontology	xsd:string	1	0	description
+dce:description	owl:Ontology	xsd:string	1	0	Description
+dce:description	owl:Ontology	xsd:string	1	0	Description
+dce:title	owl:Ontology	xsd:string	1	0	title
+dce:title	owl:Ontology	xsd:string	1	0	Title
+dce:title	owl:Ontology	xsd:string	1	0	Title
+dct:conformsTo	owl:Class	owl:Thing	7166	1	
+dct:license	owl:Axiom	owl:Thing	1	0	license
+dct:license	owl:NamedIndividual	owl:Thing	2	0	license
+dct:license	owl:Ontology	owl:Thing	2	0	license
+dct:source	owl:ObjectProperty	xsd:anyURI	1	1	
+dct:source	owl:Ontology	owl:Thing	12	1	
+foaf:depicted_by	owl:Class	xsd:anyURI	1036	1	
+foaf:homepage	owl:Ontology	xsd:anyURI	1	0	
+foaf:page	owl:AnnotationProperty	xsd:anyURI	2	1	
+foaf:page	owl:Class	owl:Thing	4	1	
+foaf:page	owl:ObjectProperty	xsd:anyURI	8	1	
+foaf:page	owl:SymmetricProperty	xsd:anyURI	1	1	
+obo:envo#disconnected_from	owl:Class	owl:Class	2	0	disconnected_from
+obo:hsapdv#end_dpf	owl:Class	xsd:float	3	0	
+obo:hsapdv#end_mpb	owl:Class	xsd:float	2	0	
+obo:hsapdv#end_ypb	owl:Class	xsd:float	9	0	
+obo:hsapdv#start_dpf	owl:Class	xsd:float	4	0	
+obo:hsapdv#start_mpb	owl:Class	xsd:float	2	0	
+obo:hsapdv#start_ypb	owl:Class	xsd:float	11	0	
+obo:mondo#excluded_from_qc_check	owl:Class	owl:Thing	1342	0	excluded from QC check
+obo:mondo#excluded_subClassOf	owl:Class	owl:Class	1179	1	excluded subClassOf
+obo:mondo#excluded_synonym	owl:Class	xsd:string	8	1	
+obo:mondo#pathogenesis	owl:Class	xsd:string	1	0	
+obo:mondo#related	owl:Class	xsd:string	1	0	
+obo:mondo#should_conform_to	owl:Class	owl:Thing	496	0	
+obo:ncbitaxon#has_rank	owl:Class	owl:Thing	1300	0	
+obo:ncbitaxon/subsets/taxslim#has_rank	owl:Class	owl:Thing	2	0	
+oio:SubsetProperty	owl:Axiom	xsd:string	1	0	subset_property
+oio:consider	owl:Class	owl:Thing	1	1	consider
+oio:consider	owl:Class	xsd:string	2558	1	consider
+oio:created_by	owl:AnnotationProperty	xsd:string	2	0	
+oio:created_by	owl:Axiom	xsd:string	5	0	
+oio:created_by	owl:Class	owl:Thing	670	0	
+oio:created_by	owl:Class	xsd:string	26775	0	
+oio:created_by	owl:NamedIndividual	owl:Thing	16	0	
+oio:created_by	owl:ObjectProperty	xsd:string	2	0	
+oio:created_by	owl:Thing	xsd:string	1	0	
+oio:creation_date	owl:Class	xsd:dateTime	293	1	
+oio:creation_date	owl:Class	xsd:string	22993	1	
+oio:creation_date	owl:FunctionalProperty	xsd:dateTime	1	1	
+oio:creation_date	owl:InverseFunctionalProperty	xsd:string	1	1	
+oio:creation_date	owl:NamedIndividual	xsd:dateTime	37	1	
+oio:creation_date	owl:ObjectProperty	xsd:dateTime	17	1	
+oio:creation_date	owl:ObjectProperty	xsd:string	2	1	
+oio:creation_date	owl:Thing	xsd:string	1	1	
+oio:date_retrieved	owl:Axiom	xsd:string	1467	0	
+oio:editor	owl:Axiom	xsd:string	1	0	
+oio:evidence	owl:Axiom	xsd:string	48	0	
+oio:external_ontology	owl:Axiom	xsd:string	348	1	
+oio:hasAlternativeId	owl:Class	xsd:string	6113	1	has_alternative_id
+oio:hasBroadSynonym	owl:Class	xsd:string	4662	1	has_broad_synonym
+oio:hasBroadSynonym	owl:ObjectProperty	xsd:string	1	1	has_broad_synonym
+oio:hasDbXref	owl:AnnotationProperty	owl:AnnotationProperty	16	1	database_cross_reference
+oio:hasDbXref	owl:AnnotationProperty	xsd:string	5	1	database_cross_reference
+oio:hasDbXref	owl:AsymmetricProperty	xsd:string	1	1	database_cross_reference
+oio:hasDbXref	owl:Axiom	owl:AnnotationProperty	4	1	database_cross_reference
+oio:hasDbXref	owl:Axiom	owl:Thing	5682	1	database_cross_reference
+oio:hasDbXref	owl:Axiom	xsd:anyURI	2	1	database_cross_reference
+oio:hasDbXref	owl:Axiom	xsd:string	339233	1	database_cross_reference
+oio:hasDbXref	owl:Class	owl:Thing	5773	1	database_cross_reference
+oio:hasDbXref	owl:Class	rdfs:Literal	1	1	database_cross_reference
+oio:hasDbXref	owl:Class	xsd:anyURI	3	1	database_cross_reference
+oio:hasDbXref	owl:Class	xsd:string	146838	1	database_cross_reference
+oio:hasDbXref	owl:FunctionalProperty	xsd:string	2	1	database_cross_reference
+oio:hasDbXref	owl:IrreflexiveProperty	xsd:string	3	1	database_cross_reference
+oio:hasDbXref	owl:NamedIndividual	owl:Thing	3	1	database_cross_reference
+oio:hasDbXref	owl:ObjectProperty	xsd:string	326	1	database_cross_reference
+oio:hasDbXref	owl:Restriction	owl:Thing	7	1	database_cross_reference
+oio:hasDbXref	owl:SymmetricProperty	xsd:string	7	1	database_cross_reference
+oio:hasDbXref	owl:TransitiveProperty	xsd:string	42	1	database_cross_reference
+oio:hasExactSynonym	owl:AnnotationProperty	xsd:string	1	1	has_exact_synonym
+oio:hasExactSynonym	owl:Axiom	xsd:string	4	1	has_exact_synonym
+oio:hasExactSynonym	owl:Class	owl:AnnotationProperty	1	1	has_exact_synonym
+oio:hasExactSynonym	owl:Class	xsd:string	145289	1	has_exact_synonym
+oio:hasExactSynonym	owl:ObjectProperty	xsd:string	5	1	has_exact_synonym
+oio:hasExactSynonym	owl:Thing	xsd:string	1	1	has_exact_synonym
+oio:hasNarrowSynonym	owl:Class	xsd:anyURI	1	1	has_narrow_synonym
+oio:hasNarrowSynonym	owl:Class	xsd:string	18392	1	has_narrow_synonym
+oio:hasNarrowSynonym	owl:ObjectProperty	xsd:string	1	1	has_narrow_synonym
+oio:hasOBOFormatVersion	owl:Ontology	xsd:string	1	0	has_obo_format_version
+oio:hasOBONamespace	owl:AnnotationProperty	xsd:string	3	1	has_obo_namespace
+oio:hasOBONamespace	owl:Class	xsd:string	57298	1	has_obo_namespace
+oio:hasOBONamespace	owl:FunctionalProperty	xsd:string	1	1	has_obo_namespace
+oio:hasOBONamespace	owl:InverseFunctionalProperty	xsd:string	1	1	has_obo_namespace
+oio:hasOBONamespace	owl:ObjectProperty	xsd:string	90	1	has_obo_namespace
+oio:hasOBONamespace	owl:SymmetricProperty	xsd:string	1	1	has_obo_namespace
+oio:hasOBONamespace	owl:TransitiveProperty	xsd:string	15	1	has_obo_namespace
+oio:hasRelatedSynonym	owl:Class	xsd:string	63969	1	has_related_synonym
+oio:hasRelatedSynonym	owl:ObjectProperty	xsd:string	1	1	has_related_synonym
+oio:hasScope	owl:AnnotationProperty	owl:AnnotationProperty	1	0	has_scope
+oio:hasSynonymType	owl:Axiom	owl:AnnotationProperty	20509	1	has_synonym_type
+oio:hasSynonymType	owl:Axiom	owl:Thing	6139	1	has_synonym_type
+oio:http://purl.obolibrary.org/obo/NCIT_P378	owl:Axiom	xsd:string	2	0	
+oio:http://purl.obolibrary.org/obo/NCIT_P383	owl:Axiom	xsd:string	2	0	
+oio:http://purl.obolibrary.org/obo/NCIT_P384	owl:Axiom	xsd:string	2	0	
+oio:http://purl.org/dc/elements/1.1/type	owl:Axiom	xsd:string	1	0	
+oio:http://purl.org/dc/terms/source	owl:Axiom	xsd:string	99	0	
+oio:id	owl:AnnotationProperty	xsd:string	9	1	
+oio:id	owl:Class	xsd:string	82392	1	
+oio:id	owl:FunctionalProperty	xsd:string	1	1	
+oio:id	owl:InverseFunctionalProperty	xsd:string	1	1	
+oio:id	owl:ObjectProperty	xsd:string	156	1	
+oio:id	owl:SymmetricProperty	xsd:string	2	1	
+oio:id	owl:TransitiveProperty	xsd:string	23	1	
+oio:inSubset	owl:Axiom	owl:Thing	1	1	in_subset
+oio:inSubset	owl:Class	owl:AnnotationProperty	34608	1	in_subset
+oio:inSubset	owl:Class	owl:Thing	194	1	in_subset
+oio:inSubset	owl:ObjectProperty	owl:AnnotationProperty	117	1	in_subset
+oio:inSubset	owl:SymmetricProperty	owl:AnnotationProperty	2	1	in_subset
+oio:inSubset	owl:TransitiveProperty	owl:AnnotationProperty	34	1	in_subset
+oio:is_class_level	owl:AnnotationProperty	xsd:boolean	6	0	
+oio:is_cyclic	owl:ObjectProperty	xsd:boolean	11	0	
+oio:is_cyclic	owl:TransitiveProperty	xsd:boolean	3	0	
+oio:is_inferred	owl:Axiom	xsd:string	321	0	
+oio:is_metadata_tag	owl:AnnotationProperty	xsd:boolean	17	0	
+oio:is_transitive	owl:ObjectProperty	xsd:boolean	15	0	
+oio:modified_by	owl:Axiom	xsd:string	1	0	
+oio:notes	owl:Axiom	xsd:string	3	1	
+oio:ontology	owl:Axiom	xsd:string	1466	0	
+oio:severity	owl:Axiom	xsd:string	1	0	
+oio:shorthand	owl:AnnotationProperty	xsd:string	5	1	shorthand
+oio:shorthand	owl:FunctionalProperty	xsd:string	2	1	shorthand
+oio:shorthand	owl:ObjectProperty	xsd:string	229	1	shorthand
+oio:shorthand	owl:SymmetricProperty	xsd:string	4	1	shorthand
+oio:shorthand	owl:TransitiveProperty	xsd:string	27	1	shorthand
+oio:source	owl:Axiom	owl:Thing	1193	1	
+oio:source	owl:Axiom	xsd:string	274045	1	
+oio:url	owl:Axiom	xsd:string	21	0	
+owl:allValuesFrom	owl:Axiom	owl:Class	1	0	
+owl:allValuesFrom	owl:Restriction	owl:Class	1465	0	
+owl:allValuesFrom	owl:Restriction	owl:Restriction	2	0	
+owl:annotatedProperty	owl:Axiom	owl:AnnotationProperty	511036	0	
+owl:annotatedProperty	owl:Axiom	owl:Thing	38111	0	
+owl:annotatedProperty	owl:Class	owl:AnnotationProperty	3	0	
+owl:annotatedProperty	owl:Restriction	owl:AnnotationProperty	17	0	
+owl:annotatedProperty	owl:Restriction	owl:Thing	1	0	
+owl:annotatedSource	owl:Axiom	ENVO:00000015	1	0	
+owl:annotatedSource	owl:Axiom	ENVO:01000216	1	0	
+owl:annotatedSource	owl:Axiom	ENVO:01000958	1	0	
+owl:annotatedSource	owl:Axiom	ENVO:01001698	2	0	
+owl:annotatedSource	owl:Axiom	_:riog00966582	1	0	
+owl:annotatedSource	owl:Axiom	owl:AnnotationProperty	1	0	
+owl:annotatedSource	owl:Axiom	owl:AsymmetricProperty	1	0	
+owl:annotatedSource	owl:Axiom	owl:Class	463828	0	
+owl:annotatedSource	owl:Axiom	owl:FunctionalProperty	2	0	
+owl:annotatedSource	owl:Axiom	owl:IrreflexiveProperty	1	0	
+owl:annotatedSource	owl:Axiom	owl:NamedIndividual	5	0	
+owl:annotatedSource	owl:Axiom	owl:ObjectProperty	84	0	
+owl:annotatedSource	owl:Axiom	owl:Restriction	2	0	
+owl:annotatedSource	owl:Axiom	owl:SymmetricProperty	1	0	
+owl:annotatedSource	owl:Axiom	owl:Thing	3	0	
+owl:annotatedSource	owl:Axiom	owl:TransitiveProperty	23	0	
+owl:annotatedSource	owl:Class	owl:ObjectProperty	2	0	
+owl:annotatedSource	owl:Class	owl:TransitiveProperty	1	0	
+owl:annotatedSource	owl:Restriction	owl:ObjectProperty	11	0	
+owl:annotatedSource	owl:Restriction	owl:TransitiveProperty	3	0	
+owl:annotatedTarget	owl:Axiom	owl:AnnotationProperty	10729	0	
+owl:annotatedTarget	owl:Axiom	owl:Class	31675	0	
+owl:annotatedTarget	owl:Axiom	owl:Restriction	7617	0	
+owl:annotatedTarget	owl:Axiom	owl:Thing	18	0	
+owl:annotatedTarget	owl:Axiom	xsd:anyURI	2715	0	
+owl:annotatedTarget	owl:Axiom	xsd:string	349593	0	
+owl:annotatedTarget	owl:Restriction	owl:Class	2	0	
+owl:cardinality	owl:Class	xsd:nonNegativeInteger	2	0	
+owl:cardinality	owl:Restriction	xsd:nonNegativeInteger	15	0	
+owl:complementOf	owl:Class	owl:Class	552	0	
+owl:complementOf	owl:Class	owl:Restriction	25	0	
+owl:complementOf	owl:Restriction	owl:Class	4	0	
+owl:deprecated	oio:Subset	xsd:boolean	2	0	
+owl:deprecated	owl:Class	xsd:boolean	9906	0	
+owl:deprecated	owl:NamedIndividual	xsd:boolean	22	0	
+owl:deprecated	owl:ObjectProperty	xsd:boolean	45	0	
+owl:deprecated	owl:Thing	xsd:boolean	15	0	
+owl:disjointUnionOf	owl:Class	owl:Thing	1	0	
+owl:disjointWith	owl:Class	owl:Class	952	1	
+owl:disjointWith	owl:Class	owl:Restriction	535	1	
+owl:disjointWith	owl:Restriction	owl:Restriction	293	1	
+owl:distinctMembers	owl:AllDifferent	owl:Thing	4	0	
+owl:equivalentClass	owl:Class	owl:Axiom	4	1	
+owl:equivalentClass	owl:Class	owl:Class	38309	1	
+owl:equivalentClass	owl:Class	owl:Restriction	6257	1	
+owl:equivalentClass	owl:Restriction	owl:Restriction	59390	1	
+owl:equivalentProperty	owl:ObjectProperty	owl:Thing	12	1	
+owl:hasSelf	owl:Restriction	xsd:boolean	1	0	
+owl:hasValue	owl:Restriction	OBI:0000835	37	0	
+owl:hasValue	owl:Restriction	OBI:0001000	1	0	
+owl:hasValue	owl:Restriction	OBI:0002989	3	0	
+owl:hasValue	owl:Restriction	UO:0000001	3	0	
+owl:hasValue	owl:Restriction	UO:0000003	5	0	
+owl:hasValue	owl:Restriction	UO:0000005	1	0	
+owl:hasValue	owl:Restriction	UO:0000051	29	0	
+owl:hasValue	owl:Restriction	UO:0000105	8	0	
+owl:hasValue	owl:Restriction	UO:0000280	15	0	
+owl:hasValue	owl:Restriction	owl:NamedIndividual	99	0	
+owl:intersectionOf	owl:Axiom	owl:Axiom	1	0	
+owl:intersectionOf	owl:Axiom	owl:Thing	1	0	
+owl:intersectionOf	owl:Class	owl:Axiom	2	0	
+owl:intersectionOf	owl:Class	owl:Restriction	5	0	
+owl:intersectionOf	owl:Class	owl:Thing	50009	0	
+owl:intersectionOf	owl:Restriction	owl:Restriction	1	0	
+owl:inverseOf	owl:AsymmetricProperty	owl:ObjectProperty	1	0	
+owl:inverseOf	owl:IrreflexiveProperty	owl:ObjectProperty	1	0	
+owl:inverseOf	owl:ObjectProperty	owl:FunctionalProperty	1	0	
+owl:inverseOf	owl:ObjectProperty	owl:IrreflexiveProperty	8	0	
+owl:inverseOf	owl:ObjectProperty	owl:ObjectProperty	201	0	
+owl:inverseOf	owl:ObjectProperty	owl:TransitiveProperty	28	0	
+owl:inverseOf	owl:Thing	owl:ObjectProperty	19	0	
+owl:inverseOf	owl:Thing	owl:TransitiveProperty	2	0	
+owl:inverseOf	owl:TransitiveProperty	owl:ObjectProperty	30	0	
+owl:inverseOf	owl:TransitiveProperty	owl:TransitiveProperty	24	0	
+owl:maxCardinality	owl:Restriction	xsd:nonNegativeInteger	1	0	
+owl:maxQualifiedCardinality	owl:Restriction	xsd:nonNegativeInteger	44	0	
+owl:members	owl:AllDisjointClasses	owl:Thing	11	0	
+owl:minCardinality	owl:Restriction	xsd:nonNegativeInteger	10	0	
+owl:minQualifiedCardinality	owl:Restriction	xsd:nonNegativeInteger	85	0	
+owl:onClass	owl:Restriction	owl:Class	142	0	
+owl:onProperty	owl:Axiom	owl:ObjectProperty	20	1	
+owl:onProperty	owl:Axiom	owl:TransitiveProperty	6	1	
+owl:onProperty	owl:Class	owl:DatatypeProperty	4	1	
+owl:onProperty	owl:Class	owl:FunctionalProperty	4	1	
+owl:onProperty	owl:Class	owl:ObjectProperty	10	1	
+owl:onProperty	owl:Class	owl:TransitiveProperty	6	1	
+owl:onProperty	owl:Restriction	owl:AsymmetricProperty	94	1	
+owl:onProperty	owl:Restriction	owl:DatatypeProperty	38	1	
+owl:onProperty	owl:Restriction	owl:FunctionalProperty	771	1	
+owl:onProperty	owl:Restriction	owl:IrreflexiveProperty	164	1	
+owl:onProperty	owl:Restriction	owl:ObjectProperty	336971	1	
+owl:onProperty	owl:Restriction	owl:SymmetricProperty	1176	1	
+owl:onProperty	owl:Restriction	owl:Thing	1	1	
+owl:onProperty	owl:Restriction	owl:TransitiveProperty	82723	1	
+owl:oneOf	owl:Class	owl:Axiom	1	0	
+owl:oneOf	owl:Class	owl:Thing	7	0	
+owl:propertyChainAxiom	owl:ObjectProperty	owl:Class	2	1	
+owl:propertyChainAxiom	owl:ObjectProperty	owl:Restriction	2	1	
+owl:propertyChainAxiom	owl:ObjectProperty	owl:Thing	134	1	
+owl:propertyChainAxiom	owl:SymmetricProperty	owl:Thing	1	1	
+owl:propertyChainAxiom	owl:TransitiveProperty	owl:Thing	19	1	
+owl:propertyDisjointWith	owl:ObjectProperty	owl:ObjectProperty	1	0	
+owl:qualifiedCardinality	owl:Restriction	xsd:nonNegativeInteger	11	0	
+owl:someValuesFrom	owl:Axiom	owl:Class	18	1	
+owl:someValuesFrom	owl:Class	owl:Class	10	1	
+owl:someValuesFrom	owl:Restriction	owl:Class	266269	1	
+owl:someValuesFrom	owl:Restriction	owl:NamedIndividual	6	1	
+owl:someValuesFrom	owl:Restriction	owl:Restriction	722	1	
+owl:someValuesFrom	owl:Restriction	rdfs:Datatype	5	1	
+owl:unionOf	owl:Class	owl:Class	1	0	
+owl:unionOf	owl:Class	owl:Restriction	3	0	
+owl:unionOf	owl:Class	owl:Thing	591	0	
+owl:unionOf	owl:Restriction	owl:Restriction	3	0	
+owl:unionOf	owl:Restriction	owl:Thing	1	0	
+owl:versionIRI	owl:NamedIndividual	owl:Thing	2	0	
+owl:versionIRI	owl:Ontology	owl:Thing	2	0	
+owl:versionInfo	owl:NamedIndividual	xsd:string	2	0	
+owl:versionInfo	owl:Ontology	xsd:string	1	0	
+protege:defaultLanguage	owl:NamedIndividual	xsd:string	2	0	
+protege:defaultLanguage	owl:Ontology	xsd:string	1	0	
+rdfs:comment	owl:AnnotationProperty	xsd:string	66	1	
+rdfs:comment	owl:Axiom	owl:Thing	6	1	
+rdfs:comment	owl:Axiom	xsd:string	31	1	
+rdfs:comment	owl:Class	xsd:boolean	1	1	
+rdfs:comment	owl:Class	xsd:string	8410	1	
+rdfs:comment	owl:InverseFunctionalProperty	xsd:string	1	1	
+rdfs:comment	owl:NamedIndividual	xsd:string	4	1	
+rdfs:comment	owl:ObjectProperty	xsd:string	10	1	
+rdfs:comment	owl:Ontology	xsd:string	4	1	
+rdfs:domain	owl:AsymmetricProperty	owl:Class	2	1	
+rdfs:domain	owl:DatatypeProperty	owl:Class	35	1	
+rdfs:domain	owl:FunctionalProperty	owl:Class	50	1	
+rdfs:domain	owl:IrreflexiveProperty	owl:Class	2	1	
+rdfs:domain	owl:ObjectProperty	owl:Class	327	1	
+rdfs:domain	owl:ObjectProperty	owl:Restriction	2	1	
+rdfs:domain	owl:SymmetricProperty	owl:Class	8	1	
+rdfs:domain	owl:TransitiveProperty	owl:Class	27	1	
+rdfs:isDefinedBy	owl:AnnotationProperty	owl:NamedIndividual	104	0	
+rdfs:isDefinedBy	owl:AnnotationProperty	owl:Ontology	52	0	
+rdfs:isDefinedBy	owl:AnnotationProperty	owl:Thing	30	0	
+rdfs:isDefinedBy	owl:Class	owl:Thing	144	0	
+rdfs:isDefinedBy	owl:ObjectProperty	owl:NamedIndividual	8	0	
+rdfs:isDefinedBy	owl:ObjectProperty	owl:Ontology	4	0	
+rdfs:isDefinedBy	owl:ObjectProperty	owl:Thing	12	0	
+rdfs:label	owl:AnnotationProperty	xsd:string	53	1	label
+rdfs:label	owl:Axiom	xsd:string	6023	1	label
+rdfs:label	owl:Class	xsd:string	106896	1	label
+rdfs:label	owl:FunctionalProperty	xsd:string	1	1	label
+rdfs:label	owl:InverseFunctionalProperty	xsd:string	1	1	label
+rdfs:label	owl:NamedIndividual	xsd:string	133	1	label
+rdfs:label	owl:ObjectProperty	xsd:string	184	1	label
+rdfs:label	owl:SymmetricProperty	xsd:string	3	1	label
+rdfs:label	owl:Thing	xsd:string	15	1	label
+rdfs:label	owl:TransitiveProperty	xsd:string	18	1	label
+rdfs:range	owl:AnnotationProperty	owl:Thing	4	1	
+rdfs:range	owl:AsymmetricProperty	owl:Class	2	1	
+rdfs:range	owl:DatatypeProperty	owl:Thing	5	1	
+rdfs:range	owl:DatatypeProperty	rdfs:Datatype	12	1	
+rdfs:range	owl:FunctionalProperty	owl:Class	26	1	
+rdfs:range	owl:FunctionalProperty	owl:Thing	4	1	
+rdfs:range	owl:FunctionalProperty	rdfs:Datatype	12	1	
+rdfs:range	owl:IrreflexiveProperty	owl:Class	2	1	
+rdfs:range	owl:ObjectProperty	owl:Class	336	1	
+rdfs:range	owl:ObjectProperty	owl:Restriction	7	1	
+rdfs:range	owl:SymmetricProperty	owl:Class	8	1	
+rdfs:range	owl:TransitiveProperty	owl:Class	27	1	
+rdfs:seeAlso	owl:Axiom	owl:Thing	5	1	seeAlso
+rdfs:seeAlso	owl:Axiom	xsd:anyURI	1	1	seeAlso
+rdfs:seeAlso	owl:Class	owl:Thing	68	1	seeAlso
+rdfs:seeAlso	owl:Class	xsd:anyURI	3507	1	seeAlso
+rdfs:seeAlso	owl:Class	xsd:string	45	1	seeAlso
+rdfs:seeAlso	owl:NamedIndividual	owl:Thing	2	1	seeAlso
+rdfs:seeAlso	owl:ObjectProperty	owl:Thing	36	1	seeAlso
+rdfs:seeAlso	owl:ObjectProperty	xsd:anyURI	7	1	seeAlso
+rdfs:seeAlso	owl:Ontology	owl:Thing	1	1	seeAlso
+rdfs:seeAlso	owl:SymmetricProperty	owl:Thing	2	1	seeAlso
+rdfs:seeAlso	owl:SymmetricProperty	xsd:anyURI	2	1	seeAlso
+rdfs:seeAlso	owl:TransitiveProperty	owl:Thing	5	1	seeAlso
+rdfs:subClassOf	owl:Class	owl:Axiom	18	1	
+rdfs:subClassOf	owl:Class	owl:Class	199987	1	
+rdfs:subClassOf	owl:Class	owl:Restriction	72332	1	
+rdfs:subClassOf	owl:NamedIndividual	owl:Class	8	1	
+rdfs:subClassOf	owl:Restriction	owl:Class	1	1	

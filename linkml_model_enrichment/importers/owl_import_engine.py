@@ -217,14 +217,16 @@ class OwlImportEngine(ImportEngine):
 
 
 @click.command()
-@click.argument('rdffile')
-@click.option('--dir', '-d', required=True)
-def rdf2model(rdffile, dir, **args):
-    """ Infer a model from RDF instance data """
+@click.argument('owlfile')
+@click.option('--name', '-n', help="Schema name")
+def owl2model(owlfile, **args):
+    """
+    Infer a model from OWL Ontology
+
+    Note: input must be in functional syntax
+    """
     sie = OwlImportEngine()
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-    schema_dict = sie.convert(rdffile, dir=dir, format='ttl')
+    schema_dict = sie.convert(owlfile, **args)
     ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
     print(ys)
 
