@@ -12,21 +12,23 @@ from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
 
 from dataclasses import dataclass
 from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.infer_model import infer_model, merge_schemas
-
+from linkml_model_enrichment.importers.csv_import_engine import CsvDataImportEngine
+from linkml_model_enrichment.utils.schemautils import merge_schemas
 
 @dataclass
 class RdfInstanceImportEngine(ImportEngine):
     mappings: dict = None
 
     def convert(self, file: str, dir: str, **kwargs):
+        csv_engine = CsvDataImportEngine()
+
         g = Graph()
         g.parse(file, **kwargs)
         self.mappings = {}
         paths = self.graph_to_tables(g, dir)
         yamlobjs = []
         for c, tsvfile in paths.items():
-            yamlobjs.append(infer_model(tsvfile, class_name=c))
+            yamlobjs.append(csv_engine.convert(tsvfile, class_name=c))
         yamlobj = merge_schemas(yamlobjs)
         mappings = self.mappings
         for cn, c in yamlobj['classes'].items():

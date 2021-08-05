@@ -16,7 +16,6 @@ from funowl import *
 
 from dataclasses import dataclass
 from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.infer_model import infer_model, merge_schemas
 
 
 @dataclass
