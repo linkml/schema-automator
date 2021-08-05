@@ -1,0 +1,85 @@
+predicate	subject_type	object_type	num_statements	predicate_label
+IAO:0000115	owl:Class	xsd:string	2728	definition
+IAO:0000115	owl:ObjectProperty	xsd:string	4	definition
+IAO:0000115	owl:SymmetricProperty	xsd:string	1	definition
+IAO:0000231	owl:Class	owl:Thing	71	
+IAO:0100001	owl:Class	owl:Class	71	term replaced by
+IAO:0100001	owl:Class	xsd:string	4	term replaced by
+dct:license	owl:Ontology	xsd:string	2	
+oio:auto-generated-by	owl:Ontology	xsd:string	1	
+oio:consider	owl:Class	xsd:string	67	consider
+oio:created_by	owl:Class	xsd:string	882	
+oio:creation_date	owl:Class	xsd:string	886	
+oio:date	owl:Ontology	xsd:string	1	
+oio:default-namespace	owl:Ontology	xsd:string	1	
+oio:hasAlternativeId	owl:Class	xsd:string	71	has_alternative_id
+oio:hasBroadSynonym	owl:Class	xsd:string	2	has_broad_synonym
+oio:hasDbXref	owl:Axiom	xsd:string	6473	database_cross_reference
+oio:hasDbXref	owl:Class	xsd:string	3149	database_cross_reference
+oio:hasDbXref	owl:ObjectProperty	xsd:string	8	database_cross_reference
+oio:hasDbXref	owl:SymmetricProperty	xsd:string	1	database_cross_reference
+oio:hasDbXref	owl:TransitiveProperty	xsd:string	3	database_cross_reference
+oio:hasExactSynonym	owl:Class	xsd:string	2609	has_exact_synonym
+oio:hasExactSynonym	owl:ObjectProperty	xsd:string	4	has_exact_synonym
+oio:hasExactSynonym	owl:SymmetricProperty	xsd:string	1	has_exact_synonym
+oio:hasNarrowSynonym	owl:Class	xsd:string	2	has_narrow_synonym
+oio:hasOBOFormatVersion	owl:Ontology	xsd:string	1	has_obo_format_version
+oio:hasOBONamespace	owl:Class	xsd:string	3148	has_obo_namespace
+oio:hasOBONamespace	owl:ObjectProperty	xsd:string	8	has_obo_namespace
+oio:hasOBONamespace	owl:SymmetricProperty	xsd:string	1	has_obo_namespace
+oio:hasOBONamespace	owl:TransitiveProperty	xsd:string	3	has_obo_namespace
+oio:hasRelatedSynonym	owl:Class	xsd:string	330	has_related_synonym
+oio:hasRelatedSynonym	owl:ObjectProperty	xsd:string	2	has_related_synonym
+oio:hasSynonymType	owl:Axiom	owl:AnnotationProperty	918	has_synonym_type
+oio:id	owl:Class	xsd:string	3148	
+oio:id	owl:ObjectProperty	xsd:string	8	
+oio:id	owl:SymmetricProperty	xsd:string	1	
+oio:id	owl:TransitiveProperty	xsd:string	3	
+oio:inSubset	owl:Class	owl:AnnotationProperty	614	in_subset
+oio:saved-by	owl:Ontology	xsd:string	1	
+oio:shorthand	owl:ObjectProperty	xsd:string	8	shorthand
+oio:shorthand	owl:SymmetricProperty	xsd:string	1	shorthand
+oio:shorthand	owl:TransitiveProperty	xsd:string	3	shorthand
+oio:treat-xrefs-as-genus-differentia	owl:Ontology	xsd:string	4	treat-xrefs-as-genus-differentia
+owl:annotatedProperty	owl:Axiom	owl:AnnotationProperty	3847	
+owl:annotatedSource	owl:Axiom	owl:Class	3843	
+owl:annotatedSource	owl:Axiom	owl:ObjectProperty	4	
+owl:annotatedSource	owl:Axiom	owl:SymmetricProperty	1	
+owl:annotatedTarget	owl:Axiom	xsd:string	3847	
+owl:deprecated	owl:Class	xsd:boolean	124	
+owl:disjointWith	owl:Class	owl:Class	1	
+owl:inverseOf	owl:ObjectProperty	owl:ObjectProperty	1	
+owl:inverseOf	owl:ObjectProperty	owl:TransitiveProperty	1	
+owl:inverseOf	owl:TransitiveProperty	owl:ObjectProperty	1	
+owl:inverseOf	owl:TransitiveProperty	owl:TransitiveProperty	1	
+owl:onProperty	owl:Restriction	owl:ObjectProperty	8831	
+owl:onProperty	owl:Restriction	owl:SymmetricProperty	1	
+owl:onProperty	owl:Restriction	owl:TransitiveProperty	2665	
+owl:propertyChainAxiom	owl:ObjectProperty	owl:Thing	3	
+owl:propertyChainAxiom	owl:TransitiveProperty	owl:Thing	2	
+owl:someValuesFrom	owl:Restriction	owl:Class	8831	
+owl:versionIRI	owl:Ontology	owl:Thing	1	
+rdf:first	owl:Thing	owl:ObjectProperty	6	
+rdf:first	owl:Thing	owl:TransitiveProperty	6	
+rdf:rest	owl:Thing	owl:Thing	6	
+rdf:type	owl:AnnotationProperty	owl:Thing	30	
+rdf:type	owl:Axiom	owl:Thing	3847	
+rdf:type	owl:Class	owl:Thing	3219	
+rdf:type	owl:ObjectProperty	owl:Thing	12	
+rdf:type	owl:Ontology	owl:Thing	1	
+rdf:type	owl:Restriction	owl:Thing	8831	
+rdf:type	owl:SymmetricProperty	owl:Thing	2	
+rdf:type	owl:TransitiveProperty	owl:Thing	6	
+rdfs:comment	owl:AnnotationProperty	xsd:string	1	
+rdfs:comment	owl:Class	xsd:string	116	
+rdfs:comment	owl:Ontology	xsd:string	1	
+rdfs:label	owl:AnnotationProperty	xsd:string	18	
+rdfs:label	owl:Class	xsd:string	3148	
+rdfs:label	owl:ObjectProperty	xsd:string	8	
+rdfs:label	owl:SymmetricProperty	xsd:string	1	
+rdfs:label	owl:TransitiveProperty	xsd:string	3	
+rdfs:subClassOf	owl:Class	owl:Class	3194	
+rdfs:subClassOf	owl:Class	owl:Restriction	8831	
+rdfs:subPropertyOf	owl:AnnotationProperty	owl:AnnotationProperty	2	
+rdfs:subPropertyOf	owl:ObjectProperty	owl:ObjectProperty	2	
+rdfs:subPropertyOf	owl:TransitiveProperty	owl:ObjectProperty	2	

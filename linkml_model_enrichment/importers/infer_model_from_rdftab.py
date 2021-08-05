@@ -2,13 +2,9 @@
 """Infer a schema from a TSV
 
 """
-import os
-import re
-import copy
-import requests
-from dataclasses import dataclass
+from linkml.utils.schemaloader import load_raw_schema
 from typing import Union, List, Set, Optional
-from typing.io import TextIO
+from linkml.generators.yamlgen import YAMLGenerator
 
 import logging
 import click
@@ -123,10 +119,20 @@ def remove_angle_brackets(id: str) -> str:
         id = id.replace('obo:', '')
     return id
 
+def set_range(slot: dict, r: str, classes: dict) -> None:
+    if r in classes:
+        slot['range'] = r
+    else:
+        if 'range' in slot:
+            del slot['range']
+        logging.warning(f'Omitting range: {r} as there is no class definitions')
+
 def infer_model_from_predicate_summary(tsvfile: str, sep="\t",
                                        schema_name: str = 'example',
                                        count_threshold: int=2,
                                        include_counts = True,
+                                       base_uri: str = None,
+                                       schema_description: str = 'TODO',
                                        enum_columns: List[str]=[],
                                        enum_threshold=0.1,
                                        max_enum_size=50) -> dict:
@@ -192,14 +198,15 @@ def infer_model_from_predicate_summary(tsvfile: str, sep="\t",
                 c['slot_usage'][sn] = {'range': set(), 'count': 0}
             c['slot_usage'][sn]['range'].add(range)
             c['slot_usage'][sn]['count'] += num
+        # filter useless classes
+        classes = {cn:c for cn,c in classes.items() if len(c['slots']) > 0}
         for sn, ranges in slot_ranges.items():
             r = condense_ranges(ranges, classes)
             if r is not None:
-                slots[sn]['range'] = r
+                logging.error(f'Set range for slot {sn} to {r}')
+                set_range(slots[sn], r, classes)
             else:
                 slots[sn]['todos'] = ['define range']
-        # filter useless classes
-        classes = {cn:c for cn,c in classes.items() if len(c['slots']) > 0}
         for cn, c in classes.items():
             redundant = []
             for sn, class_slot in c['slot_usage'].items():
@@ -208,7 +215,9 @@ def infer_model_from_predicate_summary(tsvfile: str, sep="\t",
                     del class_slot['range']
                     class_slot['todos'] = ['define range']
                 else:
-                    class_slot['range'] = r
+                    logging.error(f'Setting range for slot {cn}.{sn} in {class_slot} to {r}')
+                    set_range(class_slot, r, classes)
+                    logging.error(f'Set range for slot {cn}.{sn} in {class_slot} to {r}')
                 n = class_slot['count']
                 del class_slot['count']
                 # check for redundancy
@@ -235,14 +244,16 @@ def infer_model_from_predicate_summary(tsvfile: str, sep="\t",
             for sn in redundant:
                 del c['slot_usage'][sn]
     # TODO: infer if required; infer multivalued
+    if base_uri is None:
+        base_uri = f'https://w3id.org/{schema_name}'
     schema = {
-        'id': f'https://w3id.org/{schema_name}',
+        'id': base_uri,
         'name': schema_name,
-        'description': schema_name,
+        'description': schema_description,
         'imports': ['linkml:types'],
         'prefixes': {
-            'linkml': 'https://w3id.org/link/linkml/',
-            schema_name: f'https://w3id.org/{schema_name}'
+            'linkml': 'https://w3id.org/linkml/',
+            schema_name: f'{base_uri}/'
         },
         'default_prefix': schema_name,
         'types': {},
@@ -260,6 +271,8 @@ def main():
 @click.argument('tsvfile') ## input TSV (must have column headers
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--base-uri', '-b', help='base URI')
+@click.option('--schema-description', '-D', help='schema description')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--include-counts/--no-include-counts', default=True, help='set to include counts in slot_usage')
 def preds2model(tsvfile, **args):
@@ -272,7 +285,11 @@ def preds2model(tsvfile, **args):
 
     """
     s = infer_model_from_predicate_summary(tsvfile, **args)
-    print(yaml.dump(s, default_flow_style=False, sort_keys=False))
+    ys = yaml.dump(s, default_flow_style=False, sort_keys=False)
+    #print(ys)
+    schema = load_raw_schema(ys)
+    G = YAMLGenerator(schema)
+    print(G.serialize())
 
 if __name__ == '__main__':
     main()

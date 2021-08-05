@@ -1,47 +1,73 @@
-#!/usr/bin/env python
-"""Infer a schema from a TSV
-
-"""
+import click
+import logging
+import yaml
+from typing import Union, Dict, Tuple, List, Any, Optional
+from collections import defaultdict
 import os
 import re
+import csv
 import copy
 import requests
-from dataclasses import dataclass
-from typing import Union, List
-from typing.io import TextIO
 
-import logging
-import click
-import yaml
-import csv
-import time
-
-from linkml_model.meta import SchemaDefinition
-from linkml.utils.generator import Generator, shared_arguments
+from csv import DictWriter
 from dateutil.parser import parse
+from quantulum3 import parser as q_parser
+from quantulum3.classes import Quantity
+from dataclasses import dataclass, field
+from linkml_model_enrichment.importers.import_engine import ImportEngine
+from linkml_model_enrichment.utils.schemautils import merge_schemas
 
-def infer_model(tsvfile: str, sep="\t", class_name='example',
-                schema_name: str = 'example',
-                robot:bool = False,
-                enum_columns: List[str]=[],
-                enum_threshold=0.1,
-                max_enum_size=50) -> dict:
-    with open(tsvfile, newline='') as tsvfile:
-        rr = csv.DictReader(tsvfile, delimiter=sep)
+@dataclass
+class CsvDataImportEngine(ImportEngine):
+
+    sep: str = "\t"
+    schema_name: str = 'example'
+    robot: bool = False
+    enum_columns: List[str] = field(default_factory=lambda: [])
+    enum_mask_columns: List[str] = field(default_factory=lambda: [])
+    enum_threshold: float = 0.1
+    enum_strlen_threshold: int = 30
+    max_enum_size: int = 50
+
+    def convert_multiple(self, files: List[str], **kwargs) -> Dict:
+        yamlobjs = []
+        for file in files:
+            c = os.path.splitext(os.path.basename(file))[0]
+            s = self.convert(file, class_name=c, **kwargs)
+            if s is not None:
+                yamlobjs.append(s)
+        return merge_schemas(yamlobjs)
+
+    def convert(self, file: str, **kwargs)-> Dict:
+        with open(file, newline='') as tsvfile:
+            rr = csv.DictReader(tsvfile, delimiter=self.sep)
+            return self.convert_dicts([r for r in rr], **kwargs)
+
+    def convert_dicts(self, rr: List[Dict], name: str = 'example', class_name: str = 'example', **kwargs) -> Optional[Dict]:
         slots = {}
         slot_values = {}
         n = 0
         enums = {}
         robot_defs = {}
         slot_usage = {}
+        types = {}
+        enum_columns = self.enum_columns
+        enum_mask_columns = self.enum_mask_columns
+        if len(rr) == 0:
+            return None
         for row in rr:
             n += 1
-            if n == 1 and robot:
+            if n == 1 and self.robot:
                 for k,v in row.items():
                     robot_defs[k] = v
                 continue
             for k,v in row.items():
-                vs = v.split('|')
+                if v is None:
+                    v = ""
+                if isinstance(v, list):
+                    vs = v
+                else:
+                    vs = v.split('|')
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_values[k] = set()
@@ -52,13 +78,15 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
                     slots[k]['multivalued'] = True
         types = {}
         new_slots = {}
-        for sn,s in slots.items():
+        for sn, s in slots.items():
             vals = slot_values[sn]
             s['range'] = infer_range(s, vals, types)
-            if s['range'] == 'string' or sn in enum_columns:
+            if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 n_distinct = len(vals)
+                longest = max([len(str(v)) for v in vals]) if n_distinct > 0 else 0
                 if sn in enum_columns or \
-                        ((n_distinct / n) < enum_threshold and n_distinct <= max_enum_size):
+                        ((n_distinct / n) < self.enum_threshold and n_distinct > 0 and
+                         n_distinct <= self.max_enum_size and longest < self.enum_strlen_threshold):
                     enum_name = sn.replace(' ', '_').replace('(s)', '')
                     enum_name = f'{enum_name}_enum'
                     s['range'] = enum_name
@@ -109,33 +137,38 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
                     s['slot_uri'] = re.sub('^^.*', '', rd.replace('AT ', ''))
                 elif rd.startswith(">A "):
                     logging.warning('Axiom annotations not supported')
-    class_slots = list(slots.keys())
-    for sn,s in new_slots.items():
-        if sn not in slots:
-            slots[sn] = s
-    schema = {
-        'id': f'https://w3id.org/{schema_name}',
-        'name': schema_name,
-        'description': schema_name,
-        'imports': ['linkml:types'],
-        'prefixes': {
-            'linkml': 'https://w3id.org/link/linkml/',
-            schema_name: f'https://w3id.org/{schema_name}'
-        },
-        'default_prefix': schema_name,
-        'types': types,
-        'classes': {
-            class_name: {
-                'slots': class_slots,
-                'slot_usage': slot_usage
-            }
-        },
-        'slots': slots,
-        'enums': enums
-    }
-    return schema
-
-
+                slot_uri = s.get('slot_uri', None)
+                if slot_uri is not None:
+                    if ' ' in slot_uri or ':' not in slot_uri:
+                        del s['slot_uri']
+                        logging.warning(f'ROBOT "A" annotations not supported yet')
+        class_slots = list(slots.keys())
+        for sn,s in new_slots.items():
+            if sn not in slots:
+                slots[sn] = s
+        schema = {
+            'id': f'https://w3id.org/{name}',
+            'name': name,
+            'description': name,
+            'imports': ['linkml:types'],
+            'prefixes': {
+                'linkml': 'https://w3id.org/linkml/',
+                name: f'https://w3id.org/{name}'
+            },
+            'default_prefix': name,
+            'types': types,
+            'classes': {
+                class_name: {
+                    'slots': class_slots,
+                    'slot_usage': slot_usage
+                }
+            },
+            'slots': slots,
+            'enums': enums,
+            'types': types
+        }
+        add_missing_to_schema(schema)
+        return schema
 
 def capture_robot_some(s: str) -> str:
     """
@@ -154,6 +187,44 @@ def capture_robot_some(s: str) -> str:
         else:
             return r
 
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+def is_measurement(value):
+    ms = q_parser.parse(value)
+    for m in ms:
+        if m.unit.name != 'dimensionless':
+            return True
+
+def is_all_measurement(values):
+    """
+    heuristic to guess if all values are measurements
+
+    uses quantulum to parse
+
+    A significant proportion must be dimensional, to avoid
+    accidentally classifying a list of floats as measurements
+    """
+    n_dimensional = 0
+    n = 0
+    for value in values:
+        ms = q_parser.parse(value)
+        if len(ms) == 0:
+            return False
+        n += 1
+        if all(m.unit.name != 'dimensionless' for m in ms):
+            n_dimensional += 1
+    # TODO: make this configurable
+    if n_dimensional > n/2:
+        return True
+    else:
+        return False
+
+
 def infer_range(slot: dict, vals: set, types: dict) -> str:
     nn_vals = [v for v in vals if v is not None and v != ""]
     if len(nn_vals) == 0:
@@ -162,6 +233,10 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
         return 'integer'
     if all(is_date(v) for v in nn_vals):
         return 'datetime'
+    if all(isfloat(v) for v in nn_vals):
+        return 'float'
+    if is_all_measurement(nn_vals):
+        return 'measurement'
     v0 = nn_vals[0]
     db = get_db(v0)
     if db is not None:
@@ -192,8 +267,9 @@ def is_date(string, fuzzy=False):
     try:
         parse(string, fuzzy=fuzzy)
         return True
-
-    except ValueError:
+    except Exception:
+        # https://stackoverflow.com/questions/4990718/how-can-i-write-a-try-except-block-that-catches-all-exceptions
+        # we don't know all the different parse exceptions, we assume any error means this is a date
         return False
 
 @dataclass
@@ -250,8 +326,8 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
         id = hit['semanticTags'][0]
         if confidence >= confidence_threshold:
             hit = Hit(term_id= id,
-                            name= hit['annotatedProperty']['propertyValue'],
-                            score= confidence)
+                      name= hit['annotatedProperty']['propertyValue'],
+                      score= confidence)
             hits.append(hit)
         else:
             logging.warning(f'Skipping {id} {confidence}')
@@ -290,30 +366,16 @@ def infer_enum_meanings(schema: dict,
                         pv['description'] = hit.name
 
 
-def merge_schemas(schemas):
-    schema = copy.deepcopy(schemas[0])
-    for s in schemas:
-        for n,x in s['classes'].items():
-            if n not in schema['classes']:
-                schema['classes'][n] = x
-        for n,x in s['slots'].items():
-            if n not in schema['slots']:
-                schema['slots'][n] = x
-            else:
-                None # TODO
-        for n,x in s['types'].items():
-            if n not in schema['types']:
-                schema['types'][n] = x
-            else:
-                None # TODO
-        for n,x in s['enums'].items():
-            if n not in schema['enums']:
-                schema['enums'][n] = x
-            else:
-                None # TODO
-    return schema
 
 
+def add_missing_to_schema(schema: dict):
+    for slot in schema['slots'].values():
+        if slot.get('range', None) == 'measurement':
+            types = schema['types']
+            if 'measurement' not in types:
+                types['measurement'] = \
+                    {'typeof': 'string',
+                     'description': 'Holds a measurement serialized as a string'}
 
 @click.group()
 def main():
@@ -321,30 +383,44 @@ def main():
 
 @main.command()
 @click.argument('tsvfile') ## input TSV (must have column headers
+@click.option('--output', '-o', help='Output file')
 @click.option('--class_name', '-c', default='example', help='Core class name in schema')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def tsv2model(tsvfile, **args):
+def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
     """ Infer a model from a TSV """
-    yamlobj = infer_model(tsvfile, **args)
-    print(yaml.dump(yamlobj, default_flow_style=False, sort_keys=False))
+    ie = CsvDataImportEngine(**kwargs)
+    schema_dict = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
+    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
+    if output:
+        with open(output, 'w') as stream:
+            stream.write(ys)
+    else:
+        print(ys)
 
 @main.command()
 @click.argument('tsvfiles', nargs=-1) ## input TSV (must have column headers
+@click.option('--output', '-o', help='Output file')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
-@click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
+@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def tsvs2model(tsvfiles, **args):
-    """ Infer a model from a TSV """
-    yamlobjs = []
-    for tsvfile in tsvfiles:
-        c = os.path.splitext(os.path.basename(tsvfile))[0]
-        yamlobjs.append(infer_model(tsvfile, class_name=c, **args))
-    yamlobj = merge_schemas(yamlobjs)
-    print(yaml.dump(yamlobj, default_flow_style=False, sort_keys=False))
+def tsvs2model(tsvfiles, output, schema_name, **kwargs):
+    """ Infer a model from multiple TSVs """
+    ie = CsvDataImportEngine(**kwargs)
+    schema_dict = ie.convert_multiple(tsvfiles, schema_name=schema_name)
+    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
+    if output:
+        with open(output, 'w') as stream:
+            stream.write(ys)
+    else:
+        print(ys)
+
 
 @main.command()
 @click.argument('yamlfile')

@@ -1,0 +1,33 @@
+name: Check Pull Request
+
+# Controls when the action will run. Triggers the workflow on pull requests.
+on:
+  pull_request:
+    branches:
+      - main
+  repository_dispatch:
+    types: trigger-check-pull-request
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Make test
+    - name: Make test
+      run: |
+        make test

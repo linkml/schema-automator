@@ -1,112 +1,126 @@
-# LinkML Model Enrichments
+# LinkML Model Enrichment (Beta)
 
-## Reccomended Installation
+This is a toolkit that assists with:
+
+ 1. Bootstrapping LinkML models from instance data
+    - TSVs and spreadsheets
+    - SQLite databases
+    - RDF instance graphs
+ 2. Bootstrapping a LinkML model from a different schema representation (i.e. opposite of a linkml.generator)
+    - OWL (RDFS-like subset)
+    - TODO: JSON-Schema, XSD, ShEx, SHACL, SQL DDL, FHIR, Python dataclasses/pydantic, etc
+ 3. Using automated methods to enhance a model
+    - Using text mining and concept annotator APIs to enrich semantic enums
+    - TODO: querying sparql endpoints to retrieve additional metadata
+
+These can be composed together. For example, run `tsvs2linkml` followed by `annotate-enums`
+
+The toolkit is still experimental. It is intended as an aid to schema creation rather than act as a formal conversion tool
+
+## Installation
 
 `linkml-model-enrichment` and its components require Python 3.9 or greater.
 
 ```bash
-git clone https://github.com/linkml/linkml-model-enrichment
-cd linkml_model_enrichment
-python3.9 -m venv venv
-source venv/bin/activate
+. environment.sh
 pip install -r requirements.txt 
 ```
 
-_More to come_
+## Command Line Usage
 
-_Makefile is not totally relevant anymore_
+### Annotating Enums
 
-_some unnecessary modules may be present in the requirements.txt_
+This toolkit allows automated annotation of LinkML enums, mapping text strings to ontology terms.
 
-----
+The command line tool `annotate-enums` takes a LinkML schema, with enums and fills in the `meaning` slots.
 
-_Tests temporarily disabled_
+See the [annotators](linkml_model_enrichment/annotators/) folder for docs
 
-[![Python](https://img.shields.io/badge/python-3.7+-blue.svg)]()
-![Run tests](https://github.com/linkml/linkml-model-enrichment/workflows/Run%20tests/badge.svg)[![Documentation Status](https://readthedocs.org/projects/linkml_model_enrichment/badge/?version=latest)](https://linkml_model_enrichment.readthedocs.io/en/latest/?badge=latest)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=alert_status)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=biolink_linkml_model_enrichment&metric=coverage)](https://sonarcloud.io/dashboard?id=biolink_linkml_model_enrichment)
-[![PyPI](https://img.shields.io/pypi/v/linkml_model_enrichment)](https://img.shields.io/pypi/v/linkml_model_enrichment)
-[![Docker](https://img.shields.io/static/v1?label=Docker&message=linkml/linkml-model-enrichment:latest&color=orange&logo=docker)](https://hub.docker.com/r/linkml/linkml-model-enrichment)
+### Converting TSVs
 
-
-## Installation
-
-
-### Installation for users
-
-
-#### Installing from PyPI
-
-_Not deployed to PyPI yet_
-
-LINKML_MODEL_ENRICHMENT is available on PyPI and can be installed using
-[pip](https://pip.pypa.io/en/stable/installing/) as follows,
+The `tsv2linkml` command infers a single-class schema from a file TSV datafile
 
 ```bash
-pip install linkml_model_enrichment
+$ tsv2linkml --help
+Usage: tsv2linkml [OPTIONS] TSVFILE
+
+  Infer a model from a TSV
+
+Options:
+  -o, --output TEXT        Output file
+  -c, --class_name TEXT    Core class name in schema
+  -n, --schema_name TEXT   Schema name
+  -s, --sep TEXT           separator
+  -E, --enum-columns TEXT  column that is forced to be an enum
+  --robot / --no-robot     set if the TSV is a ROBOT template
+  --help                   Show this message and exit.
 ```
 
-To install a particular version of LINKML_MODEL_ENRICHMENT, be sure to specify the version number,
+Example:
 
 ```bash
-pip install linkml_model_enrichment==0.5.0
+tsv2linkml tests/resources/biobank-specimens.tsv 
+```
+
+The `tsvs2linkml` command infers a multi-class schema from multiple TSV datafiles
+
+```
+$ tsvs2linkml --help
+Usage: tsvs2linkml [OPTIONS] [TSVFILES]...
+
+  Infer a model from multiple TSVs
+
+Options:
+  -o, --output TEXT         Output file
+  -n, --schema_name TEXT    Schema name
+  -s, --sep TEXT            separator
+  -E, --enum-columns TEXT   column(s) that is forced to be an enum
+  --enum-mask-columns TEXT  column(s) that are excluded from being enums
+  --max-enum-size INTEGER   do not create an enum if more than max distinct
+                            members
+
+  --enum-threshold FLOAT    if the number of distinct values / rows is less
+                            than this, do not make an enum
+
+  --robot / --no-robot      set if the TSV is a ROBOT template
+  --help                    Show this message and exit.
 ```
 
 
-#### Installing from GitHub
-
-_See new, less-automated installation directions above_
-
-Clone the GitHub repository and then install,
+### Converting OWL
 
 ```bash
-git clone https://github.com/linkml/linkml-model-enrichment
-cd linkml_model_enrichment
-python setup.py install
+$ owl2linkml --help
+Usage: owl2linkml [OPTIONS] OWLFILE
+
+  Infer a model from OWL Ontology
+
+  Note: input must be in functional syntax
+
+Options:
+  -n, --name TEXT  Schema name
+  --help           Show this message and exit.
 ```
 
-
-### Installation for developers
-
-_See new, less-automated installation directions above_
-
-#### Setting up a development environment
-
-To build directly from source, first clone the GitHub repository,
+Example:
 
 ```bash
-git clone https://github.com/linkml/linkml-model-enrichment
-cd linkml_model_enrichment
+owl2linkml -n prov tests/resources/prov.ofn > prov.yaml
 ```
 
-Then install the necessary dependencies listed in ``requirements.txt``,
+Note this works best on schema-style ontologies such as Prov
+
+**NOT** recommended for terminological-style ontologies such as OBO
+
+### Converting RDF instance graphs
 
 ```bash
-pip3 install -r requirements.txt
+$ rdf2linkml --help
+Usage: rdf2linkml [OPTIONS] RDFFILE
+
+  Infer a model from RDF instance data
+
+Options:
+  -d, --dir TEXT  [required]
+  --help          Show this message and exit.
 ```
-
-
-For convenience, make use of the `venv` module in Python3 to create a
-lightweight virtual environment,
-
-```
-python3 -m venv env
-source env/bin/activate
-
-pip install -r requirements.txt
-```
-
-To install LINKML_MODEL_ENRICHMENT you can do one of the following,
-
-```bash
-pip install .
-
-# OR 
-
-python setup.py install
-```
-
-### Setting up a testing environment
-

@@ -21,6 +21,7 @@ click_log.basic_config(logger)
 pds.set_option('display.expand_frame_repr', False)
 
 global inferred_model, ecg, opg, rrg, qfg, mdg, omg
+ecg = None
 failures = []
 
 cols2display = ['enum_class', 'orig_enum', 'query', 'obo_id', 'pref_lab',
@@ -75,7 +76,8 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
         logger.info(temp)
 
         # tidied_enum = re.sub(r'[_,.\-;@#?!&$ ]+', ' ', orig_enum)
-        tidied_enum = re.sub(r'[' + ecg + ']+', ' ', orig_enum)
+        if ecg is not None:
+            tidied_enum = re.sub(r'[' + ecg + ']+', ' ', orig_enum)
 
         ontologies_phrase = ''
         if len(opg) > 1:

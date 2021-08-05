@@ -1,0 +1,35 @@
+name: Build and Deploy Static Mkdocs Documentation
+
+# Controls when the action will run. Triggers the workflow on pull request
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'mkdocs.yml'
+      - 'src/schema/*.yaml'
+      - 'src/docs/*'
+
+  repository_dispatch:
+    types: trigger-build-deploy-documentation
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          
+      # install dependencies
+      - run: pip install --upgrade pip
+      - run: pip install mkdocs
+      - run: pip install linkml
+        
+      # generate markdown files
+      - run: make stage-docs
+
+      # deploy documentation (note: requires documentation is in docs dir)
+      - run: make gh-deploy
