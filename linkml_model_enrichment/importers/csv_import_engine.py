@@ -13,31 +13,21 @@ from csv import DictWriter
 from dateutil.parser import parse
 from quantulum3 import parser as q_parser
 from quantulum3.classes import Quantity
-
-
-
-from rdflib import Graph, URIRef
-from rdflib.query import ResultRow
-from rdflib.namespace import RDF, RDFS
-from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
-from funowl.converters.functional_converter import to_python
-from funowl import *
-
-
 from dataclasses import dataclass, field
 from linkml_model_enrichment.importers.import_engine import ImportEngine
+from linkml_model_enrichment.utils.schemautils import merge_schemas
 
 @dataclass
 class CsvDataImportEngine(ImportEngine):
 
-    sep = "\t"
+    sep: str = "\t"
     schema_name: str = 'example'
     robot: bool = False
     enum_columns: List[str] = field(default_factory=lambda: [])
     enum_mask_columns: List[str] = field(default_factory=lambda: [])
-    enum_threshold = 0.1
-    enum_strlen_threshold = 30
-    max_enum_size = 50
+    enum_threshold: float = 0.1
+    enum_strlen_threshold: int = 30
+    max_enum_size: int = 50
 
     def convert_multiple(self, files: List[str], **kwargs) -> Dict:
         yamlobjs = []
