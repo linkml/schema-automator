@@ -24,7 +24,9 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
                 schema_name: str = 'example',
                 robot:bool = False,
                 enum_columns: List[str]=[],
+                enum_mask_columns: List[str]=[],
                 enum_threshold=0.1,
+                enum_strlen_threshold=30,
                 max_enum_size=50) -> dict:
     with open(tsvfile, newline='') as tsvfile:
         rr = csv.DictReader(tsvfile, delimiter=sep)
@@ -41,7 +43,10 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
                     robot_defs[k] = v
                 continue
             for k,v in row.items():
-                vs = v.split('|')
+                if isinstance(v, list):
+                    vs = v
+                else:
+                    vs = v.split('|')
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_values[k] = set()
@@ -52,13 +57,14 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
                     slots[k]['multivalued'] = True
         types = {}
         new_slots = {}
-        for sn,s in slots.items():
+        for sn, s in slots.items():
             vals = slot_values[sn]
             s['range'] = infer_range(s, vals, types)
-            if s['range'] == 'string' or sn in enum_columns:
+            if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 n_distinct = len(vals)
+                longest = max([len(str(v)) for v in vals]) if n_distinct > 0 else 0
                 if sn in enum_columns or \
-                        ((n_distinct / n) < enum_threshold and n_distinct <= max_enum_size):
+                        ((n_distinct / n) < enum_threshold and n_distinct <= max_enum_size and longest < enum_strlen_threshold):
                     enum_name = sn.replace(' ', '_').replace('(s)', '')
                     enum_name = f'{enum_name}_enum'
                     s['range'] = enum_name
@@ -119,7 +125,7 @@ def infer_model(tsvfile: str, sep="\t", class_name='example',
         'description': schema_name,
         'imports': ['linkml:types'],
         'prefixes': {
-            'linkml': 'https://w3id.org/link/linkml/',
+            'linkml': 'https://w3id.org/linkml/',
             schema_name: f'https://w3id.org/{schema_name}'
         },
         'default_prefix': schema_name,
@@ -290,7 +296,7 @@ def infer_enum_meanings(schema: dict,
                         pv['description'] = hit.name
 
 
-def merge_schemas(schemas):
+def merge_schemas(schemas, nomerge_enums_for=[]):
     schema = copy.deepcopy(schemas[0])
     for s in schemas:
         for n,x in s['classes'].items():
@@ -300,7 +306,14 @@ def merge_schemas(schemas):
             if n not in schema['slots']:
                 schema['slots'][n] = x
             else:
-                None # TODO
+                cur_slot = schema['slots'][n]
+                if 'range' in cur_slot and 'range' in x:
+                    if cur_slot['range'] != x['range']:
+                        logging.error(f'Inconsistent ranges: {cur_slot} vs {x}')
+                        if cur_slot['range'] == 'string':
+                            cur_slot['range'] = x['range']
+                elif 'range' not in cur_slot:
+                    cur_slot['range'] = x['range']
         for n,x in s['types'].items():
             if n not in schema['types']:
                 schema['types'][n] = x
@@ -335,7 +348,10 @@ def tsv2model(tsvfile, **args):
 @click.argument('tsvfiles', nargs=-1) ## input TSV (must have column headers
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
-@click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
+@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def tsvs2model(tsvfiles, **args):
     """ Infer a model from a TSV """
