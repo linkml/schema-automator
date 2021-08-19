@@ -1,7 +1,6 @@
-# greater than or eq to, not pinned
 click >= 7.1.2
-dataclasses >= 0.6
-linkml >= 1.0.0
+dataclasses
+linkml >= 1.0.3
 linkml-model
 mkdocs
 pandas >= 1.2.3
@@ -13,6 +12,6 @@ setuptools >= 54.2.0
 strsimpy >= 0.2.0
 psycopg2-binary
 click_log
-funowl == 0.1.6
+funowl >= 0.1.9
 quantulum3
 pytest

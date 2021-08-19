@@ -29,3 +29,4 @@ class TestOwlImport(unittest.TestCase):
         with open(OUTSCHEMA_ENHANCED, 'w') as stream:
             stream.write(s)
 
+

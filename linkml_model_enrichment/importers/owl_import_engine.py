@@ -12,6 +12,7 @@ from rdflib.namespace import RDF, RDFS
 from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
 from funowl.converters.functional_converter import to_python
 from funowl import *
+import funowl
 
 
 from dataclasses import dataclass
@@ -105,6 +106,7 @@ class OwlImportEngine(ImportEngine):
                 if isinstance(dc, Class):
                     c = self.iri_to_name(dc)
                     self.class_info(c, 'slots', sn, True)
+                    #logging.error(f'Inferred {c} from domain of {p}')
                 if isinstance(dc, ObjectUnionOf):
                     for x in dc.classExpressions:
                         if isinstance(x, Class):
@@ -131,15 +133,12 @@ class OwlImportEngine(ImportEngine):
                                'range', self.iri_to_name(a.range))
 
 
-
-
-
             if isinstance(a, Declaration):
                 e = a.v
-                if isinstance(e, Class):
+                if type(e) == Class:
                     cn = self.iri_to_name(e.v)
                     self.class_info(cn, 'class_uri', str(e.v))
-                if isinstance(e, ObjectProperty) or isinstance(e, DataProperty) or isinstance(e, AnnotationProperty):
+                if type(e) in [ObjectProperty, DataProperty, AnnotationProperty]:
                     cn = self.iri_to_name(e.v)
                     self.slot_info(cn, 'slot_uri', str(e.v))
 
@@ -219,7 +218,8 @@ class OwlImportEngine(ImportEngine):
 @click.command()
 @click.argument('owlfile')
 @click.option('--name', '-n', help="Schema name")
-def owl2model(owlfile, **args):
+@click.option('--output', '-o', help="Path to saved yaml schema")
+def owl2model(owlfile, output, **args):
     """
     Infer a model from OWL Ontology
 
@@ -228,7 +228,11 @@ def owl2model(owlfile, **args):
     sie = OwlImportEngine()
     schema_dict = sie.convert(owlfile, **args)
     ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    print(ys)
+    if output:
+        with open(output, 'w') as stream:
+            stream.write(ys)
+    else:
+        print(ys)
 
 if __name__ == '__main__':
     rdf2model()
