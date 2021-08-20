@@ -8,6 +8,8 @@ import re
 import csv
 import copy
 import requests
+import pandas as pd
+import numpy as np
 
 from csv import DictWriter
 from dateutil.parser import parse
@@ -16,6 +18,32 @@ from quantulum3.classes import Quantity
 from dataclasses import dataclass, field
 from linkml_model_enrichment.importers.import_engine import ImportEngine
 from linkml_model_enrichment.utils.schemautils import merge_schemas
+
+ID_SUFFIX = '_id'
+
+@dataclass
+class ForeignKey:
+    source_table: str
+    source_column: str
+    target_table: str
+    target_column: str
+    num_distinct_values: int
+    range: str = None
+
+    def score(self):
+        s = 0
+        if self.source_table == self.target_table:
+            s -= 1
+        if self.source_column.lower().endswith(ID_SUFFIX):
+            s += 1
+        if self.target_column.lower().endswith(ID_SUFFIX) or self.target_column.lower() == 'id':
+            s += 1
+        if self.source_column.lower().startswith(self.target_table.lower()):
+            s += 2
+        if self.range != 'string' and self.range != 'integer':
+            s -= 1
+        return s
+
 
 @dataclass
 class CsvDataImportEngine(ImportEngine):
@@ -28,22 +56,157 @@ class CsvDataImportEngine(ImportEngine):
     enum_threshold: float = 0.1
     enum_strlen_threshold: int = 30
     max_enum_size: int = 50
+    downcase_header: bool = False
+    infer_foreign_keys: bool = False
+    max_pk_len: int = 60   # URIs can be long..
+    min_distinct_fk_val: int = 8
 
-    def convert_multiple(self, files: List[str], **kwargs) -> Dict:
-        yamlobjs = []
+    def infer_linkages(self, files: List[str], **kwargs) -> List[ForeignKey]:
+        """
+        Heuristic procedure for determining which tables are linked to others via implicit foreign keys
+
+        If all values of one column FT.FC are present in column PT.PC, then FT.FC is a potential foreign key
+        and PC is a potential primary key of PT.
+
+        This procedure can generate false positives, so additional heuristics are applied. Each potential
+        foreign key relationship gets an ad-hoc score:
+         - links across tables score more highly than within
+         - suffixes such as _id are more likely on PK and FK tables
+         - the foreign key column table is likely to start with the base column name
+        In addition, if there are competing primary keys for a table, the top scoring one is selected
+        """
+        fks: List[ForeignKey] = []
+        MAX_PK_LEN = self.max_pk_len
+        dfs: Dict[str, pd.DataFrame] = {}
+
         for file in files:
             c = os.path.splitext(os.path.basename(file))[0]
-            s = self.convert(file, class_name=c, **kwargs)
-            if s is not None:
-                yamlobjs.append(s)
-        return merge_schemas(yamlobjs)
+            if self.downcase_header:
+                c = c.lower()
+            print(f'READING {file} ')
+            df = pd.read_csv(file, sep=self.sep).fillna("")
+            if self.downcase_header:
+                df = df.rename(columns=str.lower)
+            exclude = []
+            for col in df.columns:
+                vals = set(df[col].tolist())
+                if len(vals) < self.min_distinct_fk_val:
+                    print(f'EXCLUDING {col} (too few, len = {len(vals)})')
+                    exclude.append(col)
+                    continue
+                max_str_len = max([len(str(x)) for x in vals])
+                if max_str_len > MAX_PK_LEN:
+                    print(f'EXCLUDING {col} (len {max_str_len} > {MAX_PK_LEN}) sample: {list(vals)[0:5]}')
+                    #for v in vals:
+                    #    if len(str(v)) == max_str_len:
+                    #        print(f'  WITNESS: {v}')
+                    exclude.append(col)
+                    continue
+                if any(' ' in str(x) for x in vals ):
+                    print(f'EXCLUDING {col} (has spaces)')
+                    exclude.append(col)
+                    continue
+            for col in exclude:
+                del df[col]
+                print(f'Excluding: {col}')
+            dfs[c] = df
+        for t_primary, df_primary in dfs.items():
+            for candidate_pk in df_primary.columns:
+                candidate_pk_vals = set(df_primary[candidate_pk].tolist())
+                candidate_pk_range = infer_range({}, candidate_pk_vals, {})
+                print(f'Candidate PK {t_primary}.{candidate_pk} ')
+                for t_foreign, df_foreign in dfs.items():
+                    print(f' Candidate FK table {t_foreign} ')
+                    for candidate_fk in df_foreign.columns:
+                        print(f'  Candidate FK col {candidate_fk} ')
+                        if t_primary == t_foreign and candidate_pk == candidate_fk:
+                            print(f'   SKIP (identical) {candidate_fk} ')
+                            continue
+                        candidate_fk_vals = set(df_foreign[candidate_fk].tolist())
+                        logging.error(f'    Candidate FK {t_foreign}.{candidate_fk}')
+                        is_fk = True
+                        for v in candidate_fk_vals:
+                            if v is None or v == '':
+                                continue
+                            if v not in candidate_pk_vals:
+                                print(f'    {v} not in candidates')
+                                is_fk = False
+                            if not is_fk:
+                                break
+                        if is_fk:
+                            print(f'    all {len(candidate_fk_vals)} fk vals in {len(candidate_pk_vals)} pks')
+                            fks.append(ForeignKey(source_table=t_foreign,
+                                                  source_column=candidate_fk,
+                                                  target_table=t_primary,
+                                                  target_column=candidate_pk,
+                                                  num_distinct_values=len(candidate_fk_vals),
+                                                  range=candidate_pk_range))
+
+        pk_tables = set([fk.target_table for fk in fks])
+        for pk_table in pk_tables:
+            s = defaultdict(float)
+            max_s = -1000
+            for fk in fks:
+                if fk.target_table == pk_table:
+                    s[fk.target_column] += fk.score()
+                    if s[fk.target_column] > max_s:
+                        max_s = s[fk.target_column]
+            pk_col, _ = sorted(s.items(), key=lambda item: -item[1])[0]
+            print(f'SELECTED pk col {pk_col} for {pk_table}; scores = {s}')
+            fks = [fk for fk in fks if not (fk.target_table == pk_table and fk.target_column != pk_col)]
+        fks = [fk for fk in fks if fk.score() > 0]
+        print(f'FILTERED: {fks}')
+        return fks
+
+
+    def inject_foreign_keys(self, schema_dict: Dict, fks: List[ForeignKey]) -> None:
+        for fk in fks:
+            # TODO: deal with cases where the same slot is used in different classes
+            src_cls = schema_dict['classes'][fk.source_table]
+            src_slot = schema_dict['slots'][fk.source_column]
+            if 'slot_usage' not in src_cls:
+                src_cls['slot_usage'] = {}
+            src_cls['slot_usage'][fk.source_column] = {'range': fk.target_table}
+            #src_slot['range'] = fk.target_table
+            tgt_cls = schema_dict['classes'][fk.target_table]
+            tgt_slot = schema_dict['slots'][fk.target_column]
+            if 'slot_usage' not in tgt_cls:
+                tgt_cls['slot_usage'] = {}
+            tgt_cls['slot_usage'][fk.target_column] = {'identifier': True}
+            #tgt_slot['identifier'] = True
+
+
+
 
     def convert(self, file: str, **kwargs)-> Dict:
         with open(file, newline='') as tsvfile:
             rr = csv.DictReader(tsvfile, delimiter=self.sep)
             return self.convert_dicts([r for r in rr], **kwargs)
 
-    def convert_dicts(self, rr: List[Dict], name: str = 'example', class_name: str = 'example', **kwargs) -> Optional[Dict]:
+    def convert_multiple(self, files: List[str], **kwargs) -> Dict:
+        if self.infer_foreign_keys:
+            fks = self.infer_linkages(files)
+        else:
+            fks = ()
+        yamlobjs = []
+        for file in files:
+            c = os.path.splitext(os.path.basename(file))[0]
+            if self.downcase_header:
+                c = c.lower()
+            s = self.convert(file, class_name=c, **kwargs)
+            if s is not None:
+                yamlobjs.append(s)
+        s = merge_schemas(yamlobjs)
+        self.inject_foreign_keys(s, fks)
+        return s
+
+    def convert(self, file: str, **kwargs)-> Dict:
+        with open(file, newline='') as tsvfile:
+            rr = csv.DictReader(tsvfile, delimiter=self.sep)
+            return self.convert_dicts([r for r in rr], **kwargs)
+
+    def convert_dicts(self, rr: List[Dict], name: str = 'example',
+                      class_name: str = 'example', **kwargs) -> Optional[Dict]:
         slots = {}
         slot_values = {}
         n = 0
@@ -56,6 +219,8 @@ class CsvDataImportEngine(ImportEngine):
         if len(rr) == 0:
             return None
         for row in rr:
+            if self.downcase_header:
+                row = {k.lower(): v for k, v in row.items()}
             n += 1
             if n == 1 and self.robot:
                 for k,v in row.items():
@@ -176,7 +341,7 @@ def capture_robot_some(s: str) -> str:
     :param s:
     :return:
     """
-    results = re.findall('(\S+) some %',s)
+    results = re.findall('(\\S+) some %',s)
     if len(results) == 0:
         return None
     else:
@@ -229,6 +394,10 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
     nn_vals = [v for v in vals if v is not None and v != ""]
     if len(nn_vals) == 0:
         return 'string'
+    if all(isinstance(v, int) for v in nn_vals):
+        return 'integer'
+    if all(isinstance(v, float) for v in nn_vals):
+        return 'float'
     if all(v.isdigit() for v in nn_vals):
         return 'integer'
     if all(is_date(v) for v in nn_vals):
@@ -314,7 +483,7 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
     # zooma doesn't seem to do much pre-processing, so we convert
     label = v
     if 'SARS-CoV' not in label:
-        label = re.sub("([a-z])([A-Z])","\g<1> \g<2>",label) # expand CamelCase
+        label = re.sub("([a-z])([A-Z])","<1> <2>",label) # expand CamelCase
     label = label.replace('.', ' ').replace('_', ' ')
     params = {'propertyValue': label}
     time.sleep(1) # don't overload service
@@ -387,6 +556,7 @@ def main():
 @click.option('--class_name', '-c', default='example', help='Core class name in schema')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
@@ -405,6 +575,8 @@ def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
 @click.option('--output', '-o', help='Output file')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
+@click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
 @click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 @click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')

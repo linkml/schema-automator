@@ -1,0 +1,1920 @@
+Prefix(:=<http://www.w3.org/ns/shacl#>)
+Prefix(sh:=<http://www.w3.org/ns/shacl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.w3.org/ns/shacl#>
+Annotation(rdfs:comment "This vocabulary defines terms used in SHACL, the W3C Shapes Constraint Language."@en)
+Annotation(rdfs:label "W3C Shapes Constraint Language (SHACL) Vocabulary"@en)
+
+Declaration(Class(rdf:List))
+Declaration(Class(rdf:Property))
+Declaration(Class(rdfs:Class))
+Declaration(Class(rdfs:Datatype))
+Declaration(Class(rdfs:Resource))
+Declaration(Class(owl:Ontology))
+Declaration(Class(sh:AbstractResult))
+Declaration(Class(sh:ConstraintComponent))
+Declaration(Class(sh:Function))
+Declaration(Class(sh:JSConstraint))
+Declaration(Class(sh:JSExecutable))
+Declaration(Class(sh:JSFunction))
+Declaration(Class(sh:JSLibrary))
+Declaration(Class(sh:JSRule))
+Declaration(Class(sh:JSTarget))
+Declaration(Class(sh:JSTargetType))
+Declaration(Class(sh:JSValidator))
+Declaration(Class(sh:NodeKind))
+Declaration(Class(sh:NodeShape))
+Declaration(Class(sh:Parameter))
+Declaration(Class(sh:Parameterizable))
+Declaration(Class(sh:PrefixDeclaration))
+Declaration(Class(sh:PropertyGroup))
+Declaration(Class(sh:PropertyShape))
+Declaration(Class(sh:ResultAnnotation))
+Declaration(Class(sh:Rule))
+Declaration(Class(sh:SPARQLAskExecutable))
+Declaration(Class(sh:SPARQLAskValidator))
+Declaration(Class(sh:SPARQLConstraint))
+Declaration(Class(sh:SPARQLConstructExecutable))
+Declaration(Class(sh:SPARQLExecutable))
+Declaration(Class(sh:SPARQLFunction))
+Declaration(Class(sh:SPARQLRule))
+Declaration(Class(sh:SPARQLSelectExecutable))
+Declaration(Class(sh:SPARQLSelectValidator))
+Declaration(Class(sh:SPARQLTarget))
+Declaration(Class(sh:SPARQLTargetType))
+Declaration(Class(sh:SPARQLUpdateExecutable))
+Declaration(Class(sh:Severity))
+Declaration(Class(sh:Shape))
+Declaration(Class(sh:Target))
+Declaration(Class(sh:TargetType))
+Declaration(Class(sh:TripleRule))
+Declaration(Class(sh:ValidationReport))
+Declaration(Class(sh:ValidationResult))
+Declaration(Class(sh:Validator))
+Declaration(ObjectProperty(sh:alternativePath))
+Declaration(ObjectProperty(sh:and))
+Declaration(ObjectProperty(sh:annotationProperty))
+Declaration(ObjectProperty(sh:class))
+Declaration(ObjectProperty(sh:condition))
+Declaration(ObjectProperty(sh:datatype))
+Declaration(ObjectProperty(sh:declare))
+Declaration(ObjectProperty(sh:detail))
+Declaration(ObjectProperty(sh:disjoint))
+Declaration(ObjectProperty(sh:entailment))
+Declaration(ObjectProperty(sh:equals))
+Declaration(ObjectProperty(sh:filterShape))
+Declaration(ObjectProperty(sh:group))
+Declaration(ObjectProperty(sh:ignoredProperties))
+Declaration(ObjectProperty(sh:in))
+Declaration(ObjectProperty(sh:inversePath))
+Declaration(ObjectProperty(sh:js))
+Declaration(ObjectProperty(sh:jsLibrary))
+Declaration(ObjectProperty(sh:languageIn))
+Declaration(ObjectProperty(sh:lessThan))
+Declaration(ObjectProperty(sh:lessThanOrEquals))
+Declaration(ObjectProperty(sh:node))
+Declaration(ObjectProperty(sh:nodeKind))
+Declaration(ObjectProperty(sh:nodeValidator))
+Declaration(ObjectProperty(sh:not))
+Declaration(ObjectProperty(sh:oneOrMorePath))
+Declaration(ObjectProperty(sh:or))
+Declaration(ObjectProperty(sh:parameter))
+Declaration(ObjectProperty(sh:path))
+Declaration(ObjectProperty(sh:prefixes))
+Declaration(ObjectProperty(sh:property))
+Declaration(ObjectProperty(sh:propertyValidator))
+Declaration(ObjectProperty(sh:qualifiedValueShape))
+Declaration(ObjectProperty(sh:result))
+Declaration(ObjectProperty(sh:resultAnnotation))
+Declaration(ObjectProperty(sh:resultPath))
+Declaration(ObjectProperty(sh:resultSeverity))
+Declaration(ObjectProperty(sh:returnType))
+Declaration(ObjectProperty(sh:rule))
+Declaration(ObjectProperty(sh:severity))
+Declaration(ObjectProperty(sh:shapesGraph))
+Declaration(ObjectProperty(sh:sourceConstraintComponent))
+Declaration(ObjectProperty(sh:sourceShape))
+Declaration(ObjectProperty(sh:sparql))
+Declaration(ObjectProperty(sh:suggestedShapesGraph))
+Declaration(ObjectProperty(sh:target))
+Declaration(ObjectProperty(sh:targetClass))
+Declaration(ObjectProperty(sh:targetObjectsOf))
+Declaration(ObjectProperty(sh:targetSubjectsOf))
+Declaration(ObjectProperty(sh:validator))
+Declaration(ObjectProperty(sh:xone))
+Declaration(ObjectProperty(sh:zeroOrMorePath))
+Declaration(ObjectProperty(sh:zeroOrOnePath))
+Declaration(DataProperty(sh:annotationVarName))
+Declaration(DataProperty(sh:ask))
+Declaration(DataProperty(sh:closed))
+Declaration(DataProperty(sh:conforms))
+Declaration(DataProperty(sh:construct))
+Declaration(DataProperty(sh:deactivated))
+Declaration(DataProperty(sh:flags))
+Declaration(DataProperty(sh:jsFunctionName))
+Declaration(DataProperty(sh:jsLibraryURL))
+Declaration(DataProperty(sh:maxCount))
+Declaration(DataProperty(sh:maxLength))
+Declaration(DataProperty(sh:minCount))
+Declaration(DataProperty(sh:minLength))
+Declaration(DataProperty(sh:namespace))
+Declaration(DataProperty(sh:optional))
+Declaration(DataProperty(sh:pattern))
+Declaration(DataProperty(sh:prefix))
+Declaration(DataProperty(sh:qualifiedMaxCount))
+Declaration(DataProperty(sh:qualifiedMinCount))
+Declaration(DataProperty(sh:qualifiedValueShapesDisjoint))
+Declaration(DataProperty(sh:select))
+Declaration(DataProperty(sh:shapesGraphWellFormed))
+Declaration(DataProperty(sh:uniqueLang))
+Declaration(DataProperty(sh:update))
+Declaration(NamedIndividual(xsd:boolean))
+Declaration(NamedIndividual(xsd:integer))
+Declaration(NamedIndividual(xsd:string))
+Declaration(NamedIndividual(<http://www.w3.org/ns/shacl#>))
+Declaration(NamedIndividual(sh:AndConstraintComponent))
+Declaration(NamedIndividual(sh:AndConstraintComponent-and))
+Declaration(NamedIndividual(sh:BlankNode))
+Declaration(NamedIndividual(sh:BlankNodeOrIRI))
+Declaration(NamedIndividual(sh:BlankNodeOrLiteral))
+Declaration(NamedIndividual(sh:ClassConstraintComponent))
+Declaration(NamedIndividual(sh:ClassConstraintComponent-class))
+Declaration(NamedIndividual(sh:ClosedConstraintComponent))
+Declaration(NamedIndividual(sh:ClosedConstraintComponent-closed))
+Declaration(NamedIndividual(sh:ClosedConstraintComponent-ignoredProperties))
+Declaration(NamedIndividual(sh:DatatypeConstraintComponent))
+Declaration(NamedIndividual(sh:DatatypeConstraintComponent-datatype))
+Declaration(NamedIndividual(sh:DisjointConstraintComponent))
+Declaration(NamedIndividual(sh:DisjointConstraintComponent-disjoint))
+Declaration(NamedIndividual(sh:EqualsConstraintComponent))
+Declaration(NamedIndividual(sh:EqualsConstraintComponent-equals))
+Declaration(NamedIndividual(sh:ExpressionConstraintComponent))
+Declaration(NamedIndividual(sh:ExpressionConstraintComponent-expression))
+Declaration(NamedIndividual(sh:HasValueConstraintComponent))
+Declaration(NamedIndividual(sh:HasValueConstraintComponent-hasValue))
+Declaration(NamedIndividual(sh:IRI))
+Declaration(NamedIndividual(sh:IRIOrLiteral))
+Declaration(NamedIndividual(sh:InConstraintComponent))
+Declaration(NamedIndividual(sh:InConstraintComponent-in))
+Declaration(NamedIndividual(sh:Info))
+Declaration(NamedIndividual(sh:JSConstraint-js))
+Declaration(NamedIndividual(sh:JSConstraintComponent))
+Declaration(NamedIndividual(sh:LanguageInConstraintComponent))
+Declaration(NamedIndividual(sh:LanguageInConstraintComponent-languageIn))
+Declaration(NamedIndividual(sh:LessThanConstraintComponent))
+Declaration(NamedIndividual(sh:LessThanConstraintComponent-lessThan))
+Declaration(NamedIndividual(sh:LessThanOrEqualsConstraintComponent))
+Declaration(NamedIndividual(sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals))
+Declaration(NamedIndividual(sh:Literal))
+Declaration(NamedIndividual(sh:MaxCountConstraintComponent))
+Declaration(NamedIndividual(sh:MaxCountConstraintComponent-maxCount))
+Declaration(NamedIndividual(sh:MaxExclusiveConstraintComponent))
+Declaration(NamedIndividual(sh:MaxExclusiveConstraintComponent-maxExclusive))
+Declaration(NamedIndividual(sh:MaxInclusiveConstraintComponent))
+Declaration(NamedIndividual(sh:MaxInclusiveConstraintComponent-maxInclusive))
+Declaration(NamedIndividual(sh:MaxLengthConstraintComponent))
+Declaration(NamedIndividual(sh:MaxLengthConstraintComponent-maxLength))
+Declaration(NamedIndividual(sh:MinCountConstraintComponent))
+Declaration(NamedIndividual(sh:MinCountConstraintComponent-minCount))
+Declaration(NamedIndividual(sh:MinExclusiveConstraintComponent))
+Declaration(NamedIndividual(sh:MinExclusiveConstraintComponent-minExclusive))
+Declaration(NamedIndividual(sh:MinInclusiveConstraintComponent))
+Declaration(NamedIndividual(sh:MinInclusiveConstraintComponent-minInclusive))
+Declaration(NamedIndividual(sh:MinLengthConstraintComponent))
+Declaration(NamedIndividual(sh:MinLengthConstraintComponent-minLength))
+Declaration(NamedIndividual(sh:NodeConstraintComponent))
+Declaration(NamedIndividual(sh:NodeConstraintComponent-node))
+Declaration(NamedIndividual(sh:NodeKindConstraintComponent))
+Declaration(NamedIndividual(sh:NodeKindConstraintComponent-nodeKind))
+Declaration(NamedIndividual(sh:NotConstraintComponent))
+Declaration(NamedIndividual(sh:NotConstraintComponent-not))
+Declaration(NamedIndividual(sh:OrConstraintComponent))
+Declaration(NamedIndividual(sh:OrConstraintComponent-or))
+Declaration(NamedIndividual(sh:PatternConstraintComponent))
+Declaration(NamedIndividual(sh:PatternConstraintComponent-flags))
+Declaration(NamedIndividual(sh:PatternConstraintComponent-pattern))
+Declaration(NamedIndividual(sh:PropertyConstraintComponent))
+Declaration(NamedIndividual(sh:PropertyConstraintComponent-property))
+Declaration(NamedIndividual(sh:QualifiedMaxCountConstraintComponent))
+Declaration(NamedIndividual(sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount))
+Declaration(NamedIndividual(sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape))
+Declaration(NamedIndividual(sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint))
+Declaration(NamedIndividual(sh:QualifiedMinCountConstraintComponent))
+Declaration(NamedIndividual(sh:QualifiedMinCountConstraintComponent-qualifiedMinCount))
+Declaration(NamedIndividual(sh:QualifiedMinCountConstraintComponent-qualifiedValueShape))
+Declaration(NamedIndividual(sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint))
+Declaration(NamedIndividual(sh:SPARQLConstraintComponent))
+Declaration(NamedIndividual(sh:SPARQLConstraintComponent-sparql))
+Declaration(NamedIndividual(sh:UniqueLangConstraintComponent))
+Declaration(NamedIndividual(sh:UniqueLangConstraintComponent-uniqueLang))
+Declaration(NamedIndividual(sh:Violation))
+Declaration(NamedIndividual(sh:Warning))
+Declaration(NamedIndividual(sh:XoneConstraintComponent))
+Declaration(NamedIndividual(sh:XoneConstraintComponent-xone))
+Declaration(NamedIndividual(sh:and))
+Declaration(NamedIndividual(sh:class))
+Declaration(NamedIndividual(sh:closed))
+Declaration(NamedIndividual(sh:datatype))
+Declaration(NamedIndividual(sh:disjoint))
+Declaration(NamedIndividual(sh:equals))
+Declaration(NamedIndividual(sh:expression))
+Declaration(NamedIndividual(sh:flags))
+Declaration(NamedIndividual(sh:hasValue))
+Declaration(NamedIndividual(sh:ignoredProperties))
+Declaration(NamedIndividual(sh:in))
+Declaration(NamedIndividual(sh:js))
+Declaration(NamedIndividual(sh:languageIn))
+Declaration(NamedIndividual(sh:lessThan))
+Declaration(NamedIndividual(sh:lessThanOrEquals))
+Declaration(NamedIndividual(sh:maxCount))
+Declaration(NamedIndividual(sh:maxExclusive))
+Declaration(NamedIndividual(sh:maxInclusive))
+Declaration(NamedIndividual(sh:maxLength))
+Declaration(NamedIndividual(sh:minCount))
+Declaration(NamedIndividual(sh:minExclusive))
+Declaration(NamedIndividual(sh:minInclusive))
+Declaration(NamedIndividual(sh:minLength))
+Declaration(NamedIndividual(sh:node))
+Declaration(NamedIndividual(sh:nodeKind))
+Declaration(NamedIndividual(sh:not))
+Declaration(NamedIndividual(sh:or))
+Declaration(NamedIndividual(sh:pattern))
+Declaration(NamedIndividual(sh:property))
+Declaration(NamedIndividual(sh:qualifiedMaxCount))
+Declaration(NamedIndividual(sh:qualifiedMinCount))
+Declaration(NamedIndividual(sh:qualifiedValueShape))
+Declaration(NamedIndividual(sh:qualifiedValueShapesDisjoint))
+Declaration(NamedIndividual(sh:sparql))
+Declaration(NamedIndividual(sh:this))
+Declaration(NamedIndividual(sh:uniqueLang))
+Declaration(NamedIndividual(sh:xone))
+Declaration(NamedIndividual(<http://www.w3.org/ns/shacl-shacl#>))
+Declaration(AnnotationProperty(sh:annotationValue))
+Declaration(AnnotationProperty(sh:defaultValue))
+Declaration(AnnotationProperty(sh:description))
+Declaration(AnnotationProperty(sh:focusNode))
+Declaration(AnnotationProperty(sh:labelTemplate))
+Declaration(AnnotationProperty(sh:name))
+Declaration(AnnotationProperty(sh:object))
+Declaration(AnnotationProperty(sh:predicate))
+Declaration(AnnotationProperty(sh:resultMessage))
+Declaration(AnnotationProperty(sh:sourceConstraint))
+Declaration(AnnotationProperty(sh:subject))
+Declaration(AnnotationProperty(sh:targetNode))
+Declaration(AnnotationProperty(sh:value))
+############################
+#   Annotation Properties
+############################
+
+# Annotation Property: sh:annotationValue (annotation value)
+
+AnnotationAssertion(rdfs:comment sh:annotationValue "The (default) values of the annotation property."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:annotationValue <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:annotationValue "annotation value"@en)
+AnnotationPropertyDomain(sh:annotationValue sh:ResultAnnotation)
+
+# Annotation Property: sh:defaultValue (default value)
+
+AnnotationAssertion(rdfs:comment sh:defaultValue "A default value for a property, for example for user interface tools to pre-populate input fields."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:defaultValue <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:defaultValue "default value"@en)
+AnnotationPropertyDomain(sh:defaultValue sh:PropertyShape)
+
+# Annotation Property: sh:description (description)
+
+AnnotationAssertion(rdfs:comment sh:description "Human-readable descriptions for the property in the context of the surrounding shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:description <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:description "description"@en)
+AnnotationPropertyDomain(sh:description sh:PropertyShape)
+
+# Annotation Property: sh:focusNode (focus node)
+
+AnnotationAssertion(rdfs:comment sh:focusNode "The focus node that was validated when the result was produced."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:focusNode <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:focusNode "focus node"@en)
+AnnotationPropertyDomain(sh:focusNode sh:AbstractResult)
+
+# Annotation Property: sh:labelTemplate (label template)
+
+AnnotationAssertion(rdfs:comment sh:labelTemplate "Outlines how human-readable labels of instances of the associated Parameterizable shall be produced. The values can contain {?paramName} as placeholders for the actual values of the given parameter."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:labelTemplate <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:labelTemplate "label template"@en)
+AnnotationPropertyDomain(sh:labelTemplate sh:Parameterizable)
+
+# Annotation Property: sh:name (name)
+
+AnnotationAssertion(rdfs:comment sh:name "Human-readable labels for the property in the context of the surrounding shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:name <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:name "name"@en)
+AnnotationPropertyDomain(sh:name sh:PropertyShape)
+
+# Annotation Property: sh:object (object)
+
+AnnotationAssertion(rdfs:comment sh:object "An expression producing the nodes that shall be inferred as objects."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:object <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:object "object"@en)
+AnnotationPropertyDomain(sh:object sh:TripleRule)
+
+# Annotation Property: sh:predicate (predicate)
+
+AnnotationAssertion(rdfs:comment sh:predicate "An expression producing the properties that shall be inferred as predicates."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:predicate <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:predicate "predicate"@en)
+AnnotationPropertyDomain(sh:predicate sh:TripleRule)
+
+# Annotation Property: sh:resultMessage (result message)
+
+AnnotationAssertion(rdfs:comment sh:resultMessage "Human-readable messages explaining the cause of the result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:resultMessage <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:resultMessage "result message"@en)
+AnnotationPropertyDomain(sh:resultMessage sh:AbstractResult)
+
+# Annotation Property: sh:sourceConstraint (source constraint)
+
+AnnotationAssertion(rdfs:comment sh:sourceConstraint "The constraint that was validated when the result was produced."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:sourceConstraint <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:sourceConstraint "source constraint"@en)
+AnnotationPropertyDomain(sh:sourceConstraint sh:AbstractResult)
+
+# Annotation Property: sh:subject (subject)
+
+AnnotationAssertion(rdfs:comment sh:subject "An expression producing the resources that shall be inferred as subjects."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:subject <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:subject "subject"@en)
+AnnotationPropertyDomain(sh:subject sh:TripleRule)
+
+# Annotation Property: sh:targetNode (target node)
+
+AnnotationAssertion(rdfs:comment sh:targetNode "Links a shape to individual nodes, indicating that these nodes must conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:targetNode <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:targetNode "target node"@en)
+AnnotationPropertyDomain(sh:targetNode sh:Shape)
+
+# Annotation Property: sh:value (value)
+
+AnnotationAssertion(rdfs:comment sh:value "An RDF node that has caused the result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:value <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:value "value"@en)
+AnnotationPropertyDomain(sh:value sh:AbstractResult)
+
+
+############################
+#   Object Properties
+############################
+
+# Object Property: sh:alternativePath (alternative path)
+
+AnnotationAssertion(rdfs:comment sh:alternativePath "The (single) value of this property must be a list of path elements, representing the elements of alternative paths."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:alternativePath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:alternativePath "alternative path"@en)
+ObjectPropertyRange(sh:alternativePath rdf:List)
+
+# Object Property: sh:and (and)
+
+AnnotationAssertion(rdfs:comment sh:and "RDF list of shapes to validate the value nodes against."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:and <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:and "and"@en)
+ObjectPropertyRange(sh:and rdf:List)
+
+# Object Property: sh:annotationProperty (annotation property)
+
+AnnotationAssertion(rdfs:comment sh:annotationProperty "The annotation property that shall be set."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:annotationProperty <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:annotationProperty "annotation property"@en)
+ObjectPropertyDomain(sh:annotationProperty sh:ResultAnnotation)
+ObjectPropertyRange(sh:annotationProperty rdf:Property)
+
+# Object Property: sh:class (class)
+
+AnnotationAssertion(rdfs:comment sh:class "The type that all value nodes must have."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:class <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:class "class"@en)
+ObjectPropertyRange(sh:class rdfs:Class)
+
+# Object Property: sh:condition (condition)
+
+AnnotationAssertion(rdfs:comment sh:condition "The shapes that the focus nodes need to conform to before a rule is executed on them."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:condition <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:condition "condition"@en)
+ObjectPropertyDomain(sh:condition sh:Rule)
+ObjectPropertyRange(sh:condition sh:Shape)
+
+# Object Property: sh:datatype (datatype)
+
+AnnotationAssertion(rdfs:comment sh:datatype "Specifies an RDF datatype that all value nodes must have."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:datatype <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:datatype "datatype"@en)
+ObjectPropertyRange(sh:datatype rdfs:Datatype)
+
+# Object Property: sh:declare (declare)
+
+AnnotationAssertion(rdfs:comment sh:declare "Links a resource with its namespace prefix declarations."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:declare <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:declare "declare"@en)
+ObjectPropertyDomain(sh:declare owl:Ontology)
+ObjectPropertyRange(sh:declare sh:PrefixDeclaration)
+
+# Object Property: sh:detail (detail)
+
+AnnotationAssertion(rdfs:comment sh:detail "Links a result with other results that provide more details, for example to describe violations against nested shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:detail <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:detail "detail"@en)
+ObjectPropertyDomain(sh:detail sh:AbstractResult)
+ObjectPropertyRange(sh:detail sh:AbstractResult)
+
+# Object Property: sh:disjoint (disjoint)
+
+AnnotationAssertion(rdfs:comment sh:disjoint "Specifies a property where the set of values must be disjoint with the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:disjoint <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:disjoint "disjoint"@en)
+ObjectPropertyRange(sh:disjoint rdf:Property)
+
+# Object Property: sh:entailment (entailment)
+
+AnnotationAssertion(rdfs:comment sh:entailment "An entailment regime that indicates what kind of inferencing is required by a shapes graph."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:entailment <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:entailment "entailment"@en)
+ObjectPropertyDomain(sh:entailment owl:Ontology)
+ObjectPropertyRange(sh:entailment rdfs:Resource)
+
+# Object Property: sh:equals (equals)
+
+AnnotationAssertion(rdfs:comment sh:equals "Specifies a property that must have the same values as the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:equals <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:equals "equals"@en)
+ObjectPropertyRange(sh:equals rdf:Property)
+
+# Object Property: sh:filterShape (filter shape)
+
+AnnotationAssertion(rdfs:comment sh:filterShape "The shape that all input nodes of the expression need to conform to."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:filterShape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:filterShape "filter shape"@en)
+ObjectPropertyRange(sh:filterShape sh:Shape)
+
+# Object Property: sh:group (group)
+
+AnnotationAssertion(rdfs:comment sh:group "Can be used to link to a property group to indicate that a property shape belongs to a group of related property shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:group <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:group "group"@en)
+ObjectPropertyDomain(sh:group sh:PropertyShape)
+ObjectPropertyRange(sh:group sh:PropertyGroup)
+
+# Object Property: sh:ignoredProperties (ignored properties)
+
+AnnotationAssertion(rdfs:comment sh:ignoredProperties "An optional RDF list of properties that are also permitted in addition to those explicitly enumerated via sh:property/sh:path."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ignoredProperties <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ignoredProperties "ignored properties"@en)
+ObjectPropertyRange(sh:ignoredProperties rdf:List)
+
+# Object Property: sh:in (in)
+
+AnnotationAssertion(rdfs:comment sh:in "Specifies a list of allowed values so that each value node must be among the members of the given list."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:in <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:in "in"@en)
+ObjectPropertyRange(sh:in rdf:List)
+
+# Object Property: sh:inversePath (inverse path)
+
+AnnotationAssertion(rdfs:comment sh:inversePath "The (single) value of this property represents an inverse path (object to subject)."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:inversePath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:inversePath "inverse path"@en)
+ObjectPropertyRange(sh:inversePath rdfs:Resource)
+
+# Object Property: sh:js (JavaScript constraint)
+
+AnnotationAssertion(rdfs:comment sh:js "Constraints expressed in JavaScript.")
+AnnotationAssertion(rdfs:isDefinedBy sh:js <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:js "JavaScript constraint"@en)
+ObjectPropertyRange(sh:js sh:JSConstraint)
+
+# Object Property: sh:jsLibrary (JavaScript library)
+
+AnnotationAssertion(rdfs:comment sh:jsLibrary "Declares which JavaScript libraries are needed to execute this."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:jsLibrary <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:jsLibrary "JavaScript library"@en)
+ObjectPropertyRange(sh:jsLibrary sh:JSLibrary)
+
+# Object Property: sh:languageIn (language in)
+
+AnnotationAssertion(rdfs:comment sh:languageIn "Specifies a list of language tags that all value nodes must have."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:languageIn <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:languageIn "language in"@en)
+ObjectPropertyRange(sh:languageIn rdf:List)
+
+# Object Property: sh:lessThan (less than)
+
+AnnotationAssertion(rdfs:comment sh:lessThan "Specifies a property that must have smaller values than the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:lessThan <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:lessThan "less than"@en)
+ObjectPropertyRange(sh:lessThan rdf:Property)
+
+# Object Property: sh:lessThanOrEquals (less than or equals)
+
+AnnotationAssertion(rdfs:comment sh:lessThanOrEquals "Specifies a property that must have smaller or equal values than the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:lessThanOrEquals <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:lessThanOrEquals "less than or equals"@en)
+ObjectPropertyRange(sh:lessThanOrEquals rdf:Property)
+
+# Object Property: sh:node (node)
+
+AnnotationAssertion(rdfs:comment sh:node "Specifies the node shape that all value nodes must conform to."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:node <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:node "node"@en)
+ObjectPropertyRange(sh:node sh:NodeShape)
+
+# Object Property: sh:nodeKind (node kind)
+
+AnnotationAssertion(rdfs:comment sh:nodeKind "Specifies the node kind (e.g. IRI or literal) each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:nodeKind <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:nodeKind "node kind"@en)
+ObjectPropertyRange(sh:nodeKind sh:NodeKind)
+
+# Object Property: sh:nodeValidator (shape validator)
+
+AnnotationAssertion(rdfs:comment sh:nodeValidator "The validator(s) used to evaluate a constraint in the context of a node shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:nodeValidator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:nodeValidator "shape validator"@en)
+ObjectPropertyDomain(sh:nodeValidator sh:ConstraintComponent)
+ObjectPropertyRange(sh:nodeValidator sh:Validator)
+
+# Object Property: sh:not (not)
+
+AnnotationAssertion(rdfs:comment sh:not "Specifies a shape that the value nodes must not conform to."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:not <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:not "not"@en)
+ObjectPropertyRange(sh:not sh:Shape)
+
+# Object Property: sh:oneOrMorePath (one or more path)
+
+AnnotationAssertion(rdfs:comment sh:oneOrMorePath "The (single) value of this property represents a path that is matched one or more times."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:oneOrMorePath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:oneOrMorePath "one or more path"@en)
+ObjectPropertyRange(sh:oneOrMorePath rdfs:Resource)
+
+# Object Property: sh:or (or)
+
+AnnotationAssertion(rdfs:comment sh:or "Specifies a list of shapes so that the value nodes must conform to at least one of the shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:or <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:or "or"@en)
+ObjectPropertyRange(sh:or rdf:List)
+
+# Object Property: sh:parameter (parameter)
+
+AnnotationAssertion(rdfs:comment sh:parameter "The parameters of a function or constraint component."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:parameter <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:parameter "parameter"@en)
+ObjectPropertyDomain(sh:parameter sh:Parameterizable)
+ObjectPropertyRange(sh:parameter sh:Parameter)
+
+# Object Property: sh:path (path)
+
+AnnotationAssertion(rdfs:comment sh:path "Specifies the property path of a property shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:path <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:path "path"@en)
+ObjectPropertyDomain(sh:path sh:PropertyShape)
+ObjectPropertyRange(sh:path rdfs:Resource)
+
+# Object Property: sh:prefixes (prefixes)
+
+AnnotationAssertion(rdfs:comment sh:prefixes "The prefixes that shall be applied before parsing the associated SPARQL query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:prefixes <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:prefixes "prefixes"@en)
+ObjectPropertyDomain(sh:prefixes sh:SPARQLExecutable)
+ObjectPropertyRange(sh:prefixes owl:Ontology)
+
+# Object Property: sh:property (property)
+
+AnnotationAssertion(rdfs:comment sh:property "Links a shape to its property shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:property <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:property "property"@en)
+ObjectPropertyDomain(sh:property sh:Shape)
+ObjectPropertyRange(sh:property sh:PropertyShape)
+
+# Object Property: sh:propertyValidator (property validator)
+
+AnnotationAssertion(rdfs:comment sh:propertyValidator "The validator(s) used to evaluate a constraint in the context of a property shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:propertyValidator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:propertyValidator "property validator"@en)
+ObjectPropertyDomain(sh:propertyValidator sh:ConstraintComponent)
+ObjectPropertyRange(sh:propertyValidator sh:Validator)
+
+# Object Property: sh:qualifiedValueShape (qualified value shape)
+
+AnnotationAssertion(rdfs:comment sh:qualifiedValueShape "The shape that a specified number of values must conform to."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:qualifiedValueShape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:qualifiedValueShape "qualified value shape"@en)
+ObjectPropertyRange(sh:qualifiedValueShape sh:Shape)
+
+# Object Property: sh:result (result)
+
+AnnotationAssertion(rdfs:comment sh:result "The validation results contained in a validation report."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:result <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:result "result"@en)
+ObjectPropertyDomain(sh:result sh:ValidationReport)
+ObjectPropertyRange(sh:result sh:ValidationResult)
+
+# Object Property: sh:resultAnnotation (result annotation)
+
+AnnotationAssertion(rdfs:comment sh:resultAnnotation "Links a SPARQL validator with zero or more sh:ResultAnnotation instances, defining how to derive additional result properties based on the variables of the SELECT query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:resultAnnotation <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:resultAnnotation "result annotation"@en)
+ObjectPropertyDomain(sh:resultAnnotation sh:SPARQLSelectValidator)
+ObjectPropertyRange(sh:resultAnnotation sh:ResultAnnotation)
+
+# Object Property: sh:resultPath (result path)
+
+AnnotationAssertion(rdfs:comment sh:resultPath "The path of a validation result, based on the path of the validated property shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:resultPath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:resultPath "result path"@en)
+ObjectPropertyDomain(sh:resultPath sh:AbstractResult)
+ObjectPropertyRange(sh:resultPath rdfs:Resource)
+
+# Object Property: sh:resultSeverity (result severity)
+
+AnnotationAssertion(rdfs:comment sh:resultSeverity "The severity of the result, e.g. warning."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:resultSeverity <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:resultSeverity "result severity"@en)
+ObjectPropertyDomain(sh:resultSeverity sh:AbstractResult)
+ObjectPropertyRange(sh:resultSeverity sh:Severity)
+
+# Object Property: sh:returnType (return type)
+
+AnnotationAssertion(rdfs:comment sh:returnType "The expected type of values returned by the associated function."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:returnType <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:returnType "return type"@en)
+ObjectPropertyDomain(sh:returnType sh:Function)
+ObjectPropertyRange(sh:returnType rdfs:Class)
+
+# Object Property: sh:rule (rule)
+
+AnnotationAssertion(rdfs:comment sh:rule "The rules linked to a shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:rule <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:rule "rule"@en)
+ObjectPropertyDomain(sh:rule sh:Shape)
+ObjectPropertyRange(sh:rule sh:Rule)
+
+# Object Property: sh:severity (severity)
+
+AnnotationAssertion(rdfs:comment sh:severity "Defines the severity that validation results produced by a shape must have. Defaults to sh:Violation."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:severity <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:severity "severity"@en)
+ObjectPropertyDomain(sh:severity sh:Shape)
+ObjectPropertyRange(sh:severity sh:Severity)
+
+# Object Property: sh:shapesGraph (shapes graph)
+
+AnnotationAssertion(rdfs:comment sh:shapesGraph "Shapes graphs that should be used when validating this data graph."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:shapesGraph <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:shapesGraph "shapes graph"@en)
+ObjectPropertyDomain(sh:shapesGraph owl:Ontology)
+ObjectPropertyRange(sh:shapesGraph owl:Ontology)
+
+# Object Property: sh:sourceConstraintComponent (source constraint component)
+
+AnnotationAssertion(rdfs:comment sh:sourceConstraintComponent "The constraint component that is the source of the result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:sourceConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:sourceConstraintComponent "source constraint component"@en)
+ObjectPropertyDomain(sh:sourceConstraintComponent sh:AbstractResult)
+ObjectPropertyRange(sh:sourceConstraintComponent sh:ConstraintComponent)
+
+# Object Property: sh:sourceShape (source shape)
+
+AnnotationAssertion(rdfs:comment sh:sourceShape "The shape that is was validated when the result was produced."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:sourceShape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:sourceShape "source shape"@en)
+ObjectPropertyDomain(sh:sourceShape sh:AbstractResult)
+ObjectPropertyRange(sh:sourceShape sh:Shape)
+
+# Object Property: sh:sparql (constraint (in SPARQL))
+
+AnnotationAssertion(rdfs:comment sh:sparql "Links a shape with SPARQL constraints."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:sparql <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:sparql "constraint (in SPARQL)"@en)
+ObjectPropertyDomain(sh:sparql sh:Shape)
+ObjectPropertyRange(sh:sparql sh:SPARQLConstraint)
+
+# Object Property: sh:suggestedShapesGraph (suggested shapes graph)
+
+AnnotationAssertion(rdfs:comment sh:suggestedShapesGraph "Suggested shapes graphs for this ontology. The values of this property may be used in the absence of specific sh:shapesGraph statements."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:suggestedShapesGraph <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:suggestedShapesGraph "suggested shapes graph"@en)
+ObjectPropertyDomain(sh:suggestedShapesGraph owl:Ontology)
+ObjectPropertyRange(sh:suggestedShapesGraph owl:Ontology)
+
+# Object Property: sh:target (target)
+
+AnnotationAssertion(rdfs:comment sh:target "Links a shape to a target specified by an extension language, for example instances of sh:SPARQLTarget."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:target <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:target "target"@en)
+ObjectPropertyDomain(sh:target sh:Shape)
+ObjectPropertyRange(sh:target sh:Target)
+
+# Object Property: sh:targetClass (target class)
+
+AnnotationAssertion(rdfs:comment sh:targetClass "Links a shape to a class, indicating that all instances of the class must conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:targetClass <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:targetClass "target class"@en)
+ObjectPropertyDomain(sh:targetClass sh:Shape)
+ObjectPropertyRange(sh:targetClass rdfs:Class)
+
+# Object Property: sh:targetObjectsOf (target objects of)
+
+AnnotationAssertion(rdfs:comment sh:targetObjectsOf "Links a shape to a property, indicating that all all objects of triples that have the given property as their predicate must conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:targetObjectsOf <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:targetObjectsOf "target objects of"@en)
+ObjectPropertyDomain(sh:targetObjectsOf sh:Shape)
+ObjectPropertyRange(sh:targetObjectsOf rdf:Property)
+
+# Object Property: sh:targetSubjectsOf (target subjects of)
+
+AnnotationAssertion(rdfs:comment sh:targetSubjectsOf "Links a shape to a property, indicating that all subjects of triples that have the given property as their predicate must conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:targetSubjectsOf <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:targetSubjectsOf "target subjects of"@en)
+ObjectPropertyDomain(sh:targetSubjectsOf sh:Shape)
+ObjectPropertyRange(sh:targetSubjectsOf rdf:Property)
+
+# Object Property: sh:validator (validator)
+
+AnnotationAssertion(rdfs:comment sh:validator "The validator(s) used to evaluate constraints of either node or property shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:validator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:validator "validator"@en)
+ObjectPropertyDomain(sh:validator sh:ConstraintComponent)
+ObjectPropertyRange(sh:validator sh:Validator)
+
+# Object Property: sh:xone (exactly one)
+
+AnnotationAssertion(rdfs:comment sh:xone "Specifies a list of shapes so that the value nodes must conform to exactly one of the shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:xone <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:xone "exactly one"@en)
+ObjectPropertyRange(sh:xone rdf:List)
+
+# Object Property: sh:zeroOrMorePath (zero or more path)
+
+AnnotationAssertion(rdfs:comment sh:zeroOrMorePath "The (single) value of this property represents a path that is matched zero or more times."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:zeroOrMorePath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:zeroOrMorePath "zero or more path"@en)
+ObjectPropertyRange(sh:zeroOrMorePath rdfs:Resource)
+
+# Object Property: sh:zeroOrOnePath (zero or one path)
+
+AnnotationAssertion(rdfs:comment sh:zeroOrOnePath "The (single) value of this property represents a path that is matched zero or one times."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:zeroOrOnePath <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:zeroOrOnePath "zero or one path"@en)
+ObjectPropertyRange(sh:zeroOrOnePath rdfs:Resource)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: sh:annotationVarName (annotation variable name)
+
+AnnotationAssertion(rdfs:comment sh:annotationVarName "The name of the SPARQL variable from the SELECT clause that shall be used for the values."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:annotationVarName <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:annotationVarName "annotation variable name"@en)
+DataPropertyDomain(sh:annotationVarName sh:ResultAnnotation)
+DataPropertyRange(sh:annotationVarName xsd:string)
+
+# Data Property: sh:ask (ask)
+
+AnnotationAssertion(rdfs:comment sh:ask "The SPARQL ASK query to execute."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ask <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ask "ask"@en)
+DataPropertyDomain(sh:ask sh:SPARQLAskExecutable)
+DataPropertyRange(sh:ask xsd:string)
+
+# Data Property: sh:closed (closed)
+
+AnnotationAssertion(rdfs:comment sh:closed "If set to true then the shape is closed."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:closed <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:closed "closed"@en)
+DataPropertyRange(sh:closed xsd:boolean)
+
+# Data Property: sh:conforms (conforms)
+
+AnnotationAssertion(rdfs:comment sh:conforms "True if the validation did not produce any validation results, and false otherwise."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:conforms <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:conforms "conforms"@en)
+DataPropertyDomain(sh:conforms sh:ValidationReport)
+DataPropertyRange(sh:conforms xsd:boolean)
+
+# Data Property: sh:construct (construct)
+
+AnnotationAssertion(rdfs:comment sh:construct "The SPARQL CONSTRUCT query to execute."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:construct <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:construct "construct"@en)
+DataPropertyDomain(sh:construct sh:SPARQLConstructExecutable)
+DataPropertyRange(sh:construct xsd:string)
+
+# Data Property: sh:deactivated (deactivated)
+
+AnnotationAssertion(rdfs:comment sh:deactivated "If set to true then all nodes conform to this."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:deactivated <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:deactivated "deactivated"@en)
+DataPropertyRange(sh:deactivated xsd:boolean)
+
+# Data Property: sh:flags (flags)
+
+AnnotationAssertion(rdfs:comment sh:flags "An optional flag to be used with regular expression pattern matching."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:flags <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:flags "flags"@en)
+DataPropertyRange(sh:flags xsd:string)
+
+# Data Property: sh:jsFunctionName (JavaScript function name)
+
+AnnotationAssertion(rdfs:comment sh:jsFunctionName "The name of the JavaScript function to execute."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:jsFunctionName <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:jsFunctionName "JavaScript function name"@en)
+DataPropertyDomain(sh:jsFunctionName sh:JSExecutable)
+DataPropertyRange(sh:jsFunctionName xsd:string)
+
+# Data Property: sh:jsLibraryURL (JavaScript library URL)
+
+AnnotationAssertion(rdfs:comment sh:jsLibraryURL "Declares the URLs of a JavaScript library. This should be the absolute URL of a JavaScript file. Implementations may redirect those to local files."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:jsLibraryURL <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:jsLibraryURL "JavaScript library URL"@en)
+DataPropertyDomain(sh:jsLibraryURL sh:JSLibrary)
+DataPropertyRange(sh:jsLibraryURL xsd:anyURI)
+
+# Data Property: sh:maxCount (max count)
+
+AnnotationAssertion(rdfs:comment sh:maxCount "Specifies the maximum number of values in the set of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:maxCount <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:maxCount "max count"@en)
+DataPropertyRange(sh:maxCount xsd:integer)
+
+# Data Property: sh:maxLength (max length)
+
+AnnotationAssertion(rdfs:comment sh:maxLength "Specifies the maximum string length of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:maxLength <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:maxLength "max length"@en)
+DataPropertyRange(sh:maxLength xsd:integer)
+
+# Data Property: sh:minCount (min count)
+
+AnnotationAssertion(rdfs:comment sh:minCount "Specifies the minimum number of values in the set of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:minCount <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:minCount "min count"@en)
+DataPropertyRange(sh:minCount xsd:integer)
+
+# Data Property: sh:minLength (min length)
+
+AnnotationAssertion(rdfs:comment sh:minLength "Specifies the minimum string length of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:minLength <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:minLength "min length"@en)
+DataPropertyRange(sh:minLength xsd:integer)
+
+# Data Property: sh:namespace (namespace)
+
+AnnotationAssertion(rdfs:comment sh:namespace "The namespace associated with a prefix in a prefix declaration."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:namespace <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:namespace "namespace"@en)
+DataPropertyDomain(sh:namespace sh:PrefixDeclaration)
+DataPropertyRange(sh:namespace xsd:anyURI)
+
+# Data Property: sh:optional (optional)
+
+AnnotationAssertion(rdfs:comment sh:optional "Indicates whether a parameter is optional."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:optional <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:optional "optional"@en)
+DataPropertyDomain(sh:optional sh:Parameter)
+DataPropertyRange(sh:optional xsd:boolean)
+
+# Data Property: sh:pattern (pattern)
+
+AnnotationAssertion(rdfs:comment sh:pattern "Specifies a regular expression pattern that the string representations of the value nodes must match."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:pattern <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:pattern "pattern"@en)
+DataPropertyRange(sh:pattern xsd:string)
+
+# Data Property: sh:prefix (prefix)
+
+AnnotationAssertion(rdfs:comment sh:prefix "The prefix of a prefix declaration."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:prefix <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:prefix "prefix"@en)
+DataPropertyDomain(sh:prefix sh:PrefixDeclaration)
+DataPropertyRange(sh:prefix xsd:string)
+
+# Data Property: sh:qualifiedMaxCount (qualified max count)
+
+AnnotationAssertion(rdfs:comment sh:qualifiedMaxCount "The maximum number of value nodes that can conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:qualifiedMaxCount <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:qualifiedMaxCount "qualified max count"@en)
+DataPropertyRange(sh:qualifiedMaxCount xsd:integer)
+
+# Data Property: sh:qualifiedMinCount (qualified min count)
+
+AnnotationAssertion(rdfs:comment sh:qualifiedMinCount "The minimum number of value nodes that must conform to the shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:qualifiedMinCount <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:qualifiedMinCount "qualified min count"@en)
+DataPropertyRange(sh:qualifiedMinCount xsd:integer)
+
+# Data Property: sh:qualifiedValueShapesDisjoint (qualified value shapes disjoint)
+
+AnnotationAssertion(rdfs:comment sh:qualifiedValueShapesDisjoint "Can be used to mark the qualified value shape to be disjoint with its sibling shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:qualifiedValueShapesDisjoint <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:qualifiedValueShapesDisjoint "qualified value shapes disjoint"@en)
+DataPropertyRange(sh:qualifiedValueShapesDisjoint xsd:boolean)
+
+# Data Property: sh:select (select)
+
+AnnotationAssertion(rdfs:comment sh:select "The SPARQL SELECT query to execute."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:select <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:select "select"@en)
+DataPropertyDomain(sh:select sh:SPARQLSelectExecutable)
+DataPropertyRange(sh:select xsd:string)
+
+# Data Property: sh:shapesGraphWellFormed (shapes graph well-formed)
+
+AnnotationAssertion(rdfs:comment sh:shapesGraphWellFormed "If true then the validation engine was certain that the shapes graph has passed all SHACL syntax requirements during the validation process."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:shapesGraphWellFormed <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:shapesGraphWellFormed "shapes graph well-formed"@en)
+DataPropertyDomain(sh:shapesGraphWellFormed sh:ValidationReport)
+DataPropertyRange(sh:shapesGraphWellFormed xsd:boolean)
+
+# Data Property: sh:uniqueLang (unique languages)
+
+AnnotationAssertion(rdfs:comment sh:uniqueLang "Specifies whether all node values must have a unique (or no) language tag."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:uniqueLang <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:uniqueLang "unique languages"@en)
+DataPropertyRange(sh:uniqueLang xsd:boolean)
+
+# Data Property: sh:update (update)
+
+AnnotationAssertion(rdfs:comment sh:update "The SPARQL UPDATE to execute."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:update <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:update "update"@en)
+DataPropertyDomain(sh:update sh:SPARQLUpdateExecutable)
+DataPropertyRange(sh:update xsd:string)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: sh:AbstractResult (Abstract result)
+
+AnnotationAssertion(rdfs:comment sh:AbstractResult "The base class of validation results, typically not instantiated directly."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:AbstractResult <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:AbstractResult "Abstract result"@en)
+SubClassOf(sh:AbstractResult rdfs:Resource)
+
+# Class: sh:ConstraintComponent (Constraint component)
+
+AnnotationAssertion(rdfs:comment sh:ConstraintComponent "The class of constraint components."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ConstraintComponent "Constraint component"@en)
+SubClassOf(sh:ConstraintComponent sh:Parameterizable)
+
+# Class: sh:Function (Function)
+
+AnnotationAssertion(rdfs:comment sh:Function "The class of SHACL functions."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Function <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Function "Function"@en)
+SubClassOf(sh:Function sh:Parameterizable)
+
+# Class: sh:JSConstraint (JavaScript-based constraint)
+
+AnnotationAssertion(rdfs:comment sh:JSConstraint "The class of constraints backed by a JavaScript function."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSConstraint <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSConstraint "JavaScript-based constraint"@en)
+SubClassOf(sh:JSConstraint sh:JSExecutable)
+
+# Class: sh:JSExecutable (JavaScript executable)
+
+AnnotationAssertion(rdfs:comment sh:JSExecutable "Abstract base class of resources that declare an executable JavaScript."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSExecutable "JavaScript executable"@en)
+SubClassOf(sh:JSExecutable rdfs:Resource)
+
+# Class: sh:JSFunction (JavaScript function)
+
+AnnotationAssertion(rdfs:comment sh:JSFunction "The class of SHACL functions that execute a JavaScript function when called."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSFunction <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSFunction "JavaScript function"@en)
+SubClassOf(sh:JSFunction sh:Function)
+SubClassOf(sh:JSFunction sh:JSExecutable)
+
+# Class: sh:JSLibrary (JavaScript library)
+
+AnnotationAssertion(rdfs:comment sh:JSLibrary "Represents a JavaScript library, typically identified by one or more URLs of files to include."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSLibrary <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSLibrary "JavaScript library"@en)
+SubClassOf(sh:JSLibrary rdfs:Resource)
+
+# Class: sh:JSRule (JavaScript rule)
+
+AnnotationAssertion(rdfs:comment sh:JSRule "The class of SHACL rules expressed using JavaScript."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSRule <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSRule "JavaScript rule"@en)
+SubClassOf(sh:JSRule sh:JSExecutable)
+SubClassOf(sh:JSRule sh:Rule)
+
+# Class: sh:JSTarget (JavaScript target)
+
+AnnotationAssertion(rdfs:comment sh:JSTarget "The class of targets that are based on JavaScript functions."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSTarget <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSTarget "JavaScript target"@en)
+SubClassOf(sh:JSTarget sh:JSExecutable)
+SubClassOf(sh:JSTarget sh:Target)
+
+# Class: sh:JSTargetType (JavaScript target type)
+
+AnnotationAssertion(rdfs:comment sh:JSTargetType "The (meta) class for parameterizable targets that are based on JavaScript functions."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSTargetType <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSTargetType "JavaScript target type"@en)
+SubClassOf(sh:JSTargetType sh:JSExecutable)
+SubClassOf(sh:JSTargetType sh:TargetType)
+
+# Class: sh:JSValidator (JavaScript validator)
+
+AnnotationAssertion(rdfs:comment sh:JSValidator "A SHACL validator based on JavaScript. This can be used to declare SHACL constraint components that perform JavaScript-based validation when used."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSValidator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSValidator "JavaScript validator"@en)
+SubClassOf(sh:JSValidator sh:JSExecutable)
+SubClassOf(sh:JSValidator sh:Validator)
+
+# Class: sh:NodeKind (Node kind)
+
+AnnotationAssertion(rdfs:comment sh:NodeKind "The class of all node kinds, including sh:BlankNode, sh:IRI, sh:Literal or the combinations of these: sh:BlankNodeOrIRI, sh:BlankNodeOrLiteral, sh:IRIOrLiteral."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeKind <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:NodeKind "Node kind"@en)
+SubClassOf(sh:NodeKind rdfs:Resource)
+
+# Class: sh:NodeShape (Node shape)
+
+AnnotationAssertion(rdfs:comment sh:NodeShape "A node shape is a shape that specifies constraint that need to be met with respect to focus nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeShape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:NodeShape "Node shape"@en)
+SubClassOf(sh:NodeShape sh:Shape)
+
+# Class: sh:Parameter (Parameter)
+
+AnnotationAssertion(rdfs:comment sh:Parameter "The class of parameter declarations, consisting of a path predicate and (possibly) information about allowed value type, cardinality and other characteristics."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Parameter <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Parameter "Parameter"@en)
+SubClassOf(sh:Parameter sh:PropertyShape)
+
+# Class: sh:Parameterizable (Parameterizable)
+
+AnnotationAssertion(rdfs:comment sh:Parameterizable "Superclass of components that can take parameters, especially functions and constraint components."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Parameterizable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Parameterizable "Parameterizable"@en)
+SubClassOf(sh:Parameterizable rdfs:Resource)
+
+# Class: sh:PrefixDeclaration (Prefix declaration)
+
+AnnotationAssertion(rdfs:comment sh:PrefixDeclaration "The class of prefix declarations, consisting of pairs of a prefix with a namespace."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:PrefixDeclaration <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:PrefixDeclaration "Prefix declaration"@en)
+SubClassOf(sh:PrefixDeclaration rdfs:Resource)
+
+# Class: sh:PropertyGroup (Property group)
+
+AnnotationAssertion(rdfs:comment sh:PropertyGroup "Instances of this class represent groups of property shapes that belong together."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:PropertyGroup <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:PropertyGroup "Property group"@en)
+SubClassOf(sh:PropertyGroup rdfs:Resource)
+
+# Class: sh:PropertyShape (Property shape)
+
+AnnotationAssertion(rdfs:comment sh:PropertyShape "A property shape is a shape that specifies constraints on the values of a focus node for a given property or path."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:PropertyShape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:PropertyShape "Property shape"@en)
+SubClassOf(sh:PropertyShape sh:Shape)
+
+# Class: sh:ResultAnnotation (Result annotation)
+
+AnnotationAssertion(rdfs:comment sh:ResultAnnotation "A class of result annotations, which define the rules to derive the values of a given annotation property as extra values for a validation result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ResultAnnotation <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ResultAnnotation "Result annotation"@en)
+SubClassOf(sh:ResultAnnotation rdfs:Resource)
+
+# Class: sh:Rule (Rule)
+
+AnnotationAssertion(rdfs:comment sh:Rule "The class of SHACL rules. Never instantiated directly."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Rule <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Rule "Rule"@en)
+SubClassOf(sh:Rule rdfs:Resource)
+
+# Class: sh:SPARQLAskExecutable (SPARQL ASK executable)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLAskExecutable "The class of SPARQL executables that are based on an ASK query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLAskExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLAskExecutable "SPARQL ASK executable"@en)
+SubClassOf(sh:SPARQLAskExecutable sh:SPARQLExecutable)
+
+# Class: sh:SPARQLAskValidator (SPARQL ASK validator)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLAskValidator "The class of validators based on SPARQL ASK queries. The queries are evaluated for each value node and are supposed to return true if the given node conforms."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLAskValidator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLAskValidator "SPARQL ASK validator"@en)
+SubClassOf(sh:SPARQLAskValidator sh:SPARQLAskExecutable)
+SubClassOf(sh:SPARQLAskValidator sh:Validator)
+
+# Class: sh:SPARQLConstraint (SPARQL constraint)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLConstraint "The class of constraints based on SPARQL SELECT queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLConstraint <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLConstraint "SPARQL constraint"@en)
+SubClassOf(sh:SPARQLConstraint sh:SPARQLSelectExecutable)
+
+# Class: sh:SPARQLConstructExecutable (SPARQL CONSTRUCT executable)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLConstructExecutable "The class of SPARQL executables that are based on a CONSTRUCT query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLConstructExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLConstructExecutable "SPARQL CONSTRUCT executable"@en)
+SubClassOf(sh:SPARQLConstructExecutable sh:SPARQLExecutable)
+
+# Class: sh:SPARQLExecutable (SPARQL executable)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLExecutable "The class of resources that encapsulate a SPARQL query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLExecutable "SPARQL executable"@en)
+SubClassOf(sh:SPARQLExecutable rdfs:Resource)
+
+# Class: sh:SPARQLFunction (SPARQL function)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLFunction "A function backed by a SPARQL query - either ASK or SELECT."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLFunction <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLFunction "SPARQL function"@en)
+SubClassOf(sh:SPARQLFunction sh:Function)
+SubClassOf(sh:SPARQLFunction sh:SPARQLAskExecutable)
+SubClassOf(sh:SPARQLFunction sh:SPARQLSelectExecutable)
+
+# Class: sh:SPARQLRule (SPARQL CONSTRUCT rule)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLRule "The class of SHACL rules based on SPARQL CONSTRUCT queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLRule <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLRule "SPARQL CONSTRUCT rule"@en)
+SubClassOf(sh:SPARQLRule sh:Rule)
+SubClassOf(sh:SPARQLRule sh:SPARQLConstructExecutable)
+
+# Class: sh:SPARQLSelectExecutable (SPARQL SELECT executable)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLSelectExecutable "The class of SPARQL executables based on a SELECT query."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLSelectExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLSelectExecutable "SPARQL SELECT executable"@en)
+SubClassOf(sh:SPARQLSelectExecutable sh:SPARQLExecutable)
+
+# Class: sh:SPARQLSelectValidator (SPARQL SELECT validator)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLSelectValidator "The class of validators based on SPARQL SELECT queries. The queries are evaluated for each focus node and are supposed to produce bindings for all focus nodes that do not conform."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLSelectValidator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLSelectValidator "SPARQL SELECT validator"@en)
+SubClassOf(sh:SPARQLSelectValidator sh:SPARQLSelectExecutable)
+SubClassOf(sh:SPARQLSelectValidator sh:Validator)
+
+# Class: sh:SPARQLTarget (SPARQL target)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLTarget "The class of targets that are based on SPARQL queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLTarget <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLTarget "SPARQL target"@en)
+SubClassOf(sh:SPARQLTarget sh:SPARQLAskExecutable)
+SubClassOf(sh:SPARQLTarget sh:SPARQLSelectExecutable)
+SubClassOf(sh:SPARQLTarget sh:Target)
+
+# Class: sh:SPARQLTargetType (SPARQL target type)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLTargetType "The (meta) class for parameterizable targets that are based on SPARQL queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLTargetType <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLTargetType "SPARQL target type"@en)
+SubClassOf(sh:SPARQLTargetType sh:SPARQLAskExecutable)
+SubClassOf(sh:SPARQLTargetType sh:SPARQLSelectExecutable)
+SubClassOf(sh:SPARQLTargetType sh:TargetType)
+
+# Class: sh:SPARQLUpdateExecutable (SPARQL UPDATE executable)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLUpdateExecutable "The class of SPARQL executables based on a SPARQL UPDATE."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLUpdateExecutable <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLUpdateExecutable "SPARQL UPDATE executable"@en)
+SubClassOf(sh:SPARQLUpdateExecutable sh:SPARQLExecutable)
+
+# Class: sh:Severity (Severity)
+
+AnnotationAssertion(rdfs:comment sh:Severity "The class of validation result severity levels, including violation and warning levels."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Severity <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Severity "Severity"@en)
+SubClassOf(sh:Severity rdfs:Resource)
+
+# Class: sh:Shape (Shape)
+
+AnnotationAssertion(rdfs:comment sh:Shape "A shape is a collection of constraints that may be targeted for certain nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Shape <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Shape "Shape"@en)
+SubClassOf(sh:Shape rdfs:Resource)
+
+# Class: sh:Target (Target)
+
+AnnotationAssertion(rdfs:comment sh:Target "The base class of targets such as those based on SPARQL queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Target <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Target "Target"@en)
+SubClassOf(sh:Target rdfs:Resource)
+
+# Class: sh:TargetType (Target type)
+
+AnnotationAssertion(rdfs:comment sh:TargetType "The (meta) class for parameterizable targets.	Instances of this are instantiated as values of the sh:target property."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:TargetType <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:TargetType "Target type"@en)
+SubClassOf(sh:TargetType rdfs:Class)
+SubClassOf(sh:TargetType sh:Parameterizable)
+
+# Class: sh:TripleRule (A rule based on triple (subject, predicate, object) pattern.)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:TripleRule <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:TripleRule "A rule based on triple (subject, predicate, object) pattern."@en)
+SubClassOf(sh:TripleRule sh:Rule)
+
+# Class: sh:ValidationReport (Validation report)
+
+AnnotationAssertion(rdfs:comment sh:ValidationReport "The class of SHACL validation reports."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ValidationReport <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ValidationReport "Validation report"@en)
+SubClassOf(sh:ValidationReport rdfs:Resource)
+
+# Class: sh:ValidationResult (Validation result)
+
+AnnotationAssertion(rdfs:comment sh:ValidationResult "The class of validation results."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ValidationResult <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ValidationResult "Validation result"@en)
+SubClassOf(sh:ValidationResult sh:AbstractResult)
+
+# Class: sh:Validator (Validator)
+
+AnnotationAssertion(rdfs:comment sh:Validator "The class of validators, which provide instructions on how to process a constraint definition. This class serves as base class for the SPARQL-based validators and other possible implementations."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Validator <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Validator "Validator"@en)
+SubClassOf(sh:Validator rdfs:Resource)
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: sh: (sh:)
+
+ObjectPropertyAssertion(sh:declare <http://www.w3.org/ns/shacl#> _:genid2147483649)
+ObjectPropertyAssertion(sh:suggestedShapesGraph <http://www.w3.org/ns/shacl#> <http://www.w3.org/ns/shacl-shacl#>)
+
+# Individual: sh:AndConstraintComponent (And constraint component)
+
+AnnotationAssertion(rdfs:comment sh:AndConstraintComponent "A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:AndConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:AndConstraintComponent "And constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:AndConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:AndConstraintComponent sh:AndConstraintComponent-and)
+
+# Individual: sh:AndConstraintComponent-and (sh:AndConstraintComponent-and)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:AndConstraintComponent-and <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:AndConstraintComponent-and)
+ObjectPropertyAssertion(sh:path sh:AndConstraintComponent-and sh:and)
+
+# Individual: sh:BlankNode (Blank node)
+
+AnnotationAssertion(rdfs:comment sh:BlankNode "The node kind of all blank nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:BlankNode <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:BlankNode "Blank node"@en)
+ClassAssertion(sh:NodeKind sh:BlankNode)
+
+# Individual: sh:BlankNodeOrIRI (Blank node or IRI)
+
+AnnotationAssertion(rdfs:comment sh:BlankNodeOrIRI "The node kind of all blank nodes or IRIs."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:BlankNodeOrIRI <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:BlankNodeOrIRI "Blank node or IRI"@en)
+ClassAssertion(sh:NodeKind sh:BlankNodeOrIRI)
+
+# Individual: sh:BlankNodeOrLiteral (Blank node or literal)
+
+AnnotationAssertion(rdfs:comment sh:BlankNodeOrLiteral "The node kind of all blank nodes or literals."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:BlankNodeOrLiteral <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:BlankNodeOrLiteral "Blank node or literal"@en)
+ClassAssertion(sh:NodeKind sh:BlankNodeOrLiteral)
+
+# Individual: sh:ClassConstraintComponent (Class constraint component)
+
+AnnotationAssertion(rdfs:comment sh:ClassConstraintComponent "A constraint component that can be used to verify that each value node is an instance of a given type."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ClassConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ClassConstraintComponent "Class constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:ClassConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:ClassConstraintComponent sh:ClassConstraintComponent-class)
+
+# Individual: sh:ClassConstraintComponent-class (sh:ClassConstraintComponent-class)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:ClassConstraintComponent-class <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:ClassConstraintComponent-class)
+ObjectPropertyAssertion(sh:nodeKind sh:ClassConstraintComponent-class sh:IRI)
+ObjectPropertyAssertion(sh:path sh:ClassConstraintComponent-class sh:class)
+
+# Individual: sh:ClosedConstraintComponent (Closed constraint component)
+
+AnnotationAssertion(rdfs:comment sh:ClosedConstraintComponent "A constraint component that can be used to indicate that focus nodes must only have values for those properties that have been explicitly enumerated via sh:property/sh:path."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ClosedConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ClosedConstraintComponent "Closed constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:ClosedConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:ClosedConstraintComponent sh:ClosedConstraintComponent-closed)
+ObjectPropertyAssertion(sh:parameter sh:ClosedConstraintComponent sh:ClosedConstraintComponent-ignoredProperties)
+
+# Individual: sh:ClosedConstraintComponent-closed (sh:ClosedConstraintComponent-closed)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:ClosedConstraintComponent-closed <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:ClosedConstraintComponent-closed)
+ObjectPropertyAssertion(sh:datatype sh:ClosedConstraintComponent-closed xsd:boolean)
+ObjectPropertyAssertion(sh:path sh:ClosedConstraintComponent-closed sh:closed)
+
+# Individual: sh:ClosedConstraintComponent-ignoredProperties (sh:ClosedConstraintComponent-ignoredProperties)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:ClosedConstraintComponent-ignoredProperties <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:ClosedConstraintComponent-ignoredProperties)
+ObjectPropertyAssertion(sh:path sh:ClosedConstraintComponent-ignoredProperties sh:ignoredProperties)
+DataPropertyAssertion(sh:optional sh:ClosedConstraintComponent-ignoredProperties "true"^^xsd:boolean)
+
+# Individual: sh:DatatypeConstraintComponent (Datatype constraint component)
+
+AnnotationAssertion(rdfs:comment sh:DatatypeConstraintComponent "A constraint component that can be used to restrict the datatype of all value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:DatatypeConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:DatatypeConstraintComponent "Datatype constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:DatatypeConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:DatatypeConstraintComponent sh:DatatypeConstraintComponent-datatype)
+
+# Individual: sh:DatatypeConstraintComponent-datatype (sh:DatatypeConstraintComponent-datatype)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:DatatypeConstraintComponent-datatype <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:DatatypeConstraintComponent-datatype)
+ObjectPropertyAssertion(sh:nodeKind sh:DatatypeConstraintComponent-datatype sh:IRI)
+ObjectPropertyAssertion(sh:path sh:DatatypeConstraintComponent-datatype sh:datatype)
+DataPropertyAssertion(sh:maxCount sh:DatatypeConstraintComponent-datatype "1"^^xsd:integer)
+
+# Individual: sh:DisjointConstraintComponent (Disjoint constraint component)
+
+AnnotationAssertion(rdfs:comment sh:DisjointConstraintComponent "A constraint component that can be used to verify that the set of value nodes is disjoint with the the set of nodes that have the focus node as subject and the value of a given property as predicate."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:DisjointConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:DisjointConstraintComponent "Disjoint constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:DisjointConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:DisjointConstraintComponent sh:DisjointConstraintComponent-disjoint)
+
+# Individual: sh:DisjointConstraintComponent-disjoint (sh:DisjointConstraintComponent-disjoint)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:DisjointConstraintComponent-disjoint <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:DisjointConstraintComponent-disjoint)
+ObjectPropertyAssertion(sh:nodeKind sh:DisjointConstraintComponent-disjoint sh:IRI)
+ObjectPropertyAssertion(sh:path sh:DisjointConstraintComponent-disjoint sh:disjoint)
+
+# Individual: sh:EqualsConstraintComponent (Equals constraint component)
+
+AnnotationAssertion(rdfs:comment sh:EqualsConstraintComponent "A constraint component that can be used to verify that the set of value nodes is equal to the set of nodes that have the focus node as subject and the value of a given property as predicate."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:EqualsConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:EqualsConstraintComponent "Equals constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:EqualsConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:EqualsConstraintComponent sh:EqualsConstraintComponent-equals)
+
+# Individual: sh:EqualsConstraintComponent-equals (sh:EqualsConstraintComponent-equals)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:EqualsConstraintComponent-equals <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:EqualsConstraintComponent-equals)
+ObjectPropertyAssertion(sh:nodeKind sh:EqualsConstraintComponent-equals sh:IRI)
+ObjectPropertyAssertion(sh:path sh:EqualsConstraintComponent-equals sh:equals)
+
+# Individual: sh:ExpressionConstraintComponent (Expression constraint component)
+
+AnnotationAssertion(rdfs:comment sh:ExpressionConstraintComponent "A constraint component that can be used to verify that a given node expression produces true for all value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:ExpressionConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:ExpressionConstraintComponent "Expression constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:ExpressionConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:ExpressionConstraintComponent sh:ExpressionConstraintComponent-expression)
+
+# Individual: sh:ExpressionConstraintComponent-expression (sh:ExpressionConstraintComponent-expression)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:ExpressionConstraintComponent-expression <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:ExpressionConstraintComponent-expression)
+ObjectPropertyAssertion(sh:path sh:ExpressionConstraintComponent-expression sh:expression)
+
+# Individual: sh:HasValueConstraintComponent (Has-value constraint component)
+
+AnnotationAssertion(rdfs:comment sh:HasValueConstraintComponent "A constraint component that can be used to verify that one of the value nodes is a given RDF node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:HasValueConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:HasValueConstraintComponent "Has-value constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:HasValueConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:HasValueConstraintComponent sh:HasValueConstraintComponent-hasValue)
+
+# Individual: sh:HasValueConstraintComponent-hasValue (sh:HasValueConstraintComponent-hasValue)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:HasValueConstraintComponent-hasValue <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:HasValueConstraintComponent-hasValue)
+ObjectPropertyAssertion(sh:path sh:HasValueConstraintComponent-hasValue sh:hasValue)
+
+# Individual: sh:IRI (IRI)
+
+AnnotationAssertion(rdfs:comment sh:IRI "The node kind of all IRIs."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:IRI <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:IRI "IRI"@en)
+ClassAssertion(sh:NodeKind sh:IRI)
+
+# Individual: sh:IRIOrLiteral (IRI or literal)
+
+AnnotationAssertion(rdfs:comment sh:IRIOrLiteral "The node kind of all IRIs or literals."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:IRIOrLiteral <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:IRIOrLiteral "IRI or literal"@en)
+ClassAssertion(sh:NodeKind sh:IRIOrLiteral)
+
+# Individual: sh:InConstraintComponent (In constraint component)
+
+AnnotationAssertion(rdfs:comment sh:InConstraintComponent "A constraint component that can be used to exclusively enumerate the permitted value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:InConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:InConstraintComponent "In constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:InConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:InConstraintComponent sh:InConstraintComponent-in)
+
+# Individual: sh:InConstraintComponent-in (sh:InConstraintComponent-in)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:InConstraintComponent-in <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:InConstraintComponent-in)
+ObjectPropertyAssertion(sh:path sh:InConstraintComponent-in sh:in)
+DataPropertyAssertion(sh:maxCount sh:InConstraintComponent-in "1"^^xsd:integer)
+
+# Individual: sh:Info (Info)
+
+AnnotationAssertion(rdfs:comment sh:Info "The severity for an informational validation result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Info <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Info "Info"@en)
+ClassAssertion(sh:Severity sh:Info)
+
+# Individual: sh:JSConstraint-js (sh:JSConstraint-js)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:JSConstraint-js <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:JSConstraint-js)
+ObjectPropertyAssertion(sh:path sh:JSConstraint-js sh:js)
+
+# Individual: sh:JSConstraintComponent (JavaScript constraint component)
+
+AnnotationAssertion(rdfs:comment sh:JSConstraintComponent "A constraint component with the parameter sh:js linking to a sh:JSConstraint containing a sh:script."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:JSConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:JSConstraintComponent "JavaScript constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:JSConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:JSConstraintComponent sh:JSConstraint-js)
+
+# Individual: sh:LanguageInConstraintComponent (Language-in constraint component)
+
+AnnotationAssertion(rdfs:comment sh:LanguageInConstraintComponent "A constraint component that can be used to enumerate language tags that all value nodes must have."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:LanguageInConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:LanguageInConstraintComponent "Language-in constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:LanguageInConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:LanguageInConstraintComponent sh:LanguageInConstraintComponent-languageIn)
+
+# Individual: sh:LanguageInConstraintComponent-languageIn (sh:LanguageInConstraintComponent-languageIn)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:LanguageInConstraintComponent-languageIn <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:LanguageInConstraintComponent-languageIn)
+ObjectPropertyAssertion(sh:path sh:LanguageInConstraintComponent-languageIn sh:languageIn)
+DataPropertyAssertion(sh:maxCount sh:LanguageInConstraintComponent-languageIn "1"^^xsd:integer)
+
+# Individual: sh:LessThanConstraintComponent (Less-than constraint component)
+
+AnnotationAssertion(rdfs:comment sh:LessThanConstraintComponent "A constraint component that can be used to verify that each value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:LessThanConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:LessThanConstraintComponent "Less-than constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:LessThanConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:LessThanConstraintComponent sh:LessThanConstraintComponent-lessThan)
+
+# Individual: sh:LessThanConstraintComponent-lessThan (sh:LessThanConstraintComponent-lessThan)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:LessThanConstraintComponent-lessThan <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:LessThanConstraintComponent-lessThan)
+ObjectPropertyAssertion(sh:nodeKind sh:LessThanConstraintComponent-lessThan sh:IRI)
+ObjectPropertyAssertion(sh:path sh:LessThanConstraintComponent-lessThan sh:lessThan)
+
+# Individual: sh:LessThanOrEqualsConstraintComponent (less-than-or-equals constraint component)
+
+AnnotationAssertion(rdfs:comment sh:LessThanOrEqualsConstraintComponent "A constraint component that can be used to verify that every value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:LessThanOrEqualsConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:LessThanOrEqualsConstraintComponent "less-than-or-equals constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:LessThanOrEqualsConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:LessThanOrEqualsConstraintComponent sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals)
+
+# Individual: sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals (sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals)
+ObjectPropertyAssertion(sh:nodeKind sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals sh:IRI)
+ObjectPropertyAssertion(sh:path sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals sh:lessThanOrEquals)
+
+# Individual: sh:Literal (Literal)
+
+AnnotationAssertion(rdfs:comment sh:Literal "The node kind of all literals."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Literal <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Literal "Literal"@en)
+ClassAssertion(sh:NodeKind sh:Literal)
+
+# Individual: sh:MaxCountConstraintComponent (Max-count constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MaxCountConstraintComponent "A constraint component that can be used to restrict the maximum number of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxCountConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MaxCountConstraintComponent "Max-count constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MaxCountConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MaxCountConstraintComponent sh:MaxCountConstraintComponent-maxCount)
+
+# Individual: sh:MaxCountConstraintComponent-maxCount (sh:MaxCountConstraintComponent-maxCount)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxCountConstraintComponent-maxCount <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MaxCountConstraintComponent-maxCount)
+ObjectPropertyAssertion(sh:datatype sh:MaxCountConstraintComponent-maxCount xsd:integer)
+ObjectPropertyAssertion(sh:path sh:MaxCountConstraintComponent-maxCount sh:maxCount)
+DataPropertyAssertion(sh:maxCount sh:MaxCountConstraintComponent-maxCount "1"^^xsd:integer)
+
+# Individual: sh:MaxExclusiveConstraintComponent (Max-exclusive constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MaxExclusiveConstraintComponent "A constraint component that can be used to restrict the range of value nodes with a maximum exclusive value."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxExclusiveConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MaxExclusiveConstraintComponent "Max-exclusive constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MaxExclusiveConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MaxExclusiveConstraintComponent sh:MaxExclusiveConstraintComponent-maxExclusive)
+
+# Individual: sh:MaxExclusiveConstraintComponent-maxExclusive (sh:MaxExclusiveConstraintComponent-maxExclusive)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxExclusiveConstraintComponent-maxExclusive <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MaxExclusiveConstraintComponent-maxExclusive)
+ObjectPropertyAssertion(sh:nodeKind sh:MaxExclusiveConstraintComponent-maxExclusive sh:Literal)
+ObjectPropertyAssertion(sh:path sh:MaxExclusiveConstraintComponent-maxExclusive sh:maxExclusive)
+DataPropertyAssertion(sh:maxCount sh:MaxExclusiveConstraintComponent-maxExclusive "1"^^xsd:integer)
+
+# Individual: sh:MaxInclusiveConstraintComponent (Max-inclusive constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MaxInclusiveConstraintComponent "A constraint component that can be used to restrict the range of value nodes with a maximum inclusive value."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxInclusiveConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MaxInclusiveConstraintComponent "Max-inclusive constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MaxInclusiveConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MaxInclusiveConstraintComponent sh:MaxInclusiveConstraintComponent-maxInclusive)
+
+# Individual: sh:MaxInclusiveConstraintComponent-maxInclusive (sh:MaxInclusiveConstraintComponent-maxInclusive)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxInclusiveConstraintComponent-maxInclusive <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MaxInclusiveConstraintComponent-maxInclusive)
+ObjectPropertyAssertion(sh:nodeKind sh:MaxInclusiveConstraintComponent-maxInclusive sh:Literal)
+ObjectPropertyAssertion(sh:path sh:MaxInclusiveConstraintComponent-maxInclusive sh:maxInclusive)
+DataPropertyAssertion(sh:maxCount sh:MaxInclusiveConstraintComponent-maxInclusive "1"^^xsd:integer)
+
+# Individual: sh:MaxLengthConstraintComponent (Max-length constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MaxLengthConstraintComponent "A constraint component that can be used to restrict the maximum string length of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxLengthConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MaxLengthConstraintComponent "Max-length constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MaxLengthConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MaxLengthConstraintComponent sh:MaxLengthConstraintComponent-maxLength)
+
+# Individual: sh:MaxLengthConstraintComponent-maxLength (sh:MaxLengthConstraintComponent-maxLength)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MaxLengthConstraintComponent-maxLength <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MaxLengthConstraintComponent-maxLength)
+ObjectPropertyAssertion(sh:datatype sh:MaxLengthConstraintComponent-maxLength xsd:integer)
+ObjectPropertyAssertion(sh:path sh:MaxLengthConstraintComponent-maxLength sh:maxLength)
+DataPropertyAssertion(sh:maxCount sh:MaxLengthConstraintComponent-maxLength "1"^^xsd:integer)
+
+# Individual: sh:MinCountConstraintComponent (Min-count constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MinCountConstraintComponent "A constraint component that can be used to restrict the minimum number of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MinCountConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MinCountConstraintComponent "Min-count constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MinCountConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MinCountConstraintComponent sh:MinCountConstraintComponent-minCount)
+
+# Individual: sh:MinCountConstraintComponent-minCount (sh:MinCountConstraintComponent-minCount)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MinCountConstraintComponent-minCount <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MinCountConstraintComponent-minCount)
+ObjectPropertyAssertion(sh:datatype sh:MinCountConstraintComponent-minCount xsd:integer)
+ObjectPropertyAssertion(sh:path sh:MinCountConstraintComponent-minCount sh:minCount)
+DataPropertyAssertion(sh:maxCount sh:MinCountConstraintComponent-minCount "1"^^xsd:integer)
+
+# Individual: sh:MinExclusiveConstraintComponent (Min-exclusive constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MinExclusiveConstraintComponent "A constraint component that can be used to restrict the range of value nodes with a minimum exclusive value."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MinExclusiveConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MinExclusiveConstraintComponent "Min-exclusive constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MinExclusiveConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MinExclusiveConstraintComponent sh:MinExclusiveConstraintComponent-minExclusive)
+
+# Individual: sh:MinExclusiveConstraintComponent-minExclusive (sh:MinExclusiveConstraintComponent-minExclusive)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MinExclusiveConstraintComponent-minExclusive <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MinExclusiveConstraintComponent-minExclusive)
+ObjectPropertyAssertion(sh:nodeKind sh:MinExclusiveConstraintComponent-minExclusive sh:Literal)
+ObjectPropertyAssertion(sh:path sh:MinExclusiveConstraintComponent-minExclusive sh:minExclusive)
+DataPropertyAssertion(sh:maxCount sh:MinExclusiveConstraintComponent-minExclusive "1"^^xsd:integer)
+
+# Individual: sh:MinInclusiveConstraintComponent (Min-inclusive constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MinInclusiveConstraintComponent "A constraint component that can be used to restrict the range of value nodes with a minimum inclusive value."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MinInclusiveConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MinInclusiveConstraintComponent "Min-inclusive constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MinInclusiveConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MinInclusiveConstraintComponent sh:MinInclusiveConstraintComponent-minInclusive)
+
+# Individual: sh:MinInclusiveConstraintComponent-minInclusive (sh:MinInclusiveConstraintComponent-minInclusive)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MinInclusiveConstraintComponent-minInclusive <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MinInclusiveConstraintComponent-minInclusive)
+ObjectPropertyAssertion(sh:nodeKind sh:MinInclusiveConstraintComponent-minInclusive sh:Literal)
+ObjectPropertyAssertion(sh:path sh:MinInclusiveConstraintComponent-minInclusive sh:minInclusive)
+DataPropertyAssertion(sh:maxCount sh:MinInclusiveConstraintComponent-minInclusive "1"^^xsd:integer)
+
+# Individual: sh:MinLengthConstraintComponent (Min-length constraint component)
+
+AnnotationAssertion(rdfs:comment sh:MinLengthConstraintComponent "A constraint component that can be used to restrict the minimum string length of value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:MinLengthConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:MinLengthConstraintComponent "Min-length constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:MinLengthConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:MinLengthConstraintComponent sh:MinLengthConstraintComponent-minLength)
+
+# Individual: sh:MinLengthConstraintComponent-minLength (sh:MinLengthConstraintComponent-minLength)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:MinLengthConstraintComponent-minLength <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:MinLengthConstraintComponent-minLength)
+ObjectPropertyAssertion(sh:datatype sh:MinLengthConstraintComponent-minLength xsd:integer)
+ObjectPropertyAssertion(sh:path sh:MinLengthConstraintComponent-minLength sh:minLength)
+DataPropertyAssertion(sh:maxCount sh:MinLengthConstraintComponent-minLength "1"^^xsd:integer)
+
+# Individual: sh:NodeConstraintComponent (Node constraint component)
+
+AnnotationAssertion(rdfs:comment sh:NodeConstraintComponent "A constraint component that can be used to verify that all value nodes conform to the given node shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:NodeConstraintComponent "Node constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:NodeConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:NodeConstraintComponent sh:NodeConstraintComponent-node)
+
+# Individual: sh:NodeConstraintComponent-node (sh:NodeConstraintComponent-node)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeConstraintComponent-node <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:NodeConstraintComponent-node)
+ObjectPropertyAssertion(sh:path sh:NodeConstraintComponent-node sh:node)
+
+# Individual: sh:NodeKindConstraintComponent (Node-kind constraint component)
+
+AnnotationAssertion(rdfs:comment sh:NodeKindConstraintComponent "A constraint component that can be used to restrict the RDF node kind of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeKindConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:NodeKindConstraintComponent "Node-kind constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:NodeKindConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:NodeKindConstraintComponent sh:NodeKindConstraintComponent-nodeKind)
+
+# Individual: sh:NodeKindConstraintComponent-nodeKind (sh:NodeKindConstraintComponent-nodeKind)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:NodeKindConstraintComponent-nodeKind <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:NodeKindConstraintComponent-nodeKind)
+ObjectPropertyAssertion(sh:in sh:NodeKindConstraintComponent-nodeKind _:genid2147483648)
+ObjectPropertyAssertion(sh:path sh:NodeKindConstraintComponent-nodeKind sh:nodeKind)
+DataPropertyAssertion(sh:maxCount sh:NodeKindConstraintComponent-nodeKind "1"^^xsd:integer)
+
+# Individual: sh:NotConstraintComponent (Not constraint component)
+
+AnnotationAssertion(rdfs:comment sh:NotConstraintComponent "A constraint component that can be used to verify that value nodes do not conform to a given shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:NotConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:NotConstraintComponent "Not constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:NotConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:NotConstraintComponent sh:NotConstraintComponent-not)
+
+# Individual: sh:NotConstraintComponent-not (sh:NotConstraintComponent-not)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:NotConstraintComponent-not <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:NotConstraintComponent-not)
+ObjectPropertyAssertion(sh:path sh:NotConstraintComponent-not sh:not)
+
+# Individual: sh:OrConstraintComponent (Or constraint component)
+
+AnnotationAssertion(rdfs:comment sh:OrConstraintComponent "A constraint component that can be used to restrict the value nodes so that they conform to at least one out of several provided shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:OrConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:OrConstraintComponent "Or constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:OrConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:OrConstraintComponent sh:OrConstraintComponent-or)
+
+# Individual: sh:OrConstraintComponent-or (sh:OrConstraintComponent-or)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:OrConstraintComponent-or <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:OrConstraintComponent-or)
+ObjectPropertyAssertion(sh:path sh:OrConstraintComponent-or sh:or)
+
+# Individual: sh:PatternConstraintComponent (Pattern constraint component)
+
+AnnotationAssertion(rdfs:comment sh:PatternConstraintComponent "A constraint component that can be used to verify that every value node matches a given regular expression."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:PatternConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:PatternConstraintComponent "Pattern constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:PatternConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:PatternConstraintComponent sh:PatternConstraintComponent-flags)
+ObjectPropertyAssertion(sh:parameter sh:PatternConstraintComponent sh:PatternConstraintComponent-pattern)
+
+# Individual: sh:PatternConstraintComponent-flags (sh:PatternConstraintComponent-flags)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:PatternConstraintComponent-flags <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:PatternConstraintComponent-flags)
+ObjectPropertyAssertion(sh:datatype sh:PatternConstraintComponent-flags xsd:string)
+ObjectPropertyAssertion(sh:path sh:PatternConstraintComponent-flags sh:flags)
+DataPropertyAssertion(sh:optional sh:PatternConstraintComponent-flags "true"^^xsd:boolean)
+
+# Individual: sh:PatternConstraintComponent-pattern (sh:PatternConstraintComponent-pattern)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:PatternConstraintComponent-pattern <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:PatternConstraintComponent-pattern)
+ObjectPropertyAssertion(sh:datatype sh:PatternConstraintComponent-pattern xsd:string)
+ObjectPropertyAssertion(sh:path sh:PatternConstraintComponent-pattern sh:pattern)
+
+# Individual: sh:PropertyConstraintComponent (Property constraint component)
+
+AnnotationAssertion(rdfs:comment sh:PropertyConstraintComponent "A constraint component that can be used to verify that all value nodes conform to the given property shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:PropertyConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:PropertyConstraintComponent "Property constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:PropertyConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:PropertyConstraintComponent sh:PropertyConstraintComponent-property)
+
+# Individual: sh:PropertyConstraintComponent-property (sh:PropertyConstraintComponent-property)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:PropertyConstraintComponent-property <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:PropertyConstraintComponent-property)
+ObjectPropertyAssertion(sh:path sh:PropertyConstraintComponent-property sh:property)
+
+# Individual: sh:QualifiedMaxCountConstraintComponent (Qualified-max-count constraint component)
+
+AnnotationAssertion(rdfs:comment sh:QualifiedMaxCountConstraintComponent "A constraint component that can be used to verify that a specified maximum number of value nodes conforms to a given shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMaxCountConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:QualifiedMaxCountConstraintComponent "Qualified-max-count constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:QualifiedMaxCountConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMaxCountConstraintComponent sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMaxCountConstraintComponent sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMaxCountConstraintComponent sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint)
+
+# Individual: sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount (sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount)
+ObjectPropertyAssertion(sh:datatype sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount xsd:integer)
+ObjectPropertyAssertion(sh:path sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount sh:qualifiedMaxCount)
+
+# Individual: sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape (sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape)
+ObjectPropertyAssertion(sh:path sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape sh:qualifiedValueShape)
+
+# Individual: sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint (sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint)
+ObjectPropertyAssertion(sh:datatype sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint xsd:boolean)
+ObjectPropertyAssertion(sh:path sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint sh:qualifiedValueShapesDisjoint)
+DataPropertyAssertion(sh:optional sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint "true"^^xsd:boolean)
+
+# Individual: sh:QualifiedMinCountConstraintComponent (Qualified-min-count constraint component)
+
+AnnotationAssertion(rdfs:comment sh:QualifiedMinCountConstraintComponent "A constraint component that can be used to verify that a specified minimum number of value nodes conforms to a given shape."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMinCountConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:QualifiedMinCountConstraintComponent "Qualified-min-count constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:QualifiedMinCountConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMinCountConstraintComponent sh:QualifiedMinCountConstraintComponent-qualifiedMinCount)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMinCountConstraintComponent sh:QualifiedMinCountConstraintComponent-qualifiedValueShape)
+ObjectPropertyAssertion(sh:parameter sh:QualifiedMinCountConstraintComponent sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint)
+
+# Individual: sh:QualifiedMinCountConstraintComponent-qualifiedMinCount (sh:QualifiedMinCountConstraintComponent-qualifiedMinCount)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMinCountConstraintComponent-qualifiedMinCount <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMinCountConstraintComponent-qualifiedMinCount)
+ObjectPropertyAssertion(sh:datatype sh:QualifiedMinCountConstraintComponent-qualifiedMinCount xsd:integer)
+ObjectPropertyAssertion(sh:path sh:QualifiedMinCountConstraintComponent-qualifiedMinCount sh:qualifiedMinCount)
+
+# Individual: sh:QualifiedMinCountConstraintComponent-qualifiedValueShape (sh:QualifiedMinCountConstraintComponent-qualifiedValueShape)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMinCountConstraintComponent-qualifiedValueShape <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMinCountConstraintComponent-qualifiedValueShape)
+ObjectPropertyAssertion(sh:path sh:QualifiedMinCountConstraintComponent-qualifiedValueShape sh:qualifiedValueShape)
+
+# Individual: sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint (sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint)
+ObjectPropertyAssertion(sh:datatype sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint xsd:boolean)
+ObjectPropertyAssertion(sh:path sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint sh:qualifiedValueShapesDisjoint)
+DataPropertyAssertion(sh:optional sh:QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint "true"^^xsd:boolean)
+
+# Individual: sh:SPARQLConstraintComponent (SPARQL constraint component)
+
+AnnotationAssertion(rdfs:comment sh:SPARQLConstraintComponent "A constraint component that can be used to define constraints based on SPARQL queries."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:SPARQLConstraintComponent "SPARQL constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:SPARQLConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:SPARQLConstraintComponent sh:SPARQLConstraintComponent-sparql)
+
+# Individual: sh:SPARQLConstraintComponent-sparql (sh:SPARQLConstraintComponent-sparql)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:SPARQLConstraintComponent-sparql <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:SPARQLConstraintComponent-sparql)
+ObjectPropertyAssertion(sh:path sh:SPARQLConstraintComponent-sparql sh:sparql)
+
+# Individual: sh:UniqueLangConstraintComponent (Unique-languages constraint component)
+
+AnnotationAssertion(rdfs:comment sh:UniqueLangConstraintComponent "A constraint component that can be used to specify that no pair of value nodes may use the same language tag."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:UniqueLangConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:UniqueLangConstraintComponent "Unique-languages constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:UniqueLangConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:UniqueLangConstraintComponent sh:UniqueLangConstraintComponent-uniqueLang)
+
+# Individual: sh:UniqueLangConstraintComponent-uniqueLang (sh:UniqueLangConstraintComponent-uniqueLang)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:UniqueLangConstraintComponent-uniqueLang <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:UniqueLangConstraintComponent-uniqueLang)
+ObjectPropertyAssertion(sh:datatype sh:UniqueLangConstraintComponent-uniqueLang xsd:boolean)
+ObjectPropertyAssertion(sh:path sh:UniqueLangConstraintComponent-uniqueLang sh:uniqueLang)
+DataPropertyAssertion(sh:maxCount sh:UniqueLangConstraintComponent-uniqueLang "1"^^xsd:integer)
+
+# Individual: sh:Violation (Violation)
+
+AnnotationAssertion(rdfs:comment sh:Violation "The severity for a violation validation result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Violation <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Violation "Violation"@en)
+ClassAssertion(sh:Severity sh:Violation)
+
+# Individual: sh:Warning (Warning)
+
+AnnotationAssertion(rdfs:comment sh:Warning "The severity for a warning validation result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:Warning <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:Warning "Warning"@en)
+ClassAssertion(sh:Severity sh:Warning)
+
+# Individual: sh:XoneConstraintComponent (Exactly one constraint component)
+
+AnnotationAssertion(rdfs:comment sh:XoneConstraintComponent "A constraint component that can be used to restrict the value nodes so that they conform to exactly one out of several provided shapes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:XoneConstraintComponent <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:XoneConstraintComponent "Exactly one constraint component"@en)
+ClassAssertion(sh:ConstraintComponent sh:XoneConstraintComponent)
+ObjectPropertyAssertion(sh:parameter sh:XoneConstraintComponent sh:XoneConstraintComponent-xone)
+
+# Individual: sh:XoneConstraintComponent-xone (sh:XoneConstraintComponent-xone)
+
+AnnotationAssertion(rdfs:isDefinedBy sh:XoneConstraintComponent-xone <http://www.w3.org/ns/shacl#>)
+ClassAssertion(sh:Parameter sh:XoneConstraintComponent-xone)
+ObjectPropertyAssertion(sh:path sh:XoneConstraintComponent-xone sh:xone)
+
+# Individual: sh:expression (expression)
+
+AnnotationAssertion(rdfs:comment sh:expression "The node expression that must return true for the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:expression <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:expression "expression"@en)
+
+# Individual: sh:hasValue (has value)
+
+AnnotationAssertion(rdfs:comment sh:hasValue "Specifies a value that must be among the value nodes."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:hasValue <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:hasValue "has value"@en)
+
+# Individual: sh:maxExclusive (max exclusive)
+
+AnnotationAssertion(rdfs:comment sh:maxExclusive "Specifies the maximum exclusive value of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:maxExclusive <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:maxExclusive "max exclusive"@en)
+
+# Individual: sh:maxInclusive (max inclusive)
+
+AnnotationAssertion(rdfs:comment sh:maxInclusive "Specifies the maximum inclusive value of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:maxInclusive <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:maxInclusive "max inclusive"@en)
+
+# Individual: sh:minExclusive (min exclusive)
+
+AnnotationAssertion(rdfs:comment sh:minExclusive "Specifies the minimum exclusive value of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:minExclusive <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:minExclusive "min exclusive"@en)
+
+# Individual: sh:minInclusive (min inclusive)
+
+AnnotationAssertion(rdfs:comment sh:minInclusive "Specifies the minimum inclusive value of each value node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:minInclusive <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:minInclusive "min inclusive"@en)
+
+# Individual: sh:this (this)
+
+AnnotationAssertion(rdfs:comment sh:this "A node expression that represents the current focus node."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:this <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:this "this"@en)
+ClassAssertion(rdfs:Resource sh:this)
+
+
+DataPropertyAssertion(sh:namespace _:genid2147483649 "http://www.w3.org/ns/shacl#")
+DataPropertyAssertion(sh:prefix _:genid2147483649 "sh")
+AnnotationAssertion(rdfs:comment sh:intersection "A list of node expressions that shall be intersected."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:intersection <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:intersection "intersection"@en)
+AnnotationAssertion(rdfs:comment sh:message "A human-readable message (possibly with placeholders for variables) explaining the cause of the result."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:message <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:message "message"@en)
+AnnotationAssertion(rdfs:comment sh:nodes "The node expression producing the input nodes of a filter shape expression."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:nodes <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:nodes "nodes"@en)
+AnnotationAssertion(rdfs:comment sh:order "Specifies the relative order of this compared to its siblings. For example use 0 for the first, 1 for the second."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:order <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:order "order"@en)
+AnnotationAssertion(rdfs:comment sh:union "A list of node expressions that shall be used together."@en)
+AnnotationAssertion(rdfs:isDefinedBy sh:union <http://www.w3.org/ns/shacl#>)
+AnnotationAssertion(rdfs:label sh:union "union"@en)
+)

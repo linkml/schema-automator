@@ -13,7 +13,7 @@ BOOKS = os.path.join(INPUT_DIR, 'books.tsv')
 BOOKS_OUTSCHEMA = os.path.join(OUTPUT_DIR, 'books.yaml')
 BOOKS_OUTSCHEMA_ENHANCED = os.path.join(OUTPUT_DIR, 'books.enhanced.yaml')
 
-class TestRdfImport(unittest.TestCase):
+class TestTsvmport(unittest.TestCase):
     """TSV """
 
     def test_tsv(self):
