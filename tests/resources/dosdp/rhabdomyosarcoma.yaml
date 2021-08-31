@@ -1,0 +1,52 @@
+pattern_name: rhabdomyosarcoma disease has location X
+
+pattern_iri: http://purl.obolibrary.org/obo/mondo/patterns/rhabdomyosarcoma.yaml
+
+description: 'This is auto-generated. Add your description here
+
+  Examples: [rhabdomyosarcoma of the cervix uteri](http://purl.obolibrary.org/obo/MONDO_0016282),
+  [breast rhabdomyosarcoma](http://purl.obolibrary.org/obo/MONDO_0002859), [testis
+  rhabdomyosarcoma](http://purl.obolibrary.org/obo/MONDO_0002860) (15 total)'
+
+contributors:
+- https://orcid.org/0000-0002-6601-2165
+
+classes:
+  rhabdomyosarcoma: MONDO:0005212
+  owl_thing: owl:Thing
+
+relations:
+  disease has location: RO:0004026
+
+annotationProperties:
+  exact_synonym: oio:hasExactSynonym
+  related_synonym: oio:hasRelatedSynonym
+
+vars:
+  location: owl_thing
+
+name:
+  text: '%s rhabdomyosarcoma'
+  vars:
+  - location
+
+annotations:
+- annotationProperty: exact_synonym
+  text: '%s rhabdomyosarcoma'
+  vars:
+  - location
+- annotationProperty: related_synonym
+  text: rhabdomyosarcoma of the %s
+  vars:
+  - location
+
+def:
+  text: A malignant mesenchymal tumor with skeletal muscle differentiation affecting
+    the %s.
+  vars:
+  - location
+
+equivalentTo:
+  text: '''rhabdomyosarcoma'' and (''disease has location'' some %s)'
+  vars:
+  - location

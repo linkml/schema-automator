@@ -1,0 +1,598 @@
+id: https://w3id.org/linkml/dosdp
+name: DOSDP
+imports:
+- linkml:types
+prefixes:
+  dosdp: https://w3id.org/linkml/dosdp/
+  linkml: https://w3id.org/linkml/
+default_prefix: dosdp
+
+# ---------
+# CLASSES
+# ---------
+
+classes:
+
+  Pattern:
+    slots:
+    - pattern_name
+    - pattern_iri
+    - base_IRI
+    - contributors
+    - description
+    - examples
+    - status
+    - tags
+    - readable_identifiers
+    - classes
+    - objectProperties
+    - relations
+    - dataProperties
+    - annotationProperties
+    - vars
+    - list_vars
+    - data_vars
+    - data_list_vars
+    - internal_vars
+    - substitutions
+    - annotations
+    - logical_axioms
+    - equivalentTo
+    - subClassOf
+    - GCI
+    - disjointWith
+    - name
+    - comment
+    - definition
+    - namespace
+    - exact_synonym
+    - narrow_synonym
+    - related_synonym
+    - broad_synonym
+    - xref
+    - generated_synonyms
+    - generated_narrow_synonyms
+    - generated_broad_synonyms
+    - generated_related_synonyms
+    - instance_graph
+    slot_usage:
+      pattern_name:
+        description: The name of the pattern.  This must be an ASCII string with no
+          spaces. The only special characters allowed are '_' and '-'. By convention,
+          this is used as the file name of the pattern - with an appropriate extension.
+      pattern_iri:
+        description: A global identifier for the pattern. This can be a full IRI or
+          a CURIE, using the same prefix mappings as other CURIEs in the pattern.
+      base_IRI:
+        description: Specifies the base IRI to be used to generate new classes.
+      contributors:
+        multivalued: true
+      description:
+        description: A free text description of the pattern.  Must be UTF-8 encoded.
+      examples:
+        description: A list of example terms implementing this pattern.
+      status:
+        description: Implementation status of pattern.
+        range: status_options
+      tags:
+        description: A list of strings used to tag a pattern for the purposes of arbitrary,
+          cross-cutting grouping of patterns.
+      readable_identifiers:
+        multivalued: true
+      classes:
+        description: 'A dictionary of OWL classes. key :label; value : short form
+          id'
+        range: AliasDeclaration
+        inlined: true
+        multivalued: true
+      objectProperties:
+        description: 'A dictionary of OWL object properties. key : label; value :
+          short form id'
+        range: AliasDeclaration
+        inlined: true
+        multivalued: true
+      relations:
+        description: 'A dictionary of OWL object properties. key : label; value :
+          short form id'
+        range: AliasDeclaration
+        inlined: true
+        multivalued: true
+      dataProperties:
+        description: 'A dictionary of OWL data properties key : label; value : short
+          form id'
+        range: AliasDeclaration
+        inlined: true
+        multivalued: true
+      annotationProperties:
+        description: 'A dictionary of OWL annotation properties key : label; value
+          : short form id'
+        range: AliasDeclaration
+        inlined: true
+        multivalued: true
+      vars:
+        description: A dictionary of variables ranging over OWL classes. Key = variable
+          name, value = variable range as manchester syntax string.
+        multivalued: true
+        inlined: true
+        range: VarDeclaration
+      list_vars:
+        description: A dictionary of variables refering to lists of owl classes. Key
+          = variable name, value = variable range of items in list specified as a
+          valid OWL data-type.
+      data_vars:
+        description: A dictionary of variables ranging over OWL data-types. Key =
+          variable name, value = variable range specified as a valid OWL data-type.
+      data_list_vars:
+        description: A dictionary of variables rrefering to lists of some specified
+          OWL data-types. Key = variable name, value = variable range of all items
+          in list, specified as a valid OWL data-type.
+      internal_vars:
+        multivalued: true
+      substitutions:
+        range: RegexSub
+        multivalued: true
+      annotations:
+        range: Annotation
+        multivalued: true
+      logical_axioms:
+        range: PrintfOwl
+        multivalued: true
+      equivalentTo:
+        range: PrintfOwlConvenience
+      subClassOf:
+        range: PrintfOwlConvenience
+      GCI:
+        range: PrintfOwlConvenience
+      disjointWith:
+        range: PrintfOwlConvenience
+      name:
+        range: PrintfAnnotationObo
+      comment:
+        range: PrintfAnnotationObo
+      definition:
+        range: PrintfAnnotationObo
+      namespace:
+        range: PrintfAnnotationObo
+      exact_synonym:
+        range: ListAnnotationObo
+      narrow_synonym:
+        range: ListAnnotationObo
+      related_synonym:
+        range: ListAnnotationObo
+      broad_synonym:
+        range: ListAnnotationObo
+      xref:
+        range: ListAnnotationObo
+      generated_synonyms:
+        range: PrintfAnnotationObo
+        multivalued: true
+      generated_narrow_synonyms:
+        range: PrintfAnnotationObo
+        multivalued: true
+      generated_broad_synonyms:
+        range: PrintfAnnotationObo
+        multivalued: true
+      generated_related_synonyms:
+        range: PrintfAnnotationObo
+        multivalued: true
+      instance_graph: {}
+
+  Declaration:
+    abstract: true
+  VarDeclaration:
+    is_a: Declaration
+    attributes:
+      var:
+        identifier: true
+      range:
+  AliasDeclaration:
+    is_a: Declaration
+    attributes:
+      alias:
+        identifier: true
+      curie:
+  
+  MultiClausePrintf:
+    slots:
+    - sep
+    - clauses
+    slot_usage:
+      sep:
+        description: A string used as clause separator while aggregating multiple
+          clauses.
+      clauses:
+        range: PrintfClause
+        multivalued: true
+        required: true
+        
+  PrintfClause:
+    slots:
+    - text
+    - vars
+    - sub_clauses
+    slot_usage:
+      text:
+        description: A print format string.
+        required: true
+      vars:
+        multivalued: true
+        required: true
+      sub_clauses:
+        range: MultiClausePrintf
+        multivalued: true
+
+  # TODO
+  Function:
+    union_of:
+    - Join
+    - RegexSub
+    
+  # TODO
+  Join:
+    slots:
+    - sep
+    slot_usage:
+      sep:
+        description: A string used as value separator while joining list type (multi value) variables.
+        
+  PrintfAnnotation:
+    slots:
+    - annotationProperty
+    - annotations
+    - text
+    - vars
+    - multi_clause
+    slot_usage:
+      annotationProperty:
+        description: A string corresponding to the rdfs:label of an owl annotation
+          property. If the annotation property has no label, the shortForm ID should
+          be used. The annotation property must be listed in the annotation property
+          dictionary.'
+      annotations:
+        range: Annotation
+        multivalued: true
+      text:
+        description: A print format string.
+      vars:
+        multivalued: true
+      multi_clause: {}
+
+  ListAnnotation:
+    slots:
+    - annotationProperty
+    - value
+    slot_usage:
+      annotationProperty:
+        description: A string corresponding to the rdfs:label of an owl annotation
+          property. If the annotation property has no label, the shortForm ID should
+          be used. The annotation property must be listed in the annotation property
+          dictionary.'
+        required: true
+      value:
+        description: A single list variable (list_var or data_list_var).  Each item
+          in this list should be used to generate a separate annotation axiom.
+        required: true
+  IriValueAnnotation:
+    slots:
+    - annotationProperty
+    - var
+    - annotations
+    slot_usage:
+      annotationProperty:
+        description: A string corresponding to a key in the annotation property dictionary.
+        required: true
+      var:
+        description: The name of a variable specified in the 'vars' field. The IRI
+          of the variable value will be the object of the annotation axiom.
+        required: true
+      annotations:
+        range: Annotation
+        multivalued: true
+
+  # TODO
+  Annotation:
+    union_of:
+    - PrintfAnnotation
+    - ListAnnotation
+    - IriValueAnnotation
+
+  Printf:
+    abstract: true
+    slots:
+      - text
+      - vars
+      - annotations
+    
+  PrintfOwl:
+    is_a: Printf
+    slots:
+    - annotations
+    - axiom_type
+    - text
+    - vars
+    - multi_clause
+    slot_usage:
+      annotations:
+        range: Annotation
+        multivalued: true
+      axiom_type:
+        description: 'OWL axiom type expressed as manchester syntax: equivalentTo,
+          subClassOf, disjointWith. GCI  - for general class inclusion axioms, is
+          also valid (although missing from manchester syntax.) This specifies the
+          axiom type to be generated from the text following substitution.'''
+        range: axiom_type_options
+      text:
+        description: A print format string in OWL Manchester syntax. Each entry must
+          correspond to an entry in o the name of a var in the var field of the pattern.
+          Entries in single quotes must correspond to the labels of entries in owl_entity
+          dictionaries (classes, relations, dataProperties)
+      vars:
+        multivalued: true
+      multi_clause: {}
+      
+  PrintfOwlConvenience:
+    is_a: Printf
+    slots:
+    - annotations
+    - text
+    - vars
+    - multi_clause
+    slot_usage:
+      annotations:
+        range: Annotation
+        multivalued: true
+      text:
+        description: A print format string in OWL Manchester syntax. Each entry must
+          correspond to an entry in o the name of a var in the var field of the pattern.
+          Entries in single quotes must correspond to the labels of entries in owl_entity
+          dictionaries (classes, relations, dataProperties)
+      vars:
+        multivalued: true
+      multi_clause: {}
+      
+  RegexSub:
+    slots:
+    - _in
+    - out
+    - match
+    - sub
+    slot_usage:
+      _in:
+        description: name of input var
+      out:
+        description: Name of output var.  If input var specified an OWL entity then
+          readable identifier is used as input to substitution
+        required: true
+      match:
+        description: perl style regex match
+        required: true
+      sub:
+        description: perl style regex sub.  May include backreferences.
+        required: true
+  OPA:
+    slots:
+    - edge
+    - annotations
+    - _not
+    slot_usage:
+      edge:
+        multivalued: true
+        required: true
+      annotations:
+        range: Annotation
+        multivalued: true
+      _not:
+        description: Optional field for negated OPAs
+        range: boolean
+        
+  PrintfAnnotationObo:
+    is_a: Printf
+    slots:
+    - annotations
+    - xrefs
+    - text
+    - vars
+    - multi_clause
+    slot_usage:
+      annotations:
+        range: Annotation
+        multivalued: true
+      xrefs:
+        description: Takes the name of a single data_list_var specifying a list of
+          database cross references.
+      text:
+        description: A print format string.
+      vars:
+        multivalued: true
+      multi_clause: {}
+  ListAnnotationObo:
+    slots:
+    - value
+    - xrefs
+    slot_usage:
+      value:
+        description: A single list variable (list_var or data_list_var).  Each item
+          in this list should be used to generate a separate annotation axiom.
+        required: true
+      xrefs:
+        description: Takes the name of a single data_list_var specifying a list of
+          database cross references. Use of this field should add the same xref set
+          to all annotation axioms generated.
+
+
+      
+# ---------
+# SLOTS
+# ---------
+slots:
+  sep:
+    description: A string used as value separator while joining list type (multi value)
+      variables.
+  clauses:
+    range: PrintfClause
+    multivalued: true
+    required: true
+  text:
+    description: A print format string.
+  vars:
+    description: When used at top level, a dict. A list when used within an annotation
+    multivalued: true
+  sub_clauses:
+    range: MultiClausePrintf
+    multivalued: true
+  annotationProperty:
+    description: A string corresponding to a key in the annotation property dictionary.
+    required: true
+  annotations:
+    range: Annotation
+    multivalued: true
+  multi_clause: {}
+  value:
+    description: A single list variable (list_var or data_list_var).  Each item in
+      this list should be used to generate a separate annotation axiom.
+    required: true
+  var:
+    description: The name of a variable specified in the 'vars' field. The IRI of
+      the variable value will be the object of the annotation axiom.
+    required: true
+  axiom_type:
+    description: 'OWL axiom type expressed as manchester syntax: equivalentTo, subClassOf,
+      disjointWith. GCI  - for general class inclusion axioms, is also valid (although
+      missing from manchester syntax.) This specifies the axiom type to be generated
+      from the text following substitution.'''
+    range: axiom_type_options
+  _in:
+    description: name of input var
+  out:
+    description: Name of output var.  If input var specified an OWL entity then readable
+      identifier is used as input to substitution
+    required: true
+  match:
+    description: perl style regex match
+    required: true
+  sub:
+    description: perl style regex sub.  May include backreferences.
+    required: true
+  edge:
+    multivalued: true
+    required: true
+  _not:
+    description: Optional field for negated OPAs
+    range: boolean
+  xrefs:
+    description: Takes the name of a single data_list_var specifying a list of database
+      cross references. Use of this field should add the same xref set to all annotation
+      axioms generated.
+  pattern_name:
+    description: The name of the pattern.  This must be an ASCII string with no spaces.
+      The only special characters allowed are '_' and '-'. By convention, this is
+      used as the file name of the pattern - with an appropriate extension.
+  pattern_iri:
+    description: A global identifier for the pattern. This can be a full IRI or a
+      CURIE, using the same prefix mappings as other CURIEs in the pattern.
+  base_IRI:
+    description: Specifies the base IRI to be used to generate new classes.
+  contributors:
+    multivalued: true
+  description:
+    description: A free text description of the pattern.  Must be UTF-8 encoded.
+  examples:
+    description: A list of example terms implementing this pattern.
+  status:
+    description: Implementation status of pattern.
+    range: status_options
+  tags:
+    description: A list of strings used to tag a pattern for the purposes of arbitrary,
+      cross-cutting grouping of patterns.
+  readable_identifiers:
+    multivalued: true
+  classes:
+    description: 'A dictionary of OWL classes. key :label; value : short form id'
+  objectProperties:
+    description: 'A dictionary of OWL object properties. key : label; value : short
+      form id'
+  relations:
+    description: 'A dictionary of OWL object properties. key : label; value : short
+      form id'
+  dataProperties:
+    description: 'A dictionary of OWL data properties key : label; value : short form
+      id'
+  annotationProperties:
+    description: 'A dictionary of OWL annotation properties key : label; value : short
+      form id'
+  list_vars:
+    description: A dictionary of variables refering to lists of owl classes. Key =
+      variable name, value = variable range of items in list specified as a valid
+      OWL data-type.
+  data_vars:
+    description: A dictionary of variables ranging over OWL data-types. Key = variable
+      name, value = variable range specified as a valid OWL data-type.
+  data_list_vars:
+    description: A dictionary of variables rrefering to lists of some specified OWL
+      data-types. Key = variable name, value = variable range of all items in list,
+      specified as a valid OWL data-type.
+  internal_vars:
+    multivalued: true
+  substitutions:
+    range: RegexSub
+    multivalued: true
+  logical_axioms:
+    range: PrintfOwl
+    multivalued: true
+  equivalentTo:
+    range: PrintfOwlConvenience
+  subClassOf:
+    range: PrintfOwlConvenience
+  GCI:
+    range: PrintfOwlConvenience
+  disjointWith:
+    range: PrintfOwlConvenience
+  name:
+    range: PrintfAnnotationObo
+  comment:
+    range: PrintfAnnotationObo
+  definition:
+    range: PrintfAnnotationObo
+  namespace:
+    range: PrintfAnnotationObo
+  exact_synonym:
+    range: ListAnnotationObo
+  narrow_synonym:
+    range: ListAnnotationObo
+  related_synonym:
+    range: ListAnnotationObo
+  broad_synonym:
+    range: ListAnnotationObo
+  xref:
+    range: ListAnnotationObo
+  generated_synonyms:
+    range: PrintfAnnotationObo
+    multivalued: true
+  generated_narrow_synonyms:
+    range: PrintfAnnotationObo
+    multivalued: true
+  generated_broad_synonyms:
+    range: PrintfAnnotationObo
+    multivalued: true
+  generated_related_synonyms:
+    range: PrintfAnnotationObo
+    multivalued: true
+  instance_graph: {}
+
+enums:
+  axiom_type_options:
+    permissible_values:
+      equivalentTo:
+        text: equivalentTo
+      subClassOf:
+        text: subClassOf
+      disjointWith:
+        text: disjointWith
+      GCI:
+        text: GCI
+  status_options:
+    permissible_values:
+      development:
+        text: development
+      published:
+        text: published

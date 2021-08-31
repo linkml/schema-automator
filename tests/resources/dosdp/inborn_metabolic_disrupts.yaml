@@ -1,0 +1,53 @@
+pattern_name: inborn errors of metabolism disease caused by disruption of X
+
+pattern_iri: http://purl.obolibrary.org/obo/mondo/patterns/inborn_metabolic_disrupts.yaml
+
+description: "This pattern is used for inborn errors of metabolism that cause disruption\
+  \ of a specific biological process, such as enzyme activity or ion transport. \n\
+  Examples: ['5-oxoprolinase deficiency (disease)'](http://purl.obolibrary.org/obo/MONDO_0009825),\
+  \ [inborn disorder of methionine cycle and sulfur amino acid metabolism](http://purl.obolibrary.org/obo/MONDO_0019222),\
+  \ [inborn aminoacylase deficiency](http://purl.obolibrary.org/obo/MONDO_0017686)\
+  \ (51 total)"
+
+contributors:
+- https://orcid.org/0000-0002-6601-2165
+- https://orcid.org/0000-0001-5208-3432
+
+classes:
+  inborn errors of metabolism: MONDO:0019052
+  owl_thing: owl:Thing
+
+relations:
+  disease caused by disruption of: RO:0004021
+
+annotationProperties:
+  exact_synonym: oio:hasExactSynonym
+  related_synonym: oio:hasRelatedSynonym
+
+vars:
+  process: '''owl_thing'''
+
+name:
+  text: inborn disorder of %s
+  vars:
+  - process
+
+annotations:
+- annotationProperty: exact_synonym
+  text: inborn error of %s
+  vars:
+  - process
+- annotationProperty: related_synonym
+  text: rare inborn error of %s
+  vars:
+  - process
+
+def:
+  text: An acquired metabolic disease that is has its basis in the disruption of %s.
+  vars:
+  - process
+
+equivalentTo:
+  text: '''inborn errors of metabolism'' and (''disease caused by disruption of'' some %s)'
+  vars:
+  - process

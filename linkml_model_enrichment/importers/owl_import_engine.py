@@ -235,6 +235,6 @@ def owl2model(owlfile, output, **args):
         print(ys)
 
 if __name__ == '__main__':
-    rdf2model()
+    owl2model()
 
 
