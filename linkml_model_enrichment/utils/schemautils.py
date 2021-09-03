@@ -1,6 +1,31 @@
 import copy
 import logging
+from typing import Union
 
+import yaml
+from linkml_runtime.dumpers import yaml_dumper
+from linkml_runtime.linkml_model import SchemaDefinition
+
+
+def minify_schema(obj: Union[dict, SchemaDefinition]) -> dict:
+    if isinstance(obj, SchemaDefinition):
+        yd = yaml_dumper.dumps(obj)
+        obj = yaml.safe_load(yd)
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, dict) and 'name' in v and v['name'] == k:
+                del v['name']
+            minify_schema(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            minify_schema(v)
+    else:
+        None
+    return obj
+
+
+
+# TODO: replace with schemaview
 def merge_schemas(schemas, nomerge_enums_for=[]):
     schema = copy.deepcopy(schemas[0])
     for s in schemas:

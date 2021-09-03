@@ -1,6 +1,6 @@
 click >= 7.1.2
 dataclasses
-linkml >= 1.0.4
+linkml >= 1.0.5
 linkml-model
 mkdocs
 pandas >= 1.2.3
@@ -15,3 +15,4 @@ click_log
 funowl >= 0.1.9
 quantulum3
 pytest
+jsonpatch

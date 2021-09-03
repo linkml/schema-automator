@@ -1,0 +1,43 @@
+pattern_name: rare
+
+pattern_iri: http://purl.obolibrary.org/obo/mondo/patterns/rare.yaml
+
+description: TBD.
+
+contributors:
+- https://orcid.org/0000-0002-6601-2165
+
+classes:
+  rare: MONDO:0021136
+  disease: MONDO:0000001
+
+relations:
+  has modifier: RO:0002573
+
+annotationProperties:
+  exact_synonym: oio:hasExactSynonym
+  related_synonym: oio:hasRelatedSynonym
+
+vars:
+  disease: '''disease'''
+
+name:
+  text: rare %s
+  vars:
+  - disease
+
+annotations:
+- annotationProperty: exact_synonym
+  text: rare %s
+  vars:
+  - disease
+
+def:
+  text: Any of the forms of %s that have a rare incidence.
+  vars:
+  - disease
+
+equivalentTo:
+  text: '%s and ''has modifier'' some ''rare'''
+  vars:
+  - disease

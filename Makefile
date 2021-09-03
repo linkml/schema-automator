@@ -9,7 +9,7 @@ export PYTHONPATH=.
 # https://docs.google.com/spreadsheets/d/1VFeUZqLmnmXDS1JcyXQbMgF513WyUBgz/edit#gid=1742629071
 
 test:
-	pytest tests/*py
+	pytest tests/test_*py
 
 unit-tests:
 	pytest tests/unit/*.py
@@ -19,6 +19,9 @@ integration-tests:
 
 typecheck:
 	mypy kgx --ignore-missing-imports
+
+linkml_model_enrichment/dosdp/model.py: linkml_model_enrichment/dosdp/dosdp_linkml.yaml
+	gen-python $< > $@ && python -m linkml_model_enrichment.dosdp.model
 
 inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml:
 	linkml_model_enrichment/infer_model.py \
@@ -62,6 +65,12 @@ target/felix_modifications_modification_type_enum_so.yaml: inferred-models/felix
 	--enum_source modification_type_enum \
 	--ontoprefix so > \
 	target/felix_modifications_modification_type_enum_so.yaml
+
+copy-pfx:
+	find ../phenopacket-schema -name "*.proto" -exec cp {} tests/resources/phenopackets/ \;
+
+pfx-fix-imports:
+	perl -pi -ne 's@import ".*/@import "@' tests/resources/phenopackets/*proto
 
 clean:
 	[ ! -e inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml ] || \

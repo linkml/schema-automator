@@ -1,0 +1,72 @@
+syntax = "proto3";
+package org.matchmakerexchange.api.v1;
+
+import "base.proto";
+
+option java_multiple_files = true;
+option java_outer_classname = "MatchMakerExchange";
+option java_package = "org.matchmakerexchange.api.v1";
+
+// This is an example of how other resources, in this case the MME can define their own custom messages using the
+// Phenopackets schema to define common elements, such as Gene, OntologyClass, Disease, Phenotype and Individual. Other
+// resource-specific types require specifying in their own schema definition, as is shown in this file.
+// See https://github.com/ga4gh/mme-apis/blob/master/search-api.md#search-request for the specification.
+message MmeMatchRequest {
+    string disclaimer = 1;
+    string terms = 2;
+    MmeContact contact = 3;
+    MmePatient patient = 4;
+}
+
+message MmePatient {
+    org.phenopackets.schema.v1.core.Individual individual = 4;
+    repeated MmeGenomicFeature genomic_features = 5;
+    repeated org.phenopackets.schema.v1.core.PhenotypicFeature features = 6;
+    repeated org.phenopackets.schema.v1.core.Disease disorders = 7;
+}
+
+message MmeGenomicFeature {
+    // Ensembl gene
+    org.phenopackets.schema.v1.core.Gene gene = 1;
+    MmeVariant variant = 2;
+    int32 zygosity = 3;
+    // Class from the Sequence Ontology (SO)
+    org.phenopackets.schema.v1.core.OntologyClass type = 4;
+}
+
+message MmeVariant {
+    // "NCBI36"|"GRCh37.p13"|"GRCh38.p1"|…,
+    string assembly = 1;
+    // "1"|"2"|…|"X"|"Y"
+    string referenceName = 2;
+    int32 start = 3;
+    int32 end = 4;
+    // "A"|"ACG"|…,
+    string referenceBases = 5;
+    // "A"|"ACG"|…,
+    string alternateBases = 6;
+}
+
+message MmeContact {
+    string name = 1;
+    string institution = 2;
+    string href = 3;
+    string email = 4;
+    enum Role {
+        clinician = 0;
+        researcher = 1;
+        patient = 2;
+    }
+    repeated Role roles = 5;
+}
+
+message MmeMatch {
+    float score = 1;
+    MmePatient patient = 2;
+}
+// https://github.com/ga4gh/mme-apis/blob/master/search-api.md#example-1
+message MmeMatchResponse {
+    string disclaimer = 1;
+    string terms = 2;
+    repeated MmeMatch results = 5;
+}

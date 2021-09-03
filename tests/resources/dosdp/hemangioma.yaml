@@ -1,0 +1,54 @@
+pattern_name: hemangioma disease has location X
+
+pattern_iri: http://purl.obolibrary.org/obo/mondo/patterns/hemangioma.yaml
+
+description: 'A hemangioma (a benign vascular lesion characterized by the formation
+  of capillary-sized or cavernous vascular channels) that is located in a specific
+  anatomical site.
+
+  Examples: [skin hemangioma](http://purl.obolibrary.org/obo/MONDO_0003110), [breast
+  hemangioma](http://purl.obolibrary.org/obo/MONDO_0003126), [gastric hemangioma](http://purl.obolibrary.org/obo/MONDO_0002414)
+  (20 total)'
+
+contributors:
+- https://orcid.org/0000-0002-6601-2165
+- https://orcid.org/0000-0001-5208-3432
+
+classes:
+  hemangioma: MONDO:0006500
+  anatomical entity: UBERON:0001062
+
+relations:
+  disease has location: RO:0004026
+
+annotationProperties:
+  exact_synonym: oio:hasExactSynonym
+  related_synonym: oio:hasRelatedSynonym
+
+vars:
+  location: '''anatomical entity'''
+
+name:
+  text: hemangioma of %s
+  vars:
+  - location
+
+annotations:
+- annotationProperty: exact_synonym
+  text: '%s hemangioma'
+  vars:
+  - location
+- annotationProperty: related_synonym
+  text: angioma of %s
+  vars:
+  - location
+
+def:
+  text: A hemangioma that involves the %s.
+  vars:
+  - location
+
+equivalentTo:
+  text: '''hemangioma'' and (''disease has location'' some %s)'
+  vars:
+  - location
