@@ -24,12 +24,14 @@ class OwlImportEngine(ImportEngine):
     mappings: dict = None
     include_unmapped_annotations = False
 
-    def convert(self, file: str, name: str = None, **kwargs):
+    def convert(self, file: str, name: str = None, model_uri: str = None, **kwargs):
         self.mappings = {}
         doc = to_python(file)
         ontology = doc.ontology
         prefixes = doc.prefixDeclarations
         self.prefixes = prefixes
+        if model_uri is None:
+            model_uri = f'https://w3id.org/{name}/'
         if name is None:
             name = self.iri_to_name(ontology.iri)
         classes = {}
@@ -43,7 +45,7 @@ class OwlImportEngine(ImportEngine):
             'imports': ['linkml:types'],
             'prefixes': {
                 'linkml': 'https://w3id.org/linkml/',
-                name: f'https://w3id.org/{name}/'
+                name: model_uri,
             },
             'default_prefix': name,
             'types': types,
@@ -135,12 +137,15 @@ class OwlImportEngine(ImportEngine):
 
             if isinstance(a, Declaration):
                 e = a.v
+                uri_as_curie = str(e.v)
+                if uri_as_curie.startswith(':'):
+                    uri_as_curie = f'{name}{uri_as_curie}'
                 if type(e) == Class:
                     cn = self.iri_to_name(e.v)
-                    self.class_info(cn, 'class_uri', str(e.v))
+                    self.class_info(cn, 'class_uri', uri_as_curie)
                 if type(e) in [ObjectProperty, DataProperty, AnnotationProperty]:
                     cn = self.iri_to_name(e.v)
-                    self.slot_info(cn, 'slot_uri', str(e.v))
+                    self.slot_info(cn, 'slot_uri', uri_as_curie)
 
 
         for c, parents in isamap.items():
@@ -218,6 +223,7 @@ class OwlImportEngine(ImportEngine):
 @click.command()
 @click.argument('owlfile')
 @click.option('--name', '-n', help="Schema name")
+@click.option('--model-uri', help="Model URI prefix")
 @click.option('--output', '-o', help="Path to saved yaml schema")
 def owl2model(owlfile, output, **args):
     """
