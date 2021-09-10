@@ -149,19 +149,19 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
                     obo_syn_frame['pref_lab'] = term_json['label']
                     annotations_frame = annotations_frame.append(obo_syn_frame, ignore_index=True)
 
-                # # don't process every kind of annotation, like genetic code
-                # has_annotations = 'annotation' in set(term_json.keys())
-                # if has_annotations:
-                #     obo_ano_json = term_json['annotation']
-                #     for anokey in obo_ano_json.keys():
-                #         for keyval in obo_ano_json[anokey]:
-                #             new_row = {'name': keyval,
-                #                        'obo_id': term_json['obo_id'],
-                #                        'scope': anokey,
-                #                        'type': 'annotation',
-                #                        'xrefs': '',
-                #                        'pref_lab': term_json['label']}
-                #             annotations_frame = annotations_frame.append(new_row, ignore_index=True)
+                # don't process every kind of annotation, like genetic code
+                has_annotations = 'annotation' in set(term_json.keys())
+                if has_annotations:
+                    obo_ano_json = term_json['annotation']
+                    for anokey in obo_ano_json.keys():
+                        for keyval in obo_ano_json[anokey]:
+                            new_row = {'name': keyval,
+                                       'obo_id': term_json['obo_id'],
+                                       'scope': anokey,
+                                       'type': 'annotation',
+                                       'xrefs': '',
+                                       'pref_lab': term_json['label']}
+                            annotations_frame = annotations_frame.append(new_row, ignore_index=True)
 
                 annotations_row_count = len(annotations_frame.index)
 
@@ -358,9 +358,11 @@ def clickmain(modelfile, tabular_outputfile, ontoprefix, enum_list, query_fields
 
     if search_engine == 'OLS':
         all_ols_results = all_enums_to_ols(inferred_model, settled_enums)
+        unique_sorted_failures = list(set(failures))
+        unique_sorted_failures.sort()
         logger.info("MAPPING FAILURES")
-        logger.info(list(set(failures)))
-        all_ols_results.to_csv(tabular_outputfile, sep='\t')
+        logger.info(unique_sorted_failures)
+        all_ols_results.to_csv(tabular_outputfile, sep='\t', index=False)
         yaml.safe_dump(inferred_model, sys.stdout, default_flow_style=False)
     elif search_engine == 'BioPortal':
         logger.warning('BioPortal search temporarily disabled')
