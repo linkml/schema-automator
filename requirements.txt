@@ -1,5 +1,6 @@
 click >= 7.1.2
 dataclasses
+linkml-runtime >= 1.0.16
 linkml >= 1.0.5
 linkml-model
 mkdocs
