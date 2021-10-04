@@ -45,6 +45,7 @@ class JsonInstanceImportEngine(ImportEngine):
             schema_obj = csv_engine.convert_dicts(rows_dict, cn, cn)
             yamlobjs.append(schema_obj)
         yamlobj = merge_schemas(yamlobjs)
+        yamlobj['classes'][container_class_name]['tree_root'] = True
         return yamlobj
 
     def _key_to_classname(self, k: str) -> str:
@@ -77,14 +78,16 @@ class JsonInstanceImportEngine(ImportEngine):
 
 @click.command()
 @click.argument('input')
-@click.option('--format', '-f', default='json', help="json or yaml")
-@click.option('--dir', '-d', required=True)
-def json2model(input, format, dir, **args):
-    """ Infer a model from RDF instance data """
-    ie = JsonInstanceImportEngine()
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-    schema_dict = ie.convert(input, dir=dir, format=format)
+@click.option('--container-class-name', help="name of root class")
+@click.option('--format', '-f', default='json', help="json or yaml (or json.gz or yaml.gz)")
+@click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
+def json2model(input, format, omit_null, **kwargs):
+    """ Infer a model from JSON instance data
+
+
+    """
+    ie = JsonInstanceImportEngine(omit_null=omit_null)
+    schema_dict = ie.convert(input, dir=dir, format=format, **kwargs)
     ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
     print(ys)
 

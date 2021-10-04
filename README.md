@@ -124,3 +124,20 @@ Options:
   -d, --dir TEXT  [required]
   --help          Show this message and exit.
 ```
+
+### Converting JSON Instance Data
+
+```bash
+$ jsondata2linkml --help
+Usage: jsondata2linkml [OPTIONS] INPUT
+
+  Infer a model from JSON instance data
+
+
+
+Options:
+  --container-class-name TEXT   name of root class
+  -f, --format TEXT             json or yaml (or json.gz or yaml.gz)
+  --omit-null / --no-omit-null  if true, ignore null values
+  --help                        Show this message and exit.
+```
