@@ -16,9 +16,11 @@ OUTSCHEMA_ROUNDTRIP = os.path.join(OUTPUT_DIR, 'biosamples.roundtrip.yaml')
 
 class TestCombinedImport(unittest.TestCase):
     """
-    Tests the combination of:
+    Intended to the combination of:
      - infer from tsv
      - annotate enums
+
+     TODO: plug in enum check
     """
 
     def test_tsv(self):
