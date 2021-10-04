@@ -120,9 +120,9 @@ class CsvDataImportEngine(ImportEngine):
             for candidate_pk in df_primary.columns:
                 candidate_pk_vals = set(df_primary[candidate_pk].tolist())
                 candidate_pk_range = infer_range({}, candidate_pk_vals, {})
-                print(f'Candidate PK {t_primary}.{candidate_pk} ')
+                logging.info(f'Candidate PK {t_primary}.{candidate_pk} ')
                 for t_foreign, df_foreign in dfs.items():
-                    print(f' Candidate FK table {t_foreign} ')
+                    logging.info(f' Candidate FK table {t_foreign} ')
                     for candidate_fk in df_foreign.columns:
                         logging.info(f'  Candidate FK col {candidate_fk} ')
                         if t_primary == t_foreign and candidate_pk == candidate_fk:
