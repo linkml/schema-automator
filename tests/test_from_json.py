@@ -39,6 +39,7 @@ class TestJsonImport(unittest.TestCase):
     def test_gold_neon(self):
         """Test inference of a schema from JSON instance data (GOLD API example)."""
         ie = JsonInstanceImportEngine()
+        ie.omit_null = True
         BIOSAMPLE = 'Biosample'
         schema_dict = ie.convert(IN_GOLD, format='json.gz', container_class_name=BIOSAMPLE)
         ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
@@ -48,6 +49,9 @@ class TestJsonImport(unittest.TestCase):
         sv = SchemaView(ys)
         assert BIOSAMPLE in sv.all_classes()
         habitat_slot = sv.induced_slot('habitat', BIOSAMPLE)
-        'Mixed forest soil' in sv.get_enum(habitat_slot.range).permissible_values
+        assert 'Mixed forest soil' in sv.get_enum(habitat_slot.range).permissible_values
+        assert 'latitude' in sv.get_class(BIOSAMPLE).slots
+        # omit null
+        assert 'hostGender' not in sv.get_class(BIOSAMPLE).slots
 
 

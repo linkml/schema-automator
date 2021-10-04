@@ -17,6 +17,7 @@ from linkml_runtime.utils.formatutils import camelcase
 @dataclass
 class JsonInstanceImportEngine(ImportEngine):
     mappings: dict = None
+    omit_null: bool = None
 
     def convert(self, input: str, format: str = 'json',
                 container_class_name='Container',
@@ -53,6 +54,8 @@ class JsonInstanceImportEngine(ImportEngine):
         if isinstance(obj, dict):
             row = defaultdict(set)
             for k, v in obj.items():
+                if v is None and self.omit_null:
+                    continue
                 row[k] = self._convert_obj(v, table=camelcase(k))
             self.rows_by_table[table].append(row)
             return f'$ref:{table}'
