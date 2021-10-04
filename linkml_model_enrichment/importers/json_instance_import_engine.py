@@ -18,7 +18,9 @@ from linkml_runtime.utils.formatutils import camelcase
 class JsonInstanceImportEngine(ImportEngine):
     mappings: dict = None
 
-    def convert(self, input: str, format: str = 'json', **kwargs):
+    def convert(self, input: str, format: str = 'json',
+                container_class_name='Container',
+                **kwargs):
         csv_engine = CsvDataImportEngine()
 
         if format.endswith('.gz'):
@@ -36,7 +38,7 @@ class JsonInstanceImportEngine(ImportEngine):
                 raise Exception(f'bad format {format}')
         rows_by_table = defaultdict(list)
         self.rows_by_table = rows_by_table
-        self._convert_obj(obj)
+        self._convert_obj(obj, table=container_class_name)
         yamlobjs = []
         for cn, rows_dict in rows_by_table.items():
             schema_obj = csv_engine.convert_dicts(rows_dict, cn, cn)

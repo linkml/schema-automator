@@ -14,6 +14,7 @@ from tests import INPUT_DIR, OUTPUT_DIR
 IN = os.path.join(INPUT_DIR, 'synonymizer.yaml')
 IN_GOLD = os.path.join(INPUT_DIR, 'neon-in-gold.json.gz')
 OUTSCHEMA = os.path.join(OUTPUT_DIR, 'syn-schema.yaml')
+OUTSCHEMA_ENHANCED = os.path.join(OUTPUT_DIR, 'syn-schema2.yaml')
 OUTSCHEMA_GOLD = os.path.join(OUTPUT_DIR, 'neon-in-gold-inf.yaml')
 
 
@@ -38,10 +39,15 @@ class TestJsonImport(unittest.TestCase):
     def test_gold_neon(self):
         """Test inference of a schema from JSON instance data (GOLD API example)."""
         ie = JsonInstanceImportEngine()
-        schema_dict = ie.convert(IN_GOLD, format='json.gz')
+        BIOSAMPLE = 'Biosample'
+        schema_dict = ie.convert(IN_GOLD, format='json.gz', container_class_name=BIOSAMPLE)
         ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
         print(ys)
         with open(OUTSCHEMA_GOLD, 'w') as stream:
             stream.write(ys)
         sv = SchemaView(ys)
+        assert BIOSAMPLE in sv.all_classes()
+        habitat_slot = sv.induced_slot('habitat', BIOSAMPLE)
+        'Mixed forest soil' in sv.get_enum(habitat_slot.range).permissible_values
+
 
