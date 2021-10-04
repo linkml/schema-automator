@@ -6,6 +6,7 @@ import os
 from csv import DictWriter
 import json
 import yaml
+import gzip
 
 from dataclasses import dataclass
 from linkml_model_enrichment.importers.import_engine import ImportEngine
@@ -20,7 +21,13 @@ class JsonInstanceImportEngine(ImportEngine):
     def convert(self, input: str, format: str = 'json', **kwargs):
         csv_engine = CsvDataImportEngine()
 
-        with open(input) as stream:
+        if format.endswith('.gz'):
+            format = format.replace('.gz', '')
+            stream = gzip.open(input)
+        else:
+            stream = open(input)
+
+        with stream:
             if format == 'json':
                 obj = json.load(stream)
             elif format == 'yaml':

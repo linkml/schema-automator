@@ -237,8 +237,10 @@ class CsvDataImportEngine(ImportEngine):
                     v = ""
                 if isinstance(v, list):
                     vs = v
-                else:
+                elif isinstance(v, str):
                     vs = v.split('|')
+                else:
+                    vs = [v]
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_values[k] = set()
