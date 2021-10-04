@@ -21,6 +21,12 @@ from linkml_model_enrichment.utils.schemautils import merge_schemas
 
 ID_SUFFIX = '_id'
 
+ROBOT_NAME_MAP = {
+    'alternative term': "IAO:0000118",
+    'definition': "IAO:0000115",
+    'definition_source': "IAO:0000119",
+}
+
 @dataclass
 class ForeignKey:
     source_table: str
@@ -91,50 +97,50 @@ class CsvDataImportEngine(ImportEngine):
             for col in df.columns:
                 vals = set(df[col].tolist())
                 if len(vals) < self.min_distinct_fk_val:
-                    print(f'EXCLUDING {col} (too few, len = {len(vals)})')
+                    logging.info(f'EXCLUDING {col} (too few, len = {len(vals)})')
                     exclude.append(col)
                     continue
                 max_str_len = max([len(str(x)) for x in vals])
                 if max_str_len > MAX_PK_LEN:
-                    print(f'EXCLUDING {col} (len {max_str_len} > {MAX_PK_LEN}) sample: {list(vals)[0:5]}')
+                    logging.info(f'EXCLUDING {col} (len {max_str_len} > {MAX_PK_LEN}) sample: {list(vals)[0:5]}')
                     #for v in vals:
                     #    if len(str(v)) == max_str_len:
                     #        print(f'  WITNESS: {v}')
                     exclude.append(col)
                     continue
                 if any(' ' in str(x) for x in vals ):
-                    print(f'EXCLUDING {col} (has spaces)')
+                    logging.info(f'EXCLUDING {col} (has spaces)')
                     exclude.append(col)
                     continue
             for col in exclude:
                 del df[col]
-                print(f'Excluding: {col}')
+                logging.info(f'Excluding: {col}')
             dfs[c] = df
         for t_primary, df_primary in dfs.items():
             for candidate_pk in df_primary.columns:
                 candidate_pk_vals = set(df_primary[candidate_pk].tolist())
                 candidate_pk_range = infer_range({}, candidate_pk_vals, {})
-                print(f'Candidate PK {t_primary}.{candidate_pk} ')
+                logging.info(f'Candidate PK {t_primary}.{candidate_pk} ')
                 for t_foreign, df_foreign in dfs.items():
-                    print(f' Candidate FK table {t_foreign} ')
+                    logging.info(f' Candidate FK table {t_foreign} ')
                     for candidate_fk in df_foreign.columns:
-                        print(f'  Candidate FK col {candidate_fk} ')
+                        logging.info(f'  Candidate FK col {candidate_fk} ')
                         if t_primary == t_foreign and candidate_pk == candidate_fk:
-                            print(f'   SKIP (identical) {candidate_fk} ')
+                            logging.info(f'   SKIP (identical) {candidate_fk} ')
                             continue
                         candidate_fk_vals = set(df_foreign[candidate_fk].tolist())
-                        logging.error(f'    Candidate FK {t_foreign}.{candidate_fk}')
+                        logging.info(f'    Candidate FK {t_foreign}.{candidate_fk}')
                         is_fk = True
                         for v in candidate_fk_vals:
                             if v is None or v == '':
                                 continue
                             if v not in candidate_pk_vals:
-                                print(f'    {v} not in candidates')
+                                logging.info(f'    {v} not in candidates')
                                 is_fk = False
                             if not is_fk:
                                 break
                         if is_fk:
-                            print(f'    all {len(candidate_fk_vals)} fk vals in {len(candidate_pk_vals)} pks')
+                            logging.info(f'    all {len(candidate_fk_vals)} fk vals in {len(candidate_pk_vals)} pks')
                             fks.append(ForeignKey(source_table=t_foreign,
                                                   source_column=candidate_fk,
                                                   target_table=t_primary,
@@ -152,10 +158,10 @@ class CsvDataImportEngine(ImportEngine):
                     if s[fk.target_column] > max_s:
                         max_s = s[fk.target_column]
             pk_col, _ = sorted(s.items(), key=lambda item: -item[1])[0]
-            print(f'SELECTED pk col {pk_col} for {pk_table}; scores = {s}')
+            logging.info(f'SELECTED pk col {pk_col} for {pk_table}; scores = {s}')
             fks = [fk for fk in fks if not (fk.target_table == pk_table and fk.target_column != pk_col)]
         fks = [fk for fk in fks if fk.score() > 0]
-        print(f'FILTERED: {fks}')
+        logging.info(f'FILTERED: {fks}')
         return fks
 
 
@@ -231,12 +237,14 @@ class CsvDataImportEngine(ImportEngine):
                     v = ""
                 if isinstance(v, list):
                     vs = v
-                else:
+                elif isinstance(v, str):
                     vs = v.split('|')
+                else:
+                    vs = [v]
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_values[k] = set()
-                if v is not None and v != "":
+                if v is not None and v != "" and not str(v).startswith('$ref:'):
                     slots[k]['examples'] = [{'value': v}]
                     slot_values[k].update(vs)
                 if len(vs) > 1:
@@ -259,14 +267,14 @@ class CsvDataImportEngine(ImportEngine):
                         'permissible_values': {v:{'description': v} for v in vals}
                     }
             # ROBOT template hints. See http://robot.obolibrary.org/template
-            if k in robot_defs:
+            if sn in robot_defs:
                 rd = robot_defs[sn]
                 if 'SPLIT' in rd:
                     rd = re.sub(' SPLIT.*', '', rd)
                 if rd.startswith("EC"):
                     rd = rd.replace('EC ', '')
                     rel = capture_robot_some(rd)
-                    ss = rd.replace('%', '{' + k + '}')
+                    ss = rd.replace('%', '{' + sn + '}')
                     slot_usage['equivalence axiom'] = {'string_serialization': ss}
                     if rel is not None:
                         s['is_a'] = rel
@@ -274,12 +282,17 @@ class CsvDataImportEngine(ImportEngine):
                 elif rd.startswith("SC"):
                     rd = rd.replace('SC ', '')
                     rel = capture_robot_some(rd)
-                    ss = rd.replace('%', '{' + k + '}')
+                    ss = rd.replace('%', '{' + sn + '}')
                     slot_usage['subclass axiom'] = {'string_serialization': ss}
                     if rel is not None:
                         s['is_a'] = rel
                         new_slots[rel] = {}
+                        s['comments'] = ['OWL>> SomeValuesFrom']
+                    else:
+                        s['comments'] = ['OWL>> SubClassOf']
                 elif rd.startswith("C"):
+                    # TODO: semantics are dependent on CLASS_TYPE column
+                    # https://robot.obolibrary.org/template
                     rd = rd.replace('C ', '')
                     if rd == '%':
                         s['broad_mappings'] = ['rdfs:subClassOf']
@@ -287,13 +300,13 @@ class CsvDataImportEngine(ImportEngine):
                     if rel is not None:
                         s['is_a'] = rel
                         new_slots[rel] = {}
+                elif rd == 'ID':
+                    s['identifier'] = True
                 elif rd.startswith("I"):
                     rd = rd.replace('I ', '')
                     # TODO
                 elif rd == 'TYPE':
                     s['slot_uri'] = 'rdf:type'
-                elif rd == 'ID':
-                    s['identifier'] = True
                 elif rd == 'LABEL':
                     s['slot_uri'] = 'rdfs:label'
                 elif rd.startswith("A "):
@@ -305,8 +318,11 @@ class CsvDataImportEngine(ImportEngine):
                 slot_uri = s.get('slot_uri', None)
                 if slot_uri is not None:
                     if ' ' in slot_uri or ':' not in slot_uri:
-                        del s['slot_uri']
-                        logging.warning(f'ROBOT "A" annotations not supported yet')
+                        if slot_uri in ROBOT_NAME_MAP:
+                            s['slot_uri'] = ROBOT_NAME_MAP[slot_uri]
+                        else:
+                            del s['slot_uri']
+                            logging.warning(f'ROBOT "A" annotations not supported yet')
         class_slots = list(slots.keys())
         for sn,s in new_slots.items():
             if sn not in slots:
@@ -332,12 +348,15 @@ class CsvDataImportEngine(ImportEngine):
             'enums': enums,
             'types': types
         }
+        if robot_defs:
+            schema['prefixes']['IAO'] = 'http://purl.obolibrary.org/obo/IAO_'
         add_missing_to_schema(schema)
         return schema
 
 def capture_robot_some(s: str) -> str:
     """
     parses an OWL some values from from a robot template
+
     :param s:
     :return:
     """
@@ -394,6 +413,8 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
     nn_vals = [v for v in vals if v is not None and v != ""]
     if len(nn_vals) == 0:
         return 'string'
+    if all(str(v).startswith('$ref:') for v in nn_vals):
+        return nn_vals[0].replace('$ref:', '')
     if all(isinstance(v, int) for v in nn_vals):
         return 'integer'
     if all(isinstance(v, float) for v in nn_vals):
@@ -501,7 +522,7 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
         else:
             logging.warning(f'Skipping {id} {confidence}')
     hits = sorted(hits, key=lambda h: h.score, reverse=True)
-    logging.error(f'Hits for {label} = {hits}')
+    logging.info(f'Hits for {label} = {hits}')
     if len(hits) > 0:
         cache[label] = hits
         return hits[0]

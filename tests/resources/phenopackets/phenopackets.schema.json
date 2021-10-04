@@ -1,0 +1,621 @@
+{
+  "definitions": {
+    "org.phenopackets.schema.v1.core.Age": {
+      "title": "Age",
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.OntologyClass": {
+      "title": "OntologyClass",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.AgeRange": {
+      "title": "AgeRange",
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+        },
+        "end": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.PhenotypicFeature": {
+      "title": "PhenotypicFeature",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+        },
+        "negated": {
+          "type": "boolean"
+        },
+        "severity": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+          }
+        },
+        "age_of_onset": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+        },
+        "age_range_of_onset": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.AgeRange"
+        },
+        "class_of_onset": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "title": "Evidence",
+            "type": "object",
+            "properties": {
+              "evidence_code": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "reference": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.ExternalReference"
+              }
+            }
+          }
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.Variant": {
+      "title": "Variant",
+      "type": "object",
+      "properties": {
+        "hgvs_allele": {
+          "title": "HgvsAllele",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "hgvs": {
+              "type": "string"
+            }
+          }
+        },
+        "vcf_allele": {
+          "title": "VcfAllele",
+          "type": "object",
+          "properties": {
+            "vcf_version": {
+              "type": "string"
+            },
+            "genome_assembly": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "chr": {
+              "type": "string"
+            },
+            "pos": {
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
+            },
+            "ref": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            },
+            "info": {
+              "type": "string"
+            }
+          }
+        },
+        "spdi_allele": {
+          "title": "SpdiAllele",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "seq_id": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer",
+              "minimum": -2147483648,
+              "maximum": 2147483647
+            },
+            "deleted_sequence": {
+              "type": "string"
+            },
+            "inserted_sequence": {
+              "type": "string"
+            }
+          }
+        },
+        "iscn_allele": {
+          "title": "IscnAllele",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "iscn": {
+              "type": "string"
+            }
+          }
+        },
+        "zygosity": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.HtsFile": {
+      "title": "HtsFile",
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "hts_format": {
+          "title": "HtsFormat",
+          "type": "string",
+          "enum": [
+            "UNKNOWN",
+            "SAM",
+            "BAM",
+            "CRAM",
+            "VCF",
+            "BCF",
+            "GVCF",
+            "FASTQ"
+          ]
+        },
+        "genome_assembly": {
+          "type": "string"
+        },
+        "individual_to_sample_identifiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "google.protobuf.Timestamp": {
+      "title": "Timestamp",
+      "type": "object",
+      "properties": {
+        "seconds": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "nanos": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.ExternalReference": {
+      "title": "ExternalReference",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.Phenopacket": {
+      "title": "Phenopacket",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "subject": {
+          "title": "Individual",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "alternate_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "date_of_birth": {
+              "$ref": "#/definitions/google.protobuf.Timestamp"
+            },
+            "age_at_collection": {
+              "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+            },
+            "age_range_at_collection": {
+              "$ref": "#/definitions/org.phenopackets.schema.v1.core.AgeRange"
+            },
+            "sex": {
+              "title": "Sex",
+              "type": "string",
+              "enum": [
+                "UNKNOWN_SEX",
+                "FEMALE",
+                "MALE",
+                "OTHER_SEX"
+              ]
+            },
+            "karyotypic_sex": {
+              "title": "KaryotypicSex",
+              "type": "string",
+              "enum": [
+                "UNKNOWN_KARYOTYPE",
+                "XX",
+                "XY",
+                "XO",
+                "XXY",
+                "XXX",
+                "XXYY",
+                "XXXY",
+                "XXXX",
+                "XYY",
+                "OTHER_KARYOTYPE"
+              ]
+            },
+            "taxonomy": {
+              "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+            }
+          }
+        },
+        "phenotypic_features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.PhenotypicFeature"
+          }
+        },
+        "biosamples": {
+          "type": "array",
+          "items": {
+            "title": "Biosample",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "individual_id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "sampled_tissue": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "phenotypic_features": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.PhenotypicFeature"
+                }
+              },
+              "taxonomy": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "age_of_individual_at_collection": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+              },
+              "age_range_of_individual_at_collection": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.AgeRange"
+              },
+              "histological_diagnosis": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "tumor_progression": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "tumor_grade": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "diagnostic_markers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+                }
+              },
+              "procedure": {
+                "title": "Procedure",
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+                  },
+                  "body_site": {
+                    "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+                  }
+                }
+              },
+              "hts_files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.HtsFile"
+                }
+              },
+              "variants": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.Variant"
+                }
+              },
+              "is_control_sample": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "genes": {
+          "type": "array",
+          "items": {
+            "title": "Gene",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "alternate_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "symbol": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.Variant"
+          }
+        },
+        "diseases": {
+          "type": "array",
+          "items": {
+            "title": "Disease",
+            "type": "object",
+            "properties": {
+              "term": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "age_of_onset": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.Age"
+              },
+              "age_range_of_onset": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.AgeRange"
+              },
+              "class_of_onset": {
+                "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+              },
+              "disease_stage": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+                }
+              },
+              "tnm_finding": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/org.phenopackets.schema.v1.core.OntologyClass"
+                }
+              }
+            }
+          }
+        },
+        "hts_files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.HtsFile"
+          }
+        },
+        "meta_data": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.MetaData"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.core.MetaData": {
+      "title": "MetaData",
+      "type": "object",
+      "properties": {
+        "created": {
+          "$ref": "#/definitions/google.protobuf.Timestamp"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "submitted_by": {
+          "type": "string"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "title": "Resource",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "namespace_prefix": {
+                "type": "string"
+              },
+              "iri_prefix": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "updates": {
+          "type": "array",
+          "items": {
+            "title": "Update",
+            "type": "object",
+            "properties": {
+              "timestamp": {
+                "$ref": "#/definitions/google.protobuf.Timestamp"
+              },
+              "updated_by": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "phenopacket_schema_version": {
+          "type": "string"
+        },
+        "external_references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.ExternalReference"
+          }
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.Family": {
+      "title": "Family",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "proband": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.Phenopacket"
+        },
+        "relatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.Phenopacket"
+          }
+        },
+        "pedigree": {
+          "title": "Pedigree",
+          "type": "object",
+          "properties": {
+            "persons": {
+              "type": "array",
+              "items": {
+                "title": "Person",
+                "type": "object",
+                "properties": {
+                  "family_id": {
+                    "type": "string"
+                  },
+                  "individual_id": {
+                    "type": "string"
+                  },
+                  "paternal_id": {
+                    "type": "string"
+                  },
+                  "maternal_id": {
+                    "type": "string"
+                  },
+                  "sex": {
+                    "title": "Sex",
+                    "type": "string",
+                    "enum": [
+                      "UNKNOWN_SEX",
+                      "FEMALE",
+                      "MALE",
+                      "OTHER_SEX"
+                    ]
+                  },
+                  "affected_status": {
+                    "title": "AffectedStatus",
+                    "type": "string",
+                    "enum": [
+                      "MISSING",
+                      "UNAFFECTED",
+                      "AFFECTED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hts_files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.HtsFile"
+          }
+        },
+        "meta_data": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.MetaData"
+        }
+      }
+    },
+    "org.phenopackets.schema.v1.Cohort": {
+      "title": "Cohort",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.Phenopacket"
+          }
+        },
+        "hts_files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/org.phenopackets.schema.v1.core.HtsFile"
+          }
+        },
+        "meta_data": {
+          "$ref": "#/definitions/org.phenopackets.schema.v1.core.MetaData"
+        }
+      }
+    }
+  }
+}

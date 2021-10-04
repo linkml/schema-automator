@@ -81,3 +81,42 @@ clean:
 	[ ! -e target/felix_modifications.tsv ]                            || rm felix_modifications.tsv 
 	[ ! -e inferred-models/felix_modifications.yaml ]                  || rm inferred-models/felix_modifications.yaml 
 	[ ! -e target/felix_modifications_modification_type_enum_so.yaml ] || rm target/felix_modifications_modification_type_enum_so.yaml 
+
+# DOCKER
+
+# Building docker image
+VERSION = "v1.1.7"
+IM=monarchinitiative/linkml
+DEV=monarchinitiative/linkml-dev
+
+docker-build:
+	docker build $(CACHE) \
+	    -t $(IM):$(VERSION) -t $(IM):latest -t $(DEV):latest \
+	    .
+
+docker-test:
+	docker run -v $(PWD):/work -w /work/ --rm -ti linkml/linkml bash
+
+
+docker-build-no-cache:
+	$(MAKE) build CACHE=--no-cache
+
+docker-build-dev:
+	docker build --build-arg ODK_VERSION=$(VERSION) \
+	    -t $(DEV):$(VERSION) -t $(DEV):latest \
+	    .
+
+docker-clean:
+	docker kill $(IM) || echo not running
+	docker rm $(IM) || echo not made
+
+#### Publishing #####
+
+docker-publish-no-build:
+	docker push $(IM):latest
+	docker push $(IM):$(VERSION)
+
+docker-publish: docker-build
+	$(MAKE) docker-publish-no-build
+
+

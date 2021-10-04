@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 """Test the module can be imported."""
-
+import logging
 import unittest
 import os
 import yaml
+from linkml_runtime.utils.schemaview import SchemaView
+
 from linkml_model_enrichment.importers.csv_import_engine import CsvDataImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
@@ -17,13 +19,24 @@ class TestForeignKeyInference(unittest.TestCase):
     """TSV """
 
     def test_fk_inference(self):
-        """Test that expando can be imported."""
+        """Test ability to infer foreign key linkages using
+        sample data and ENVO."""
         ie = CsvDataImportEngine(downcase_header=True)
         fks = ie.infer_linkages([ENVO, SAMPLES])
         #fks = ie.infer_linkages([SAMPLES, ENVO])
-        print('FKS:')
+        self.assertEqual(len(fks), 3)
+        logging.info('FKS:')
+        expected = ['envo_biome_id', 'envo_feature_id', 'envo_material_id']
         for fk in fks:
-            print(fk)
+            logging.info(fk)
+            if fk.source_table == 'sample' and fk.target_column == 'envo_id' and fk.num_distinct_values > 0:
+                if fk.source_column in expected:
+                    expected.remove(fk.source_column)
+                else:
+                    raise Exception(f'Unexpected FK: {fk}')
+        assert expected == []
+
+
 
     def test_schema_with_fk_inference(self):
         """Test that expando can be imported."""
@@ -32,3 +45,10 @@ class TestForeignKeyInference(unittest.TestCase):
         ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
         with open(SAMPLES_OUTSCHEMA, 'w') as stream:
             stream.write(ys)
+        sv = SchemaView(ys)
+        expected = ['envo_biome_id', 'envo_feature_id', 'envo_material_id']
+        for sn in expected:
+            s = sv.induced_slot(sn, 'sample')
+            assert s.range == 'envo'
+            c = sv.get_class(s.range)
+            assert c.name == 'envo'

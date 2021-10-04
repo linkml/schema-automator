@@ -12,7 +12,7 @@ import yaml
 import csv
 import time
 
-from linkml_model.meta import SchemaDefinition
+from linkml_runtime.linkml_model.meta import SchemaDefinition
 from linkml.utils.generator import Generator, shared_arguments
 from dateutil.parser import parse
 
@@ -286,7 +286,6 @@ def preds2model(tsvfile, **args):
     """
     s = infer_model_from_predicate_summary(tsvfile, **args)
     ys = yaml.dump(s, default_flow_style=False, sort_keys=False)
-    #print(ys)
     schema = load_raw_schema(ys)
     G = YAMLGenerator(schema)
     print(G.serialize())
