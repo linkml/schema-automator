@@ -97,24 +97,24 @@ class CsvDataImportEngine(ImportEngine):
             for col in df.columns:
                 vals = set(df[col].tolist())
                 if len(vals) < self.min_distinct_fk_val:
-                    print(f'EXCLUDING {col} (too few, len = {len(vals)})')
+                    logging.info(f'EXCLUDING {col} (too few, len = {len(vals)})')
                     exclude.append(col)
                     continue
                 max_str_len = max([len(str(x)) for x in vals])
                 if max_str_len > MAX_PK_LEN:
-                    print(f'EXCLUDING {col} (len {max_str_len} > {MAX_PK_LEN}) sample: {list(vals)[0:5]}')
+                    logging.info(f'EXCLUDING {col} (len {max_str_len} > {MAX_PK_LEN}) sample: {list(vals)[0:5]}')
                     #for v in vals:
                     #    if len(str(v)) == max_str_len:
                     #        print(f'  WITNESS: {v}')
                     exclude.append(col)
                     continue
                 if any(' ' in str(x) for x in vals ):
-                    print(f'EXCLUDING {col} (has spaces)')
+                    logging.info(f'EXCLUDING {col} (has spaces)')
                     exclude.append(col)
                     continue
             for col in exclude:
                 del df[col]
-                print(f'Excluding: {col}')
+                logging.info(f'Excluding: {col}')
             dfs[c] = df
         for t_primary, df_primary in dfs.items():
             for candidate_pk in df_primary.columns:
@@ -124,23 +124,23 @@ class CsvDataImportEngine(ImportEngine):
                 for t_foreign, df_foreign in dfs.items():
                     print(f' Candidate FK table {t_foreign} ')
                     for candidate_fk in df_foreign.columns:
-                        print(f'  Candidate FK col {candidate_fk} ')
+                        logging.info(f'  Candidate FK col {candidate_fk} ')
                         if t_primary == t_foreign and candidate_pk == candidate_fk:
-                            print(f'   SKIP (identical) {candidate_fk} ')
+                            logging.info(f'   SKIP (identical) {candidate_fk} ')
                             continue
                         candidate_fk_vals = set(df_foreign[candidate_fk].tolist())
-                        logging.error(f'    Candidate FK {t_foreign}.{candidate_fk}')
+                        logging.info(f'    Candidate FK {t_foreign}.{candidate_fk}')
                         is_fk = True
                         for v in candidate_fk_vals:
                             if v is None or v == '':
                                 continue
                             if v not in candidate_pk_vals:
-                                print(f'    {v} not in candidates')
+                                logging.info(f'    {v} not in candidates')
                                 is_fk = False
                             if not is_fk:
                                 break
                         if is_fk:
-                            print(f'    all {len(candidate_fk_vals)} fk vals in {len(candidate_pk_vals)} pks')
+                            logging.info(f'    all {len(candidate_fk_vals)} fk vals in {len(candidate_pk_vals)} pks')
                             fks.append(ForeignKey(source_table=t_foreign,
                                                   source_column=candidate_fk,
                                                   target_table=t_primary,
@@ -158,10 +158,10 @@ class CsvDataImportEngine(ImportEngine):
                     if s[fk.target_column] > max_s:
                         max_s = s[fk.target_column]
             pk_col, _ = sorted(s.items(), key=lambda item: -item[1])[0]
-            print(f'SELECTED pk col {pk_col} for {pk_table}; scores = {s}')
+            logging.info(f'SELECTED pk col {pk_col} for {pk_table}; scores = {s}')
             fks = [fk for fk in fks if not (fk.target_table == pk_table and fk.target_column != pk_col)]
         fks = [fk for fk in fks if fk.score() > 0]
-        print(f'FILTERED: {fks}')
+        logging.info(f'FILTERED: {fks}')
         return fks
 
 
@@ -411,7 +411,7 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
     nn_vals = [v for v in vals if v is not None and v != ""]
     if len(nn_vals) == 0:
         return 'string'
-    if all('$ref:' in v for v in nn_vals):
+    if all(str(v).startswith('$ref:') for v in nn_vals):
         return nn_vals[0].replace('$ref:', '')
     if all(isinstance(v, int) for v in nn_vals):
         return 'integer'
@@ -520,7 +520,7 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
         else:
             logging.warning(f'Skipping {id} {confidence}')
     hits = sorted(hits, key=lambda h: h.score, reverse=True)
-    logging.error(f'Hits for {label} = {hits}')
+    logging.info(f'Hits for {label} = {hits}')
     if len(hits) > 0:
         cache[label] = hits
         return hits[0]
