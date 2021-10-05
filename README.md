@@ -141,3 +141,19 @@ Options:
   --omit-null / --no-omit-null  if true, ignore null values
   --help                        Show this message and exit.
 ```
+
+### Converting JSON-Schema
+
+
+```
+$ jsonschema2linkml --help
+Usage: jsonschema2linkml [OPTIONS] INPUT
+
+  Infer a model from JSON Schema
+
+Options:
+  -n, --name TEXT    ID of schema  [required]
+  -f, --format TEXT  JSON Schema format - yaml or json
+  -o, --output TEXT  output path
+  --help             Show this message and exit.
+```

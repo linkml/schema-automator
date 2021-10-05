@@ -43,6 +43,7 @@ setup(
                             'tsvs2linkml=linkml_model_enrichment.importers.csv_import_engine:tsvs2model',
                             'rdf2linkml=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
                             'owl2linkml=linkml_model_enrichment.importers.owl_import_engine:owl2model',
+                            'dosdp2linkml=linkml_model_enrichment.importers.owl_import_engine:dosdp2model',
                             'jsondata2linkml=linkml_model_enrichment.importers.json_instance_import_engine:json2model',
                             'jsonschema2linkml=linkml_model_enrichment.importers.jsonschema_import_engine:jsonschema2model',
                             ]
