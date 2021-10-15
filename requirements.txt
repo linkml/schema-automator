@@ -1,18 +1,21 @@
-click >= 7.1.2
-dataclasses
-linkml >= 1.0.5
-linkml-model
-mkdocs
+# click >= 7.1.2
+# dataclasses
+# linkml >= 1.0.5
+linkml
+# linkml-model
+# mkdocs
 pandas >= 1.2.3
-python-dateutil >= 2.8.1
-PyYAML >= 5.3.1
-rdflib >= 5.0.0
-requests >= 2.25.1
-setuptools >= 54.2.0
-strsimpy >= 0.2.0
-psycopg2-binary
+# numpy
+# python-dateutil >= 2.8.1
+# PyYAML >= 5.3.1
+# rdflib >= 5.0.0
+# requests >= 2.25.1
+# setuptools >= 54.2.0
+# strsimpy >= 0.2.0
+strsimpy
+# psycopg2-binary
 click_log
-funowl >= 0.1.9
+# funowl >= 0.1.9
 quantulum3
-pytest
-jsonpatch
+# pytest
+# jsonpatch
