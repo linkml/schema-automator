@@ -1,0 +1,1285 @@
+Prefix(:=<http://www.biopax.org/release/biopax-level3.owl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(xsp:=<http://www.owl-ontologies.com/2005/08/07/xsp.owl#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+Prefix(swrl:=<http://www.w3.org/2003/11/swrl#>)
+Prefix(swrlb:=<http://www.w3.org/2003/11/swrlb#>)
+Prefix(protege:=<http://protege.stanford.edu/plugins/owl/protege#>)
+
+
+Ontology(<http://www.biopax.org/release/biopax-level3.owl>
+Annotation(rdfs:comment "This is version 1.0  of the BioPAX Level 3 ontology.  The goal of the BioPAX group is to develop a common exchange format for biological pathway data.  More information is available at http://www.biopax.org.  This ontology is freely available under the LGPL (http://www.gnu.org/copyleft/lesser.html)."^^xsd:string)
+
+Declaration(Class(:BindingFeature))
+Declaration(Class(:BioSource))
+Declaration(Class(:BiochemicalPathwayStep))
+Declaration(Class(:BiochemicalReaction))
+Declaration(Class(:Catalysis))
+Declaration(Class(:CellVocabulary))
+Declaration(Class(:CellularLocationVocabulary))
+Declaration(Class(:ChemicalStructure))
+Declaration(Class(:Complex))
+Declaration(Class(:ComplexAssembly))
+Declaration(Class(:Control))
+Declaration(Class(:ControlledVocabulary))
+Declaration(Class(:Conversion))
+Declaration(Class(:CovalentBindingFeature))
+Declaration(Class(:Degradation))
+Declaration(Class(:DeltaG))
+Declaration(Class(:Dna))
+Declaration(Class(:DnaReference))
+Declaration(Class(:DnaRegion))
+Declaration(Class(:DnaRegionReference))
+Declaration(Class(:Entity))
+Declaration(Class(:EntityFeature))
+Declaration(Class(:EntityReference))
+Declaration(Class(:EntityReferenceTypeVocabulary))
+Declaration(Class(:Evidence))
+Declaration(Class(:EvidenceCodeVocabulary))
+Declaration(Class(:ExperimentalForm))
+Declaration(Class(:ExperimentalFormVocabulary))
+Declaration(Class(:FragmentFeature))
+Declaration(Class(:Gene))
+Declaration(Class(:GeneticInteraction))
+Declaration(Class(:Interaction))
+Declaration(Class(:InteractionVocabulary))
+Declaration(Class(:KPrime))
+Declaration(Class(:ModificationFeature))
+Declaration(Class(:Modulation))
+Declaration(Class(:MolecularInteraction))
+Declaration(Class(:Pathway))
+Declaration(Class(:PathwayStep))
+Declaration(Class(:PhenotypeVocabulary))
+Declaration(Class(:PhysicalEntity))
+Declaration(Class(:Protein))
+Declaration(Class(:ProteinReference))
+Declaration(Class(:Provenance))
+Declaration(Class(:PublicationXref))
+Declaration(Class(:RelationshipTypeVocabulary))
+Declaration(Class(:RelationshipXref))
+Declaration(Class(:Rna))
+Declaration(Class(:RnaReference))
+Declaration(Class(:RnaRegion))
+Declaration(Class(:RnaRegionReference))
+Declaration(Class(:Score))
+Declaration(Class(:SequenceInterval))
+Declaration(Class(:SequenceLocation))
+Declaration(Class(:SequenceModificationVocabulary))
+Declaration(Class(:SequenceRegionVocabulary))
+Declaration(Class(:SequenceSite))
+Declaration(Class(:SmallMolecule))
+Declaration(Class(:SmallMoleculeReference))
+Declaration(Class(:Stoichiometry))
+Declaration(Class(:TemplateReaction))
+Declaration(Class(:TemplateReactionRegulation))
+Declaration(Class(:TissueVocabulary))
+Declaration(Class(:Transport))
+Declaration(Class(:TransportWithBiochemicalReaction))
+Declaration(Class(:UnificationXref))
+Declaration(Class(:UtilityClass))
+Declaration(Class(:Xref))
+Declaration(ObjectProperty(:absoluteRegion))
+Declaration(ObjectProperty(:bindsTo))
+Declaration(ObjectProperty(:cellType))
+Declaration(ObjectProperty(:cellularLocation))
+Declaration(ObjectProperty(:cofactor))
+Declaration(ObjectProperty(:component))
+Declaration(ObjectProperty(:componentStoichiometry))
+Declaration(ObjectProperty(:confidence))
+Declaration(ObjectProperty(:controlled))
+Declaration(ObjectProperty(:controller))
+Declaration(ObjectProperty(:dataSource))
+Declaration(ObjectProperty(:deltaG))
+Declaration(ObjectProperty(:entityFeature))
+Declaration(ObjectProperty(:entityReference))
+Declaration(ObjectProperty(:entityReferenceType))
+Declaration(ObjectProperty(:evidence))
+Declaration(ObjectProperty(:evidenceCode))
+Declaration(ObjectProperty(:experimentalFeature))
+Declaration(ObjectProperty(:experimentalForm))
+Declaration(ObjectProperty(:experimentalFormDescription))
+Declaration(ObjectProperty(:experimentalFormEntity))
+Declaration(ObjectProperty(:feature))
+Declaration(ObjectProperty(:featureLocation))
+Declaration(ObjectProperty(:featureLocationType))
+Declaration(ObjectProperty(:interactionScore))
+Declaration(ObjectProperty(:interactionType))
+Declaration(ObjectProperty(:kEQ))
+Declaration(ObjectProperty(:left))
+Declaration(ObjectProperty(:memberEntityReference))
+Declaration(ObjectProperty(:memberFeature))
+Declaration(ObjectProperty(:memberPhysicalEntity))
+Declaration(ObjectProperty(:modificationType))
+Declaration(ObjectProperty(:nextStep))
+Declaration(ObjectProperty(:notFeature))
+Declaration(ObjectProperty(:organism))
+Declaration(ObjectProperty(:participant))
+Declaration(ObjectProperty(:participantStoichiometry))
+Declaration(ObjectProperty(:pathwayComponent))
+Declaration(ObjectProperty(:pathwayOrder))
+Declaration(ObjectProperty(:phenotype))
+Declaration(ObjectProperty(:physicalEntity))
+Declaration(ObjectProperty(:product))
+Declaration(ObjectProperty(:regionType))
+Declaration(ObjectProperty(:relationshipType))
+Declaration(ObjectProperty(:right))
+Declaration(ObjectProperty(:scoreSource))
+Declaration(ObjectProperty(:sequenceIntervalBegin))
+Declaration(ObjectProperty(:sequenceIntervalEnd))
+Declaration(ObjectProperty(:stepConversion))
+Declaration(ObjectProperty(:stepProcess))
+Declaration(ObjectProperty(:structure))
+Declaration(ObjectProperty(:subRegion))
+Declaration(ObjectProperty(:template))
+Declaration(ObjectProperty(:tissue))
+Declaration(ObjectProperty(:xref))
+Declaration(DataProperty(:author))
+Declaration(DataProperty(:availability))
+Declaration(DataProperty(:catalysisDirection))
+Declaration(DataProperty(:chemicalFormula))
+Declaration(DataProperty(:comment))
+Declaration(DataProperty(:controlType))
+Declaration(DataProperty(:conversionDirection))
+Declaration(DataProperty(:db))
+Declaration(DataProperty(:dbVersion))
+Declaration(DataProperty(:deltaGPrime0))
+Declaration(DataProperty(:deltaH))
+Declaration(DataProperty(:deltaS))
+Declaration(DataProperty(:displayName))
+Declaration(DataProperty(:eCNumber))
+Declaration(DataProperty(:id))
+Declaration(DataProperty(:idVersion))
+Declaration(DataProperty(:intraMolecular))
+Declaration(DataProperty(:ionicStrength))
+Declaration(DataProperty(:kPrime))
+Declaration(DataProperty(:molecularWeight))
+Declaration(DataProperty(:name))
+Declaration(DataProperty(:pMg))
+Declaration(DataProperty(:patoData))
+Declaration(DataProperty(:ph))
+Declaration(DataProperty(:positionStatus))
+Declaration(DataProperty(:sequence))
+Declaration(DataProperty(:sequencePosition))
+Declaration(DataProperty(:source))
+Declaration(DataProperty(:spontaneous))
+Declaration(DataProperty(:standardName))
+Declaration(DataProperty(:stepDirection))
+Declaration(DataProperty(:stoichiometricCoefficient))
+Declaration(DataProperty(:structureData))
+Declaration(DataProperty(:structureFormat))
+Declaration(DataProperty(:temperature))
+Declaration(DataProperty(:templateDirection))
+Declaration(DataProperty(:term))
+Declaration(DataProperty(:title))
+Declaration(DataProperty(:url))
+Declaration(DataProperty(:value))
+Declaration(DataProperty(:year))
+
+############################
+#   Object Properties
+############################
+
+# Object Property: :absoluteRegion (:absoluteRegion)
+
+FunctionalObjectProperty(:absoluteRegion)
+ObjectPropertyDomain(:absoluteRegion ObjectUnionOf(:DnaRegionReference :RnaRegionReference))
+ObjectPropertyRange(:absoluteRegion :SequenceLocation)
+
+# Object Property: :bindsTo (:bindsTo)
+
+InverseObjectProperties(:bindsTo :bindsTo)
+FunctionalObjectProperty(:bindsTo)
+InverseFunctionalObjectProperty(:bindsTo)
+SymmetricObjectProperty(:bindsTo)
+ObjectPropertyDomain(:bindsTo :BindingFeature)
+ObjectPropertyRange(:bindsTo :BindingFeature)
+
+# Object Property: :cellType (:cellType)
+
+FunctionalObjectProperty(:cellType)
+ObjectPropertyDomain(:cellType :BioSource)
+ObjectPropertyRange(:cellType :CellVocabulary)
+
+# Object Property: :cellularLocation (:cellularLocation)
+
+FunctionalObjectProperty(:cellularLocation)
+ObjectPropertyDomain(:cellularLocation :PhysicalEntity)
+ObjectPropertyRange(:cellularLocation :CellularLocationVocabulary)
+
+# Object Property: :cofactor (:cofactor)
+
+SubObjectPropertyOf(:cofactor :participant)
+ObjectPropertyDomain(:cofactor :Catalysis)
+ObjectPropertyRange(:cofactor :PhysicalEntity)
+
+# Object Property: :component (:component)
+
+InverseFunctionalObjectProperty(:component)
+ObjectPropertyDomain(:component :Complex)
+ObjectPropertyRange(:component :PhysicalEntity)
+
+# Object Property: :componentStoichiometry (:componentStoichiometry)
+
+ObjectPropertyDomain(:componentStoichiometry :Complex)
+ObjectPropertyRange(:componentStoichiometry :Stoichiometry)
+
+# Object Property: :confidence (:confidence)
+
+ObjectPropertyDomain(:confidence :Evidence)
+ObjectPropertyRange(:confidence :Score)
+
+# Object Property: :controlled (:controlled)
+
+SubObjectPropertyOf(:controlled :participant)
+FunctionalObjectProperty(:controlled)
+ObjectPropertyDomain(:controlled :Control)
+ObjectPropertyRange(:controlled ObjectUnionOf(:Interaction :Pathway))
+
+# Object Property: :controller (:controller)
+
+SubObjectPropertyOf(:controller :participant)
+ObjectPropertyDomain(:controller :Control)
+ObjectPropertyRange(:controller ObjectUnionOf(:Pathway :PhysicalEntity))
+
+# Object Property: :dataSource (:dataSource)
+
+ObjectPropertyDomain(:dataSource :Entity)
+ObjectPropertyRange(:dataSource :Provenance)
+
+# Object Property: :deltaG (:deltaG)
+
+ObjectPropertyDomain(:deltaG :BiochemicalReaction)
+ObjectPropertyRange(:deltaG :DeltaG)
+
+# Object Property: :entityFeature (:entityFeature)
+
+InverseFunctionalObjectProperty(:entityFeature)
+ObjectPropertyDomain(:entityFeature :EntityReference)
+ObjectPropertyRange(:entityFeature :EntityFeature)
+
+# Object Property: :entityReference (:entityReference)
+
+FunctionalObjectProperty(:entityReference)
+ObjectPropertyDomain(:entityReference ObjectUnionOf(:Dna :DnaRegion :Protein :Rna :RnaRegion :SmallMolecule))
+ObjectPropertyRange(:entityReference :EntityReference)
+
+# Object Property: :entityReferenceType (:entityReferenceType)
+
+FunctionalObjectProperty(:entityReferenceType)
+ObjectPropertyDomain(:entityReferenceType :EntityReference)
+ObjectPropertyRange(:entityReferenceType :EntityReferenceTypeVocabulary)
+
+# Object Property: :evidence (:evidence)
+
+ObjectPropertyDomain(:evidence ObjectUnionOf(:Entity :EntityFeature :EntityReference :PathwayStep))
+ObjectPropertyRange(:evidence :Evidence)
+
+# Object Property: :evidenceCode (:evidenceCode)
+
+ObjectPropertyDomain(:evidenceCode :Evidence)
+ObjectPropertyRange(:evidenceCode :EvidenceCodeVocabulary)
+
+# Object Property: :experimentalFeature (:experimentalFeature)
+
+ObjectPropertyDomain(:experimentalFeature :ExperimentalForm)
+ObjectPropertyRange(:experimentalFeature :EntityFeature)
+
+# Object Property: :experimentalForm (:experimentalForm)
+
+ObjectPropertyDomain(:experimentalForm :Evidence)
+ObjectPropertyRange(:experimentalForm :ExperimentalForm)
+
+# Object Property: :experimentalFormDescription (:experimentalFormDescription)
+
+ObjectPropertyDomain(:experimentalFormDescription :ExperimentalForm)
+ObjectPropertyRange(:experimentalFormDescription :ExperimentalFormVocabulary)
+
+# Object Property: :experimentalFormEntity (:experimentalFormEntity)
+
+ObjectPropertyDomain(:experimentalFormEntity :ExperimentalForm)
+ObjectPropertyRange(:experimentalFormEntity ObjectUnionOf(:Gene :PhysicalEntity))
+
+# Object Property: :feature (:feature)
+
+ObjectPropertyDomain(:feature :PhysicalEntity)
+ObjectPropertyRange(:feature :EntityFeature)
+
+# Object Property: :featureLocation (:featureLocation)
+
+ObjectPropertyDomain(:featureLocation :EntityFeature)
+ObjectPropertyRange(:featureLocation :SequenceLocation)
+
+# Object Property: :featureLocationType (:featureLocationType)
+
+ObjectPropertyDomain(:featureLocationType :EntityFeature)
+ObjectPropertyRange(:featureLocationType :SequenceRegionVocabulary)
+
+# Object Property: :interactionScore (:interactionScore)
+
+ObjectPropertyDomain(:interactionScore :GeneticInteraction)
+ObjectPropertyRange(:interactionScore :Score)
+
+# Object Property: :interactionType (:interactionType)
+
+ObjectPropertyDomain(:interactionType :Interaction)
+ObjectPropertyRange(:interactionType :InteractionVocabulary)
+
+# Object Property: :kEQ (:kEQ)
+
+ObjectPropertyDomain(:kEQ :BiochemicalReaction)
+ObjectPropertyRange(:kEQ :KPrime)
+
+# Object Property: :left (:left)
+
+SubObjectPropertyOf(:left :participant)
+ObjectPropertyDomain(:left :Conversion)
+ObjectPropertyRange(:left :PhysicalEntity)
+
+# Object Property: :memberEntityReference (:memberEntityReference)
+
+ObjectPropertyDomain(:memberEntityReference :EntityReference)
+ObjectPropertyRange(:memberEntityReference :EntityReference)
+
+# Object Property: :memberFeature (:memberFeature)
+
+TransitiveObjectProperty(:memberFeature)
+ObjectPropertyDomain(:memberFeature :EntityFeature)
+ObjectPropertyRange(:memberFeature :EntityFeature)
+
+# Object Property: :memberPhysicalEntity (:memberPhysicalEntity)
+
+TransitiveObjectProperty(:memberPhysicalEntity)
+ObjectPropertyDomain(:memberPhysicalEntity :PhysicalEntity)
+ObjectPropertyRange(:memberPhysicalEntity :PhysicalEntity)
+
+# Object Property: :modificationType (:modificationType)
+
+FunctionalObjectProperty(:modificationType)
+ObjectPropertyDomain(:modificationType :ModificationFeature)
+ObjectPropertyRange(:modificationType :SequenceModificationVocabulary)
+
+# Object Property: :nextStep (:nextStep)
+
+ObjectPropertyDomain(:nextStep :PathwayStep)
+ObjectPropertyRange(:nextStep :PathwayStep)
+
+# Object Property: :notFeature (:notFeature)
+
+ObjectPropertyDomain(:notFeature :PhysicalEntity)
+ObjectPropertyRange(:notFeature :EntityFeature)
+
+# Object Property: :organism (:organism)
+
+FunctionalObjectProperty(:organism)
+ObjectPropertyDomain(:organism ObjectUnionOf(:DnaReference :DnaRegionReference :Gene :Pathway :ProteinReference :RnaReference :RnaRegionReference))
+ObjectPropertyRange(:organism :BioSource)
+
+# Object Property: :participant (:participant)
+
+ObjectPropertyDomain(:participant :Interaction)
+ObjectPropertyRange(:participant :Entity)
+
+# Object Property: :participantStoichiometry (:participantStoichiometry)
+
+ObjectPropertyDomain(:participantStoichiometry :Conversion)
+ObjectPropertyRange(:participantStoichiometry :Stoichiometry)
+
+# Object Property: :pathwayComponent (:pathwayComponent)
+
+ObjectPropertyDomain(:pathwayComponent :Pathway)
+ObjectPropertyRange(:pathwayComponent ObjectUnionOf(:Interaction :Pathway))
+
+# Object Property: :pathwayOrder (:pathwayOrder)
+
+ObjectPropertyDomain(:pathwayOrder :Pathway)
+ObjectPropertyRange(:pathwayOrder :PathwayStep)
+
+# Object Property: :phenotype (:phenotype)
+
+FunctionalObjectProperty(:phenotype)
+ObjectPropertyDomain(:phenotype :GeneticInteraction)
+ObjectPropertyRange(:phenotype :PhenotypeVocabulary)
+
+# Object Property: :physicalEntity (:physicalEntity)
+
+FunctionalObjectProperty(:physicalEntity)
+ObjectPropertyDomain(:physicalEntity :Stoichiometry)
+ObjectPropertyRange(:physicalEntity :PhysicalEntity)
+
+# Object Property: :product (:product)
+
+SubObjectPropertyOf(:product :participant)
+ObjectPropertyDomain(:product :TemplateReaction)
+ObjectPropertyRange(:product ObjectUnionOf(:Dna :Protein :Rna))
+
+# Object Property: :regionType (:regionType)
+
+FunctionalObjectProperty(:regionType)
+ObjectPropertyDomain(:regionType ObjectUnionOf(:DnaRegionReference :RnaRegionReference))
+ObjectPropertyRange(:regionType :SequenceRegionVocabulary)
+
+# Object Property: :relationshipType (:relationshipType)
+
+ObjectPropertyDomain(:relationshipType :RelationshipXref)
+ObjectPropertyRange(:relationshipType :RelationshipTypeVocabulary)
+
+# Object Property: :right (:right)
+
+SubObjectPropertyOf(:right :participant)
+ObjectPropertyDomain(:right :Conversion)
+ObjectPropertyRange(:right :PhysicalEntity)
+
+# Object Property: :scoreSource (:scoreSource)
+
+FunctionalObjectProperty(:scoreSource)
+ObjectPropertyDomain(:scoreSource :Score)
+ObjectPropertyRange(:scoreSource :Provenance)
+
+# Object Property: :sequenceIntervalBegin (:sequenceIntervalBegin)
+
+FunctionalObjectProperty(:sequenceIntervalBegin)
+ObjectPropertyDomain(:sequenceIntervalBegin :SequenceInterval)
+ObjectPropertyRange(:sequenceIntervalBegin :SequenceSite)
+
+# Object Property: :sequenceIntervalEnd (:sequenceIntervalEnd)
+
+FunctionalObjectProperty(:sequenceIntervalEnd)
+ObjectPropertyDomain(:sequenceIntervalEnd :SequenceInterval)
+ObjectPropertyRange(:sequenceIntervalEnd :SequenceSite)
+
+# Object Property: :stepConversion (:stepConversion)
+
+SubObjectPropertyOf(:stepConversion :stepProcess)
+FunctionalObjectProperty(:stepConversion)
+ObjectPropertyDomain(:stepConversion :BiochemicalPathwayStep)
+ObjectPropertyRange(:stepConversion :Conversion)
+
+# Object Property: :stepProcess (:stepProcess)
+
+ObjectPropertyDomain(:stepProcess :PathwayStep)
+ObjectPropertyRange(:stepProcess ObjectUnionOf(:Interaction :Pathway))
+
+# Object Property: :structure (:structure)
+
+FunctionalObjectProperty(:structure)
+ObjectPropertyDomain(:structure :SmallMoleculeReference)
+ObjectPropertyRange(:structure :ChemicalStructure)
+
+# Object Property: :subRegion (:subRegion)
+
+ObjectPropertyDomain(:subRegion ObjectUnionOf(:DnaReference :DnaRegionReference :RnaReference :RnaRegionReference))
+ObjectPropertyRange(:subRegion ObjectUnionOf(:DnaRegionReference :RnaRegionReference))
+
+# Object Property: :template (:template)
+
+SubObjectPropertyOf(:template :participant)
+FunctionalObjectProperty(:template)
+ObjectPropertyDomain(:template :TemplateReaction)
+ObjectPropertyRange(:template ObjectUnionOf(:Dna :DnaRegion :Rna :RnaRegion))
+
+# Object Property: :tissue (:tissue)
+
+FunctionalObjectProperty(:tissue)
+ObjectPropertyDomain(:tissue :BioSource)
+ObjectPropertyRange(:tissue :TissueVocabulary)
+
+# Object Property: :xref (:xref)
+
+ObjectPropertyDomain(:xref ObjectUnionOf(:BioSource :ControlledVocabulary :Entity :EntityReference :Evidence :Provenance))
+ObjectPropertyRange(:xref :Xref)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: :author (:author)
+
+DataPropertyDomain(:author :PublicationXref)
+DataPropertyRange(:author xsd:string)
+
+# Data Property: :availability (:availability)
+
+DataPropertyDomain(:availability :Entity)
+DataPropertyRange(:availability xsd:string)
+
+# Data Property: :catalysisDirection (:catalysisDirection)
+
+FunctionalDataProperty(:catalysisDirection)
+DataPropertyDomain(:catalysisDirection :Catalysis)
+DataPropertyRange(:catalysisDirection DataOneOf("LEFT-TO-RIGHT"^^xsd:string "RIGHT-TO-LEFT"^^xsd:string))
+
+# Data Property: :chemicalFormula (:chemicalFormula)
+
+FunctionalDataProperty(:chemicalFormula)
+DataPropertyDomain(:chemicalFormula :SmallMoleculeReference)
+DataPropertyRange(:chemicalFormula xsd:string)
+
+# Data Property: :comment (:comment)
+
+DataPropertyDomain(:comment ObjectUnionOf(:Entity :UtilityClass))
+DataPropertyRange(:comment xsd:string)
+
+# Data Property: :controlType (:controlType)
+
+FunctionalDataProperty(:controlType)
+DataPropertyDomain(:controlType :Control)
+DataPropertyRange(:controlType DataOneOf("ACTIVATION"^^xsd:string "ACTIVATION-ALLOSTERIC"^^xsd:string "ACTIVATION-NONALLOSTERIC"^^xsd:string "INHIBITION"^^xsd:string "INHIBITION-ALLOSTERIC"^^xsd:string "INHIBITION-COMPETITIVE"^^xsd:string "INHIBITION-IRREVERSIBLE"^^xsd:string "INHIBITION-NONCOMPETITIVE"^^xsd:string "INHIBITION-OTHER"^^xsd:string "INHIBITION-UNCOMPETITIVE"^^xsd:string))
+
+# Data Property: :conversionDirection (:conversionDirection)
+
+FunctionalDataProperty(:conversionDirection)
+DataPropertyDomain(:conversionDirection :Conversion)
+DataPropertyRange(:conversionDirection DataOneOf("LEFT-TO-RIGHT"^^xsd:string "REVERSIBLE"^^xsd:string "RIGHT-TO-LEFT"^^xsd:string))
+
+# Data Property: :db (:db)
+
+FunctionalDataProperty(:db)
+DataPropertyDomain(:db :Xref)
+DataPropertyRange(:db xsd:string)
+
+# Data Property: :dbVersion (:dbVersion)
+
+FunctionalDataProperty(:dbVersion)
+DataPropertyDomain(:dbVersion :Xref)
+DataPropertyRange(:dbVersion xsd:string)
+
+# Data Property: :deltaGPrime0 (:deltaGPrime0)
+
+FunctionalDataProperty(:deltaGPrime0)
+DataPropertyDomain(:deltaGPrime0 :DeltaG)
+DataPropertyRange(:deltaGPrime0 xsd:float)
+
+# Data Property: :deltaH (:deltaH)
+
+DataPropertyDomain(:deltaH :BiochemicalReaction)
+DataPropertyRange(:deltaH xsd:float)
+
+# Data Property: :deltaS (:deltaS)
+
+DataPropertyDomain(:deltaS :BiochemicalReaction)
+DataPropertyRange(:deltaS xsd:float)
+
+# Data Property: :displayName (:displayName)
+
+SubDataPropertyOf(:displayName :name)
+FunctionalDataProperty(:displayName)
+DataPropertyRange(:displayName xsd:string)
+
+# Data Property: :eCNumber (:eCNumber)
+
+DataPropertyDomain(:eCNumber :BiochemicalReaction)
+DataPropertyRange(:eCNumber xsd:string)
+
+# Data Property: :id (:id)
+
+FunctionalDataProperty(:id)
+DataPropertyDomain(:id :Xref)
+DataPropertyRange(:id xsd:string)
+
+# Data Property: :idVersion (:idVersion)
+
+FunctionalDataProperty(:idVersion)
+DataPropertyDomain(:idVersion :Xref)
+DataPropertyRange(:idVersion xsd:string)
+
+# Data Property: :intraMolecular (:intraMolecular)
+
+FunctionalDataProperty(:intraMolecular)
+DataPropertyDomain(:intraMolecular :BindingFeature)
+DataPropertyRange(:intraMolecular xsd:boolean)
+
+# Data Property: :ionicStrength (:ionicStrength)
+
+FunctionalDataProperty(:ionicStrength)
+DataPropertyDomain(:ionicStrength ObjectUnionOf(:DeltaG :KPrime))
+DataPropertyRange(:ionicStrength xsd:float)
+
+# Data Property: :kPrime (:kPrime)
+
+FunctionalDataProperty(:kPrime)
+DataPropertyDomain(:kPrime :KPrime)
+DataPropertyRange(:kPrime xsd:float)
+
+# Data Property: :molecularWeight (:molecularWeight)
+
+FunctionalDataProperty(:molecularWeight)
+DataPropertyDomain(:molecularWeight :SmallMoleculeReference)
+DataPropertyRange(:molecularWeight xsd:float)
+
+# Data Property: :name (:name)
+
+DataPropertyDomain(:name ObjectUnionOf(:BioSource :Entity :EntityReference :Provenance))
+DataPropertyRange(:name xsd:string)
+
+# Data Property: :pMg (:pMg)
+
+FunctionalDataProperty(:pMg)
+DataPropertyDomain(:pMg ObjectUnionOf(:DeltaG :KPrime))
+DataPropertyRange(:pMg xsd:float)
+
+# Data Property: :patoData (:patoData)
+
+FunctionalDataProperty(:patoData)
+DataPropertyDomain(:patoData :PhenotypeVocabulary)
+DataPropertyRange(:patoData xsd:string)
+
+# Data Property: :ph (:ph)
+
+FunctionalDataProperty(:ph)
+DataPropertyDomain(:ph ObjectUnionOf(:DeltaG :KPrime))
+DataPropertyRange(:ph xsd:float)
+
+# Data Property: :positionStatus (:positionStatus)
+
+FunctionalDataProperty(:positionStatus)
+DataPropertyDomain(:positionStatus :SequenceSite)
+DataPropertyRange(:positionStatus DataOneOf("EQUAL"^^xsd:string "GREATER-THAN"^^xsd:string "LESS-THAN"^^xsd:string))
+
+# Data Property: :sequence (:sequence)
+
+FunctionalDataProperty(:sequence)
+DataPropertyDomain(:sequence ObjectUnionOf(:DnaReference :DnaRegionReference :ProteinReference :RnaReference :RnaRegionReference))
+DataPropertyRange(:sequence xsd:string)
+
+# Data Property: :sequencePosition (:sequencePosition)
+
+FunctionalDataProperty(:sequencePosition)
+DataPropertyDomain(:sequencePosition :SequenceSite)
+DataPropertyRange(:sequencePosition xsd:int)
+
+# Data Property: :source (:source)
+
+DataPropertyDomain(:source :PublicationXref)
+DataPropertyRange(:source xsd:string)
+
+# Data Property: :spontaneous (:spontaneous)
+
+FunctionalDataProperty(:spontaneous)
+DataPropertyDomain(:spontaneous :Conversion)
+DataPropertyRange(:spontaneous xsd:boolean)
+
+# Data Property: :standardName (:standardName)
+
+SubDataPropertyOf(:standardName :name)
+FunctionalDataProperty(:standardName)
+DataPropertyRange(:standardName xsd:string)
+
+# Data Property: :stepDirection (:stepDirection)
+
+FunctionalDataProperty(:stepDirection)
+DataPropertyDomain(:stepDirection :BiochemicalPathwayStep)
+DataPropertyRange(:stepDirection DataOneOf("LEFT-TO-RIGHT"^^xsd:string "REVERSIBLE"^^xsd:string "RIGHT-TO-LEFT"^^xsd:string))
+
+# Data Property: :stoichiometricCoefficient (:stoichiometricCoefficient)
+
+FunctionalDataProperty(:stoichiometricCoefficient)
+DataPropertyDomain(:stoichiometricCoefficient :Stoichiometry)
+DataPropertyRange(:stoichiometricCoefficient xsd:float)
+
+# Data Property: :structureData (:structureData)
+
+FunctionalDataProperty(:structureData)
+DataPropertyDomain(:structureData :ChemicalStructure)
+DataPropertyRange(:structureData xsd:string)
+
+# Data Property: :structureFormat (:structureFormat)
+
+FunctionalDataProperty(:structureFormat)
+DataPropertyDomain(:structureFormat :ChemicalStructure)
+DataPropertyRange(:structureFormat DataOneOf("CML"^^xsd:string "InChI"^^xsd:string "SMILES"^^xsd:string))
+
+# Data Property: :temperature (:temperature)
+
+FunctionalDataProperty(:temperature)
+DataPropertyDomain(:temperature ObjectUnionOf(:DeltaG :KPrime))
+DataPropertyRange(:temperature xsd:float)
+
+# Data Property: :templateDirection (:templateDirection)
+
+FunctionalDataProperty(:templateDirection)
+DataPropertyDomain(:templateDirection :TemplateReaction)
+DataPropertyRange(:templateDirection DataOneOf("FORWARD"^^xsd:string "REVERSE"^^xsd:string))
+
+# Data Property: :term (:term)
+
+DataPropertyDomain(:term :ControlledVocabulary)
+DataPropertyRange(:term xsd:string)
+
+# Data Property: :title (:title)
+
+FunctionalDataProperty(:title)
+DataPropertyDomain(:title :PublicationXref)
+DataPropertyRange(:title xsd:string)
+
+# Data Property: :url (:url)
+
+DataPropertyDomain(:url :PublicationXref)
+DataPropertyRange(:url xsd:string)
+
+# Data Property: :value (:value)
+
+FunctionalDataProperty(:value)
+DataPropertyDomain(:value :Score)
+DataPropertyRange(:value xsd:string)
+
+# Data Property: :year (:year)
+
+FunctionalDataProperty(:year)
+DataPropertyDomain(:year :PublicationXref)
+DataPropertyRange(:year xsd:int)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: :BindingFeature (:BindingFeature)
+
+SubClassOf(:BindingFeature :EntityFeature)
+DisjointClasses(:BindingFeature :FragmentFeature)
+
+# Class: :BioSource (:BioSource)
+
+SubClassOf(:BioSource :UtilityClass)
+DisjointClasses(:BioSource :ChemicalStructure)
+DisjointClasses(:BioSource :ControlledVocabulary)
+DisjointClasses(:BioSource :DeltaG)
+DisjointClasses(:BioSource :EntityFeature)
+DisjointClasses(:BioSource :EntityReference)
+DisjointClasses(:BioSource :Evidence)
+DisjointClasses(:BioSource :ExperimentalForm)
+DisjointClasses(:BioSource :KPrime)
+DisjointClasses(:BioSource :PathwayStep)
+DisjointClasses(:BioSource :Provenance)
+DisjointClasses(:BioSource :Score)
+DisjointClasses(:BioSource :SequenceLocation)
+DisjointClasses(:BioSource :Stoichiometry)
+DisjointClasses(:BioSource :Xref)
+
+# Class: :BiochemicalPathwayStep (:BiochemicalPathwayStep)
+
+SubClassOf(:BiochemicalPathwayStep :PathwayStep)
+SubClassOf(:BiochemicalPathwayStep ObjectAllValuesFrom(:stepProcess :Control))
+
+# Class: :BiochemicalReaction (:BiochemicalReaction)
+
+SubClassOf(:BiochemicalReaction :Conversion)
+DisjointClasses(:BiochemicalReaction :ComplexAssembly)
+DisjointClasses(:BiochemicalReaction :Degradation)
+
+# Class: :Catalysis (:Catalysis)
+
+SubClassOf(:Catalysis :Control)
+SubClassOf(:Catalysis ObjectAllValuesFrom(:controlled :Conversion))
+SubClassOf(:Catalysis ObjectAllValuesFrom(:controller :PhysicalEntity))
+SubClassOf(:Catalysis DataHasValue(:controlType "ACTIVATION"^^xsd:string))
+DisjointClasses(:Catalysis :Modulation)
+DisjointClasses(:Catalysis :TemplateReactionRegulation)
+
+# Class: :CellVocabulary (:CellVocabulary)
+
+SubClassOf(:CellVocabulary :ControlledVocabulary)
+DisjointClasses(:CellVocabulary :CellularLocationVocabulary)
+DisjointClasses(:CellVocabulary :EntityReferenceTypeVocabulary)
+DisjointClasses(:CellVocabulary :EvidenceCodeVocabulary)
+DisjointClasses(:CellVocabulary :ExperimentalFormVocabulary)
+DisjointClasses(:CellVocabulary :InteractionVocabulary)
+DisjointClasses(:CellVocabulary :PhenotypeVocabulary)
+DisjointClasses(:CellVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:CellVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:CellVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:CellVocabulary :TissueVocabulary)
+
+# Class: :CellularLocationVocabulary (:CellularLocationVocabulary)
+
+SubClassOf(:CellularLocationVocabulary :ControlledVocabulary)
+DisjointClasses(:CellularLocationVocabulary :EntityReferenceTypeVocabulary)
+DisjointClasses(:CellularLocationVocabulary :EvidenceCodeVocabulary)
+DisjointClasses(:CellularLocationVocabulary :ExperimentalFormVocabulary)
+DisjointClasses(:CellularLocationVocabulary :InteractionVocabulary)
+DisjointClasses(:CellularLocationVocabulary :PhenotypeVocabulary)
+DisjointClasses(:CellularLocationVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:CellularLocationVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:CellularLocationVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:CellularLocationVocabulary :TissueVocabulary)
+
+# Class: :ChemicalStructure (:ChemicalStructure)
+
+SubClassOf(:ChemicalStructure :UtilityClass)
+SubClassOf(:ChemicalStructure DataExactCardinality(1 :structureData))
+SubClassOf(:ChemicalStructure DataExactCardinality(1 :structureFormat))
+DisjointClasses(:ChemicalStructure :ControlledVocabulary)
+DisjointClasses(:ChemicalStructure :DeltaG)
+DisjointClasses(:ChemicalStructure :EntityFeature)
+DisjointClasses(:ChemicalStructure :EntityReference)
+DisjointClasses(:ChemicalStructure :Evidence)
+DisjointClasses(:ChemicalStructure :ExperimentalForm)
+DisjointClasses(:ChemicalStructure :KPrime)
+DisjointClasses(:ChemicalStructure :PathwayStep)
+DisjointClasses(:ChemicalStructure :Provenance)
+DisjointClasses(:ChemicalStructure :Score)
+DisjointClasses(:ChemicalStructure :SequenceLocation)
+DisjointClasses(:ChemicalStructure :Stoichiometry)
+DisjointClasses(:ChemicalStructure :Xref)
+
+# Class: :Complex (:Complex)
+
+SubClassOf(:Complex :PhysicalEntity)
+SubClassOf(:Complex ObjectAllValuesFrom(:memberPhysicalEntity :Complex))
+DisjointClasses(:Complex :Dna)
+DisjointClasses(:Complex :DnaRegion)
+DisjointClasses(:Complex :Protein)
+DisjointClasses(:Complex :Rna)
+DisjointClasses(:Complex :RnaRegion)
+DisjointClasses(:Complex :SmallMolecule)
+
+# Class: :ComplexAssembly (:ComplexAssembly)
+
+SubClassOf(:ComplexAssembly :Conversion)
+DisjointClasses(:ComplexAssembly :Degradation)
+DisjointClasses(:ComplexAssembly :Transport)
+
+# Class: :Control (:Control)
+
+SubClassOf(:Control :Interaction)
+DisjointClasses(:Control :Conversion)
+DisjointClasses(:Control :GeneticInteraction)
+DisjointClasses(:Control :MolecularInteraction)
+DisjointClasses(:Control :TemplateReaction)
+
+# Class: :ControlledVocabulary (:ControlledVocabulary)
+
+SubClassOf(:ControlledVocabulary :UtilityClass)
+SubClassOf(:ControlledVocabulary ObjectAllValuesFrom(:xref :UnificationXref))
+DisjointClasses(:ControlledVocabulary :DeltaG)
+DisjointClasses(:ControlledVocabulary :EntityFeature)
+DisjointClasses(:ControlledVocabulary :EntityReference)
+DisjointClasses(:ControlledVocabulary :Evidence)
+DisjointClasses(:ControlledVocabulary :ExperimentalForm)
+DisjointClasses(:ControlledVocabulary :KPrime)
+DisjointClasses(:ControlledVocabulary :PathwayStep)
+DisjointClasses(:ControlledVocabulary :Provenance)
+DisjointClasses(:ControlledVocabulary :Score)
+DisjointClasses(:ControlledVocabulary :SequenceLocation)
+DisjointClasses(:ControlledVocabulary :Stoichiometry)
+DisjointClasses(:ControlledVocabulary :Xref)
+
+# Class: :Conversion (:Conversion)
+
+SubClassOf(:Conversion :Interaction)
+SubClassOf(:Conversion ObjectAllValuesFrom(:participant :PhysicalEntity))
+DisjointClasses(:Conversion :GeneticInteraction)
+
+# Class: :CovalentBindingFeature (:CovalentBindingFeature)
+
+SubClassOf(:CovalentBindingFeature :BindingFeature)
+SubClassOf(:CovalentBindingFeature :ModificationFeature)
+
+# Class: :Degradation (:Degradation)
+
+SubClassOf(:Degradation :Conversion)
+SubClassOf(:Degradation DataHasValue(:conversionDirection "LEFT-TO-RIGHT"^^xsd:string))
+DisjointClasses(:Degradation :Transport)
+
+# Class: :DeltaG (:DeltaG)
+
+SubClassOf(:DeltaG :UtilityClass)
+SubClassOf(:DeltaG DataExactCardinality(1 :deltaGPrime0))
+DisjointClasses(:DeltaG :EntityFeature)
+DisjointClasses(:DeltaG :EntityReference)
+DisjointClasses(:DeltaG :Evidence)
+DisjointClasses(:DeltaG :ExperimentalForm)
+DisjointClasses(:DeltaG :KPrime)
+DisjointClasses(:DeltaG :PathwayStep)
+DisjointClasses(:DeltaG :Provenance)
+DisjointClasses(:DeltaG :Score)
+DisjointClasses(:DeltaG :SequenceLocation)
+DisjointClasses(:DeltaG :Stoichiometry)
+DisjointClasses(:DeltaG :Xref)
+
+# Class: :Dna (:Dna)
+
+SubClassOf(:Dna :PhysicalEntity)
+SubClassOf(:Dna ObjectAllValuesFrom(:entityReference :DnaReference))
+SubClassOf(:Dna ObjectAllValuesFrom(:memberPhysicalEntity :Dna))
+DisjointClasses(:Dna :DnaRegion)
+DisjointClasses(:Dna :Protein)
+DisjointClasses(:Dna :Rna)
+DisjointClasses(:Dna :RnaRegion)
+DisjointClasses(:Dna :SmallMolecule)
+
+# Class: :DnaReference (:DnaReference)
+
+SubClassOf(:DnaReference :EntityReference)
+SubClassOf(:DnaReference ObjectAllValuesFrom(:memberEntityReference :DnaReference))
+SubClassOf(:DnaReference ObjectAllValuesFrom(:subRegion :DnaRegionReference))
+DisjointClasses(:DnaReference :DnaRegionReference)
+DisjointClasses(:DnaReference :ProteinReference)
+DisjointClasses(:DnaReference :RnaReference)
+DisjointClasses(:DnaReference :RnaRegionReference)
+DisjointClasses(:DnaReference :SmallMoleculeReference)
+
+# Class: :DnaRegion (:DnaRegion)
+
+SubClassOf(:DnaRegion :PhysicalEntity)
+SubClassOf(:DnaRegion ObjectAllValuesFrom(:entityReference :DnaRegionReference))
+SubClassOf(:DnaRegion ObjectAllValuesFrom(:memberPhysicalEntity :DnaRegion))
+DisjointClasses(:DnaRegion :Protein)
+DisjointClasses(:DnaRegion :Rna)
+DisjointClasses(:DnaRegion :RnaRegion)
+DisjointClasses(:DnaRegion :SmallMolecule)
+
+# Class: :DnaRegionReference (:DnaRegionReference)
+
+SubClassOf(:DnaRegionReference :EntityReference)
+SubClassOf(:DnaRegionReference ObjectAllValuesFrom(:subRegion :DnaRegionReference))
+DisjointClasses(:DnaRegionReference :ProteinReference)
+DisjointClasses(:DnaRegionReference :RnaReference)
+DisjointClasses(:DnaRegionReference :RnaRegionReference)
+DisjointClasses(:DnaRegionReference :SmallMoleculeReference)
+
+# Class: :EntityFeature (:EntityFeature)
+
+SubClassOf(:EntityFeature :UtilityClass)
+DisjointClasses(:EntityFeature :EntityReference)
+DisjointClasses(:EntityFeature :Evidence)
+DisjointClasses(:EntityFeature :ExperimentalForm)
+DisjointClasses(:EntityFeature :KPrime)
+DisjointClasses(:EntityFeature :PathwayStep)
+DisjointClasses(:EntityFeature :Provenance)
+DisjointClasses(:EntityFeature :Score)
+DisjointClasses(:EntityFeature :SequenceLocation)
+DisjointClasses(:EntityFeature :Stoichiometry)
+DisjointClasses(:EntityFeature :Xref)
+
+# Class: :EntityReference (:EntityReference)
+
+SubClassOf(:EntityReference :UtilityClass)
+DisjointClasses(:EntityReference :Evidence)
+DisjointClasses(:EntityReference :ExperimentalForm)
+DisjointClasses(:EntityReference :KPrime)
+DisjointClasses(:EntityReference :PathwayStep)
+DisjointClasses(:EntityReference :PhysicalEntity)
+DisjointClasses(:EntityReference :Provenance)
+DisjointClasses(:EntityReference :Score)
+DisjointClasses(:EntityReference :SequenceLocation)
+DisjointClasses(:EntityReference :SmallMolecule)
+DisjointClasses(:EntityReference :Stoichiometry)
+DisjointClasses(:EntityReference :Xref)
+
+# Class: :EntityReferenceTypeVocabulary (:EntityReferenceTypeVocabulary)
+
+SubClassOf(:EntityReferenceTypeVocabulary :ControlledVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :EvidenceCodeVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :ExperimentalFormVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :InteractionVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :PhenotypeVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:EntityReferenceTypeVocabulary :TissueVocabulary)
+
+# Class: :Evidence (:Evidence)
+
+SubClassOf(:Evidence :UtilityClass)
+SubClassOf(:Evidence ObjectUnionOf(ObjectMinCardinality(1 :confidence) ObjectMinCardinality(1 :evidenceCode) ObjectMinCardinality(1 :experimentalForm)))
+DisjointClasses(:Evidence :ExperimentalForm)
+DisjointClasses(:Evidence :KPrime)
+DisjointClasses(:Evidence :PathwayStep)
+DisjointClasses(:Evidence :Provenance)
+DisjointClasses(:Evidence :Score)
+DisjointClasses(:Evidence :SequenceLocation)
+DisjointClasses(:Evidence :Stoichiometry)
+DisjointClasses(:Evidence :Xref)
+
+# Class: :EvidenceCodeVocabulary (:EvidenceCodeVocabulary)
+
+SubClassOf(:EvidenceCodeVocabulary :ControlledVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :ExperimentalFormVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :InteractionVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :PhenotypeVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:EvidenceCodeVocabulary :TissueVocabulary)
+
+# Class: :ExperimentalForm (:ExperimentalForm)
+
+SubClassOf(:ExperimentalForm :UtilityClass)
+SubClassOf(:ExperimentalForm ObjectMinCardinality(1 :experimentalFormDescription))
+DisjointClasses(:ExperimentalForm :KPrime)
+DisjointClasses(:ExperimentalForm :PathwayStep)
+DisjointClasses(:ExperimentalForm :Provenance)
+DisjointClasses(:ExperimentalForm :Score)
+DisjointClasses(:ExperimentalForm :SequenceLocation)
+DisjointClasses(:ExperimentalForm :Stoichiometry)
+DisjointClasses(:ExperimentalForm :Xref)
+
+# Class: :ExperimentalFormVocabulary (:ExperimentalFormVocabulary)
+
+SubClassOf(:ExperimentalFormVocabulary :ControlledVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :InteractionVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :PhenotypeVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:ExperimentalFormVocabulary :TissueVocabulary)
+
+# Class: :FragmentFeature (:FragmentFeature)
+
+SubClassOf(:FragmentFeature :EntityFeature)
+DisjointClasses(:FragmentFeature :ModificationFeature)
+
+# Class: :Gene (:Gene)
+
+SubClassOf(:Gene :Entity)
+SubClassOf(:Gene ObjectMaxCardinality(1 :organism))
+DisjointClasses(:Gene :Interaction)
+DisjointClasses(:Gene :Pathway)
+DisjointClasses(:Gene :PhysicalEntity)
+
+# Class: :GeneticInteraction (:GeneticInteraction)
+
+SubClassOf(:GeneticInteraction :Interaction)
+SubClassOf(:GeneticInteraction ObjectAllValuesFrom(:participant :Gene))
+SubClassOf(:GeneticInteraction ObjectMinCardinality(2 :participant))
+SubClassOf(:GeneticInteraction ObjectExactCardinality(1 :phenotype))
+SubClassOf(:GeneticInteraction ObjectMaxCardinality(1 :interactionType))
+DisjointClasses(:GeneticInteraction :MolecularInteraction)
+DisjointClasses(:GeneticInteraction :TemplateReaction)
+
+# Class: :Interaction (:Interaction)
+
+SubClassOf(:Interaction :Entity)
+DisjointClasses(:Interaction :Pathway)
+DisjointClasses(:Interaction :PhysicalEntity)
+
+# Class: :InteractionVocabulary (:InteractionVocabulary)
+
+SubClassOf(:InteractionVocabulary :ControlledVocabulary)
+DisjointClasses(:InteractionVocabulary :PhenotypeVocabulary)
+DisjointClasses(:InteractionVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:InteractionVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:InteractionVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:InteractionVocabulary :TissueVocabulary)
+
+# Class: :KPrime (:KPrime)
+
+SubClassOf(:KPrime :UtilityClass)
+SubClassOf(:KPrime DataExactCardinality(1 :kPrime))
+DisjointClasses(:KPrime :PathwayStep)
+DisjointClasses(:KPrime :Provenance)
+DisjointClasses(:KPrime :Score)
+DisjointClasses(:KPrime :SequenceLocation)
+DisjointClasses(:KPrime :Stoichiometry)
+DisjointClasses(:KPrime :Xref)
+
+# Class: :ModificationFeature (:ModificationFeature)
+
+SubClassOf(:ModificationFeature :EntityFeature)
+
+# Class: :Modulation (:Modulation)
+
+SubClassOf(:Modulation :Control)
+SubClassOf(:Modulation ObjectAllValuesFrom(:controlled :Catalysis))
+SubClassOf(:Modulation ObjectAllValuesFrom(:controller :PhysicalEntity))
+DisjointClasses(:Modulation :TemplateReactionRegulation)
+
+# Class: :MolecularInteraction (:MolecularInteraction)
+
+SubClassOf(:MolecularInteraction :Interaction)
+SubClassOf(:MolecularInteraction ObjectAllValuesFrom(:participant :PhysicalEntity))
+
+# Class: :Pathway (:Pathway)
+
+SubClassOf(:Pathway :Entity)
+DisjointClasses(:Pathway :PhysicalEntity)
+
+# Class: :PathwayStep (:PathwayStep)
+
+SubClassOf(:PathwayStep :UtilityClass)
+DisjointClasses(:PathwayStep :Provenance)
+DisjointClasses(:PathwayStep :Score)
+DisjointClasses(:PathwayStep :SequenceLocation)
+DisjointClasses(:PathwayStep :Stoichiometry)
+DisjointClasses(:PathwayStep :Xref)
+
+# Class: :PhenotypeVocabulary (:PhenotypeVocabulary)
+
+SubClassOf(:PhenotypeVocabulary :ControlledVocabulary)
+DisjointClasses(:PhenotypeVocabulary :RelationshipTypeVocabulary)
+DisjointClasses(:PhenotypeVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:PhenotypeVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:PhenotypeVocabulary :TissueVocabulary)
+
+# Class: :PhysicalEntity (:PhysicalEntity)
+
+SubClassOf(:PhysicalEntity :Entity)
+
+# Class: :Protein (:Protein)
+
+SubClassOf(:Protein :PhysicalEntity)
+SubClassOf(:Protein ObjectAllValuesFrom(:entityReference :ProteinReference))
+SubClassOf(:Protein ObjectAllValuesFrom(:memberPhysicalEntity :Protein))
+DisjointClasses(:Protein :Rna)
+DisjointClasses(:Protein :RnaRegion)
+DisjointClasses(:Protein :SmallMolecule)
+
+# Class: :ProteinReference (:ProteinReference)
+
+SubClassOf(:ProteinReference :EntityReference)
+SubClassOf(:ProteinReference ObjectAllValuesFrom(:memberEntityReference :ProteinReference))
+DisjointClasses(:ProteinReference :RnaReference)
+DisjointClasses(:ProteinReference :RnaRegionReference)
+DisjointClasses(:ProteinReference :SmallMoleculeReference)
+
+# Class: :Provenance (:Provenance)
+
+SubClassOf(:Provenance :UtilityClass)
+SubClassOf(:Provenance ObjectAllValuesFrom(:xref ObjectUnionOf(:PublicationXref :UnificationXref)))
+DisjointClasses(:Provenance :Score)
+DisjointClasses(:Provenance :SequenceLocation)
+DisjointClasses(:Provenance :Stoichiometry)
+DisjointClasses(:Provenance :Xref)
+
+# Class: :PublicationXref (:PublicationXref)
+
+SubClassOf(:PublicationXref :Xref)
+DisjointClasses(:PublicationXref :UnificationXref)
+
+# Class: :RelationshipTypeVocabulary (:RelationshipTypeVocabulary)
+
+SubClassOf(:RelationshipTypeVocabulary :ControlledVocabulary)
+DisjointClasses(:RelationshipTypeVocabulary :SequenceModificationVocabulary)
+DisjointClasses(:RelationshipTypeVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:RelationshipTypeVocabulary :TissueVocabulary)
+
+# Class: :RelationshipXref (:RelationshipXref)
+
+SubClassOf(:RelationshipXref :Xref)
+
+# Class: :Rna (:Rna)
+
+SubClassOf(:Rna :PhysicalEntity)
+SubClassOf(:Rna ObjectAllValuesFrom(:entityReference :RnaReference))
+SubClassOf(:Rna ObjectAllValuesFrom(:memberPhysicalEntity :Rna))
+DisjointClasses(:Rna :RnaRegion)
+DisjointClasses(:Rna :SmallMolecule)
+
+# Class: :RnaReference (:RnaReference)
+
+SubClassOf(:RnaReference :EntityReference)
+SubClassOf(:RnaReference ObjectAllValuesFrom(:memberEntityReference :RnaReference))
+SubClassOf(:RnaReference ObjectAllValuesFrom(:subRegion :RnaRegionReference))
+DisjointClasses(:RnaReference :RnaRegionReference)
+DisjointClasses(:RnaReference :SmallMoleculeReference)
+
+# Class: :RnaRegion (:RnaRegion)
+
+SubClassOf(:RnaRegion :PhysicalEntity)
+SubClassOf(:RnaRegion ObjectAllValuesFrom(:entityReference :RnaRegionReference))
+SubClassOf(:RnaRegion ObjectAllValuesFrom(:memberPhysicalEntity :RnaRegion))
+DisjointClasses(:RnaRegion :SmallMolecule)
+
+# Class: :RnaRegionReference (:RnaRegionReference)
+
+SubClassOf(:RnaRegionReference :EntityReference)
+SubClassOf(:RnaRegionReference ObjectAllValuesFrom(:subRegion :RnaRegionReference))
+DisjointClasses(:RnaRegionReference :SmallMoleculeReference)
+
+# Class: :Score (:Score)
+
+SubClassOf(:Score :UtilityClass)
+SubClassOf(:Score DataExactCardinality(1 :value))
+DisjointClasses(:Score :SequenceLocation)
+DisjointClasses(:Score :Stoichiometry)
+DisjointClasses(:Score :Xref)
+
+# Class: :SequenceInterval (:SequenceInterval)
+
+SubClassOf(:SequenceInterval :SequenceLocation)
+DisjointClasses(:SequenceInterval :SequenceSite)
+
+# Class: :SequenceLocation (:SequenceLocation)
+
+SubClassOf(:SequenceLocation :UtilityClass)
+DisjointClasses(:SequenceLocation :Stoichiometry)
+DisjointClasses(:SequenceLocation :Xref)
+
+# Class: :SequenceModificationVocabulary (:SequenceModificationVocabulary)
+
+SubClassOf(:SequenceModificationVocabulary :ControlledVocabulary)
+DisjointClasses(:SequenceModificationVocabulary :SequenceRegionVocabulary)
+DisjointClasses(:SequenceModificationVocabulary :TissueVocabulary)
+
+# Class: :SequenceRegionVocabulary (:SequenceRegionVocabulary)
+
+SubClassOf(:SequenceRegionVocabulary :ControlledVocabulary)
+DisjointClasses(:SequenceRegionVocabulary :TissueVocabulary)
+
+# Class: :SequenceSite (:SequenceSite)
+
+SubClassOf(:SequenceSite :SequenceLocation)
+
+# Class: :SmallMolecule (:SmallMolecule)
+
+SubClassOf(:SmallMolecule :PhysicalEntity)
+SubClassOf(:SmallMolecule ObjectAllValuesFrom(:entityReference :SmallMoleculeReference))
+SubClassOf(:SmallMolecule ObjectAllValuesFrom(:feature :BindingFeature))
+SubClassOf(:SmallMolecule ObjectAllValuesFrom(:memberPhysicalEntity :SmallMolecule))
+SubClassOf(:SmallMolecule ObjectAllValuesFrom(:notFeature :BindingFeature))
+
+# Class: :SmallMoleculeReference (:SmallMoleculeReference)
+
+SubClassOf(:SmallMoleculeReference :EntityReference)
+SubClassOf(:SmallMoleculeReference ObjectAllValuesFrom(:memberEntityReference :SmallMoleculeReference))
+
+# Class: :Stoichiometry (:Stoichiometry)
+
+SubClassOf(:Stoichiometry :UtilityClass)
+SubClassOf(:Stoichiometry ObjectExactCardinality(1 :physicalEntity))
+SubClassOf(:Stoichiometry DataExactCardinality(1 :stoichiometricCoefficient))
+DisjointClasses(:Stoichiometry :Xref)
+
+# Class: :TemplateReaction (:TemplateReaction)
+
+SubClassOf(:TemplateReaction :Interaction)
+SubClassOf(:TemplateReaction ObjectAllValuesFrom(:participant :PhysicalEntity))
+
+# Class: :TemplateReactionRegulation (:TemplateReactionRegulation)
+
+SubClassOf(:TemplateReactionRegulation :Control)
+SubClassOf(:TemplateReactionRegulation ObjectAllValuesFrom(:controlled :TemplateReaction))
+SubClassOf(:TemplateReactionRegulation ObjectAllValuesFrom(:controller :PhysicalEntity))
+SubClassOf(:TemplateReactionRegulation DataAllValuesFrom(:controlType DataOneOf("ACTIVATION"^^xsd:string "INHIBITION"^^xsd:string)))
+
+# Class: :TissueVocabulary (:TissueVocabulary)
+
+SubClassOf(:TissueVocabulary :ControlledVocabulary)
+
+# Class: :Transport (:Transport)
+
+SubClassOf(:Transport :Conversion)
+
+# Class: :TransportWithBiochemicalReaction (:TransportWithBiochemicalReaction)
+
+SubClassOf(:TransportWithBiochemicalReaction :BiochemicalReaction)
+SubClassOf(:TransportWithBiochemicalReaction :Transport)
+
+# Class: :UnificationXref (:UnificationXref)
+
+SubClassOf(:UnificationXref :Xref)
+SubClassOf(:UnificationXref DataExactCardinality(1 :db))
+SubClassOf(:UnificationXref DataExactCardinality(1 :id))
+
+# Class: :Xref (:Xref)
+
+SubClassOf(:Xref :UtilityClass)
+
+
+)

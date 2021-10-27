@@ -419,7 +419,7 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
         return 'integer'
     if all(isinstance(v, float) for v in nn_vals):
         return 'float'
-    if all(v.isdigit() for v in nn_vals):
+    if all(str(v).isdigit() for v in nn_vals):
         return 'integer'
     if all(is_date(v) for v in nn_vals):
         return 'datetime'
@@ -597,7 +597,7 @@ def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
-@click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='if true make headers lowercase')
+@click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
 @click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
 @click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 @click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')

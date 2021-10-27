@@ -28,6 +28,8 @@ class OwlImportEngine(ImportEngine):
         self.mappings = {}
         doc = to_python(file)
         ontology = doc.ontology
+        if len(ontology.axioms) == 0:
+            raise Exception(f'Empty ontology in {file} (note: ontologies must be in functional syntax)')
         prefixes = doc.prefixDeclarations
         self.prefixes = prefixes
         if model_uri is None:
@@ -57,6 +59,7 @@ class OwlImportEngine(ImportEngine):
         isamap = defaultdict(set)
         slot_isamap = defaultdict(set)
         for a in ontology.axioms:
+            logging.debug(f'Axiom: {a}')
             if isinstance(a, SubClassOf):
                 if isinstance(a.subClassExpression, Class):
                     child = self.iri_to_name(a.subClassExpression)
@@ -82,11 +85,11 @@ class OwlImportEngine(ImportEngine):
                     logging.error(f"cannot handle anon child properties for {a}")
             if isinstance(a, SubDataPropertyOf):
                 sub = a.subDataPropertyExpression.v
-                if isinstance(sub, DataPropertyExpression) and isinstance(sub.v, DataProperty):
-                    child = self.iri_to_name(sub.v)
-                    sup = a.superODataPropertyExpression.v
-                    if isinstance(sup, DataPropertyExpression) and isinstance(sup.v, DataProperty):
-                        parent = self.iri_to_name(sup.v)
+                if isinstance(sub, DataProperty):
+                    child = self.iri_to_name(sub)
+                    sup = a.superDataPropertyExpression.v
+                    if isinstance(sup, DataProperty):
+                        parent = self.iri_to_name(sup)
                         slot_isamap[child].add(parent)
                     else:
                         logging.error(f"cannot handle anon parent properties for {a}")
