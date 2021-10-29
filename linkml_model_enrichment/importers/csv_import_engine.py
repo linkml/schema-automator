@@ -203,9 +203,9 @@ class CsvDataImportEngine(ImportEngine):
     def read_slot_tsv(self, file: str, **kwargs) -> Dict:
         with open(file, newline='') as tsv_file:
             rows_list = csv.reader(tsv_file, delimiter=self.file_separator)
-            return self.convert_to_slots([r for r in rows_list], **kwargs)
+            return self.convert_to_edge_slots([r for r in rows_list], **kwargs)
 
-    def convert_to_slots(self,
+    def convert_to_edge_slots(self,
                          all_tsv_rows: List,
                          name: str = 'example',
                          **kwargs) -> Optional[Dict]:
@@ -216,6 +216,8 @@ class CsvDataImportEngine(ImportEngine):
             2. slot definition to add
             3. examples of values for the slot
 
+        also assume that these are all edge_properties at the moment.
+        TODO: add parameter to allow edge or node property disambiguation.
         """
 
         slots = {}
@@ -233,7 +235,7 @@ class CsvDataImportEngine(ImportEngine):
             else:
                 vs = [slot_example_type]
             if slot_name not in slots:
-                slots[slot_name] = {'range': None, 'description': slot_definition}
+                slots[slot_name] = {'is_a': 'association slot', 'description': slot_definition, 'range': None}
                 slot_values[slot_name] = set()
             if slot_example_type is not None and slot_example_type != "" and not str(slot_example_type).startswith('$ref:'):
                 slots[slot_name]['examples'] = [{'value': slot_example_type}]
