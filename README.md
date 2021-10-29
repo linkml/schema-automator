@@ -40,7 +40,7 @@ See the [annotators](linkml_model_enrichment/annotators/) folder for docs
 
 ### Converting TSVs
 
-The `tsv2linkml` command infers a single-class schema from a file TSV datafile
+The `tsv2linkml` command infers a single-class schema from a TSV datafile
 
 ```bash
 $ tsv2linkml --help

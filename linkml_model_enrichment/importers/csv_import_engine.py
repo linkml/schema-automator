@@ -1,20 +1,17 @@
 import click
 import logging
 import yaml
-from typing import Union, Dict, Tuple, List, Any, Optional
+from typing import Dict, List, Optional
 from collections import defaultdict
 import os
 import re
 import csv
-import copy
 import requests
 import pandas as pd
-import numpy as np
+import time
 
-from csv import DictWriter
 from dateutil.parser import parse
 from quantulum3 import parser as q_parser
-from quantulum3.classes import Quantity
 from dataclasses import dataclass, field
 from linkml_model_enrichment.importers.import_engine import ImportEngine
 from linkml_model_enrichment.utils.schemautils import merge_schemas
@@ -26,6 +23,7 @@ ROBOT_NAME_MAP = {
     'definition': "IAO:0000115",
     'definition_source': "IAO:0000119",
 }
+
 
 @dataclass
 class ForeignKey:
@@ -54,7 +52,7 @@ class ForeignKey:
 @dataclass
 class CsvDataImportEngine(ImportEngine):
 
-    sep: str = "\t"
+    file_separator: str = "\t"
     schema_name: str = 'example'
     robot: bool = False
     enum_columns: List[str] = field(default_factory=lambda: [])
@@ -90,7 +88,7 @@ class CsvDataImportEngine(ImportEngine):
             if self.downcase_header:
                 c = c.lower()
             print(f'READING {file} ')
-            df = pd.read_csv(file, sep=self.sep).fillna("")
+            df = pd.read_csv(file, sep=self.file_separator).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
             exclude = []
@@ -164,7 +162,6 @@ class CsvDataImportEngine(ImportEngine):
         logging.info(f'FILTERED: {fks}')
         return fks
 
-
     def inject_foreign_keys(self, schema_dict: Dict, fks: List[ForeignKey]) -> None:
         for fk in fks:
             # TODO: deal with cases where the same slot is used in different classes
@@ -180,14 +177,6 @@ class CsvDataImportEngine(ImportEngine):
                 tgt_cls['slot_usage'] = {}
             tgt_cls['slot_usage'][fk.target_column] = {'identifier': True}
             #tgt_slot['identifier'] = True
-
-
-
-
-    def convert(self, file: str, **kwargs)-> Dict:
-        with open(file, newline='') as tsvfile:
-            rr = csv.DictReader(tsvfile, delimiter=self.sep)
-            return self.convert_dicts([r for r in rr], **kwargs)
 
     def convert_multiple(self, files: List[str], **kwargs) -> Dict:
         if self.infer_foreign_keys:
@@ -206,13 +195,62 @@ class CsvDataImportEngine(ImportEngine):
         self.inject_foreign_keys(s, fks)
         return s
 
-    def convert(self, file: str, **kwargs)-> Dict:
-        with open(file, newline='') as tsvfile:
-            rr = csv.DictReader(tsvfile, delimiter=self.sep)
+    def convert(self, file: str, **kwargs) -> Dict:
+        with open(file, newline='') as tsv_file:
+            rr = csv.DictReader(tsv_file, delimiter=self.file_separator)
+            print(rr)
             return self.convert_dicts([r for r in rr], **kwargs)
 
-    def convert_dicts(self, rr: List[Dict], name: str = 'example',
-                      class_name: str = 'example', **kwargs) -> Optional[Dict]:
+    def read_slot_tsv(self, file: str, **kwargs) -> Dict:
+        with open(file, newline='') as tsv_file:
+            rows_list = csv.reader(tsv_file, delimiter=self.file_separator)
+            return self.convert_to_slots([r for r in rows_list], **kwargs)
+
+    def convert_to_slots(self,
+                         all_tsv_rows: List,
+                         name: str = 'example',
+                         **kwargs) -> Optional[Dict]:
+        slots = {}
+        slot_values = {}
+        types = {}
+
+        for item in all_tsv_rows:
+            slot_name = item[0]
+            slot_definition = item[1]
+            slot_example_type = item[2]
+            if isinstance(slot_example_type, list):
+                vs = slot_example_type
+            elif isinstance(slot_example_type, str):
+                vs = slot_example_type.split('|')
+            else:
+                vs = [slot_example_type]
+            if slot_name not in slots:
+                slots[slot_name] = {'range': None}
+                slot_values[slot_name] = set()
+            if slot_example_type is not None and slot_example_type != "" and not str(slot_example_type).startswith('$ref:'):
+                slots[slot_name]['examples'] = [{'value': slot_example_type}]
+                slot_values[slot_name].update(vs)
+            if len(vs) > 1:
+                slots[slot_name]['multivalued'] = True
+
+        new_slots = {}
+        # slots is a dict{dict}
+        for sn, s in slots.items():
+            vals = slot_values[sn]
+            s['range'] = infer_range(s, vals, types)
+        for sn, s in new_slots.items():
+            if sn not in slots:
+                slots[sn] = s
+        schema = {
+            'slots': slots
+        }
+        return schema
+
+    def convert_dicts(self,
+                      rr: List[Dict],
+                      name: str = 'example',
+                      class_name: str = 'example',
+                      **kwargs) -> Optional[Dict]:
         slots = {}
         slot_values = {}
         n = 0
@@ -229,10 +267,10 @@ class CsvDataImportEngine(ImportEngine):
                 row = {k.lower(): v for k, v in row.items()}
             n += 1
             if n == 1 and self.robot:
-                for k,v in row.items():
+                for k, v in row.items():
                     robot_defs[k] = v
                 continue
-            for k,v in row.items():
+            for k, v in row.items():
                 if v is None:
                     v = ""
                 if isinstance(v, list):
@@ -258,8 +296,8 @@ class CsvDataImportEngine(ImportEngine):
                 n_distinct = len(vals)
                 longest = max([len(str(v)) for v in vals]) if n_distinct > 0 else 0
                 if sn in enum_columns or \
-                        ((n_distinct / n) < self.enum_threshold and n_distinct > 0 and
-                         n_distinct <= self.max_enum_size and longest < self.enum_strlen_threshold):
+                        ((n_distinct / n) < self.enum_threshold and 0 < n_distinct <= self.max_enum_size
+                         and longest < self.enum_strlen_threshold):
                     enum_name = sn.replace(' ', '_').replace('(s)', '')
                     enum_name = f'{enum_name}_enum'
                     s['range'] = enum_name
@@ -324,7 +362,7 @@ class CsvDataImportEngine(ImportEngine):
                             del s['slot_uri']
                             logging.warning(f'ROBOT "A" annotations not supported yet')
         class_slots = list(slots.keys())
-        for sn,s in new_slots.items():
+        for sn, s in new_slots.items():
             if sn not in slots:
                 slots[sn] = s
         schema = {
@@ -345,13 +383,13 @@ class CsvDataImportEngine(ImportEngine):
                 }
             },
             'slots': slots,
-            'enums': enums,
-            'types': types
+            'enums': enums
         }
         if robot_defs:
             schema['prefixes']['IAO'] = 'http://purl.obolibrary.org/obo/IAO_'
         add_missing_to_schema(schema)
         return schema
+
 
 def capture_robot_some(s: str) -> str:
     """
@@ -371,6 +409,7 @@ def capture_robot_some(s: str) -> str:
         else:
             return r
 
+
 def isfloat(value):
     try:
         float(value)
@@ -378,11 +417,13 @@ def isfloat(value):
     except ValueError:
         return False
 
+
 def is_measurement(value):
     ms = q_parser.parse(value)
     for m in ms:
         if m.unit.name != 'dimensionless':
             return True
+
 
 def is_all_measurement(values):
     """
@@ -440,12 +481,14 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
             return t
     return 'string'
 
-def get_db(id: str) -> str:
-    parts = id.split(':')
+
+def get_db(db_id: str) -> str:
+    parts = db_id.split(':')
     if len(parts) > 1:
         return parts[0]
     else:
         return None
+
 
 def is_date(string, fuzzy=False):
     """
@@ -462,11 +505,13 @@ def is_date(string, fuzzy=False):
         # we don't know all the different parse exceptions, we assume any error means this is a date
         return False
 
+
 @dataclass
-class Hit():
+class Hit:
     term_id: str
     name: str
     score: float
+
 
 def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
     """
@@ -504,20 +549,20 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
     # zooma doesn't seem to do much pre-processing, so we convert
     label = v
     if 'SARS-CoV' not in label:
-        label = re.sub("([a-z])([A-Z])","<1> <2>",label) # expand CamelCase
+        label = re.sub("([a-z])([A-Z])", "<1> <2>", label)  # expand CamelCase
     label = label.replace('.', ' ').replace('_', ' ')
     params = {'propertyValue': label}
-    time.sleep(1) # don't overload service
+    time.sleep(1)  # don't overload service
     logging.info(f'Q: {params}')
     r = requests.get('http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate',params=params)
-    hits = [] # List[hit]
+    hits = []  # List[hit]
     for hit in r.json():
         confidence = float(confidence_to_int(hit['confidence']))
         id = hit['semanticTags'][0]
         if confidence >= confidence_threshold:
-            hit = Hit(term_id= id,
-                      name= hit['annotatedProperty']['propertyValue'],
-                      score= confidence)
+            hit = Hit(term_id=id,
+                      name=hit['annotatedProperty']['propertyValue'],
+                      score=confidence)
             hits.append(hit)
         else:
             logging.warning(f'Skipping {id} {confidence}')
@@ -530,14 +575,12 @@ def get_pv_element(v: str, zooma_confidence: str, cache: dict = {}) -> Hit:
         return None
 
 
-
-
-
 def convert_range(k: str, dt: str) -> str:
     t = 'string'
     if dt == 'float64':
         t = 'float'
     return t
+
 
 def infer_enum_meanings(schema: dict,
                         zooma_confidence: str = 'MEDIUM',
@@ -545,7 +588,7 @@ def infer_enum_meanings(schema: dict,
     for _,e in schema['enums'].items():
         pvs = e['permissible_values']
         for k, pv in pvs.items():
-            if pv == None:
+            if pv is None:
                 pv = {}
                 pvs[k] = pv
             if 'meaning' not in pv or pv['meaning'] is not None:
@@ -554,8 +597,6 @@ def infer_enum_meanings(schema: dict,
                     pv['meaning'] = hit.term_id
                     if 'description' not in pv:
                         pv['description'] = hit.name
-
-
 
 
 def add_missing_to_schema(schema: dict):
@@ -567,12 +608,14 @@ def add_missing_to_schema(schema: dict):
                     {'typeof': 'string',
                      'description': 'Holds a measurement serialized as a string'}
 
+
 @click.group()
 def main():
     pass
 
+
 @main.command()
-@click.argument('tsvfile') ## input TSV (must have column headers
+@click.argument('tsvfile')  # input TSV (must have column headers
 @click.option('--output', '-o', help='Output file')
 @click.option('--class_name', '-c', default='example', help='Core class name in schema')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
@@ -592,7 +635,7 @@ def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
         print(ys)
 
 @main.command()
-@click.argument('tsvfiles', nargs=-1) ## input TSV (must have column headers
+@click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
 @click.option('--output', '-o', help='Output file')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
 @click.option('--sep', '-s', default='\t', help='separator')
@@ -629,6 +672,7 @@ def enrich(yamlfile, results, **args):
             #io.write(str(cache))
             io.write(yaml.dump(cache))
     print(yaml.dump(yamlobj, default_flow_style=False, sort_keys=False))
+
 
 if __name__ == '__main__':
     main()
