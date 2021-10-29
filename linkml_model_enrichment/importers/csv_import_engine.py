@@ -209,6 +209,15 @@ class CsvDataImportEngine(ImportEngine):
                          all_tsv_rows: List,
                          name: str = 'example',
                          **kwargs) -> Optional[Dict]:
+
+        """
+        assume that TSV has 3 relevant columns:
+            1. slot name to add
+            2. slot definition to add
+            3. examples of values for the slot
+
+        """
+
         slots = {}
         slot_values = {}
         types = {}
@@ -224,7 +233,7 @@ class CsvDataImportEngine(ImportEngine):
             else:
                 vs = [slot_example_type]
             if slot_name not in slots:
-                slots[slot_name] = {'range': None}
+                slots[slot_name] = {'range': None, 'description': slot_definition}
                 slot_values[slot_name] = set()
             if slot_example_type is not None and slot_example_type != "" and not str(slot_example_type).startswith('$ref:'):
                 slots[slot_name]['examples'] = [{'value': slot_example_type}]
