@@ -198,7 +198,6 @@ class CsvDataImportEngine(ImportEngine):
     def convert(self, file: str, **kwargs) -> Dict:
         with open(file, newline='') as tsv_file:
             rr = csv.DictReader(tsv_file, delimiter=self.file_separator)
-            print(rr)
             return self.convert_dicts([r for r in rr], **kwargs)
 
     def read_slot_tsv(self, file: str, **kwargs) -> Dict:
