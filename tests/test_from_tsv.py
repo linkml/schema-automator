@@ -31,7 +31,7 @@ class TestTsvmport(unittest.TestCase):
         with open(BOOKS_OUTSCHEMA_ENHANCED, 'w') as stream:
             stream.write(s)
 
-    def test_create_slots(self):
+    def test_create_edge_slots(self):
         """
             Test we can create slots with descriptions from a TSV file
         """
