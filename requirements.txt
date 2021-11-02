@@ -1,6 +1,6 @@
 click >= 7.1.2
 dataclasses
-linkml-runtime >= 1.0.16
+linkml-runtime >= 1.1.5
 linkml >= 1.1.7
 mkdocs
 pandas >= 1.2.3
