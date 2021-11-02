@@ -15,7 +15,7 @@ OUTSCHEMA = os.path.join(OUTPUT_DIR, 'shacl-from-owl.yaml')
 OUTSCHEMA_ENHANCED = os.path.join(OUTPUT_DIR, 'shacl-from-owl-enhanced.yaml')
 
 class TestOwlImport(unittest.TestCase):
-    """Tests shacl import
+    """Tests conversion of shacl metamodel (in OWL) to LinkML
     """
 
     def test_from_owl(self):
