@@ -1,0 +1,131 @@
+Proposed Name for Biolink Property ("has supporting X") (REQUIRED)	Proposed Definition For Biolink Property (REQUIRED)	Example Value (from seed list)
+concept count subject	The number of instances in a dataset/cohort whose records contain the concept in the subject slot of an association.	489
+concept count object	The number of instances in a dataset/cohort whose records contain the concept in the object slot of an association. 	
+concept pair count	The number of instances in a dataset/cohort whose records contain both the subject and object concept of an association. 	9
+relative frequency subject	The frequency at which subject and object concepts co-occur in EHR records within a dataset/cohort, relative to the frequency at which the subject concept appears in these same records.  	0.01840490798
+relative frequency object	The frequency at which subject and object concepts co-occur in EHR records within a dataset/cohort, relative to the frequency at which the object concept appears in these same records.  	
+relative frequency subject confidence interval	The 99% confidence interval for the relative_frequency_subject calculation (i.e. the range of values within which the true value has a 99% chance of falling)	
+relative frequency object confidence interval	The 99% confidence interval for the relative_frequency_object calculation (i.e. the range of values within which the true value has a 99% chance of falling)	
+p value	The p-value is the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct.	0.05
+adjusted p value	The adjusted p-value is the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct, adjusted for multiple comparisons. 	
+	A measure of the association strength between the subject and object concepts, calculated as ln(concept_pair_count / expected_count) for the pair of concepts, where the expected count of the pair of concepts is calculated based on the individual concepts' frequencies, assuming independence between the pair of concepts. 	4.500270553
+	The 99% confidence interval for the ln_ratio calculation (i.e. the range of values within which the true value has a 99% chance of falling)	[2.3030459759916364, 5.298778249545627]
+		9
+		<integer counts>
+	The expected number of instances in a dataset/cohort whose records contain both the subject and object concept of an association, calculated based on the individual concepts' frequencies, assuming independence (i.e., no meaningful association / correlation) between the pair of concepts. 	0.09995392232
+score	The calculated probability value for a drug treating a disease association generated from a machine learning model.	0.82
+	Connectivity Map Score (tau, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5990023/)	98.45
+	Pearson's correlation coefficient	0.7615260473
+		27.52733542
+	false discovery rate	0.00005819519168
+		761
+	Equilibrium dissociation constant	9.82
+	Half maximal effective concentration	8.11
+	Inhibitory constant	6.33
+	Half-maximal inhibitory concentration	7.22
+tmkp result confidence score	A score indicating overall confidence of a Text Mining Result whose evidence is in the form of a segment of text extracted from a document that supports a text-mined assertion. The score ranges from 0 to 1, where 1 indicates 100% confidence and 0 indicates no confidence. Note that the confidence expressed here is in relation to the accuracy with which the natural language processing tools have interpreted the words in the text. This confidence makes no claims about the factual truthfulness of the assertion itself.	0.99871
+supporting text	The segment of text from a document that supports the mined assertion.	"The administration of 50 µg/ml bupivacaine promoted maximum breast cancer..."
+supporting document	The document that contains the supporting text of a Text Mining Result.	PMID:12345678
+subject location in text	Character offsets for the text span(s) in the supporting text corresponding to the subject concept of the extracted assertion.	0|15;20|25
+object location in text	Character offsets for the text span(s) in the supporting text corresponding to the object concept of the extracted assertion	0|15
+tmkp aggregate confidence score	The aggregate confidence score for an assertion supported by text-mined evidence. This score is calculated by taking into account each of the Text Mining Result confidence scores for a given assertion, and ranges from 0 to 1, where 1 indicates 100% confidence and 0 indicates no confidence. Note that the confidence expressed here is in relation to the accuracy with which the natural language processing tools have interpreted the words in the text. This confidence makes no claims about the factual truthfulness of the assertion itself.	0.876
+supporting document type	The document type (e.g., Journal Article, Case Study, Preprint) for the supporting document used in a Text Mining Result.	Journal Article
+supporting document year	The document year (typically the publication year) for the supporting document used in a Text Mining Result.	1999
+supporting text section type	The section of the supporting text of a Text Mining Result within the supporting document. This is in the form of the name of the document section (e.g., Abstract, Introduction) that contains the supporting text.	Introduction
+normalized google distance	The Normalized Google Distance (NGD) computed for the subject and object concepts of the assertion. NGD is a measure of semantic similarity between two concepts derived from counts of the number of times they appear in a corpus of text. Concepts with the same or similar meaning will have an NGD score close to 0, while completely dissimilar concepts (those that never appear together) will have an infinite NGD score. For details see https://en.wikipedia.org/wiki/Normalized_Google_distance.	0.1234
+pointwise mutual information	Pointwise mutual information is an information theoretic measure of association between two concepts based on the probabilities of observing the concepts in isolation and together. Mathematically, pmi(x,y) = log(p(x,y)/(p(x)p(y))). For details see: Bouma, G. (2009). Normalized (pointwise) mutual information in collocation extraction. Proceedings of GSCL, 30, 31-40. https://svn.spraakdata.gu.se/repos/gerlof/pub/www/Docs/npmi-pfd.pdf	
+normalized pointwise mutual information	Normalized Pointwise Mutual Information (NPMI) is PMI normalized to the range [1, -1]. When two concepts only occur together, NPMI = 1. When two concepts are observed to occur separately but never together, NPMI = -1. For details see: Bouma, G. (2009). Normalized (pointwise) mutual information in collocation extraction. Proceedings of GSCL, 30, 31-40. https://svn.spraakdata.gu.se/repos/gerlof/pub/www/Docs/npmi-pfd.pdf	
+normalized pointwise mutual information max	Normalized Pointwise Mutual Information Max is a variant of NPMI proposed by Bouma 2009 whereby the PMI is normalized by -ln(max(p(x),p(y))). Using this normalization factor will result in an asymmetric measure whereby NPMImax=1 when one concept is occurs only in the context of another, but not necessarily the other way around. For details see: Bouma, G. (2009). Normalized (pointwise) mutual information in collocation extraction. Proceedings of GSCL, 30, 31-40. https://svn.spraakdata.gu.se/repos/gerlof/pub/www/Docs/npmi-pfd.pdf	
+mutual dependence	Mutual Dependency (MD), often also known as PMI², is a variant of PMI that attempts to overcome PMI's preference for rare events. For details, see Thanopoulos, A., Fakotakis, N., & Kokkinakis, G. (2002, May). Comparative Evaluation of Collocation Extraction Metrics. In LREC (Vol. 2, pp. 620-625). http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.11.8101&rep=rep1&type=pdf 	
+log frequency biased mutual dependence	Log-Frequency-Biased Mutual Dependency is a variant of Mutual Dependency that results in favoring the more frequently occuring pairs when ranking. For details, see Thanopoulos, A., Fakotakis, N., & Kokkinakis, G. (2002, May). Comparative Evaluation of Collocation Extraction Metrics. In LREC (Vol. 2, pp. 620-625). http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.11.8101&rep=rep1&type=pdf	
+tmkp concept1 count	The raw count of observations of one member (concept1) of a cooccurring pair of concepts in a text corpus.	
+tmkp concept2 count	The raw count of observations of one member (concept2) of a cooccurring pair of concepts in a text corpus.	
+tmkp concept cooccurrence count	The raw count of observations of two concepts cooccurring in the same document (or part of a document) in a text corpus.	
+contribution towards patient survival	Contribution is a summary statistic indicating the level of contribution an entity has on patient survival time as measured by its quantifiable impact on a distribution of patient survival time. 	[-1,1]: e.g. -0.23, 1, 0.75
+contribution towards patient survival	Contribution is a summary statistic indicating the level of contribution an entity has on patient survival time as measured by its quantifiable impact on a distribution of patient survival time.   MHB: Question - is the contribution score that hangs from one of these associations linked with the cocnet in the object slot?  i.e. in a Gene - Drug association, it refelcts the contributon made by the Drug?  If so, should we rename it 'object_contibution_score' or somesuch?	[-1,1]: e.g. -0.23, 1, 0.75
+contribution towards patient survival	Contribution is a summary statistic indicating the level of contribution an entity has on patient survival time as measured by its quantifiable impact on a distribution of patient survival time. 	[-1,1]: e.g. -0.23, 1, 0.75
+contribution towards patient survival	Contribution is a summary statistic indicating the level of contribution an entity has on patient survival time as measured by its quantifiable impact on a distribution of patient survival time. 	[-1,1]: e.g. -0.23, 1, 0.75
+probability of prolonged survival	Reflects the posterior distribution for likliehood of survival past a specified period of time, given some evidence established in the connecting nodes.	[0,1]: e.g., .57, 1, .01
+probability of prolonged survival	Reflects the posterior distribution for likliehood of survival past a specified period of time, given some evidence established in the connecting nodes.	[0,1]: e.g., .57, 1, .01
+probability of prolonged survival	Reflects the posterior distribution for likliehood of survival past a specified period of time, given some evidence established in the connecting nodes.	[0,1]: e.g., .57, 1, .01
+half maximal inhibitory concentration	IC50 indicates how much drug is needed to inhibit a biological process by half, thus providing a measure of potency of an antagonist drug in pharmacological research	421
+binding constant	measure of how likely the ligand and moelcule are to bind	421
+inhibitor constant	Ki, is an indication of how potent an inhibitor is; it is the concentration required to produce half maximum inhibition.	3000
+dissociation constant	The Kd is a useful way to present the affinity of a drug for its biological target. Kd tells us the concentration of drug that is required to yield a significant amount of interaction with the target protein.	6800
+p value	p value is the probability of getting a result at least as extreme as the one that was actually observed, given that the null hypothesis is true.	0.00058652877
+half maximal inhibitory concentration	IC50 indicates how much drug is needed to inhibit a biological process by half, thus providing a measure of potency of an antagonist drug in pharmacological research	-2.112848714
+z score	zscore is the measure of how many standard deviations below or above the population mean, a raw score is.	-7.534225129
+p value	p value is the probability of getting a result at least as extreme as the one that was actually observed, given that the null hypothesis is true.	0
+log fold change	The log2(fold-change) is the log-ratio of a gene's or a transcript's expression values in two different conditions.	1.655759833
+false discovery rate	false discovery rate is the ratio of the number of false positive results to the number of total positive test results.	0
+co-occurrence	the number of articles in which the two terms co-occurred	56
+fisher exact test	Fisher's exact test is a statistical test used to determine if there are nonrandom associations between two categorical variables	0.00001507078716
+enrichment	co-occurrence divided by expected. "expected" is the number of expected co-occurrences by chance based on each term's marginal frequency	2.922827136
+odds ratio	the odds of cooccurrence divided by the odds of expected	2.94257537
+confidence score	numeric score that represents the confidence of disease association with gene	3.103
+p value	p value is the probability of getting a result at least as extreme as the one that was actually observed, given that the null hypothesis is true.	0.0000000006
+mass spectrometry interaction statistic	The MiST score is a weighted sum of three measures: protein abundance measured by peak intensities from the mass spectrum (abundance); invariability of abundance over replicated experiments (reproducibility); and uniqueness of an observed host–pathogen interaction across all viral purifications (specificity)	0.969888009
+Significance Analysis of INTeractome bayesian false discovery rate	statistical method for probabilistically scoring protein-protein interaction data from affinity purification-mass spectrometry (AP-MS) experiments	0.03
+fold change	fold-change is the ratio of a gene's or a transcript's expression values in two different conditions.	150
+		0.00040475
+		0.00040475
+		0.00040475
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+has p value	The calculated probability value for an observed association between two feature variables within a cohort of a given size	0.05
+has adjusted p value	The calculated adjusted probability value for an observed association between two feature variables within a cohort of a given size, adjusted by a multiple comparison correction selected by the user (default is no correction)	0.1
+has chi square statistic	The statistic used to calculate the probability value for an observed association between two feature variables within a cohort of a given size	100
+multivariate model auroc	The area under the receiver operating characteristics (AUROC) is a measure of the predictive quality of a machine learning model	0.846
+multivariate model feature importance	Feature importance is a measure of how useful an input feature in a machine learning model is in predicting the target variable of the model.	1.88
+multivariate model feature importance type		SHAP, magnitude of co-efficient
+multivariate model feature coeffcient	A feature coefficient (in a linear or logistic regression model) indicates the size (coefficient magnitude) and direction (coefficient sign) of influence of an input feature on the model prediction.	1.2
+model classifier type	A machine learning classifier is the type of model used to make categorical outcome predictions. Examples include: decision tree, random forest, gradient boosting, logistic regression, support vector machine.	logistic regression
+mutation frequency	Mutation frequency for one gene in a disease contect	0.3
+effect size	The difference of the IC50 values between mutated group and wild type group  using cohen's distance	-0.786
+ic50 in mutation group	A list of log-transformed IC50 values for cell lines with mutation of the gene	[-1.85, -1.518, -0.109]
+ic50 in wildtype group	A list of log-transformed IC50 values for cell lines without mutation of the gene	[-1.39, -1.16, 0.024, 0.24]
+median ic50 in mutation group	The median IC50 values for cell lines with mutation of the geen	-0.814
+median ic50 in wildtype group	The median IC50 values for cell lines without mutation of the gene	1.504
+p-value	p-value from t-test	0.019123
+tumor types or tissue types	Disease type for the samples	Lung cancer
+p-value	P-value from the spearman correlation analysis	0.0009128
+correlation coeffiency	Correlation coeffiency from the spearman correlation	0.621
+tumor types or tissue types	Tisue types or tumor types for the samples being used	Lung or Lung cancer
+sample size	Number of samples for the samples being used	300
+bonferroni corrected pvalue	Bonferroni adjustment to a p-value compensates for testing multiple hypotheses. It essentially lowers the level of significance by a factor of n, where n is no. of hypotheses being tested.	0.018
+statistical model type	The statistical model embodying the relationship between the variables in the dataset; e.g., correlation coefficient, regression coefficient.	Spearman Correlation, Ridge regression coefficient
+strength of relationship	A coefficient that indicates the size (coefficient magnitude) and direction (coefficient sign) of influence between two variables.	0.65
+qualifier value	A qualifier in Biolink has range OntologyClass which has three permissible identifier prefixes. A qualifier _value presents an easily intrepretable meaning of the qualifier on an edge.	female, white, less_than_35
+concept pair count	The size of the cohort from which the correlation was computed.	1731
+enrichment p	a p-value measuring the association between the two terms calculated using an enrichment approach against the CORD19 dataset.	0.00002358560424
+num publications	The count of publications attributed to the source/object relationship in an edge	0
+in clinical trial for	Count of how many clinical trials this drug is part of.	1
+p-value	The p-value is a statistical value used in the context of null hypothesis testing to quantify the significance of a result.	0.000219281
+slope	Within the context of GTEx data, this value represents the change in gene expression due the presence of a variant. a positive slope is interpreted as an increase of gene expression. conversly, a negative slope indicates a reduction in gene expression.	0.0960802
+affinity	Within the context of pharmaceutical data, affinity is a measure of the effect (positive or negative and magnitude) that a chemical substance has on a gene receptor. a positive increase of affinity represents a positive affect of the chemical compound on gene expression. th econverse is true for negative affinity.	0
+affinity parameter	Within the context of pharmaceutical data, the affinity_parameter is the unit of measurement of affinity. Affinity can be expressed in EC50, IC50, Ki, pKi or Kd units.	IC:50
+FAERS llr	The ratio of the (log) likelihood of an adverse event associateed to the comsumption of a pharmaceutical.	0
+endogenous	Endogenous compounds are drugs that are already present in the body either because the body produces them or they are present in the normal diet.	True/False
+primaryTarget	True/False flag to indicate if the pharmaceutical was attempting to target a specific gene.	Tru/False
+similarity bin	UniRef provides genetic sequence data organized into 3 "percentage of sequence cluster " similarity bins (UniRef 50/90/100). Each bin specifies the percentage of fragment proteins that can also be found in other sequence clusters.	UniRef100, UniRef90 or UniRef50
+normalized google distance	Semantic distance between two search terms as measured by the Normalized Google Distance (Cilibrasi and Vitanyi, arXiv:cs/0412098)	0.352
+jaccard index	Knowledge graph proximity between two search terms as measured by nearest-neighbor Jaccard Index.	0.816
+fisher exact test p-value	A value between 0 and 1 computed using the Hypergeometric distribution according to the formula for Fisher's Exact Test; measures the probability of an odds ratio (of association between two categorical variables) occurring that is at least as large as the observed odds ratio.	0.000949
+p value	The p-value is a statistical value used in the context of null hypothesis testing to quantify the significance of a result.	3.00E-07
+probability	numeric score that represents the confidence of disease association with gene	0.5
+standard error	the standard error calculation of the effect size of the association	2.00E-03
+effect size	the statistical calculation of the effect size of the association	2.00E-03
+z score	the z-score calculation of the effect size of the association	27.52733542
