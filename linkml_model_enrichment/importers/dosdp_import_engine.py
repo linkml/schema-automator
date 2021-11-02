@@ -78,7 +78,6 @@ class DOSDPImportEngine(ImportEngine):
                                 close_mappings=['owl:equivalentClass']))
         licenses = set()
         for p in patterns:
-            if p
             c = self.create_class(p, range_as_enums=range_as_enums)
             schema.classes[c.name] = c
         return schema
