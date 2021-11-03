@@ -1,6 +1,6 @@
 import click
 import logging
-from typing import Union, Dict, Tuple, List
+from typing import Union, Dict, Tuple, List, Any
 from collections import defaultdict
 import os
 from csv import DictWriter
@@ -19,24 +19,27 @@ class JsonInstanceImportEngine(ImportEngine):
     mappings: dict = None
     omit_null: bool = None
 
-    def convert(self, input: str, format: str = 'json',
+    def convert(self, input: Union[str, Dict], format: str = 'json',
                 container_class_name='Container',
                 **kwargs):
-        csv_engine = CsvDataImportEngine()
+        csv_engine = CsvDataImportEngine(**kwargs)
 
-        if format.endswith('.gz'):
-            format = format.replace('.gz', '')
-            stream = gzip.open(input)
+        if isinstance(input, dict):
+            obj = input
         else:
-            stream = open(input)
-
-        with stream:
-            if format == 'json':
-                obj = json.load(stream)
-            elif format == 'yaml':
-                obj = yaml.safe_load(stream)
+            if format.endswith('.gz'):
+                format = format.replace('.gz', '')
+                stream = gzip.open(input)
             else:
-                raise Exception(f'bad format {format}')
+                stream = open(input)
+
+            with stream:
+                if format == 'json':
+                    obj = json.load(stream)
+                elif format == 'yaml':
+                    obj = yaml.safe_load(stream)
+                else:
+                    raise Exception(f'bad format {format}')
         rows_by_table = defaultdict(list)
         self.rows_by_table = rows_by_table
         self._convert_obj(obj, table=container_class_name)
@@ -76,10 +79,38 @@ class JsonInstanceImportEngine(ImportEngine):
                 return v.split(sep)[-1]
         return v
 
+def parse_frontmatter_files(paths: List[str], text_slot='_text') -> Any:
+    blocks = []
+    for path in paths:
+        with open(path) as stream:
+            state = 0
+            yamlstr = ""
+            txt = ""
+            for line in stream.readlines():
+                if line.startswith('---'):
+                    state += 1
+                else:
+                    if state == 1:
+                        yamlstr += line
+                    elif state == 2:
+                        txt += line
+                    elif state > 2:
+                        raise Exception(f'Limited to one frontmatter block per file')
+            obj = yaml.safe_load(yamlstr)
+            obj[text_slot] = txt
+            blocks.append(obj)
+    return blocks
+
+
+
 @click.command()
 @click.argument('input')
 @click.option('--container-class-name', help="name of root class")
-@click.option('--format', '-f', default='json', help="json or yaml (or json.gz or yaml.gz)")
+@click.option('--format', '-f', default='json', help="json or yaml (or json.gz or yaml.gz) or frontmatter")
+@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
 def json2model(input, format, omit_null, **kwargs):
     """ Infer a model from JSON instance data
@@ -88,6 +119,26 @@ def json2model(input, format, omit_null, **kwargs):
     """
     ie = JsonInstanceImportEngine(omit_null=omit_null)
     schema_dict = ie.convert(input, dir=dir, format=format, **kwargs)
+    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
+    print(ys)
+
+@click.command()
+@click.argument('inputs', nargs=-1)
+@click.option('--container-class-name', help="name of root class")
+@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
+@click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
+def frontmatter2model(inputs, format, omit_null, **kwargs):
+    """ Infer a model from frontmatter files
+
+
+    """
+    print(f'INPUTS={inputs}')
+    ie = JsonInstanceImportEngine(omit_null=omit_null)
+    objs = parse_frontmatter_files(list(inputs))
+    schema_dict = ie.convert({'objects': objs}, dir=dir, format=format, **kwargs)
     ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
     print(ys)
 

@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
-NAME = 'linkml_model_inference'
+NAME = 'linkml_model_enrichment'
 DESCRIPTION = 'A Python library and set of command line utilities for exchanging Knowledge Graphs (KGs) that conform to or are aligned to the Biolink Model.'
-URL = 'https://github.com/NCATS-Tangerine/linkml_model_inference'
+URL = 'https://github.com/NCATS-Tangerine/linkml_model_enrichment'
 AUTHOR = 'Deepak Unni'
 EMAIL = 'deepak.unni3@gmail.com'
 REQUIRES_PYTHON = '>=3.7.0'
@@ -26,7 +26,7 @@ setup(
     long_description_content_type='text/markdown',
     license=LICENSE,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    package_data={'linkml_model_inference': ["config.yml"]},
+    package_data={'linkml_model_enrichment': ["config.yml"]},
     keywords='linkml',
     classifiers=[
         'Intended Audience :: Science/Research',

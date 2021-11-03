@@ -1,0 +1,888 @@
+id: http://www.biopax.org/release/biopax-level3.owl
+name: biopax3
+description: biopax3
+imports:
+- linkml:types
+prefixes:
+  linkml: https://w3id.org/linkml/
+  biopax3: https://w3id.org/biopax3/
+default_prefix: biopax3
+types: {}
+classes:
+  BindingFeature:
+    class_uri: biopax3:BindingFeature
+    slots:
+    - bindsTo
+    - intraMolecular
+    is_a: EntityFeature
+  BioSource:
+    class_uri: biopax3:BioSource
+    slots:
+    - cellType
+    - tissue
+    - xref
+    - name
+    is_a: UtilityClass
+  BiochemicalPathwayStep:
+    class_uri: biopax3:BiochemicalPathwayStep
+    slots:
+    - stepConversion
+    - stepDirection
+    is_a: PathwayStep
+    slot_usage:
+      stepProcess:
+        range: Control
+  BiochemicalReaction:
+    class_uri: biopax3:BiochemicalReaction
+    slots:
+    - deltaG
+    - kEQ
+    - deltaH
+    - deltaS
+    - eCNumber
+    is_a: Conversion
+  Catalysis:
+    class_uri: biopax3:Catalysis
+    slots:
+    - cofactor
+    - catalysisDirection
+    is_a: Control
+    slot_usage:
+      controlled:
+        range: Conversion
+      controller:
+        range: PhysicalEntity
+      controlType:
+        equals_string: ACTIVATION
+  CellVocabulary:
+    class_uri: biopax3:CellVocabulary
+    is_a: ControlledVocabulary
+  CellularLocationVocabulary:
+    class_uri: biopax3:CellularLocationVocabulary
+    is_a: ControlledVocabulary
+  ChemicalStructure:
+    class_uri: biopax3:ChemicalStructure
+    slots:
+    - structureData
+    - structureFormat
+    is_a: UtilityClass
+    slot_usage:
+      structureData:
+        multivalued: false
+        required: true
+      structureFormat:
+        multivalued: false
+        required: true
+  Complex:
+    class_uri: biopax3:Complex
+    slots:
+    - component
+    - componentStoichiometry
+    is_a: PhysicalEntity
+    slot_usage:
+      memberPhysicalEntity:
+        range: Complex
+  ComplexAssembly:
+    class_uri: biopax3:ComplexAssembly
+    is_a: Conversion
+  Control:
+    class_uri: biopax3:Control
+    slots:
+    - controlled
+    - controller
+    - controlType
+    is_a: Interaction
+  ControlledVocabulary:
+    class_uri: biopax3:ControlledVocabulary
+    slots:
+    - xref
+    - term
+    is_a: UtilityClass
+    slot_usage:
+      xref:
+        range: UnificationXref
+  Conversion:
+    class_uri: biopax3:Conversion
+    slots:
+    - left
+    - participantStoichiometry
+    - right
+    - conversionDirection
+    - spontaneous
+    is_a: Interaction
+    slot_usage:
+      participant:
+        range: PhysicalEntity
+  CovalentBindingFeature:
+    class_uri: biopax3:CovalentBindingFeature
+    is_a: BindingFeature
+    mixins:
+    - ModificationFeature
+  Degradation:
+    class_uri: biopax3:Degradation
+    is_a: Conversion
+    slot_usage:
+      conversionDirection:
+        equals_string: LEFT-TO-RIGHT
+  DeltaG:
+    class_uri: biopax3:DeltaG
+    slots:
+    - deltaGPrime0
+    - ionicStrength
+    - pMg
+    - ph
+    - temperature
+    is_a: UtilityClass
+    slot_usage:
+      deltaGPrime0:
+        multivalued: false
+        required: true
+  Dna:
+    class_uri: biopax3:Dna
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: DnaReference
+      memberPhysicalEntity:
+        range: Dna
+  DnaReference:
+    class_uri: biopax3:DnaReference
+    slots:
+    - organism
+    - subRegion
+    - sequence
+    is_a: EntityReference
+    slot_usage:
+      memberEntityReference:
+        range: DnaReference
+      subRegion:
+        range: DnaRegionReference
+  DnaRegion:
+    class_uri: biopax3:DnaRegion
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: DnaRegionReference
+      memberPhysicalEntity:
+        range: DnaRegion
+  DnaRegionReference:
+    class_uri: biopax3:DnaRegionReference
+    slots:
+    - absoluteRegion
+    - organism
+    - regionType
+    - subRegion
+    - sequence
+    is_a: EntityReference
+    slot_usage:
+      subRegion:
+        range: DnaRegionReference
+  Entity:
+    class_uri: biopax3:Entity
+    slots:
+    - dataSource
+    - evidence
+    - xref
+    - availability
+    - comment
+    - name
+    - uri
+  EntityFeature:
+    class_uri: biopax3:EntityFeature
+    slots:
+    - evidence
+    - featureLocation
+    - featureLocationType
+    - memberFeature
+    is_a: UtilityClass
+  EntityReference:
+    class_uri: biopax3:EntityReference
+    slots:
+    - entityFeature
+    - entityReferenceType
+    - evidence
+    - memberEntityReference
+    - xref
+    - name
+    is_a: UtilityClass
+  EntityReferenceTypeVocabulary:
+    class_uri: biopax3:EntityReferenceTypeVocabulary
+    is_a: ControlledVocabulary
+  Evidence:
+    class_uri: biopax3:Evidence
+    slots:
+    - confidence
+    - evidenceCode
+    - experimentalForm
+    - xref
+    is_a: UtilityClass
+  EvidenceCodeVocabulary:
+    class_uri: biopax3:EvidenceCodeVocabulary
+    is_a: ControlledVocabulary
+  ExperimentalForm:
+    class_uri: biopax3:ExperimentalForm
+    slots:
+    - experimentalFeature
+    - experimentalFormDescription
+    - experimentalFormEntity
+    is_a: UtilityClass
+    slot_usage:
+      experimentalFormDescription:
+        required: true
+  ExperimentalFormVocabulary:
+    class_uri: biopax3:ExperimentalFormVocabulary
+    is_a: ControlledVocabulary
+  FragmentFeature:
+    class_uri: biopax3:FragmentFeature
+    is_a: EntityFeature
+  Gene:
+    class_uri: biopax3:Gene
+    slots:
+    - organism
+    is_a: Entity
+    slot_usage:
+      organism:
+        multivalued: false
+  GeneticInteraction:
+    class_uri: biopax3:GeneticInteraction
+    slots:
+    - interactionScore
+    - phenotype
+    is_a: Interaction
+    slot_usage:
+      participant:
+        range: Gene
+        multivalued: true
+      phenotype:
+        multivalued: false
+        required: true
+      interactionType:
+        multivalued: false
+  Interaction:
+    class_uri: biopax3:Interaction
+    slots:
+    - interactionType
+    - participant
+    is_a: Entity
+  InteractionVocabulary:
+    class_uri: biopax3:InteractionVocabulary
+    is_a: ControlledVocabulary
+  KPrime:
+    class_uri: biopax3:KPrime
+    slots:
+    - ionicStrength
+    - kPrime
+    - pMg
+    - ph
+    - temperature
+    is_a: UtilityClass
+    slot_usage:
+      kPrime:
+        multivalued: false
+        required: true
+  ModificationFeature:
+    class_uri: biopax3:ModificationFeature
+    slots:
+    - modificationType
+    is_a: EntityFeature
+  Modulation:
+    class_uri: biopax3:Modulation
+    is_a: Control
+    slot_usage:
+      controlled:
+        range: Catalysis
+      controller:
+        range: PhysicalEntity
+  MolecularInteraction:
+    class_uri: biopax3:MolecularInteraction
+    is_a: Interaction
+    slot_usage:
+      participant:
+        range: PhysicalEntity
+  Pathway:
+    class_uri: biopax3:Pathway
+    slots:
+    - organism
+    - pathwayComponent
+    - pathwayOrder
+    is_a: Entity
+  PathwayStep:
+    class_uri: biopax3:PathwayStep
+    slots:
+    - evidence
+    - nextStep
+    - stepProcess
+    is_a: UtilityClass
+  PhenotypeVocabulary:
+    class_uri: biopax3:PhenotypeVocabulary
+    slots:
+    - patoData
+    is_a: ControlledVocabulary
+  PhysicalEntity:
+    class_uri: biopax3:PhysicalEntity
+    slots:
+    - cellularLocation
+    - feature
+    - memberPhysicalEntity
+    - notFeature
+    is_a: Entity
+  Protein:
+    class_uri: biopax3:Protein
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: ProteinReference
+      memberPhysicalEntity:
+        range: Protein
+  ProteinReference:
+    class_uri: biopax3:ProteinReference
+    slots:
+    - organism
+    - sequence
+    is_a: EntityReference
+    slot_usage:
+      memberEntityReference:
+        range: ProteinReference
+  Provenance:
+    class_uri: biopax3:Provenance
+    slots:
+    - xref
+    - name
+    is_a: UtilityClass
+  PublicationXref:
+    class_uri: biopax3:PublicationXref
+    slots:
+    - author
+    - source
+    - title
+    - url
+    - year
+    is_a: Xref
+  RelationshipTypeVocabulary:
+    class_uri: biopax3:RelationshipTypeVocabulary
+    is_a: ControlledVocabulary
+  RelationshipXref:
+    class_uri: biopax3:RelationshipXref
+    slots:
+    - relationshipType
+    is_a: Xref
+  Rna:
+    class_uri: biopax3:Rna
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: RnaReference
+      memberPhysicalEntity:
+        range: Rna
+  RnaReference:
+    class_uri: biopax3:RnaReference
+    slots:
+    - organism
+    - subRegion
+    - sequence
+    is_a: EntityReference
+    slot_usage:
+      memberEntityReference:
+        range: RnaReference
+      subRegion:
+        range: RnaRegionReference
+  RnaRegion:
+    class_uri: biopax3:RnaRegion
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: RnaRegionReference
+      memberPhysicalEntity:
+        range: RnaRegion
+  RnaRegionReference:
+    class_uri: biopax3:RnaRegionReference
+    slots:
+    - absoluteRegion
+    - organism
+    - regionType
+    - subRegion
+    - sequence
+    is_a: EntityReference
+    slot_usage:
+      subRegion:
+        range: RnaRegionReference
+  Score:
+    class_uri: biopax3:Score
+    slots:
+    - scoreSource
+    - value
+    is_a: UtilityClass
+    slot_usage:
+      value:
+        multivalued: false
+        required: true
+  SequenceInterval:
+    class_uri: biopax3:SequenceInterval
+    slots:
+    - sequenceIntervalBegin
+    - sequenceIntervalEnd
+    is_a: SequenceLocation
+  SequenceLocation:
+    class_uri: biopax3:SequenceLocation
+    is_a: UtilityClass
+  SequenceModificationVocabulary:
+    class_uri: biopax3:SequenceModificationVocabulary
+    is_a: ControlledVocabulary
+  SequenceRegionVocabulary:
+    class_uri: biopax3:SequenceRegionVocabulary
+    is_a: ControlledVocabulary
+  SequenceSite:
+    class_uri: biopax3:SequenceSite
+    slots:
+    - positionStatus
+    - sequencePosition
+    is_a: SequenceLocation
+  SmallMolecule:
+    class_uri: biopax3:SmallMolecule
+    slots:
+    - entityReference
+    is_a: PhysicalEntity
+    slot_usage:
+      entityReference:
+        range: SmallMoleculeReference
+      feature:
+        range: BindingFeature
+      memberPhysicalEntity:
+        range: SmallMolecule
+      notFeature:
+        range: BindingFeature
+  SmallMoleculeReference:
+    class_uri: biopax3:SmallMoleculeReference
+    slots:
+    - structure
+    - chemicalFormula
+    - molecularWeight
+    is_a: EntityReference
+    slot_usage:
+      memberEntityReference:
+        range: SmallMoleculeReference
+  Stoichiometry:
+    class_uri: biopax3:Stoichiometry
+    slots:
+    - physicalEntity
+    - stoichiometricCoefficient
+    is_a: UtilityClass
+    slot_usage:
+      physicalEntity:
+        multivalued: false
+        required: true
+      stoichiometricCoefficient:
+        multivalued: false
+        required: true
+  TemplateReaction:
+    class_uri: biopax3:TemplateReaction
+    slots:
+    - product
+    - template
+    - templateDirection
+    is_a: Interaction
+    slot_usage:
+      participant:
+        range: PhysicalEntity
+  TemplateReactionRegulation:
+    class_uri: biopax3:TemplateReactionRegulation
+    is_a: Control
+    slot_usage:
+      controlled:
+        range: TemplateReaction
+      controller:
+        range: PhysicalEntity
+  TissueVocabulary:
+    class_uri: biopax3:TissueVocabulary
+    is_a: ControlledVocabulary
+  Transport:
+    class_uri: biopax3:Transport
+    is_a: Conversion
+  TransportWithBiochemicalReaction:
+    class_uri: biopax3:TransportWithBiochemicalReaction
+    is_a: BiochemicalReaction
+    mixins:
+    - Transport
+  UnificationXref:
+    class_uri: biopax3:UnificationXref
+    is_a: Xref
+    slot_usage:
+      db:
+        multivalued: false
+        required: true
+      id:
+        multivalued: false
+        required: true
+  UtilityClass:
+    class_uri: biopax3:UtilityClass
+    slots:
+    - comment
+    - uri
+  Xref:
+    class_uri: biopax3:Xref
+    slots:
+    - db
+    - dbVersion
+    - id
+    - idVersion
+    is_a: UtilityClass
+slots:
+  absoluteRegion:
+    slot_uri: biopax3:absoluteRegion
+    range: SequenceLocation
+    multivalued: true
+  bindsTo:
+    slot_uri: biopax3:bindsTo
+    range: BindingFeature
+    multivalued: true
+  cellType:
+    slot_uri: biopax3:cellType
+    range: CellVocabulary
+    multivalued: true
+  cellularLocation:
+    slot_uri: biopax3:cellularLocation
+    range: CellularLocationVocabulary
+    multivalued: true
+  cofactor:
+    slot_uri: biopax3:cofactor
+    range: PhysicalEntity
+    is_a: participant
+    multivalued: true
+  component:
+    slot_uri: biopax3:component
+    range: PhysicalEntity
+    multivalued: true
+  componentStoichiometry:
+    slot_uri: biopax3:componentStoichiometry
+    range: Stoichiometry
+    multivalued: true
+  confidence:
+    slot_uri: biopax3:confidence
+    range: Score
+    multivalued: true
+  controlled:
+    slot_uri: biopax3:controlled
+    is_a: participant
+    multivalued: true
+  controller:
+    slot_uri: biopax3:controller
+    is_a: participant
+    multivalued: true
+  dataSource:
+    slot_uri: biopax3:dataSource
+    range: Provenance
+    multivalued: true
+  deltaG:
+    slot_uri: biopax3:deltaG
+    range: DeltaG
+    multivalued: true
+  entityFeature:
+    slot_uri: biopax3:entityFeature
+    range: EntityFeature
+    multivalued: true
+  entityReference:
+    slot_uri: biopax3:entityReference
+    range: EntityReference
+    multivalued: true
+  entityReferenceType:
+    slot_uri: biopax3:entityReferenceType
+    range: EntityReferenceTypeVocabulary
+    multivalued: true
+  evidence:
+    slot_uri: biopax3:evidence
+    range: Evidence
+    multivalued: true
+  evidenceCode:
+    slot_uri: biopax3:evidenceCode
+    range: EvidenceCodeVocabulary
+    multivalued: true
+  experimentalFeature:
+    slot_uri: biopax3:experimentalFeature
+    range: EntityFeature
+    multivalued: true
+  experimentalForm:
+    slot_uri: biopax3:experimentalForm
+    range: ExperimentalForm
+    multivalued: true
+  experimentalFormDescription:
+    slot_uri: biopax3:experimentalFormDescription
+    range: ExperimentalFormVocabulary
+    multivalued: true
+  experimentalFormEntity:
+    slot_uri: biopax3:experimentalFormEntity
+    multivalued: true
+  feature:
+    slot_uri: biopax3:feature
+    range: EntityFeature
+    multivalued: true
+  featureLocation:
+    slot_uri: biopax3:featureLocation
+    range: SequenceLocation
+    multivalued: true
+  featureLocationType:
+    slot_uri: biopax3:featureLocationType
+    range: SequenceRegionVocabulary
+    multivalued: true
+  interactionScore:
+    slot_uri: biopax3:interactionScore
+    range: Score
+    multivalued: true
+  interactionType:
+    slot_uri: biopax3:interactionType
+    range: InteractionVocabulary
+    multivalued: true
+  kEQ:
+    slot_uri: biopax3:kEQ
+    range: KPrime
+    multivalued: true
+  left:
+    slot_uri: biopax3:left
+    range: PhysicalEntity
+    is_a: participant
+    multivalued: true
+  memberEntityReference:
+    slot_uri: biopax3:memberEntityReference
+    range: EntityReference
+    multivalued: true
+  memberFeature:
+    slot_uri: biopax3:memberFeature
+    range: EntityFeature
+    multivalued: true
+  memberPhysicalEntity:
+    slot_uri: biopax3:memberPhysicalEntity
+    range: PhysicalEntity
+    multivalued: true
+  modificationType:
+    slot_uri: biopax3:modificationType
+    range: SequenceModificationVocabulary
+    multivalued: true
+  nextStep:
+    slot_uri: biopax3:nextStep
+    range: PathwayStep
+    multivalued: true
+  notFeature:
+    slot_uri: biopax3:notFeature
+    range: EntityFeature
+    multivalued: true
+  organism:
+    slot_uri: biopax3:organism
+    range: BioSource
+    multivalued: true
+  participant:
+    slot_uri: biopax3:participant
+    range: Entity
+    multivalued: true
+  participantStoichiometry:
+    slot_uri: biopax3:participantStoichiometry
+    range: Stoichiometry
+    multivalued: true
+  pathwayComponent:
+    slot_uri: biopax3:pathwayComponent
+    multivalued: true
+  pathwayOrder:
+    slot_uri: biopax3:pathwayOrder
+    range: PathwayStep
+    multivalued: true
+  phenotype:
+    slot_uri: biopax3:phenotype
+    range: PhenotypeVocabulary
+    multivalued: true
+  physicalEntity:
+    slot_uri: biopax3:physicalEntity
+    range: PhysicalEntity
+    multivalued: true
+  product:
+    slot_uri: biopax3:product
+    is_a: participant
+    multivalued: true
+  regionType:
+    slot_uri: biopax3:regionType
+    range: SequenceRegionVocabulary
+    multivalued: true
+  relationshipType:
+    slot_uri: biopax3:relationshipType
+    range: RelationshipTypeVocabulary
+    multivalued: true
+  right:
+    slot_uri: biopax3:right
+    range: PhysicalEntity
+    is_a: participant
+    multivalued: true
+  scoreSource:
+    slot_uri: biopax3:scoreSource
+    range: Provenance
+    multivalued: true
+  sequenceIntervalBegin:
+    slot_uri: biopax3:sequenceIntervalBegin
+    range: SequenceSite
+    multivalued: true
+  sequenceIntervalEnd:
+    slot_uri: biopax3:sequenceIntervalEnd
+    range: SequenceSite
+    multivalued: true
+  stepConversion:
+    slot_uri: biopax3:stepConversion
+    range: Conversion
+    is_a: stepProcess
+    multivalued: true
+  stepProcess:
+    slot_uri: biopax3:stepProcess
+    multivalued: true
+  structure:
+    slot_uri: biopax3:structure
+    range: ChemicalStructure
+    multivalued: true
+  subRegion:
+    slot_uri: biopax3:subRegion
+    multivalued: true
+  template:
+    slot_uri: biopax3:template
+    is_a: participant
+    multivalued: true
+  tissue:
+    slot_uri: biopax3:tissue
+    range: TissueVocabulary
+    multivalued: true
+  xref:
+    slot_uri: biopax3:xref
+    range: Xref
+    multivalued: true
+  author:
+    slot_uri: biopax3:author
+    multivalued: true
+  availability:
+    slot_uri: biopax3:availability
+    multivalued: true
+  catalysisDirection:
+    slot_uri: biopax3:catalysisDirection
+    multivalued: true
+  chemicalFormula:
+    slot_uri: biopax3:chemicalFormula
+    multivalued: true
+  comment:
+    slot_uri: biopax3:comment
+    multivalued: true
+  controlType:
+    slot_uri: biopax3:controlType
+    multivalued: true
+  conversionDirection:
+    slot_uri: biopax3:conversionDirection
+    multivalued: true
+  db:
+    slot_uri: biopax3:db
+    multivalued: true
+  dbVersion:
+    slot_uri: biopax3:dbVersion
+    multivalued: true
+  deltaGPrime0:
+    slot_uri: biopax3:deltaGPrime0
+    multivalued: true
+  deltaH:
+    slot_uri: biopax3:deltaH
+    multivalued: true
+  deltaS:
+    slot_uri: biopax3:deltaS
+    multivalued: true
+  displayName:
+    slot_uri: biopax3:displayName
+    is_a: name
+    multivalued: true
+  eCNumber:
+    slot_uri: biopax3:eCNumber
+    multivalued: true
+  id:
+    slot_uri: biopax3:id
+    multivalued: true
+  idVersion:
+    slot_uri: biopax3:idVersion
+    multivalued: true
+  intraMolecular:
+    slot_uri: biopax3:intraMolecular
+    multivalued: true
+  ionicStrength:
+    slot_uri: biopax3:ionicStrength
+    multivalued: true
+  kPrime:
+    slot_uri: biopax3:kPrime
+    multivalued: true
+  molecularWeight:
+    slot_uri: biopax3:molecularWeight
+    multivalued: true
+  name:
+    slot_uri: biopax3:name
+    multivalued: true
+  pMg:
+    slot_uri: biopax3:pMg
+    multivalued: true
+  patoData:
+    slot_uri: biopax3:patoData
+    multivalued: true
+  ph:
+    slot_uri: biopax3:ph
+    multivalued: true
+  positionStatus:
+    slot_uri: biopax3:positionStatus
+    multivalued: true
+  sequence:
+    slot_uri: biopax3:sequence
+    multivalued: true
+  sequencePosition:
+    slot_uri: biopax3:sequencePosition
+    multivalued: true
+  source:
+    slot_uri: biopax3:source
+    multivalued: true
+  spontaneous:
+    slot_uri: biopax3:spontaneous
+    multivalued: true
+  standardName:
+    slot_uri: biopax3:standardName
+    is_a: name
+    multivalued: true
+  stepDirection:
+    slot_uri: biopax3:stepDirection
+    multivalued: true
+  stoichiometricCoefficient:
+    slot_uri: biopax3:stoichiometricCoefficient
+    multivalued: true
+  structureData:
+    slot_uri: biopax3:structureData
+    multivalued: true
+  structureFormat:
+    slot_uri: biopax3:structureFormat
+    multivalued: true
+  temperature:
+    slot_uri: biopax3:temperature
+    multivalued: true
+  templateDirection:
+    slot_uri: biopax3:templateDirection
+    multivalued: true
+  term:
+    slot_uri: biopax3:term
+    multivalued: true
+  title:
+    slot_uri: biopax3:title
+    multivalued: true
+  url:
+    slot_uri: biopax3:url
+    multivalued: true
+  value:
+    slot_uri: biopax3:value
+    multivalued: true
+  year:
+    slot_uri: biopax3:year
+    multivalued: true
+  uri:
+    identifier: true
+    range: uriorcurie
+enums: {}
