@@ -88,7 +88,7 @@ class CsvDataImportEngine(ImportEngine):
             if self.downcase_header:
                 c = c.lower()
             print(f'READING {file} ')
-            df = pd.read_csv(file, sep=self.file_separator, skipinitialspace=True).fillna("").str.strip()
+            df = pd.read_csv(file, sep=self.file_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
             exclude = []

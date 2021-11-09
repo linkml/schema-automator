@@ -39,7 +39,7 @@ class TestForeignKeyInference(unittest.TestCase):
 
 
     def test_schema_with_fk_inference(self):
-        """Test that expando can be imported."""
+        """Tests foreign key inference."""
         ie = CsvDataImportEngine(downcase_header=True, infer_foreign_keys=True)
         schema_dict = ie.convert_multiple([ENVO, SAMPLES])
         ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
