@@ -8,6 +8,7 @@ from linkml_runtime.linkml_model import SchemaDefinition
 
 
 def minify_schema(obj: Union[dict, SchemaDefinition]) -> dict:
+    # TODO prefixes
     if isinstance(obj, SchemaDefinition):
         yd = yaml_dumper.dumps(obj)
         obj = yaml.safe_load(yd)
