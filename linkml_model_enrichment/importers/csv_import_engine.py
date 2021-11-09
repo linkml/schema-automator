@@ -88,7 +88,7 @@ class CsvDataImportEngine(ImportEngine):
             if self.downcase_header:
                 c = c.lower()
             print(f'READING {file} ')
-            df = pd.read_csv(file, sep=self.file_separator).fillna("")
+            df = pd.read_csv(file, sep=self.file_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
             exclude = []
@@ -197,7 +197,8 @@ class CsvDataImportEngine(ImportEngine):
 
     def convert(self, file: str, **kwargs) -> Dict:
         with open(file, newline='') as tsv_file:
-            rr = csv.DictReader(tsv_file, delimiter=self.file_separator)
+            header = [h.strip() for h in tsv_file.readline().split('\t')]
+            rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.file_separator, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
 
     def read_slot_tsv(self, file: str, **kwargs) -> Dict:
@@ -283,6 +284,8 @@ class CsvDataImportEngine(ImportEngine):
             for k, v in row.items():
                 if v is None:
                     v = ""
+                if isinstance(v, str):
+                    v = v.strip()
                 if isinstance(v, list):
                     vs = v
                 elif isinstance(v, str):
