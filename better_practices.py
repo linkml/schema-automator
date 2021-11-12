@@ -1,9 +1,16 @@
 # import linkml_runtime as lr
 # import linkml
+# # what's this?
+# import linkml_runtime_api
 import linkml.utils.rawloader as rl
+
 import yaml
 import re
 import pandas as pd
+import random
+import numpy as np
+
+# cosine? SIFT4?
 from strsimpy.cosine import Cosine
 
 # urllib? urllib3? pure requests?
@@ -14,6 +21,7 @@ import logging
 import click_log
 
 # don't see any logging statements yet
+
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
@@ -28,9 +36,6 @@ pd.set_option('display.expand_frame_repr', False)
 # install wheel
 # install packages from requirements file
 
-# # what's this?
-# import linkml_runtime_api
-
 # qdd caching of already searched terms
 # add default values for functions
 
@@ -44,7 +49,6 @@ query_field_string = ""
 ols_search_base_url = "http://www.ebi.ac.uk/ols/api/search"
 ols_terms_based_url = "http://www.ebi.ac.uk/ols/api/ontologies/"
 desired_row_count = 5
-# cosine? SIFT4?
 shingle_size = 2
 
 blank_row = {'description': '', 'id': '', 'iri': '', 'is_defining_ontology': '',
@@ -228,7 +232,11 @@ term_annotations = DataFrameClass()
 
 reusable_session = requests.Session()
 
-for pv_name in requested_pvs_names[1:9]:
+# n = 20
+# random_pvs = random.sample(requested_pvs_names, n)
+# random_pvs.sort()
+
+for pv_name in requested_pvs_names:
     print(pv_name)
     current_pv = requested_pvs_obj[pv_name]
     search_res = ols_term_search(pv_name, whiteout_chars, ontologies_phrased, qf_phrased, desired_row_count, blank_row,
@@ -250,30 +258,50 @@ annotations_from_terms = term_annotations.get()
 raw_through_annotations = enum_name_mapping_frame.merge(annotations_from_terms, how='left', on="iri",
                                                         suffixes=('_term', '_ano'))
 
-for_str_dist = raw_through_annotations[["tidied_query", "label"]]
-for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
-for_str_dist["label_lc"] = for_str_dist["label"].str.lower()
-# favoring simplicity over efficiency
-# ie may be string-comparing some duplicates
-# easier to merge back in
-# for_str_dist = for_str_dist.loc[
-#     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
-#         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
-# for_str_dist.drop_duplicates(inplace=True)
-# for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
-for_str_dist_dict = for_str_dist.to_dict(orient="records")
-
-dist_list = []
-for pair in for_str_dist_dict:
-    # profile_0 = cosine_obj.get_profile(pair["tidied_query_lc"])
-    # profile_1 = cosine_obj.get_profile(pair["label_lc"])
-    the_sim = cosine_obj.distance(pair["tidied_query_lc"], pair["label_lc"])
-    the_dist = 1 - the_sim
-    dist_list.append(the_dist)
-
-for_str_dist.drop(labels=["tidied_query_lc", "label_lc"], axis=1, inplace=True)
-for_str_dist["cosine"] = dist_list
-
-raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "label"])
-
-print(raw_through_dist)
+# for_str_dist = raw_through_annotations[["tidied_query", "name"]]
+# for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
+# for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
+# # favoring simplicity over efficiency
+# # ie may be string-comparing some duplicates
+# # easier to merge back in
+# # for_str_dist = for_str_dist.loc[
+# #     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
+# #         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
+# # for_str_dist.drop_duplicates(inplace=True)
+# # for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
+# for_str_dist_dict = for_str_dist.to_dict(orient="records")
+#
+# dist_list = []
+# for pair in for_str_dist_dict:
+#     # I thought profiles were necessary?!
+#     # profile_0 = cosine_obj.get_profile(pair["tidied_query_lc"])
+#     # profile_1 = cosine_obj.get_profile(pair["label_lc"])
+#     name_type = type(pair["name"])
+#     if name_type is str:
+#         the_sim = cosine_obj.distance(pair["tidied_query_lc"], pair["name_lc"])
+#         the_dist = (1 - the_sim)
+#         dist_list.append(the_dist)
+#
+# for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
+# for_str_dist["cosine"] = dist_list
+#
+# raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
+#
+# getting_sloppy = []
+#
+# for i in requested_pvs_names:
+#     ce = requested_pvs_obj[i]
+#     cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
+#     max_cosine = cr["cosine"].max()
+#     with_max = cr.loc[cr["cosine"] == max_cosine]
+#     if len(with_max.index) > 0:
+#         with_max = with_max.drop(labels=['xrefs'], axis=1)
+#         with_max.drop_duplicates(inplace=True)
+#         # actually, take action on it here
+#         # may still need to do some row filtering/prioritizing by source or annotation typ
+#         getting_sloppy.append(with_max)
+#
+# getting_sloppy = pd.concat(getting_sloppy)
+#
+# gs_tq_vc = getting_sloppy["tidied_query"].value_counts()
+# print(gs_tq_vc)
