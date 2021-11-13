@@ -1,24 +1,24 @@
-# import linkml_runtime as lr
+# import linkml_runtime
 # import linkml
-# # what's this?
+
+# # for querying and changing?
 # import linkml_runtime_api
-import linkml.utils.rawloader as rl
-
-import yaml
-import re
-import pandas as pd
+import logging
 import random
-import numpy as np
-
-# cosine? SIFT4?
-from strsimpy.cosine import Cosine
-
+import re
 # urllib? urllib3? pure requests?
 import urllib
-import requests
 
-import logging
 import click_log
+import linkml.utils.rawloader as rl
+import linkml_runtime.dumpers
+import linkml_runtime.linkml_model
+import numpy as np
+import pandas as pd
+import requests
+import yaml
+# cosine? SIFT4?
+from strsimpy.cosine import Cosine
 
 # don't see any logging statements yet
 
@@ -29,6 +29,12 @@ pd.set_option('display.expand_frame_repr', False)
 
 # took out globals
 # reusing requests sessions
+# saving annotations
+
+# TODO
+# add click gui
+# add caching of already searched terms
+# add default values for functions
 
 # delete venv
 # purge pip cache
@@ -36,8 +42,6 @@ pd.set_option('display.expand_frame_repr', False)
 # install wheel
 # install packages from requirements file
 
-# qdd caching of already searched terms
-# add default values for functions
 
 modelfile = "../synbio-schema/handcrafted/model/synbio_organism.yaml"
 requested_enum_name = "binomial_name_enum"
@@ -50,6 +54,8 @@ ols_search_base_url = "http://www.ebi.ac.uk/ols/api/search"
 ols_terms_based_url = "http://www.ebi.ac.uk/ols/api/ontologies/"
 desired_row_count = 5
 shingle_size = 2
+max_cosine = 0.05
+all_mappings_fn = "all_mappings_frame.tsv"
 
 blank_row = {'description': '', 'id': '', 'iri': '', 'is_defining_ontology': '',
              'label': '', 'obo_id': '', 'ontology_name': '', 'ontology_prefix': '',
@@ -152,8 +158,6 @@ def ols_term_search(term, chars_to_whiteout, ontology_param, qf_param, rowcount_
 # refactor
 def make_ontolgy_phrase(ontology_param):
     ontologies_phrase = ''
-    # what is ontology_param here?
-    # list, string?
     if ontology_param is not None and ontology_param != "":
         ontologies_phrase = 'ontology=' + ontology_param.lower()
     return ontologies_phrase
@@ -212,8 +216,6 @@ parsed_yaml = parse_yaml_file(modelfile)
 
 current_schema = dict_to_schema(parsed_yaml)
 
-# enum_names = list(current_schema.enums.keys())
-
 requested_enum_obj = request_an_enum(current_schema, requested_enum_name)
 
 requested_pvs_obj = request_pvs(requested_enum_obj)
@@ -232,7 +234,7 @@ term_annotations = DataFrameClass()
 
 reusable_session = requests.Session()
 
-# n = 20
+# n = 10
 # random_pvs = random.sample(requested_pvs_names, n)
 # random_pvs.sort()
 
@@ -258,50 +260,85 @@ annotations_from_terms = term_annotations.get()
 raw_through_annotations = enum_name_mapping_frame.merge(annotations_from_terms, how='left', on="iri",
                                                         suffixes=('_term', '_ano'))
 
-# for_str_dist = raw_through_annotations[["tidied_query", "name"]]
-# for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
-# for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
-# # favoring simplicity over efficiency
-# # ie may be string-comparing some duplicates
-# # easier to merge back in
-# # for_str_dist = for_str_dist.loc[
-# #     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
-# #         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
-# # for_str_dist.drop_duplicates(inplace=True)
-# # for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
-# for_str_dist_dict = for_str_dist.to_dict(orient="records")
-#
+for_str_dist = raw_through_annotations[["tidied_query", "name"]]
+for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
+for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
+
+# favoring simplicity over efficiency
+# ie may be string-comparing some duplicates
+# easier to merge back in
+# for_str_dist = for_str_dist.loc[
+#     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
+#         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
+# for_str_dist.drop_duplicates(inplace=True)
+# for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
+
+for_str_dist_dict = for_str_dist.to_dict(orient="records")
+
 # dist_list = []
-# for pair in for_str_dist_dict:
-#     # I thought profiles were necessary?!
-#     # profile_0 = cosine_obj.get_profile(pair["tidied_query_lc"])
-#     # profile_1 = cosine_obj.get_profile(pair["label_lc"])
-#     name_type = type(pair["name"])
-#     if name_type is str:
-#         the_sim = cosine_obj.distance(pair["tidied_query_lc"], pair["name_lc"])
-#         the_dist = (1 - the_sim)
-#         dist_list.append(the_dist)
-#
-# for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
-# for_str_dist["cosine"] = dist_list
-#
-# raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
-#
-# getting_sloppy = []
-#
-# for i in requested_pvs_names:
-#     ce = requested_pvs_obj[i]
-#     cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
-#     max_cosine = cr["cosine"].max()
-#     with_max = cr.loc[cr["cosine"] == max_cosine]
-#     if len(with_max.index) > 0:
-#         with_max = with_max.drop(labels=['xrefs'], axis=1)
-#         with_max.drop_duplicates(inplace=True)
-#         # actually, take action on it here
-#         # may still need to do some row filtering/prioritizing by source or annotation typ
-#         getting_sloppy.append(with_max)
-#
-# getting_sloppy = pd.concat(getting_sloppy)
-#
-# gs_tq_vc = getting_sloppy["tidied_query"].value_counts()
-# print(gs_tq_vc)
+new_pair_list = []
+
+for pair in for_str_dist_dict:
+    # used to get_profile
+    name_type = type(pair["name"])
+    if name_type is str:
+        the_dist = cosine_obj.distance(pair["tidied_query_lc"], pair["name_lc"])
+        pair['cosine'] = the_dist
+    else:
+        pair['cosine'] = None
+    new_pair_list.append(pair)
+
+for_str_dist = pd.DataFrame(new_pair_list)
+for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
+
+raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
+
+all_mappings_frame = []
+
+new_enum = linkml_runtime.linkml_model.EnumDefinition(name=requested_enum_name)
+
+for i in requested_pvs_names:
+    print(i)
+    ce = requested_pvs_obj[i]
+    cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
+    cr_row_count = len(cr.index)
+    if cr_row_count > 0:
+        min_cosine = cr["cosine"].min()
+        with_min = cr.loc[cr["cosine"] == min_cosine]
+        with_min_row_count = len(with_min.index)
+        if with_min_row_count > 0:
+            with_min = with_min.drop(labels=['xrefs'], axis=1)
+            with_min.drop_duplicates(inplace=True)
+            deduped_row_count = len(with_min.index)
+            # # I'm surprised that there aren't any 2+ equally good mappings here
+            # will have to deal with that at some point
+            # may still need to do some row filtering/prioritizing by source or annotation type
+            # prefer label over synonym
+            # Prefer ontologies in the order they appear in XXX parameter?
+            if deduped_row_count > 1:
+                pass
+            first_row_as_dict = (with_min.to_dict(orient="records"))[0]
+            ce.annotations["match_val"] = first_row_as_dict['name']
+            ce.annotations["match_type"] = first_row_as_dict['scope']
+            ce.annotations["cosine"] = first_row_as_dict['cosine']
+            if first_row_as_dict['cosine'] <= max_cosine:
+                ce.meaning = first_row_as_dict['obo_id_term']
+                ce.description = first_row_as_dict['label']
+            else:
+                ce.meaning = None
+                ce.description = None
+            new_enum.permissible_values[i] = ce
+        all_mappings_frame.append(with_min)
+
+all_mappings_frame = pd.concat(all_mappings_frame)
+
+gs_tq_vc = all_mappings_frame["raw_query"].value_counts()
+print(gs_tq_vc)
+
+all_mappings_frame.to_csv(all_mappings_fn, sep="\t", index=False)
+
+current_schema.enums[requested_enum_name] = new_enum
+
+string_dumped_schema = linkml_runtime.dumpers.yaml_dumper.dumps(current_schema)
+
+print(string_dumped_schema)
