@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "linkml-model-enrichment"
+version = "0.1.0"
+description = ""
+authors = ["Mark Andrew Miller <MAM@lbl.gov>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "*"
+click_log = "*"
+dataclasses = "*"
+funowl  = "*"
+jsonpatch = "*"
+linkml = "^1.1.7"
+linkml-runtime = "^1.1.5"
+mkdocs = "*"
+pandas  = "*"
+psycopg2-binary = "*"
+pytest = "*"
+python-dateutil  = "*"
+PyYAML  = "*"
+quantulum3 = "*"
+rdflib  = "*"
+requests = "*"
+setuptools = "*"
+strsimpy  = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ea2 = "linkml_model_enrichment.annotators.ea2:make_iot_yaml"
+
+
+# click >= 7.1.2
+# click_log
+# dataclasses
+# funowl >= 0.1.9
+# jsonpatch
+# linkml >= 1.1.7
+# linkml-runtime >= 1.1.5
+# mkdocs
+# pandas >= 1.2.3
+# psycopg2-binary
+# pytest
+# python-dateutil >= 2.8.1
+# PyYAML >= 5.3.1
+# quantulum3
+# rdflib == 5.0.0
+# requests >= 2.25.1
+# setuptools >= 54.2.0
+# strsimpy >= 0.2.0
+

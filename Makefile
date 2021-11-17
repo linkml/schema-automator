@@ -119,4 +119,13 @@ docker-publish-no-build:
 docker-publish: docker-build
 	$(MAKE) docker-publish-no-build
 
+.PHONY: sample-enum-mapping
+sample-enum-mapping:
+	poetry run poetry run ea2 \
+		--modelfile ../synbio-schema/handcrafted/model/synbio_organism.yaml \
+		--requested_enum_name binomial_name_enum \
+		--log_level INFO \
+		--test_sample_size 0 > mapped.yaml
+	# poetry run gen-yaml mapped.yaml > generated.yaml
+	# ValueError: File "<file>", line 82, col 11 Class: "Organism" - unknown is_a reference: NamedThing
 
