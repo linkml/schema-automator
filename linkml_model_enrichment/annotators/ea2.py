@@ -239,7 +239,7 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
     logger.setLevel(log_level)
 
     # GLOBALS within this method
-    blank_row = {'description': '', 'id': '', 'iri': '', 'is_defining_ontology': '',
+    blank_row = {'title': '', 'id': '', 'iri': '', 'is_defining_ontology': '',
                  'label': '', 'obo_id': '', 'ontology_name': '', 'ontology_prefix': '',
                  'short_form': '', 'type': ''}
 
@@ -381,10 +381,10 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
                     if overwrite_meaning:
                         if first_row_as_dict['cosine'] <= max_cosine:
                             ce.meaning = first_row_as_dict['obo_id_term']
-                            ce.description = first_row_as_dict['label']
+                            ce.title = first_row_as_dict['label']
                         else:
                             ce.meaning = None
-                            ce.description = None
+                            ce.title = None
                     new_enum.permissible_values[i] = ce
 
     all_mappings_frame = pd.concat(all_mappings_frame)
