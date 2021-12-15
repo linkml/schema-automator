@@ -36,4 +36,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 #demos = "linkml_round_trips.demos:hello"
+tsv2linkml = "linkml_model_enrichment.importers.csv_import_engine:tsv2model"
 enum_annotator = "linkml_model_enrichment.annotators.enum_annotator:enum_annotator"

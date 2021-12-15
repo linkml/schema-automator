@@ -190,7 +190,7 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
 @click.option('--modelfile', help="path to LinkML input", type=click.Path(exists=True), show_default=True,
               required=True)
 # parametrize this so this script can be written many times an not overwrite the all mappings file
-@click.option('--all_mappings_fn', default="all_mappings_frame.tsv",
+@click.option('--all_mappings_fn', default="target/all_mappings_frame.tsv",
               help="where do you want to write a table of all mappings?",
               type=click.Path(), show_default=True)
 # binomial_name_enum
@@ -385,7 +385,7 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
 
     all_mappings_frame = pd.concat(all_mappings_frame)
 
-    all_mappings_frame.to_csv("all_mappings_frame.tsv", sep="\t", index=False)
+    all_mappings_frame.to_csv(all_mappings_fn, sep="\t", index=False)
 
     all_mappings_frame['description'] = str(all_mappings_frame['description'])
     all_mappings_frame['xrefs'] = str(all_mappings_frame['xrefs'])

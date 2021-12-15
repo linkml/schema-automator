@@ -1,0 +1,676 @@
+name: Organism
+description: Synthetic biology Organism
+id: https://w3id.org/Organism
+imports:
+- linkml:types
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  synbio:
+    prefix_prefix: synbio
+    prefix_reference: https://w3id.org/synbio/
+default_prefix: synbio
+enums:
+  assembly_dir_path_enum:
+    name: assembly_dir_path_enum
+    definition_uri: https://w3id.org/synbio/AssemblyDirPathEnum
+    from_schema: https://w3id.org/Organism
+    permissible_values:
+      /data/cDNA/Drosophila/:
+        text: /data/cDNA/Drosophila/
+        description: /data/cDNA/Drosophila/
+      /data/cDNA/human/:
+        text: /data/cDNA/human/
+        description: /data/cDNA/human/
+  binomial_name_enum:
+    name: binomial_name_enum
+    permissible_values:
+      Acetobacter pomorum:
+        text: Acetobacter pomorum
+        description: Acetobacter pomorum
+        meaning: NCBITaxon:65959
+        annotations:
+          match_val: Acetobacter pomorum
+          match_type: label
+          cosine: 0.0
+        title: Acetobacter pomorum
+      Acetobacter tropicalis:
+        text: Acetobacter tropicalis
+        description: Acetobacter tropicalis
+        meaning: NCBITaxon:104102
+        annotations:
+          match_val: Acetobacter tropicalis
+          match_type: label
+          cosine: 0.0
+        title: Acetobacter tropicalis
+      Aequorea.victoria:
+        text: Aequorea.victoria
+        description: Aequorea victoria
+        meaning: NCBITaxon:6100
+        annotations:
+          match_val: Aequorea victoria
+          match_type: label
+          cosine: 0.0
+        title: Aequorea victoria
+      Aequorea_victoria:
+        text: Aequorea_victoria
+        description: Aequorea victoria
+        meaning: NCBITaxon:6100
+        annotations:
+          match_val: Aequorea victoria
+          match_type: label
+          cosine: 0.0
+        title: Aequorea victoria
+      Agrobacterium.tumefaciens:
+        text: Agrobacterium.tumefaciens
+        description: Agrobacterium tumefaciens
+        meaning: NCBITaxon:358
+        annotations:
+          match_val: Agrobacterium tumefaciens
+          match_type: label
+          cosine: 0.0
+        title: Agrobacterium tumefaciens
+      Arabidopsis.thaliana:
+        text: Arabidopsis.thaliana
+        description: Arabidopsis thaliana
+        meaning: NCBITaxon:3702
+        annotations:
+          match_val: Arabidopsis thaliana
+          match_type: label
+          cosine: 0.0
+        title: Arabidopsis thaliana
+      Ashbya.gossypii:
+        text: Ashbya.gossypii
+        description: Eremothecium gossypii
+        meaning: NCBITaxon:33169
+        annotations:
+          match_val: Ashbya gossypii
+          match_type: hasRelatedSynonym
+          cosine: 0.0
+        title: Eremothecium gossypii
+      Bacillus flexus:
+        text: Bacillus flexus
+        annotations:
+          match_val: Bacillus flexus T6186-2
+          match_type: label
+          cosine: 0.16650642566271778
+      Bacillus kochii:
+        text: Bacillus kochii
+        description: Cytobacillus kochii
+        meaning: NCBITaxon:859143
+        annotations:
+          match_val: Bacillus kochii
+          match_type: hasRelatedSynonym
+          cosine: 0.0
+        title: Cytobacillus kochii
+      Bacillus subtilis:
+        text: Bacillus subtilis
+        description: Bacillus subtilis
+        meaning: NCBITaxon:1423
+        annotations:
+          match_val: Bacillus subtilis
+          match_type: label
+          cosine: 0.0
+        title: Bacillus subtilis
+      Bacillus.subtilis:
+        text: Bacillus.subtilis
+        description: Bacillus subtilis
+        meaning: NCBITaxon:1423
+        annotations:
+          match_val: Bacillus subtilis
+          match_type: label
+          cosine: 0.0
+        title: Bacillus subtilis
+      Bacteriophage.Mu:
+        text: Bacteriophage.Mu
+        description: Escherichia phage Mu
+        meaning: NCBITaxon:2681603
+        annotations:
+          match_val: Bacteriophage Mu
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Escherichia phage Mu
+      Bordetella.bronchiseptica:
+        text: Bordetella.bronchiseptica
+        description: Bordetella bronchiseptica
+        meaning: NCBITaxon:518
+        annotations:
+          match_val: Bordetella bronchiseptica
+          match_type: label
+          cosine: 0.0
+        title: Bordetella bronchiseptica
+      Citrobacter freundii:
+        text: Citrobacter freundii
+        description: Citrobacter freundii
+        meaning: NCBITaxon:546
+        annotations:
+          match_val: Citrobacter freundii
+          match_type: label
+          cosine: 0.0
+        title: Citrobacter freundii
+      Cytomegalovirus:
+        text: Cytomegalovirus
+        description: Cytomegalovirus
+        meaning: NCBITaxon:10358
+        annotations:
+          match_val: Cytomegalovirus
+          match_type: label
+          cosine: 0.0
+        title: Cytomegalovirus
+      Discosoma.sp:
+        text: Discosoma.sp
+        description: Discosoma sp.
+        meaning: NCBITaxon:86600
+        annotations:
+          match_val: Discosoma sp.
+          match_type: label
+          cosine: 0.0425728922436619
+        title: Discosoma sp.
+      Drosophila melanogaster:
+        text: Drosophila melanogaster
+        description: Drosophila melanogaster
+        meaning: NCBITaxon:7227
+        annotations:
+          match_val: Drosophila melanogaster
+          match_type: label
+          cosine: 0.0
+        title: Drosophila melanogaster
+      Drosophila pseudoobscura:
+        text: Drosophila pseudoobscura
+        description: Drosophila pseudoobscura
+        meaning: NCBITaxon:7237
+        annotations:
+          match_val: Drosophila pseudoobscura
+          match_type: label
+          cosine: 0.0
+        title: Drosophila pseudoobscura
+      Drosophila.melanogaster:
+        text: Drosophila.melanogaster
+        description: Drosophila melanogaster
+        meaning: NCBITaxon:7227
+        annotations:
+          match_val: Drosophila melanogaster
+          match_type: label
+          cosine: 0.0
+        title: Drosophila melanogaster
+      Entacmaea.quadricolor:
+        text: Entacmaea.quadricolor
+        description: Entacmaea quadricolor
+        meaning: NCBITaxon:6118
+        annotations:
+          match_val: Entacmaea quadricolor
+          match_type: label
+          cosine: 0.0
+        title: Entacmaea quadricolor
+      Enterococcus durans:
+        text: Enterococcus durans
+        description: Enterococcus durans
+        meaning: NCBITaxon:53345
+        annotations:
+          match_val: Enterococcus durans
+          match_type: label
+          cosine: 0.0
+        title: Enterococcus durans
+      Escherichia coli:
+        text: Escherichia coli
+        description: Escherichia coli
+        meaning: NCBITaxon:562
+        annotations:
+          match_val: Escherichia coli
+          match_type: label
+          cosine: 0.0
+        title: Escherichia coli
+      Escherichia.coli:
+        text: Escherichia.coli
+        description: Escherichia coli
+        meaning: NCBITaxon:562
+        annotations:
+          match_val: Escherichia coli
+          match_type: label
+          cosine: 0.0
+        title: Escherichia coli
+      Homo sapiens:
+        text: Homo sapiens
+        description: Homo sapiens
+        meaning: NCBITaxon:9606
+        annotations:
+          match_val: Homo sapiens
+          match_type: label
+          cosine: 0.0
+        title: Homo sapiens
+      Homo sapiens Mus musculus:
+        text: Homo sapiens Mus musculus
+        annotations:
+          match_val: Homo sapiens/Mus musculus xenograft
+          match_type: label
+          cosine: 0.13992192242976664
+      Human influenza A:
+        text: Human influenza A
+        annotations:
+          match_val: Human Influenza A Virus
+          match_type: hasExactSynonym
+          cosine: 0.13247238276429096
+      Klebsiella.pneumoniae:
+        text: Klebsiella.pneumoniae
+        description: Klebsiella pneumoniae
+        meaning: NCBITaxon:573
+        annotations:
+          match_val: Klebsiella pneumoniae
+          match_type: label
+          cosine: 0.0
+        title: Klebsiella pneumoniae
+      Komagataella pastoris:
+        text: Komagataella pastoris
+        description: Komagataella pastoris
+        meaning: NCBITaxon:4922
+        annotations:
+          match_val: Komagataella pastoris
+          match_type: label
+          cosine: 0.0
+        title: Komagataella pastoris
+      Lactobacillus brevis:
+        text: Lactobacillus brevis
+        annotations:
+          match_val: Lactobacillus brevis EW
+          match_type: label
+          cosine: 0.05848691647599147
+      Lactobacillus plantarum:
+        text: Lactobacillus plantarum
+        annotations:
+          match_val: Lactobacillus plantarum IPLA88
+          match_type: label
+          cosine: 0.08929227511907478
+      Lentivirus.human-immunodeficiency-virus1:
+        text: Lentivirus.human-immunodeficiency-virus1
+        annotations:
+          match_val: Human immunodeficiency virus
+          match_type: label
+          cosine: 0.12022816123485602
+      Leuconostoc mesenteroides:
+        text: Leuconostoc mesenteroides
+        description: Leuconostoc mesenteroides
+        meaning: NCBITaxon:1245
+        annotations:
+          match_val: Leuconostoc mesenteroides
+          match_type: label
+          cosine: 0.0
+        title: Leuconostoc mesenteroides
+      Mus musculus:
+        text: Mus musculus
+        description: Mus musculus
+        meaning: NCBITaxon:10090
+        annotations:
+          match_val: Mus musculus
+          match_type: label
+          cosine: 0.0
+        title: Mus musculus
+      NA:
+        text: NA
+        annotations:
+          match_val: Bacillus sp. B4-WWTP-NA-D-NA-NA
+          match_type: label
+          cosine: 0.5477329831333546
+      Nepovirus.Tobacco-ringspot-virus:
+        text: Nepovirus.Tobacco-ringspot-virus
+        annotations:
+          match_val: Tobacco ringspot virus
+          match_type: label
+          cosine: 0.11392237043170383
+      Paenibacillus taichungensis:
+        text: Paenibacillus taichungensis
+        description: Paenibacillus taichungensis
+        meaning: NCBITaxon:484184
+        annotations:
+          match_val: Paenibacillus taichungensis
+          match_type: label
+          cosine: 0.0
+        title: Paenibacillus taichungensis
+      Pichia pastoris:
+        text: Pichia pastoris
+        description: Komagataella pastoris
+        meaning: NCBITaxon:4922
+        annotations:
+          match_val: Pichia pastoris
+          match_type: hasRelatedSynonym
+          cosine: 0.0
+        title: Komagataella pastoris
+      Pisum.sativum:
+        text: Pisum.sativum
+        description: Pisum sativum
+        meaning: NCBITaxon:3888
+        annotations:
+          match_val: Pisum sativum
+          match_type: label
+          cosine: 0.0
+        title: Pisum sativum
+      Pseudomonas aeruginosa:
+        text: Pseudomonas aeruginosa
+        description: Pseudomonas aeruginosa
+        meaning: NCBITaxon:287
+        annotations:
+          match_val: Pseudomonas aeruginosa
+          match_type: label
+          cosine: 0.0
+        title: Pseudomonas aeruginosa
+      Pseudomonas plasmid pVS1:
+        text: Pseudomonas plasmid pVS1
+        annotations:
+          match_val: Plasmid pVS1
+          match_type: label
+          cosine: 0.2456634908586427
+      Pseudomonas.putida:
+        text: Pseudomonas.putida
+        description: Pseudomonas putida
+        meaning: NCBITaxon:303
+        annotations:
+          match_val: Pseudomonas putida
+          match_type: label
+          cosine: 0.0
+        title: Pseudomonas putida
+      SARS-CoV-2:
+        text: SARS-CoV-2
+        annotations:
+          match_val: Reverse genetics vector pCCI-4K-SARS-CoV-2-NanoLuc
+          match_type: label
+          cosine: 0.679492017453059
+      Saccharomyces cerevisiae:
+        text: Saccharomyces cerevisiae
+        description: Saccharomyces cerevisiae
+        meaning: NCBITaxon:4932
+        annotations:
+          match_val: Saccharomyces cerevisiae
+          match_type: label
+          cosine: 0.0
+        title: Saccharomyces cerevisiae
+      Saccharomyces.cerevisiae:
+        text: Saccharomyces.cerevisiae
+        description: Saccharomyces cerevisiae
+        meaning: NCBITaxon:4932
+        annotations:
+          match_val: Saccharomyces cerevisiae
+          match_type: label
+          cosine: 0.0
+        title: Saccharomyces cerevisiae
+      Salmonella enterica:
+        text: Salmonella enterica
+        description: Salmonella enterica
+        meaning: NCBITaxon:28901
+        annotations:
+          match_val: Salmonella enterica
+          match_type: label
+          cosine: 0.0
+        title: Salmonella enterica
+      Simian.virus.40:
+        text: Simian.virus.40
+        annotations:
+          match_val: Simian virus 41
+          match_type: hasExactSynonym
+          cosine: 0.0714285714285714
+      Solanum.tuberosum:
+        text: Solanum.tuberosum
+        description: Solanum tuberosum
+        meaning: NCBITaxon:4113
+        annotations:
+          match_val: Solanum tuberosum
+          match_type: label
+          cosine: 0.0
+        title: Solanum tuberosum
+      Sorangium.cellulosum:
+        text: Sorangium.cellulosum
+        description: Sorangium cellulosum
+        meaning: NCBITaxon:56
+        annotations:
+          match_val: Sorangium cellulosum
+          match_type: label
+          cosine: 0.0
+        title: Sorangium cellulosum
+      Staphylococcus.aureus:
+        text: Staphylococcus.aureus
+        description: Staphylococcus aureus
+        meaning: NCBITaxon:1280
+        annotations:
+          match_val: Staphylococcus aureus
+          match_type: label
+          cosine: 0.0
+        title: Staphylococcus aureus
+      Streptococcus.pyogenes:
+        text: Streptococcus.pyogenes
+        description: Streptococcus pyogenes
+        meaning: NCBITaxon:1314
+        annotations:
+          match_val: Streptococcus pyogenes
+          match_type: label
+          cosine: 0.0
+        title: Streptococcus pyogenes
+      Streptomyces.alboniger:
+        text: Streptomyces.alboniger
+        description: Streptomyces alboniger
+        meaning: NCBITaxon:132473
+        annotations:
+          match_val: Streptomyces alboniger
+          match_type: label
+          cosine: 0.0
+        title: Streptomyces alboniger
+      Streptomyces.noursei:
+        text: Streptomyces.noursei
+        description: Streptomyces noursei
+        meaning: NCBITaxon:1971
+        annotations:
+          match_val: Streptomyces noursei
+          match_type: label
+          cosine: 0.0
+        title: Streptomyces noursei
+      Vibrio natriegens:
+        text: Vibrio natriegens
+        description: Vibrio natriegens
+        meaning: NCBITaxon:691
+        annotations:
+          match_val: Vibrio natriegens
+          match_type: label
+          cosine: 0.0
+        title: Vibrio natriegens
+      Woodchuck Hepatitis Virus:
+        text: Woodchuck Hepatitis Virus
+        description: Woodchuck hepatitis virus
+        meaning: NCBITaxon:35269
+        annotations:
+          match_val: Woodchuck hepatitis virus
+          match_type: label
+          cosine: 0.0
+        title: Woodchuck hepatitis virus
+      Woodchuck.Hepatitis.Virus:
+        text: Woodchuck.Hepatitis.Virus
+        description: Woodchuck hepatitis virus
+        meaning: NCBITaxon:35269
+        annotations:
+          match_val: Woodchuck hepatitis virus
+          match_type: label
+          cosine: 0.0
+        title: Woodchuck hepatitis virus
+      Xenopus.laevis:
+        text: Xenopus.laevis
+        description: Xenopus laevis
+        meaning: NCBITaxon:8355
+        annotations:
+          match_val: Xenopus laevis
+          match_type: label
+          cosine: 0.0
+        title: Xenopus laevis
+      Yarrowia lipolytica:
+        text: Yarrowia lipolytica
+        description: Yarrowia lipolytica
+        meaning: NCBITaxon:4952
+        annotations:
+          match_val: Yarrowia lipolytica
+          match_type: label
+          cosine: 0.0
+        title: Yarrowia lipolytica
+      bacteriophage P1:
+        text: bacteriophage P1
+        description: Escherichia virus P1
+        meaning: NCBITaxon:10678
+        annotations:
+          match_val: Bacteriophage P1
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Escherichia virus P1
+      bacteriophage.M13:
+        text: bacteriophage.M13
+        description: Escherichia virus M13
+        meaning: NCBITaxon:1977402
+        annotations:
+          match_val: Bacteriophage M13
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Escherichia virus M13
+      bacteriophage.SP6:
+        text: bacteriophage.SP6
+        description: Salmonella virus SP6
+        meaning: NCBITaxon:194966
+        annotations:
+          match_val: Bacteriophage SP6
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Salmonella virus SP6
+      bacteriophage.T3:
+        text: bacteriophage.T3
+        description: Enterobacteria phage T3
+        meaning: NCBITaxon:10759
+        annotations:
+          match_val: Bacteriophage T3
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Enterobacteria phage T3
+      bacteriophage.T4:
+        text: bacteriophage.T4
+        description: Escherichia virus T4
+        meaning: NCBITaxon:10665
+        annotations:
+          match_val: Bacteriophage T4
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Escherichia virus T4
+      bacteriophage.T7:
+        text: bacteriophage.T7
+        description: Escherichia phage T7
+        meaning: NCBITaxon:10760
+        annotations:
+          match_val: Bacteriophage T7
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Escherichia phage T7
+      bacteriophage.f1:
+        text: bacteriophage.f1
+        description: Enterobacteria phage f1
+        meaning: NCBITaxon:10863
+        annotations:
+          match_val: Bacteriophage f1
+          match_type: hasExactSynonym
+          cosine: 0.0
+        title: Enterobacteria phage f1
+      bacteriophage.lambda:
+        text: bacteriophage.lambda
+        description: Escherichia virus Lambda
+        meaning: NCBITaxon:10710
+        annotations:
+          match_val: Bacteriophage lambda
+          match_type: hasRelatedSynonym
+          cosine: 0.0
+        title: Escherichia virus Lambda
+      cauliflower.mosaic.virus:
+        text: cauliflower.mosaic.virus
+        description: Cauliflower mosaic virus
+        meaning: NCBITaxon:10641
+        annotations:
+          match_val: Cauliflower mosaic virus
+          match_type: label
+          cosine: 0.0
+        title: Cauliflower mosaic virus
+      herpes.simplex.virus-1:
+        text: herpes.simplex.virus-1
+        annotations:
+          match_val: Herpes simplex virus unknown type
+          match_type: label
+          cosine: 0.20069474611454663
+      homo.sapiens:
+        text: homo.sapiens
+        description: Homo sapiens
+        meaning: NCBITaxon:9606
+        annotations:
+          match_val: Homo sapiens
+          match_type: label
+          cosine: 0.0
+        title: Homo sapiens
+      ms21:
+        text: ms21
+        annotations:
+          match_val: Rhodobacter sp. MS21
+          match_type: label
+          cosine: 0.6026402928804868
+      phage.lambda:
+        text: phage.lambda
+        annotations:
+          match_val: Escherichia phage Lambda
+          match_type: label
+          cosine: 0.33667504192891995
+      plasmids:
+        text: plasmids
+        description: plasmids
+        meaning: NCBITaxon:36549
+        annotations:
+          match_val: plasmids
+          match_type: label
+          cosine: 0.0
+        title: plasmids
+      synthetic:
+        text: synthetic
+        description: synthetic construct
+        meaning: NCBITaxon:32630
+        annotations:
+          match_val: synthetic
+          match_type: hasRelatedSynonym
+          cosine: 0.0
+        title: synthetic construct
+slots:
+  species:
+    name: species
+    definition_uri: https://w3id.org/synbio/species
+    from_schema: https://w3id.org/Organism
+  strain:
+    name: strain
+    definition_uri: https://w3id.org/synbio/strain
+    from_schema: https://w3id.org/Organism
+  comment:
+    name: comment
+    definition_uri: https://w3id.org/synbio/comment
+    from_schema: https://w3id.org/Organism
+  default_genome_id:
+    name: default_genome_id
+    definition_uri: https://w3id.org/synbio/default_genome_id
+    from_schema: https://w3id.org/Organism
+  assembly_dir_path:
+    name: assembly_dir_path
+    definition_uri: https://w3id.org/synbio/assembly_dir_path
+    from_schema: https://w3id.org/Organism
+  binomial_name:
+    name: binomial_name
+    definition_uri: https://w3id.org/synbio/binomial_name
+    from_schema: https://w3id.org/Organism
+    range: binomial_name_enum
+classes:
+  Organism:
+    name: Organism
+    definition_uri: https://w3id.org/synbio/Organism
+    from_schema: https://w3id.org/Organism
+    is_a: NamedThing
+    slots:
+    - species
+    - strain
+    - comment
+    - default_genome_id
+    - assembly_dir_path
+    - binomial_name
+metamodel_version: 1.7.0
+generation_date: '2021-11-22T14:11:40'
+
