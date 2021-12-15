@@ -38,3 +38,6 @@ build-backend = "poetry.core.masonry.api"
 #demos = "linkml_round_trips.demos:hello"
 tsv2linkml = "linkml_model_enrichment.importers.csv_import_engine:tsv2model"
 enum_annotator = "linkml_model_enrichment.annotators.enum_annotator:enum_annotator"
+enums_to_curateable = "linkml_model_enrichment.annotators.enums_to_curateable:enums_to_curateable"
+curated_to_enums = "linkml_model_enrichment.annotators.curated_to_enums:curated_to_enums"
+

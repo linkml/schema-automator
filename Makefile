@@ -37,3 +37,17 @@ target/availabilities_g_s_strain_202112151116_org_meanings.yaml: target/availabi
 		--modelfile $< \
 		--requested_enum_name organism_enum \
 		--ontology_string NCBITAXON > $@
+
+target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv: target/availabilities_g_s_strain_202112151116_org_meanings.yaml
+	poetry run enums_to_curateable \
+		--modelfile $< \
+		--enum organism_enum \
+		--tsv_out $@
+
+#target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/availabilities_g_s_strain_202112151116_org_meanings_curated.tsv
+#	poetry run curated_to_enums \
+#		--tsv_in PATH         [required] \
+#		--tsv_encoding TEXT   [default: utf_16] \
+#		--model_in PATH       [required] \
+#		--curated_yaml PATH   [default: curated.yaml] \
+#		--selected_enum TEXT  [required]
