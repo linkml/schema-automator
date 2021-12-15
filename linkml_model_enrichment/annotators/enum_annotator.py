@@ -360,7 +360,8 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
                 with_min_row_count = len(with_min.index)
                 if with_min_row_count > 0:
                     with_min = with_min.drop(labels=['xrefs'], axis=1)
-                    with_min['description'] = str(with_min['description'])
+                    if 'description' in with_min.columns:
+                        with_min['description'] = str(with_min['description'])
                     with_min.drop_duplicates(inplace=True)
                     deduped_row_count = len(with_min.index)
                     # # I'm surprised that there aren't any 2+ equally good mappings here
@@ -387,8 +388,10 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
 
     all_mappings_frame.to_csv(all_mappings_fn, sep="\t", index=False)
 
-    all_mappings_frame['description'] = str(all_mappings_frame['description'])
-    all_mappings_frame['xrefs'] = str(all_mappings_frame['xrefs'])
+    if 'description' in all_mappings_frame.columns:
+        all_mappings_frame['description'] = str(all_mappings_frame['description'])
+    if 'xrefs' in all_mappings_frame.columns:
+        all_mappings_frame['xrefs'] = str(all_mappings_frame['xrefs'])
 
     all_mappings_frame.drop_duplicates(inplace=True)
 

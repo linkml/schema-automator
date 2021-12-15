@@ -6,12 +6,13 @@ clean:
 	rm -rf target/soil_meanings.yaml
 	rm -rf target/soil_meanings_generated.yaml
 	rm -rf target/availabilities_g_s_strain_202112151116.yaml
+	rm -rf target/availabilities_g_s_strain_202112151116_org_meanings.yaml
 
 # tried to find a single meaning for each permissible value
 # unlike term mapping, which can tolerate multiple mapped terms
-target/soil_meanings.yaml:
+target/soil_meanings.yaml: tests/resources/mixs/terms.yaml
 	poetry run enum_annotator \
-		--modelfile tests/resources/mixs/terms.yaml \
+		--modelfile $< \
 		--requested_enum_name fao_class_enum \
 		--ontology_string ENVO > $@
 
@@ -29,3 +30,10 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--output $@ \
 		--class_name availabilities \
 		--schema_name availabilities $<
+
+# KeyError: 'iri' could mean that an unrecognized ontology name was used
+target/availabilities_g_s_strain_202112151116_org_meanings.yaml: target/availabilities_g_s_strain_202112151116.yaml
+	poetry run enum_annotator \
+		--modelfile $< \
+		--requested_enum_name organism_enum \
+		--ontology_string NCBITAXON > $@
