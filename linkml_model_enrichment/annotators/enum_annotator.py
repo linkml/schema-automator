@@ -30,14 +30,10 @@ from strsimpy.cosine import Cosine
 # # add caching of already searched terms
 # # add default values for functions
 
-
-# # PARANOID SETUP
-# # delete venv
-# # purge pip cache
-# # create new venv and enter it
-# # install wheel
-# # install packages from requirements file
-
+# todo this silences
+#   SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
+#   but I should really be dealing with it
+pd.options.mode.chained_assignment = None  # default='warn'
 
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
@@ -106,7 +102,7 @@ def ols_term_search(term, chars_to_whiteout, ontology_param, qf_param, rowcount_
                      'rows=' + str(rowcount_param) + '&' + \
                      qf_param
 
-    # logger.debug(request_string)
+    logger.debug(request_string)
 
     # this gets matching terms but doesn't show why they matched
     response_param = session_param.get(request_string)
@@ -218,10 +214,6 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
               help="""how much of a cosine distance will you tolerate 
               when comparing an enum name to a term lable or synonym?""",
               default=0.05, show_default=True)
-# looks like click already provides -v, --verbosity LVL
-@click.option('--log_level',
-              help="at what level do you want to see logging messages?",
-              default='INFO', type=click.Choice(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']), show_default=True)
 @click.option('--query_field_string',
               help="""do you want to define a custom list of fields to search in? 
               The default settings work well in most cases.""",
@@ -229,14 +221,11 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
 @click.option('--test_sample_size',
               help="""if greater than 0, the enum name list will be samples at this size before mapping.""",
               default=0, show_default=True)
-def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_chars, ontology_string,
-                  ols_search_base_url, ols_terms_based_url, desired_row_count, shingle_size, max_cosine,
-                  overwrite_meaning, log_level, query_field_string, test_sample_size):
+def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_chars, ontology_string,
+                   ols_search_base_url, ols_terms_based_url, desired_row_count, shingle_size, max_cosine,
+                   overwrite_meaning, query_field_string, test_sample_size):
     # show entire width of data frames
     pd.set_option('display.expand_frame_repr', False)
-    #  DEBUG, INFO, WARNING, ERROR, or CRITICAL
-    # allow log messages to be sent to a file, too?
-    logger.setLevel(log_level)
 
     # GLOBALS within this method
     blank_row = {'title': '', 'id': '', 'iri': '', 'is_defining_ontology': '',
@@ -255,13 +244,13 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
 
     requested_pvs_names = get_pv_names(requested_pvs_obj)
     requested_pvs_names.sort()
-    # logger.debug(requested_pvs_names)
+    logger.debug(requested_pvs_names)
 
     ontologies_phrased = make_ontolgy_phrase(ontology_string)
-    # logger.debug(ontologies_phrased)
+    logger.debug(ontologies_phrased)
 
     qf_phrased = make_qf_phrase(query_field_string)
-    # logger.debug(qf_phrased)
+    logger.debug(qf_phrased)
 
     cosine_obj = make_cosine_obj(shingle_size)
     # logger.debug(cosine_obj)
@@ -293,6 +282,7 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
         # # could look at growth in enum_name_mappings
 
         enum_name_mapping_frame = enum_name_mappings.get()
+        # logger.debug(enum_name_mapping_frame)
 
         term_and_source = enum_name_mapping_frame.loc[enum_name_mapping_frame['raw_query'].eq(pv_name)]
 
@@ -300,6 +290,7 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
         term_and_source.drop_duplicates(inplace=True)
         term_and_source = term_and_source.loc[~term_and_source['iri'].eq("")]
         term_and_source.sort_values(["iri", "ontology_name"], inplace=True)
+        logger.debug(term_and_source)
 
         term_and_source = term_and_source.to_dict(orient="records")
 
@@ -314,8 +305,11 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
                                                                 suffixes=('_term', '_ano'))
 
         for_str_dist = raw_through_annotations[["tidied_query", "name"]]
+        # 20211215 0912
+        # A value is trying to be set on a copy of a slice from a DataFrame.
         for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
         for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
+        logger.debug(for_str_dist)
 
         # favoring simplicity over efficiency
         # ie may be string-comparing some duplicates
@@ -344,17 +338,18 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
         for_str_dist = pd.DataFrame(new_pair_list)
         for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
 
-        # logger.debug(for_str_dist)
-
+        # was debug
+        logger.debug(for_str_dist)
         raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
-
         all_mappings_frame = []
 
         new_enum = linkml_runtime.linkml_model.EnumDefinition(name=requested_enum_name)
         # logger.info(new_enum)
 
+        # looping inside the same loop ?!
         for i in requested_pvs_names:
-            # logger.info(i)
+            # todo unnest loop?
+            logger.debug(i)
             ce = requested_pvs_obj[i]
             cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
             all_mappings_frame.append(cr)
@@ -365,6 +360,7 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
                 with_min_row_count = len(with_min.index)
                 if with_min_row_count > 0:
                     with_min = with_min.drop(labels=['xrefs'], axis=1)
+                    with_min['description'] = str(with_min['description'])
                     with_min.drop_duplicates(inplace=True)
                     deduped_row_count = len(with_min.index)
                     # # I'm surprised that there aren't any 2+ equally good mappings here
@@ -388,24 +384,29 @@ def make_iot_yaml(modelfile, all_mappings_fn, requested_enum_name, whiteout_char
                     new_enum.permissible_values[i] = ce
 
     all_mappings_frame = pd.concat(all_mappings_frame)
-    all_mappings_frame.drop(labels="xrefs", axis=1, inplace=True)
+
+    all_mappings_frame.to_csv("all_mappings_frame.tsv", sep="\t", index=False)
+
+    all_mappings_frame['description'] = str(all_mappings_frame['description'])
+    all_mappings_frame['xrefs'] = str(all_mappings_frame['xrefs'])
+
     all_mappings_frame.drop_duplicates(inplace=True)
+
     all_mappings_frame.to_csv(all_mappings_fn, sep="\t", index=False)
 
     gs_tq_vc = all_mappings_frame["raw_query"].value_counts()
+    logger.info("Number of hits for each term, regardless of quality. Doesn't show terms with 0 hits.")
     logger.info(gs_tq_vc)
 
     current_schema.enums[requested_enum_name] = new_enum
 
     string_dumped_schema = yaml_dumper.dumps(current_schema)
 
-    logger.debug(string_dumped_schema)
-
+    # todo send to STDOUT or output file?
     print(string_dumped_schema)
-
-    # with open(xxx, 'w') as file:
-    #     documents = yaml.safe_dump(string_dumped_schema, file)
+    # # with open(xxx, 'w') as file:
+    # #     documents = yaml.safe_dump(string_dumped_schema, file)
 
 
 if __name__ == '__main__':
-    make_iot_yaml()
+    enum_annotator()

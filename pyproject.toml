@@ -33,3 +33,7 @@ PyYAML = "^5.3.1"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+#demos = "linkml_round_trips.demos:hello"
+enum_annotator = "linkml_model_enrichment.annotators.enum_annotator:enum_annotator"
