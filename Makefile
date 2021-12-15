@@ -44,10 +44,14 @@ target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv: targe
 		--enum organism_enum \
 		--tsv_out $@
 
-#target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/availabilities_g_s_strain_202112151116_org_meanings_curated.tsv
-#	poetry run curated_to_enums \
-#		--tsv_in PATH         [required] \
-#		--tsv_encoding TEXT   [default: utf_16] \
-#		--model_in PATH       [required] \
-#		--curated_yaml PATH   [default: curated.yaml] \
-#		--selected_enum TEXT  [required]
+# do some curation on target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv
+#   and save as target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
+# Excel wants to call it "*.txt". I'm saving as UTF 16 so I can be sure about the encoding at import time.
+
+target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
+	poetry run curated_to_enums \
+		--tsv_in $< \
+		--tsv_encoding utf_16 \
+		--model_in target/availabilities_g_s_strain_202112151116_org_meanings.yaml \
+		--curated_yaml $@ \
+		--selected_enum organism_enum
