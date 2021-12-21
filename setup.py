@@ -39,6 +39,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': ['annotate-enums=linkml_model_enrichment.annotators.enum_annotator:clickmain',
+                            'annotate-schema=linkml_model_enrichment.annotators.schema_annotator:annotate_schema',
                             'tsv2linkml=linkml_model_enrichment.importers.csv_import_engine:tsv2model',
                             'tsvs2linkml=linkml_model_enrichment.importers.csv_import_engine:tsvs2model',
                             'rdf2linkml=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
