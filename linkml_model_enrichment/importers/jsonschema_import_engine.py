@@ -55,6 +55,8 @@ class JsonSchemaImportEngine(ImportEngine):
     def translate_schema(self, obj: Dict, id_val=None, name=None, root_class_name=None) -> SchemaDefinition:
         if id_val is None and '$id' in obj:
             id_val = obj['$id']
+        if id_val is None and '$schema' in obj:
+            id_val = obj['$schema']
         if name is None and 'title' in obj:
             name = obj['title']
         jsonschema_version = obj.get('$schema', None)
@@ -66,7 +68,9 @@ class JsonSchemaImportEngine(ImportEngine):
             id_val = f'https://example.org/{name}'
         name = underscore(name)
         self.schema = SchemaDefinition(id=id_val, name=name)
-        self.translate_definitions(obj.get('definitions'))
+        self.translate_definitions(obj.get('definitions', {}))
+        if root_class_name is None:
+            root_class_name = obj.get('title', None)
         if 'properties' in obj:
             root_class = ClassDefinition(root_class_name)
             self.translate_properties(obj, root_class)
@@ -89,10 +93,15 @@ class JsonSchemaImportEngine(ImportEngine):
             if isinstance(items_obj, str):
                 # found in DOSDP: TODO: check
                 items_obj = {'type': 'string'}
-            slot = self.translate_property(items_obj, name)
+            if 'properties' in items_obj:
+                slot = SlotDefinition(name)
+                slot.range = self.translate_object(items_obj)
+            else:
+                slot = self.translate_property(items_obj, name)
+            if 'description' in items_obj:
+                slot.description = items_obj['description']
         else:
-            slot = SlotDefinition(name)
-            logging.warning(f'NOT HANDLED: {obj} in array context')
+            logging.error(f'NOT HANDLED: {obj} in array context')
         slot.multivalued = True
         return slot
 
@@ -143,13 +152,13 @@ class JsonSchemaImportEngine(ImportEngine):
                 schema.enums[ename] = EnumDefinition(name=ename, permissible_values=pvs)
                 s.range = ename
         else:
-            None
+            logging.error(f'Cannot translate type {t} in {obj}')
         if s.name is schema.slots:
             logging.warning(f'TODO: unify alternate slots')
         schema.slots[s.name] = s
         return s
 
-    def translate_object(self, obj: Dict, name: str) -> ClassDefinitionName:
+    def translate_object(self, obj: Dict, name: str = None) -> ClassDefinitionName:
         """
         Translates jsonschema obj of type object
 
