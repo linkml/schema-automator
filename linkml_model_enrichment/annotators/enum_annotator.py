@@ -184,7 +184,6 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
 
     return True
 
-
 @click.command()
 @click_log.simple_verbosity_option(logger)
 @click.option('--modelfile', help="path to LinkML input", type=click.Path(exists=True), show_default=True,
