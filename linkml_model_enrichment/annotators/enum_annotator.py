@@ -97,15 +97,17 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
                          'rows=' + str(rrg) + '&' + \
                          qf_phrase
 
-        logger.debug(request_string)
+        logger.debug(f'REQ={request_string}')
 
         response_param = requests.get(request_string)
         ols_string_search_res_j = response_param.json()
         ols_string_search_res_frame = pds.DataFrame(ols_string_search_res_j['response']['docs'])
+        logger.info(f'FRAME={ols_string_search_res_frame}')
         ols_string_search_res_frame.insert(0, "query", tidied_enum)
 
         # did the string search get any result rows?
         r, c = ols_string_search_res_frame.shape
+        logger.info(f'r,c={r},{c}')
         if r == 0:
             no_search_res_dict = {'description': '', 'id': orig_enum, 'iri': '', 'is_defining_ontology': '',
                                   'label': '', 'obo_id': '', 'ontology_name': '', 'ontology_prefix': '',
@@ -113,6 +115,7 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
             no_search_res_frame = pds.DataFrame([no_search_res_dict])
             ols_string_search_res_frame = ols_string_search_res_frame.append(no_search_res_frame)
             failures.append(orig_enum)
+            continue
 
         ols_string_search_res_frame['query'] = orig_enum
         inner_cosine_obj = Cosine(1)
@@ -120,11 +123,15 @@ def one_enum_to_ols_frame_list(permitteds, one_enum_param):
         annotations_frame = pds.DataFrame(columns=['name', 'obo_id', 'scope', 'type', 'xrefs'])
 
         for ols_string_search_res_row in ols_string_search_res_frame.itertuples(index=False):
+            if r == 0:
+                continue
             once = urllib.parse.quote(ols_string_search_res_row.iri, safe='')
+            #logger.debug(f'ONCE={once}')
             twice = urllib.parse.quote(once, safe='')
             # build url from base
             term_retr_base = 'http://www.ebi.ac.uk/ols/api/ontologies/'
             term_retr_assembled = term_retr_base + ols_string_search_res_row.ontology_name + '/terms/' + twice
+            logging.debug(f'URL = {term_retr_assembled}')
             term_details = requests.get(term_retr_assembled)
             term_json = term_details.json()
             has_label = 'label' in set(term_json.keys())
