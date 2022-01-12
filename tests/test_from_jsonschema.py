@@ -62,3 +62,8 @@ class TestJsonSchemaImport(unittest.TestCase):
                                name='phenopackets',
                                path='phenopackets')
 
+    def test_obo_registry(self):
+        schema = self._convert('obo_registry.schema', 'json',
+                               name='obo_registry',
+                               path='.')
+
