@@ -6,10 +6,10 @@ import logging
 from copy import copy
 from typing import Any, Tuple, Dict, Union, List, Optional
 
-from linkml_runtime.linkml_model import SchemaDefinition, Element, ClassDefinition,\
-    SlotDefinition, EnumDefinition,\
-    ClassDefinitionName,\
-    SlotDefinitionName
+from linkml_runtime.linkml_model import SchemaDefinition, Element, ClassDefinition, \
+    SlotDefinition, EnumDefinition, \
+    ClassDefinitionName, \
+    SlotDefinitionName, Prefix
 from linkml_runtime.utils.formatutils import underscore
 
 from linkml_model_enrichment.importers.import_engine import ImportEngine
@@ -64,7 +64,7 @@ class JsonSchemaImportEngine(ImportEngine):
             raise Exception(f'Must pass name OR id, or these must be present in the jsonschema')
         if name is None:
             name = id_val
-        if id_val is None:
+        if id_val is None or not id_val.startswith('http'):
             id_val = f'https://example.org/{name}'
         name = underscore(name)
         self.schema = SchemaDefinition(id=id_val, name=name)
@@ -76,9 +76,8 @@ class JsonSchemaImportEngine(ImportEngine):
             self.translate_properties(obj, root_class)
             self.schema.classes[root_class_name] = root_class
         self.schema.default_prefix = name
-        self.schema.prefixes = {name: id_val,
-                                'linkml': 'https://w3id.org/linkml/',
-                                }
+        self.schema.prefixes[name] = Prefix(name, id_val)
+        self.schema.prefixes['linkml'] = Prefix('linkml', 'https://w3id.org/linkml/')
         self.schema.imports.append('linkml:types')
         return self.schema
 
@@ -100,10 +99,19 @@ class JsonSchemaImportEngine(ImportEngine):
                 slot = self.translate_property(items_obj, name)
             if 'description' in items_obj:
                 slot.description = items_obj['description']
+            slot.multivalued = True
+            return slot
+        elif 'properties' in obj:
+            c = ClassDefinition(f'{name}Class')
+            self.translate_properties(obj, c)
+            self.schema.classes[c.name] = c
+            slot = SlotDefinition(name)
+            slot.range = c.name
+            slot.multivalued = True
+            return slot
         else:
             logging.error(f'NOT HANDLED: {obj} in array context')
-        slot.multivalued = True
-        return slot
+            return None
 
     def translate_ref(self, obj: dict) -> ClassDefinitionName:
         return ClassDefinitionName(self.get_id(obj))
@@ -120,6 +128,8 @@ class JsonSchemaImportEngine(ImportEngine):
 
     def translate_property(self, obj: Dict, name: str) -> SlotDefinition:
         #print(f'Translating property {name}: {obj}')
+        if name is None:
+            raise ValueError(f'Name not set for {obj}')
         schema = self.schema
         aliases = []
         if name in RESERVED:
@@ -135,6 +145,8 @@ class JsonSchemaImportEngine(ImportEngine):
             s.range = self.translate_ref(obj)
         elif t == 'array':
             s = self.translate_array(obj, name)
+            if s is None:
+                raise ValueError(f'Cannot translate array {name} {obj}')
         elif t == 'number':
             s.range = 'float'
         elif t == 'boolean':
@@ -183,6 +195,10 @@ class JsonSchemaImportEngine(ImportEngine):
             name = obj.get('title', None)
         else:
             name, pkg = self.split_name(name)
+            if name is None:
+                raise ValueError(f'Problem splitting name from package')
+        if name is None:
+            name = 'TODO'
         c = ClassDefinition(name, description=desc, from_schema=pkg)
         if unionCls:
             c.union_of = unionCls.union_of
