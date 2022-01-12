@@ -282,6 +282,8 @@ class CsvDataImportEngine(ImportEngine):
                     robot_defs[k] = v
                 continue
             for k, v in row.items():
+                if k is None or k == '':
+                    continue
                 if v is None:
                     v = ""
                 if isinstance(v, str):
