@@ -1,122 +1,57 @@
-#!/usr/bin/env python
+.PHONY: all clean
 
-export PYTHONPATH=.
-.PHONY: data/felix_modifications.tsv
-.PHONY: clean
-
-# .PHONY:  inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-
-# https://docs.google.com/spreadsheets/d/1VFeUZqLmnmXDS1JcyXQbMgF513WyUBgz/edit#gid=1742629071
-
-test:
-	pytest tests/test_*py
-
-unit-tests:
-	pytest tests/unit/*.py
-
-integration-tests:
-	pytest tests/*.py
-
-typecheck:
-	mypy kgx --ignore-missing-imports
-
-linkml_model_enrichment/dosdp/model.py: linkml_model_enrichment/dosdp/dosdp_linkml.yaml
-	gen-python $< > $@ && python -m linkml_model_enrichment.dosdp.model
-
-inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml:
-	linkml_model_enrichment/infer_model.py \
-	tsv2model \
-	-E species \
-	data/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.tsv > \
-	inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-
-# samples of mapping enumerables to semantic terms via BioPortal 
-target/species_enum_ncbitaxon.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
-	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
-	--enum_source species_enum \
-	--ontoprefix ncbitaxon > target/species_enum_ncbitaxon.yaml
-
-target/species_enum_all_bp.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
-	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
-	--enum_source species_enum > \
-	target/species_enum_all_bp.yaml
-
-target/type_enum_so.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
-	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
-	--enum_source type_enum \
-	--ontoprefix so > \
-	target/type_enum_so.yaml
-
-data/felix_modifications.tsv:
-	linkml_model_enrichment/get_felix_tsv.py
-
-inferred-models/felix_modifications.yaml: data/felix_modifications.tsv
-	linkml_model_enrichment/infer_model.py \
-	tsv2model \
-	data/felix_modifications.tsv > \
-	inferred-models/felix_modifications.yaml
-
-target/felix_modifications_modification_type_enum_so.yaml: inferred-models/felix_modifications.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
-	--modelfile inferred-models/felix_modifications.yaml \
-	--enum_source modification_type_enum \
-	--ontoprefix so > \
-	target/felix_modifications_modification_type_enum_so.yaml
-
-copy-pfx:
-	find ../phenopacket-schema -name "*.proto" -exec cp {} tests/resources/phenopackets/ \;
-
-pfx-fix-imports:
-	perl -pi -ne 's@import ".*/@import "@' tests/resources/phenopackets/*proto
+all: clean target/soil_meanings.yaml
 
 clean:
-	[ ! -e inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml ] || \
-	rm inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	[ ! -e target/species_enum_ncbitaxon.yaml ]                        || rm target/species_enum_ncbitaxon.yaml
-	[ ! -e target/species_enum_all_bp.yaml ]                           || rm target/species_enum_all_bp.yaml 
-	[ ! -e target/type_enum_so.yaml ]                                  || rm target/type_enum_so.yaml 
-	[ ! -e target/felix_modifications.tsv ]                            || rm felix_modifications.tsv 
-	[ ! -e inferred-models/felix_modifications.yaml ]                  || rm inferred-models/felix_modifications.yaml 
-	[ ! -e target/felix_modifications_modification_type_enum_so.yaml ] || rm target/felix_modifications_modification_type_enum_so.yaml 
+	rm -rf target/soil_meanings.yaml
+	rm -rf target/soil_meanings_generated.yaml
+	rm -rf target/availabilities_g_s_strain_202112151116.yaml
+	rm -rf target/availabilities_g_s_strain_202112151116_org_meanings.yaml
 
-# DOCKER
+# tried to find a single meaning for each permissible value
+# unlike term mapping, which can tolerate multiple mapped terms
+target/soil_meanings.yaml: tests/resources/mixs/terms.yaml
+	poetry run enum_annotator \
+		--modelfile $< \
+		--requested_enum_name fao_class_enum \
+		--ontology_string ENVO > $@
 
-# Building docker image
-VERSION = "v1.1.7"
-IM=monarchinitiative/linkml
-DEV=monarchinitiative/linkml-dev
+# validate that it's still valid LinkML
+# FileNotFoundError: [Errno 2] No such file or directory: '/Users/MAM/Documents/gitrepos/linkml-model-enrichment/target/ranges.yaml'
+# cp tests/resources/mixs/*yaml target
+target/soil_meanings_generated.yaml: target/soil_meanings.yaml
+	poetry run gen-yaml $< > $@
 
-docker-build:
-	docker build $(CACHE) \
-	    -t $(IM):$(VERSION) -t $(IM):latest -t $(DEV):latest \
-	    .
+# requires Felix files
+# add demonstration SQL file
+target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_strain_202112151116.tsv
+	poetry run tsv2linkml \
+		--enum-columns organism \
+		--output $@ \
+		--class_name availabilities \
+		--schema_name availabilities $<
 
-docker-test:
-	docker run -v $(PWD):/work -w /work/ --rm -ti linkml/linkml bash
+# KeyError: 'iri' could mean that an unrecognized ontology name was used
+target/availabilities_g_s_strain_202112151116_org_meanings.yaml: target/availabilities_g_s_strain_202112151116.yaml
+	poetry run enum_annotator \
+		--modelfile $< \
+		--requested_enum_name organism_enum \
+		--ontology_string NCBITAXON > $@
 
+target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv: target/availabilities_g_s_strain_202112151116_org_meanings.yaml
+	poetry run enums_to_curateable \
+		--modelfile $< \
+		--enum organism_enum \
+		--tsv_out $@
 
-docker-build-no-cache:
-	$(MAKE) build CACHE=--no-cache
+# do some curation on target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv
+#   and save as target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
+# Excel wants to call it "*.txt". I'm saving as UTF 16 so I can be sure about the encoding at import time.
 
-docker-build-dev:
-	docker build --build-arg ODK_VERSION=$(VERSION) \
-	    -t $(DEV):$(VERSION) -t $(DEV):latest \
-	    .
-
-docker-clean:
-	docker kill $(IM) || echo not running
-	docker rm $(IM) || echo not made
-
-#### Publishing #####
-
-docker-publish-no-build:
-	docker push $(IM):latest
-	docker push $(IM):$(VERSION)
-
-docker-publish: docker-build
-	$(MAKE) docker-publish-no-build
-
-
+target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
+	poetry run curated_to_enums \
+		--tsv_in $< \
+		--tsv_encoding utf_16 \
+		--model_in target/availabilities_g_s_strain_202112151116_org_meanings.yaml \
+		--curated_yaml $@ \
+		--selected_enum organism_enum
