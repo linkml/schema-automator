@@ -44,24 +44,20 @@ def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml
     comparables = list(set(mep_keys).intersection(set(ft_keys)))
     comparables.sort()
 
-    # {'text': 'bacteriophage.T7', 'title': 'Escherichia phage T7', 'meaning': 'NCBITaxon:10760',
-    #  'match_val': 'Bacteriophage T7', 'match_type': 'hasExactSynonym', 'cosine': 0.0, 'curated_meaning': nan,
-    #  'curated_match': nan, 'curated_type': nan, 'curation_notes': nan}
-
     for i in comparables:
-        # # match on ??? against menum
-        # # job 1: apply curations
-        # curation_notes ?
         logger.info(i)
         model_says = me_pvs[i]
         tsv_says = ft_dict[i]
-        if not pd.isna(tsv_says['curated_meaning']) and not pd.isna(tsv_says['curated_match']) and not pd.isna(
-                tsv_says['curated_type']):
-            model_says.meaning = tsv_says['curated_meaning']
-            model_says.title = tsv_says['curated_preferred_label']
+        if not pd.isna(tsv_says['curated_id']) and not pd.isna(tsv_says['curated_pref_lab']) and not pd.isna(
+                tsv_says['curated_type']) and not pd.isna(tsv_says['curated_val']):
+            model_says.meaning = tsv_says['curated_id']
+            model_says.title = tsv_says['curated_pref_lab']
             # todo delete them, don't set to empty strings
-            model_says.annotations["match_val"] = tsv_says["curated_match"]
+            model_says.annotations["match_id"] = tsv_says["curated_id"]
+            model_says.annotations["match_pref_lab"] = tsv_says["curated_pref_lab"]
             model_says.annotations["match_type"] = tsv_says["curated_type"]
+            model_says.annotations["match_val"] = tsv_says["curated_val"]
+            model_says.annotations["curation_notes"] = tsv_says["curation_notes"]
             model_says.annotations["cosine"] = None
             model_says.annotations["curated"] = True
             me_pvs[i] = model_says
@@ -85,10 +81,6 @@ def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml
             # todo inconsistent annotation structure
             i_a["pvs_per_meaning"] = Annotation(tag="pvs_per_meaning", value=pvs_per_meaning[i_m])
             menum.permissible_values[i].annotations = i_a
-            # menum.permissible_values[i].comments.append("hello")
-
-    # dumped = yaml_dumper.dumps(menum)
-    # # print(dumped)
 
     mschema.enums[selected_enum] = menum
     yaml_dumper.dump(mschema, curated_yaml)

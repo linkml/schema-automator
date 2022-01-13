@@ -3,9 +3,9 @@ import pandas as pd
 from linkml_runtime.utils.schemaview import SchemaView
 
 # specify normalized_dist and dist type?
-blank_row = {"text": "", "title": "", "meaning": "", "match_val": "", "match_type": "", "cosine": "",
-             "curated_meaning": "", "curated_match": "", "curated_type": "", "curation_notes": "",
-             "curated_preferred_label": ""}
+blank_row = {"text": "", "title": "", "meaning": "", "match_id": "", "match_pref_lab": "", "match_type": "",
+             "match_val": "", "cosine": "", "curated_id": "", "curated_pref_lab": "", "curated_type": "",
+             "curated_val": "", "curation_notes": "", }
 br_keys = list(blank_row.keys())
 br_keys.sort()
 
