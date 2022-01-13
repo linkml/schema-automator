@@ -371,8 +371,10 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
                     if deduped_row_count > 1:
                         pass
                     first_row_as_dict = (with_min.to_dict(orient="records"))[0]
+                    # print(first_row_as_dict)
                     ce.annotations["match_val"] = first_row_as_dict['name']
                     ce.annotations["match_type"] = first_row_as_dict['scope']
+                    ce.annotations["match_id"] = first_row_as_dict['obo_id_term']
                     ce.annotations["cosine"] = first_row_as_dict['cosine']
                     if overwrite_meaning:
                         if first_row_as_dict['cosine'] <= max_cosine:
