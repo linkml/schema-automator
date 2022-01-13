@@ -300,91 +300,100 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
 
         annotations_from_terms = term_annotations.get()
 
-        raw_through_annotations = enum_name_mapping_frame.merge(annotations_from_terms, how='left', on="iri",
-                                                                suffixes=('_term', '_ano'))
+        # logger.warning(enum_name_mapping_frame)
+        # # warning:    tidied_query     raw_query title id iri is_defining_ontology label obo_id ontology_name ontology_prefix short_form type
+        # # warning: 0  metabolomics  metabolomics
+        # logger.warning(annotations_from_terms)
+        # # warning: Empty DataFrame
+        # # warning: Columns: []
+        # # warning: Index: []
 
-        for_str_dist = raw_through_annotations[["tidied_query", "name"]]
-        # 20211215 0912
-        # A value is trying to be set on a copy of a slice from a DataFrame.
-        for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
-        for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
-        logger.debug(for_str_dist)
+        if len(enum_name_mapping_frame.index) > 0 and len(annotations_from_terms.index) > 0:
+            raw_through_annotations = enum_name_mapping_frame.merge(annotations_from_terms, how='left', on="iri",
+                                                                    suffixes=('_term', '_ano'))
 
-        # favoring simplicity over efficiency
-        # ie may be string-comparing some duplicates
-        # easier to merge back in
-        # for_str_dist = for_str_dist.loc[
-        #     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
-        #         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
-        # for_str_dist.drop_duplicates(inplace=True)
-        # for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
+            for_str_dist = raw_through_annotations[["tidied_query", "name"]]
+            # 20211215 0912
+            # A value is trying to be set on a copy of a slice from a DataFrame.
+            for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
+            for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
+            logger.debug(for_str_dist)
 
-        for_str_dist_dict = for_str_dist.to_dict(orient="records")
+            # favoring simplicity over efficiency
+            # ie may be string-comparing some duplicates
+            # easier to merge back in
+            # for_str_dist = for_str_dist.loc[
+            #     ~for_str_dist["tidied_query"].eq("") and ~for_str_dist["label"].eq("") and ~for_str_dist[
+            #         "tidied_query"].isnull() and ~for_str_dist["label"].isnull()]
+            # for_str_dist.drop_duplicates(inplace=True)
+            # for_str_dist.sort_values(["tidied_query", "label"], inplace=True)
 
-        # dist_list = []
-        new_pair_list = []
+            for_str_dist_dict = for_str_dist.to_dict(orient="records")
 
-        for pair in for_str_dist_dict:
-            # used to get_profile
-            name_type = type(pair["name"])
-            if name_type is str:
-                the_dist = cosine_obj.distance(pair["tidied_query_lc"], pair["name_lc"])
-                pair['cosine'] = the_dist
-            else:
-                pair['cosine'] = None
-            new_pair_list.append(pair)
+            # dist_list = []
+            new_pair_list = []
 
-        for_str_dist = pd.DataFrame(new_pair_list)
-        for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
+            for pair in for_str_dist_dict:
+                # used to get_profile
+                name_type = type(pair["name"])
+                if name_type is str:
+                    the_dist = cosine_obj.distance(pair["tidied_query_lc"], pair["name_lc"])
+                    pair['cosine'] = the_dist
+                else:
+                    pair['cosine'] = None
+                new_pair_list.append(pair)
 
-        # was debug
-        logger.debug(for_str_dist)
-        raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
-        all_mappings_frame = []
+            for_str_dist = pd.DataFrame(new_pair_list)
+            for_str_dist.drop(labels=["tidied_query_lc", "name_lc"], axis=1, inplace=True)
 
-        new_enum = linkml_runtime.linkml_model.EnumDefinition(name=requested_enum_name)
-        # logger.info(new_enum)
+            # was debug
+            logger.debug(for_str_dist)
+            raw_through_dist = raw_through_annotations.merge(for_str_dist, how="left", on=["tidied_query", "name"])
+            all_mappings_frame = []
 
-        # looping inside the same loop ?!
-        for i in requested_pvs_names:
-            # todo unnest loop?
-            logger.debug(i)
-            ce = requested_pvs_obj[i]
-            cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
-            all_mappings_frame.append(cr)
-            cr_row_count = len(cr.index)
-            if cr_row_count > 0:
-                min_cosine = cr["cosine"].min()
-                with_min = cr.loc[cr["cosine"] == min_cosine]
-                with_min_row_count = len(with_min.index)
-                if with_min_row_count > 0:
-                    with_min = with_min.drop(labels=['xrefs'], axis=1)
-                    if 'description' in with_min.columns:
-                        with_min['description'] = str(with_min['description'])
-                    with_min.drop_duplicates(inplace=True)
-                    deduped_row_count = len(with_min.index)
-                    # # I'm surprised that there aren't any 2+ equally good mappings here
-                    # will have to deal with that at some point
-                    # may still need to do some row filtering/prioritizing by source or annotation type
-                    # prefer label over synonym
-                    # Prefer ontologies in the order they appear in XXX parameter?
-                    if deduped_row_count > 1:
-                        pass
-                    first_row_as_dict = (with_min.to_dict(orient="records"))[0]
-                    # print(first_row_as_dict)
-                    ce.annotations["match_val"] = first_row_as_dict['name']
-                    ce.annotations["match_type"] = first_row_as_dict['scope']
-                    ce.annotations["match_id"] = first_row_as_dict['obo_id_term']
-                    ce.annotations["match_pref_lab"] = first_row_as_dict['pref_lab']
-                    ce.annotations["cosine"] = first_row_as_dict['cosine']
-                    if overwrite_meaning:
-                        if first_row_as_dict['cosine'] <= max_cosine:
-                            ce.meaning = first_row_as_dict['obo_id_term']
-                            ce.title = first_row_as_dict['label']
-                        else:
-                            ce.meaning = None
-                            ce.title = None
-                    new_enum.permissible_values[i] = ce
+            new_enum = linkml_runtime.linkml_model.EnumDefinition(name=requested_enum_name)
+            # logger.info(new_enum)
+
+            # looping inside the same loop ?!
+            for i in requested_pvs_names:
+                # todo unnest loop?
+                logger.debug(i)
+                ce = requested_pvs_obj[i]
+                cr = raw_through_dist.loc[raw_through_dist["raw_query"].eq(i)]
+                all_mappings_frame.append(cr)
+                cr_row_count = len(cr.index)
+                if cr_row_count > 0:
+                    min_cosine = cr["cosine"].min()
+                    with_min = cr.loc[cr["cosine"] == min_cosine]
+                    with_min_row_count = len(with_min.index)
+                    if with_min_row_count > 0:
+                        with_min = with_min.drop(labels=['xrefs'], axis=1)
+                        if 'description' in with_min.columns:
+                            with_min['description'] = str(with_min['description'])
+                        with_min.drop_duplicates(inplace=True)
+                        deduped_row_count = len(with_min.index)
+                        # # I'm surprised that there aren't any 2+ equally good mappings here
+                        # will have to deal with that at some point
+                        # may still need to do some row filtering/prioritizing by source or annotation type
+                        # prefer label over synonym
+                        # Prefer ontologies in the order they appear in XXX parameter?
+                        if deduped_row_count > 1:
+                            pass
+                        first_row_as_dict = (with_min.to_dict(orient="records"))[0]
+                        # print(first_row_as_dict)
+                        ce.annotations["match_val"] = first_row_as_dict['name']
+                        ce.annotations["match_type"] = first_row_as_dict['scope']
+                        ce.annotations["match_id"] = first_row_as_dict['obo_id_term']
+                        ce.annotations["match_pref_lab"] = first_row_as_dict['pref_lab']
+                        ce.annotations["cosine"] = first_row_as_dict['cosine']
+                        if overwrite_meaning:
+                            if first_row_as_dict['cosine'] <= max_cosine:
+                                ce.meaning = first_row_as_dict['obo_id_term']
+                                ce.title = first_row_as_dict['label']
+                            else:
+                                ce.meaning = None
+                                ce.title = None
+                        new_enum.permissible_values[i] = ce
 
     all_mappings_frame = pd.concat(all_mappings_frame)
 
