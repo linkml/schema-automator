@@ -3,12 +3,7 @@
 name: Check Pull Request
 
 # Controls when the action will run. Triggers the workflow on pull requests.
-on:
-  pull_request:
-    branches:
-      - main
-  repository_dispatch:
-    types: trigger-check-pull-request
+on: [push, pull_request]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
