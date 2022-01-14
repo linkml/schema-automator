@@ -12,9 +12,11 @@ click_log.basic_config(logger)
 @click_log.simple_verbosity_option(logger)
 @click.option('--modelfile', help="path to LinkML input", type=click.Path(exists=True), show_default=True,
               required=True)
-@click.option('--output_file', default="enums_pvs_tsv.tsv", help="path to TSV output", type=click.Path(),
-              show_default=True)
+@click.option('--output_file', help="path to TSV output", type=click.Path(), required=True)
 def enums_pvs_tsv(modelfile, output_file):
+    """
+    Writes a TSV report of the enums and permissible values in modelfile (a LinkML YAML file) to output_file (a TSV file).
+    """
     row_list = []
     view = SchemaView(modelfile)
     enums = view.all_enums()
