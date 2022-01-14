@@ -90,8 +90,8 @@ def make_cosine_obj(shingle_size_param):
 
 
 def ols_term_search(term, chars_to_whiteout, ontology_param, qf_param, rowcount_param, blank_row_param,
-                    global_frame_param, session_param, ols_search_base_url):
-    woed = do_whiteout(term, chars_to_whiteout)
+                    global_frame_param, session_param, ols_search_base_url, do_trunc):
+    woed = do_whiteout(term, chars_to_whiteout, do_trunc)
 
     request_string = ols_search_base_url + \
                      '?q=' + \
@@ -144,11 +144,13 @@ def make_qf_phrase(qf_param):
     return qf_phrase
 
 
-def do_whiteout(raw_string, chars_to_whiteout):
+def do_whiteout(raw_string, chars_to_whiteout, do_trunc):
     if chars_to_whiteout is not None and chars_to_whiteout != "":
         tidied_string = re.sub(r'[' + chars_to_whiteout + ']+', ' ', raw_string)
     else:
         tidied_string = raw_string
+    if do_trunc:
+        tidied_string = re.sub(r' \(.*$', '', tidied_string)
     return tidied_string
 
 
@@ -183,6 +185,7 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
         term_annotations.add(obo_syn_frame)
 
     return True
+
 
 @click.command()
 @click_log.simple_verbosity_option(logger)
@@ -220,9 +223,10 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
 @click.option('--test_sample_size',
               help="""if greater than 0, the enum name list will be samples at this size before mapping.""",
               default=0, show_default=True)
+@click.option('--trim_parentheticals/--keep_parentheticals', default=False)
 def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_chars, ontology_string,
                    ols_search_base_url, ols_terms_based_url, desired_row_count, shingle_size, max_cosine,
-                   overwrite_meaning, query_field_string, test_sample_size):
+                   overwrite_meaning, query_field_string, test_sample_size, trim_parentheticals):
     # show entire width of data frames
     pd.set_option('display.expand_frame_repr', False)
 
@@ -276,7 +280,7 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
         # current_pv = requested_pvs_obj[pv_name]
         # logger.debug(current_pv)
         ols_term_search(pv_name, whiteout_chars, ontologies_phrased, qf_phrased, desired_row_count,
-                        blank_row, enum_name_mappings, reusable_session, ols_search_base_url)
+                        blank_row, enum_name_mappings, reusable_session, ols_search_base_url, trim_parentheticals)
         # # returns true
         # # could look at growth in enum_name_mappings
 
