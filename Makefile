@@ -1,12 +1,15 @@
-.PHONY: all clean
+.PHONY: all clean test
 
-all: clean target/soil_meanings.yaml
+all: clean test target/soil_meanings.yaml
 
 clean:
 	rm -rf target/soil_meanings.yaml
 	rm -rf target/soil_meanings_generated.yaml
 	rm -rf target/availabilities_g_s_strain_202112151116.yaml
 	rm -rf target/availabilities_g_s_strain_202112151116_org_meanings.yaml
+
+test:
+	poetry run pytest tests/
 
 # tried to find a single meaning for each permissible value
 # unlike term mapping, which can tolerate multiple mapped terms
