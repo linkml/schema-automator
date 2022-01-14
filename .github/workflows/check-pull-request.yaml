@@ -34,11 +34,11 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true  
 
-      # Install dependencies
-      - name: pip Install Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+#       # Install dependencies
+#       - name: pip Install Dependencies
+#         run: |
+#           pip install --upgrade pip
+#           pip install -r requirements.txt
 
       #----------------------------------------------
       #       load cached venv if cache exists      
@@ -63,12 +63,12 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
           
-      - name: Run image
-        uses: abatilo/actions-poetry@v2.0.0
-        # with:
-        #   poetry-version: ${{ matrix.poetry-version }}
-      - name: View poetry --help
-        run: poetry --help
+#       - name: Run image
+#         uses: abatilo/actions-poetry@v2.0.0
+#         # with:
+#         #   poetry-version: ${{ matrix.poetry-version }}
+#       - name: View poetry --help
+#         run: poetry --help
 
       # Make test
       - name: Make test
