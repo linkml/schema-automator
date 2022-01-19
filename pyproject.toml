@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "linkml-model-enrichment"
-version = "0.0.4"
+version = "0.0.5"
 description = "Infer models, enrich with meaning for terms including enum permissible values"
 authors = ["Your Name <you@example.com>"]
 license = "BSD 3-Clause"

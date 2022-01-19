@@ -1,7 +1,8 @@
 import click
 import pandas as pd
-from linkml_runtime.utils.schemaview import SchemaView, Annotation
+from linkml_runtime.utils.schemaview import SchemaView, Annotation, Example
 from linkml_runtime.dumpers import yaml_dumper
+import numpy as np
 
 import logging
 import click_log
@@ -60,7 +61,13 @@ def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml
             model_says.annotations["curation_notes"] = tsv_says["curation_notes"]
             model_says.annotations["cosine"] = None
             model_says.annotations["curated"] = True
-            me_pvs[i] = model_says
+        if type(tsv_says["examples"]) == str:
+            splitex = tsv_says["examples"].split("|")
+            for one_ex in splitex:
+                ex_ex = Example(value=one_ex)
+                model_says.examples.append(ex_ex)
+                # logger.info(ex_ex)
+        me_pvs[i] = model_says
 
     menum.permissible_values = me_pvs
 

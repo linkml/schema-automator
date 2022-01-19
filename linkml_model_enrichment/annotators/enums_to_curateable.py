@@ -29,8 +29,11 @@ def enums_to_curateable(modelfile, enum, tsv_out):
             elif i in apvd:
                 current_blank[i] = apvd[i]
         row_list.append(current_blank)
-        row_frame = pd.DataFrame(row_list)
-    print(row_frame)
+    row_frame = pd.DataFrame(row_list)
+    meaning_counts = row_frame['meaning'].value_counts()
+    meaning_counts = meaning_counts.rename_axis('meaning').reset_index(name='pvs_per_meaning')
+    row_frame = row_frame.merge(meaning_counts, how="left", on="meaning")
+    row_frame['examples'] = None
     row_frame.to_csv(tsv_out, sep="\t", index=False)
 
 
