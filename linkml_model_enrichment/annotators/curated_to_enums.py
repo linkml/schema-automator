@@ -1,13 +1,12 @@
 import click
 import pandas as pd
-from linkml_runtime.utils.schemaview import SchemaView, Annotation, Example
+from linkml_runtime.utils.schemaview import SchemaView, Example
+# Annotation
 from linkml_runtime.dumpers import yaml_dumper
-import numpy as np
 
 import logging
 import click_log
 
-# todo add logger
 logger = logging.getLogger(__name__)
 click_log.basic_config(logger)
 
@@ -20,11 +19,24 @@ click_log.basic_config(logger)
 @click.option('--model_in', type=click.Path(exists=True), required=True)
 @click.option('--curated_yaml', type=click.Path(), default="curated.yaml", show_default=True)
 @click.option('--selected_enum', required=True)
-def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml):
+@click.option('--collapse/--no-collapse', default=False)
+def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml, collapse):
     from_tsv = pd.read_csv(tsv_in, sep="\t", encoding=tsv_encoding)
+    # todo collapse rows with identical meanings?
+    # make a new unique pipe-delimited examples column with these values for all rows:
+    # text	title	match_pref_lab	match_val	curated_pref_lab	curated_val	examples
+    if "pvs_per_meaning" in from_tsv.columns:
+        from_tsv.drop(["pvs_per_meaning"], axis=1, inplace=True)
+    pvs_per_meaning = from_tsv["meaning"].value_counts()
+    pvs_per_meaning = pvs_per_meaning.rename_axis('meaning').reset_index(name='pvs_per_meaning')
+    from_tsv = from_tsv.merge(pvs_per_meaning, how="left", on="meaning")
+    from_tsv['pvs_per_meaning'] = from_tsv['pvs_per_meaning'].fillna(1)
+    if collapse:
+        from_tsv = collapse_by_meaning(from_tsv)
     from_tsv.index = from_tsv['text']
     logger.info(from_tsv)
     # check if an index appears more than once
+    ft_dict = None
     if from_tsv.index.is_unique:
         ft_dict = from_tsv.to_dict(orient="index")
     else:
@@ -66,31 +78,45 @@ def curated_to_enums(tsv_in, model_in, selected_enum, tsv_encoding, curated_yaml
             for one_ex in splitex:
                 ex_ex = Example(value=one_ex)
                 model_says.examples.append(ex_ex)
-                # logger.info(ex_ex)
+        model_says.annotations["pvs_per_meaning"] = int(tsv_says["pvs_per_meaning"])
         me_pvs[i] = model_says
 
     menum.permissible_values = me_pvs
 
-    meanings_tally = []
-    for i in mep_keys:
-        i_m = menum.permissible_values[i].meaning
-        meanings_tally.append(i_m)
-
-    # todo for collapsing pvs to get one with each meaning, the texts could be aliases or something like that?
-    #   don't see an applicable slot at https://linkml.io/linkml-model/docs/PermissibleValue/#class-permissible_value
-
-    pvs_per_meaning = pd.Series(meanings_tally).value_counts(dropna=False)
-
-    for i in mep_keys:
-        i_a = menum.permissible_values[i].annotations
-        i_m = menum.permissible_values[i].meaning
-        if i_m in pvs_per_meaning:
-            # todo inconsistent annotation structure
-            i_a["pvs_per_meaning"] = Annotation(tag="pvs_per_meaning", value=pvs_per_meaning[i_m])
-            menum.permissible_values[i].annotations = i_a
+    # todo check for inconsistent annotation structures in YAML
 
     mschema.enums[selected_enum] = menum
     yaml_dumper.dump(mschema, curated_yaml)
+
+
+def collapse_by_meaning(pre_collapsed: pd.DataFrame) -> pd.DataFrame:
+    singles = pre_collapsed.loc[pre_collapsed['pvs_per_meaning'].lt(2)]
+    collapseables = pre_collapsed.loc[pre_collapsed['pvs_per_meaning'].gt(1)]
+    collapseable_meanings = list(set(list(collapseables['meaning'])))
+    collapseable_meanings.sort()
+    collapsed_examples = []
+    for i in collapseable_meanings:
+        temp = collapseables.loc[
+            collapseables['meaning'].eq(i), ['text', 'title', 'match_pref_lab', 'match_val', 'curated_pref_lab',
+                                             'curated_val', 'examples']]
+        temp = temp.fillna('')
+        temp = temp.values.tolist()
+        # flatten
+        temp = [item for sublist in temp for item in sublist]
+        # uniqify
+        temp = list(set(temp))
+        # drop empty strings
+        temp = [item for item in temp if item]
+        # todo split (examples) on | and flatten/uniqify again
+        temp.sort()
+        temp = "|".join(temp)
+        collapsed_examples.append({"meaning": i, "examples": temp})
+    collapsed_examples = pd.DataFrame(collapsed_examples)
+    collapseables.drop(["examples"], axis=1, inplace=True)
+    collapseables = collapseables.merge(collapsed_examples, how="left", on="meaning")
+    reunited = pd.concat([singles, collapseables])
+    # logger.info(reunited)
+    return reunited
 
 
 if __name__ == '__main__':
