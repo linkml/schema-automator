@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "linkml-model-enrichment"
-version = "0.0.2"
+version = "0.0.4"
 description = "Infer models, enrich with meaning for terms including enum permissible values"
 authors = ["Your Name <you@example.com>"]
 license = "BSD 3-Clause"
@@ -17,7 +17,6 @@ mkdocs = "^1.2.3"
 pandas = "^1.3.5"
 python-dateutil = "^2.8.2"
 jsonpatch = "^1.32"
-pytest = "^6.2.5"
 quantulum3 = "^0.7.9"
 funowl = "^0.1.10"
 click-log = "^0.3.2"
@@ -29,6 +28,7 @@ rdflib = "5.0.0"
 PyYAML = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
