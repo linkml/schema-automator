@@ -9,6 +9,7 @@ import yaml
 from linkml_runtime.utils.compile_python import compile_python
 from linkml_runtime.loaders import json_loader
 from linkml_runtime.loaders import yaml_loader
+from linkml_runtime.utils.schema_as_dict import schema_as_dict
 
 from linkml_model_enrichment.annotators.jsonld_annotator import JsonLdAnnotator
 from linkml_model_enrichment.importers.jsonschema_import_engine import JsonSchemaImportEngine
@@ -30,7 +31,11 @@ class TestJsonLdAnnotator(unittest.TestCase):
         schema = ie.load(JSONSCHEMA)
         ann = JsonLdAnnotator()
         ann.annotate(schema, CONTEXT)
-        sd = minify_schema(schema)
+        assert 'foaf' in schema.prefixes
+        assert schema.prefixes['foaf'].prefix_reference == 'http://xmlns.com/foaf/0.1/'
+        assert schema.slots['title'].slot_uri == 'dce:title'
+        sd = schema_as_dict(schema)
         with open(OUTSCHEMA, 'w') as stream:
             yaml.safe_dump(sd, stream, sort_keys=False)
+
 
