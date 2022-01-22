@@ -26,6 +26,16 @@ GROUPING_CLASS = 'OntologyClassSubset'
 
 @dataclass
 class DOSDPImportEngine(ImportEngine):
+    """
+    For every template with name Foo, a LinkML class FooTemplate is created
+
+    The following builtin slots are created:
+
+    - name
+    - definition
+    - subclass_of
+    - equivalentTo
+    """
     mappings: dict = None
     include_unmapped_annotations = False
 
@@ -51,10 +61,11 @@ class DOSDPImportEngine(ImportEngine):
         mc.aliases = ['OWL Class']
         mc.class_uri = 'owl:Class'
         mc.mixin = True
+        mc.slots = ['id']
         tmc = ClassDefinition(TEMPLATE_CLASS)
         schema.classes[tmc.name] = tmc
         tmc.description = "Instances of OWL classes that conform to a template"
-        tmc.aliases = ['design pattern', 'template']
+        tmc.aliases = ['design pattern record', 'template row']
         tmc.mixin = True
         tmc.mixins = [mc.name]
         gmc = ClassDefinition(GROUPING_CLASS)
@@ -65,10 +76,16 @@ class DOSDPImportEngine(ImportEngine):
         schema.types['string'] = TypeDefinition(name='string', base='str', uri='xsd:string')
         def add_slot(s: SlotDefinition):
             schema.slots[s.name] = s
+        add_slot(SlotDefinition('id',
+                                identifier=True,
+                                #range='uriorcurie',
+                                description='Unique identifier for template instance'))
         add_slot(SlotDefinition('name',
-                                slot_uri='rdfs:label'))
+                                slot_uri='rdfs:label',
+                                description='Human readable label for template instance'))
         add_slot(SlotDefinition('definition',
-                                slot_uri='IAO:0000115'))
+                                slot_uri='IAO:0000115',
+                                description='Human readable textual definition for template instance'))
         add_slot(SlotDefinition('subclass_of',
                                 multivalued=True,
                                 slot_uri='rdfs:subclass_of',
@@ -82,7 +99,21 @@ class DOSDPImportEngine(ImportEngine):
             schema.classes[c.name] = c
         return schema
 
-    def create_class(self, pattern: Pattern, range_as_enums = True) -> ClassDefinition:
+    def create_class(self, pattern: Pattern, range_as_enums: bool = True,
+                     denormalize_labels: bool = True) -> ClassDefinition:
+        """
+        Create a LinkML class from a template/pattern
+
+        The class will have name FooTemplate, and will mixin TemplateClass,
+        and will have one slot per var (slots will also be inherited from TemplateClass)
+
+        by default, the range of each var will be a class RangeClass, unless treated as enums
+
+        :param pattern: DOSDP template
+        :param range_as_enums:  if true, ranges will be enums
+        :param denoramlized:  if true, create an optional label for each var
+        :return:
+        """
         def deref_class(name: ALIAS) -> CURIE:
             return self._deref(name, pattern.classes)
 
@@ -117,6 +148,13 @@ class DOSDPImportEngine(ImportEngine):
             schema.slots[slot.name] = slot
             cls.slots.append(slot.name)
             cls.slot_usage[slot.name] = slot
+            if denormalize_labels:
+                label_slot = SlotDefinition(f'{vn}_label',
+                                            description=f'label for {vn}',
+                                            string_serialization=f'{{{vn}}}.label')
+                schema.slots[label_slot.name] = label_slot
+                cls.slots.append(label_slot.name)
+                cls.slot_usage[label_slot.name] = label_slot
         # populate metaclass
         mc = schema.classes[METACLASS]
 

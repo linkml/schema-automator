@@ -11,7 +11,7 @@ python = "^3.9"
 click = "^7.1.2"
 # only necessary if 3.6 support is desired
 # dataclasses = "^0.8"
-linkml-runtime = "^1.1.10"
+linkml-runtime = "^1.1.21"
 linkml = "^1.1.13"
 mkdocs = "^1.2.3"
 pandas = "^1.3.5"

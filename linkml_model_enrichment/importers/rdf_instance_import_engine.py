@@ -4,6 +4,7 @@ from typing import Union, Dict, Tuple, List
 from collections import defaultdict
 import os
 from csv import DictWriter
+import yaml
 
 from rdflib import Graph, URIRef
 from rdflib.query import ResultRow
