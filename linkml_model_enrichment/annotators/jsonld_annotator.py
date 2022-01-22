@@ -17,6 +17,8 @@ def is_url(s: str) -> bool:
 class JsonLdAnnotator:
     """
     Annotates a schema using URIs derived from a JSON-LD file
+
+
     """
 
     def annotate(self, schema: Union[str, SchemaDefinition], jsonld_path: str):

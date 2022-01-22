@@ -1,12 +1,14 @@
 import copy
 import logging
 from typing import Union
+from deprecated.classic import deprecated
+
 
 import yaml
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition
 
-
+@deprecated("Replaced by linkml.runtime.utils.schema_as_dict")
 def minify_schema(obj: Union[dict, SchemaDefinition]) -> dict:
     # TODO prefixes
     if isinstance(obj, SchemaDefinition):
