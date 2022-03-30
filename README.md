@@ -19,13 +19,15 @@ The toolkit is still experimental. It is intended as an aid to schema creation r
 
 ## Installation
 
-`linkml-model-enrichment` and its components require Python 3.9 or greater.
+`linkml-model-enrichment` and its components requires python3 command to be Python 3.9 or greater.
 
 ```bash
-chmod 755 environment.sh
-. environment.sh
-pip install -r requirements.txt
-pip install -e . 
+chmod 755 pre_poetry/environment.sh
+. pre_poetry/environment.sh
+python3 -m pip install wheel
+python3 -m pip install -U pip
+python3 -m pip install -r requirements.txt
+python3 -m pip install -e .
 ```
 
 ## Command Line Usage
