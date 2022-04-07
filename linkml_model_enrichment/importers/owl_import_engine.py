@@ -256,9 +256,14 @@ class OwlImportEngine(ImportEngine):
                 strp = str(p)
                 sub = a.subject.v
                 val = a.value.v
-                if isinstance(sub, IRI) and isinstance(val, Literal):
+                if isinstance(sub, IRI):
                     sub = self.iri_to_name(sub)
-                    val = str(val.v)
+                    if isinstance(val, Literal):
+                        val = str(val.v)
+                    elif isinstance(val, IRI):
+                        val = val.v
+                    else:
+                        val = str(val)
                     if sub in classes:
                         t = 'classes'
                     elif sub in slots:
@@ -270,6 +275,18 @@ class OwlImportEngine(ImportEngine):
                             self.element_info(t, sub, 'comments', val, multivalued=True)
                         elif strp == ':definition':
                             self.element_info(t, sub, 'description', val, multivalued=False)
+                        elif strp == 'schema:rangeIncludes':
+                            range_cn = self.iri_to_name(val)
+                            logging.error(f'UNTESTED RANGE: schema.org {sub} {val} // {domain_cn}')
+                            self.add_range(sub, range_cn)
+                        elif strp == 'schema:domainIncludes':
+                            domain_cn = self.iri_to_name(val)
+                            logging.error(f'UNTESTED: schema.org {sub} {val} // {domain_cn}')
+                            if domain_cn not in self.schema['classes']:
+                                self.schema['classes'][domain_cn] = {}
+                            if 'slots' not in self.schema['classes'][domain_cn]:
+                                self.schema['classes'][domain_cn]['slots'] = []
+                            self.schema['classes'][domain_cn]['slots'].append(sub)
                         else:
                             if self.include_unmapped_annotations:
                                 self.element_info(t, sub, 'comments', f'{p} = {val}', multivalued=True)
@@ -278,6 +295,18 @@ class OwlImportEngine(ImportEngine):
         for sn, s in schema['slots'].items():
             if 'multivalued' not in s:
                 s['multivalued'] = sn not in single_valued_slots
+            if 'range' in s:
+                if isinstance(s['range'], list):
+                    rg = s['range']
+                    if len(rg) == 0:
+                        del s['range']
+                    elif len(rg) == 1:
+                        s['range'] = rg[0]
+                    else:
+                        del s['range']
+                        s['any_of'] = [
+                            {'range': x} for x in rg
+                        ]
         if identifier is not None:
             slots[identifier] = {'identifier': True, 'range': 'uriorcurie'}
             for c in classes.values():
@@ -292,6 +321,14 @@ class OwlImportEngine(ImportEngine):
 
     def slot_info(self, *args, **kwargs):
         self.element_info('slots', *args, **kwargs)
+
+    def add_range(self, sn, range_cn):
+        if sn not in self.schema['slots']:
+            self.schema['slots'][sn] = {}
+        if 'range' not in self.schema['slots'][sn]:
+            self.schema['slots'][sn]['range'] = []
+        self.schema['slots'][sn]['range'].append(range_cn)
+
 
     def element_info(self, type: str, cn: str, sn: str, v: Any, multivalued = False):
         if cn not in self.schema[type]:
