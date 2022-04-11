@@ -1,4 +1,7 @@
-# LinkML Model Enrichment (Beta)
+# LinkML Schema Automator
+
+[![DOI](https://zenodo.org/badge/13996/linkml/schema-automator.svg)](https://zenodo.org/badge/latestdoi/13996/linkml/schema-automator)
+
 
 This is a toolkit that assists with:
 
