@@ -58,7 +58,7 @@ class JsonSchemaImportEngine(ImportEngine):
         if id_val is None and '$schema' in obj:
             id_val = obj['$schema']
         if name is None and 'title' in obj:
-            name = obj['title']
+            name = obj['title'].replace(' ','-')
         jsonschema_version = obj.get('$schema', None)
         if id_val is None and name is None:
             raise Exception(f'Must pass name OR id, or these must be present in the jsonschema')

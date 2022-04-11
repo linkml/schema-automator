@@ -1,10 +1,4 @@
-__pycache__
-.DS_Store
-.idea
-data
-inferred-models
-target
-temp
-venv
-local
+wwwroot/*.js
+node_modules
+typings
 dist
