@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-NAME = 'linkml_model_enrichment'
-DESCRIPTION = 'A Python library and set of command line utilities for exchanging Knowledge Graphs (KGs) that conform to or are aligned to the Biolink Model.'
-URL = 'https://github.com/NCATS-Tangerine/linkml_model_enrichment'
-AUTHOR = 'Deepak Unni'
-EMAIL = 'deepak.unni3@gmail.com'
+NAME = 'schema-automator'
+DESCRIPTION = 'toolkit that assists with generating LinkML schemas from existing serializations like JSON-schema'
+URL = 'https://github.com/linkml/schema-automator'
+AUTHOR = 'Mark Miller'
+EMAIL = 'mam@lbl.gov'
 REQUIRES_PYTHON = '>=3.7.0'
 VERSION = '1.0.0b0'
 LICENSE = 'BSD'
@@ -26,7 +26,7 @@ setup(
     long_description_content_type='text/markdown',
     license=LICENSE,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    package_data={'linkml_model_enrichment': ["config.yml"]},
+    package_data={'schema-automator': ["config.yml"]},
     keywords='linkml',
     classifiers=[
         'Intended Audience :: Science/Research',
@@ -38,15 +38,15 @@ setup(
     extras_require=EXTRAS,
     include_package_data=True,
     entry_points={
-        'console_scripts': ['annotate-enums=linkml_model_enrichment.annotators.enum_annotator:clickmain',
-                            'annotate-schema=linkml_model_enrichment.annotators.schema_annotator:annotate_schema',
-                            'tsv2linkml=linkml_model_enrichment.importers.csv_import_engine:tsv2model',
-                            'tsvs2linkml=linkml_model_enrichment.importers.csv_import_engine:tsvs2model',
-                            'rdf2linkml=linkml_model_enrichment.importers.rdf_instance_import_engine:rdf2model',
-                            'owl2linkml=linkml_model_enrichment.importers.owl_import_engine:owl2model',
-                            'dosdp2linkml=linkml_model_enrichment.importers.owl_import_engine:dosdp2model',
-                            'jsondata2linkml=linkml_model_enrichment.importers.json_instance_import_engine:json2model',
-                            'jsonschema2linkml=linkml_model_enrichment.importers.jsonschema_import_engine:jsonschema2model',
+        'console_scripts': ['annotate-enums=schema-automator.annotators.enum_annotator:clickmain',
+                            'annotate-schema=schema-automator.annotators.schema_annotator:annotate_schema',
+                            'tsv2linkml=schema-automator.importers.csv_import_engine:tsv2model',
+                            'tsvs2linkml=schema-automator.importers.csv_import_engine:tsvs2model',
+                            'rdf2linkml=schema-automator.importers.rdf_instance_import_engine:rdf2model',
+                            'owl2linkml=schema-automator.importers.owl_import_engine:owl2model',
+                            'dosdp2linkml=schema-automator.importers.owl_import_engine:dosdp2model',
+                            'jsondata2linkml=schema-automator.importers.json_instance_import_engine:json2model',
+                            'jsonschema2linkml=schema-automator.importers.jsonschema_import_engine:jsonschema2model',
                             ]
     }
 )

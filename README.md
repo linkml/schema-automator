@@ -39,7 +39,7 @@ This toolkit allows automated annotation of LinkML enums, mapping text strings t
 
 The command line tool `annotate-enums` takes a LinkML schema, with enums and fills in the `meaning` slots.
 
-See the [annotators](linkml_model_enrichment/annotators/) folder for docs
+See the [annotators](schema-automator/annotators/) folder for docs
 
 ### Converting TSVs
 
