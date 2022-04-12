@@ -1,8 +1,5 @@
 # LinkML Schema Automator
 
-[![DOI](https://zenodo.org/badge/13996/linkml/schema_automator.svg)](https://zenodo.org/badge/latestdoi/13996/linkml/schema_automator)
-
-
 This is a toolkit that assists with:
 
  1. Bootstrapping LinkML models from instance data
