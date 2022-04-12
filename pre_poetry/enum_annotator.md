@@ -16,12 +16,12 @@ The model is written out to `STDOUT`, whether any enums have been updated or not
 `webmap_enums.py` should be executed from the `linkml-model-enrichment` repo's root directory. The input files mentioned in the examples below are not guaranteed to be present in a cloned `linkml-model-enrichment` repo.
 
 **Convert a TSV file into a LinkML YAML file**
-linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering tests/resources/webmap_enums.tsv > target/webmap_enums.yaml
+schema_automator/infer_model.py tsv2model -E Taxon -E FAO -E Engineering tests/resources/webmap_enums.tsv > target/webmap_enums.yaml
 
 **Map taxon-related enums from a sample file to NCBItaxon terms, without overwriting anything**
 
 ```bash
-./schema-automator/enum_annotator.py \
+./schema_automator/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/webmap_enums.yaml \
 --tabular_outputfile target/ncbitaxon_mappings_log.tsv \
@@ -75,7 +75,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 **Add Sequence Ontology mappings on top of the NCBItaxon mappings**
 
 ```bash
-./schema-automator/enum_annotator.py \
+./schema_automator/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/ncbitaxon_mappings.yaml \
 --tabular_outputfile target/ncbi_so_mappings_log.tsv \
@@ -89,7 +89,7 @@ linkml_model_enrichment/infer_model.py tsv2model -E Taxon -E FAO -E Engineering 
 **Add ENVO mappings for MIxS soil types**
 
 ```bash
-./schema-automator/enum_annotator.py \
+./schema_automator/enum_annotator.py \
 --verbosity DEBUG \
 --modelfile target/ncbi_so_mappings.yaml \
 --tabular_outputfile target/ncbi_so__envo_mappings.tsv \

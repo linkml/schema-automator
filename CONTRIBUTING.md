@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-Welcome contributors! schema-automator is a open-source project. 
+Welcome contributors! schema_automator is a open-source project. 
 
 
 ## Getting started

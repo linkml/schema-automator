@@ -7,7 +7,7 @@ import os
 import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
 
-from linkml_model_enrichment.importers.csv_import_engine import CsvDataImportEngine
+from schema_automator.importers.csv_import_engine import CsvDataImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 

@@ -12,9 +12,9 @@ from rdflib.namespace import RDF, RDFS
 from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
 
 from dataclasses import dataclass
-from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.importers.csv_import_engine import CsvDataImportEngine
-from linkml_model_enrichment.utils.schemautils import merge_schemas
+from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.importers.csv_import_engine import CsvDataImportEngine
+from schema_automator.utils.schemautils import merge_schemas
 
 @dataclass
 class RdfInstanceImportEngine(ImportEngine):

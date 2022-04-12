@@ -1,6 +1,6 @@
 # LinkML Schema Automator
 
-[![DOI](https://zenodo.org/badge/13996/linkml/schema-automator.svg)](https://zenodo.org/badge/latestdoi/13996/linkml/schema-automator)
+[![DOI](https://zenodo.org/badge/13996/linkml/schema_automator.svg)](https://zenodo.org/badge/latestdoi/13996/linkml/schema_automator)
 
 
 This is a toolkit that assists with:
@@ -39,7 +39,7 @@ This toolkit allows automated annotation of LinkML enums, mapping text strings t
 
 The command line tool `annotate-enums` takes a LinkML schema, with enums and fills in the `meaning` slots.
 
-See the [annotators](schema-automator/annotators/) folder for docs
+See the [annotators](schema_automator/annotators/) folder for docs
 
 ### Converting TSVs
 

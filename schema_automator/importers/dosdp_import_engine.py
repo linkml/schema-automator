@@ -14,8 +14,8 @@ from linkml_runtime.linkml_model.meta import SchemaDefinition, ClassDefinition, 
 from linkml_runtime.loaders import yaml_loader
 from linkml_runtime.utils.formatutils import camelcase, underscore
 
-from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.dosdp.model import Pattern, Printf
+from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.dosdp.model import Pattern, Printf
 
 ALIAS = str
 CURIE = str

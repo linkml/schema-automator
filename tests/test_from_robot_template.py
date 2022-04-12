@@ -5,7 +5,7 @@
 import unittest
 import os
 import yaml
-from linkml_model_enrichment.importers.csv_import_engine import CsvDataImportEngine
+from schema_automator.importers.csv_import_engine import CsvDataImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from linkml_runtime.utils.schemaview import SchemaView
 from tests import INPUT_DIR, OUTPUT_DIR

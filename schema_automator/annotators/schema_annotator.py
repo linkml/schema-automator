@@ -13,7 +13,7 @@ from typing import Any, List, Dict, Union
 from linkml_runtime.linkml_model import SchemaDefinition
 from linkml_runtime.utils.schemaview import SchemaView
 
-from linkml_model_enrichment.utils.schemautils import minify_schema
+from schema_automator.utils.schemautils import minify_schema
 
 REST_URL = "http://data.bioontology.org"
 
