@@ -812,6 +812,14 @@ frozendict = ["frozendict"]
 requests = ["requests"]
 
 [[package]]
+name = "pypandoc"
+version = "1.7.5"
+description = "Thin wrapper for pandoc."
+category = "main"
+optional = false
+python-versions = "^2.7 || ^3.6"
+
+[[package]]
 name = "pyparsing"
 version = "3.0.8"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -1343,7 +1351,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "e2cd94800a649d646116c9edf467c3ed372c28c4db69aae9ed9f05029231f0ed"
+content-hash = "4db48ab36bd2b9bdfe26f3ead6b2e355c6d9016483cb3e794a9d68a648ed0e15"
 
 [metadata.files]
 alabaster = [
@@ -1897,6 +1905,9 @@ pyjsg = [
 ]
 pyldmod = [
     {file = "PyLDmod-2.0.5.tar.gz", hash = "sha256:afe7515a4c2b53bbff436c93af128599b4f52791cc71e34baecb7662c694feed"},
+]
+pypandoc = [
+    {file = "pypandoc-1.7.5.tar.gz", hash = "sha256:802c26aae17b64136c6d006949d8ce183a7d4d9fbd4f2d051e66f4fb9f45ca50"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.8-py3-none-any.whl", hash = "sha256:ef7b523f6356f763771559412c0d7134753f037822dad1b16945b7b846f7ad06"},

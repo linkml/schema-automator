@@ -30,6 +30,7 @@ requests = "^2.26.0"
 rdflib = "5.0.0"
 # PyYAML = "^6.0"
 PyYAML = "^5.3.1"
+pypandoc = "^1.7.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

@@ -16,3 +16,4 @@ funowl >= 0.1.9
 quantulum3
 pytest
 jsonpatch
+pypandoc

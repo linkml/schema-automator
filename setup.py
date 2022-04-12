@@ -14,6 +14,12 @@ with open("requirements.txt", "r") as FH:
 
 EXTRAS = {}
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
+
 setup(
     name=NAME,
     author=AUTHOR,
@@ -22,8 +28,8 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     description=DESCRIPTION,
+    long_description=long_description,
     long_description_content_type='text/markdown',
-    long_description=open('README.md').read(),
     license=LICENSE,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     include_package_data=True,
