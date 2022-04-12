@@ -18,7 +18,7 @@ try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
 except(IOError, ImportError):
-    long_description = open('README.md').read()
+    long_description = "a toolkit for automatically generating LinkML schemas from other model serializations."
 
 setup(
     name=NAME,
@@ -53,5 +53,5 @@ setup(
                             'jsondata2linkml=schema_automator.importers.json_instance_import_engine:json2model',
                             'jsonschema2linkml=schema_automator.importers.jsonschema_import_engine:jsonschema2model',
                             ]
-    }
+    },
 )
