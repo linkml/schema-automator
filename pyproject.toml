@@ -5,6 +5,10 @@ description = "Infer models, enrich with meaning for terms including enum permis
 authors = ["Chris Mungall", "Mark Miller"]
 license = "BSD 3-Clause"
 
+packages = [
+    { include = "schema-automator" }
+]
+
 [tool.poetry.dependencies]
 python = "^3.9"
 # click = "^8.0.3"

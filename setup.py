@@ -26,7 +26,7 @@ setup(
     long_description_content_type='text/markdown',
     license=LICENSE,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    package_data={'schema-automator': ["config.yml"]},
+    include_package_data=True,
     keywords='linkml',
     classifiers=[
         'Intended Audience :: Science/Research',
@@ -36,7 +36,6 @@ setup(
     ],
     install_requires=[r for r in REQUIREMENTS if not r.startswith("#")],
     extras_require=EXTRAS,
-    include_package_data=True,
     entry_points={
         'console_scripts': ['annotate-enums=schema-automator.annotators.enum_annotator:clickmain',
                             'annotate-schema=schema-automator.annotators.schema_annotator:annotate_schema',
