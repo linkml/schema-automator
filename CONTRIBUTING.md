@@ -1,7 +1,6 @@
 # Contributing Guidelines
 
-Welcome contributors! KGX is a open-source project built for addressing the challenges of working knowledge graphs and 
-its various serializations. We welcome your suggestions, discussions and contributions to this project. 
+Welcome contributors! schema_automator is a open-source project. 
 
 
 ## Getting started
@@ -11,9 +10,7 @@ Before you get started please be sure to review the [Contributing Guidelines](CO
 ### Developing
 
 Take a look at the project's [README.md](README.md) for instructions on setting up a dev environment. We recommend using 
-Python `venv` for setting up your virtual environment. 
-
-In addition, you can find the technical documentation at [kgx.readthedocs.io](https://kgx.readthedocs.io/)
+Poetry for setting up your virtual environment.
 
 #### Coding Styles
 
@@ -32,7 +29,7 @@ For running tests, we use `pytest`.
 ## Discussion
 
 If you run into any issues or find certain functionality not documented/explained properly then feel free to 
-raise a ticket in the project's [issue tracker](https://github.com/NCATS-Tangerine/kgx/issues). 
+raise a ticket in the project's [issue tracker](https://github.com/linkml/issues). 
 There are issue templates to capture certain types of issues.
 
 ## First Time Contributors
@@ -76,7 +73,7 @@ with a 'Do Not Merge' label.
 ## How to Report a Bug
 
 We recommend making a new ticket for each bug that you encounter while working with KGX. Please be sure to provide
-sufficient context for a bug you are reporting. There are [Issue Templates](https://github.com/NCATS-Tangerine/kgx/issues/new/choose) 
+sufficient context for a bug you are reporting. There are [Issue Templates](https://github.com/linkml/issues/new/choose) 
 that you can use as a starting point.
 
 ## How to Request an Enhancement

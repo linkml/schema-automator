@@ -13,8 +13,8 @@ import time
 from dateutil.parser import parse
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
-from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.utils.schemautils import merge_schemas
+from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.utils.schemautils import merge_schemas
 
 ID_SUFFIX = '_id'
 

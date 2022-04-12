@@ -5,7 +5,7 @@
 import unittest
 import os
 import yaml
-from linkml_model_enrichment.importers.rdf_instance_import_engine import RdfInstanceImportEngine
+from schema_automator.importers.rdf_instance_import_engine import RdfInstanceImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 

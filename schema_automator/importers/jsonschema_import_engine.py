@@ -12,8 +12,8 @@ from linkml_runtime.linkml_model import SchemaDefinition, Element, ClassDefiniti
     SlotDefinitionName, Prefix
 from linkml_runtime.utils.formatutils import underscore
 
-from linkml_model_enrichment.importers.import_engine import ImportEngine
-from linkml_model_enrichment.utils.schemautils import minify_schema
+from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.utils.schemautils import minify_schema
 
 # TODO: move to core. https://github.com/linkml/linkml/issues/104
 RESERVED = ['in', 'not', 'def']

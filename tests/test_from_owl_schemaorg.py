@@ -5,7 +5,7 @@
 import unittest
 import os
 import yaml
-from linkml_model_enrichment.importers.owl_import_engine import OwlImportEngine
+from schema_automator.importers.owl_import_engine import OwlImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 
