@@ -30,10 +30,10 @@ jobs:
       run: |
         poetry version $(git describe --tags --abbrev=0)
         poetry build
-        twine check
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@v1.2.2
       with:
         user: __token__
         verbose: true
+        check: true
         password: ${{ secrets.pypi_password }}
