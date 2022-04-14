@@ -8,8 +8,8 @@ python-versions = "*"
 
 [[package]]
 name = "antlr4-python3-runtime"
-version = "4.10"
-description = "ANTLR 4.10 runtime for Python 2.7.12"
+version = "4.9.3"
+description = "ANTLR 4.9.3 runtime for Python 3.7"
 category = "main"
 optional = false
 python-versions = "*"
@@ -778,18 +778,6 @@ pytz = ">=2020.1"
 test = ["hypothesis (>=5.5.3)", "pytest (>=6.0)", "pytest-xdist (>=1.31)"]
 
 [[package]]
-name = "pandoc"
-version = "2.1"
-description = "Pandoc Documents for Python"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-plumbum = "*"
-ply = "*"
-
-[[package]]
 name = "parse"
 version = "1.19.0"
 description = "parse() is the opposite of format()"
@@ -819,22 +807,6 @@ python-versions = ">=3.6"
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
-
-[[package]]
-name = "plumbum"
-version = "1.7.2"
-description = "Plumbum: shell combinators library"
-category = "main"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-
-[package.dependencies]
-pywin32 = {version = "*", markers = "platform_system == \"Windows\" and platform_python_implementation != \"PyPy\""}
-
-[package.extras]
-dev = ["paramiko", "psutil", "pytest", "pytest-cov", "pytest-mock", "pytest-timeout"]
-docs = ["Sphinx (>=3.0.0)", "sphinx-rtd-theme (>=0.5.0)"]
-ssh = ["paramiko"]
 
 [[package]]
 name = "ply"
@@ -916,14 +888,14 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pyjsg"
-version = "0.11.9"
+version = "0.11.10"
 description = "Python JSON Schema Grammar interpreter"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-antlr4-python3-runtime = ">=4.9,<5.0"
+antlr4-python3-runtime = ">=4.9.3,<4.10.0"
 jsonasobj = ">=1.2.1"
 
 [[package]]
@@ -974,7 +946,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "pyshex"
-version = "0.8.0"
+version = "0.8.1"
 description = "Python ShEx Implementation"
 category = "main"
 optional = false
@@ -983,29 +955,27 @@ python-versions = ">=3.6"
 [package.dependencies]
 cfgraph = ">=0.2.1"
 chardet = "*"
-pyshexc = "0.9.0"
-rdflib = ">=5.0.0"
+pyshexc = "0.9.1"
 rdflib-shim = "*"
 requests = ">=2.22.0"
-shexjsg = ">=0.8.1"
+shexjsg = ">=0.8.2"
 sparqlslurper = ">=0.5.1"
 sparqlwrapper = ">=1.8.5"
 urllib3 = "*"
 
 [[package]]
 name = "pyshexc"
-version = "0.9.0"
+version = "0.9.1"
 description = "PyShExC - Python ShEx compiler"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-antlr4-python3-runtime = ">=4.9,<5.0"
+antlr4-python3-runtime = ">=4.9.3,<4.10.0"
 chardet = "*"
 jsonasobj = ">=1.2.1"
-pyjsg = ">=0.11.9"
-rdflib = ">=5.0.0"
+pyjsg = ">=0.11.10"
 rdflib-shim = "*"
 shexjsg = ">=0.8.1"
 
@@ -1045,14 +1015,6 @@ six = ">=1.5"
 name = "pytz"
 version = "2022.1"
 description = "World timezone definitions, modern and historical"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "pywin32"
-version = "303"
-description = "Python for Window Extensions"
 category = "main"
 optional = false
 python-versions = "*"
@@ -1267,14 +1229,14 @@ jeepney = ">=0.6"
 
 [[package]]
 name = "shexjsg"
-version = "0.8.1"
+version = "0.8.2"
 description = "ShExJSG - Astract Syntax Tree for the ShEx 2.0 language"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-pyjsg = ">=0.11.9"
+pyjsg = ">=0.11.10"
 
 [[package]]
 name = "six"
@@ -1353,7 +1315,7 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-click"
-version = "4.0.1"
+version = "4.0.2"
 description = "Sphinx extension that automatically documents click applications"
 category = "main"
 optional = false
@@ -1593,7 +1555,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b9e6c16916622b0d53ef7d5cb041320ef50ec86d3553f2d16debdd488cd1fc41"
+content-hash = "ad79f6a4749e79c75a188a06f1d5ed945ae37bb1aca1bcf15bd1825eda6551a5"
 
 [metadata.files]
 alabaster = [
@@ -1601,7 +1563,7 @@ alabaster = [
     {file = "alabaster-0.7.12.tar.gz", hash = "sha256:a661d72d58e6ea8a57f7a86e37d86716863ee5e92788398526d58b26a4e4dc02"},
 ]
 antlr4-python3-runtime = [
-    {file = "antlr4-python3-runtime-4.10.tar.gz", hash = "sha256:061a49bc72ae05a35d9b61c0ba0ac36c0397708819f02fbfb20a80e47d287a1b"},
+    {file = "antlr4-python3-runtime-4.9.3.tar.gz", hash = "sha256:f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b"},
 ]
 argparse = [
     {file = "argparse-1.4.0-py2.py3-none-any.whl", hash = "sha256:c31647edb69fd3d465a847ea3157d37bed1f95f19760b11a47aa91c04b666314"},
@@ -2108,9 +2070,6 @@ pandas = [
     {file = "pandas-1.4.2-cp39-cp39-win_amd64.whl", hash = "sha256:09d8be7dd9e1c4c98224c4dfe8abd60d145d934e9fc1f5f411266308ae683e6a"},
     {file = "pandas-1.4.2.tar.gz", hash = "sha256:92bc1fc585f1463ca827b45535957815b7deb218c549b7c18402c322c7549a12"},
 ]
-pandoc = [
-    {file = "pandoc-2.1.tar.gz", hash = "sha256:5385d81a2176237e3c48e9719ab661c7046ec5b24db5f138332f189cd7793b87"},
-]
 parse = [
     {file = "parse-1.19.0.tar.gz", hash = "sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"},
 ]
@@ -2121,10 +2080,6 @@ pkginfo = [
 pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
-]
-plumbum = [
-    {file = "plumbum-1.7.2-py2.py3-none-any.whl", hash = "sha256:0bbf431e31da988405de2fb36c3226f09c0c9cdf69c8480f8997f4b94b7370a1"},
-    {file = "plumbum-1.7.2.tar.gz", hash = "sha256:0d1bf908076bbd0484d16412479cb97d6843069ee19f99e267e11dd980040523"},
 ]
 ply = [
     {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
@@ -2247,8 +2202,8 @@ pygments = [
     {file = "Pygments-2.11.2.tar.gz", hash = "sha256:4e426f72023d88d03b2fa258de560726ce890ff3b630f88c21cbb8b2503b8c6a"},
 ]
 pyjsg = [
-    {file = "PyJSG-0.11.9-py3-none-any.whl", hash = "sha256:b9bf406c87aab4ff62f9372e38b4fcda5cffc0c12385c46a4b01eb83dafd7850"},
-    {file = "PyJSG-0.11.9.tar.gz", hash = "sha256:8679a81c00e2ccb12618adcc2ce5e9a7bef542f4f940ef18e5b7751f5c5a42a4"},
+    {file = "PyJSG-0.11.10-py3-none-any.whl", hash = "sha256:10af60ff42219be7e85bf7f11c19b648715b0b29eb2ddbd269e87069a7c3f26d"},
+    {file = "PyJSG-0.11.10.tar.gz", hash = "sha256:4bd6e3ff2833fa2b395bbe803a2d72a5f0bab5b7285bccd0da1a1bc0aee88bfa"},
 ]
 pyldmod = [
     {file = "PyLDmod-2.0.5.tar.gz", hash = "sha256:afe7515a4c2b53bbff436c93af128599b4f52791cc71e34baecb7662c694feed"},
@@ -2284,12 +2239,12 @@ pyrsistent = [
     {file = "pyrsistent-0.18.1.tar.gz", hash = "sha256:d4d61f8b993a7255ba714df3aca52700f8125289f84f704cf80916517c46eb96"},
 ]
 pyshex = [
-    {file = "PyShEx-0.8.0-py3-none-any.whl", hash = "sha256:e1edc64806c88f8341a6358aa342315704f36ab528af6c28ec29bc14b90a0818"},
-    {file = "PyShEx-0.8.0.tar.gz", hash = "sha256:1e158a55b6a5d375aeff86becb2a177ec37586677a9f0f5297fef3bfebaf05ce"},
+    {file = "PyShEx-0.8.1-py3-none-any.whl", hash = "sha256:6da1b10123e191abf8dcb6bf3e54aa3e1fcf771df5d1a0ed453217c8900c8e6a"},
+    {file = "PyShEx-0.8.1.tar.gz", hash = "sha256:3c5c4d45fe27faaadae803cb008c41acf8ee784da7868b04fd84967e75be70d0"},
 ]
 pyshexc = [
-    {file = "PyShExC-0.9.0-py2.py3-none-any.whl", hash = "sha256:238d30bf5c395d66f07557f7b9c1bac9c4782ef5ad495a2fbc6399347f1bd2d9"},
-    {file = "PyShExC-0.9.0.tar.gz", hash = "sha256:86fbd322248dd89b984163227fa81da8d7bceec0c58b49cdac3c21c920c8cafa"},
+    {file = "PyShExC-0.9.1-py2.py3-none-any.whl", hash = "sha256:efc55ed5cb2453e9df569b03e282505e96bb06597934288f3b23dd980ef10028"},
+    {file = "PyShExC-0.9.1.tar.gz", hash = "sha256:35a9975d4b9afeb20ef710fb6680871756381d0c39fbb5470b3b506581a304d3"},
 ]
 pytest = [
     {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},
@@ -2302,20 +2257,6 @@ python-dateutil = [
 pytz = [
     {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
     {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
-]
-pywin32 = [
-    {file = "pywin32-303-cp310-cp310-win32.whl", hash = "sha256:6fed4af057039f309263fd3285d7b8042d41507343cd5fa781d98fcc5b90e8bb"},
-    {file = "pywin32-303-cp310-cp310-win_amd64.whl", hash = "sha256:51cb52c5ec6709f96c3f26e7795b0bf169ee0d8395b2c1d7eb2c029a5008ed51"},
-    {file = "pywin32-303-cp311-cp311-win32.whl", hash = "sha256:d9b5d87ca944eb3aa4cd45516203ead4b37ab06b8b777c54aedc35975dec0dee"},
-    {file = "pywin32-303-cp311-cp311-win_amd64.whl", hash = "sha256:fcf44032f5b14fcda86028cdf49b6ebdaea091230eb0a757282aa656e4732439"},
-    {file = "pywin32-303-cp36-cp36m-win32.whl", hash = "sha256:aad484d52ec58008ca36bd4ad14a71d7dd0a99db1a4ca71072213f63bf49c7d9"},
-    {file = "pywin32-303-cp36-cp36m-win_amd64.whl", hash = "sha256:2a09632916b6bb231ba49983fe989f2f625cea237219530e81a69239cd0c4559"},
-    {file = "pywin32-303-cp37-cp37m-win32.whl", hash = "sha256:b1675d82bcf6dbc96363fca747bac8bff6f6e4a447a4287ac652aa4b9adc796e"},
-    {file = "pywin32-303-cp37-cp37m-win_amd64.whl", hash = "sha256:c268040769b48a13367221fced6d4232ed52f044ffafeda247bd9d2c6bdc29ca"},
-    {file = "pywin32-303-cp38-cp38-win32.whl", hash = "sha256:5f9ec054f5a46a0f4dfd72af2ce1372f3d5a6e4052af20b858aa7df2df7d355b"},
-    {file = "pywin32-303-cp38-cp38-win_amd64.whl", hash = "sha256:793bf74fce164bcffd9d57bb13c2c15d56e43c9542a7b9687b4fccf8f8a41aba"},
-    {file = "pywin32-303-cp39-cp39-win32.whl", hash = "sha256:7d3271c98434617a11921c5ccf74615794d97b079e22ed7773790822735cc352"},
-    {file = "pywin32-303-cp39-cp39-win_amd64.whl", hash = "sha256:79cbb862c11b9af19bcb682891c1b91942ec2ff7de8151e2aea2e175899cda34"},
 ]
 pywin32-ctypes = [
     {file = "pywin32-ctypes-0.2.0.tar.gz", hash = "sha256:24ffc3b341d457d48e8922352130cf2644024a4ff09762a2261fd34c36ee5942"},
@@ -2436,8 +2377,8 @@ secretstorage = [
     {file = "SecretStorage-3.3.1.tar.gz", hash = "sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195"},
 ]
 shexjsg = [
-    {file = "ShExJSG-0.8.1-py2.py3-none-any.whl", hash = "sha256:33749e8c90a30cca2cb6e23f94268bed5217a6f7c04d584e64fcb6869b60972b"},
-    {file = "ShExJSG-0.8.1.tar.gz", hash = "sha256:3768c3b9ea011a832cb6f50ba3275678b27ce60a2024fc55cfc897e9031cf838"},
+    {file = "ShExJSG-0.8.2-py2.py3-none-any.whl", hash = "sha256:3b0d8432dd313bee9e1343382c5e02e9908dd941a7dd7342bf8c0200fe523766"},
+    {file = "ShExJSG-0.8.2.tar.gz", hash = "sha256:f17a629fc577fa344382bdee143cd9ff86588537f9f811f66cea6f63cdbcd0b6"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
@@ -2463,8 +2404,8 @@ sphinx = [
     {file = "Sphinx-4.5.0.tar.gz", hash = "sha256:7bf8ca9637a4ee15af412d1a1d9689fec70523a68ca9bb9127c2f3eeb344e2e6"},
 ]
 sphinx-click = [
-    {file = "sphinx-click-4.0.1.tar.gz", hash = "sha256:6d0bc3de8b77a1e7623061d1f1b4fcb3ba4af0471a14c5f3f40d9852156163f9"},
-    {file = "sphinx_click-4.0.1-py3-none-any.whl", hash = "sha256:7569b9eec0102344a4f9fa18b1d916624ab71a47a95d2ef6113b5b7f9402bc2b"},
+    {file = "sphinx-click-4.0.2.tar.gz", hash = "sha256:abdaae87da5280607f0df35e01a78625f5c858ba0d1a5a553d0a803d87a88bba"},
+    {file = "sphinx_click-4.0.2-py3-none-any.whl", hash = "sha256:0a158612397e094e4537a381e101f8d44acb794885ba614a804b548d62570bab"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-1.0.0-py2.py3-none-any.whl", hash = "sha256:4d35a56f4508cfee4c4fb604373ede6feae2a306731d533f409ef5c3496fdbd8"},

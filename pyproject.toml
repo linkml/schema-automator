@@ -32,7 +32,6 @@ rdflib = "5.0.0"
 PyYAML = "^5.3.1"
 pypandoc = "^1.7.5"
 twine = "^4.0.0"
-pandoc = "^2.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
