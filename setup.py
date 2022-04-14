@@ -16,7 +16,7 @@ EXTRAS = {}
 
 try:
     import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
+    long_description = pypandoc.convert_file('README.md', 'rst')
 except(IOError, ImportError):
     long_description = "a toolkit for automatically generating LinkML schemas from other model serializations."
 

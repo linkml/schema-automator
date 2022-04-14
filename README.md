@@ -2,20 +2,21 @@
 
 This is a toolkit that assists with:
 
- 1. Bootstrapping LinkML models from instance data
+1. Bootstrapping LinkML models from instance data
     - TSVs and spreadsheets
     - SQLite databases
     - RDF instance graphs
- 2. Bootstrapping a LinkML model from a different schema representation (i.e. opposite of a linkml.generator)
+2. Bootstrapping a LinkML model from a different schema representation (i.e. opposite of a linkml.generator)
     - OWL (RDFS-like subset)
     - TODO: JSON-Schema, XSD, ShEx, SHACL, SQL DDL, FHIR, Python dataclasses/pydantic, etc
- 3. Using automated methods to enhance a model
+3. Using automated methods to enhance a model
     - Using text mining and concept annotator APIs to enrich semantic enums
     - TODO: querying sparql endpoints to retrieve additional metadata
 
 These can be composed together. For example, run `tsvs2linkml` followed by `annotate-enums`
 
-The toolkit is still experimental. It is intended as an aid to schema creation rather than act as a formal conversion tool
+The toolkit is still experimental. It is intended as an aid to schema creation rather than act as a formal conversion
+tool
 
 ## Installation
 
@@ -43,7 +44,7 @@ See the [annotators](schema_automator/annotators/) folder for docs
 The `tsv2linkml` command infers a single-class schema from a TSV datafile
 
 ```bash
-$ tsv2linkml --help
+tsv2linkml --help
 Usage: tsv2linkml [OPTIONS] TSVFILE
 
   Infer a model from a TSV
@@ -66,8 +67,8 @@ tsv2linkml tests/resources/biobank-specimens.tsv
 
 The `tsvs2linkml` command infers a multi-class schema from multiple TSV datafiles
 
-```
-$ tsvs2linkml --help
+```bash
+tsvs2linkml --help
 Usage: tsvs2linkml [OPTIONS] [TSVFILES]...
 
   Infer a model from multiple TSVs
@@ -88,11 +89,10 @@ Options:
   --help                    Show this message and exit.
 ```
 
-
 ### Converting OWL
 
 ```bash
-$ owl2linkml --help
+owl2linkml --help
 Usage: owl2linkml [OPTIONS] OWLFILE
 
   Infer a model from OWL Ontology
@@ -117,7 +117,7 @@ Note this works best on schema-style ontologies such as Prov
 ### Converting RDF instance graphs
 
 ```bash
-$ rdf2linkml --help
+rdf2linkml --help
 Usage: rdf2linkml [OPTIONS] RDFFILE
 
   Infer a model from RDF instance data
@@ -130,7 +130,7 @@ Options:
 ### Converting JSON Instance Data
 
 ```bash
-$ jsondata2linkml --help
+jsondata2linkml --help
 Usage: jsondata2linkml [OPTIONS] INPUT
 
   Infer a model from JSON instance data
@@ -146,9 +146,8 @@ Options:
 
 ### Converting JSON-Schema
 
-
-```
-$ jsonschema2linkml --help
+```bash
+jsonschema2linkml --help
 Usage: jsonschema2linkml [OPTIONS] INPUT
 
   Infer a model from JSON Schema
