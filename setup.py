@@ -22,8 +22,6 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     description=DESCRIPTION,
-    long_description='a toolkit for automatically generating LinkML schemas from other model serializations.',
-    long_description_content_type='text/x-rst',
     license=LICENSE,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     include_package_data=True,
