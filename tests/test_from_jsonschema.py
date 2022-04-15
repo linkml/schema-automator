@@ -57,6 +57,7 @@ class TestJsonSchemaImport(unittest.TestCase):
         """Test JSONSchema conversion."""
         schema = self._convert('vrs.schema', 'json')
 
+
     def test_phenopackets(self):
         schema = self._convert('phenopackets.schema', 'json',
                                name='phenopackets',

@@ -20,7 +20,7 @@ tool
 
 ## Installation
 
-`linkml-model-enrichment` and its components require Python 3.9 or greater.
+`schema-automator` and its components require Python 3.9 or greater.
 
 ```bash
 chmod 755 environment.sh
@@ -157,4 +157,9 @@ Options:
   -f, --format TEXT  JSON Schema format - yaml or json
   -o, --output TEXT  output path
   --help             Show this message and exit.
+```
+
+### jsonschema2linkml example
+```bash
+poetry run jsonschema2linkml -n test-model -f yaml -o vrs-linkml.yaml cp tests/resources/jsonschema/vrs.schema.json
 ```

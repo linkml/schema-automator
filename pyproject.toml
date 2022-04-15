@@ -43,10 +43,13 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tsv2linkml = "linkml_model_enrichment.importers.csv_import_engine:tsv2model"
-owl2linkml = "linkml_model_enrichment.importers.owl_import_engine:owl2model"
-enum_annotator = "linkml_model_enrichment.annotators.enum_annotator:enum_annotator"
-enums_to_curateable = "linkml_model_enrichment.annotators.enums_to_curateable:enums_to_curateable"
-curated_to_enums = "linkml_model_enrichment.annotators.curated_to_enums:curated_to_enums"
-
+tsv2linkml = "schema_automator.importers.csv_import_engine:tsv2model"
+enum_annotator = "schema_automator.annotators.enum_annotator:enum_annotator"
+enums_to_curateable = "schema_automator.annotators.enums_to_curateable:enums_to_curateable"
+curated_to_enums = "schema_automator.annotators.curated_to_enums:curated_to_enums"
+rdf2linkml = "schema_automator.importers.rdf_instance_import_engine:rdf2model"
+owl2linkml = "schema_automator.importers.owl_import_engine:owl2model"
+dosdp2linkml = "schema_automator.importers.owl_import_engine:dosdp2model"
+jsondata2linkml = "schema_automator.importers.json_instance_import_engine:json2model"
+jsonschema2linkml = "schema_automator.importers.jsonschema_import_engine:jsonschema2model"
 
