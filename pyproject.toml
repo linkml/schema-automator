@@ -11,10 +11,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-# click = "^8.0.3"
 click = "^8.1.2"
-# only necessary if 3.6 support is desired
-# dataclasses = "^0.8"
 linkml-runtime = "^1.2.0rc6"
 linkml = "^1.2.0rc7"
 mkdocs = "^1.2.3"
@@ -29,11 +26,9 @@ strsimpy = "^0.2.1"
 requests = "^2.26.0"
 bioregistry = "^0.4.59"
 rdflib = "^6.0.2"
-# PyYAML = "^6.0"
 PyYAML = "^5.3.1"
 pypandoc = "^1.7.5"
 twine = "^4.0.0"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
