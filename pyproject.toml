@@ -12,37 +12,41 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.9"
 # click = "^8.0.3"
-click = "^7.1.2"
+click = "^8.1.2"
 # only necessary if 3.6 support is desired
 # dataclasses = "^0.8"
-linkml-runtime = "^1.1.21"
-linkml = "^1.1.13"
+linkml-runtime = "^1.2.0rc6"
+linkml = "^1.2.0rc7"
 mkdocs = "^1.2.3"
 pandas = "^1.3.5"
 python-dateutil = "^2.8.2"
 jsonpatch = "^1.32"
 quantulum3 = "^0.7.9"
-funowl = "^0.1.10"
-click-log = "^0.3.2"
+funowl = "^0.1.11"
+click-log = "^0.4.0"
 psycopg2-binary = "^2.9.2"
 strsimpy = "^0.2.1"
 requests = "^2.26.0"
-rdflib = "^6.0.0"
+bioregistry = "^0.4.59"
+rdflib = "^6.0.2"
 # PyYAML = "^6.0"
 PyYAML = "^5.3.1"
 pypandoc = "^1.7.5"
 twine = "^4.0.0"
 
+
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+pytest = "^7.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tsv2linkml = "schema_automator.importers.csv_import_engine:tsv2model"
-enum_annotator = "schema_automator.annotators.enum_annotator:enum_annotator"
-enums_to_curateable = "schema_automator.annotators.enums_to_curateable:enums_to_curateable"
-curated_to_enums = "schema_automator.annotators.curated_to_enums:curated_to_enums"
+tsv2linkml = "linkml_model_enrichment.importers.csv_import_engine:tsv2model"
+owl2linkml = "linkml_model_enrichment.importers.owl_import_engine:owl2model"
+enum_annotator = "linkml_model_enrichment.annotators.enum_annotator:enum_annotator"
+enums_to_curateable = "linkml_model_enrichment.annotators.enums_to_curateable:enums_to_curateable"
+curated_to_enums = "linkml_model_enrichment.annotators.curated_to_enums:curated_to_enums"
+
 
