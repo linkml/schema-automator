@@ -10,12 +10,12 @@ from linkml_runtime.utils.compile_python import compile_python
 from linkml_runtime.loaders import json_loader
 from linkml_runtime.loaders import yaml_loader
 
-from linkml_model_enrichment.importers.jsonschema_import_engine import JsonSchemaImportEngine
+from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from linkml_runtime.dumpers import yaml_dumper
 from linkml.generators.jsonschemagen import JsonSchemaGenerator
 from linkml.generators.pythongen import PythonGenerator
 
-from linkml_model_enrichment.utils.schemautils import minify_schema
+from schema_automator.utils.schemautils import minify_schema
 from tests import INPUT_DIR, OUTPUT_DIR
 
 PP = os.path.join(INPUT_DIR, 'phenopackets/phenopackets.schema.json')

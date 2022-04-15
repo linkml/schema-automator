@@ -16,7 +16,7 @@ import funowl
 
 
 from dataclasses import dataclass
-from linkml_model_enrichment.importers.import_engine import ImportEngine
+from schema_automator.importers.import_engine import ImportEngine
 
 
 @dataclass

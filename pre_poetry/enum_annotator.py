@@ -259,7 +259,7 @@ def read_yaml_model(modelfile_param):
 
 # don't forget type field on options ???
 # synbio example (without redirection of yaml stdout):
-# ./linkml_model_enrichment/mixs_qd_bp_or_ols.py \
+# ./schema_automator/mixs_qd_bp_or_ols.py \
 # --modelfile target/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
 # --ontoprefix NCBItaxon,SO \
 # --enum_list species_enum,host_organism_enum,category_enum,type_enum,type_long_enum \

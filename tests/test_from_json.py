@@ -7,7 +7,7 @@ import os
 import yaml
 from linkml_runtime.utils.schemaview import SchemaView
 
-from linkml_model_enrichment.importers.json_instance_import_engine import JsonInstanceImportEngine
+from schema_automator.importers.json_instance_import_engine import JsonInstanceImportEngine
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 

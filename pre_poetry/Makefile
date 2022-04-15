@@ -20,11 +20,11 @@ integration-tests:
 typecheck:
 	mypy kgx --ignore-missing-imports
 
-linkml_model_enrichment/dosdp/model.py: linkml_model_enrichment/dosdp/dosdp_linkml.yaml
-	gen-python $< > $@ && python -m linkml_model_enrichment.dosdp.model
+schema_automator/dosdp/model.py: schema_automator/dosdp/dosdp_linkml.yaml
+	gen-python $< > $@ && python -m schema_automator.dosdp.model
 
 inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml:
-	linkml_model_enrichment/infer_model.py \
+	schema_automator/infer_model.py \
 	tsv2model \
 	-E species \
 	data/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.tsv > \
@@ -32,35 +32,35 @@ inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_sc
 
 # samples of mapping enumerables to semantic terms via BioPortal 
 target/species_enum_ncbitaxon.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
+	schema_automator/bioportal-enum-annotation.py \
 	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
 	--enum_source species_enum \
 	--ontoprefix ncbitaxon > target/species_enum_ncbitaxon.yaml
 
 target/species_enum_all_bp.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
+	schema_automator/bioportal-enum-annotation.py \
 	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
 	--enum_source species_enum > \
 	target/species_enum_all_bp.yaml
 
 target/type_enum_so.yaml: inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
+	schema_automator/bioportal-enum-annotation.py \
 	--modelfile inferred-models/Ontology_example_20210317_P2B1_allmods_categorytype_different_scores_per_mod-1.yaml \
 	--enum_source type_enum \
 	--ontoprefix so > \
 	target/type_enum_so.yaml
 
 data/felix_modifications.tsv:
-	linkml_model_enrichment/get_felix_tsv.py
+	schema_automator/get_felix_tsv.py
 
 inferred-models/felix_modifications.yaml: data/felix_modifications.tsv
-	linkml_model_enrichment/infer_model.py \
+	schema_automator/infer_model.py \
 	tsv2model \
 	data/felix_modifications.tsv > \
 	inferred-models/felix_modifications.yaml
 
 target/felix_modifications_modification_type_enum_so.yaml: inferred-models/felix_modifications.yaml
-	linkml_model_enrichment/bioportal-enum-annotation.py \
+	schema_automator/bioportal-enum-annotation.py \
 	--modelfile inferred-models/felix_modifications.yaml \
 	--enum_source modification_type_enum \
 	--ontoprefix so > \

@@ -5,7 +5,7 @@ import logging
 import unittest
 import os
 import yaml
-from linkml_model_enrichment.annotators.schema_annotator import SchemaAnnotator
+from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 
