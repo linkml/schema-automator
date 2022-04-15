@@ -158,3 +158,8 @@ Options:
   -o, --output TEXT  output path
   --help             Show this message and exit.
 ```
+
+### jsonschema2linkml example
+```bash
+poetry run jsonschema2linkml -n test-model -f yaml -o vrs-linkml.yaml cp tests/resources/jsonschema/vrs.schema.json
+```
