@@ -2,7 +2,7 @@
 name = "schema_automator"
 version = "v0.1.1"
 description = "Infer models, enrich with meaning for terms including enum permissible values"
-authors = ["Chris Mungall", "Mark Miller", "Sierra Moxon"]
+authors = ["Chris Mungall", "Mark Miller"]
 license = "BSD 3-Clause"
 
 packages = [
