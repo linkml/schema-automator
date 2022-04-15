@@ -6,7 +6,7 @@ URL = 'https://github.com/linkml/schema_automator'
 AUTHOR = 'Mark Miller'
 EMAIL = 'mam@lbl.gov'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '1.0.0b0'
+VERSION = '0.1.3'
 LICENSE = 'BSD'
 
 with open("requirements.txt", "r") as FH:
