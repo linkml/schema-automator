@@ -34,7 +34,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
     'sphinx.ext.autosectionlabel',
-    'groundwork_sphinx_theme',
+    'cloud_sptheme',
     'sphinx_click',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',

@@ -177,6 +177,17 @@ python-versions = "*"
 click = "*"
 
 [[package]]
+name = "cloud-sptheme"
+version = "1.10.1.post20200504175005"
+description = "a nice sphinx theme named 'Cloud', and some related extensions"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+sphinx = ">=1.6"
+
+[[package]]
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
@@ -312,17 +323,6 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 
 [package.extras]
 docs = ["sphinx"]
-
-[[package]]
-name = "groundwork-sphinx-theme"
-version = "1.1.1"
-description = "Sphinx theme for groundwork projects (Based on flask_theme)"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Sphinx = ">=1.6.1"
 
 [[package]]
 name = "hbreader"
@@ -1561,7 +1561,7 @@ docs = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "8a94c99c3438473fee86e31f8c62c4e34e19d754b89a063a7f4a775e9dfaba1e"
+content-hash = "b838965858ed783bf4e8c9822f544d176de90d224203d3f6be1a29be68d1266b"
 
 [metadata.files]
 alabaster = [
@@ -1673,6 +1673,10 @@ click = [
 click-log = [
     {file = "click-log-0.4.0.tar.gz", hash = "sha256:3970f8570ac54491237bcdb3d8ab5e3eef6c057df29f8c3d1151a51a9c23b975"},
     {file = "click_log-0.4.0-py2.py3-none-any.whl", hash = "sha256:a43e394b528d52112af599f2fc9e4b7cf3c15f94e53581f74fa6867e68c91756"},
+]
+cloud-sptheme = [
+    {file = "cloud_sptheme-1.10.1.post20200504175005-py2.py3-none-any.whl", hash = "sha256:82be47ddebbc045e7386269fc062f79d6f87cefe8e5c1e35fe0e9f4266a57723"},
+    {file = "cloud_sptheme-1.10.1.post20200504175005.tar.gz", hash = "sha256:caf47ac4c6346eef47fc11e799adbeaf645921c712cc099cf2530560e7ecde44"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
@@ -1791,10 +1795,6 @@ greenlet = [
     {file = "greenlet-1.1.2-cp39-cp39-win32.whl", hash = "sha256:f70a9e237bb792c7cc7e44c531fd48f5897961701cdaa06cf22fc14965c496cf"},
     {file = "greenlet-1.1.2-cp39-cp39-win_amd64.whl", hash = "sha256:013d61294b6cd8fe3242932c1c5e36e5d1db2c8afb58606c5a67efce62c1f5fd"},
     {file = "greenlet-1.1.2.tar.gz", hash = "sha256:e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a"},
-]
-groundwork-sphinx-theme = [
-    {file = "groundwork-sphinx-theme-1.1.1.tar.gz", hash = "sha256:5f1217bf34daba5fcd93e8a2a04ef5a6c2b144ec43754aec7ce14de501e23fe4"},
-    {file = "groundwork_sphinx_theme-1.1.1-py2.py3-none-any.whl", hash = "sha256:b4796989ce3cd6d5b5a3c7ebe52a8c9cf848110e9f12c2c88e2b3c0e4e8f0e24"},
 ]
 hbreader = [
     {file = "hbreader-0.9.1-py3-none-any.whl", hash = "sha256:9a6e76c9d1afc1b977374a5dc430a1ebb0ea0488205546d4678d6e31cc5f6801"},
