@@ -12,6 +12,8 @@
 #
 import os
 import sys
+import sphinx_pdj_theme
+
 sys.path.insert(0, os.path.abspath('../..'))
 
 
@@ -19,7 +21,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 project = 'Schema Automator'
 copyright = '2022, Chris Mungall'
-author = 'Chris Mungall'
+author = 'Chris Mungall, Harshad Hegde'
 
 # The full version, including alpha/beta/rc tags
 # release = '0.1.4'
@@ -34,7 +36,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
     'sphinx.ext.autosectionlabel',
-    'sphinx_rtd_theme',
+    'sphinx_pdj_theme',
     'sphinx_click',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
@@ -64,7 +66,8 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_pdj_theme'
+html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

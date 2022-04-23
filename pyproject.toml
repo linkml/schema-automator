@@ -38,7 +38,7 @@ twine = "^4.0.0"
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
 Sphinx = "^4.4.0"
-sphinx-rtd-theme = "^1.0.0"
+sphinx-pdj-theme = "^0.2.0"
 sphinx-click = "^3.1.0"
 sphinxcontrib-mermaid = "^0.7.1"
 
@@ -59,4 +59,4 @@ jsondata2linkml = "schema_automator.importers.json_instance_import_engine:json2m
 jsonschema2linkml = "schema_automator.importers.jsonschema_import_engine:jsonschema2model"
 
 [tool.poetry.extras]
-docs = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-mermaid"]
+docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
