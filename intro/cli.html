@@ -1,91 +1,48 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command Line Usage &mdash; Schema Automator  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
-    <script src="../_static/js/theme.js"></script>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Command Line Usage &#8212; Schema Automator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/groundwork.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Installation" href="install.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Schema Automator  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Get Started</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Command Line Usage</a></li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Schema Automator
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">LinkML Schema Automator</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Get Started</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Command Line Usage</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#annotating-enums">Annotating Enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#converting-tsvs">Converting TSVs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#converting-owl">Converting OWL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#converting-rdf-instance-graphs">Converting RDF instance graphs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#converting-json-instance-data">Converting JSON Instance Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#converting-json-schema">Converting JSON-Schema</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#jsonschema2linkml-example">jsonschema2linkml example</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Schema Automator</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Get Started</a> &raquo;</li>
-      <li>Command Line Usage</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/intro/cli.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
   <section id="command-line-usage">
-<h1>Command Line Usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline"></a></h1>
+<h1>Command Line Usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h1>
 <section id="annotating-enums">
-<h2>Annotating Enums<a class="headerlink" href="#annotating-enums" title="Permalink to this headline"></a></h2>
+<h2>Annotating Enums<a class="headerlink" href="#annotating-enums" title="Permalink to this headline">¶</a></h2>
 <p>This toolkit allows automated annotation of LinkML enums, mapping text
 strings to ontology terms.</p>
 <p>The command line tool <code class="docutils literal notranslate"><span class="pre">annotate-enums</span></code> takes a LinkML schema, with
@@ -93,7 +50,7 @@ enums and fills in the <code class="docutils literal notranslate"><span class="p
 <p>See the <a class="reference external" href="schema_automator/annotators/">annotators</a> folder for docs</p>
 </section>
 <section id="converting-tsvs">
-<h2>Converting TSVs<a class="headerlink" href="#converting-tsvs" title="Permalink to this headline"></a></h2>
+<h2>Converting TSVs<a class="headerlink" href="#converting-tsvs" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">tsv2linkml</span></code> command infers a single-class schema from a TSV
 datafile</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tsv2linkml --help
@@ -140,7 +97,7 @@ Options:
 </div>
 </section>
 <section id="converting-owl">
-<h2>Converting OWL<a class="headerlink" href="#converting-owl" title="Permalink to this headline"></a></h2>
+<h2>Converting OWL<a class="headerlink" href="#converting-owl" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>owl2linkml --help
 Usage: owl2linkml <span class="o">[</span>OPTIONS<span class="o">]</span> OWLFILE
 
@@ -161,7 +118,7 @@ Options:
 <p><strong>NOT</strong> recommended for terminological-style ontologies such as OBO</p>
 </section>
 <section id="converting-rdf-instance-graphs">
-<h2>Converting RDF instance graphs<a class="headerlink" href="#converting-rdf-instance-graphs" title="Permalink to this headline"></a></h2>
+<h2>Converting RDF instance graphs<a class="headerlink" href="#converting-rdf-instance-graphs" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdf2linkml --help
 Usage: rdf2linkml <span class="o">[</span>OPTIONS<span class="o">]</span> RDFFILE
 
@@ -174,7 +131,7 @@ Options:
 </div>
 </section>
 <section id="converting-json-instance-data">
-<h2>Converting JSON Instance Data<a class="headerlink" href="#converting-json-instance-data" title="Permalink to this headline"></a></h2>
+<h2>Converting JSON Instance Data<a class="headerlink" href="#converting-json-instance-data" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jsondata2linkml --help
 Usage: jsondata2linkml <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
 
@@ -191,7 +148,7 @@ Options:
 </div>
 </section>
 <section id="converting-json-schema">
-<h2>Converting JSON-Schema<a class="headerlink" href="#converting-json-schema" title="Permalink to this headline"></a></h2>
+<h2>Converting JSON-Schema<a class="headerlink" href="#converting-json-schema" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jsonschema2linkml --help
 Usage: jsonschema2linkml <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
 
@@ -206,7 +163,7 @@ Options:
 </div>
 </section>
 <section id="jsonschema2linkml-example">
-<h2>jsonschema2linkml example<a class="headerlink" href="#jsonschema2linkml-example" title="Permalink to this headline"></a></h2>
+<h2>jsonschema2linkml example<a class="headerlink" href="#jsonschema2linkml-example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry run jsonschema2linkml -n test-model -f yaml -o vrs-linkml.yaml cp tests/resources/jsonschema/vrs.schema.json
 </pre></div>
 </div>
@@ -214,33 +171,71 @@ Options:
 </section>
 
 
-           </div>
+            <div class="clearer"></div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022, Chris Mungall.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
         </div>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Command Line Usage</a><ul>
+<li><a class="reference internal" href="#annotating-enums">Annotating Enums</a></li>
+<li><a class="reference internal" href="#converting-tsvs">Converting TSVs</a></li>
+<li><a class="reference internal" href="#converting-owl">Converting OWL</a></li>
+<li><a class="reference internal" href="#converting-rdf-instance-graphs">Converting RDF instance graphs</a></li>
+<li><a class="reference internal" href="#converting-json-instance-data">Converting JSON Instance Data</a></li>
+<li><a class="reference internal" href="#converting-json-schema">Converting JSON-Schema</a></li>
+<li><a class="reference internal" href="#jsonschema2linkml-example">jsonschema2linkml example</a></li>
+</ul>
+</li>
+</ul>
 
-</body>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="install.html"
+                          title="previous chapter">Installation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/intro/cli.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Schema Automator  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Get Started</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Command Line Usage</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Chris Mungall.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    </div>
+  </body>
 </html>
