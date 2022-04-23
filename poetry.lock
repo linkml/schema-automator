@@ -177,17 +177,6 @@ python-versions = "*"
 click = "*"
 
 [[package]]
-name = "cloud-sptheme"
-version = "1.10.1.post20200504175005"
-description = "a nice sphinx theme named 'Cloud', and some related extensions"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-sphinx = ">=1.6"
-
-[[package]]
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
@@ -987,7 +976,7 @@ xml = ["lxml"]
 
 [[package]]
 name = "pytest"
-version = "7.1.1"
+version = "7.1.2"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
 optional = false
@@ -1318,6 +1307,14 @@ docutils = "*"
 sphinx = ">=2.0"
 
 [[package]]
+name = "sphinx-pdj-theme"
+version = "0.2.1"
+description = "PdJ for Sphinx"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "sphinx-rtd-theme"
 version = "1.0.0"
 description = "Read the Docs theme for Sphinx"
@@ -1561,7 +1558,7 @@ docs = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b838965858ed783bf4e8c9822f544d176de90d224203d3f6be1a29be68d1266b"
+content-hash = "3bc3860e9dc0e22e8f3abebd0d59be7e46ff59d7f176da17c2e56c14675532d4"
 
 [metadata.files]
 alabaster = [
@@ -1673,10 +1670,6 @@ click = [
 click-log = [
     {file = "click-log-0.4.0.tar.gz", hash = "sha256:3970f8570ac54491237bcdb3d8ab5e3eef6c057df29f8c3d1151a51a9c23b975"},
     {file = "click_log-0.4.0-py2.py3-none-any.whl", hash = "sha256:a43e394b528d52112af599f2fc9e4b7cf3c15f94e53581f74fa6867e68c91756"},
-]
-cloud-sptheme = [
-    {file = "cloud_sptheme-1.10.1.post20200504175005-py2.py3-none-any.whl", hash = "sha256:82be47ddebbc045e7386269fc062f79d6f87cefe8e5c1e35fe0e9f4266a57723"},
-    {file = "cloud_sptheme-1.10.1.post20200504175005.tar.gz", hash = "sha256:caf47ac4c6346eef47fc11e799adbeaf645921c712cc099cf2530560e7ecde44"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
@@ -2182,8 +2175,8 @@ pystow = [
     {file = "pystow-0.4.2.tar.gz", hash = "sha256:e4b1922a8f4190f0e9f96cbd90126482b271836962443db696fa92d016fdef2e"},
 ]
 pytest = [
-    {file = "pytest-7.1.1-py3-none-any.whl", hash = "sha256:92f723789a8fdd7180b6b06483874feca4c48a5c76968e03bb3e7f806a1869ea"},
-    {file = "pytest-7.1.1.tar.gz", hash = "sha256:841132caef6b1ad17a9afde46dc4f6cfa59a05f9555aae5151f73bdf2820ca63"},
+    {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
+    {file = "pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
@@ -2337,6 +2330,9 @@ sphinx = [
 sphinx-click = [
     {file = "sphinx-click-3.1.0.tar.gz", hash = "sha256:36dbf271b1d2600fb05bd598ddeed0b6b6acf35beaf8bc9d507ba7716b232b0e"},
     {file = "sphinx_click-3.1.0-py3-none-any.whl", hash = "sha256:8fb0b048a577d346d741782e44d041d7e908922858273d99746f305870116121"},
+]
+sphinx-pdj-theme = [
+    {file = "sphinx_pdj_theme-0.2.1.tar.gz", hash = "sha256:1db9d09449e9eb846ee1232d0b7ab9f5cbc37901e84a9901e9d55e416f46fee0"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-1.0.0-py2.py3-none-any.whl", hash = "sha256:4d35a56f4508cfee4c4fb604373ede6feae2a306731d533f409ef5c3496fdbd8"},
