@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "schema_automator"
-version = "v0.1.1"
+version = "0.0.0"
 description = "Infer models, enrich with meaning for terms including enum permissible values"
-authors = ["Chris Mungall", "Mark Miller"]
+authors = ["Chris Mungall", "Mark Miller", "Sierra Moxon", "Harshad Hegde"]
 license = "BSD 3-Clause"
 
 packages = [
