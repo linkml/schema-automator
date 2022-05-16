@@ -68,7 +68,10 @@ class JsonSchemaImportEngine(ImportEngine):
             id_val = f'https://example.org/{name}'
         name = underscore(name)
         self.schema = SchemaDefinition(id=id_val, name=name)
-        self.translate_definitions(obj.get('definitions', {}))
+        if '$defs' in obj:
+            self.translate_definitions(obj.get('$defs', {}))
+        else:
+            self.translate_definitions(obj.get('definitions', {}))
         if root_class_name is None:
             root_class_name = obj.get('title', None)
         if 'properties' in obj:
