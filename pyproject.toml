@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "schema_automator"
-version = "v0.1.1"
+version = "0.0.0"
 description = "Infer models, enrich with meaning for terms including enum permissible values"
-authors = ["Chris Mungall", "Mark Miller"]
+authors = ["Chris Mungall", "Mark Miller", "Sierra Moxon", "Harshad Hegde"]
 license = "BSD 3-Clause"
 
 packages = [
@@ -37,6 +37,11 @@ twine = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
+Sphinx = "^4.4.0"
+sphinx-pdj-theme = "^0.2.0"
+sphinx-click = "^3.1.0"
+sphinxcontrib-mermaid = "^0.7.1"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -53,3 +58,5 @@ dosdp2linkml = "schema_automator.importers.owl_import_engine:dosdp2model"
 jsondata2linkml = "schema_automator.importers.json_instance_import_engine:json2model"
 jsonschema2linkml = "schema_automator.importers.jsonschema_import_engine:jsonschema2model"
 
+[tool.poetry.extras]
+docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
