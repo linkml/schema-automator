@@ -634,7 +634,7 @@ def main():
 @click.option('--output', '-o', help='Output file')
 @click.option('--class_name', '-c', default='example', help='Core class name in schema')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--file_separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
@@ -653,7 +653,7 @@ def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
 @click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
 @click.option('--output', '-o', help='Output file')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--file_separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
 @click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
