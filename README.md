@@ -15,7 +15,7 @@ This is a toolkit that assists with:
 
 These can be composed together. For example, run `tsvs2linkml` followed by `annotate-enums`
 
-The toolkit is still experimental. It is intended as an aid to schema creation rather than act as a formal conversion
-tool
+The toolkit is still experimental. It is intended as an aid to schema creation rather than as a formal conversion
+tool.
 
 [Full Documentation](https://linkml.io/schema-automator/)
