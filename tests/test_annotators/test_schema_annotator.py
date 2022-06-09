@@ -10,7 +10,7 @@ from linkml.generators.yamlgen import YAMLGenerator
 from tests import INPUT_DIR, OUTPUT_DIR
 
 
-KEYPATH = os.path.join('conf', 'bioportal_apikey.txt')
+KEYPATH = os.path.join('../conf', 'bioportal_apikey.txt')
 
 class testAnnotator(unittest.TestCase):
     """NCBO """

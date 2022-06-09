@@ -32,7 +32,7 @@ def load_dp(path) -> Pattern:
         del obj['def']
     return yaml_loader.load(obj, target_class=Pattern)
 
-class TestDOSDP(unittest.TestCase):
+class TestDOSDPImporter(unittest.TestCase):
     """Tests import from DOSDP yaml templates """
 
     def test_dosdp_import(self):

@@ -16,6 +16,7 @@ from linkml_runtime.utils.formatutils import camelcase, underscore
 
 from schema_automator.importers.import_engine import ImportEngine
 from schema_automator.dosdp.model import Pattern, Printf
+from schema_automator.utils.schemautils import write_schema
 
 ALIAS = str
 CURIE = str
@@ -199,8 +200,6 @@ class DOSDPImportEngine(ImportEngine):
             return index[name].curie
 
 
-
-
 @click.command()
 @click.argument('dpfiles', nargs=-1) ## input DOSDPs
 @click.option('--name', '-n', help="Schema name")
@@ -213,12 +212,7 @@ def dosdp2model(dpfiles, output, **args):
     """
     ie = DOSDPImportEngine()
     schema = ie.convert(dpfiles, **args)
-    ys = yaml.dump(schema, default_flow_style=False, sort_keys=False)
-    if output:
-        with open(output, 'w') as stream:
-            stream.write(ys)
-    else:
-        print(ys)
+    write_schema(schema, output)
 
 if __name__ == '__main__':
     dosdp2model()

@@ -3,11 +3,11 @@ from abc import ABC
 from linkml_runtime.linkml_model import SchemaDefinition, Prefix
 
 
-class ImportEngine(ABC):
+class Generalizer(ABC):
     """
-    Abstract Base Class for all Import Engines.
+    Abstract Base Class for all Generalization Engines.
 
-    Import Engines take some kind of input and import into a new SchemaDefinition
+    Generalization Engines take example data in some format and generalizes to a new SchemaDefinition
     """
 
     def convert(self, file: str, **kwargs) -> SchemaDefinition:

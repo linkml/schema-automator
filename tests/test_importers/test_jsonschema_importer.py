@@ -21,7 +21,7 @@ from tests import INPUT_DIR, OUTPUT_DIR
 PP = os.path.join(INPUT_DIR, 'phenopackets/phenopackets.schema.json')
 OUTSCHEMA = os.path.join(OUTPUT_DIR, 'phenopackets.yaml')
 
-class TestJsonSchemaImport(unittest.TestCase):
+class TestJsonSchemaImporter(unittest.TestCase):
     """JSONSchema """
 
     def _convert(self, fn, suffix='json', path='jsonschema', name=None, root_class_name=None, data_files=[], target_class=None):

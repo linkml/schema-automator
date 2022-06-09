@@ -3,28 +3,36 @@ import logging
 import yaml
 from typing import Union, Dict, Tuple, List, Any
 from collections import defaultdict
-import os
-from csv import DictWriter
 
-from rdflib import Graph, URIRef
-from rdflib.query import ResultRow
-from rdflib.namespace import RDF, RDFS
-from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
+from linkml_runtime.linkml_model import SchemaDefinition
 from funowl.converters.functional_converter import to_python
 from funowl import *
-import funowl
-
 
 from dataclasses import dataclass
 from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.utils.schemautils import write_schema
 
 
 @dataclass
 class OwlImportEngine(ImportEngine):
+    """
+    An ImportEngine that takes schema-style OWL and converts it to a LinkML schema
+    """
     mappings: dict = None
     include_unmapped_annotations = False
 
-    def convert(self, file: str, name: str = None, model_uri: str = None, identifier: str = None, **kwargs):
+    def convert(self, file: str, name: str = None, model_uri: str = None, identifier: str = None, **kwargs) -> \
+            SchemaDefinition:
+        """
+        Converts an OWL schema-style ontology
+
+        :param file:
+        :param name:
+        :param model_uri:
+        :param identifier:
+        :param kwargs:
+        :return:
+        """
         self.mappings = {}
         doc = to_python(file)
         ontology = doc.ontology
@@ -40,7 +48,7 @@ class OwlImportEngine(ImportEngine):
         slots = {}
         enums = {}
         types = {}
-        schema = {
+        schema_dict = {
             'id': f'{ontology.iri}',
             'name': name,
             'description': name,
@@ -55,7 +63,7 @@ class OwlImportEngine(ImportEngine):
             'slots': slots,
             'enums': enums
         }
-        self.schema = schema
+        self.schema = schema_dict
         isamap = defaultdict(set)
         slot_isamap = defaultdict(set)
         slot_usage_map = defaultdict(dict)
@@ -291,8 +299,8 @@ class OwlImportEngine(ImportEngine):
                             if self.include_unmapped_annotations:
                                 self.element_info(t, sub, 'comments', f'{p} = {val}', multivalued=True)
         for cn, usage in slot_usage_map.items():
-            schema['classes'][cn]['slot_usage'] = usage
-        for sn, s in schema['slots'].items():
+            schema_dict['classes'][cn]['slot_usage'] = usage
+        for sn, s in schema_dict['slots'].items():
             if 'multivalued' not in s:
                 s['multivalued'] = sn not in single_valued_slots
             if 'range' in s:
@@ -314,6 +322,7 @@ class OwlImportEngine(ImportEngine):
                     if 'slots' not in c:
                         c['slots'] = []
                     c['slots'].append(identifier)
+        schema = SchemaDefinition(**schema_dict)
         return schema
 
     def class_info(self, *args, **kwargs):
@@ -357,7 +366,6 @@ class OwlImportEngine(ImportEngine):
         return v
 
 
-
 @click.command()
 @click.argument('owlfile')
 @click.option('--name', '-n', help="Schema name")
@@ -371,13 +379,9 @@ def owl2model(owlfile, output, **args):
     Note: input must be in functional syntax
     """
     sie = OwlImportEngine()
-    schema_dict = sie.convert(owlfile, **args)
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    if output:
-        with open(output, 'w') as stream:
-            stream.write(ys)
-    else:
-        print(ys)
+    schema = sie.convert(owlfile, **args)
+    write_schema(schema, output)
+
 
 if __name__ == '__main__':
     owl2model()

@@ -1,0 +1,3 @@
+from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
+from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
+from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer

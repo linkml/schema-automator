@@ -1,29 +1,38 @@
 LinkML Schema Automator
 =======================
 
-This is a toolkit that assists with:
+This is a toolkit that assists with generating and enhancing schemas and data models from a variety
+of sources.
 
-1. Bootstrapping LinkML models from instance data
+The primary end target is a `LinkML <https://linkml.io>`_ schema, but the framework can be used
+to generate JSON-Schema, SHACL, SQL DDL etc via the `LinkML Generator <https://linkml.io/linkml/generators>`_ framework.
 
-   -  TSVs and spreadsheets
-   -  SQLite databases
-   -  RDF instance graphs
+All functionality is available via a :ref:`cli`. In future there will be a web-based interface.
+The functionality is also available by using the relevant Python :ref:`packages`.
 
-2. Bootstrapping a LinkML model from a different schema representation
-   (i.e. opposite of a linkml.generator)
+Generalization from Instance Data
+---------------------------------
 
-   -  OWL (RDFS-like subset)
-   -  TODO: JSON-Schema, XSD, ShEx, SHACL, SQL DDL, FHIR, Python
-      dataclasses/pydantic, etc
+See :ref:`generalizers`
 
-3. Using automated methods to enhance a model
+Generalizers allow you to *bootstrap* a schema by generalizing from existing data files
 
-   -  Using text mining and concept annotator APIs to enrich semantic
-      enums
-   -  TODO: querying sparql endpoints to retrieve additional metadata
+-  TSVs and spreadsheets
+-  SQLite databases
+-  RDF instance graphs
 
-These can be composed together. For example, run ``tsvs2linkml``
-followed by ``annotate-enums``
+Importing from alternative modeling framework
+---------------------------------
 
-The toolkit is still experimental. It is intended as an aid to schema
-creation rather than act as a formal conversion tool
+See :ref:`importers`
+
+- OWL (but this only works for schema-style OWL)
+- JSON-Schema
+
+In future other frameworks will be supported
+
+Annotating schemas
+---------------------------------
+
+See :ref:`annotators`
+

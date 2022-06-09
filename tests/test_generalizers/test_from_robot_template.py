@@ -4,10 +4,11 @@
 
 import unittest
 import os
-import yaml
-from schema_automator.importers.csv_import_engine import CsvDataImportEngine
+from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from linkml.generators.yamlgen import YAMLGenerator
 from linkml_runtime.utils.schemaview import SchemaView
+
+from schema_automator.utils.schemautils import write_schema
 from tests import INPUT_DIR, OUTPUT_DIR
 
 BIOBANK_SPECIMENS = os.path.join(INPUT_DIR, 'biobank-specimens.tsv')
@@ -19,14 +20,11 @@ class TestRobotTemplateImport(unittest.TestCase):
 
     def test_from_robot_template(self):
         """Test that expando can be imported."""
-        ie = CsvDataImportEngine(robot=True)
-        schema_dict = ie.convert(BIOBANK_SPECIMENS, class_name='BiobankSpecimen', name='biobank')
-        ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-        #print(ys)
-        with open(OUTSCHEMA, 'w') as stream:
-            stream.write(ys)
+        ie = CsvDataGeneralizer(robot=True)
+        schema = ie.convert(BIOBANK_SPECIMENS, class_name='BiobankSpecimen', name='biobank')
+        write_schema(schema, OUTSCHEMA)
         sv = SchemaView(OUTSCHEMA)
-        s = YAMLGenerator(ys).serialize()
+        s = YAMLGenerator(OUTSCHEMA).serialize()
         with open(OUTSCHEMA_ENHANCED, 'w') as stream:
             stream.write(s)
         for cn, c in sv.all_class().items():

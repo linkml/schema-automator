@@ -11,10 +11,14 @@ import pandas as pd
 import time
 
 from dateutil.parser import parse
+from linkml_runtime import SchemaView
+from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
+
+from schema_automator.generalizers.generalizer import Generalizer
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.utils.schemautils import merge_schemas
+from schema_automator.utils.schemautils import merge_schemas, write_schema
 
 ID_SUFFIX = '_id'
 
@@ -50,9 +54,12 @@ class ForeignKey:
 
 
 @dataclass
-class CsvDataImportEngine(ImportEngine):
+class CsvDataGeneralizer(Generalizer):
+    """
+    A Generalizer that generalizes from example CSV/TSV data
+    """
 
-    file_separator: str = "\t"
+    column_separator: str = "\t"
     schema_name: str = 'example'
     robot: bool = False
     enum_columns: List[str] = field(default_factory=lambda: [])
@@ -88,7 +95,7 @@ class CsvDataImportEngine(ImportEngine):
             if self.downcase_header:
                 c = c.lower()
             print(f'READING {file} ')
-            df = pd.read_csv(file, sep=self.file_separator, skipinitialspace=True).fillna("")
+            df = pd.read_csv(file, sep=self.column_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
             exclude = []
@@ -162,48 +169,54 @@ class CsvDataImportEngine(ImportEngine):
         logging.info(f'FILTERED: {fks}')
         return fks
 
-    def inject_foreign_keys(self, schema_dict: Dict, fks: List[ForeignKey]) -> None:
+    def inject_foreign_keys(self, sv: SchemaView, fks: List[ForeignKey]) -> None:
+        schema = sv.schema
         for fk in fks:
             # TODO: deal with cases where the same slot is used in different classes
-            src_cls = schema_dict['classes'][fk.source_table]
-            src_slot = schema_dict['slots'][fk.source_column]
-            if 'slot_usage' not in src_cls:
-                src_cls['slot_usage'] = {}
-            src_cls['slot_usage'][fk.source_column] = {'range': fk.target_table}
+            src_cls = schema.classes[fk.source_table]
+            src_slot = schema.slots[fk.source_column]
+            src_cls.slot_usage[fk.source_column] = \
+                SlotDefinition(name=fk.source_column,
+                               range=fk.target_table)
             #src_slot['range'] = fk.target_table
-            tgt_cls = schema_dict['classes'][fk.target_table]
-            tgt_slot = schema_dict['slots'][fk.target_column]
-            if 'slot_usage' not in tgt_cls:
-                tgt_cls['slot_usage'] = {}
-            tgt_cls['slot_usage'][fk.target_column] = {'identifier': True}
+            tgt_cls = schema.classes[fk.target_table]
+            tgt_slot = schema.slots[fk.target_column]
+            tgt_cls.slot_usage[fk.target_column] = \
+                SlotDefinition(name=fk.target_column,
+                               identifier=True)
             #tgt_slot['identifier'] = True
 
-    def convert_multiple(self, files: List[str], **kwargs) -> Dict:
+    def convert_multiple(self, files: List[str], **kwargs) -> SchemaDefinition:
         if self.infer_foreign_keys:
             fks = self.infer_linkages(files)
         else:
             fks = ()
-        yamlobjs = []
+        schemas = []
         for file in files:
             c = os.path.splitext(os.path.basename(file))[0]
             if self.downcase_header:
                 c = c.lower()
             s = self.convert(file, class_name=c, **kwargs)
             if s is not None:
-                yamlobjs.append(s)
-        s = merge_schemas(yamlobjs)
-        self.inject_foreign_keys(s, fks)
-        return s
+                schemas.append(s)
+            print(f'CLASSES={list(s.classes.keys())}')
+        sv = SchemaView(schemas[0])
+        for s in schemas[1:]:
+            sv.merge_schema(s)
+            print(f'xxxCLASSES={list(sv.all_classes().keys())}')
+        #s = merge_schemas(yamlobjs)
+        self.inject_foreign_keys(sv, fks)
+        return sv.schema
 
-    def convert(self, file: str, **kwargs) -> Dict:
+    def convert(self, file: str, **kwargs) -> SchemaDefinition:
         with open(file, newline='') as tsv_file:
             header = [h.strip() for h in tsv_file.readline().split('\t')]
-            rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.file_separator, skipinitialspace=False)
+            rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
 
     def read_slot_tsv(self, file: str, **kwargs) -> Dict:
         with open(file, newline='') as tsv_file:
-            rows_list = csv.reader(tsv_file, delimiter=self.file_separator)
+            rows_list = csv.reader(tsv_file, delimiter=self.column_separator)
             return self.convert_to_edge_slots([r for r in rows_list], **kwargs)
 
     def convert_to_edge_slots(self,
@@ -259,9 +272,9 @@ class CsvDataImportEngine(ImportEngine):
 
     def convert_dicts(self,
                       rr: List[Dict],
-                      name: str = 'example',
+                      schema_name: str = 'example',
                       class_name: str = 'example',
-                      **kwargs) -> Optional[Dict]:
+                      **kwargs) -> SchemaDefinition:
         slots = {}
         slot_values = {}
         n = 0
@@ -380,28 +393,25 @@ class CsvDataImportEngine(ImportEngine):
         for sn, s in new_slots.items():
             if sn not in slots:
                 slots[sn] = s
-        schema = {
-            'id': f'https://w3id.org/{name}',
-            'name': name,
-            'description': name,
-            'imports': ['linkml:types'],
-            'prefixes': {
-                'linkml': 'https://w3id.org/linkml/',
-                name: f'https://w3id.org/{name}'
-            },
-            'default_prefix': name,
-            'types': types,
-            'classes': {
-                class_name: {
-                    'slots': class_slots,
-                    'slot_usage': slot_usage
-                }
-            },
-            'slots': slots,
-            'enums': enums
-        }
+        schema = SchemaDefinition(
+            id=f'https://w3id.org/{schema_name}',
+            name=schema_name,
+            description=schema_name,
+            imports=['linkml:types'],
+            default_prefix=schema_name,
+            types=types,
+            classes=[
+                ClassDefinition(class_name,
+                                slots=class_slots,
+                                slot_usage=slot_usage)
+            ],
+            slots=slots,
+            enums=enums
+        )
+        self.add_default_prefixes(schema)
+        self.add_prefix(schema, schema_name, f'https://w3id.org/{schema_name}')
         if robot_defs:
-            schema['prefixes']['IAO'] = 'http://purl.obolibrary.org/obo/IAO_'
+            self.add_prefix(schema, 'IAO', 'http://purl.obolibrary.org/obo/IAO_')
         add_missing_to_schema(schema)
         return schema
 
@@ -452,7 +462,12 @@ def is_all_measurement(values):
     n_dimensional = 0
     n = 0
     for value in values:
-        ms = q_parser.parse(value)
+        if not isinstance(value, str):
+            return False
+        try:
+            ms = q_parser.parse(value)
+        except:
+            return False
         if len(ms) == 0:
             return False
         n += 1
@@ -614,7 +629,7 @@ def infer_enum_meanings(schema: dict,
                         pv['description'] = hit.name
 
 
-def add_missing_to_schema(schema: dict):
+def add_missing_to_schema_dict(schema: dict):
     for slot in schema['slots'].values():
         if slot.get('range', None) == 'measurement':
             types = schema['types']
@@ -622,6 +637,17 @@ def add_missing_to_schema(schema: dict):
                 types['measurement'] = \
                     {'typeof': 'string',
                      'description': 'Holds a measurement serialized as a string'}
+
+
+def add_missing_to_schema(schema: SchemaDefinition):
+    for slot in schema.slots.values():
+        if slot.range == 'measurement':
+            types = schema.types
+            if 'measurement' not in types:
+                types['measurement'] = \
+                    TypeDefinition('measurement',
+                                   typeof='string',
+                                   description='Holds a measurement serialized as a string')
 
 
 @click.group()
@@ -634,20 +660,16 @@ def main():
 @click.option('--output', '-o', help='Output file')
 @click.option('--class_name', '-c', default='example', help='Core class name in schema')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
+def tsv2model(tsvfile, output, separator, class_name, schema_name, **kwargs):
     """ Infer a model from a TSV """
-    ie = CsvDataImportEngine(**kwargs)
-    schema_dict = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    if output:
-        with open(output, 'w') as stream:
-            stream.write(ys)
-    else:
-        print(ys)
+    ie = CsvDataGeneralizer(**kwargs)
+    schema = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
+    write_schema(schema, output)
+
 
 @main.command()
 @click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
@@ -663,14 +685,9 @@ def tsv2model(tsvfile, output, class_name, schema_name, **kwargs):
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def tsvs2model(tsvfiles, output, schema_name, **kwargs):
     """ Infer a model from multiple TSVs """
-    ie = CsvDataImportEngine(**kwargs)
-    schema_dict = ie.convert_multiple(tsvfiles, schema_name=schema_name)
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    if output:
-        with open(output, 'w') as stream:
-            stream.write(ys)
-    else:
-        print(ys)
+    ie = CsvDataGeneralizer(**kwargs)
+    schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
+    write_schema(schema, output)
 
 
 @main.command()
@@ -684,7 +701,6 @@ def enrich(yamlfile, results, **args):
     infer_enum_meanings(yamlobj, cache=cache)
     if results is not None:
         with open(results, "w") as io:
-            #io.write(str(cache))
             io.write(yaml.dump(cache))
     print(yaml.dump(yamlobj, default_flow_style=False, sort_keys=False))
 

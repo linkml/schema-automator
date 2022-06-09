@@ -1,49 +1,50 @@
 import click
-import logging
-from typing import Union, Dict, Tuple, List
 from collections import defaultdict
 import os
 from csv import DictWriter
-import yaml
+from linkml_runtime import SchemaView
+from linkml_runtime.linkml_model import SchemaDefinition
 
 from rdflib import Graph, URIRef
-from rdflib.query import ResultRow
-from rdflib.namespace import RDF, RDFS
-from SPARQLWrapper import SPARQLWrapper, N3, SPARQLWrapper2, RDFXML, TURTLE
+from rdflib.namespace import RDF
 
 from dataclasses import dataclass
-from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.importers.csv_import_engine import CsvDataImportEngine
-from schema_automator.utils.schemautils import merge_schemas
+
+from schema_automator.generalizers.generalizer import Generalizer
+from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
+from schema_automator.utils.schemautils import write_schema
+
 
 @dataclass
-class RdfInstanceImportEngine(ImportEngine):
+class RdfDataGeneralizer(Generalizer):
     mappings: dict = None
 
-    def convert(self, file: str, dir: str, **kwargs):
-        csv_engine = CsvDataImportEngine()
+    def convert(self, file: str, dir: str, **kwargs) -> SchemaDefinition:
+        csv_engine = CsvDataGeneralizer()
 
         g = Graph()
         g.parse(file, **kwargs)
         self.mappings = {}
         paths = self.graph_to_tables(g, dir)
-        yamlobjs = []
+        schemas = []
         for c, tsvfile in paths.items():
-            yamlobjs.append(csv_engine.convert(tsvfile, class_name=c))
-        yamlobj = merge_schemas(yamlobjs)
+            schemas.append(csv_engine.convert(tsvfile, class_name=c))
+        sv = SchemaView(schemas[0])
+        for s in schemas[1:]:
+            sv.merge_schema(s)
+        schema = sv.schema
         mappings = self.mappings
-        for cn, c in yamlobj['classes'].items():
+        for cn, c in schema.classes.items():
             if cn in mappings:
-                c['class_uri'] = mappings[cn]
-        for sn, s in yamlobj['slots'].items():
+                c.class_uri = mappings[cn]
+        for sn, s in schema.slots.items():
             if sn in mappings:
-                s['slot_uri'] = mappings[sn]
-        for en, e in yamlobj['enums'].items():
-            if 'permissible_values' in e:
-                for pvn, pvo in e['permissible_values'].items():
-                    if pvn in mappings:
-                        pvo['meaning'] = mappings[pvn]
-        return yamlobj
+                s.slot_uri = mappings[sn]
+        for en, e in schema.enums.items():
+            for pvn, pvo in e.permissible_values.items():
+                if pvn in mappings:
+                    pvo.meaning = mappings[pvn]
+        return schema
 
     def graph_to_tables(self, g: Graph, dir: str):
         mappings = self.mappings
@@ -95,12 +96,11 @@ class RdfInstanceImportEngine(ImportEngine):
 @click.option('--dir', '-d', required=True)
 def rdf2model(rdffile, dir, **args):
     """ Infer a model from RDF instance data """
-    sie = RdfInstanceImportEngine()
+    sie = RdfDataGeneralizer()
     if not os.path.exists(dir):
         os.makedirs(dir)
-    schema_dict = sie.convert(rdffile, dir=dir, format='ttl')
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    print(ys)
+    schema = sie.convert(rdffile, dir=dir, format='ttl')
+    write_schema(schema)
 
 if __name__ == '__main__':
     rdf2model()

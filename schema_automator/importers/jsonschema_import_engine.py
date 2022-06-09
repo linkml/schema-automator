@@ -13,12 +13,15 @@ from linkml_runtime.linkml_model import SchemaDefinition, Element, ClassDefiniti
 from linkml_runtime.utils.formatutils import underscore
 
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.utils.schemautils import minify_schema
+from schema_automator.utils.schemautils import minify_schema, write_schema
 
 # TODO: move to core. https://github.com/linkml/linkml/issues/104
 RESERVED = ['in', 'not', 'def']
 
 class JsonSchemaImportEngine(ImportEngine):
+    """
+    A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema
+    """
 
     def load(self, input: str, name=None, format = 'json', **kwargs):
         if format == 'json':
@@ -226,9 +229,6 @@ class JsonSchemaImportEngine(ImportEngine):
             parent_class.slot_usage[slot.name] = slot
 
 
-
-
-
 @click.command()
 @click.argument('input')
 @click.option('--name', '-n', required=True, help='ID of schema')
@@ -238,12 +238,7 @@ def jsonschema2model(input, output, name, format, **args):
     """ Infer a model from JSON Schema """
     loader = JsonSchemaImportEngine()
     schema = loader.load(input, name=name, format=format)
-    sd = minify_schema(schema)
-    if output:
-        with open(output, 'w') as stream:
-            yaml.safe_dump(sd, stream, sort_keys=False)
-    else:
-        print(yaml.safe_dump(sd, sort_keys=False))
+    write_schema(schema, output)
 
 
 if __name__ == '__main__':

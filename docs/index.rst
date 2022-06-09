@@ -1,17 +1,16 @@
-.. Schema Automator documentation master file, created by
-   sphinx-quickstart on Fri Apr 22 13:19:04 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to Schema Automator's documentation!
+LinkML Schema Automator
 ============================================
 
+Schema Automator is a toolkit for bootstrapping and automatically enhancing LinkML schemas from a variety of sources
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    introduction
-   intro/index
+   install
+   cli
+   packages/index
 
 
 Indices and tables

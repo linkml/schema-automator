@@ -1,0 +1,2 @@
+from schema_automator.annotators.schema_annotator import SchemaAnnotator
+from schema_automator.annotators.jsonld_annotator import JsonLdAnnotator
