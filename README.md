@@ -1,21 +1,35 @@
 # LinkML Schema Automator
 
-This is a toolkit that assists with:
+This is a toolkit that assists with the generation and enhancement of [LinkML](https://linkml.io/linkml) schemas
 
-1. Bootstrapping LinkML models from instance data
-    - TSVs and spreadsheets
-    - SQLite databases
-    - RDF instance graphs
-2. Bootstrapping a LinkML model from a different schema representation (i.e. opposite of a linkml.generator)
-    - OWL (RDFS-like subset)
-    - TODO: JSON-Schema, XSD, ShEx, SHACL, SQL DDL, FHIR, Python dataclasses/pydantic, etc
-3. Using automated methods to enhance a model
-    - Using text mining and concept annotator APIs to enrich semantic enums
-    - TODO: querying sparql endpoints to retrieve additional metadata
+## Install
 
-These can be composed together. For example, run `tsvs2linkml` followed by `annotate-enums`
+```bash
+pip install schema-automator
+```
 
-The toolkit is still experimental. It is intended as an aid to schema creation rather than as a formal conversion
-tool.
+## Command Line
 
-[Full Documentation](https://linkml.io/schema-automator/)
+See [CLI docs](https://linkml.io/schema-automator/cli)
+
+Generalizing:
+
+```bash
+schemauto generalize-tsv my-data.tsv > my-schema.yaml
+```
+
+Importing:
+
+```bash
+schemauto import-json-schema their.schema.json > my-schema.yaml
+```
+
+Annotating:
+
+```bash
+schemauto annotate-schema my-schema.yaml
+```
+
+## Full Documentation
+
+[linkml.io/schema-automator](https://linkml.io/schema-automator/)
