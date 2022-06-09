@@ -675,7 +675,7 @@ def tsv2model(tsvfile, output, separator, class_name, schema_name, **kwargs):
 @click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
 @click.option('--output', '-o', help='Output file')
 @click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--sep', '-s', default='\t', help='separator')
+@click.option('--file_separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
 @click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
