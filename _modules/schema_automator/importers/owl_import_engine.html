@@ -1,0 +1,583 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>schema_automator.importers.owl_import_engine &mdash; Schema Automator  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="Schema Automator  documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="fa fa-home"> Schema Automator </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../../../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli.html#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli.html#main-commands">Main commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/index.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/importers.html">Importers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/annotators.html">Annotators</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <h1>Source code for schema_automator.importers.owl_import_engine</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span>
+<span class="kn">from</span> <span class="nn">funowl.converters.functional_converter</span> <span class="kn">import</span> <span class="n">to_python</span>
+<span class="kn">from</span> <span class="nn">funowl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">schema_automator.importers.import_engine</span> <span class="kn">import</span> <span class="n">ImportEngine</span>
+<span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">write_schema</span>
+
+
+<div class="viewcode-block" id="OwlImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.OwlImportEngine">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OwlImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An ImportEngine that takes schema-style OWL and converts it to a LinkML schema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">include_unmapped_annotations</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts an OWL schema-style ontology</span>
+
+<span class="sd">        :param file:</span>
+<span class="sd">        :param name:</span>
+<span class="sd">        :param model_uri:</span>
+<span class="sd">        :param identifier:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">to_python</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">ontology</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">ontology</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ontology</span><span class="o">.</span><span class="n">axioms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Empty ontology in </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1"> (note: ontologies must be in functional syntax)&#39;</span><span class="p">)</span>
+        <span class="n">prefixes</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">prefixDeclarations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefixes</span> <span class="o">=</span> <span class="n">prefixes</span>
+        <span class="k">if</span> <span class="n">model_uri</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">model_uri</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://w3id.org/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">/&#39;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">ontology</span><span class="o">.</span><span class="n">iri</span><span class="p">)</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">slots</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">enums</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">schema_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ontology</span><span class="o">.</span><span class="n">iri</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;imports&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linkml:types&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;prefixes&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;linkml&#39;</span><span class="p">:</span> <span class="s1">&#39;https://w3id.org/linkml/&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">model_uri</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;default_prefix&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="n">types</span><span class="p">,</span>
+            <span class="s1">&#39;classes&#39;</span><span class="p">:</span> <span class="n">classes</span><span class="p">,</span>
+            <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="n">slots</span><span class="p">,</span>
+            <span class="s1">&#39;enums&#39;</span><span class="p">:</span> <span class="n">enums</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">schema_dict</span>
+        <span class="n">isamap</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">slot_isamap</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">slot_usage_map</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="n">single_valued_slots</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ontology</span><span class="o">.</span><span class="n">axioms</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Axiom: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SubClassOf</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">subClassExpression</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                    <span class="k">def</span> <span class="nf">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">slot_usage_map</span><span class="p">[</span><span class="n">child</span><span class="p">]:</span>
+                            <span class="n">slot_usage_map</span><span class="p">[</span><span class="n">child</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="n">slot_usage_map</span><span class="p">[</span><span class="n">child</span><span class="p">][</span><span class="n">p</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="k">def</span> <span class="nf">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">min_card</span><span class="p">,</span> <span class="n">max_card</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">max_card</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">max_card</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;multivalued&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="n">max_card</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;multivalued&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">min_card</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">min_card</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="n">min_card</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;multivalued&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">subClassExpression</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">)</span>
+                        <span class="n">isamap</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataExactCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">card</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">card</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">card</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectExactCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">card</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">card</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">card</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectMinCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">min_</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataMinCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">min_</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectMaxCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">max_</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataMaxCardinality</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">max_</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectAllValuesFrom</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">classExpression</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                            <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">classExpression</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot yet handle anonymous ranges: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">classExpression</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectSomeValuesFrom</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataSomeValuesFrom</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpressions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpressions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="n">set_cardinality</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot handle multiple data property expressions: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataAllValuesFrom</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpressions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpressions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="n">r</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dataRange</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">DataOneOf</span><span class="p">):</span>
+                                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TODO: enum for </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Datatype</span><span class="p">):</span>
+                                <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot handle range of </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot handle multiple data property expressions: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">DataHasValue</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="p">)</span>
+                        <span class="c1">#if p not in slot_usage_map[child]:</span>
+                        <span class="c1">#    slot_usage_map[child][p] = {}</span>
+                        <span class="n">lit</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">literal</span><span class="o">.</span><span class="n">v</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lit</span><span class="p">,</span> <span class="n">TypedLiteral</span><span class="p">):</span>
+                            <span class="n">lit</span> <span class="o">=</span> <span class="n">lit</span><span class="o">.</span><span class="n">literal</span>
+                        <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;equals_string&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lit</span><span class="p">))</span>
+                        <span class="c1">#slot_usage_map[child][p][&#39;equals_string&#39;] = str(lit)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon parent classes for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon child classes for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># https://github.com/hsolbrig/funowl/issues/19</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SubObjectPropertyOf</span><span class="p">):</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">subObjectPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">ObjectPropertyExpression</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="n">ObjectProperty</span><span class="p">):</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                    <span class="n">sup</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superObjectPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sup</span><span class="p">,</span> <span class="n">ObjectPropertyExpression</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sup</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="n">ObjectProperty</span><span class="p">):</span>
+                        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">sup</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                        <span class="n">slot_isamap</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon object parent properties for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon object child properties for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SubDataPropertyOf</span><span class="p">):</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">subDataPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">DataProperty</span><span class="p">):</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+                    <span class="n">sup</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superDataPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sup</span><span class="p">,</span> <span class="n">DataProperty</span><span class="p">):</span>
+                        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">sup</span><span class="p">)</span>
+                        <span class="n">slot_isamap</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon data parent properties for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon data child properties for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">SubAnnotationPropertyOf</span><span class="p">):</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sub</span><span class="p">)</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">super</span><span class="p">)</span>
+                <span class="n">slot_isamap</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+            <span class="c1"># domains become slot declarations</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ObjectPropertyDomain</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">DataPropertyDomain</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ObjectPropertyDomain</span><span class="p">):</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="n">sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">dc</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">classExpression</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">dc</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">class_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;slots&#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="c1">#logging.error(f&#39;Inferred {c} from domain of {p}&#39;)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">ObjectUnionOf</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dc</span><span class="o">.</span><span class="n">classExpressions</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">class_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;slots&#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ObjectPropertyRange</span><span class="p">):</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="n">sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">rc</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">classExpression</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">Class</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">slot_info</span><span class="p">(</span><span class="n">sn</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">rc</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">DataPropertyRange</span><span class="p">):</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dataPropertyExpression</span><span class="o">.</span><span class="n">v</span>
+                <span class="n">sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">rc</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dataRange</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">Datatype</span><span class="p">):</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TODO&#39;</span><span class="p">)</span>
+                    <span class="c1">#self.slot_info(sn, &#39;range&#39;, self.iri_to_name(rc))</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">AnnotationPropertyRange</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slot_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">property</span><span class="p">),</span>
+                               <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">range</span><span class="p">))</span>
+
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Declaration</span><span class="p">):</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">v</span>
+                <span class="n">uri_as_curie</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">uri_as_curie</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">):</span>
+                    <span class="n">uri_as_curie</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}{</span><span class="n">uri_as_curie</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">==</span> <span class="n">Class</span><span class="p">:</span>
+                    <span class="n">cn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">class_info</span><span class="p">(</span><span class="n">cn</span><span class="p">,</span> <span class="s1">&#39;class_uri&#39;</span><span class="p">,</span> <span class="n">uri_as_curie</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ObjectProperty</span><span class="p">,</span> <span class="n">DataProperty</span><span class="p">,</span> <span class="n">AnnotationProperty</span><span class="p">]:</span>
+                    <span class="n">cn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">slot_info</span><span class="p">(</span><span class="n">cn</span><span class="p">,</span> <span class="s1">&#39;slot_uri&#39;</span><span class="p">,</span> <span class="n">uri_as_curie</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">parents</span> <span class="ow">in</span> <span class="n">isamap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">parents</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">class_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;is_a&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">class_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;mixins&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">parents</span> <span class="ow">in</span> <span class="n">slot_isamap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">parents</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slot_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;is_a&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slot_info</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;mixins&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ontology</span><span class="o">.</span><span class="n">axioms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">AnnotationAssertion</span><span class="p">):</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">property</span>
+                <span class="n">strp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">subject</span><span class="o">.</span><span class="n">v</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">v</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">IRI</span><span class="p">):</span>
+                    <span class="n">sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Literal</span><span class="p">):</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">IRI</span><span class="p">):</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">v</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+                        <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;classes&#39;</span>
+                    <span class="k">elif</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
+                        <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;slots&#39;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sub</span><span class="si">}</span><span class="s1"> is not known&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">strp</span> <span class="o">==</span> <span class="s1">&#39;rdfs:comment&#39;</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">multivalued</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">strp</span> <span class="o">==</span> <span class="s1">&#39;:definition&#39;</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">multivalued</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">strp</span> <span class="o">==</span> <span class="s1">&#39;schema:rangeIncludes&#39;</span><span class="p">:</span>
+                            <span class="n">range_cn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;UNTESTED RANGE: schema.org </span><span class="si">{</span><span class="n">sub</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1"> // </span><span class="si">{</span><span class="n">domain_cn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">add_range</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">range_cn</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="n">strp</span> <span class="o">==</span> <span class="s1">&#39;schema:domainIncludes&#39;</span><span class="p">:</span>
+                            <span class="n">domain_cn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;UNTESTED: schema.org </span><span class="si">{</span><span class="n">sub</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1"> // </span><span class="si">{</span><span class="n">domain_cn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">domain_cn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">]:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">][</span><span class="n">domain_cn</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                            <span class="k">if</span> <span class="s1">&#39;slots&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">][</span><span class="n">domain_cn</span><span class="p">]:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">][</span><span class="n">domain_cn</span><span class="p">][</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">][</span><span class="n">domain_cn</span><span class="p">][</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_unmapped_annotations</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">multivalued</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cn</span><span class="p">,</span> <span class="n">usage</span> <span class="ow">in</span> <span class="n">slot_usage_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">schema_dict</span><span class="p">[</span><span class="s1">&#39;classes&#39;</span><span class="p">][</span><span class="n">cn</span><span class="p">][</span><span class="s1">&#39;slot_usage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">usage</span>
+        <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">schema_dict</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s1">&#39;multivalued&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+                <span class="n">s</span><span class="p">[</span><span class="s1">&#39;multivalued&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">single_valued_slots</span>
+            <span class="k">if</span> <span class="s1">&#39;range&#39;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="n">rg</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rg</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">rg</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">del</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
+                        <span class="n">s</span><span class="p">[</span><span class="s1">&#39;any_of&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rg</span>
+                        <span class="p">]</span>
+        <span class="k">if</span> <span class="n">identifier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">slots</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;identifier&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="s1">&#39;uriorcurie&#39;</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_a&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mixins&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                    <span class="k">if</span> <span class="s1">&#39;slots&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                        <span class="n">c</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">c</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">SchemaDefinition</span><span class="p">(</span><span class="o">**</span><span class="n">schema_dict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">schema</span>
+
+    <span class="k">def</span> <span class="nf">class_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">slot_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="s1">&#39;slots&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sn</span><span class="p">,</span> <span class="n">range_cn</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">][</span><span class="n">sn</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;range&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">][</span><span class="n">sn</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">][</span><span class="n">sn</span><span class="p">][</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">][</span><span class="n">sn</span><span class="p">][</span><span class="s1">&#39;range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">range_cn</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">element_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">multivalued</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="nb">type</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="nb">type</span><span class="p">][</span><span class="n">cn</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="nb">type</span><span class="p">][</span><span class="n">cn</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">multivalued</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+                <span class="n">c</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sn</span> <span class="ow">in</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">c</span><span class="p">[</span><span class="n">sn</span><span class="p">]:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overwriting </span><span class="si">{</span><span class="n">sn</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">iri_to_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_name</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">_as_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sep</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;owlfile&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Schema name&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--identifier&#39;</span><span class="p">,</span> <span class="s1">&#39;-I&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Slot to use as identifier&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--model-uri&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Model URI prefix&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to saved yaml schema&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">owl2model</span><span class="p">(</span><span class="n">owlfile</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer a model from OWL Ontology</span>
+
+<span class="sd">    Note: input must be in functional syntax</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sie</span> <span class="o">=</span> <span class="n">OwlImportEngine</span><span class="p">()</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">sie</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">owlfile</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">write_schema</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">owl2model</span><span class="p">()</span>
+
+
+</pre></div>
+
+	    </div>
+            <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Chris Mungall.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
+
+    </script>
+    <script type="text/javascript" src="../../../None">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../../../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../../../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

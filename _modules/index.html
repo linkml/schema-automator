@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>Installation &mdash; Schema Automator  documentation</title>
+  <title>Overview: module code &mdash; Schema Automator  documentation</title>
   
 
   
@@ -31,9 +31,6 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Schema Automator  documentation" href="../index.html"/>
-        <link rel="up" title="Get Started" href="index.html"/>
-        <link rel="next" title="Command Line Usage" href="cli.html"/>
-        <link rel="prev" title="Get Started" href="index.html"/>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="cache-control" content="public" />
@@ -66,11 +63,23 @@
           
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">LinkML Schema Automator</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Get Started</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line Usage</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#annotating-schemas">Annotating schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli.html#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli.html#main-commands">Main commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../packages/index.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../packages/importers.html">Importers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packages/generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packages/annotators.html">Annotators</a></li>
 </ul>
 </li>
 </ul>
@@ -113,29 +122,19 @@
           <div role="main" class="">
 
 	    <div id="content" class="hfeed entry-container hentry">
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">schema-automator</span></code> and its components require Python 3.9 or greater.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod <span class="m">755</span> environment.sh
-. environment.sh
-pip install -r requirements.txt
-pip install -e .
-</pre></div>
-</div>
-</section>
-
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="schema_automator/annotators/jsonld_annotator.html">schema_automator.annotators.jsonld_annotator</a></li>
+<li><a href="schema_automator/annotators/schema_annotator.html">schema_automator.annotators.schema_annotator</a></li>
+<li><a href="schema_automator/generalizers/csv_data_generalizer.html">schema_automator.generalizers.csv_data_generalizer</a></li>
+<li><a href="schema_automator/generalizers/json_instance_generalizer.html">schema_automator.generalizers.json_instance_generalizer</a></li>
+<li><a href="schema_automator/generalizers/rdf_data_generalizer.html">schema_automator.generalizers.rdf_data_generalizer</a></li>
+<li><a href="schema_automator/importers/dosdp_import_engine.html">schema_automator.importers.dosdp_import_engine</a></li>
+<li><a href="schema_automator/importers/jsonschema_import_engine.html">schema_automator.importers.jsonschema_import_engine</a></li>
+<li><a href="schema_automator/importers/owl_import_engine.html">schema_automator.importers.owl_import_engine</a></li>
+</ul>
 
 	    </div>
             <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="cli.html" class="btn btn-neutral float-right" title="Command Line Usage">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="Get Started"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

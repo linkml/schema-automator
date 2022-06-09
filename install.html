@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>Get Started &mdash; Schema Automator  documentation</title>
+  <title>Installation &mdash; Schema Automator  documentation</title>
   
 
   
@@ -16,23 +16,23 @@
   
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
 
   
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   
-    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Schema Automator  documentation" href="../index.html"/>
-        <link rel="next" title="Installation" href="install.html"/>
-        <link rel="prev" title="LinkML Schema Automator" href="../introduction.html"/>
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Schema Automator  documentation" href="index.html"/>
+        <link rel="next" title="Command Line" href="cli.html"/>
+        <link rel="prev" title="LinkML Schema Automator" href="introduction.html"/>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="cache-control" content="public" />
@@ -49,10 +49,10 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Schema Automator </a>
+        <a href="index.html" class="fa fa-home"> Schema Automator </a>
         <div role="search">
 	  <form id ="rtd-search-form" class="wy-form"
-		action="../search.html" method="get">
+		action="search.html" method="get">
 	    <input type="text" name="q" placeholder="Search docs" />
 	    <input type="hidden" name="check_keywords" value="yes" />
 	    <input type="hidden" name="area" value="default" />
@@ -66,10 +66,22 @@
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">LinkML Schema Automator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Get Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#main-commands">Main commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/importers.html">Importers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/annotators.html">Annotators</a></li>
 </ul>
 </li>
 </ul>
@@ -112,23 +124,15 @@
           <div role="main" class="">
 
 	    <div id="content" class="hfeed entry-container hentry">
-  <section id="get-started">
-<span id="id1"></span><h1>Get Started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#annotating-enums">Annotating Enums</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#converting-tsvs">Converting TSVs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#converting-owl">Converting OWL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#converting-rdf-instance-graphs">Converting RDF instance graphs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#converting-json-instance-data">Converting JSON Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#converting-json-schema">Converting JSON-Schema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#jsonschema2linkml-example">jsonschema2linkml example</a></li>
-</ul>
-</li>
-</ul>
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">schema-automator</span></code> and its components require Python 3.9 or greater.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install schema-automator
+</pre></div>
+</div>
+<p>To check this works:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto --help
+</pre></div>
 </div>
 </section>
 
@@ -138,10 +142,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="install.html" class="btn btn-neutral float-right" title="Installation">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command Line">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../introduction.html" class="btn btn-neutral" title="LinkML Schema Automator"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral" title="LinkML Schema Automator"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -163,39 +167,39 @@
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
+            URL_ROOT:'./',
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
     </script>
-    <script type="text/javascript" src="../_static/documentation_options.js">
+    <script type="text/javascript" src="_static/documentation_options.js">
 
     </script>
-    <script type="text/javascript" src="../_static/jquery.js">
+    <script type="text/javascript" src="_static/jquery.js">
 
     </script>
-    <script type="text/javascript" src="../_static/underscore.js">
+    <script type="text/javascript" src="_static/underscore.js">
 
     </script>
-    <script type="text/javascript" src="../_static/doctools.js">
+    <script type="text/javascript" src="_static/doctools.js">
 
     </script>
     <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
 
     </script>
-    <script type="text/javascript" src="../None">
+    <script type="text/javascript" src="None">
 
     </script>
 
   
 
    <script type="text/javascript"
-           src="../_static/js/theme.js"></script>
+           src="_static/js/theme.js"></script>
 
    <script type="text/javascript"
-           src="../_static/js/pdj.js"></script>
+           src="_static/js/pdj.js"></script>
 
   
   

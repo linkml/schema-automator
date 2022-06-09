@@ -1,0 +1,698 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Command Line &mdash; Schema Automator  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Schema Automator  documentation" href="index.html"/>
+        <link rel="next" title="Packages" href="packages/index.html"/>
+        <link rel="prev" title="Installation" href="install.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Schema Automator </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-commands">Main commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/importers.html">Importers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/annotators.html">Annotators</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <section id="command-line">
+<h1>Command Line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h1>
+<p>All Schema Automator functionality is available via the <code class="docutils literal notranslate"><span class="pre">schemauto</span></code> command</p>
+<section id="preamble">
+<h2>Preamble<a class="headerlink" href="#preamble" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Previous versions had specific commands like <code class="docutils literal notranslate"><span class="pre">tsv2linkml</span></code> these are now deprecated.
+Instead these are now <em>subcommands</em> of the main <code class="docutils literal notranslate"><span class="pre">schemauto</span></code> command, and have been renamed.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>we follow the <a class="reference external" href="https://clig.dev/">CLIG</a> guidelines as far as possible</p>
+</div>
+</section>
+<section id="main-commands">
+<h2>Main commands<a class="headerlink" href="#main-commands" title="Permalink to this headline">¶</a></h2>
+<section id="schemauto">
+<h3>schemauto<a class="headerlink" href="#schemauto" title="Permalink to this headline">¶</a></h3>
+<p>Run the LinkML Schema Automator Command Line.</p>
+<blockquote>
+<div><p>A subcommand must be passed, for example:</p>
+<blockquote>
+<div><p>schemauto -v SUBCOMMAND [OPTIONS] ARGUMENTS</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-v">
+<span id="cmdoption-schemauto-verbose"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the level of verbosity</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-q">
+<span id="cmdoption-schemauto-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;quiet&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Silence all diagnostics</p>
+</dd></dl>
+
+<section id="schemauto-annotate-schema">
+<h4>annotate-schema<a class="headerlink" href="#schemauto-annotate-schema" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Annotate all elements of a schema</p>
+<p>Requires Bioportal API key</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto annotate-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-annotate-schema-o">
+<span id="cmdoption-schemauto-annotate-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-annotate-schema-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-annotate-schema-arg-SCHEMA">
+<span id="cmdoption-schemauto-annotate-schema-arg-schema"></span><span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-annotate-schema-arg-SCHEMA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-annotate-using-jsonld">
+<h4>annotate-using-jsonld<a class="headerlink" href="#schemauto-annotate-using-jsonld" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Annotates a schema using a Json-LD context file</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto annotate-using-jsonld <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-annotate-using-jsonld-o">
+<span id="cmdoption-schemauto-annotate-using-jsonld-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-annotate-using-jsonld-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA">
+<span id="cmdoption-schemauto-annotate-using-jsonld-arg-schema"></span><span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-generalize-json">
+<h4>generalize-json<a class="headerlink" href="#schemauto-generalize-json" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a JSON file to a schema</p>
+<p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a> for more on the generalization framework</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto generalize-json my/data/persons.json</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-json <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-o">
+<span id="cmdoption-schemauto-generalize-json-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-container-class-name">
+<span class="sig-name descname"><span class="pre">--container-class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;container_class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-container-class-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of root class</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-f">
+<span id="cmdoption-schemauto-generalize-json-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;format&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>json or yaml (or json.gz or yaml.gz) or frontmatter</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-E">
+<span id="cmdoption-schemauto-generalize-json-e"></span><span id="cmdoption-schemauto-generalize-json-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-enum-mask-columns">
+<span class="sig-name descname"><span class="pre">--enum-mask-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_mask_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-enum-mask-columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that are excluded from being enums</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-max-enum-size">
+<span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-max-enum-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>do not create an enum if more than max distinct members</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-omit-null">
+<span id="cmdoption-schemauto-generalize-json-no-omit-null"></span><span class="sig-name descname"><span class="pre">--omit-null</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-omit-null</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-omit-null" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true, ignore null values</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-arg-INPUT">
+<span id="cmdoption-schemauto-generalize-json-arg-input"></span><span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-arg-INPUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-generalize-rdf">
+<h4>generalize-rdf<a class="headerlink" href="#schemauto-generalize-rdf" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from an RDF file to a schema</p>
+<p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a> for more on the generalization framework</p>
+<p>The input must be in turtle</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto generalize-json my/data/persons.ttl</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-rdf <span class="o">[</span>OPTIONS<span class="o">]</span> RDFFILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-rdf-o">
+<span id="cmdoption-schemauto-generalize-rdf-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-rdf-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-rdf-d">
+<span id="cmdoption-schemauto-generalize-rdf-dir"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--dir</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dir&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-rdf-d" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong></p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-rdf-arg-RDFFILE">
+<span id="cmdoption-schemauto-generalize-rdf-arg-rdffile"></span><span class="sig-name descname"><span class="pre">RDFFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-rdf-arg-RDFFILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-generalize-tsv">
+<h4>generalize-tsv<a class="headerlink" href="#schemauto-generalize-tsv" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a single TSV file to a single-class schema</p>
+<p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a> for more on the generalization framework</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto generalize-tsv –class-name Person –schema-name PersonInfo my/data/persons.tsv</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-tsv <span class="o">[</span>OPTIONS<span class="o">]</span> TSVFILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-o">
+<span id="cmdoption-schemauto-generalize-tsv-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-n">
+<span id="cmdoption-schemauto-generalize-tsv-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>example</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-c">
+<span id="cmdoption-schemauto-generalize-tsv-class-name"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core class name in schema</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-s">
+<span id="cmdoption-schemauto-generalize-tsv-column-separator"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--column-separator</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;column_separator&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>separator</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-downcase-header">
+<span id="cmdoption-schemauto-generalize-tsv-no-downcase-header"></span><span class="sig-name descname"><span class="pre">--downcase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-downcase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-downcase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers lowercase</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-E">
+<span id="cmdoption-schemauto-generalize-tsv-e"></span><span id="cmdoption-schemauto-generalize-tsv-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>column that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-robot">
+<span id="cmdoption-schemauto-generalize-tsv-no-robot"></span><span class="sig-name descname"><span class="pre">--robot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-robot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-robot" title="Permalink to this definition">¶</a></dt>
+<dd><p>set if the TSV is a ROBOT template</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-arg-TSVFILE">
+<span id="cmdoption-schemauto-generalize-tsv-arg-tsvfile"></span><span class="sig-name descname"><span class="pre">TSVFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-arg-TSVFILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-generalize-tsvs">
+<h4>generalize-tsvs<a class="headerlink" href="#schemauto-generalize-tsvs" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a multiple TSV files to a multi-class schema</p>
+<p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a> for more on the generalization framework</p>
+<p>This uses <span class="xref std std-ref">CsvDataGeneralizer.convert_multiple</span></p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto generalize-tsvs –class-name Person –schema-name PersonInfo my/data/<a href="#id1"><span class="problematic" id="id2">*</span></a>.tsv</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-tsvs <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>TSVFILES<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-o">
+<span id="cmdoption-schemauto-generalize-tsvs-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-n">
+<span id="cmdoption-schemauto-generalize-tsvs-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>example</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-s">
+<span id="cmdoption-schemauto-generalize-tsvs-column-separator"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--column-separator</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;column_separator&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>separator</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-downcase-header">
+<span id="cmdoption-schemauto-generalize-tsvs-no-downcase-header"></span><span class="sig-name descname"><span class="pre">--downcase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-downcase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-downcase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers lowercase</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-infer-foreign-keys">
+<span id="cmdoption-schemauto-generalize-tsvs-no-infer-foreign-keys"></span><span class="sig-name descname"><span class="pre">--infer-foreign-keys</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-infer-foreign-keys</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-infer-foreign-keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>infer ranges/foreign keys</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-E">
+<span id="cmdoption-schemauto-generalize-tsvs-e"></span><span id="cmdoption-schemauto-generalize-tsvs-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-enum-mask-columns">
+<span class="sig-name descname"><span class="pre">--enum-mask-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_mask_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-enum-mask-columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that are excluded from being enums</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-max-enum-size">
+<span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-max-enum-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>do not create an enum if more than max distinct members</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-robot">
+<span id="cmdoption-schemauto-generalize-tsvs-no-robot"></span><span class="sig-name descname"><span class="pre">--robot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-robot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-robot" title="Permalink to this definition">¶</a></dt>
+<dd><p>set if the TSV is a ROBOT template</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-arg-TSVFILES">
+<span id="cmdoption-schemauto-generalize-tsvs-arg-tsvfiles"></span><span class="sig-name descname"><span class="pre">TSVFILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-arg-TSVFILES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-import-dosdps">
+<h4>import-dosdps<a class="headerlink" href="#schemauto-import-dosdps" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Imports DOSDP pattern YAML to a LinkML schema</p>
+<p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importers framework</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-dosdps <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>DPFILES<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-dosdps-o">
+<span id="cmdoption-schemauto-import-dosdps-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-dosdps-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-dosdps-n">
+<span id="cmdoption-schemauto-import-dosdps-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-dosdps-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>example</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-dosdps-range-as-enum">
+<span id="cmdoption-schemauto-import-dosdps-no-range-as-enums"></span><span class="sig-name descname"><span class="pre">--range-as-enum</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-range-as-enums</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-dosdps-range-as-enum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model range ontology classes as enums</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-dosdps-arg-DPFILES">
+<span id="cmdoption-schemauto-import-dosdps-arg-dpfiles"></span><span class="sig-name descname"><span class="pre">DPFILES</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-dosdps-arg-DPFILES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-import-json-schema">
+<h4>import-json-schema<a class="headerlink" href="#schemauto-import-json-schema" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Imports from JSON Schema to LinkML</p>
+<p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importer framework</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto import-json-schema my/schema/personinfo.schema.json</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-json-schema <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-o">
+<span id="cmdoption-schemauto-import-json-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-n">
+<span id="cmdoption-schemauto-import-json-schema-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>example</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-f">
+<span id="cmdoption-schemauto-import-json-schema-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;format&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>JSON Schema format - yaml or json</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-arg-INPUT">
+<span id="cmdoption-schemauto-import-json-schema-arg-input"></span><span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-arg-INPUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-import-owl">
+<h4>import-owl<a class="headerlink" href="#schemauto-import-owl" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Import an OWL ontology to LinkML</p>
+<p>Note this works best for “schema-style” ontologies</p>
+<p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importer framework</p>
+<p>Note: input must be in functional syntax</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-owl <span class="o">[</span>OPTIONS<span class="o">]</span> OWLFILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-o">
+<span id="cmdoption-schemauto-import-owl-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-n">
+<span id="cmdoption-schemauto-import-owl-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>example</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-I">
+<span id="cmdoption-schemauto-import-owl-i"></span><span id="cmdoption-schemauto-import-owl-identifier"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--identifier</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;identifier&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slot to use as identifier</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-model-uri">
+<span class="sig-name descname"><span class="pre">--model-uri</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;model_uri&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-model-uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model URI prefix</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-0">
+<span id="cmdoption-schemauto-import-owl-1"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to saved yaml schema</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-arg-OWLFILE">
+<span id="cmdoption-schemauto-import-owl-arg-owlfile"></span><span class="sig-name descname"><span class="pre">OWLFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-arg-OWLFILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+</section>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="packages/index.html" class="btn btn-neutral float-right" title="Packages">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="Installation"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Chris Mungall.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
+
+    </script>
+    <script type="text/javascript" src="None">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

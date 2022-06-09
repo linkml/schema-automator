@@ -1,0 +1,414 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>schema_automator.importers.dosdp_import_engine &mdash; Schema Automator  documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="Schema Automator  documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="fa fa-home"> Schema Automator </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../../../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli.html#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli.html#main-commands">Main commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/index.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/importers.html">Importers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/annotators.html">Annotators</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <h1>Source code for schema_automator.importers.dosdp_import_engine</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">csv</span> <span class="kn">import</span> <span class="n">DictWriter</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model.meta</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">,</span> <span class="n">SlotDefinition</span><span class="p">,</span> <span class="n">EnumDefinition</span><span class="p">,</span> <span class="n">TypeDefinition</span><span class="p">,</span> <span class="n">AnonymousSlotExpression</span>
+<span class="kn">from</span> <span class="nn">linkml_runtime.loaders</span> <span class="kn">import</span> <span class="n">yaml_loader</span>
+<span class="kn">from</span> <span class="nn">linkml_runtime.utils.formatutils</span> <span class="kn">import</span> <span class="n">camelcase</span><span class="p">,</span> <span class="n">underscore</span>
+
+<span class="kn">from</span> <span class="nn">schema_automator.importers.import_engine</span> <span class="kn">import</span> <span class="n">ImportEngine</span>
+<span class="kn">from</span> <span class="nn">schema_automator.dosdp.model</span> <span class="kn">import</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">Printf</span>
+<span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">write_schema</span>
+
+<span class="n">ALIAS</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">CURIE</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="n">METACLASS</span> <span class="o">=</span> <span class="s1">&#39;OntologyClass&#39;</span>
+<span class="n">TEMPLATE_CLASS</span> <span class="o">=</span> <span class="s1">&#39;OntologyClassTemplate&#39;</span>
+<span class="n">GROUPING_CLASS</span> <span class="o">=</span> <span class="s1">&#39;OntologyClassSubset&#39;</span>
+
+<div class="viewcode-block" id="DOSDPImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DOSDPImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For every template with name Foo, a LinkML class FooTemplate is created</span>
+
+<span class="sd">    The following builtin slots are created:</span>
+
+<span class="sd">    - name</span>
+<span class="sd">    - definition</span>
+<span class="sd">    - subclass_of</span>
+<span class="sd">    - equivalentTo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">include_unmapped_annotations</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">load_dp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pattern</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;def&#39;</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;def&#39;</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;def&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">yaml_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">target_class</span><span class="o">=</span><span class="n">Pattern</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">range_as_enums</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">load_dp</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">SchemaDefinition</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">schema</span><span class="o">.</span><span class="n">default_prefix</span><span class="p">:</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">default_prefix</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">prefixes</span><span class="p">[</span><span class="n">schema</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">schema</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">default_curi_maps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;semweb_context&#39;</span><span class="p">,</span> <span class="s1">&#39;obo_context&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span>
+        <span class="n">mc</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">METACLASS</span><span class="p">)</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">mc</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mc</span>
+        <span class="n">mc</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Instance of OWL Class&quot;</span>
+        <span class="n">mc</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OWL Class&#39;</span><span class="p">]</span>
+        <span class="n">mc</span><span class="o">.</span><span class="n">class_uri</span> <span class="o">=</span> <span class="s1">&#39;owl:Class&#39;</span>
+        <span class="n">mc</span><span class="o">.</span><span class="n">mixin</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">mc</span><span class="o">.</span><span class="n">slots</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">tmc</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">TEMPLATE_CLASS</span><span class="p">)</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">tmc</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmc</span>
+        <span class="n">tmc</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Instances of OWL classes that conform to a template&quot;</span>
+        <span class="n">tmc</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;design pattern record&#39;</span><span class="p">,</span> <span class="s1">&#39;template row&#39;</span><span class="p">]</span>
+        <span class="n">tmc</span><span class="o">.</span><span class="n">mixin</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">tmc</span><span class="o">.</span><span class="n">mixins</span> <span class="o">=</span> <span class="p">[</span><span class="n">mc</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">gmc</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">GROUPING_CLASS</span><span class="p">)</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">gmc</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">gmc</span>
+        <span class="n">gmc</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Mixin for instances of OWL Classes that are used as range references&quot;</span>
+        <span class="n">gmc</span><span class="o">.</span><span class="n">mixin</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gmc</span><span class="o">.</span><span class="n">mixins</span> <span class="o">=</span> <span class="p">[</span><span class="n">mc</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TypeDefinition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s1">&#39;xsd:string&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">add_slot</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">):</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="n">add_slot</span><span class="p">(</span><span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                                <span class="n">identifier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="c1">#range=&#39;uriorcurie&#39;,</span>
+                                <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Unique identifier for template instance&#39;</span><span class="p">))</span>
+        <span class="n">add_slot</span><span class="p">(</span><span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                                <span class="n">slot_uri</span><span class="o">=</span><span class="s1">&#39;rdfs:label&#39;</span><span class="p">,</span>
+                                <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Human readable label for template instance&#39;</span><span class="p">))</span>
+        <span class="n">add_slot</span><span class="p">(</span><span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;definition&#39;</span><span class="p">,</span>
+                                <span class="n">slot_uri</span><span class="o">=</span><span class="s1">&#39;IAO:0000115&#39;</span><span class="p">,</span>
+                                <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Human readable textual definition for template instance&#39;</span><span class="p">))</span>
+        <span class="n">add_slot</span><span class="p">(</span><span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;subclass_of&#39;</span><span class="p">,</span>
+                                <span class="n">multivalued</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">slot_uri</span><span class="o">=</span><span class="s1">&#39;rdfs:subclass_of&#39;</span><span class="p">,</span>
+                                <span class="nb">range</span><span class="o">=</span><span class="n">METACLASS</span><span class="p">))</span>
+        <span class="n">add_slot</span><span class="p">(</span><span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;equivalentTo&#39;</span><span class="p">,</span>
+                                <span class="n">description</span><span class="o">=</span><span class="s1">&#39;String serialization of RHS expression in equivalence axiom&#39;</span><span class="p">,</span>
+                                <span class="n">close_mappings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;owl:equivalentClass&#39;</span><span class="p">]))</span>
+        <span class="n">licenses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_class</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="o">=</span><span class="n">range_as_enums</span><span class="p">)</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">return</span> <span class="n">schema</span>
+
+    <span class="k">def</span> <span class="nf">create_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                     <span class="n">denormalize_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a LinkML class from a template/pattern</span>
+
+<span class="sd">        The class will have name FooTemplate, and will mixin TemplateClass,</span>
+<span class="sd">        and will have one slot per var (slots will also be inherited from TemplateClass)</span>
+
+<span class="sd">        by default, the range of each var will be a class RangeClass, unless treated as enums</span>
+
+<span class="sd">        :param pattern: DOSDP template</span>
+<span class="sd">        :param range_as_enums:  if true, ranges will be enums</span>
+<span class="sd">        :param denoramlized:  if true, create an optional label for each var</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">deref_class</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">ALIAS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CURIE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deref</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pattern</span><span class="o">.</span><span class="n">classes</span><span class="p">)</span>
+
+        <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pattern</span><span class="o">.</span><span class="n">pattern_name</span><span class="si">}</span><span class="s1"> template&#39;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">camelcase</span><span class="p">(</span><span class="n">template_name</span><span class="p">),</span>
+                              <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="n">template_name</span><span class="p">],</span>
+                              <span class="c1">#title=template_name,  ## TODO: fix owlgen</span>
+                              <span class="n">description</span><span class="o">=</span><span class="n">pattern</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                              <span class="n">mixins</span><span class="o">=</span><span class="p">[</span><span class="n">TEMPLATE_CLASS</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">contrib</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">contributors</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contributor: </span><span class="si">{</span><span class="n">contrib</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1">## TODO: extend metamodel</span>
+        <span class="n">extra_classes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vn</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">var_range_as_curie</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">range</span>
+            <span class="k">for</span> <span class="n">alias</span><span class="p">,</span> <span class="n">alias_obj</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">alias</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">range</span><span class="p">:</span>
+                    <span class="n">var_range_as_curie</span> <span class="o">=</span> <span class="n">alias_obj</span><span class="o">.</span><span class="n">curie</span>
+            <span class="n">range_base_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">range_as_enums</span><span class="p">:</span>
+                <span class="n">rangedef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_enum</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">range_base_name</span><span class="si">}</span><span class="s1"> enum&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rangedef</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">camelcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">range_base_name</span><span class="si">}</span><span class="s1"> class&#39;</span><span class="p">))</span>
+                <span class="c1">#rangedef.is_a = METACLASS</span>
+                <span class="n">rangedef</span><span class="o">.</span><span class="n">mixins</span> <span class="o">=</span> <span class="p">[</span><span class="n">GROUPING_CLASS</span><span class="p">]</span>
+                <span class="n">subc_slot</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span><span class="s1">&#39;subclass_of&#39;</span><span class="p">,</span>
+                                           <span class="n">has_member</span><span class="o">=</span><span class="n">AnonymousSlotExpression</span><span class="p">(</span><span class="n">equals_string</span><span class="o">=</span><span class="n">var_range_as_curie</span><span class="p">))</span>
+                <span class="n">rangedef</span><span class="o">.</span><span class="n">slot_usage</span><span class="p">[</span><span class="n">subc_slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">subc_slot</span>
+                <span class="n">extra_classes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rangedef</span><span class="p">)</span>
+            <span class="n">rangedef</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Any subclass of </span><span class="si">{</span><span class="n">var_range_as_curie</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">range</span><span class="si">}</span><span class="s1">)&#39;</span>
+            <span class="n">slot</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span><span class="n">vn</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">rangedef</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">slot</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">slot_usage</span><span class="p">[</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">slot</span>
+            <span class="k">if</span> <span class="n">denormalize_labels</span><span class="p">:</span>
+                <span class="n">label_slot</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">vn</span><span class="si">}</span><span class="s1">_label&#39;</span><span class="p">,</span>
+                                            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;label for </span><span class="si">{</span><span class="n">vn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                            <span class="n">string_serialization</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="si">{</span><span class="n">vn</span><span class="si">}</span><span class="se">}}</span><span class="s1">.label&#39;</span><span class="p">)</span>
+                <span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">label_slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label_slot</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_slot</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">slot_usage</span><span class="p">[</span><span class="n">label_slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">label_slot</span>
+        <span class="c1"># populate metaclass</span>
+        <span class="n">mc</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">METACLASS</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;definition&#39;</span><span class="p">,</span> <span class="s1">&#39;equivalentTo&#39;</span><span class="p">]:</span>
+            <span class="n">pf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="c1">#print(f&#39;k={k} rule={srule}&#39;)</span>
+            <span class="k">if</span> <span class="n">pf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">slot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialization_slot</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">pf</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mc</span><span class="o">.</span><span class="n">slots</span><span class="p">:</span>
+                    <span class="n">mc</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="c1">#schema.slots[slot.name] = deepcopy(slot)</span>
+                    <span class="c1">#schema.slots[slot.name].string_serialization = None</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">slot_usage</span><span class="p">[</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">slot</span>
+        <span class="c1"># append these at the end</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">extra_classes</span><span class="p">:</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">return</span> <span class="bp">cls</span>
+
+    <span class="k">def</span> <span class="nf">create_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">underscore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">enumdef</span> <span class="o">=</span> <span class="n">EnumDefinition</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">enums</span><span class="p">[</span><span class="n">enumdef</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">enumdef</span>
+        <span class="k">return</span> <span class="n">enumdef</span>
+
+
+    <span class="k">def</span> <span class="nf">_serialization_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pf</span><span class="p">:</span> <span class="n">Printf</span><span class="p">):</span>
+        <span class="n">slot</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">for</span> <span class="n">vn</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">{{</span><span class="si">{</span><span class="n">vn</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">slot</span><span class="o">.</span><span class="n">string_serialization</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="k">return</span> <span class="n">slot</span>
+
+    <span class="k">def</span> <span class="nf">_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">ALIAS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ALIAS</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">_deref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">ALIAS</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CURIE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">index</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">curie</span></div>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;dpfiles&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">## input DOSDPs</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Schema name&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--range-as-enum/--no-range-as-enums&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Model range ontology classes as enyms&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to saved yaml schema&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dosdp2model</span><span class="p">(</span><span class="n">dpfiles</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer a model from DOSDP</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ie</span> <span class="o">=</span> <span class="n">DOSDPImportEngine</span><span class="p">()</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">ie</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">dpfiles</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">write_schema</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dosdp2model</span><span class="p">()</span>
+
+
+</pre></div>
+
+	    </div>
+            <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Chris Mungall.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/underscore.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
+
+    </script>
+    <script type="text/javascript" src="../../../None">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../../../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../../../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>
