@@ -5,7 +5,11 @@ Installation
 
 .. code:: bash
 
-   chmod 755 environment.sh
-   . environment.sh
-   pip install -r requirements.txt
-   pip install -e . 
+   pip install schema-automator
+
+To check this works:
+
+.. code:: bash
+
+   schemauto --help
+

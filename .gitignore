@@ -1,5 +1,10 @@
+.idea
+.ipynb_checkpoints/
+docs/_build/
 wwwroot/*.js
 node_modules
 typings
 dist
 schema_automator.egg-info/*
+tmp/
+__pycache__

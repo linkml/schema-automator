@@ -15,8 +15,8 @@ python = "^3.9"
 click = "^8.1.2"
 # only necessary if 3.6 support is desired
 # dataclasses = "^0.8"
-linkml-runtime = "^1.2.15"
-linkml = "^1.2.12"
+linkml-runtime = "^1.2.17"
+linkml = "^1.2.11"
 mkdocs = "^1.2.3"
 pandas = "^1.3.5"
 python-dateutil = "^2.8.2"
@@ -33,12 +33,13 @@ rdflib = "^6.0.2"
 PyYAML = "^5.3.1"
 pypandoc = "^1.7.5"
 twine = "^4.0.0"
+oaklib = "^0.1.17"
 
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.1"
 Sphinx = "^4.4.0"
-sphinx-pdj-theme = "^0.2.0"
+sphinx-pdj-theme = "^0.2.1"
 sphinx-click = "^3.1.0"
 sphinxcontrib-mermaid = "^0.7.1"
 
@@ -48,6 +49,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
+schemauto = "schema_automator.cli:main"
 tsv2linkml = "schema_automator.importers.csv_import_engine:tsv2model"
 tsvs2linkml = "schema_automator.importers.csv_import_engine:tsvs2model"
 enum_annotator = "schema_automator.annotators.enum_annotator:enum_annotator"
@@ -58,6 +60,7 @@ owl2linkml = "schema_automator.importers.owl_import_engine:owl2model"
 dosdp2linkml = "schema_automator.importers.owl_import_engine:dosdp2model"
 jsondata2linkml = "schema_automator.importers.json_instance_import_engine:json2model"
 jsonschema2linkml = "schema_automator.importers.jsonschema_import_engine:jsonschema2model"
+extract-schema = "schema_automator.utils.schema_extractor:cli"
 
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]

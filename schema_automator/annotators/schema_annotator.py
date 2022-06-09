@@ -117,6 +117,7 @@ class SchemaAnnotator:
                             elt.exact_mappings.append(xref)
         return sv.schema
 
+
 @click.command()
 @click.argument('schema')
 @click.option('--output', '-o', help="Path to saved yaml schema")

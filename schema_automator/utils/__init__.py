@@ -1,0 +1,1 @@
+from schema_automator.utils.schemautils import write_schema

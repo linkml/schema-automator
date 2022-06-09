@@ -1,12 +1,34 @@
 import copy
 import logging
-from typing import Union
+from typing import Union, Optional
 from deprecated.classic import deprecated
 
 
 import yaml
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition
+from linkml_runtime.utils.schema_as_dict import schema_as_dict
+
+
+def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[str]):
+    """
+    Convenience method for writing a schema to stdout or to a file
+
+    :param schema:
+    :param output: if None, then write to stdout
+    :return:
+    """
+    if isinstance(schema, SchemaDefinition):
+        sdict = schema_as_dict(schema)
+    else:
+        sdict = schema
+    ys = yaml.safe_dump(sdict, sort_keys=False)
+    if output:
+        with open(output, 'w', encoding='UTF-8') as stream:
+            stream.write(ys)
+    else:
+        print(ys)
+
 
 @deprecated("Replaced by linkml.runtime.utils.schema_as_dict")
 def minify_schema(obj: Union[dict, SchemaDefinition]) -> dict:
@@ -27,8 +49,7 @@ def minify_schema(obj: Union[dict, SchemaDefinition]) -> dict:
     return obj
 
 
-
-# TODO: replace with schemaview
+@deprecated("Replaced by schemaview")
 def merge_schemas(schemas, nomerge_enums_for=[]):
     schema = copy.deepcopy(schemas[0])
     for s in schemas:

@@ -1,28 +1,31 @@
 import click
-import logging
-from typing import Union, Dict, Tuple, List, Any
+from typing import Union, Dict, List, Any
 from collections import defaultdict
-import os
-from csv import DictWriter
 import json
 import yaml
 import gzip
 
 from dataclasses import dataclass
-from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.importers.csv_import_engine import CsvDataImportEngine
-from schema_automator.utils.schemautils import merge_schemas
+
+from linkml_runtime import SchemaView
+from linkml_runtime.linkml_model import SchemaDefinition
+
+from schema_automator.generalizers.generalizer import Generalizer
+from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from linkml_runtime.utils.formatutils import camelcase
 
+from schema_automator.utils.schemautils import write_schema
+
+
 @dataclass
-class JsonInstanceImportEngine(ImportEngine):
+class JsonDataGeneralizer(Generalizer):
     mappings: dict = None
     omit_null: bool = None
 
     def convert(self, input: Union[str, Dict], format: str = 'json',
                 container_class_name='Container',
-                **kwargs):
-        csv_engine = CsvDataImportEngine(**kwargs)
+                **kwargs) -> SchemaDefinition:
+        csv_engine = CsvDataGeneralizer(**kwargs)
 
         if isinstance(input, dict):
             obj = input
@@ -43,13 +46,16 @@ class JsonInstanceImportEngine(ImportEngine):
         rows_by_table = defaultdict(list)
         self.rows_by_table = rows_by_table
         self._convert_obj(obj, table=container_class_name)
-        yamlobjs = []
+        schemas = []
         for cn, rows_dict in rows_by_table.items():
-            schema_obj = csv_engine.convert_dicts(rows_dict, cn, cn)
-            yamlobjs.append(schema_obj)
-        yamlobj = merge_schemas(yamlobjs)
-        yamlobj['classes'][container_class_name]['tree_root'] = True
-        return yamlobj
+            schema = csv_engine.convert_dicts(rows_dict, cn, cn)
+            schemas.append(schema)
+        sv = SchemaView(schemas[0])
+        for s in schemas[1:]:
+            sv.merge_schema(s)
+        schema = sv.schema
+        schema.classes[container_class_name].tree_root = True
+        return schema
 
     def _key_to_classname(self, k: str) -> str:
         return camelcase(k)
@@ -117,10 +123,9 @@ def json2model(input, format, omit_null, **kwargs):
 
 
     """
-    ie = JsonInstanceImportEngine(omit_null=omit_null)
-    schema_dict = ie.convert(input, dir=dir, format=format, **kwargs)
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    print(ys)
+    ie = JsonDataGeneralizer(omit_null=omit_null)
+    schema = ie.convert(input, dir=dir, format=format, **kwargs)
+    write_schema(schema)
 
 @click.command()
 @click.argument('inputs', nargs=-1)
@@ -136,11 +141,10 @@ def frontmatter2model(inputs, format, omit_null, **kwargs):
 
     """
     print(f'INPUTS={inputs}')
-    ie = JsonInstanceImportEngine(omit_null=omit_null)
+    ie = JsonDataGeneralizer(omit_null=omit_null)
     objs = parse_frontmatter_files(list(inputs))
-    schema_dict = ie.convert({'objects': objs}, dir=dir, format=format, **kwargs)
-    ys = yaml.dump(schema_dict, default_flow_style=False, sort_keys=False)
-    print(ys)
+    schema = ie.convert({'objects': objs}, dir=dir, format=format, **kwargs)
+    write_schema(schema)
 
 if __name__ == '__main__':
     json2model()

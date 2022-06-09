@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Infer a schema from a TSV
+"""Infer a schema from a rdftab
 
 """
 from linkml.utils.schemaloader import load_raw_schema
