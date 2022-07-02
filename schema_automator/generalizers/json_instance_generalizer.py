@@ -140,7 +140,6 @@ def frontmatter2model(inputs, format, omit_null, **kwargs):
 
 
     """
-    print(f'INPUTS={inputs}')
     ie = JsonDataGeneralizer(omit_null=omit_null)
     objs = parse_frontmatter_files(list(inputs))
     schema = ie.convert({'objects': objs}, dir=dir, format=format, **kwargs)

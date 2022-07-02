@@ -9,6 +9,7 @@ import click
 
 import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
+from oaklib.selector import get_resource_from_shorthand, get_implementation_from_shorthand
 
 from schema_automator import JsonLdAnnotator
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
@@ -135,14 +136,15 @@ def import_dosdps(dpfiles, output, **args):
 @main.command()
 @click.argument('input')
 @output_option
-@click.option('--container-class-name', help="name of root class")
+@schema_name_option
+@click.option('--container-class-name', default='Container', help="name of root class")
 @click.option('--format', '-f', default='json', help="json or yaml (or json.gz or yaml.gz) or frontmatter")
 @click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
 @click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 @click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
 @click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
-def generalize_json(input, output, format, omit_null, **kwargs):
+def generalize_json(input, output, schema_name, format, omit_null, **kwargs):
     """
     Generalizes from a JSON file to a schema
 
@@ -153,7 +155,7 @@ def generalize_json(input, output, format, omit_null, **kwargs):
         schemauto generalize-json my/data/persons.json
     """
     ie = JsonDataGeneralizer(omit_null=omit_null)
-    schema = ie.convert(input, dir=dir, format=format, **kwargs)
+    schema = ie.convert(input, format=format, **kwargs)
     write_schema(schema, output)
 
 
@@ -224,16 +226,22 @@ def generalize_rdf(rdffile, dir, output, **args):
 
 @main.command()
 @click.argument('schema')
+@click.option('--curie-only/--no-curie-only',
+              default=False,
+              show_default=True,
+              help="if set, only use results that are mapped to CURIEs")
+@click.option('--input', '-i', help="OAK input ontology selector")
 @output_option
-def annotate_schema(schema: str, output: str, **args):
+def annotate_schema(schema: str, input: str, output: str, curie_only: bool, **args):
     """
     Annotate all elements of a schema
 
     Requires Bioportal API key
     """
+    impl = get_implementation_from_shorthand(input)
     logging.basicConfig(level=logging.INFO)
-    annr = SchemaAnnotator()
-    schema = annr.annotate_schema(schema)
+    annr = SchemaAnnotator(impl)
+    schema = annr.annotate_schema(schema, curie_only=curie_only)
     write_schema(schema, output)
 
 

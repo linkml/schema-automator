@@ -58,3 +58,8 @@ target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/
 		--model_in target/availabilities_g_s_strain_202112151116_org_meanings.yaml \
 		--curated_yaml $@ \
 		--selected_enum organism_enum
+
+# create a convenient wrapper script;
+# this can be used outside the poetry environment
+bin/schemauto:
+	echo `poetry run which schemauto` '"$$@"' > $@ && chmod +x $@

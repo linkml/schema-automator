@@ -31,6 +31,9 @@ ROBOT_NAME_MAP = {
 
 @dataclass
 class ForeignKey:
+    """
+    Represents a field in one table that points to an identifier field in another
+    """
     source_table: str
     source_column: str
     target_table: str
@@ -94,7 +97,7 @@ class CsvDataGeneralizer(Generalizer):
             c = os.path.splitext(os.path.basename(file))[0]
             if self.downcase_header:
                 c = c.lower()
-            print(f'READING {file} ')
+            logging.info(f'READING {file} ')
             df = pd.read_csv(file, sep=self.column_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
@@ -187,6 +190,13 @@ class CsvDataGeneralizer(Generalizer):
             #tgt_slot['identifier'] = True
 
     def convert_multiple(self, files: List[str], **kwargs) -> SchemaDefinition:
+        """
+        Converts multiple TSVs to a schema
+
+        :param files:
+        :param kwargs:
+        :return:
+        """
         if self.infer_foreign_keys:
             fks = self.infer_linkages(files)
         else:
@@ -199,16 +209,23 @@ class CsvDataGeneralizer(Generalizer):
             s = self.convert(file, class_name=c, **kwargs)
             if s is not None:
                 schemas.append(s)
-            print(f'CLASSES={list(s.classes.keys())}')
+            logging.info(f'Classes={list(s.classes.keys())}')
         sv = SchemaView(schemas[0])
         for s in schemas[1:]:
             sv.merge_schema(s)
-            print(f'xxxCLASSES={list(sv.all_classes().keys())}')
+            logging.info(f'Classes, post merge={list(sv.all_classes().keys())}')
         #s = merge_schemas(yamlobjs)
         self.inject_foreign_keys(sv, fks)
         return sv.schema
 
     def convert(self, file: str, **kwargs) -> SchemaDefinition:
+        """
+        Converts a single TSV file to a single-class schema
+        
+        :param file:
+        :param kwargs:
+        :return:
+        """
         with open(file, newline='') as tsv_file:
             header = [h.strip() for h in tsv_file.readline().split('\t')]
             rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
