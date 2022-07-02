@@ -20,7 +20,7 @@ OUTSCHEMA_GOLD = os.path.join(OUTPUT_DIR, 'neon-in-gold-inf.yaml')
 
 
 class TestJsonDataGeneralizer(unittest.TestCase):
-    """JSON """
+    """Tests ability to generalize from JSON instance data to a LinkML schema """
 
     def test_from_json(self):
         """Test inference of a schema from JSON instance data (small example)."""
