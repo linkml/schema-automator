@@ -28,14 +28,12 @@ GROUPING_CLASS = 'OntologyClassSubset'
 @dataclass
 class DOSDPImportEngine(ImportEngine):
     """
-    For every template with name Foo, a LinkML class FooTemplate is created
+    An ImportEngine that imports Ontology Design Patterns specified as DOSDP Yaml into a LinkML schema
 
-    The following builtin slots are created:
+    See `DOSDPs <https://github.com/INCATools/dead_simple_owl_design_patterns>`_
 
-    - name
-    - definition
-    - subclass_of
-    - equivalentTo
+    Every template maps to a LinkML class, the default name for a template Foo as FooTemplate
+
     """
     mappings: dict = None
     include_unmapped_annotations = False
@@ -49,6 +47,14 @@ class DOSDPImportEngine(ImportEngine):
         return yaml_loader.load(obj, target_class=Pattern)
 
     def convert(self, files: str, range_as_enums = True, **kwargs) -> SchemaDefinition:
+        """
+        Converts one or more YAML files into a Schema
+
+        :param files:
+        :param range_as_enums: if True, then class ranges are mapped to Enums
+        :param kwargs:
+        :return:
+        """
         patterns = [self.load_dp(file) for file in files]
         schema = SchemaDefinition(**kwargs)
         if not schema.default_prefix:
