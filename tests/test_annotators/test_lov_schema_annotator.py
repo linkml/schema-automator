@@ -26,6 +26,7 @@ class LovSchemaAnnotatorTestCase(unittest.TestCase):
         impl = LovImplementation(OntologyResource())
         self.annotator = SchemaAnnotator(impl)
 
+    @unittest.skip("Currently incomplete")
     def test_ann(self):
         s = SchemaDefinition(id='test', name='test')
         sb = SchemaBuilder(s)
