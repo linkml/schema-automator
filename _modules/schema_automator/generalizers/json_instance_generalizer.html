@@ -266,7 +266,6 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;INPUTS=</span><span class="si">{</span><span class="n">inputs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">ie</span> <span class="o">=</span> <span class="n">JsonDataGeneralizer</span><span class="p">(</span><span class="n">omit_null</span><span class="o">=</span><span class="n">omit_null</span><span class="p">)</span>
     <span class="n">objs</span> <span class="o">=</span> <span class="n">parse_frontmatter_files</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">inputs</span><span class="p">))</span>
     <span class="n">schema</span> <span class="o">=</span> <span class="n">ie</span><span class="o">.</span><span class="n">convert</span><span class="p">({</span><span class="s1">&#39;objects&#39;</span><span class="p">:</span> <span class="n">objs</span><span class="p">},</span> <span class="nb">dir</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
