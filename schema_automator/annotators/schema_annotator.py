@@ -90,6 +90,25 @@ class SchemaAnnotator:
 
         return sv.schema
 
+    def enrich(self, schema: Union[SchemaDefinition, str]) -> SchemaDefinition:
+        sv = SchemaView(schema)
+        oi = self.ontology_implementation
+        for elt_name, elt in sv.all_elements().items():
+            curies = [sv.get_uri(elt)]
+            for rel, ms in sv.get_mappings().items():
+                curies += ms
+            for x in curies:
+                print(f"X={x}")
+                if elt.description:
+                    break
+                try:
+                    defn = oi.get_definition_by_curie(x)
+                    if defn:
+                        elt.description = defn
+                except Exception:
+                    pass
+        return sv.schema
+
 
 @click.command()
 @click.argument('schema')

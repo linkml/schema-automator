@@ -247,6 +247,23 @@ def annotate_schema(schema: str, input: str, output: str, curie_only: bool, **ar
 
 @main.command()
 @click.argument('schema')
+@click.option('--input', '-i', help="OAK input ontology selector")
+@output_option
+def enrich_schema(schema: str, input: str, output: str, **args):
+    """
+    Annotate all elements of a schema
+
+    Requires Bioportal API key
+    """
+    impl = get_implementation_from_shorthand(input)
+    logging.basicConfig(level=logging.INFO)
+    annr = SchemaAnnotator(impl)
+    schema = annr.enrich(schema)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.argument('schema')
 @output_option
 def annotate_using_jsonld(schema: str, output: str, **args):
     """
