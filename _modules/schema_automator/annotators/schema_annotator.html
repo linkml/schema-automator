@@ -65,13 +65,25 @@
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli.html">Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../packages/index.html">Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#direct-installation">Direct Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#running-via-docker">Running via Docker</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli.html#preamble">Preamble</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli.html#main-commands">Main commands</a></li>
@@ -214,6 +226,25 @@
                             <span class="k">if</span> <span class="n">xref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="p">:</span>
                                 <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span>
 
+        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span>
+
+    <span class="k">def</span> <span class="nf">enrich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+        <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
+        <span class="k">for</span> <span class="n">elt_name</span><span class="p">,</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">all_elements</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">curies</span> <span class="o">=</span> <span class="p">[</span><span class="n">sv</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(</span><span class="n">elt</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="n">ms</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">get_mappings</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">curies</span> <span class="o">+=</span> <span class="n">ms</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">curies</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">defn</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">get_definition_by_curie</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">defn</span><span class="p">:</span>
+                        <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">defn</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">pass</span>
         <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
 
 
@@ -247,7 +278,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2022, Chris Mungall.
+        &copy; Copyright 2022, LinkML Developers.
     </p>
   </div>
 

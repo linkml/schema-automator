@@ -64,13 +64,25 @@
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/index.html">Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#direct-installation">Direct Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#running-via-docker">Running via Docker</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#preamble">Preamble</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#main-commands">Main commands</a></li>
@@ -244,6 +256,8 @@
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-i">schemauto-annotate-schema command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-i">schemauto-enrich-schema command line option</a>
+</li>
       </ul></li>
       <li>
     --max-enum-size
@@ -321,6 +335,8 @@
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-o">schemauto-annotate-schema command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-o">schemauto-annotate-using-jsonld command line option</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">schemauto-enrich-schema command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-o">schemauto-generalize-json command line option</a>
 </li>
@@ -433,6 +449,8 @@
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-i">schemauto-annotate-schema command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-i">schemauto-enrich-schema command line option</a>
+</li>
       </ul></li>
       <li>
     -n
@@ -458,6 +476,8 @@
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-o">schemauto-annotate-schema command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-o">schemauto-annotate-using-jsonld command line option</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">schemauto-enrich-schema command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-o">schemauto-generalize-json command line option</a>
 </li>
@@ -599,6 +619,8 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA">schemauto-annotate-using-jsonld command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-arg-SCHEMA">schemauto-enrich-schema command line option</a>
+</li>
       </ul></li>
       <li><a href="packages/annotators.html#schema_automator.annotators.SchemaAnnotator">SchemaAnnotator (class in schema_automator.annotators)</a>
 </li>
@@ -643,6 +665,21 @@
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-o">-o</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA">SCHEMA</a>
+</li>
+      </ul></li>
+      <li>
+    schemauto-enrich-schema command line option
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-i">--input</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">--output</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-i">-i</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">-o</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-arg-SCHEMA">SCHEMA</a>
 </li>
       </ul></li>
       <li>
@@ -867,7 +904,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2022, Chris Mungall.
+        &copy; Copyright 2022, LinkML Developers.
     </p>
   </div>
 

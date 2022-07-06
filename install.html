@@ -32,7 +32,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Schema Automator  documentation" href="index.html"/>
         <link rel="next" title="Command Line" href="cli.html"/>
-        <link rel="prev" title="LinkML Schema Automator" href="introduction.html"/>
+        <link rel="prev" title="Introduction" href="introduction.html"/>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="cache-control" content="public" />
@@ -66,13 +66,25 @@
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">LinkML Schema Automator</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/index.html">Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#direct-installation">Direct Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-via-docker">Running via Docker</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#preamble">Preamble</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html#main-commands">Main commands</a></li>
@@ -126,6 +138,8 @@
 	    <div id="content" class="hfeed entry-container hentry">
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<section id="direct-installation">
+<h2>Direct Installation<a class="headerlink" href="#direct-installation" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">schema-automator</span></code> and its components require Python 3.9 or greater.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install schema-automator
 </pre></div>
@@ -134,6 +148,19 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto --help
 </pre></div>
 </div>
+</section>
+<section id="running-via-docker">
+<h2>Running via Docker<a class="headerlink" href="#running-via-docker" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <a class="reference external" href="https://hub.docker.com/r/linkml/schema-automator">Schema Automator Docker Container</a></p>
+<p>To start a shell</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run  -v <span class="nv">$PWD</span>:/work -w /work -ti linkml/schema-automator
+</pre></div>
+</div>
+<p>Within the shell you should see all your files, and you should have access:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto --help
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -145,7 +172,7 @@
         <a href="cli.html" class="btn btn-neutral float-right" title="Command Line">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="introduction.html" class="btn btn-neutral" title="LinkML Schema Automator"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral" title="Introduction"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -154,7 +181,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2022, Chris Mungall.
+        &copy; Copyright 2022, LinkML Developers.
     </p>
   </div>
 

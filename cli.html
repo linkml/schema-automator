@@ -66,13 +66,25 @@
           
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">LinkML Schema Automator</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">LinkML Schema Automator</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/index.html">Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-framework">Importing from alternative modeling framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#direct-installation">Direct Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#running-via-docker">Running via Docker</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#preamble">Preamble</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#main-commands">Main commands</a></li>
@@ -226,6 +238,36 @@ Instead these are now <em>subcommands</em> of the main <code class="docutils lit
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA">
 <span id="cmdoption-schemauto-annotate-using-jsonld-arg-schema"></span><span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="schemauto-enrich-schema">
+<h4>enrich-schema<a class="headerlink" href="#schemauto-enrich-schema" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Annotate all elements of a schema</p>
+<p>Requires Bioportal API key</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto enrich-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-i">
+<span id="cmdoption-schemauto-enrich-schema-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;input&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAK input ontology selector</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-o">
+<span id="cmdoption-schemauto-enrich-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-arg-SCHEMA">
+<span id="cmdoption-schemauto-enrich-schema-arg-schema"></span><span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-arg-SCHEMA" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -666,7 +708,7 @@ Instead these are now <em>subcommands</em> of the main <code class="docutils lit
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2022, Chris Mungall.
+        &copy; Copyright 2022, LinkML Developers.
     </p>
   </div>
 
