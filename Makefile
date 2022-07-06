@@ -1,6 +1,9 @@
+VERSION = $(shell git tag | tail -1)
+
 .PHONY: all clean test
 
 all: clean test target/soil_meanings.yaml
+
 
 clean:
 	rm -rf target/soil_meanings.yaml
@@ -63,3 +66,41 @@ target/availabilities_g_s_strain_202112151116_org_meanings_curated.yaml: target/
 # this can be used outside the poetry environment
 bin/schemauto:
 	echo `poetry run which schemauto` '"$$@"' > $@ && chmod +x $@
+
+
+################################################
+#### Commands for building the Docker image ####
+################################################
+
+IM=linkml/schema-automator
+
+docker-build-no-cache:
+	@docker build --no-cache -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM):latest
+
+docker-build:
+	@docker build -t $(IM):$(VERSION) . \
+	&& docker tag $(IM):$(VERSION) $(IM):latest
+
+docker-build-use-cache-dev:
+	@docker build -t $(DEV):$(VERSION) . \
+	&& docker tag $(DEV):$(VERSION) $(DEV):latest
+
+docker-clean:
+	docker kill $(IM) || echo not running ;
+	docker rm $(IM) || echo not made 
+
+docker-publish-no-build:
+	@docker push $(IM):$(VERSION) \
+	&& docker push $(IM):latest
+
+docker-publish-dev-no-build:
+	@docker push $(DEV):$(VERSION) \
+	&& docker push $(DEV):latest
+
+docker-publish: docker-build
+	@docker push $(IM):$(VERSION) \
+	&& docker push $(IM):latest
+
+docker-run:
+	@docker run  -v $(PWD):/work -w /work -ti $(IM):$(VERSION) 
