@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Schema Automator'
-copyright = '2022, Chris Mungall'
-author = 'Chris Mungall, Harshad Hegde'
+copyright = '2022, LinkML Developers'
+author = 'Chris Mungall, Harshad Hegde, Mark Miller'
 
 # The full version, including alpha/beta/rc tags
 # release = '0.1.4'
