@@ -4,6 +4,7 @@ import unittest
 import os
 
 from linkml.generators.pythongen import PythonGenerator
+from linkml_runtime import SchemaView
 from linkml_runtime.dumpers import yaml_dumper
 
 from schema_automator.importers.frictionless_import_engine import FrictionlessImportEngine
@@ -26,8 +27,13 @@ class TestFrictionlessImporter(unittest.TestCase):
         ie = FrictionlessImportEngine()
         schema = ie.convert(C2M2)
         write_schema(schema, OUT)
-        print("PYTHON")
-        PythonGenerator(OUT).serialize()
+        py_str = PythonGenerator(OUT).serialize()
+        self.assertIsNotNone(py_str)
+        sv = SchemaView(schema)
+        biosample = sv.get_class('biosample')
+        slot = sv.induced_slot('anatomy', biosample.name)
+        self.assertEqual('anatomy', slot.range)
+
 
 
 

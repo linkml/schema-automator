@@ -1,10 +1,11 @@
+import logging
 from typing import Union, Dict, Tuple, List, Any, Optional
 
 from dataclasses import dataclass
 
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model.meta import SchemaDefinition, SlotDefinition, EnumDefinition, \
-    PermissibleValue, UniqueKey
+    PermissibleValue, UniqueKey, ClassDefinition
 from linkml_runtime.loaders import json_loader
 from linkml_runtime.utils.formatutils import camelcase
 
@@ -26,6 +27,11 @@ def _desc(elt: Union[fl.Field, fl.Resource]) -> Optional[str]:
         return elt.description[0]
     else:
         return None
+
+
+def _add_unique_keys(cls: ClassDefinition, name: str, slot_names: List[str]):
+    uk = UniqueKey(name, unique_key_slots=slot_names)
+    cls.unique_keys[name] = uk
 
 
 @dataclass
@@ -65,9 +71,7 @@ class FrictionlessImportEngine(ImportEngine):
                     slot.required = constraints.required
                     slot.pattern = constraints.pattern
                     if constraints.unique is True:
-                        n = f"{slot.name}_unique_key"
-                        uk = UniqueKey(n, unique_key_slots=[slot.name])
-                        cls.unique_keys[n] = uk
+                        _add_unique_keys(cls, f"{slot.name}_unique_key", [slot.name])
                 if field.enum:
                     e = self.add_enum(sb, field)
                     slot.range = e.name
@@ -77,6 +81,26 @@ class FrictionlessImportEngine(ImportEngine):
                         slot.multivalued = True
                     else:
                         slot.range = TYPE_MAPPING[t]
+            if tbl.primaryKey:
+                pks = tbl.primaryKey
+                if len(pks) > 1:
+                    _add_unique_keys(cls, f"{cls.name}_primary_key", [pks])
+                else:
+                    cls.attributes[pks[0]].identifier = True
+            if tbl.foreignKeys:
+                for fk in tbl.foreignKeys:
+                    fk_fields = fk.fields
+                    if isinstance(fk_fields, list) and len(fk_fields) > 1:
+                        logging.warning(f"Cannot handle compound FKs: {cls.name}.[{fk_fields}]")
+                    else:
+                        if isinstance(fk_fields, list):
+                            fk_field = fk_fields[0]
+                        else:
+                            fk_field = fk_fields
+                        if fk_field:
+                            fk_slot = cls.attributes[fk_field]
+                            fk_slot.range = fk.reference.resource
+                            # assume fk.fields is the PK
         sb.add_defaults()
         for c in schema.classes.values():
             c.from_schema = 'http://example.org/'

@@ -1,5 +1,5 @@
 # Auto generated from frictionless.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-07-08T12:11:16
+# Generation date: 2022-07-08T14:42:16
 # Schema: frictionless
 #
 # id: https://w3id.org/linkml/frictionless
@@ -32,6 +32,7 @@ version = None
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
+ANY = CurieNamespace('Any', 'http://example.org/UNKNOWN/Any/')
 FRICTIONLESS = CurieNamespace('frictionless', 'https://w3id.org/linkml/frictionless/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
 DEFAULT_ = FRICTIONLESS
@@ -51,6 +52,8 @@ class ResourceName(extended_str):
 class PackageName(extended_str):
     pass
 
+
+Any = Any
 
 @dataclass
 class Dialect(YAMLRoot):
@@ -164,13 +167,19 @@ class Reference(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = FRICTIONLESS.Reference
 
     resource: Optional[str] = None
-    fields: Optional[Union[Dict[Union[str, FieldName], Union[dict, Field]], List[Union[dict, Field]]]] = empty_dict()
+    fields: Optional[Union[Union[str, FieldName], List[Union[str, FieldName]]]] = empty_list()
+    range: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.resource is not None and not isinstance(self.resource, str):
             self.resource = str(self.resource)
 
-        self._normalize_inlined_as_list(slot_name="fields", slot_type=Field, key_name="name", keyed=True)
+        if not isinstance(self.fields, list):
+            self.fields = [self.fields] if self.fields is not None else []
+        self.fields = [v if isinstance(v, FieldName) else FieldName(v) for v in self.fields]
+
+        if self.range is not None and not isinstance(self.range, str):
+            self.range = str(self.range)
 
         super().__post_init__(**kwargs)
 
@@ -184,18 +193,24 @@ class ForeignKeys(YAMLRoot):
     class_name: ClassVar[str] = "ForeignKeys"
     class_model_uri: ClassVar[URIRef] = FRICTIONLESS.ForeignKeys
 
-    fields: Optional[Union[Dict[Union[str, FieldName], Union[dict, Field]], List[Union[dict, Field]]]] = empty_dict()
+    fields: Optional[Union[Union[str, FieldName], List[Union[str, FieldName]]]] = empty_list()
     reference: Optional[Union[dict, Reference]] = None
     constraint_name: Optional[str] = None
+    range: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        self._normalize_inlined_as_list(slot_name="fields", slot_type=Field, key_name="name", keyed=True)
+        if not isinstance(self.fields, list):
+            self.fields = [self.fields] if self.fields is not None else []
+        self.fields = [v if isinstance(v, FieldName) else FieldName(v) for v in self.fields]
 
         if self.reference is not None and not isinstance(self.reference, Reference):
             self.reference = Reference(**as_dict(self.reference))
 
         if self.constraint_name is not None and not isinstance(self.constraint_name, str):
             self.constraint_name = str(self.constraint_name)
+
+        if self.range is not None and not isinstance(self.range, str):
+            self.range = str(self.range)
 
         super().__post_init__(**kwargs)
 
@@ -404,7 +419,7 @@ slots.resource = Slot(uri=FRICTIONLESS.resource, name="resource", curie=FRICTION
                    model_uri=FRICTIONLESS.resource, domain=None, range=Optional[str])
 
 slots.fields = Slot(uri=FRICTIONLESS.fields, name="fields", curie=FRICTIONLESS.curie('fields'),
-                   model_uri=FRICTIONLESS.fields, domain=None, range=Optional[Union[Dict[Union[str, FieldName], Union[dict, Field]], List[Union[dict, Field]]]])
+                   model_uri=FRICTIONLESS.fields, domain=None, range=Optional[Union[Union[str, FieldName], List[Union[str, FieldName]]]])
 
 slots.reference = Slot(uri=FRICTIONLESS.reference, name="reference", curie=FRICTIONLESS.curie('reference'),
                    model_uri=FRICTIONLESS.reference, domain=None, range=Optional[Union[dict, Reference]])
@@ -438,3 +453,21 @@ slots.schema = Slot(uri=FRICTIONLESS.schema, name="schema", curie=FRICTIONLESS.c
 
 slots.resources = Slot(uri=FRICTIONLESS.resources, name="resources", curie=FRICTIONLESS.curie('resources'),
                    model_uri=FRICTIONLESS.resources, domain=None, range=Optional[Union[Dict[Union[str, ResourceName], Union[dict, Resource]], List[Union[dict, Resource]]]])
+
+slots.range = Slot(uri=FRICTIONLESS.range, name="range", curie=FRICTIONLESS.curie('range'),
+                   model_uri=FRICTIONLESS.range, domain=None, range=Optional[str])
+
+slots.Reference_fields = Slot(uri=FRICTIONLESS.fields, name="Reference_fields", curie=FRICTIONLESS.curie('fields'),
+                   model_uri=FRICTIONLESS.Reference_fields, domain=Reference, range=Optional[Union[Union[str, FieldName], List[Union[str, FieldName]]]])
+
+slots.Reference_range = Slot(uri=FRICTIONLESS.range, name="Reference_range", curie=FRICTIONLESS.curie('range'),
+                   model_uri=FRICTIONLESS.Reference_range, domain=Reference, range=Optional[str])
+
+slots.ForeignKeys_fields = Slot(uri=FRICTIONLESS.fields, name="ForeignKeys_fields", curie=FRICTIONLESS.curie('fields'),
+                   model_uri=FRICTIONLESS.ForeignKeys_fields, domain=ForeignKeys, range=Optional[Union[Union[str, FieldName], List[Union[str, FieldName]]]])
+
+slots.ForeignKeys_range = Slot(uri=FRICTIONLESS.range, name="ForeignKeys_range", curie=FRICTIONLESS.curie('range'),
+                   model_uri=FRICTIONLESS.ForeignKeys_range, domain=ForeignKeys, range=Optional[str])
+
+slots.Schema_fields = Slot(uri=FRICTIONLESS.fields, name="Schema_fields", curie=FRICTIONLESS.curie('fields'),
+                   model_uri=FRICTIONLESS.Schema_fields, domain=Schema, range=Optional[Union[Dict[Union[str, FieldName], Union[dict, Field]], List[Union[dict, Field]]]])

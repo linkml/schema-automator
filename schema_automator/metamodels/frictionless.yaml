@@ -89,8 +89,8 @@ slots:
     - value: id
     multivalued: true
     range: Field
-    inlined: true
-    inlined_as_list: true
+    #inlined: true
+    #inlined_as_list: true
   reference:
     range: Reference
   constraint_name:
@@ -136,6 +136,8 @@ slots:
     inlined: true
     inlined_as_list: true
 classes:
+  Any:
+    class_uri: linkml:Any
   Dialect:
     slots:
     - delimiter
@@ -160,17 +162,29 @@ classes:
     slots:
     - resource
     - fields
+    slot_usage:
+      fields:
+        inlined: false
+      range: Any
   ForeignKeys:
     slots:
     - fields
     - reference
     - constraint_name
+    slot_usage:
+      fields:
+        inlined: false
+      range: Any
   Schema:
     slots:
     - fields
     - missingValues
     - primaryKey
     - foreignKeys
+    slot_usage:
+      fields:
+        inlined: true
+        inlined_as_list: true
   Resource:
     slots:
     - profile
