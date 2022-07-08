@@ -25,7 +25,7 @@ class TestFrictionlessImporter(unittest.TestCase):
         Test importing a package
         """
         ie = FrictionlessImportEngine()
-        schema = ie.convert(C2M2)
+        schema = ie.convert(C2M2, id="https://w3id.org/linkml/cfde", name="cfde_schema")
         write_schema(schema, OUT)
         py_str = PythonGenerator(OUT).serialize()
         self.assertIsNotNone(py_str)

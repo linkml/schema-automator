@@ -46,7 +46,7 @@ class FrictionlessImportEngine(ImportEngine):
 
     """
 
-    def convert(self, file: str, **kwargs) -> SchemaDefinition:
+    def convert(self, file: str, id: str,name: str, **kwargs) -> SchemaDefinition:
         """
         Converts one or more JSON files into a Schema
 
@@ -57,6 +57,15 @@ class FrictionlessImportEngine(ImportEngine):
         package: fl.Package = json_loader.load(file, target_class=fl.Package)
         sb = SchemaBuilder()
         schema = sb.schema
+        if id:
+            schema.id = id
+            if name:
+                sb.add_prefix(name, f"{id}/")
+        if not name:
+            name = package.name
+        if name:
+            schema.name = name
+        schema.description = package.title
         for resource in package.resources:
             sb.add_class(resource.name)
             cls = schema.classes[resource.name]
@@ -102,6 +111,8 @@ class FrictionlessImportEngine(ImportEngine):
                             fk_slot.range = fk.reference.resource
                             # assume fk.fields is the PK
         sb.add_defaults()
+        if name:
+            schema.default_prefix = name
         for c in schema.classes.values():
             c.from_schema = 'http://example.org/'
         return sb.schema
