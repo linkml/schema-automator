@@ -23,6 +23,7 @@ from tests import INPUT_DIR, OUTPUT_DIR
 
 DB = os.path.join(OUTPUT_DIR, 'tmp.db')
 
+
 class TestSqlmporter(unittest.TestCase):
     """Imports SQL """
 
@@ -59,12 +60,15 @@ class TestSqlmporter(unittest.TestCase):
         ie = SqlImportEngine()
         schema_rt = ie.convert(DB)
         schemaview_rt = SchemaView(schema_rt)
-        print(yaml_dumper.dumps(schema))
+        print(yaml_dumper.dumps(schema_rt))
         schemaview = self.schemaview
         for c in schemaview.all_classes().values():
+            print("here is c")
+            print(c)
             self.assertIn(c.name, schemaview_rt.all_classes())
             for s in schemaview.class_induced_slots(c.name):
-                self.assertIn(s.name, schemaview_rt.all_classes())
+                print(s)
+                self.assertIn(s.name, schemaview_rt.all_slots())
 
 
 
