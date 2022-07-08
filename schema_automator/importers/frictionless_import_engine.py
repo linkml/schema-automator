@@ -1,24 +1,15 @@
-from copy import deepcopy
-
-import click
-import logging
-import yaml
-from typing import Union, Dict, Tuple, List, Any
-from collections import defaultdict
-import os
-from csv import DictWriter
+from typing import Union, Dict, Tuple, List, Any, Optional
 
 from dataclasses import dataclass
 
 from linkml.utils.schema_builder import SchemaBuilder
-from linkml_runtime.linkml_model.meta import SchemaDefinition, ClassDefinition, SlotDefinition, EnumDefinition, \
-    TypeDefinition, AnonymousSlotExpression, PermissibleValue, UniqueKey
-from linkml_runtime.loaders import yaml_loader, json_loader
-from linkml_runtime.utils.formatutils import camelcase, underscore
+from linkml_runtime.linkml_model.meta import SchemaDefinition, SlotDefinition, EnumDefinition, \
+    PermissibleValue, UniqueKey
+from linkml_runtime.loaders import json_loader
+from linkml_runtime.utils.formatutils import camelcase
 
 from schema_automator.importers.import_engine import ImportEngine
 import schema_automator.metamodels.frictionless as fl
-from schema_automator.utils.schemautils import write_schema
 
 
 TYPE_MAPPING = {
@@ -28,6 +19,13 @@ TYPE_MAPPING = {
     "integer": "integer",
     "number": "decimal",
 }
+
+
+def _desc(elt: Union[fl.Field, fl.Resource]) -> Optional[str]:
+    if elt.description:
+        return elt.description[0]
+    else:
+        return None
 
 
 @dataclass
@@ -56,15 +54,11 @@ class FrictionlessImportEngine(ImportEngine):
         for resource in package.resources:
             sb.add_class(resource.name)
             cls = schema.classes[resource.name]
-            cls.description = resource.description
+            cls.description = _desc(resource)
             cls.title = resource.title
             tbl = resource.schema
             for field in tbl.fields:
-                if field.description:
-                    desc = field.description[0]
-                else:
-                    desc = None
-                slot = SlotDefinition(field.name, description=desc)
+                slot = SlotDefinition(field.name, description=_desc(field))
                 cls.attributes[slot.name] = slot
                 constraints = field.constraints
                 if constraints:
