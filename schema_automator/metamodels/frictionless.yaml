@@ -1,0 +1,204 @@
+name: frictionless
+description: frictionless
+id: https://w3id.org/linkml/frictionless
+imports:
+- linkml:types
+prefixes:
+  linkml: https://w3id.org/linkml/
+  frictionless: https://w3id.org/linkml/frictionless/
+default_prefix: frictionless
+enums:
+  type_enum:
+    permissible_values:
+      string:
+        description: string
+      datetime:
+        description: datetime
+      boolean:
+        description: boolean
+      integer:
+        description: integer
+      array:
+        description: array
+      number:
+        description: number
+  format_enum:
+    permissible_values:
+      any:
+        description: any
+      email:
+        description: email
+      binary:
+        description: binary
+  profile_enum:
+    permissible_values:
+      tabular-data-resource:
+      tabular-data-package:
+slots:
+  delimiter:
+    range: string
+  doubleQuote:
+    range: boolean
+  lineTerminator:
+    range: string
+  skipInitialSpace:
+    range: boolean
+  header:
+    range: boolean
+  required:
+    slot_uri: linkml:required
+    range: boolean
+  pattern:
+    slot_uri: linkml:pattern
+  unique:
+    slot_uri: linkml:identifier
+    range: boolean
+  name:
+    identifier: true
+    slot_uri: linkml:name
+    examples:
+    - value: description
+    range: string
+  description:
+    slot_uri: linkml:description
+    examples:
+    - value: A human-readable description of this identifier namespace
+    multivalued: true
+    range: string
+  type:
+    examples:
+    - value: string
+    range: type_enum
+  constraints:
+    range: Constraints
+  format:
+    examples:
+    - value: any
+    range: format_enum
+  enum:
+    close_mappings:
+      - linkml:range
+    multivalued: true
+    range: string
+  resource:
+    examples:
+    - value: gene
+    range: string
+  fields:
+    examples:
+    - value: id
+    multivalued: true
+    range: Field
+    #inlined: true
+    #inlined_as_list: true
+  reference:
+    range: Reference
+  constraint_name:
+    examples:
+    - value: dcc_project_fkey
+  missingValues:
+    multivalued: true
+  primaryKey:
+    close_mappings:
+      - linkml:identifier
+      - linkml:unique_keys
+    examples:
+    - value: id
+    multivalued: true
+    range: Field
+  foreignKeys:
+    examples:
+    - value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
+    multivalued: true
+    range: ForeignKeys
+  profile:
+    examples:
+    - value: tabular-data-resource
+    range: profile_enum
+  title:
+    slot_uri: linkml:title
+    examples:
+    - value: id_namespace
+    range: string
+  path:
+    examples:
+    - value: id_namespace.tsv
+    range: string
+  dialect:
+    range: string
+  schema:
+    range: Schema
+    close_mappings:
+      - linkml:ClassDefinition
+  resources:
+    multivalued: true
+    range: Resource
+    inlined: true
+    inlined_as_list: true
+classes:
+  Any:
+    class_uri: linkml:Any
+  Dialect:
+    slots:
+    - delimiter
+    - doubleQuote
+    - lineTerminator
+    - skipInitialSpace
+    - header
+  Constraints:
+    slots:
+    - required
+    - pattern
+    - unique
+  Field:
+    slots:
+    - name
+    - description
+    - type
+    - constraints
+    - format
+    - enum
+  Reference:
+    slots:
+    - resource
+    - fields
+    slot_usage:
+      fields:
+        inlined: false
+      range: Any
+  ForeignKeys:
+    slots:
+    - fields
+    - reference
+    - constraint_name
+    slot_usage:
+      fields:
+        inlined: false
+      range: Any
+  Schema:
+    slots:
+    - fields
+    - missingValues
+    - primaryKey
+    - foreignKeys
+    slot_usage:
+      fields:
+        inlined: true
+        inlined_as_list: true
+  Resource:
+    slots:
+    - profile
+    - name
+    - title
+    - path
+    - dialect
+    - description
+    - schema
+  Package:
+    slots:
+    - profile
+    - name
+    - title
+    - resources
+    tree_root: true
+

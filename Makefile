@@ -1,3 +1,4 @@
+RUN = poetry run
 VERSION = $(shell git tag | tail -1)
 
 .PHONY: all clean test
@@ -12,7 +13,10 @@ clean:
 	rm -rf target/availabilities_g_s_strain_202112151116_org_meanings.yaml
 
 test:
-	poetry run pytest tests/
+	$(RUN) pytest tests/
+
+schema_automator/metamodels/%.py: schema_automator/metamodels/%.yaml
+	$(RUN) gen-python $< > $@.tmp && mv $@.tmp $@
 
 # tried to find a single meaning for each permissible value
 # unlike term mapping, which can tolerate multiple mapped terms

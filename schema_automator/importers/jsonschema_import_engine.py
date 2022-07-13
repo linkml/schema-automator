@@ -67,6 +67,7 @@ class JsonSchemaImportEngine(ImportEngine):
             pkg = None
         return name, pkg
 
+
     def translate_schema(self, obj: Dict, id_val=None, name=None, root_class_name=None) -> SchemaDefinition:
         if id_val is None and '$id' in obj:
             id_val = obj['$id']
