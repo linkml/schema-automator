@@ -237,7 +237,16 @@
 
         <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
 
-    <span class="k">def</span> <span class="nf">enrich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="SchemaAnnotator.enrich"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.enrich">[docs]</a>    <span class="k">def</span> <span class="nf">enrich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enrich a schema by performing lookups on the external ontology/vocabulary endpoint,</span>
+<span class="sd">        and copying over metadata</span>
+
+<span class="sd">        Currently the only metadata obtained is text definitions</span>
+
+<span class="sd">        :param schema:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
         <span class="k">for</span> <span class="n">elt_name</span><span class="p">,</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">all_elements</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -245,7 +254,6 @@
             <span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="n">ms</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">get_mappings</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">curies</span> <span class="o">+=</span> <span class="n">ms</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">curies</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
                     <span class="k">break</span>
                 <span class="k">try</span><span class="p">:</span>
@@ -254,7 +262,7 @@
                         <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">defn</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
+        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div></div>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
