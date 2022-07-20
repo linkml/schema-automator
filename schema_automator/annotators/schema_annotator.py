@@ -99,6 +99,15 @@ class SchemaAnnotator:
         return sv.schema
 
     def enrich(self, schema: Union[SchemaDefinition, str]) -> SchemaDefinition:
+        """
+        Enrich a schema by performing lookups on the external ontology/vocabulary endpoint,
+        and copying over metadata
+
+        Currently the only metadata obtained is text definitions
+
+        :param schema:
+        :return:
+        """
         sv = SchemaView(schema)
         oi = self.ontology_implementation
         for elt_name, elt in sv.all_elements().items():
@@ -106,7 +115,6 @@ class SchemaAnnotator:
             for rel, ms in sv.get_mappings().items():
                 curies += ms
             for x in curies:
-                print(f"X={x}")
                 if elt.description:
                     break
                 try:
