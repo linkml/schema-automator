@@ -21,8 +21,7 @@ class SchemaEnricherTestCase(unittest.TestCase):
         self.annotator = SchemaAnnotator(impl)
 
     def test_enrich(self):
-        s = SchemaDefinition(id='test', name='test')
-        sb = SchemaBuilder(s)
+        sb = SchemaBuilder('test')
         sb.add_class('Gene', class_uri="SO:0000704").add_slot('part_of')
         s = self.annotator.enrich(sb.schema)
         #print(yaml_dumper.dumps(s))
