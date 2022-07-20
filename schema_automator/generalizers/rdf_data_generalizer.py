@@ -17,9 +17,20 @@ from schema_automator.utils.schemautils import write_schema
 
 @dataclass
 class RdfDataGeneralizer(Generalizer):
+    """
+    A generalizer that generalizes from source RDF turtle data
+    """
     mappings: dict = None
 
     def convert(self, file: str, dir: str, **kwargs) -> SchemaDefinition:
+        """
+        Generalizes from an RDF file
+
+        :param file:
+        :param dir:
+        :param kwargs:
+        :return:
+        """
         csv_engine = CsvDataGeneralizer()
 
         g = Graph()
