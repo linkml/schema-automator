@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -159,7 +160,7 @@
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">include_unmapped_annotations</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> \
+<div class="viewcode-block" id="OwlImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.OwlImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> \
             <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts an OWL schema-style ontology</span>
@@ -461,7 +462,7 @@
                         <span class="n">c</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="n">c</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="n">SchemaDefinition</span><span class="p">(</span><span class="o">**</span><span class="n">schema_dict</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">schema</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">class_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">element_info</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

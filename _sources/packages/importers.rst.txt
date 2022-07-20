@@ -17,11 +17,14 @@ Importers are the opposite of `Generalizers <https://linkml.io/linkml/generators
 .. currentmodule:: schema_automator.importers
 
 .. autoclass:: JsonSchemaImportEngine
-    :members: create
+    :members:
 
 .. autoclass:: OwlImportEngine
-    :members: create
+    :members:
+
+.. autoclass:: FrictionlessImportEngine
+    :members:
 
 .. autoclass:: DOSDPImportEngine
-    :members: create
+    :members:
 

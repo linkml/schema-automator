@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
@@ -152,12 +153,86 @@ will be created.</p>
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <span class="xref std std-ref">ImportEngine</span> that imports a JSON-Schema representation to a LinkML Schema</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a JSON-Schema json file into a LinkML schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>format</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.translate_object">
+<span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.ClassDefinitionName</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.translate_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.translate_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates jsonschema obj of type object</p>
+<p>Generates a ClassDefinition, inserts it into the schema, and returns the name</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.OwlImportEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">OwlImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine" title="Permalink to this definition">¶</a></dt>
 <dd><p>An ImportEngine that takes schema-style OWL and converts it to a LinkML schema</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.OwlImportEngine.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an OWL schema-style ontology</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – </p></li>
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>model_uri</strong> – </p></li>
+<li><p><strong>identifier</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schema_automator.importers.FrictionlessImportEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">FrictionlessImportEngine</span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>An ImportEngine that imports Frictionless data packages with schema information</p>
+<p>See:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://specs.frictionlessdata.io/">Frictionless specs</a>
+<a class="reference external" href="https://specs.frictionlessdata.io/patterns/">Patterns</a></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.FrictionlessImportEngine.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts one or more JSON files into a Schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -166,6 +241,45 @@ will be created.</p>
 <dd><p>An ImportEngine that imports Ontology Design Patterns specified as DOSDP Yaml into a LinkML schema</p>
 <p>See <a class="reference external" href="https://github.com/INCATools/dead_simple_owl_design_patterns">DOSDPs</a></p>
 <p>Every template maps to a LinkML class, the default name for a template Foo as FooTemplate</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.DOSDPImportEngine.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts one or more YAML files into a Schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> – </p></li>
+<li><p><strong>range_as_enums</strong> – if True, then class ranges are mapped to Enums</p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.DOSDPImportEngine.create_class">
+<span class="sig-name descname"><span class="pre">create_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">schema_automator.metamodels.dosdp.model.Pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denormalize_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.ClassDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.create_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.create_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a LinkML class from a template/pattern</p>
+<p>The class will have name FooTemplate, and will mixin TemplateClass,
+and will have one slot per var (slots will also be inherited from TemplateClass)</p>
+<p>by default, the range of each var will be a class RangeClass, unless treated as enums</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> – DOSDP template</p></li>
+<li><p><strong>range_as_enums</strong> – if true, ranges will be enums</p></li>
+<li><p><strong>denoramlized</strong> – if true, create an optional label for each var</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

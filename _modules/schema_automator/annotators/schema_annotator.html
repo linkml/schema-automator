@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -159,7 +160,6 @@
 
 <span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">minify_schema</span>
 
-<span class="n">REST_URL</span> <span class="o">=</span> <span class="s2">&quot;http://data.bioontology.org&quot;</span>
 <span class="n">camel_case_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?&lt;!^)(?=[A-Z])&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">uncamel</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -167,6 +167,13 @@
 
 <div class="viewcode-block" id="SchemaAnnotator"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">SchemaAnnotator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An engine for enhancing schemas by performing lookup and annotation operations</span>
+<span class="sd">    using an ontology service.</span>
+
+<span class="sd">    A SchemaAnnotator wraps an OAK ontology interface.</span>
+<span class="sd">    See `OAK documentation &lt;https://incatools.github.io/ontology-access-kit/&gt;`_ for more details</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ontology_implementation</span><span class="p">:</span> <span class="n">BasicOntologyInterface</span>
 
     <span class="k">def</span> <span class="nf">annotate_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">TextAnnotation</span><span class="p">]:</span>
@@ -174,7 +181,7 @@
         <span class="c1"># it (1) expands CamelCase (2) abstracts over annotation vs search</span>
         <span class="c1"># TODO: fold this functionality back into OAK</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
-        <span class="n">text_exp</span> <span class="o">=</span> <span class="n">uncamel</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">text_exp</span> <span class="o">=</span> <span class="n">uncamel</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="c1"># TODO: use main linkml_runtime method</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">oi</span><span class="p">,</span> <span class="n">TextAnnotatorInterface</span><span class="p">):</span>
             <span class="c1"># TextAnnotation is available; use this by default</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text_exp</span><span class="p">):</span>
@@ -193,9 +200,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">annotate_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">curie_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="SchemaAnnotator.annotate_schema"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.annotate_schema">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">curie_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Annotate all elements of a schema, adding mappings</span>
+<span class="sd">        Annotate all elements of a schema, adding mappings.</span>
+
+<span class="sd">        This requires that the OntologyInterface implements either BasicOntologyInterface or SearchInterface</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
@@ -226,7 +235,7 @@
                             <span class="k">if</span> <span class="n">xref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="p">:</span>
                                 <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">enrich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>

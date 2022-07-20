@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -157,12 +158,24 @@
 
 <div class="viewcode-block" id="JsonDataGeneralizer"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JsonDataGeneralizer</span><span class="p">(</span><span class="n">Generalizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generalizer that abstract from JSON instance data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">omit_null</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="JsonDataGeneralizer.convert"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
                 <span class="n">container_class_name</span><span class="o">=</span><span class="s1">&#39;Container&#39;</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generalizes from a JSON file</span>
+
+<span class="sd">        :param input:</span>
+<span class="sd">        :param format:</span>
+<span class="sd">        :param container_class_name:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">csv_engine</span> <span class="o">=</span> <span class="n">CsvDataGeneralizer</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -193,7 +206,7 @@
             <span class="n">sv</span><span class="o">.</span><span class="n">merge_schema</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span>
         <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">container_class_name</span><span class="p">]</span><span class="o">.</span><span class="n">tree_root</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="n">schema</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">_key_to_classname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">camelcase</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>

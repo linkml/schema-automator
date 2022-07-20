@@ -5,17 +5,26 @@ Annotators
 
 Importers take an existing schema and *annotate* it with information
 
-.. warning::
+Annotators typically talk to an external ontology. We use the OAK library to wrap a large number
+of different sources that can be used for annotation, including:
 
-   some of these methods will be refactored to use OAK, in which case the way in which
-   the Bioportal API key is set will change
+- BioPortal
+- OLS/ZOOMA
+- Arbitrary ontologies in obo format, OWL, RDF, or JSON
+- Ubergraph
+- Wikidata
+- LOV
+
+For documentation on selecting the right ontology source, see:
+
+`Selectors <https://incatools.github.io/ontology-access-kit/selectors.html>`_
 
 .. currentmodule:: schema_automator.annotators
 
 .. autoclass:: SchemaAnnotator
-    :members: create
+    :members:
 
 .. autoclass:: JsonLdAnnotator
-    :members: create
+    :members:
 
 

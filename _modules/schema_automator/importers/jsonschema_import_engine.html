@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -161,7 +162,7 @@
 <span class="sd">    A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="JsonSchemaImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts a JSON-Schema json file into a LinkML schema</span>
 
@@ -179,7 +180,7 @@
                 <span class="n">obj</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Bad format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -327,7 +328,7 @@
         <span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
         <span class="k">return</span> <span class="n">s</span>
 
-    <span class="k">def</span> <span class="nf">translate_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinitionName</span><span class="p">:</span>
+<div class="viewcode-block" id="JsonSchemaImportEngine.translate_object"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.translate_object">[docs]</a>    <span class="k">def</span> <span class="nf">translate_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinitionName</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translates jsonschema obj of type object</span>
 
@@ -368,7 +369,7 @@
             <span class="n">c</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">c</span><span class="o">.</span><span class="n">slot_usage</span><span class="p">[</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">slot</span>
         <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
-        <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span></div>
 
 
     <span class="k">def</span> <span class="nf">translate_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">parent_class</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">):</span>

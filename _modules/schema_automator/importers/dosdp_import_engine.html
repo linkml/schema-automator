@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -136,15 +137,8 @@
 
 	    <div id="content" class="hfeed entry-container hentry">
   <h1>Source code for schema_automator.importers.dosdp_import_engine</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-
-<span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">csv</span> <span class="kn">import</span> <span class="n">DictWriter</span>
 
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
@@ -153,7 +147,7 @@
 <span class="kn">from</span> <span class="nn">linkml_runtime.utils.formatutils</span> <span class="kn">import</span> <span class="n">camelcase</span><span class="p">,</span> <span class="n">underscore</span>
 
 <span class="kn">from</span> <span class="nn">schema_automator.importers.import_engine</span> <span class="kn">import</span> <span class="n">ImportEngine</span>
-<span class="kn">from</span> <span class="nn">schema_automator.dosdp.model</span> <span class="kn">import</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">Printf</span>
+<span class="kn">from</span> <span class="nn">schema_automator.metamodels.dosdp.model</span> <span class="kn">import</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">Printf</span>
 <span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">write_schema</span>
 
 <span class="n">ALIAS</span> <span class="o">=</span> <span class="nb">str</span>
@@ -184,7 +178,7 @@
             <span class="k">del</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;def&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">yaml_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">target_class</span><span class="o">=</span><span class="n">Pattern</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">range_as_enums</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="DOSDPImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts one or more YAML files into a Schema</span>
 
@@ -242,9 +236,9 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
             <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_class</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="o">=</span><span class="n">range_as_enums</span><span class="p">)</span>
             <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
-        <span class="k">return</span> <span class="n">schema</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
-    <span class="k">def</span> <span class="nf">create_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="DOSDPImportEngine.create_class"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine.create_class">[docs]</a>    <span class="k">def</span> <span class="nf">create_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                      <span class="n">denormalize_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a LinkML class from a template/pattern</span>
@@ -316,7 +310,7 @@
         <span class="c1"># append these at the end</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">extra_classes</span><span class="p">:</span>
             <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
-        <span class="k">return</span> <span class="bp">cls</span>
+        <span class="k">return</span> <span class="bp">cls</span></div>
 
     <span class="k">def</span> <span class="nf">create_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">underscore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>

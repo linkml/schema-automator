@@ -78,6 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
@@ -139,20 +140,55 @@
   <section id="annotators">
 <h1>Annotators<a class="headerlink" href="#annotators" title="Permalink to this headline">¶</a></h1>
 <p>Importers take an existing schema and <em>annotate</em> it with information</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>some of these methods will be refactored to use OAK, in which case the way in which
-the Bioportal API key is set will change</p>
-</div>
+<p>Annotators typically talk to an external ontology. We use the OAK library to wrap a large number
+of different sources that can be used for annotation, including:</p>
+<ul class="simple">
+<li><p>BioPortal</p></li>
+<li><p>OLS/ZOOMA</p></li>
+<li><p>Arbitrary ontologies in obo format, OWL, RDF, or JSON</p></li>
+<li><p>Ubergraph</p></li>
+<li><p>Wikidata</p></li>
+<li><p>LOV</p></li>
+</ul>
+<p>For documentation on selecting the right ontology source, see:</p>
+<p><a class="reference external" href="https://incatools.github.io/ontology-access-kit/selectors.html">Selectors</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.annotators.SchemaAnnotator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.annotators.</span></span><span class="sig-name descname"><span class="pre">SchemaAnnotator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ontology_implementation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">oaklib.interfaces.basic_ontology_interface.BasicOntologyInterface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/annotators/schema_annotator.html#SchemaAnnotator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.annotators.SchemaAnnotator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>An engine for enhancing schemas by performing lookup and annotation operations
+using an ontology service.</p>
+<p>A SchemaAnnotator wraps an OAK ontology interface.
+See <a class="reference external" href="https://incatools.github.io/ontology-access-kit/">OAK documentation</a> for more details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.annotators.SchemaAnnotator.annotate_schema">
+<span class="sig-name descname"><span class="pre">annotate_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curie_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/annotators/schema_annotator.html#SchemaAnnotator.annotate_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.annotators.SchemaAnnotator.annotate_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate all elements of a schema, adding mappings.</p>
+<p>This requires that the OntologyInterface implements either BasicOntologyInterface or SearchInterface</p>
+</dd></dl>
+
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.annotators.JsonLdAnnotator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.annotators.</span></span><span class="sig-name descname"><span class="pre">JsonLdAnnotator</span></span><a class="reference internal" href="../_modules/schema_automator/annotators/jsonld_annotator.html#JsonLdAnnotator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.annotators.JsonLdAnnotator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Annotates a schema using URIs derived from a JSON-LD file</p>
+<dd><p>Annotates a schema using URIs/Prefixes derived from a JSON-LD file</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.annotators.JsonLdAnnotator.annotate">
+<span class="sig-name descname"><span class="pre">annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonld_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/annotators/jsonld_annotator.html#JsonLdAnnotator.annotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.annotators.JsonLdAnnotator.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate a schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schema</strong> – schema object (mutated) or path to schema</p></li>
+<li><p><strong>jsonld_path</strong> – path to input JSONLD context file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -155,9 +156,20 @@
 
 <div class="viewcode-block" id="RdfDataGeneralizer"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">RdfDataGeneralizer</span><span class="p">(</span><span class="n">Generalizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generalizer that generalizes from source RDF turtle data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="RdfDataGeneralizer.convert"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generalizes from an RDF file</span>
+
+<span class="sd">        :param file:</span>
+<span class="sd">        :param dir:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">csv_engine</span> <span class="o">=</span> <span class="n">CsvDataGeneralizer</span><span class="p">()</span>
 
         <span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
@@ -182,7 +194,7 @@
             <span class="k">for</span> <span class="n">pvn</span><span class="p">,</span> <span class="n">pvo</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">permissible_values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">pvn</span> <span class="ow">in</span> <span class="n">mappings</span><span class="p">:</span>
                     <span class="n">pvo</span><span class="o">.</span><span class="n">meaning</span> <span class="o">=</span> <span class="n">mappings</span><span class="p">[</span><span class="n">pvn</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">schema</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">graph_to_tables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">mappings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span>

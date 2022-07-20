@@ -1,0 +1,31 @@
+﻿schema\_automator.utils.schemautils
+===================================
+
+.. automodule:: schema_automator.utils.schemautils
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      merge_schemas
+      minify_schema
+      write_schema
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

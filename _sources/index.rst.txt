@@ -12,12 +12,12 @@ Use cases include:
 The primary output of Schema Automator is a `LinkML Schema <https://linkml.io/linkml>`_. This can be converted to other
 schema frameworks, including:
 
-* JSON-Schema
-* SQL DDL
-* SHACL
-* ShEx
-* RDFS/OWL
-* Python dataclasses or Pydantic
+- JSON-Schema
+- SQL DDL
+- SHACL
+- ShEx
+- RDFS/OWL
+- Python dataclasses or Pydantic
 
 .. toctree::
    :maxdepth: 3

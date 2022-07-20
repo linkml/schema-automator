@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -213,7 +214,7 @@
     <span class="n">max_pk_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>   <span class="c1"># URIs can be long..</span>
     <span class="n">min_distinct_fk_val</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
 
-    <span class="k">def</span> <span class="nf">infer_linkages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ForeignKey</span><span class="p">]:</span>
+<div class="viewcode-block" id="CsvDataGeneralizer.infer_linkages"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">[docs]</a>    <span class="k">def</span> <span class="nf">infer_linkages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ForeignKey</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Heuristic procedure for determining which tables are linked to others via implicit foreign keys</span>
 
@@ -308,7 +309,7 @@
             <span class="n">fks</span> <span class="o">=</span> <span class="p">[</span><span class="n">fk</span> <span class="k">for</span> <span class="n">fk</span> <span class="ow">in</span> <span class="n">fks</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fk</span><span class="o">.</span><span class="n">target_table</span> <span class="o">==</span> <span class="n">pk_table</span> <span class="ow">and</span> <span class="n">fk</span><span class="o">.</span><span class="n">target_column</span> <span class="o">!=</span> <span class="n">pk_col</span><span class="p">)]</span>
         <span class="n">fks</span> <span class="o">=</span> <span class="p">[</span><span class="n">fk</span> <span class="k">for</span> <span class="n">fk</span> <span class="ow">in</span> <span class="n">fks</span> <span class="k">if</span> <span class="n">fk</span><span class="o">.</span><span class="n">score</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;FILTERED: </span><span class="si">{</span><span class="n">fks</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">fks</span>
+        <span class="k">return</span> <span class="n">fks</span></div>
 
     <span class="k">def</span> <span class="nf">inject_foreign_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sv</span><span class="p">:</span> <span class="n">SchemaView</span><span class="p">,</span> <span class="n">fks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ForeignKey</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span>
@@ -327,7 +328,7 @@
                                <span class="n">identifier</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="c1">#tgt_slot[&#39;identifier&#39;] = True</span>
 
-    <span class="k">def</span> <span class="nf">convert_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="CsvDataGeneralizer.convert_multiple"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_multiple">[docs]</a>    <span class="k">def</span> <span class="nf">convert_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts multiple TSVs to a schema</span>
 
@@ -354,9 +355,9 @@
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classes, post merge=</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">all_classes</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="c1">#s = merge_schemas(yamlobjs)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inject_foreign_keys</span><span class="p">(</span><span class="n">sv</span><span class="p">,</span> <span class="n">fks</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
 
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="CsvDataGeneralizer.convert"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts a single TSV file to a single-class schema</span>
 <span class="sd">        </span>
@@ -367,14 +368,14 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tsv_file</span><span class="p">:</span>
             <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">tsv_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)]</span>
             <span class="n">rr</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">tsv_file</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">column_separator</span><span class="p">,</span> <span class="n">skipinitialspace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_dicts</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rr</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_dicts</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rr</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">read_slot_tsv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tsv_file</span><span class="p">:</span>
             <span class="n">rows_list</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">tsv_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">column_separator</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_edge_slots</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows_list</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">convert_to_edge_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="CsvDataGeneralizer.convert_to_edge_slots"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_to_edge_slots">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_edge_slots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                          <span class="n">all_tsv_rows</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
                          <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
@@ -423,7 +424,7 @@
         <span class="n">schema</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;slots&#39;</span><span class="p">:</span> <span class="n">slots</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">schema</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">convert_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                       <span class="n">rr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span>

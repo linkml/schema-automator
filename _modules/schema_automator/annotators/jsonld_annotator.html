@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
@@ -154,12 +155,17 @@
 
 <div class="viewcode-block" id="JsonLdAnnotator"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.JsonLdAnnotator">[docs]</a><span class="k">class</span> <span class="nc">JsonLdAnnotator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Annotates a schema using URIs derived from a JSON-LD file</span>
-
-
+<span class="sd">    Annotates a schema using URIs/Prefixes derived from a JSON-LD file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">annotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">],</span> <span class="n">jsonld_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="JsonLdAnnotator.annotate"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.JsonLdAnnotator.annotate">[docs]</a>    <span class="k">def</span> <span class="nf">annotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">],</span> <span class="n">jsonld_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Annotate a schema</span>
+
+<span class="sd">        :param schema: schema object (mutated) or path to schema</span>
+<span class="sd">        :param jsonld_path: path to input JSONLD context file</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">jsonld_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">jsonld</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -187,6 +193,7 @@
                         <span class="n">url</span> <span class="o">=</span> <span class="n">v</span>
                     <span class="k">if</span> <span class="n">is_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
                         <span class="n">schema</span><span class="o">.</span><span class="n">prefixes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">Prefix</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
 
     <span class="k">def</span> <span class="nf">annotate_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">el</span><span class="p">:</span> <span class="n">Definition</span><span class="p">,</span> <span class="n">mapping_slot</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">jsonld</span><span class="p">:</span> <span class="n">JSON</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">jsonld</span><span class="p">:</span>

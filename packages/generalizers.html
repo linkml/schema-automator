@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
@@ -149,17 +150,123 @@ that <em>semi</em>-automates the creation of a new schema for you.</p>
 <dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">CsvDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_separator:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'example'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robot:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_mask_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_threshold:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_strlen_threshold:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_enum_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downcase_header:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_foreign_keys:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pk_len:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_distinct_fk_val:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Generalizer that generalizes from example CSV/TSV data</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a single TSV file to a single-class schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.convert_multiple">
+<span class="sig-name descname"><span class="pre">convert_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.convert_multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.convert_multiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts multiple TSVs to a schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.convert_to_edge_slots">
+<span class="sig-name descname"><span class="pre">convert_to_edge_slots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_tsv_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'example'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.convert_to_edge_slots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.convert_to_edge_slots" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>assume that TSV has 3 relevant columns:</dt><dd><ol class="arabic simple">
+<li><p>slot name to add</p></li>
+<li><p>slot definition to add</p></li>
+<li><p>examples of values for the slot</p></li>
+</ol>
+</dd>
+</dl>
+<p>also assume that these are all edge_properties at the moment.
+TODO: add parameter to allow edge or node property disambiguation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">
+<span class="sig-name descname"><span class="pre">infer_linkages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">schema_automator.generalizers.csv_data_generalizer.ForeignKey</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.infer_linkages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Heuristic procedure for determining which tables are linked to others via implicit foreign keys</p>
+<p>If all values of one column FT.FC are present in column PT.PC, then FT.FC is a potential foreign key
+and PC is a potential primary key of PT.</p>
+<p>This procedure can generate false positives, so additional heuristics are applied. Each potential
+foreign key relationship gets an ad-hoc score:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>links across tables score more highly than within</p></li>
+<li><p>suffixes such as _id are more likely on PK and FK tables</p></li>
+<li><p>the foreign key column table is likely to start with the base column name</p></li>
+</ul>
+</div></blockquote>
+<p>In addition, if there are competing primary keys for a table, the top scoring one is selected</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.generalizers.JsonDataGeneralizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">JsonDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omit_null</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/json_instance_generalizer.html#JsonDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.JsonDataGeneralizer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">JsonDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omit_null</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/json_instance_generalizer.html#JsonDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.JsonDataGeneralizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generalizer that abstract from JSON instance data</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.JsonDataGeneralizer.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">container_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Container'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/json_instance_generalizer.html#JsonDataGeneralizer.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.JsonDataGeneralizer.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generalizes from a JSON file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – </p></li>
+<li><p><strong>format</strong> – </p></li>
+<li><p><strong>container_class_name</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.generalizers.RdfDataGeneralizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">RdfDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/rdf_data_generalizer.html#RdfDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.RdfDataGeneralizer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">RdfDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/rdf_data_generalizer.html#RdfDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.RdfDataGeneralizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generalizer that generalizes from source RDF turtle data</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.RdfDataGeneralizer.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/rdf_data_generalizer.html#RdfDataGeneralizer.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.RdfDataGeneralizer.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generalizes from an RDF file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – </p></li>
+<li><p><strong>dir</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </section>
 

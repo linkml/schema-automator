@@ -76,6 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introduction.html#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general-utilities">General Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
@@ -139,10 +140,13 @@
 
 <div class="genindex-jumpbox">
  <a href="#Symbols"><strong>Symbols</strong></a>
+ | <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -309,7 +313,7 @@
     --no-range-as-enums
 
       <ul>
-        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enum">schemauto-import-dosdps command line option</a>
+        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enums">schemauto-import-dosdps command line option</a>
 </li>
       </ul></li>
       <li>
@@ -363,10 +367,10 @@
 </li>
       </ul></li>
       <li>
-    --range-as-enum
+    --range-as-enums
 
       <ul>
-        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enum">schemauto-import-dosdps command line option</a>
+        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enums">schemauto-import-dosdps command line option</a>
 </li>
       </ul></li>
       <li>
@@ -520,9 +524,45 @@
   </ul></td>
 </tr></table>
 
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/annotators.html#schema_automator.annotators.JsonLdAnnotator.annotate">annotate() (schema_automator.annotators.JsonLdAnnotator method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/annotators.html#schema_automator.annotators.SchemaAnnotator.annotate_schema">annotate_schema() (schema_automator.annotators.SchemaAnnotator method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert">convert() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
+
+      <ul>
+        <li><a href="packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer.convert">(schema_automator.generalizers.JsonDataGeneralizer method)</a>
+</li>
+        <li><a href="packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer.convert">(schema_automator.generalizers.RdfDataGeneralizer method)</a>
+</li>
+        <li><a href="packages/importers.html#schema_automator.importers.DOSDPImportEngine.convert">(schema_automator.importers.DOSDPImportEngine method)</a>
+</li>
+        <li><a href="packages/importers.html#schema_automator.importers.FrictionlessImportEngine.convert">(schema_automator.importers.FrictionlessImportEngine method)</a>
+</li>
+        <li><a href="packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.convert">(schema_automator.importers.JsonSchemaImportEngine method)</a>
+</li>
+        <li><a href="packages/importers.html#schema_automator.importers.OwlImportEngine.convert">(schema_automator.importers.OwlImportEngine method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_multiple">convert_multiple() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
+</li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_to_edge_slots">convert_to_edge_slots() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
+</li>
+      <li><a href="packages/importers.html#schema_automator.importers.DOSDPImportEngine.create_class">create_class() (schema_automator.importers.DOSDPImportEngine method)</a>
+</li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer">CsvDataGeneralizer (class in schema_automator.generalizers)</a>
 </li>
   </ul></td>
@@ -545,9 +585,19 @@
   </ul></td>
 </tr></table>
 
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/importers.html#schema_automator.importers.FrictionlessImportEngine">FrictionlessImportEngine (class in schema_automator.importers)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">infer_linkages() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
+</li>
       <li>
     INPUT
 
@@ -571,6 +621,19 @@
 </li>
       <li><a href="packages/importers.html#schema_automator.importers.JsonSchemaImportEngine">JsonSchemaImportEngine (class in schema_automator.importers)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="packages/src/schema_automator.utils.schemautils.html#module-schema_automator.utils.schemautils">schema_automator.utils.schemautils</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -620,6 +683,13 @@
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-arg-SCHEMA">schemauto-annotate-using-jsonld command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-enrich-schema-arg-SCHEMA">schemauto-enrich-schema command line option</a>
+</li>
+      </ul></li>
+      <li>
+    schema_automator.utils.schemautils
+
+      <ul>
+        <li><a href="packages/src/schema_automator.utils.schemautils.html#module-schema_automator.utils.schemautils">module</a>
 </li>
       </ul></li>
       <li><a href="packages/annotators.html#schema_automator.annotators.SchemaAnnotator">SchemaAnnotator (class in schema_automator.annotators)</a>
@@ -814,11 +884,11 @@
     schemauto-import-dosdps command line option
 
       <ul>
-        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enum">--no-range-as-enums</a>
+        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enums">--no-range-as-enums</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-import-dosdps-o">--output</a>
 </li>
-        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enum">--range-as-enum</a>
+        <li><a href="cli.html#cmdoption-schemauto-import-dosdps-range-as-enums">--range-as-enums</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-import-dosdps-n">--schema-name</a>
 </li>
@@ -875,6 +945,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.translate_object">translate_object() (schema_automator.importers.JsonSchemaImportEngine method)</a>
+</li>
       <li>
     TSVFILE
 
