@@ -13,10 +13,10 @@ Generalizers take example data and *generalizes* to a schema
 .. currentmodule:: schema_automator.generalizers
 
 .. autoclass:: CsvDataGeneralizer
-    :members: create
+    :members:
 
 .. autoclass:: JsonDataGeneralizer
-    :members: create
+    :members:
 
 .. autoclass:: RdfDataGeneralizer
-    :members: create
+    :members:

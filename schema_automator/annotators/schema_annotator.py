@@ -21,7 +21,6 @@ from oaklib.interfaces.text_annotator_interface import TextAnnotatorInterface
 
 from schema_automator.utils.schemautils import minify_schema
 
-REST_URL = "http://data.bioontology.org"
 camel_case_pattern = re.compile(r'(?<!^)(?=[A-Z])')
 
 def uncamel(n: str):
@@ -29,6 +28,13 @@ def uncamel(n: str):
 
 @dataclass
 class SchemaAnnotator:
+    """
+    An engine for enhancing schemas by performing lookup and annotation operations
+    using an ontology service.
+
+    A SchemaAnnotator wraps an OAK ontology interface.
+    See `OAK documentation <https://incatools.github.io/ontology-access-kit/>`_ for more details
+    """
     ontology_implementation: BasicOntologyInterface
 
     def annotate_text(self, text: str) -> Iterator[TextAnnotation]:
@@ -36,7 +42,7 @@ class SchemaAnnotator:
         # it (1) expands CamelCase (2) abstracts over annotation vs search
         # TODO: fold this functionality back into OAK
         oi = self.ontology_implementation
-        text_exp = uncamel(text)
+        text_exp = uncamel(text) # TODO: use main linkml_runtime method
         if isinstance(oi, TextAnnotatorInterface):
             # TextAnnotation is available; use this by default
             for r in oi.annotate_text(text_exp):
@@ -57,7 +63,9 @@ class SchemaAnnotator:
 
     def annotate_schema(self, schema: Union[SchemaDefinition, str], curie_only=True) -> SchemaDefinition:
         """
-        Annotate all elements of a schema, adding mappings
+        Annotate all elements of a schema, adding mappings.
+
+        This requires that the OntologyInterface implements either BasicOntologyInterface or SearchInterface
         """
         sv = SchemaView(schema)
         oi = self.ontology_implementation

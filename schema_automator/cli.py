@@ -50,7 +50,12 @@ def main(verbose: int, quiet: bool):
 
     A subcommand must be passed, for example:
 
-        schemauto -v SUBCOMMAND [OPTIONS] ARGUMENTS
+        schemauto SUBCOMMAND [OPTIONS] ARGUMENTS
+
+    To see logging or debugging info, the verbosity
+    flag should be specified BEFORE the subcommand:
+
+        schemauto -vv SUBCOMMAND [OPTIONS] ARGUMENTS
     """
     if verbose >= 2:
         logging.basicConfig(level=logging.DEBUG)
@@ -119,7 +124,7 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
 @click.argument('dpfiles', nargs=-1) ## input DOSDPs
 @output_option
 @schema_name_option
-@click.option('--range-as-enum/--no-range-as-enums',
+@click.option('--range-as-enums/--no-range-as-enums',
               default=True,
               help="Model range ontology classes as enums")
 def import_dosdps(dpfiles, output, **args):
@@ -127,6 +132,10 @@ def import_dosdps(dpfiles, output, **args):
     Imports DOSDP pattern YAML to a LinkML schema
 
     See :ref:`importers` for more on the importers framework
+
+    Example:
+
+        schemauto import-dosdps --range-as-enums patterns/*yaml -o my-schema.yaml
     """
     ie = DOSDPImportEngine()
     schema = ie.convert(dpfiles, **args)
@@ -152,7 +161,7 @@ def generalize_json(input, output, schema_name, format, omit_null, **kwargs):
 
     Example:
 
-        schemauto generalize-json my/data/persons.json
+        schemauto generalize-json my/data/persons.json -o my.yaml
     """
     ie = JsonDataGeneralizer(omit_null=omit_null)
     schema = ie.convert(input, format=format, **kwargs)
@@ -190,11 +199,15 @@ def import_owl(owlfile, output, **args):
     """
     Import an OWL ontology to LinkML
 
-    Note this works best for "schema-style" ontologies
+    Note:
+         - this works best for "schema-style" ontologies
+         - input must be in functional syntax
 
     See :ref:`importers` for more on the importer framework
 
-    Note: input must be in functional syntax
+    Example:
+
+        schemauto import-owl prov.ofn -o my.yaml
     """
     sie = OwlImportEngine()
     schema = sie.convert(owlfile, **args)
@@ -215,7 +228,7 @@ def generalize_rdf(rdffile, dir, output, **args):
 
     Example:
 
-        schemauto generalize-json my/data/persons.ttl
+        schemauto generalize-rdf my/data/persons.ttl
     """
     sie = RdfDataGeneralizer()
     if not os.path.exists(dir):
@@ -230,13 +243,21 @@ def generalize_rdf(rdffile, dir, output, **args):
               default=False,
               show_default=True,
               help="if set, only use results that are mapped to CURIEs")
-@click.option('--input', '-i', help="OAK input ontology selector")
+@click.option('--input',
+              '-i',
+              help="OAK input ontology selector")
 @output_option
 def annotate_schema(schema: str, input: str, output: str, curie_only: bool, **args):
     """
     Annotate all elements of a schema
 
-    Requires Bioportal API key
+    This uses OAK, and you can provide any OAK backend. See:
+
+    `Selectors <https://incatools.github.io/ontology-access-kit/selectors.html>`_
+
+    Note:
+
+        if you provide "bioportal" as selector, you must have set your API key uising OAK
     """
     impl = get_implementation_from_shorthand(input)
     logging.basicConfig(level=logging.INFO)

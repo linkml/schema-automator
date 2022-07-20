@@ -1,12 +1,5 @@
-from copy import deepcopy
-
 import click
-import logging
 import yaml
-from typing import Union, Dict, Tuple, List, Any
-from collections import defaultdict
-import os
-from csv import DictWriter
 
 from dataclasses import dataclass
 
@@ -15,7 +8,7 @@ from linkml_runtime.loaders import yaml_loader
 from linkml_runtime.utils.formatutils import camelcase, underscore
 
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.dosdp.model import Pattern, Printf
+from schema_automator.metamodels.dosdp.model import Pattern, Printf
 from schema_automator.utils.schemautils import write_schema
 
 ALIAS = str
@@ -46,7 +39,7 @@ class DOSDPImportEngine(ImportEngine):
             del obj['def']
         return yaml_loader.load(obj, target_class=Pattern)
 
-    def convert(self, files: str, range_as_enums = True, **kwargs) -> SchemaDefinition:
+    def convert(self, files: str, range_as_enums=True, **kwargs) -> SchemaDefinition:
         """
         Converts one or more YAML files into a Schema
 

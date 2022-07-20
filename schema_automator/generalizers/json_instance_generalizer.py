@@ -19,12 +19,24 @@ from schema_automator.utils.schemautils import write_schema
 
 @dataclass
 class JsonDataGeneralizer(Generalizer):
+    """
+    A generalizer that abstract from JSON instance data
+    """
     mappings: dict = None
     omit_null: bool = None
 
     def convert(self, input: Union[str, Dict], format: str = 'json',
                 container_class_name='Container',
                 **kwargs) -> SchemaDefinition:
+        """
+        Generalizes from a JSON file
+
+        :param input:
+        :param format:
+        :param container_class_name:
+        :param kwargs:
+        :return:
+        """
         csv_engine = CsvDataGeneralizer(**kwargs)
 
         if isinstance(input, dict):
