@@ -10,7 +10,7 @@ from linkml_runtime.linkml_model import SchemaDefinition
 from linkml_runtime.utils.schema_as_dict import schema_as_dict
 
 
-def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[str]):
+def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[str] = None):
     """
     Convenience method for writing a schema to stdout or to a file
 
