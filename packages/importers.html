@@ -149,6 +149,24 @@ LinkML schema. This may be less optimal than a hand-crafted schema. For example,
 representation that lacks <a class="reference external" href="https://linkml.io/linkml/schemas/inheritance.html">inheritance</a>, no <code class="docutils literal notranslate"><span class="pre">is_a</span></code> slots
 will be created.</p>
 </div>
+<section id="importing-from-json-schema">
+<h2>Importing from JSON-Schema<a class="headerlink" href="#importing-from-json-schema" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">import-json-schema</span></code> command can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">json</span><span class="o">-</span><span class="n">schema</span> <span class="n">tests</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">model_card</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</section>
+<section id="importing-from-owl">
+<h2>Importing from OWL<a class="headerlink" href="#importing-from-owl" title="Permalink to this headline">¶</a></h2>
+<p>You can import from a schema-style OWL ontology. This must be in functional syntax</p>
+<p>Use robot to convert ahead of time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot</span> <span class="n">convert</span> <span class="o">-</span><span class="n">i</span> <span class="n">schemaorg</span><span class="o">.</span><span class="n">ttl</span> <span class="o">-</span><span class="n">o</span> <span class="n">schemaorg</span><span class="o">.</span><span class="n">ofn</span>
+<span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">owl</span> <span class="n">schemaorg</span><span class="o">.</span><span class="n">ofn</span>
+</pre></div>
+</div>
+</section>
+<section id="packages">
+<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Permalink to this definition">¶</a></dt>
@@ -282,6 +300,7 @@ and will have one slot per var (slots will also be inherited from TemplateClass)
 
 </dd></dl>
 
+</section>
 </section>
 
 

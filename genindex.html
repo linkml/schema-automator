@@ -152,15 +152,25 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  
 </div>
 <h2 id="Symbols">Symbols</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    --annotator
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-A">schemauto-generalize-tsv command line option</a>
+</li>
+      </ul></li>
+      <li>
     --class-name
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-c">schemauto-generalize-htmltable command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-c">schemauto-generalize-tsv command line option</a>
 </li>
       </ul></li>
@@ -185,6 +195,13 @@
 
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-curie-only">schemauto-annotate-schema command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --data-output
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-data-output">schemauto-generalize-htmltable command line option</a>
 </li>
       </ul></li>
       <li>
@@ -311,6 +328,15 @@
 </li>
       </ul></li>
       <li>
+    --no-pandera
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-pandera">schemauto-generalize-htmltable command line option</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-pandera">schemauto-generalize-tsv command line option</a>
+</li>
+      </ul></li>
+      <li>
     --no-range-as-enums
 
       <ul>
@@ -343,6 +369,8 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">schemauto-enrich-schema command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-o">schemauto-generalize-htmltable command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-o">schemauto-generalize-json command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-rdf-o">schemauto-generalize-rdf command line option</a>
@@ -360,6 +388,15 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --pandera
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-pandera">schemauto-generalize-htmltable command line option</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-pandera">schemauto-generalize-tsv command line option</a>
+</li>
+      </ul></li>
       <li>
     --quiet
 
@@ -387,6 +424,8 @@
     --schema-name
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-n">schemauto-generalize-htmltable command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-n">schemauto-generalize-json command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-n">schemauto-generalize-tsv command line option</a>
@@ -401,6 +440,13 @@
 </li>
       </ul></li>
       <li>
+    --table-number
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-table-number">schemauto-generalize-htmltable command line option</a>
+</li>
+      </ul></li>
+      <li>
     --verbose
 
       <ul>
@@ -408,9 +454,18 @@
 </li>
       </ul></li>
       <li>
+    -A
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-A">schemauto-generalize-tsv command line option</a>
+</li>
+      </ul></li>
+      <li>
     -c
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-c">schemauto-generalize-htmltable command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-c">schemauto-generalize-tsv command line option</a>
 </li>
       </ul></li>
@@ -461,6 +516,8 @@
     -n
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-n">schemauto-generalize-htmltable command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-n">schemauto-generalize-json command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-n">schemauto-generalize-tsv command line option</a>
@@ -483,6 +540,8 @@
         <li><a href="cli.html#cmdoption-schemauto-annotate-using-jsonld-o">schemauto-annotate-using-jsonld command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">schemauto-enrich-schema command line option</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-o">schemauto-generalize-htmltable command line option</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-json-o">schemauto-generalize-json command line option</a>
 </li>
@@ -762,6 +821,33 @@
 </li>
       </ul></li>
       <li>
+    schemauto-generalize-htmltable command line option
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-c">--class-name</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-data-output">--data-output</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-pandera">--no-pandera</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-o">--output</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-pandera">--pandera</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-n">--schema-name</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-table-number">--table-number</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-c">-c</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-n">-n</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-o">-o</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-arg-URL">URL</a>
+</li>
+      </ul></li>
+      <li>
     schemauto-generalize-json command line option
 
       <ul>
@@ -811,10 +897,14 @@
         <li><a href="cli.html#cmdoption-schemauto-generalize-rdf-arg-RDFFILE">RDFFILE</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     schemauto-generalize-tsv command line option
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-A">--annotator</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-c">--class-name</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-s">--column-separator</a>
@@ -825,13 +915,19 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-downcase-header">--no-downcase-header</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-pandera">--no-pandera</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-robot">--no-robot</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-o">--output</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-pandera">--pandera</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-robot">--robot</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-n">--schema-name</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-A">-A</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-c">-c</a>
 </li>
@@ -846,8 +942,6 @@
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-arg-TSVFILE">TSVFILE</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     schemauto-generalize-tsvs command line option
 
@@ -970,6 +1064,19 @@
 
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsvs-arg-TSVFILES">schemauto-generalize-tsvs command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    URL
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-htmltable-arg-URL">schemauto-generalize-htmltable command line option</a>
 </li>
       </ul></li>
   </ul></td>

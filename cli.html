@@ -283,6 +283,70 @@ flag should be specified BEFORE the subcommand:</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-generalize-htmltable">
+<h4>generalize-htmltable<a class="headerlink" href="#schemauto-generalize-htmltable" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a table parsed from a URL</p>
+<p>Uses pandas/beautiful soup</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-htmltable <span class="o">[</span>OPTIONS<span class="o">]</span> URL
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-o">
+<span id="cmdoption-schemauto-generalize-htmltable-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-n">
+<span id="cmdoption-schemauto-generalize-htmltable-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>MySchema</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-c">
+<span id="cmdoption-schemauto-generalize-htmltable-class-name"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core class name in schema</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-pandera">
+<span id="cmdoption-schemauto-generalize-htmltable-no-pandera"></span><span class="sig-name descname"><span class="pre">--pandera</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-pandera</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-pandera" title="Permalink to this definition">¶</a></dt>
+<dd><p>set to use panderas as inference engine</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-data-output">
+<span class="sig-name descname"><span class="pre">--data-output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-data-output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to file of downloaded data</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-table-number">
+<span class="sig-name descname"><span class="pre">--table-number</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;table_number&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-table-number" title="Permalink to this definition">¶</a></dt>
+<dd><p>If URL has multiple tables, use this one (zero-based)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-arg-URL">
+<span id="cmdoption-schemauto-generalize-htmltable-arg-url"></span><span class="sig-name descname"><span class="pre">URL</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-arg-URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-generalize-json">
 <h4>generalize-json<a class="headerlink" href="#schemauto-generalize-json" title="Permalink to this headline">¶</a></h4>
 <blockquote>
@@ -309,7 +373,7 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
 </dd></dl>
@@ -425,9 +489,15 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-A">
+<span id="cmdoption-schemauto-generalize-tsv-a"></span><span id="cmdoption-schemauto-generalize-tsv-annotator"></span><span class="sig-name descname"><span class="pre">-A</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--annotator</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;annotator&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-A" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of annotator to use for auto-annotating results. Must be an OAK selector</p>
 </dd></dl>
 
 <dl class="std option">
@@ -458,6 +528,12 @@ flag should be specified BEFORE the subcommand:</p>
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-robot">
 <span id="cmdoption-schemauto-generalize-tsv-no-robot"></span><span class="sig-name descname"><span class="pre">--robot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-robot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-robot" title="Permalink to this definition">¶</a></dt>
 <dd><p>set if the TSV is a ROBOT template</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-pandera">
+<span id="cmdoption-schemauto-generalize-tsv-no-pandera"></span><span class="sig-name descname"><span class="pre">--pandera</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-pandera</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-pandera" title="Permalink to this definition">¶</a></dt>
+<dd><p>set to use panderas as inference engine</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -495,7 +571,7 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
 </dd></dl>
@@ -582,7 +658,7 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
 </dd></dl>
@@ -627,7 +703,7 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
 </dd></dl>
@@ -679,7 +755,7 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Schema name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
-<dd class="field-odd"><p>example</p>
+<dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
 </dd></dl>
