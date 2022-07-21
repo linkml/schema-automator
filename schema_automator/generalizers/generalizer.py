@@ -1,8 +1,13 @@
 from abc import ABC
+from dataclasses import dataclass
 
 from linkml_runtime.linkml_model import SchemaDefinition, Prefix
 
+DEFAULT_CLASS_NAME = 'Observation'
+DEFAULT_SCHEMA_NAME = 'MySchema'
 
+
+@dataclass
 class Generalizer(ABC):
     """
     Abstract Base Class for all Generalization Engines.

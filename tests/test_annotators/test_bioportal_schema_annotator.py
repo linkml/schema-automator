@@ -12,6 +12,8 @@ from oaklib.selector import get_implementation_from_shorthand
 
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from linkml.generators.yamlgen import YAMLGenerator
+
+from schema_automator.generalizers.generalizer import DEFAULT_SCHEMA_NAME
 from tests import INPUT_DIR, OUTPUT_DIR
 
 
@@ -33,8 +35,8 @@ class BioPortalSchemaAnnotatorTestCase(unittest.TestCase):
         self.annotator = SchemaAnnotator(impl)
 
     def test_ann(self):
-        s = SchemaDefinition(id='test', name='test')
-        sb = SchemaBuilder(s)
+        sb = SchemaBuilder(DEFAULT_SCHEMA_NAME)
+        s = sb.schema
         sb.add_class('Gene').add_slot('symbol')
         # TODO: use add_enum
         e = EnumDefinition('GeneType')

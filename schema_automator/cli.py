@@ -7,6 +7,8 @@ import logging
 import os
 import click
 
+import pandas as pd
+
 import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
 from oaklib.selector import get_resource_from_shorthand, get_implementation_from_shorthand
@@ -14,6 +16,8 @@ from oaklib.selector import get_resource_from_shorthand, get_implementation_from
 from schema_automator import JsonLdAnnotator
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
+from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAULT_SCHEMA_NAME
+from schema_automator.generalizers.pandas_generalizer import PandasDataGeneralizer
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
@@ -34,9 +38,13 @@ output_option = click.option(
 schema_name_option = click.option(
     '--schema-name',
     '-n',
-    default='example',
+    default=DEFAULT_SCHEMA_NAME,
     show_default=True,
     help='Schema name')
+annotator_option = click.option(
+    '--annotator',
+    '-A',
+    help='name of annotator to use for auto-annotating results. Must be an OAK selector')
 
 
 @click.group()
@@ -71,12 +79,14 @@ def main(verbose: int, quiet: bool):
 @click.argument('tsvfile')  # input TSV (must have column headers
 @output_option
 @schema_name_option
-@click.option('--class-name', '-c', default='example', help='Core class name in schema')
+@annotator_option
+@click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
 @click.option('--column-separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def generalize_tsv(tsvfile, output, class_name, schema_name, **kwargs):
+@click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
+def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, **kwargs):
     """
     Generalizes from a single TSV file to a single-class schema
 
@@ -86,8 +96,15 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, **kwargs):
 
         schemauto generalize-tsv --class-name Person --schema-name PersonInfo my/data/persons.tsv
     """
-    ie = CsvDataGeneralizer(**kwargs)
+    if pandera:
+        ie = PandasDataGeneralizer(**kwargs)
+    else:
+        ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
+    if annotator:
+        impl = get_implementation_from_shorthand(annotator)
+        sa = SchemaAnnotator(impl)
+        schema = sa.annotate_schema(schema)
     write_schema(schema, output)
 
 
@@ -117,6 +134,40 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
     ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.argument('url')  # input TSV (must have column headers
+@output_option
+@schema_name_option
+@click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
+@click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
+@click.option('--data-output', help='Path to file of downloaded data')
+@click.option('--table-number',
+              type=int,
+              default=0,
+              show_default=True,
+              help='If URL has multiple tables, use this one (zero-based)')
+def generalize_htmltable(url, output, class_name, schema_name, pandera: bool,
+                         table_number: int, data_output,
+                         **kwargs):
+    """
+    Generalizes from a table parsed from a URL
+
+    Uses pandas/beautiful soup
+    """
+    dfs = pd.read_html(url)
+    logging.info(f"{url} has {len(dfs)} tables")
+    df = dfs[table_number]
+    if data_output:
+        df.to_csv(data_output, sep="\t")
+    if pandera:
+        ie = PandasDataGeneralizer(**kwargs)
+        schema = ie.convert(df, class_name=class_name, schema_name=schema_name)
+    else:
+        ie = CsvDataGeneralizer(**kwargs)
+        schema = ie.convert_dicts(df.to_dict('records'))
     write_schema(schema, output)
 
 

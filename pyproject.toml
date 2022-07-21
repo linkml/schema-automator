@@ -35,6 +35,7 @@ PyYAML = "^5.3.1"
 pypandoc = "^1.7.5"
 twine = "^4.0.0"
 oaklib = "^0.1.17"
+pandera = "^0.11.0"
 
 
 [tool.poetry.dev-dependencies]

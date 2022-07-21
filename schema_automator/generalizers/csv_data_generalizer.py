@@ -11,13 +11,13 @@ import pandas as pd
 import time
 
 from dateutil.parser import parse
+from deprecation import deprecated
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
 
-from schema_automator.generalizers.generalizer import Generalizer
-from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.generalizers.generalizer import Generalizer, DEFAULT_CLASS_NAME
 from schema_automator.utils.schemautils import merge_schemas, write_schema
 
 ID_SUFFIX = '_id'
@@ -172,7 +172,10 @@ class CsvDataGeneralizer(Generalizer):
         logging.info(f'FILTERED: {fks}')
         return fks
 
-    def inject_foreign_keys(self, sv: SchemaView, fks: List[ForeignKey]) -> None:
+    def inject_foreign_keys(self,
+                            sv: SchemaView,
+                            fks: List[ForeignKey],
+                            direct_slot = True) -> None:
         schema = sv.schema
         for fk in fks:
             # TODO: deal with cases where the same slot is used in different classes
@@ -181,13 +184,15 @@ class CsvDataGeneralizer(Generalizer):
             src_cls.slot_usage[fk.source_column] = \
                 SlotDefinition(name=fk.source_column,
                                range=fk.target_table)
-            #src_slot['range'] = fk.target_table
+            if direct_slot:
+                src_slot['range'] = fk.target_table
             tgt_cls = schema.classes[fk.target_table]
             tgt_slot = schema.slots[fk.target_column]
             tgt_cls.slot_usage[fk.target_column] = \
                 SlotDefinition(name=fk.target_column,
                                identifier=True)
-            #tgt_slot['identifier'] = True
+            if direct_slot:
+                tgt_slot['identifier'] = True
 
     def convert_multiple(self, files: List[str], **kwargs) -> SchemaDefinition:
         """
@@ -199,6 +204,7 @@ class CsvDataGeneralizer(Generalizer):
         """
         if self.infer_foreign_keys:
             fks = self.infer_linkages(files)
+            logging.info(f"Inferred {len(fks)} foreign keys: {fks}")
         else:
             fks = ()
         schemas = []
@@ -238,7 +244,7 @@ class CsvDataGeneralizer(Generalizer):
 
     def convert_to_edge_slots(self,
                          all_tsv_rows: List,
-                         name: str = 'example',
+                         name: str = DEFAULT_CLASS_NAME,
                          **kwargs) -> Optional[Dict]:
 
         """
@@ -290,7 +296,7 @@ class CsvDataGeneralizer(Generalizer):
     def convert_dicts(self,
                       rr: List[Dict],
                       schema_name: str = 'example',
-                      class_name: str = 'example',
+                      class_name: str = DEFAULT_CLASS_NAME,
                       **kwargs) -> SchemaDefinition:
         slots = {}
         slot_values = {}
@@ -629,6 +635,7 @@ def convert_range(k: str, dt: str) -> str:
     return t
 
 
+@deprecated
 def infer_enum_meanings(schema: dict,
                         zooma_confidence: str = 'MEDIUM',
                         cache={}) -> None:

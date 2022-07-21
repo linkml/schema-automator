@@ -14,6 +14,31 @@ Importers are the opposite of `Generalizers <https://linkml.io/linkml/generators
    representation that lacks `inheritance <https://linkml.io/linkml/schemas/inheritance.html>`_, no ``is_a`` slots
    will be created.
 
+Importing from JSON-Schema
+---------
+
+The ``import-json-schema`` command can be used:
+
+.. code-block::
+
+    schemauto import-json-schema tests/resources/model_card.schema.json
+
+Importing from OWL
+---------
+
+You can import from a schema-style OWL ontology. This must be in functional syntax
+
+Use robot to convert ahead of time:
+
+.. code-block::
+
+    robot convert -i schemaorg.ttl -o schemaorg.ofn
+    schemauto import-owl schemaorg.ofn
+
+
+Packages
+-------
+
 .. currentmodule:: schema_automator.importers
 
 .. autoclass:: JsonSchemaImportEngine
