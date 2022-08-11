@@ -23,6 +23,7 @@ from schema_automator.generalizers.json_instance_generalizer import JsonDataGene
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
+from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.utils.schemautils import minify_schema, write_schema
 
 input_option = click.option(
@@ -65,14 +66,16 @@ def main(verbose: int, quiet: bool):
 
         schemauto -vv SUBCOMMAND [OPTIONS] ARGUMENTS
     """
+    logger = logging.getLogger()
     if verbose >= 2:
-        logging.basicConfig(level=logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
     elif verbose == 1:
-        logging.basicConfig(level=logging.INFO)
+        logger.setLevel(logging.INFO)
     else:
-        logging.basicConfig(level=logging.WARNING)
+        logger.setLevel(logging.WARNING)
     if quiet:
-        logging.basicConfig(level=logging.ERROR)
+        logger.setLevel(logging.ERROR)
+    logging.info(f"Log level={verbose}")
 
 
 @main.command()
@@ -194,6 +197,21 @@ def import_dosdps(dpfiles, output, **args):
 
 
 @main.command()
+@click.argument('db')
+@output_option
+@schema_name_option
+def import_sql(db, output, **args):
+    """
+    Imports a schema by introspecting a relational database
+
+    See :ref:`importers` for more on the importers framework
+    """
+    ie = SqlImportEngine()
+    schema = ie.convert(db, **args)
+    write_schema(schema, output)
+
+
+@main.command()
 @click.argument('input')
 @output_option
 @schema_name_option
@@ -298,7 +316,7 @@ def generalize_rdf(rdffile, dir, output, **args):
               '-i',
               help="OAK input ontology selector")
 @output_option
-def annotate_schema(schema: str, input: str, output: str, curie_only: bool, **args):
+def annotate_schema(schema: str, input: str, output: str, **kwargs):
     """
     Annotate all elements of a schema
 
@@ -311,9 +329,8 @@ def annotate_schema(schema: str, input: str, output: str, curie_only: bool, **ar
         if you provide "bioportal" as selector, you must have set your API key uising OAK
     """
     impl = get_implementation_from_shorthand(input)
-    logging.basicConfig(level=logging.INFO)
-    annr = SchemaAnnotator(impl)
-    schema = annr.annotate_schema(schema, curie_only=curie_only)
+    annr = SchemaAnnotator(impl, **kwargs)
+    schema = annr.annotate_schema(schema)
     write_schema(schema, output)
 
 
@@ -328,8 +345,8 @@ def enrich_schema(schema: str, input: str, output: str, **args):
     Requires Bioportal API key
     """
     impl = get_implementation_from_shorthand(input)
-    logging.basicConfig(level=logging.INFO)
     annr = SchemaAnnotator(impl)
+    logging.info(f"Enriching: {schema}")
     schema = annr.enrich(schema)
     write_schema(schema, output)
 
@@ -341,7 +358,6 @@ def annotate_using_jsonld(schema: str, output: str, **args):
     """
     Annotates a schema using a Json-LD context file
     """
-    logging.basicConfig(level=logging.INFO)
     annr = JsonLdAnnotator()
     schemadef = SchemaDefinition(schema)
     annr.annotate_schema(schemadef)

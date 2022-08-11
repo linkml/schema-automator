@@ -34,10 +34,13 @@ class TestSqlmporter(unittest.TestCase):
         """
         sb = SchemaBuilder()
         sb.add_class('Person',
-                     ['id', 'name', 'email'])
+                     ['id', 'name', 'email', 'age', 'knows'])
         sb.add_slot(SlotDefinition('id', identifier=True))
+        sb.add_slot(SlotDefinition('age', range='integer'))
+        sb.add_slot(SlotDefinition('knows', range='Person', multivalued=True))
         sb.add_defaults()
         schema = sb.schema
+        #print(yaml_dumper.dumps(schema))
         # TODO: add to SchemaBuilder
         for c in schema.classes.values():
             c.from_schema = 'http://x.org/'
@@ -49,7 +52,6 @@ class TestSqlmporter(unittest.TestCase):
         self.schema = schema
         self.schemaview = SchemaView(schema)
 
-
     def test_from_sql(self):
         """
         Test SQL conversion
@@ -60,15 +62,20 @@ class TestSqlmporter(unittest.TestCase):
         ie = SqlImportEngine()
         schema_rt = ie.convert(DB)
         schemaview_rt = SchemaView(schema_rt)
-        #print(yaml_dumper.dumps(schema_rt))
+        print(yaml_dumper.dumps(schema_rt))
         schemaview = self.schemaview
         for c in schemaview.all_classes().values():
-            #print("here is c")
-            #print(c)
             self.assertIn(c.name, schemaview_rt.all_classes())
             for s in schemaview.class_induced_slots(c.name):
-                #print(s)
                 self.assertIn(s.name, schemaview_rt.all_slots())
+        person = schemaview_rt.get_class('Person')
+        person_knows_join = schemaview_rt.get_class('Person_knows')
+        id_slot = person.attributes['id']
+        age_slot = person.attributes['age']
+        self.assertTrue(id_slot.identifier)
+        self.assertEqual('integer', age_slot.range)
+        self.assertEqual('Person', person_knows_join.attributes['Person_id'].range)
+        self.assertEqual('Person', person_knows_join.attributes['knows'].range)
 
 
 

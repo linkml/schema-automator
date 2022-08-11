@@ -1,18 +1,12 @@
-import urllib.request, urllib.error, urllib.parse
-
 import click
-import requests
 import logging
-import json
 import yaml
-import os
 from dataclasses import dataclass
-from pprint import pprint
-from typing import Any, List, Dict, Union, Iterator
+from typing import List, Union, Iterator
 
-from linkml_runtime.linkml_model import SchemaDefinition
+from linkml_runtime.linkml_model import SchemaDefinition, Element, PermissibleValue, ClassDefinition, SlotDefinition
 from linkml_runtime.utils.metamodelcore import Curie
-from linkml_runtime.utils.schemaview import SchemaView, re
+from linkml_runtime.utils.schemaview import SchemaView, re, EnumDefinition
 from oaklib import BasicOntologyInterface
 from oaklib.datamodels.search import SearchConfiguration
 from oaklib.datamodels.text_annotator import TextAnnotation
@@ -24,7 +18,9 @@ from schema_automator.utils.schemautils import minify_schema
 camel_case_pattern = re.compile(r'(?<!^)(?=[A-Z])')
 
 def uncamel(n: str):
+    # TODO: replace with equiv from linkml-runtime
     return camel_case_pattern.sub(' ', n).lower().replace('_', ' ')
+
 
 @dataclass
 class SchemaAnnotator:
@@ -36,13 +32,64 @@ class SchemaAnnotator:
     See `OAK documentation <https://incatools.github.io/ontology-access-kit/>`_ for more details
     """
     ontology_implementation: BasicOntologyInterface
+    mine_descriptions: bool = False
+    allow_partial: bool = False
+    curie_only: bool = True
+    assign_element_uris: bool = False
+    assign_enum_meanings: bool = False
+
+    def annotate_element(self, elt: Union[PermissibleValue, Element]) -> None:
+        """
+        Annotates an element or a permissible value
+
+        :param elt:
+        :return:
+        """
+        if isinstance(elt, Element):
+            texts = [elt.name]
+        elif isinstance(elt, PermissibleValue):
+            texts = [elt.text]
+        else:
+            raise ValueError(f"Unexpected type {type(elt)}")
+        texts += elt.aliases
+        if self.mine_descriptions and elt.description:
+            texts.append(elt.description)
+        for text in texts:
+            for r in self.annotate_text(text):
+                logging.debug(f'MATCH: {r}')
+                if self.allow_partial or r.matches_whole_text:
+                    xref = r.object_id
+                    if self.curie_only and not Curie.is_curie(xref):
+                        continue
+                    logging.info(f'Mapping from "{text}" to {xref}')
+                    if isinstance(elt, PermissibleValue):
+                        if self.assign_enum_meanings:
+                            if not elt.meaning:
+                                elt.meaning = xref
+                                continue
+                    else:
+                        if self.assign_element_uris:
+                            if isinstance(elt, ClassDefinition):
+                                if not elt.class_uri:
+                                    elt.class_uri = xref
+                                    continue
+                            if isinstance(elt, SlotDefinition):
+                                if not elt.slot_uri:
+                                    elt.slot_uri = xref
+                                    continue
+                            if isinstance(elt, EnumDefinition):
+                                if not elt.enum_uri:
+                                    elt.enum_uri = xref
+                                    continue
+                    if xref not in elt.exact_mappings:
+                        elt.exact_mappings.append(xref)
 
     def annotate_text(self, text: str) -> Iterator[TextAnnotation]:
         # this is a wrapper over OAK annotation and search;
         # it (1) expands CamelCase (2) abstracts over annotation vs search
         # TODO: fold this functionality back into OAK
         oi = self.ontology_implementation
-        text_exp = uncamel(text) # TODO: use main linkml_runtime method
+        text_exp = uncamel(text)  # TODO: use main linkml_runtime method
         if isinstance(oi, TextAnnotatorInterface):
             # TextAnnotation is available; use this by default
             for r in oi.annotate_text(text_exp):
@@ -61,7 +108,7 @@ class SchemaAnnotator:
         else:
             raise NotImplementedError
 
-    def annotate_schema(self, schema: Union[SchemaDefinition, str], curie_only=True) -> SchemaDefinition:
+    def annotate_schema(self, schema: Union[SchemaDefinition, str]) -> SchemaDefinition:
         """
         Annotate all elements of a schema, adding mappings.
 
@@ -70,32 +117,10 @@ class SchemaAnnotator:
         sv = SchemaView(schema)
         oi = self.ontology_implementation
         for elt_name, elt in sv.all_elements().items():
-            for n in [elt.name] + elt.aliases:
-                for r in self.annotate_text(n):
-                    logging.debug(f'MATCH: {r}')
-                    if r.matches_whole_text:
-                        xref = r.object_id
-                        if curie_only and not Curie.is_curie(xref):
-                            continue
-                        logging.info(f'Mapping from {elt_name} "{n}" to {xref}')
-                        if xref not in elt.exact_mappings:
-                            elt.exact_mappings.append(xref)
+            self.annotate_element(elt)
         for e in sv.all_enums().values():
             for pv in e.permissible_values.values():
-                for r in self.annotate_text(pv.text):
-                    logging.debug(f'MATCH: {r}')
-                    if r.matches_whole_text:
-                        xref = r.object_id
-                        if curie_only and not Curie.is_curie(xref):
-                            continue
-                        logging.info(f'Mapping from {elt_name} "{n}" to {xref}')
-                        if pv.meaning is None:
-                            logging.info(f'Arbitrarily choosing first match: {xref}')
-                            pv.meaning = xref
-                        else:
-                            if xref not in pv.exact_mappings:
-                                pv.exact_mappings.append(xref)
-
+                self.annotate_element(pv)
         return sv.schema
 
     def enrich(self, schema: Union[SchemaDefinition, str]) -> SchemaDefinition:
@@ -111,19 +136,42 @@ class SchemaAnnotator:
         sv = SchemaView(schema)
         oi = self.ontology_implementation
         for elt_name, elt in sv.all_elements().items():
-            curies = [sv.get_uri(elt)]
-            for rel, ms in sv.get_mappings().items():
+            logging.debug(f"Enriching {elt_name}")
+            if isinstance(elt, EnumDefinition):
+                curies = []
+                for pv in elt.permissible_values.values():
+                    if pv.meaning:
+                        pv_curies = [pv.meaning]
+                    else:
+                        pv_curies = []
+                    self._add_description_from_curies(pv, pv_curies)
+            else:
+                curies = [sv.get_uri(elt)]
+            for rel, ms in sv.get_mappings(elt_name).items():
                 curies += ms
-            for x in curies:
-                if elt.description:
-                    break
-                try:
-                    defn = oi.get_definition_by_curie(x)
-                    if defn:
-                        elt.description = defn
-                except Exception:
-                    pass
+            self._add_description_from_curies(elt, curies)
         return sv.schema
+
+    def _add_description_from_curies(self, elt: Union[Element, PermissibleValue], curies: List[str]):
+        oi = self.ontology_implementation
+        logging.info(f"Looking up descriptions using {curies}")
+        for x in curies:
+            logging.info(f"Fetching description using: {curies}")
+            if elt.description:
+                break
+            try:
+                defn = oi.get_definition_by_curie(x)
+                if defn:
+                    elt.description = defn
+                else:
+                    mm = oi.entity_metadata_map(x)
+                    logging.debug(f"MM={mm}")
+                    for p in ['rdfs:comment', 'skos:definition', 'dcterms:description']:
+                        if p in mm:
+                            elt.description = mm[p]
+                            last
+            except Exception:
+                pass
 
 
 @click.command()

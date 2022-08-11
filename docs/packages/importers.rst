@@ -35,6 +35,25 @@ Use robot to convert ahead of time:
     robot convert -i schemaorg.ttl -o schemaorg.ofn
     schemauto import-owl schemaorg.ofn
 
+Importing from SQL
+---------
+
+You can import a schema from a SQL database
+
+The default is to assume a SQLite database:
+
+.. code-block::
+
+    schemauto import-sql path/to/my.db
+
+You can also connect to any database server provided you have the necessary client software
+installed, using a SQL Alchemy connection path.
+
+For example, for the `RNA Central public database <https://rnacentral.org/help/public-database>`_
+
+.. code-block::
+
+    schemauto import-sql postgresql+psycopg2://reader:NWDMCE5xdipIjRrp@hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs
 
 Packages
 -------
