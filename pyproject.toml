@@ -47,7 +47,6 @@ sphinxcontrib-mermaid = "^0.7.1"
 jupyter = "^1.0.0"
 lxml = "^4.9.1"
 
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -68,3 +67,4 @@ extract-schema = "schema_automator.utils.schema_extractor:cli"
 
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
+mariadb = ["mariadb"]
