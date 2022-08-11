@@ -165,6 +165,20 @@ will be created.</p>
 </pre></div>
 </div>
 </section>
+<section id="importing-from-sql">
+<h2>Importing from SQL<a class="headerlink" href="#importing-from-sql" title="Permalink to this headline">¶</a></h2>
+<p>You can import a schema from a SQL database</p>
+<p>The default is to assume a SQLite database:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">sql</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">my</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p>You can also connect to any database server provided you have the necessary client software
+installed, using a SQL Alchemy connection path.</p>
+<p>For example, for the <a class="reference external" href="https://rnacentral.org/help/public-database">RNA Central public database</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">sql</span> <span class="n">postgresql</span><span class="o">+</span><span class="n">psycopg2</span><span class="p">:</span><span class="o">//</span><span class="n">reader</span><span class="p">:</span><span class="n">NWDMCE5xdipIjRrp</span><span class="nd">@hh</span><span class="o">-</span><span class="n">pgsql</span><span class="o">-</span><span class="n">public</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="p">:</span><span class="mi">5432</span><span class="o">/</span><span class="n">pfmegrnargs</span>
+</pre></div>
+</div>
+</section>
 <section id="packages">
 <h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">

@@ -137,21 +137,15 @@
 
 	    <div id="content" class="hfeed entry-container hentry">
   <h1>Source code for schema_automator.annotators.schema_annotator</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">urllib.error</span><span class="o">,</span> <span class="nn">urllib.parse</span>
-
-<span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">import</span> <span class="nn">requests</span>
+<span></span><span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterator</span>
 
-<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span>
+<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">PermissibleValue</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">,</span> <span class="n">SlotDefinition</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime.utils.metamodelcore</span> <span class="kn">import</span> <span class="n">Curie</span>
-<span class="kn">from</span> <span class="nn">linkml_runtime.utils.schemaview</span> <span class="kn">import</span> <span class="n">SchemaView</span><span class="p">,</span> <span class="n">re</span>
+<span class="kn">from</span> <span class="nn">linkml_runtime.utils.schemaview</span> <span class="kn">import</span> <span class="n">SchemaView</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">EnumDefinition</span>
 <span class="kn">from</span> <span class="nn">oaklib</span> <span class="kn">import</span> <span class="n">BasicOntologyInterface</span>
 <span class="kn">from</span> <span class="nn">oaklib.datamodels.search</span> <span class="kn">import</span> <span class="n">SearchConfiguration</span>
 <span class="kn">from</span> <span class="nn">oaklib.datamodels.text_annotator</span> <span class="kn">import</span> <span class="n">TextAnnotation</span>
@@ -163,7 +157,9 @@
 <span class="n">camel_case_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?&lt;!^)(?=[A-Z])&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">uncamel</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="c1"># TODO: replace with equiv from linkml-runtime</span>
     <span class="k">return</span> <span class="n">camel_case_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="SchemaAnnotator"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">SchemaAnnotator</span><span class="p">:</span>
@@ -175,13 +171,64 @@
 <span class="sd">    See `OAK documentation &lt;https://incatools.github.io/ontology-access-kit/&gt;`_ for more details</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ontology_implementation</span><span class="p">:</span> <span class="n">BasicOntologyInterface</span>
+    <span class="n">mine_descriptions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">allow_partial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">curie_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">assign_element_uris</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">assign_enum_meanings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="SchemaAnnotator.annotate_element"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.annotate_element">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PermissibleValue</span><span class="p">,</span> <span class="n">Element</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Annotates an element or a permissible value</span>
+
+<span class="sd">        :param elt:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">Element</span><span class="p">):</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">elt</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">PermissibleValue</span><span class="p">):</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">elt</span><span class="o">.</span><span class="n">text</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">elt</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">texts</span> <span class="o">+=</span> <span class="n">elt</span><span class="o">.</span><span class="n">aliases</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mine_descriptions</span> <span class="ow">and</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+            <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MATCH: </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_partial</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">matches_whole_text</span><span class="p">:</span>
+                    <span class="n">xref</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">object_id</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">curie_only</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Curie</span><span class="o">.</span><span class="n">is_curie</span><span class="p">(</span><span class="n">xref</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mapping from &quot;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&quot; to </span><span class="si">{</span><span class="n">xref</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">PermissibleValue</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign_enum_meanings</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">elt</span><span class="o">.</span><span class="n">meaning</span><span class="p">:</span>
+                                <span class="n">elt</span><span class="o">.</span><span class="n">meaning</span> <span class="o">=</span> <span class="n">xref</span>
+                                <span class="k">continue</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign_element_uris</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">):</span>
+                                <span class="k">if</span> <span class="ow">not</span> <span class="n">elt</span><span class="o">.</span><span class="n">class_uri</span><span class="p">:</span>
+                                    <span class="n">elt</span><span class="o">.</span><span class="n">class_uri</span> <span class="o">=</span> <span class="n">xref</span>
+                                    <span class="k">continue</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">SlotDefinition</span><span class="p">):</span>
+                                <span class="k">if</span> <span class="ow">not</span> <span class="n">elt</span><span class="o">.</span><span class="n">slot_uri</span><span class="p">:</span>
+                                    <span class="n">elt</span><span class="o">.</span><span class="n">slot_uri</span> <span class="o">=</span> <span class="n">xref</span>
+                                    <span class="k">continue</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">EnumDefinition</span><span class="p">):</span>
+                                <span class="k">if</span> <span class="ow">not</span> <span class="n">elt</span><span class="o">.</span><span class="n">enum_uri</span><span class="p">:</span>
+                                    <span class="n">elt</span><span class="o">.</span><span class="n">enum_uri</span> <span class="o">=</span> <span class="n">xref</span>
+                                    <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">xref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elt</span><span class="o">.</span><span class="n">exact_mappings</span><span class="p">:</span>
+                        <span class="n">elt</span><span class="o">.</span><span class="n">exact_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">annotate_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">TextAnnotation</span><span class="p">]:</span>
         <span class="c1"># this is a wrapper over OAK annotation and search;</span>
         <span class="c1"># it (1) expands CamelCase (2) abstracts over annotation vs search</span>
         <span class="c1"># TODO: fold this functionality back into OAK</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
-        <span class="n">text_exp</span> <span class="o">=</span> <span class="n">uncamel</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="c1"># TODO: use main linkml_runtime method</span>
+        <span class="n">text_exp</span> <span class="o">=</span> <span class="n">uncamel</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>  <span class="c1"># TODO: use main linkml_runtime method</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">oi</span><span class="p">,</span> <span class="n">TextAnnotatorInterface</span><span class="p">):</span>
             <span class="c1"># TextAnnotation is available; use this by default</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text_exp</span><span class="p">):</span>
@@ -200,7 +247,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="SchemaAnnotator.annotate_schema"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.annotate_schema">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">curie_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<div class="viewcode-block" id="SchemaAnnotator.annotate_schema"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.annotate_schema">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Annotate all elements of a schema, adding mappings.</span>
 
@@ -209,32 +256,10 @@
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
         <span class="k">for</span> <span class="n">elt_name</span><span class="p">,</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">all_elements</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="n">elt</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">+</span> <span class="n">elt</span><span class="o">.</span><span class="n">aliases</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MATCH: </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">matches_whole_text</span><span class="p">:</span>
-                        <span class="n">xref</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">object_id</span>
-                        <span class="k">if</span> <span class="n">curie_only</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Curie</span><span class="o">.</span><span class="n">is_curie</span><span class="p">(</span><span class="n">xref</span><span class="p">):</span>
-                            <span class="k">continue</span>
-                        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mapping from </span><span class="si">{</span><span class="n">elt_name</span><span class="si">}</span><span class="s1"> &quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&quot; to </span><span class="si">{</span><span class="n">xref</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">xref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elt</span><span class="o">.</span><span class="n">exact_mappings</span><span class="p">:</span>
-                            <span class="n">elt</span><span class="o">.</span><span class="n">exact_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotate_element</span><span class="p">(</span><span class="n">elt</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">all_enums</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">pv</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">permissible_values</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MATCH: </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">matches_whole_text</span><span class="p">:</span>
-                        <span class="n">xref</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">object_id</span>
-                        <span class="k">if</span> <span class="n">curie_only</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Curie</span><span class="o">.</span><span class="n">is_curie</span><span class="p">(</span><span class="n">xref</span><span class="p">):</span>
-                            <span class="k">continue</span>
-                        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mapping from </span><span class="si">{</span><span class="n">elt_name</span><span class="si">}</span><span class="s1"> &quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&quot; to </span><span class="si">{</span><span class="n">xref</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">pv</span><span class="o">.</span><span class="n">meaning</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Arbitrarily choosing first match: </span><span class="si">{</span><span class="n">xref</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                            <span class="n">pv</span><span class="o">.</span><span class="n">meaning</span> <span class="o">=</span> <span class="n">xref</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">xref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="p">:</span>
-                                <span class="n">pv</span><span class="o">.</span><span class="n">exact_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span>
-
+                <span class="bp">self</span><span class="o">.</span><span class="n">annotate_element</span><span class="p">(</span><span class="n">pv</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
 
 <div class="viewcode-block" id="SchemaAnnotator.enrich"><a class="viewcode-back" href="../../../packages/annotators.html#schema_automator.annotators.SchemaAnnotator.enrich">[docs]</a>    <span class="k">def</span> <span class="nf">enrich</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
@@ -250,19 +275,42 @@
         <span class="n">sv</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
         <span class="k">for</span> <span class="n">elt_name</span><span class="p">,</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">all_elements</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">curies</span> <span class="o">=</span> <span class="p">[</span><span class="n">sv</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(</span><span class="n">elt</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="n">ms</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">get_mappings</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Enriching </span><span class="si">{</span><span class="n">elt_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">EnumDefinition</span><span class="p">):</span>
+                <span class="n">curies</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pv</span> <span class="ow">in</span> <span class="n">elt</span><span class="o">.</span><span class="n">permissible_values</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">pv</span><span class="o">.</span><span class="n">meaning</span><span class="p">:</span>
+                        <span class="n">pv_curies</span> <span class="o">=</span> <span class="p">[</span><span class="n">pv</span><span class="o">.</span><span class="n">meaning</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">pv_curies</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_add_description_from_curies</span><span class="p">(</span><span class="n">pv</span><span class="p">,</span> <span class="n">pv_curies</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">curies</span> <span class="o">=</span> <span class="p">[</span><span class="n">sv</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(</span><span class="n">elt</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="n">ms</span> <span class="ow">in</span> <span class="n">sv</span><span class="o">.</span><span class="n">get_mappings</span><span class="p">(</span><span class="n">elt_name</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">curies</span> <span class="o">+=</span> <span class="n">ms</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">curies</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
-                    <span class="k">break</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">defn</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">get_definition_by_curie</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">defn</span><span class="p">:</span>
-                        <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">defn</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                    <span class="k">pass</span>
-        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_description_from_curies</span><span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="n">curies</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sv</span><span class="o">.</span><span class="n">schema</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_description_from_curies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="n">PermissibleValue</span><span class="p">],</span> <span class="n">curies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Looking up descriptions using </span><span class="si">{</span><span class="n">curies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">curies</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fetching description using: </span><span class="si">{</span><span class="n">curies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">defn</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">get_definition_by_curie</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">defn</span><span class="p">:</span>
+                    <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">defn</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mm</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">entity_metadata_map</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MM=</span><span class="si">{</span><span class="n">mm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rdfs:comment&#39;</span><span class="p">,</span> <span class="s1">&#39;skos:definition&#39;</span><span class="p">,</span> <span class="s1">&#39;dcterms:description&#39;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">mm</span><span class="p">:</span>
+                            <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">mm</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                            <span class="n">last</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span></div>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
