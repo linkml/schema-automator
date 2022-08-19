@@ -473,7 +473,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "fsspec"
-version = "2022.5.0"
+version = "2022.7.1"
 description = "File-system specification"
 category = "main"
 optional = false
@@ -484,27 +484,27 @@ aiohttp = {version = "*", optional = true, markers = "extra == \"http\""}
 requests = {version = "*", optional = true, markers = "extra == \"http\""}
 
 [package.extras]
-abfs = ["adlfs"]
-adl = ["adlfs"]
-arrow = ["pyarrow (>=1)"]
-dask = ["dask", "distributed"]
-dropbox = ["dropboxdrivefs", "requests", "dropbox"]
-entrypoints = ["importlib-metadata"]
-fuse = ["fusepy"]
-gcs = ["gcsfs"]
-git = ["pygit2"]
-github = ["requests"]
-gs = ["gcsfs"]
-gui = ["panel"]
-hdfs = ["pyarrow (>=1)"]
-http = ["requests", "aiohttp"]
-libarchive = ["libarchive-c"]
-oci = ["ocifs"]
-s3 = ["s3fs"]
-sftp = ["paramiko"]
-smb = ["smbprotocol"]
-ssh = ["paramiko"]
 tqdm = ["tqdm"]
+ssh = ["paramiko"]
+smb = ["smbprotocol"]
+sftp = ["paramiko"]
+s3 = ["s3fs"]
+oci = ["ocifs"]
+libarchive = ["libarchive-c"]
+http = ["aiohttp", "requests"]
+hdfs = ["pyarrow (>=1)"]
+gui = ["panel"]
+gs = ["gcsfs"]
+github = ["requests"]
+git = ["pygit2"]
+gcs = ["gcsfs"]
+fuse = ["fusepy"]
+entrypoints = ["importlib-metadata"]
+dropbox = ["dropbox", "requests", "dropboxdrivefs"]
+dask = ["distributed", "dask"]
+arrow = ["pyarrow (>=1)"]
+adl = ["adlfs"]
+abfs = ["adlfs"]
 
 [[package]]
 name = "funowl"
@@ -2518,6 +2518,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "tomlkit"
+version = "0.11.4"
+description = "Style preserving TOML library"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "tornado"
 version = "6.2"
 description = "Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed."
@@ -2696,7 +2704,7 @@ mariadb = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "4cba6d141b41b0aaf0597f119b65c31080451bc1c712b8d4d195c6ff59a5e655"
+content-hash = "66dec4f7200f183442fce536e6392f8597a98d2d90ea100dfc0eed27f394d152"
 
 [metadata.files]
 aiohttp = []
@@ -2891,6 +2899,7 @@ strsimpy = []
 terminado = []
 tinycss2 = []
 tomli = []
+tomlkit = []
 tornado = []
 tqdm = []
 traitlets = []

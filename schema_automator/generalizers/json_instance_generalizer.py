@@ -2,6 +2,8 @@ import click
 from typing import Union, Dict, List, Any
 from collections import defaultdict
 import json
+
+import tomlkit
 import yaml
 import gzip
 
@@ -53,6 +55,11 @@ class JsonDataGeneralizer(Generalizer):
                     obj = json.load(stream)
                 elif format == 'yaml':
                     obj = yaml.safe_load(stream)
+                elif format == 'toml':
+                    obj_str = "".join(stream.readlines())
+                    toml_obj = tomlkit.parse(obj_str)
+                    json_str = json.dumps(toml_obj)
+                    obj = json.loads(json_str)
                 else:
                     raise Exception(f'bad format {format}')
         rows_by_table = defaultdict(list)
