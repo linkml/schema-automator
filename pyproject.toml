@@ -63,6 +63,7 @@ owl2linkml = "schema_automator.importers.owl_import_engine:owl2model"
 dosdp2linkml = "schema_automator.importers.owl_import_engine:dosdp2model"
 jsondata2linkml = "schema_automator.importers.json_instance_import_engine:json2model"
 jsonschema2linkml = "schema_automator.importers.jsonschema_import_engine:jsonschema2model"
+sql2linkml = "schema_automator.cli:import_sql"
 extract-schema = "schema_automator.utils.schema_extractor:cli"
 
 [tool.poetry.extras]
