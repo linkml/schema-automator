@@ -188,11 +188,32 @@ flag should be specified BEFORE the subcommand:</p>
 <h4>annotate-schema<a class="headerlink" href="#schemauto-annotate-schema" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>Annotate all elements of a schema</p>
-<p>This uses OAK, and you can provide any OAK backend. See:</p>
-<p><a class="reference external" href="https://incatools.github.io/ontology-access-kit/selectors.html">Selectors</a></p>
-<p>Note:</p>
+<p>This uses OAK (<a class="reference external" href="https://incatools.github.io/ontology-access-kit">https://incatools.github.io/ontology-access-kit</a>),
+and you can provide any OAK backend that supports text annotation.</p>
+<p>At this time, the best choice is likely the bioportal backend</p>
+<p>Example:</p>
 <blockquote>
-<div><p>if you provide “bioportal” as selector, you must have set your API key uising OAK</p>
+<div><p>schemauto annotate-schema -i bioportal: my-schema.yaml -o annotated.yaml</p>
+</div></blockquote>
+<p>This will require you setting the API key via OAK - see OAK docs.</p>
+<p>You can specify a specific ontology</p>
+<blockquote>
+<div><p>schemauto annotate-schema -i bioportal:ncbitaxon my-schema.yaml -o annotated.yaml</p>
+</div></blockquote>
+<p>In future OAK will support a much wider variety of annotators including:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>OLS</p></li>
+<li><p>SciSpacy</p></li>
+<li><p>NLTK</p></li>
+<li><p>OGER</p></li>
+</ul>
+</div></blockquote>
+<p>To see all possible selectors, see the OAK docs:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://incatools.github.io/ontology-access-kit/selectors.html">https://incatools.github.io/ontology-access-kit/selectors.html</a></p></li>
+</ul>
 </div></blockquote>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto annotate-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
