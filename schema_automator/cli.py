@@ -320,13 +320,31 @@ def annotate_schema(schema: str, input: str, output: str, **kwargs):
     """
     Annotate all elements of a schema
 
-    This uses OAK, and you can provide any OAK backend. See:
+    This uses OAK (https://incatools.github.io/ontology-access-kit),
+    and you can provide any OAK backend that supports text annotation.
+    
+    At this time, the best choice is likely the bioportal backend
+    
+    Example:
+    
+        schemauto annotate-schema -i bioportal: my-schema.yaml -o annotated.yaml
+        
+    This will require you setting the API key via OAK - see OAK docs.
+        
+    You can specify a specific ontology
+    
+        schemauto annotate-schema -i bioportal:ncbitaxon my-schema.yaml -o annotated.yaml
 
-    `Selectors <https://incatools.github.io/ontology-access-kit/selectors.html>`_
+    In future OAK will support a much wider variety of annotators including:
+    
+       - OLS
+       - SciSpacy
+       - NLTK
+       - OGER
 
-    Note:
-
-        if you provide "bioportal" as selector, you must have set your API key uising OAK
+    To see all possible selectors, see the OAK docs:
+    
+      - https://incatools.github.io/ontology-access-kit/selectors.html
     """
     impl = get_implementation_from_shorthand(input)
     annr = SchemaAnnotator(impl, **kwargs)
