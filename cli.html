@@ -463,6 +463,81 @@ flag should be specified BEFORE the subcommand:</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-generalize-toml">
+<h4>generalize-toml<a class="headerlink" href="#schemauto-generalize-toml" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a TOML file to a schema</p>
+<p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a> for more on the generalization framework</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto generalize-toml my/data/conf.toml -o my.yaml</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-toml <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-o">
+<span id="cmdoption-schemauto-generalize-toml-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-n">
+<span id="cmdoption-schemauto-generalize-toml-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>MySchema</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-container-class-name">
+<span class="sig-name descname"><span class="pre">--container-class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;container_class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-container-class-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of root class</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-E">
+<span id="cmdoption-schemauto-generalize-toml-e"></span><span id="cmdoption-schemauto-generalize-toml-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-enum-mask-columns">
+<span class="sig-name descname"><span class="pre">--enum-mask-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_mask_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-enum-mask-columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that are excluded from being enums</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-max-enum-size">
+<span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-max-enum-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>do not create an enum if more than max distinct members</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-omit-null">
+<span id="cmdoption-schemauto-generalize-toml-no-omit-null"></span><span class="sig-name descname"><span class="pre">--omit-null</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-omit-null</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-omit-null" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true, ignore null values</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-arg-INPUT">
+<span id="cmdoption-schemauto-generalize-toml-arg-input"></span><span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-arg-INPUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-generalize-tsv">
 <h4>generalize-tsv<a class="headerlink" href="#schemauto-generalize-tsv" title="Permalink to this headline">¶</a></h4>
 <blockquote>
