@@ -241,6 +241,31 @@ def generalize_json(input, output, schema_name, format, omit_null, **kwargs):
 @click.argument('input')
 @output_option
 @schema_name_option
+@click.option('--container-class-name', default='Container', help="name of root class")
+@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
+@click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
+def generalize_toml(input, output, schema_name, omit_null, **kwargs):
+    """
+    Generalizes from a TOML file to a schema
+
+    See :ref:`generalizers` for more on the generalization framework
+
+    Example:
+
+        schemauto generalize-toml my/data/conf.toml -o my.yaml
+    """
+    ie = JsonDataGeneralizer(omit_null=omit_null)
+    schema = ie.convert(input, format='toml', **kwargs)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.argument('input')
+@output_option
+@schema_name_option
 @click.option('--format', '-f', default='json', help='JSON Schema format - yaml or json')
 def import_json_schema(input, output, schema_name, format, **args):
     """
