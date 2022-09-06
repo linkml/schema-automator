@@ -21,12 +21,14 @@ class BioPortalSchemaAnnotatorTestCase(unittest.TestCase):
     """
 
     def setUp(self) -> None:
-        impl = BioportalImplementation()
         try:
-            impl.load_bioportal_api_key()
+            impl = BioportalImplementation()
+            if impl.api_key:
+                self.annotator = SchemaAnnotator(impl, curie_only=True, mine_descriptions=True)
+            else:
+                self.skipTest("Skipping bioportal tests, no API key set")
         except ValueError:
             self.skipTest("Skipping bioportal tests, no API key set")
-        self.annotator = SchemaAnnotator(impl, curie_only=True, mine_descriptions=True)
 
     def test_ann(self):
         sb = SchemaBuilder(DEFAULT_SCHEMA_NAME)

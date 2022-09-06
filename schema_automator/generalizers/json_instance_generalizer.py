@@ -1,5 +1,7 @@
+import logging
+
 import click
-from typing import Union, Dict, List, Any
+from typing import Union, Dict, List, Any, Mapping, Collection
 from collections import defaultdict
 import json
 
@@ -7,10 +9,10 @@ import tomlkit
 import yaml
 import gzip
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from linkml_runtime import SchemaView
-from linkml_runtime.linkml_model import SchemaDefinition
+from linkml_runtime.linkml_model import SchemaDefinition, SlotDefinitionName
 
 from schema_automator.generalizers.generalizer import Generalizer
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
@@ -26,6 +28,12 @@ class JsonDataGeneralizer(Generalizer):
     """
     mappings: dict = None
     omit_null: bool = None
+
+    inline_as_dict_slot_keys: Mapping[str, str] = None
+    """Mapping between the name of a dict-inlined slot and the unique key for that entity
+    """
+
+
 
     def convert(self, input: Union[str, Dict], format: str = 'json',
                 container_class_name='Container',
@@ -49,7 +57,6 @@ class JsonDataGeneralizer(Generalizer):
                 stream = gzip.open(input)
             else:
                 stream = open(input)
-
             with stream:
                 if format == 'json':
                     obj = json.load(stream)
@@ -74,18 +81,38 @@ class JsonDataGeneralizer(Generalizer):
             sv.merge_schema(s)
         schema = sv.schema
         schema.classes[container_class_name].tree_root = True
+        self.add_additional_info(schema)
         return schema
 
     def _key_to_classname(self, k: str) -> str:
         return camelcase(k)
 
     def _convert_obj(self, obj, table='Container'):
+        """
+        Recursively transform an object into flattened key-value lists
+
+        :param obj:
+        :param table:
+        :return:
+        """
         if isinstance(obj, dict):
             row = defaultdict(set)
             for k, v in obj.items():
                 if v is None and self.omit_null:
                     continue
-                row[k] = self._convert_obj(v, table=camelcase(k))
+                if self.inline_as_dict_slot_keys and k in self.inline_as_dict_slot_keys:
+                    key_name = self.inline_as_dict_slot_keys[SlotDefinitionName(k)]
+                    self.identifier_slots.append(key_name)
+                    #print(f"INLINED: {key_name} = {v}")
+                    v = self._inlined_dict_to_list(v, key_name)
+                tbl_name = k
+                if self.depluralize_class_names:
+                    singular_noun = self.inflect_engine.singular_noun(tbl_name)
+                    if singular_noun:
+                        logging.info(f"Depluralized: {tbl_name} => {singular_noun}")
+                        tbl_name = singular_noun
+                tbl_name = camelcase(tbl_name)
+                row[k] = self._convert_obj(v, table=tbl_name)
             self.rows_by_table[table].append(row)
             return f'$ref:{table}'
         elif isinstance(obj, list):
@@ -94,6 +121,16 @@ class JsonDataGeneralizer(Generalizer):
         else:
             return obj
 
+    def _inlined_dict_to_list(self, inlined_dict: Dict[str, dict], key_name: str) -> list:
+        rows = []
+        for k, v in inlined_dict.items():
+            if isinstance(v, dict):
+                rows.append({**v, key_name: k})
+            elif isinstance(v, list):
+                raise ValueError(f"Cannot handle an inlined dict of form {inlined_dict} for key={k}")
+            else:
+                rows.append({key_name: k, f"{key_name}_value": v})
+        return rows
 
 
 
