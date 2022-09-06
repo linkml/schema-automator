@@ -222,7 +222,12 @@ def import_sql(db, output, **args):
 @click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
 @click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
-def generalize_json(input, output, schema_name, format, omit_null, **kwargs):
+@click.option('--inlined-map', multiple=True, help="SLOT_NAME.KEY pairs indicating which slots are inlined as dict")
+@click.option('--depluralize/--no-depluralized',
+              default=True,
+              show_default=True,
+              help="Auto-depluralize class names to singular form")
+def generalize_json(input, output, schema_name, depluralize: bool, format, omit_null, inlined_map, **kwargs):
     """
     Generalizes from a JSON file to a schema
 
@@ -232,7 +237,9 @@ def generalize_json(input, output, schema_name, format, omit_null, **kwargs):
 
         schemauto generalize-json my/data/persons.json -o my.yaml
     """
-    ie = JsonDataGeneralizer(omit_null=omit_null)
+    ie = JsonDataGeneralizer(omit_null=omit_null, depluralize_class_names=depluralize)
+    if inlined_map:
+        ie.inline_as_dict_slot_keys = dict([tuple(x.split(".")) for x in inlined_map])
     schema = ie.convert(input, format=format, **kwargs)
     write_schema(schema, output)
 
