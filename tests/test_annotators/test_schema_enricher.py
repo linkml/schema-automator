@@ -6,7 +6,7 @@ import unittest
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition, EnumDefinition, PermissibleValue
-from oaklib.implementations import BioportalImplementation
+from oaklib.implementations import BioPortalImplementation
 from oaklib.selector import get_implementation_from_shorthand
 
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
