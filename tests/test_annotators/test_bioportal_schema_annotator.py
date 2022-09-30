@@ -4,7 +4,7 @@ import unittest
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition, EnumDefinition, PermissibleValue
-from oaklib.implementations import BioportalImplementation
+from oaklib.implementations import BioPortalImplementation
 
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 
@@ -22,7 +22,7 @@ class BioPortalSchemaAnnotatorTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
         try:
-            impl = BioportalImplementation()
+            impl = BioPortalImplementation()
             if impl.api_key:
                 self.annotator = SchemaAnnotator(impl, curie_only=True, mine_descriptions=True)
             else:

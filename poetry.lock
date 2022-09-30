@@ -1490,8 +1490,8 @@ sqlalchemy = "*"
 
 [[package]]
 name = "pandera"
-version = "0.11.0"
-description = "A light-weight and flexible data validation and testing tool for dataframes."
+version = "0.12.0"
+description = "A light-weight and flexible data validation and testing tool for statistical data objects."
 category = "main"
 optional = false
 python-versions = ">=3.8"
@@ -1507,8 +1507,8 @@ wrapt = "*"
 
 [package.extras]
 strategies = ["hypothesis (>=5.41.1)"]
-pyspark = ["pyspark"]
-mypy = ["pandas-stubs"]
+pyspark = ["pyspark (>=3.2.0)"]
+mypy = ["pandas-stubs (<=1.4.3.220807)"]
 modin-ray = ["ray (<=1.7.0)", "modin"]
 modin-dask = ["dask", "modin"]
 modin = ["dask", "ray (<=1.7.0)", "modin"]
@@ -1517,7 +1517,7 @@ hypotheses = ["scipy"]
 geopandas = ["shapely", "geopandas"]
 fastapi = ["fastapi"]
 dask = ["dask"]
-all = ["pandas-stubs", "scipy", "modin", "ray (<=1.7.0)", "hypothesis (>=5.41.1)", "fastapi", "pyyaml (>=5.1)", "frictionless", "pyspark", "shapely", "geopandas", "dask", "black"]
+all = ["pyyaml (>=5.1)", "geopandas", "shapely", "ray (<=1.7.0)", "pyspark (>=3.2.0)", "modin", "scipy", "hypothesis (>=5.41.1)", "fastapi", "pandas-stubs (<=1.4.3.220807)", "black", "dask", "frictionless"]
 
 [[package]]
 name = "pandocfilters"
@@ -2686,7 +2686,7 @@ mariadb = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "07962e529f940e6cb225c712c374a12fa0010055d72aced8dea117a68b440ca9"
+content-hash = "d6477184cf64bdca2c5263a49054b41b228236a30403cb570acd873268b1d294"
 
 [metadata.files]
 aiohttp = []
