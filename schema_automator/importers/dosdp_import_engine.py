@@ -1,12 +1,5 @@
-from copy import deepcopy
-
 import click
-import logging
 import yaml
-from typing import Union, Dict, Tuple, List, Any
-from collections import defaultdict
-import os
-from csv import DictWriter
 
 from dataclasses import dataclass
 
@@ -15,7 +8,7 @@ from linkml_runtime.loaders import yaml_loader
 from linkml_runtime.utils.formatutils import camelcase, underscore
 
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.dosdp.model import Pattern, Printf
+from schema_automator.metamodels.dosdp.model import Pattern, Printf
 from schema_automator.utils.schemautils import write_schema
 
 ALIAS = str
@@ -28,14 +21,12 @@ GROUPING_CLASS = 'OntologyClassSubset'
 @dataclass
 class DOSDPImportEngine(ImportEngine):
     """
-    For every template with name Foo, a LinkML class FooTemplate is created
+    An ImportEngine that imports Ontology Design Patterns specified as DOSDP Yaml into a LinkML schema
 
-    The following builtin slots are created:
+    See `DOSDPs <https://github.com/INCATools/dead_simple_owl_design_patterns>`_
 
-    - name
-    - definition
-    - subclass_of
-    - equivalentTo
+    Every template maps to a LinkML class, the default name for a template Foo as FooTemplate
+
     """
     mappings: dict = None
     include_unmapped_annotations = False
@@ -48,7 +39,15 @@ class DOSDPImportEngine(ImportEngine):
             del obj['def']
         return yaml_loader.load(obj, target_class=Pattern)
 
-    def convert(self, files: str, range_as_enums = True, **kwargs) -> SchemaDefinition:
+    def convert(self, files: str, range_as_enums=True, **kwargs) -> SchemaDefinition:
+        """
+        Converts one or more YAML files into a Schema
+
+        :param files:
+        :param range_as_enums: if True, then class ranges are mapped to Enums
+        :param kwargs:
+        :return:
+        """
         patterns = [self.load_dp(file) for file in files]
         schema = SchemaDefinition(**kwargs)
         if not schema.default_prefix:

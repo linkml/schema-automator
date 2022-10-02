@@ -16,12 +16,17 @@ def is_url(s: str) -> bool:
 
 class JsonLdAnnotator:
     """
-    Annotates a schema using URIs derived from a JSON-LD file
-
-
+    Annotates a schema using URIs/Prefixes derived from a JSON-LD file
     """
 
-    def annotate(self, schema: Union[str, SchemaDefinition], jsonld_path: str):
+    def annotate(self, schema: Union[str, SchemaDefinition], jsonld_path: str) -> SchemaDefinition:
+        """
+        Annotate a schema
+
+        :param schema: schema object (mutated) or path to schema
+        :param jsonld_path: path to input JSONLD context file
+        :return:
+        """
         sv = SchemaView(schema)
         with open(jsonld_path) as f:
             jsonld = json.load(f)
@@ -49,6 +54,7 @@ class JsonLdAnnotator:
                         url = v
                     if is_url(url):
                         schema.prefixes[k] = Prefix(k, url)
+        return schema
 
     def annotate_element(self, el: Definition, mapping_slot: str, jsonld: JSON):
         if el.name in jsonld:

@@ -1,0 +1,53 @@
+# Chemical derivatization method for global GC-MS metabolomics  
+title = 'MPLEx extraction (Grass) '
+author = 'First Last'
+section = 'Metabolomics'
+updated = '08/10/2022'
+protocol_url = ''
+protocol_doi = ''
+description = 'Procedure for chloroform/methanol Folch-type extraction applicable for soil and environmental samples.'
+
+[sample-storage-activity]
+id = 'mplex:1'
+organic_matter = { numeric_value = '1', unit = 'g' }
+contanier = { type = 'Olympus', numeric_value = '50', unit = 'mL'}
+temperature = { numeric_value = '-70', unit = 'C' }
+
+[homogenization-activity]
+id = 'mplex:2'
+source_material = 'mplex:1'
+solvent = 'MeOH/Water'
+concentration = { numeric_value = '4/3', unit = 'ratio' }
+volume = { numeric_value = '15', unit = 'mL' }
+shaker = {type = 'vortex'}
+instrument = {type = 'Omni Homogenizer', details = "disposable probes"}
+
+[solubilization-activity]
+id = 'mplex:3'
+source_material = 'mplex:2'
+solvent = {type = 'Chloroform', temperature = "ice-cold"}
+volume = { numeric_value = '18.5', unit = 'mL' }
+shaker = {type = 'vortex', numeric_value = '1', unit = 'minutes'}
+
+[sample-handling-activity]
+id = 'mplex:4'
+source_material = 'mplex:3'
+activity = {type = 'ice', numeric_value = '5', unit = 'minutes'}
+
+[mixing-activity]
+id = 'mplex:5'
+source_material = 'mplex:4'
+shaker = {type = 'vortex', numeric_value = '1', unit = 'minutes'}
+
+[centrifugation-activity]
+id = 'mplex:6'
+source_material = 'mplex:5'
+centrifuge = {speed = '5000', numeric_value = '10', unit = 'minutes'}
+temperature = { numeric_value = '4', unit = 'C' }
+
+[transfer-activity]
+id = 'derive:12'
+source_material = 'derive:11'
+type = 'supernatant'
+
+# To derivatization (Optional)

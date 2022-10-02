@@ -1,0 +1,21 @@
+[Term]
+id: SO:0000704
+name: gene
+def: "A region (or regions) that includes all of the sequence elements necessary to encode a functional transcript. A gene may include regulatory regions, transcribed regions and/or other functional sequence regions." []
+
+[Term]
+id: SO:0001263
+name: ncRNA_gene
+def: "A gene that encodes a non-coding RNA." []
+is_a: SO:0000704
+
+[Term]
+id: SO:0001266
+name: scRNA_gene
+def: "A gene encoding a small noncoding RNA that is generally found only in the cytoplasm." []
+is_a: SO:0001263
+
+[Typedef]
+id: BFO:0000050
+def: "this is the part-of definition" []
+name: part of

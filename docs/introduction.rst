@@ -1,4 +1,6 @@
-LinkML Schema Automator
+.. _introduction:
+
+Introduction
 =======================
 
 This is a toolkit that assists with generating and enhancing schemas and data models from a variety
@@ -17,17 +19,17 @@ See :ref:`generalizers`
 
 Generalizers allow you to *bootstrap* a schema by generalizing from existing data files
 
--  TSVs and spreadsheets
--  SQLite databases
--  RDF instance graphs
+* TSVs and spreadsheets
+* SQLite databases
+* RDF instance graphs
 
-Importing from alternative modeling framework
+Importing from alternative modeling frameworks
 ---------------------------------
 
 See :ref:`importers`
 
-- OWL (but this only works for schema-style OWL)
-- JSON-Schema
+* OWL (but this only works for schema-style OWL)
+* JSON-Schema
 
 In future other frameworks will be supported
 
@@ -35,4 +37,14 @@ Annotating schemas
 ---------------------------------
 
 See :ref:`annotators`
+
+Annotators to provide ways to automatically add metadata to your schema, including
+
+* Assigning class or slot URIs to schema elements
+* Mapping enums to ontologies and vocabularies
+
+General Utilities
+---------------------------------
+
+See :ref:`utilitiess`
 

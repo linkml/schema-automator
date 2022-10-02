@@ -11,13 +11,13 @@ import pandas as pd
 import time
 
 from dateutil.parser import parse
+from deprecation import deprecated
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
 
-from schema_automator.generalizers.generalizer import Generalizer
-from schema_automator.importers.import_engine import ImportEngine
+from schema_automator.generalizers.generalizer import Generalizer, DEFAULT_CLASS_NAME
 from schema_automator.utils.schemautils import merge_schemas, write_schema
 
 ID_SUFFIX = '_id'
@@ -31,6 +31,9 @@ ROBOT_NAME_MAP = {
 
 @dataclass
 class ForeignKey:
+    """
+    Represents a field in one table that points to an identifier field in another
+    """
     source_table: str
     source_column: str
     target_table: str
@@ -94,7 +97,7 @@ class CsvDataGeneralizer(Generalizer):
             c = os.path.splitext(os.path.basename(file))[0]
             if self.downcase_header:
                 c = c.lower()
-            print(f'READING {file} ')
+            logging.info(f'READING {file} ')
             df = pd.read_csv(file, sep=self.column_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
@@ -169,7 +172,10 @@ class CsvDataGeneralizer(Generalizer):
         logging.info(f'FILTERED: {fks}')
         return fks
 
-    def inject_foreign_keys(self, sv: SchemaView, fks: List[ForeignKey]) -> None:
+    def inject_foreign_keys(self,
+                            sv: SchemaView,
+                            fks: List[ForeignKey],
+                            direct_slot = True) -> None:
         schema = sv.schema
         for fk in fks:
             # TODO: deal with cases where the same slot is used in different classes
@@ -178,17 +184,27 @@ class CsvDataGeneralizer(Generalizer):
             src_cls.slot_usage[fk.source_column] = \
                 SlotDefinition(name=fk.source_column,
                                range=fk.target_table)
-            #src_slot['range'] = fk.target_table
+            if direct_slot:
+                src_slot['range'] = fk.target_table
             tgt_cls = schema.classes[fk.target_table]
             tgt_slot = schema.slots[fk.target_column]
             tgt_cls.slot_usage[fk.target_column] = \
                 SlotDefinition(name=fk.target_column,
                                identifier=True)
-            #tgt_slot['identifier'] = True
+            if direct_slot:
+                tgt_slot['identifier'] = True
 
     def convert_multiple(self, files: List[str], **kwargs) -> SchemaDefinition:
+        """
+        Converts multiple TSVs to a schema
+
+        :param files:
+        :param kwargs:
+        :return:
+        """
         if self.infer_foreign_keys:
             fks = self.infer_linkages(files)
+            logging.info(f"Inferred {len(fks)} foreign keys: {fks}")
         else:
             fks = ()
         schemas = []
@@ -199,16 +215,23 @@ class CsvDataGeneralizer(Generalizer):
             s = self.convert(file, class_name=c, **kwargs)
             if s is not None:
                 schemas.append(s)
-            print(f'CLASSES={list(s.classes.keys())}')
+            logging.info(f'Classes={list(s.classes.keys())}')
         sv = SchemaView(schemas[0])
         for s in schemas[1:]:
             sv.merge_schema(s)
-            print(f'xxxCLASSES={list(sv.all_classes().keys())}')
+            logging.info(f'Classes, post merge={list(sv.all_classes().keys())}')
         #s = merge_schemas(yamlobjs)
         self.inject_foreign_keys(sv, fks)
         return sv.schema
 
     def convert(self, file: str, **kwargs) -> SchemaDefinition:
+        """
+        Converts a single TSV file to a single-class schema
+        
+        :param file:
+        :param kwargs:
+        :return:
+        """
         with open(file, newline='') as tsv_file:
             header = [h.strip() for h in tsv_file.readline().split('\t')]
             rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
@@ -221,7 +244,7 @@ class CsvDataGeneralizer(Generalizer):
 
     def convert_to_edge_slots(self,
                          all_tsv_rows: List,
-                         name: str = 'example',
+                         name: str = DEFAULT_CLASS_NAME,
                          **kwargs) -> Optional[Dict]:
 
         """
@@ -273,7 +296,7 @@ class CsvDataGeneralizer(Generalizer):
     def convert_dicts(self,
                       rr: List[Dict],
                       schema_name: str = 'example',
-                      class_name: str = 'example',
+                      class_name: str = DEFAULT_CLASS_NAME,
                       **kwargs) -> SchemaDefinition:
         slots = {}
         slot_values = {}
@@ -612,6 +635,7 @@ def convert_range(k: str, dt: str) -> str:
     return t
 
 
+@deprecated
 def infer_enum_meanings(schema: dict,
                         zooma_confidence: str = 'MEDIUM',
                         cache={}) -> None:

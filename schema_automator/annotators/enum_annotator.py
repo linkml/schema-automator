@@ -321,7 +321,6 @@ def enum_annotator(modelfile, all_mappings_fn, requested_enum_name, whiteout_cha
             # A value is trying to be set on a copy of a slice from a DataFrame.
             for_str_dist["tidied_query_lc"] = for_str_dist["tidied_query"].str.lower()
             for_str_dist["name_lc"] = for_str_dist["name"].str.lower()
-            logger.debug(for_str_dist)
 
             # favoring simplicity over efficiency
             # ie may be string-comparing some duplicates

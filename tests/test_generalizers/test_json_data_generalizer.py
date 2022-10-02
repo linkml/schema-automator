@@ -20,7 +20,7 @@ OUTSCHEMA_GOLD = os.path.join(OUTPUT_DIR, 'neon-in-gold-inf.yaml')
 
 
 class TestJsonDataGeneralizer(unittest.TestCase):
-    """JSON """
+    """Tests ability to generalize from JSON instance data to a LinkML schema """
 
     def test_from_json(self):
         """Test inference of a schema from JSON instance data (small example)."""
@@ -48,5 +48,50 @@ class TestJsonDataGeneralizer(unittest.TestCase):
         assert 'latitude' in sv.get_class(BIOSAMPLE).slots
         # omit null
         assert 'hostGender' not in sv.get_class(BIOSAMPLE).slots
+
+    def test_depluralize(self):
+        """Ensures class names are depluralized"""
+        data = {
+            "persons": [
+                {"name": "a"},
+                {"name": "b"},
+            ],
+            "major_companies": [
+                {"name": "a"},
+                {"name": "b"},
+            ]
+        }
+        ie = JsonDataGeneralizer(depluralize_class_names=True)
+        schema = ie.convert(data)
+        write_schema(schema)
+        self.assertEqual("Person", schema.slots["persons"].range)
+        self.assertEqual("MajorCompany", schema.slots["major_companies"].range)
+
+    def test_inlined(self):
+        """
+        Ensures that default inlined-as-dict maps can be passed
+        """
+        data = {
+            "persons": {
+                "P1": {"name": "a"},
+                "P2": {"name": "b"},
+            },
+            "prefixmap": {
+                "foo": "bar"
+            }
+        }
+        ie = JsonDataGeneralizer(depluralize_class_names=True,
+                                 inline_as_dict_slot_keys={"persons": "id", "prefixmap": "prefix"})
+        schema = ie.convert(data)
+        write_schema(schema)
+        self.assertCountEqual(["name", "id"], schema.classes["Person"].slots)
+        self.assertCountEqual(["persons", "prefixmap"], schema.classes["Container"].slots)
+        self.assertTrue(schema.slots["prefix"].identifier)
+        self.assertTrue(schema.slots["id"].identifier)
+        self.assertTrue(schema.slots["persons"].multivalued)
+        self.assertEqual("Person", schema.slots["persons"].range)
+        self.assertEqual("Prefixmap", schema.slots["prefixmap"].range)
+        self.assertTrue(schema.classes["Container"].tree_root)
+
 
 

@@ -23,7 +23,16 @@ class JsonSchemaImportEngine(ImportEngine):
     A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema
     """
 
-    def load(self, input: str, name=None, format = 'json', **kwargs):
+    def convert(self, input: str, name=None, format = 'json', **kwargs):
+        """
+        Converts a JSON-Schema json file into a LinkML schema
+
+        :param input:
+        :param name:
+        :param format:
+        :param kwargs:
+        :return:
+        """
         if format == 'json':
             with open(input) as stream:
                 obj = json.load(stream)
@@ -33,6 +42,9 @@ class JsonSchemaImportEngine(ImportEngine):
         else:
             raise Exception(f'Bad format: {format}')
         return self.loads(obj, name, **kwargs)
+
+    def load(self, input: str, name=None, format = 'json', **kwargs):
+        return self.convert(input, name=name, format=format, **kwargs)
 
     def loads(self, obj: Any, name=None, **kwargs) -> SchemaDefinition:
         return self.translate_schema(obj, name, **kwargs)
@@ -54,6 +66,7 @@ class JsonSchemaImportEngine(ImportEngine):
         if pkg == '':
             pkg = None
         return name, pkg
+
 
     def translate_schema(self, obj: Dict, id_val=None, name=None, root_class_name=None) -> SchemaDefinition:
         if id_val is None and '$id' in obj:
@@ -219,6 +232,7 @@ class JsonSchemaImportEngine(ImportEngine):
         schema.classes[c.name] = c
         return c.name
 
+
     def translate_properties(self, obj: dict, parent_class: ClassDefinition):
         required = obj.get('required', [])
         for k, v in obj.get('properties',{}).items():
@@ -236,8 +250,8 @@ class JsonSchemaImportEngine(ImportEngine):
 @click.option('--output', '-o', help='output path')
 def jsonschema2model(input, output, name, format, **args):
     """ Infer a model from JSON Schema """
-    loader = JsonSchemaImportEngine()
-    schema = loader.load(input, name=name, format=format)
+    ie = JsonSchemaImportEngine()
+    schema = ie.load(input, name=name, format=format)
     write_schema(schema, output)
 
 

@@ -4,17 +4,11 @@
 
 import unittest
 import os
-import json
 import yaml
 import glob
-from linkml_runtime.utils.compile_python import compile_python
-from linkml_runtime.loaders import json_loader
 from linkml_runtime.loaders import yaml_loader
 
-from schema_automator.dosdp.model import Pattern
-from linkml_runtime.dumpers import yaml_dumper
-from linkml.generators.jsonschemagen import JsonSchemaGenerator
-from linkml.generators.pythongen import PythonGenerator
+from schema_automator.metamodels.dosdp.model import Pattern
 from linkml.generators.owlgen import OwlSchemaGenerator
 
 from schema_automator.utils.schemautils import minify_schema
