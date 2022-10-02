@@ -41,6 +41,34 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--class_name availabilities \
 		--schema_name availabilities $<
 
+OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
+OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), local/$(r).csv)
+
+
+target/omop_concepts.yaml: $(OMOP_TABLES)
+	schemauto generalize-tsvs --schema-name omop_vocabulary $^ > $@
+
+target/omop_relationship.yaml: local/CONCEPT_RELATIONSHIP.csv
+	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
+
+target/cpath_patient.yaml: local/person.tsv
+	schemauto generalize-tsv --class-name cpath_patient --schema-name cpath_patient $^ > $@
+
+target/cpath_patient_manual.yaml:
+	echo "This file had to be manually hacked to be translateable"
+
+target/cpath_patient.ttl: target/cpath_patient_manual.yaml
+	linkml-convert -t rdf -s $< -m target/cpath_patient_manual.py -S person_list -C Person local/person.tsv
+
+target/model:
+	mkdir -p $@
+
+target/cpath_patient_manual.py: target/cpath_patient_manual.yaml | target/model
+	$(RUN) gen-project -d target/model $< && mv target/model/*.py target/
+
+target/omop_relationship.ttl: target/omop_concepts.yaml
+	linkml-convert -t rdf -s $< -S concept_id_1 -C CONCEPT_RELATIONSHIP local/CONCEPT_RELATIONSHIP_HEAD.csv
+
 # KeyError: 'iri' could mean that an unrecognized ontology name was used
 target/availabilities_g_s_strain_202112151116_org_meanings.yaml: target/availabilities_g_s_strain_202112151116.yaml
 	poetry run enum_annotator \
@@ -53,6 +81,7 @@ target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv: targe
 		--modelfile $< \
 		--enum organism_enum \
 		--tsv_out $@
+
 
 # do some curation on target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv
 #   and save as target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
