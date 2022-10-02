@@ -41,18 +41,25 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--class_name availabilities \
 		--schema_name availabilities $<
 
-OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
+OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
 OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), local/$(r).csv)
 
-
-target/omop_concepts.yaml: $(OMOP_TABLES)
+target/omop_5.yaml: $(OMOP_TABLES)
 	schemauto generalize-tsvs --schema-name omop_vocabulary $^ > $@
 
-target/omop_relationship.yaml: local/CONCEPT_RELATIONSHIP.csv
-	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
+#target/omop_relationship.yaml: local/CONCEPT_RELATIONSHIP.csv
+#	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
 
-target/cpath_patient.yaml: local/person.tsv
-	schemauto generalize-tsv --class-name cpath_patient --schema-name cpath_patient $^ > $@
+target/%.yaml: local/%.csv
+	schemauto generalize-tsv --class-name % --schema-name % $^ > $@
+
+
+target/omop_person.yaml: local/person.tsv
+	schemauto generalize-tsv --class-name Person --schema-name omop_person $^ > $@
+
+build-omop:
+	$(MAKE) target/omop_person.yaml -B
+	$(MAKE) target/omop_5.yaml -B
 
 target/cpath_patient_manual.yaml:
 	echo "This file had to be manually hacked to be translateable"
