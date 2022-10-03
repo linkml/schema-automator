@@ -41,7 +41,8 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--class_name availabilities \
 		--schema_name availabilities $<
 
-OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
+#OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
+OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN RELATIONSHIP VOCABULARY DRUG_STRENGTH
 OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), local/$(r).csv)
 
 target/omop_5.yaml: $(OMOP_TABLES)
@@ -51,7 +52,7 @@ target/omop_5.yaml: $(OMOP_TABLES)
 #	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
 
 target/%.yaml: local/%.csv
-	schemauto generalize-tsv --class-name % --schema-name % $^ > $@
+	schemauto generalize-tsv --class-name $* --schema-name $* $^ > $@
 
 
 target/omop_person.yaml: local/person.tsv
