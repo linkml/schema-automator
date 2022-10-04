@@ -8,3 +8,9 @@ dist
 schema_automator.egg-info/*
 tmp/
 __pycache__
+.idea/
+*.pyc
+tests/outputs/*
+venv/
+target/
+local/

@@ -215,7 +215,7 @@ class CsvDataGeneralizer(Generalizer):
             s = self.convert(file, class_name=c, **kwargs)
             if s is not None:
                 schemas.append(s)
-            logging.info(f'Classes={list(s.classes.keys())}')
+                logging.info(f'Classes={list(s.classes.keys())}')
         sv = SchemaView(schemas[0])
         for s in schemas[1:]:
             sv.merge_schema(s)
