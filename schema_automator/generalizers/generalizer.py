@@ -1,5 +1,5 @@
 from abc import ABC
-from collections import Collection, Set
+from collections.abc import Collection, Set
 from dataclasses import dataclass, field
 from typing import List
 

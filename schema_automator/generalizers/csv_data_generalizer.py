@@ -232,7 +232,7 @@ class CsvDataGeneralizer(Generalizer):
         :param kwargs:
         :return:
         """
-        with open(file, newline='') as tsv_file:
+        with open(file, newline='', encoding='utf-8') as tsv_file:
             header = [h.strip() for h in tsv_file.readline().split('\t')]
             rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
