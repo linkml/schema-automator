@@ -119,7 +119,7 @@ class TestCsvDataGeneralizer(unittest.TestCase):
         write_schema(schema, outfile)
         s = YAMLGenerator(outfile).serialize()
         outfile2 = os.path.join(OUTPUT_DIR, f'{base_name}.enhanced.yaml')
-        with open(outfile2, 'w') as stream:
+        with open(outfile2, 'w', encoding='utf-8') as stream:
             stream.write(s)
         return s
 

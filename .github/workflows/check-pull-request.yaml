@@ -2,37 +2,49 @@
 
 name: Check Pull Request
 
-# Controls when the action will run. Triggers the workflow on pull requests.
-on: [push, pull_request]
+# Controls when the action will run.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
-    runs-on: ubuntu-latest
-      # The type of runner that the job will run on
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        python-version: [ "3.9", "3.10" ]
+        exclude:
+          - os: windows-latest
+            python-version: "3.9"
+
+    runs-on: ${{ matrix.os }}
 
     steps:
 
       #----------------------------------------------
-      #       check-out repo and set-up python     
+      #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9
-      
+          python-version: ${{ matrix.python-version }}
+
       #----------------------------------------------
-      #          install & configure poetry         
+      #          install & configure poetry
       #----------------------------------------------
       - name: Install Poetry
-        uses: snok/install-poetry@v1.1.6
+        uses: snok/install-poetry@v1.3.1
         with:
           virtualenvs-create: true
-          virtualenvs-in-project: true  
+          virtualenvs-in-project: true
 
 #       # Install dependencies
 #       - name: pip Install Dependencies
@@ -41,7 +53,7 @@ jobs:
 #           pip install -r requirements.txt
 
       #----------------------------------------------
-      #       load cached venv if cache exists      
+      #       load cached venv if cache exists
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -51,18 +63,18 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       #----------------------------------------------
-      # install dependencies if cache does not exist 
+      # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
-        
+
       #----------------------------------------------
-      #    install your root project, if required 
-      #----------------------------------------------      
+      #    install your root project, if required
+      #----------------------------------------------
       - name: Install library
         run: poetry install --no-interaction
-          
+
 #       - name: Run image
 #         uses: abatilo/actions-poetry@v2.0.0
 #         # with:
@@ -70,7 +82,7 @@ jobs:
 #       - name: View poetry --help
 #         run: poetry --help
 
-      # Make test
-      - name: Make test
+      - name: Run test suite
         run: |
-          make test
+          poetry run pip install -U pytest
+          poetry run pytest tests/

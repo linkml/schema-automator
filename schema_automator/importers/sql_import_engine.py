@@ -51,8 +51,8 @@ class SqlImportEngine(ImportEngine):
         :param kwargs:
         :return:
         """
-        if ':' not in file:
-            path = Path(file).absolute()
+        if '://' not in file:
+            path = Path(file).resolve()
             locator = f"sqlite:///{path}"
         else:
             locator = file
