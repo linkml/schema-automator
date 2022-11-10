@@ -140,7 +140,7 @@
 <span></span><span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -153,6 +153,7 @@
 <span class="kn">from</span> <span class="nn">deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime</span> <span class="kn">import</span> <span class="n">SchemaView</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">,</span> <span class="n">TypeDefinition</span><span class="p">,</span> <span class="n">SlotDefinition</span>
+<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model.meta</span> <span class="kn">import</span> <span class="n">UniqueKey</span>
 <span class="kn">from</span> <span class="nn">quantulum3</span> <span class="kn">import</span> <span class="n">parser</span> <span class="k">as</span> <span class="n">q_parser</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 
@@ -202,17 +203,46 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">column_separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+    <span class="sd">&quot;&quot;&quot;character that separates columns in the input file&quot;&quot;&quot;</span>
+
     <span class="n">schema_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span>
+    <span class="sd">&quot;&quot;&quot;LinkML schema name (no spaces)&quot;&quot;&quot;</span>
+
     <span class="n">robot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;If true, conforms to robot template format. Data dictionary rows start with &#39;&gt;&#39;&quot;&quot;&quot;</span>
+
+    <span class="n">data_dictionary_row_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;number of rows after header containing data dictionary information&quot;&quot;&quot;</span>
+
     <span class="n">enum_columns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[])</span>
+    <span class="sd">&quot;&quot;&quot;List of columns that are coerced into enums&quot;&quot;&quot;</span>
+
     <span class="n">enum_mask_columns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[])</span>
+    <span class="sd">&quot;&quot;&quot;List of columns that are excluded from being enums&quot;&quot;&quot;</span>
+
     <span class="n">enum_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="sd">&quot;&quot;&quot;If number if distinct values divided by total number of values is greater than this, then the column is considered an enum&quot;&quot;&quot;</span>
+
     <span class="n">enum_strlen_threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="sd">&quot;&quot;&quot;Maximimum length of a string to be considered a permissible enum value&quot;&quot;&quot;</span>
+
     <span class="n">max_enum_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="sd">&quot;&quot;&quot;Max number of permissible values for a column to be considered an enum&quot;&quot;&quot;</span>
+
     <span class="n">downcase_header</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;If true, coerce column names to be lower case&quot;&quot;&quot;</span>
+
     <span class="n">infer_foreign_keys</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">max_pk_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>   <span class="c1"># URIs can be long..</span>
+    <span class="sd">&quot;&quot;&quot;For multi-CVS files, infer linkages between rows&quot;&quot;&quot;</span>
+
+    <span class="n">max_pk_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>
+    <span class="sd">&quot;&quot;&quot;Maximum length to be considered for a primary key column. Note: URIs can be long&quot;&quot;&quot;</span>
+
     <span class="n">min_distinct_fk_val</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="sd">&quot;&quot;&quot;For inferring foreign keys, there must be a minimum number.&quot;&quot;&quot;</span>
+
+    <span class="n">source_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;Optional base schema to draw from&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CsvDataGeneralizer.infer_linkages"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">[docs]</a>    <span class="k">def</span> <span class="nf">infer_linkages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ForeignKey</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -432,18 +462,35 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">schema</span></div>
 
-    <span class="k">def</span> <span class="nf">convert_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="CsvDataGeneralizer.convert_dicts"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_dicts">[docs]</a>    <span class="k">def</span> <span class="nf">convert_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                       <span class="n">rr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span>
                       <span class="n">schema_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span><span class="p">,</span>
                       <span class="n">class_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_CLASS_NAME</span><span class="p">,</span>
-                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SchemaDefinition</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a list of row objects to a schema.</span>
+
+<span class="sd">        Each row is a data item, presumed to be of the same type,</span>
+<span class="sd">        that is generalized.</span>
+
+<span class="sd">        :param rr:</span>
+<span class="sd">        :param schema_name:</span>
+<span class="sd">        :param class_name:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">slots</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">slot_values</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">slot_distinct_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="sd">&quot;&quot;&quot;distinct values for each slot&quot;&quot;&quot;</span>
+
+        <span class="n">slot_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;all values for each slot&quot;&quot;&quot;</span>
+
         <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">enums</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">robot_defs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">slot_usage</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">enum_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum_columns</span>
         <span class="n">enum_mask_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum_mask_columns</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -455,6 +502,14 @@
             <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">robot_defs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dictionary_row_count</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span> <span class="o">=</span> <span class="n">SchemaDefinition</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">v</span>
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -471,22 +526,44 @@
                     <span class="n">vs</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
                     <span class="n">slots</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-                    <span class="n">slot_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                    <span class="n">slot_distinct_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$ref:&#39;</span><span class="p">):</span>
                     <span class="n">slots</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s1">&#39;examples&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">}]</span>
-                    <span class="n">slot_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span>
+                    <span class="n">slot_distinct_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span>
+                    <span class="n">slot_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vs</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">slots</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s1">&#39;multivalued&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">new_slots</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">col_number</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">unique_keys</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">vals</span> <span class="o">=</span> <span class="n">slot_values</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span>
+            <span class="n">col_number</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">is_unique</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">slot_values</span><span class="p">[</span><span class="n">sn</span><span class="p">]))</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">slot_values</span><span class="p">[</span><span class="n">sn</span><span class="p">])</span>
+            <span class="n">is_pk</span> <span class="o">=</span> <span class="n">is_unique</span> <span class="ow">and</span> <span class="n">col_number</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span> <span class="ow">and</span> <span class="n">sn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span><span class="o">.</span><span class="n">identifier</span><span class="p">:</span>
+                <span class="n">is_pk</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">is_pk</span><span class="p">:</span>
+                <span class="n">s</span><span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">is_unique</span><span class="p">:</span>
+                <span class="n">unique_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sn</span><span class="p">)</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">slot_distinct_values</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">:</span>
+                    <span class="n">s</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span><span class="o">.</span><span class="n">description</span>
             <span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">infer_range</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slot </span><span class="si">{</span><span class="n">sn</span><span class="si">}</span><span class="s2"> has range </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="ow">or</span> <span class="n">sn</span> <span class="ow">in</span> <span class="n">enum_columns</span><span class="p">)</span> <span class="ow">and</span> <span class="n">sn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">enum_mask_columns</span><span class="p">:</span>
+                <span class="n">filtered_vals</span> <span class="o">=</span> \
+                    <span class="p">[</span><span class="n">v</span>
+                     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">slot_values</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span>
+                     <span class="k">if</span> <span class="ow">not</span> <span class="n">isinteger</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isboolean</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_date</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+                <span class="n">n_filtered_vals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_vals</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="n">n_distinct</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
                 <span class="n">longest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">])</span> <span class="k">if</span> <span class="n">n_distinct</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Considering </span><span class="si">{</span><span class="n">sn</span><span class="si">}</span><span class="s2"> as enum: </span><span class="si">{</span><span class="n">n_distinct</span><span class="si">}</span><span class="s2"> distinct values / </span><span class="si">{</span><span class="n">n_filtered_vals</span><span class="si">}</span><span class="s2">, longest=</span><span class="si">{</span><span class="n">longest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">sn</span> <span class="ow">in</span> <span class="n">enum_columns</span> <span class="ow">or</span> \
-                        <span class="p">((</span><span class="n">n_distinct</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum_threshold</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">n_distinct</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_enum_size</span>
+                        <span class="p">((</span><span class="n">n_distinct</span> <span class="o">/</span> <span class="n">n_filtered_vals</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum_threshold</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">n_distinct</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_enum_size</span>
                          <span class="ow">and</span> <span class="n">longest</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum_strlen_threshold</span><span class="p">):</span>
                     <span class="n">enum_name</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;(s)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
                     <span class="n">enum_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">enum_name</span><span class="si">}</span><span class="s1">_enum&#39;</span>
@@ -555,6 +632,9 @@
         <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">new_slots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">sn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
                 <span class="n">slots</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+
+        <span class="n">unique_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">UniqueKey</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_key&quot;</span><span class="p">,</span>
+                                 <span class="n">unique_key_slots</span><span class="o">=</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">unique_keys</span><span class="p">]</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="n">SchemaDefinition</span><span class="p">(</span>
             <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;https://w3id.org/</span><span class="si">{</span><span class="n">schema_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="n">name</span><span class="o">=</span><span class="n">schema_name</span><span class="p">,</span>
@@ -565,7 +645,9 @@
             <span class="n">classes</span><span class="o">=</span><span class="p">[</span>
                 <span class="n">ClassDefinition</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span>
                                 <span class="n">slots</span><span class="o">=</span><span class="n">class_slots</span><span class="p">,</span>
-                                <span class="n">slot_usage</span><span class="o">=</span><span class="n">slot_usage</span><span class="p">)</span>
+                                <span class="n">slot_usage</span><span class="o">=</span><span class="n">slot_usage</span><span class="p">,</span>
+                                <span class="n">unique_keys</span><span class="o">=</span><span class="n">unique_keys</span><span class="p">,</span>
+                                <span class="p">)</span>
             <span class="p">],</span>
             <span class="n">slots</span><span class="o">=</span><span class="n">slots</span><span class="p">,</span>
             <span class="n">enums</span><span class="o">=</span><span class="n">enums</span>
@@ -575,7 +657,7 @@
         <span class="k">if</span> <span class="n">robot_defs</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="s1">&#39;IAO&#39;</span><span class="p">,</span> <span class="s1">&#39;http://purl.obolibrary.org/obo/IAO_&#39;</span><span class="p">)</span>
         <span class="n">add_missing_to_schema</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">schema</span></div>
+        <span class="k">return</span> <span class="n">schema</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">capture_robot_some</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -603,6 +685,16 @@
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">isinteger</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">isboolean</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">is_measurement</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -642,8 +734,18 @@
         <span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">infer_range</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">infer_range</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">vals</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span> <span class="n">types</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">coerce</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infers the range of a slot based on the values</span>
+
+<span class="sd">    :param slot:</span>
+<span class="sd">    :param vals:</span>
+<span class="sd">    :param types:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inferring value for </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">vals</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
     <span class="n">nn_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FILTERED: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">nn_vals</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nn_vals</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;string&#39;</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;$ref:&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
@@ -652,12 +754,15 @@
         <span class="k">return</span> <span class="s1">&#39;integer&#39;</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;float&#39;</span>
-    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;integer&#39;</span>
-    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_date</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;datetime&#39;</span>
-    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;float&#39;</span>
+    <span class="k">if</span> <span class="n">coerce</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">isinteger</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;integer&#39;</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">isboolean</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;boolean&#39;</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">isfloat</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;float&#39;</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">is_date</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn_vals</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;datetime&#39;</span>
     <span class="k">if</span> <span class="n">is_all_measurement</span><span class="p">(</span><span class="n">nn_vals</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;measurement&#39;</span>
     <span class="n">v0</span> <span class="o">=</span> <span class="n">nn_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -674,12 +779,17 @@
     <span class="k">return</span> <span class="s1">&#39;string&#39;</span>
 
 
-<span class="k">def</span> <span class="nf">get_db</span><span class="p">(</span><span class="n">db_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">parts</span> <span class="o">=</span> <span class="n">db_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
+<span class="k">def</span> <span class="nf">get_db</span><span class="p">(</span><span class="n">db_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the database from a CURIE</span>
+
+<span class="sd">    :param db_id:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">db_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">db_id</span><span class="p">:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">db_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">is_date</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">fuzzy</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

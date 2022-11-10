@@ -277,8 +277,19 @@ and you can provide any OAK backend that supports text annotation.</p>
 <section id="schemauto-enrich-schema">
 <h4>enrich-schema<a class="headerlink" href="#schemauto-enrich-schema" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>Annotate all elements of a schema</p>
-<p>Requires Bioportal API key</p>
+<div><p>Enrich a schema using an ontology.</p>
+<p>This will use OAK to add additional metadata using uris and mappings in the schema.</p>
+<p>For example, if your schema has a class with a mapping to a SO class,
+then the definition of that will be copied to the class description.</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto enrich-schema -i bioportal: my-schema.yaml -o my-enriched.yaml</p>
+</div></blockquote>
+<p>If your schema has no mappings you can use –annotate to add them</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto enrich-schema -i so.obo –annotate my-schema.yaml -o my-enriched.yaml –annotate</p>
+</div></blockquote>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto enrich-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
 </pre></div>
@@ -288,6 +299,12 @@ and you can provide any OAK backend that supports text annotation.</p>
 <dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-i">
 <span id="cmdoption-schemauto-enrich-schema-input"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;input&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>OAK input ontology selector</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-annotate">
+<span id="cmdoption-schemauto-enrich-schema-no-annotate"></span><span class="sig-name descname"><span class="pre">--annotate</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-annotate</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, annotate the schema</p>
 </dd></dl>
 
 <dl class="std option">
@@ -635,6 +652,24 @@ and you can provide any OAK backend that supports text annotation.</p>
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-E">
 <span id="cmdoption-schemauto-generalize-tsv-e"></span><span id="cmdoption-schemauto-generalize-tsv-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-E" title="Permalink to this definition">¶</a></dt>
 <dd><p>column that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>set high to be more inclusive</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-max-enum-size">
+<span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-max-enum-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>set high to be more inclusive</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-data-dictionary-row-count">
+<span class="sig-name descname"><span class="pre">--data-dictionary-row-count</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_dictionary_row_count&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-data-dictionary-row-count" title="Permalink to this definition">¶</a></dt>
+<dd><p>rows that provide metadata about columns</p>
 </dd></dl>
 
 <dl class="std option">

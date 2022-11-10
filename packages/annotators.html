@@ -185,7 +185,17 @@ See <a class="reference external" href="https://incatools.github.io/ontology-acc
 <span class="sig-name descname"><span class="pre">enrich</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/annotators/schema_annotator.html#SchemaAnnotator.enrich"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.annotators.SchemaAnnotator.enrich" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enrich a schema by performing lookups on the external ontology/vocabulary endpoint,
 and copying over metadata</p>
-<p>Currently the only metadata obtained is text definitions</p>
+<p>Currently, the only metadata obtained is text definitions</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">schema_automator.annotators.schema_annotator</span> <span class="kn">import</span> <span class="n">SchemaAnnotator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">oaklib.selector</span> <span class="kn">import</span> <span class="n">get_implementation_from_shorthand</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oi</span> <span class="o">=</span> <span class="n">get_implementation_from_shorthand</span><span class="p">(</span><span class="s2">&quot;sqlite:obo:so&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sa</span> <span class="o">=</span> <span class="n">SchemaAnnotator</span><span class="p">(</span><span class="n">ontology_implementation</span><span class="o">=</span><span class="n">oi</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">schema</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">enrich</span><span class="p">(</span><span class="s2">&quot;tests/data/schema.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>schema</strong> – </p>

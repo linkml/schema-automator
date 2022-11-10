@@ -159,6 +159,13 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    --annotate
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-annotate">schemauto-enrich-schema command line option</a>
+</li>
+      </ul></li>
+      <li>
     --annotator
 
       <ul>
@@ -197,6 +204,13 @@
 
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-annotate-schema-curie-only">schemauto-annotate-schema command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --data-dictionary-row-count
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-data-dictionary-row-count">schemauto-generalize-tsv command line option</a>
 </li>
       </ul></li>
       <li>
@@ -261,6 +275,8 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-toml-enum-threshold">schemauto-generalize-toml command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-enum-threshold">schemauto-generalize-tsv command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsvs-enum-threshold">schemauto-generalize-tsvs command line option</a>
 </li>
       </ul></li>
@@ -311,6 +327,8 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-toml-max-enum-size">schemauto-generalize-toml command line option</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-max-enum-size">schemauto-generalize-tsv command line option</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsvs-max-enum-size">schemauto-generalize-tsvs command line option</a>
 </li>
       </ul></li>
@@ -319,6 +337,13 @@
 
       <ul>
         <li><a href="cli.html#cmdoption-schemauto-import-owl-model-uri">schemauto-import-owl command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --no-annotate
+
+      <ul>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-annotate">schemauto-enrich-schema command line option</a>
 </li>
       </ul></li>
       <li>
@@ -654,6 +679,8 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.column_separator">column_separator (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert">convert() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
 
       <ul>
@@ -672,6 +699,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_dicts">convert_dicts() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
+</li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_multiple">convert_multiple() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
 </li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.convert_to_edge_slots">convert_to_edge_slots() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
@@ -686,6 +715,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.data_dictionary_row_count">data_dictionary_row_count (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
       <li>
     DB
 
@@ -696,6 +727,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="packages/importers.html#schema_automator.importers.DOSDPImportEngine">DOSDPImportEngine (class in schema_automator.importers)</a>
+</li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.downcase_header">downcase_header (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
 </li>
       <li>
     DPFILES
@@ -712,6 +745,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="packages/annotators.html#schema_automator.annotators.SchemaAnnotator.enrich">enrich() (schema_automator.annotators.SchemaAnnotator method)</a>
 </li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.enum_columns">enum_columns (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.enum_mask_columns">enum_mask_columns (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.enum_strlen_threshold">enum_strlen_threshold (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.enum_threshold">enum_threshold (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -726,10 +769,14 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.infer_foreign_keys">infer_foreign_keys (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">infer_linkages() (schema_automator.generalizers.CsvDataGeneralizer method)</a>
 </li>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer.inline_as_dict_slot_keys">inline_as_dict_slot_keys (schema_automator.generalizers.JsonDataGeneralizer attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     INPUT
 
@@ -761,6 +808,14 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.max_enum_size">max_enum_size (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.max_pk_len">max_pk_len (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.min_distinct_fk_val">min_distinct_fk_val (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
       <li>
     module
 
@@ -793,8 +848,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer">RdfDataGeneralizer (class in schema_automator.generalizers)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     RDFFILE
 
@@ -802,6 +855,10 @@
         <li><a href="cli.html#cmdoption-schemauto-generalize-rdf-arg-RDFFILE">schemauto-generalize-rdf command line option</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.robot">robot (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -826,6 +883,8 @@
         <li><a href="packages/src/schema_automator.utils.schemautils.html#module-schema_automator.utils.schemautils">module</a>
 </li>
       </ul></li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.schema_name">schema_name (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
       <li><a href="packages/annotators.html#schema_automator.annotators.SchemaAnnotator">SchemaAnnotator (class in schema_automator.annotators)</a>
 </li>
       <li>
@@ -875,7 +934,11 @@
     schemauto-enrich-schema command line option
 
       <ul>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-annotate">--annotate</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-enrich-schema-i">--input</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-enrich-schema-annotate">--no-annotate</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-enrich-schema-o">--output</a>
 </li>
@@ -1012,9 +1075,15 @@
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-s">--column-separator</a>
 </li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-data-dictionary-row-count">--data-dictionary-row-count</a>
+</li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-downcase-header">--downcase-header</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-E">--enum-columns</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-enum-threshold">--enum-threshold</a>
+</li>
+        <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-max-enum-size">--max-enum-size</a>
 </li>
         <li><a href="cli.html#cmdoption-schemauto-generalize-tsv-downcase-header">--no-downcase-header</a>
 </li>
@@ -1160,6 +1229,8 @@
         <li><a href="cli.html#cmdoption-schemauto-import-sql-arg-DB">DB</a>
 </li>
       </ul></li>
+      <li><a href="packages/generalizers.html#schema_automator.generalizers.CsvDataGeneralizer.source_schema">source_schema (schema_automator.generalizers.CsvDataGeneralizer attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 

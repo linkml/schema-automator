@@ -194,6 +194,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mine_descriptions</span> <span class="ow">and</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
             <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Annotating: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MATCH: </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_partial</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">matches_whole_text</span><span class="p">:</span>
@@ -230,6 +231,7 @@
         <span class="n">oi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ontology_implementation</span>
         <span class="n">text_exp</span> <span class="o">=</span> <span class="n">uncamel</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>  <span class="c1"># TODO: use main linkml_runtime method</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">oi</span><span class="p">,</span> <span class="n">TextAnnotatorInterface</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using TextAnnotatorInterface on </span><span class="si">{</span><span class="n">text_exp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="c1"># TextAnnotation is available; use this by default</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text_exp</span><span class="p">):</span>
                 <span class="k">yield</span> <span class="n">r</span>
@@ -237,6 +239,7 @@
                 <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">annotate_text</span><span class="p">(</span><span class="n">text_exp</span><span class="p">):</span>
                     <span class="k">yield</span> <span class="n">r</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">oi</span><span class="p">,</span> <span class="n">SearchInterface</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using SearchInterface on </span><span class="si">{</span><span class="n">text_exp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="c1"># use search as an alternative</span>
             <span class="n">cfg</span> <span class="o">=</span> <span class="n">SearchConfiguration</span><span class="p">(</span><span class="n">is_complete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">oi</span><span class="o">.</span><span class="n">basic_search</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="p">):</span>
@@ -267,7 +270,15 @@
 <span class="sd">        Enrich a schema by performing lookups on the external ontology/vocabulary endpoint,</span>
 <span class="sd">        and copying over metadata</span>
 
-<span class="sd">        Currently the only metadata obtained is text definitions</span>
+<span class="sd">        Currently, the only metadata obtained is text definitions</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; from schema_automator.annotators.schema_annotator import SchemaAnnotator</span>
+<span class="sd">        &gt;&gt;&gt; from oaklib.selector import get_implementation_from_shorthand</span>
+<span class="sd">        &gt;&gt;&gt; oi = get_implementation_from_shorthand(&quot;sqlite:obo:so&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; sa = SchemaAnnotator(ontology_implementation=oi)</span>
+<span class="sd">        &gt;&gt;&gt; schema = sa.enrich(&quot;tests/data/schema.yaml&quot;)</span>
 
 <span class="sd">        :param schema:</span>
 <span class="sd">        :return:</span>
@@ -299,7 +310,7 @@
             <span class="k">if</span> <span class="n">elt</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
                 <span class="k">break</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">defn</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">get_definition_by_curie</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">defn</span> <span class="o">=</span> <span class="n">oi</span><span class="o">.</span><span class="n">definition</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">defn</span><span class="p">:</span>
                     <span class="n">elt</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">defn</span>
                 <span class="k">else</span><span class="p">:</span>

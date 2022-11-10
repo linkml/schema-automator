@@ -453,8 +453,14 @@ range: string</p>
 <h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">CsvDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier_slots:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depluralize_class_names:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inflect_engine:</span> <span class="pre">inflect.engine</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_separator:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'example'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robot:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_mask_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_threshold:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_strlen_threshold:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_enum_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downcase_header:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_foreign_keys:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pk_len:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_distinct_fk_val:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.generalizers.</span></span><span class="sig-name descname"><span class="pre">CsvDataGeneralizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier_slots:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depluralize_class_names:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inflect_engine:</span> <span class="pre">inflect.engine</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_separator:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'example'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robot:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dictionary_row_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_mask_columns:</span> <span class="pre">typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_threshold:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_strlen_threshold:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_enum_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downcase_header:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_foreign_keys:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pk_len:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_distinct_fk_val:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_schema:</span> <span class="pre">typing.Optional[linkml_runtime.linkml_model.meta.SchemaDefinition]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Generalizer that generalizes from example CSV/TSV data</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.column_separator">
+<span class="sig-name descname"><span class="pre">column_separator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\t'</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.column_separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>character that separates columns in the input file</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.convert">
 <span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.convert" title="Permalink to this definition">¶</a></dt>
@@ -463,6 +469,27 @@ range: string</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.convert_dicts">
+<span class="sig-name descname"><span class="pre">convert_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'example'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Observation'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.convert_dicts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.convert_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a list of row objects to a schema.</p>
+<p>Each row is a data item, presumed to be of the same type,
+that is generalized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rr</strong> – </p></li>
+<li><p><strong>schema_name</strong> – </p></li>
+<li><p><strong>class_name</strong> – </p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
@@ -504,6 +531,48 @@ range: string</p>
 TODO: add parameter to allow edge or node property disambiguation.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.data_dictionary_row_count">
+<span class="sig-name descname"><span class="pre">data_dictionary_row_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.data_dictionary_row_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of rows after header containing data dictionary information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.downcase_header">
+<span class="sig-name descname"><span class="pre">downcase_header</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.downcase_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, coerce column names to be lower case</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.enum_columns">
+<span class="sig-name descname"><span class="pre">enum_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.enum_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of columns that are coerced into enums</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.enum_mask_columns">
+<span class="sig-name descname"><span class="pre">enum_mask_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.enum_mask_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of columns that are excluded from being enums</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.enum_strlen_threshold">
+<span class="sig-name descname"><span class="pre">enum_strlen_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.enum_strlen_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximimum length of a string to be considered a permissible enum value</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.enum_threshold">
+<span class="sig-name descname"><span class="pre">enum_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.enum_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>If number if distinct values divided by total number of values is greater than this, then the column is considered an enum</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.infer_foreign_keys">
+<span class="sig-name descname"><span class="pre">infer_foreign_keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.infer_foreign_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>For multi-CVS files, infer linkages between rows</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.infer_linkages">
 <span class="sig-name descname"><span class="pre">infer_linkages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">schema_automator.generalizers.csv_data_generalizer.ForeignKey</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/schema_automator/generalizers/csv_data_generalizer.html#CsvDataGeneralizer.infer_linkages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.infer_linkages" title="Permalink to this definition">¶</a></dt>
@@ -520,6 +589,42 @@ foreign key relationship gets an ad-hoc score:</p>
 </ul>
 </div></blockquote>
 <p>In addition, if there are competing primary keys for a table, the top scoring one is selected</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.max_enum_size">
+<span class="sig-name descname"><span class="pre">max_enum_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.max_enum_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Max number of permissible values for a column to be considered an enum</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.max_pk_len">
+<span class="sig-name descname"><span class="pre">max_pk_len</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">60</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.max_pk_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum length to be considered for a primary key column. Note: URIs can be long</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.min_distinct_fk_val">
+<span class="sig-name descname"><span class="pre">min_distinct_fk_val</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.min_distinct_fk_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>For inferring foreign keys, there must be a minimum number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.robot">
+<span class="sig-name descname"><span class="pre">robot</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.robot" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, conforms to robot template format. Data dictionary rows start with ‘&gt;’</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.schema_name">
+<span class="sig-name descname"><span class="pre">schema_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'example'</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.schema_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinkML schema name (no spaces)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schema_automator.generalizers.CsvDataGeneralizer.source_schema">
+<span class="sig-name descname"><span class="pre">source_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schema_automator.generalizers.CsvDataGeneralizer.source_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional base schema to draw from</p>
 </dd></dl>
 
 </dd></dl>
