@@ -1,7 +1,7 @@
 import click
 import logging
 import yaml
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set, Any
 from collections import defaultdict
 import os
 import re
@@ -14,6 +14,7 @@ from dateutil.parser import parse
 from deprecation import deprecated
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
+from linkml_runtime.linkml_model.meta import UniqueKey
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
 
@@ -63,17 +64,46 @@ class CsvDataGeneralizer(Generalizer):
     """
 
     column_separator: str = "\t"
+    """character that separates columns in the input file"""
+
     schema_name: str = 'example'
+    """LinkML schema name (no spaces)"""
+
     robot: bool = False
+    """If true, conforms to robot template format. Data dictionary rows start with '>'"""
+
+    data_dictionary_row_count: int = field(default=0)
+    """number of rows after header containing data dictionary information"""
+
     enum_columns: List[str] = field(default_factory=lambda: [])
+    """List of columns that are coerced into enums"""
+
     enum_mask_columns: List[str] = field(default_factory=lambda: [])
+    """List of columns that are excluded from being enums"""
+
     enum_threshold: float = 0.1
+    """If number if distinct values divided by total number of values is greater than this, then the column is considered an enum"""
+
     enum_strlen_threshold: int = 30
+    """Maximimum length of a string to be considered a permissible enum value"""
+
     max_enum_size: int = 50
+    """Max number of permissible values for a column to be considered an enum"""
+
     downcase_header: bool = False
+    """If true, coerce column names to be lower case"""
+
     infer_foreign_keys: bool = False
-    max_pk_len: int = 60   # URIs can be long..
+    """For multi-CVS files, infer linkages between rows"""
+
+    max_pk_len: int = 60
+    """Maximum length to be considered for a primary key column. Note: URIs can be long"""
+
     min_distinct_fk_val: int = 8
+    """For inferring foreign keys, there must be a minimum number."""
+
+    source_schema: Optional[SchemaDefinition] = None
+    """Optional base schema to draw from"""
 
     def infer_linkages(self, files: List[str], **kwargs) -> List[ForeignKey]:
         """
@@ -297,14 +327,31 @@ class CsvDataGeneralizer(Generalizer):
                       rr: List[Dict],
                       schema_name: str = 'example',
                       class_name: str = DEFAULT_CLASS_NAME,
-                      **kwargs) -> SchemaDefinition:
+                      **kwargs) -> Optional[SchemaDefinition]:
+        """
+        Converts a list of row objects to a schema.
+
+        Each row is a data item, presumed to be of the same type,
+        that is generalized.
+
+        :param rr:
+        :param schema_name:
+        :param class_name:
+        :param kwargs:
+        :return:
+        """
         slots = {}
-        slot_values = {}
+
+        slot_distinct_values: Dict[str, Set[Any]] = {}
+        """distinct values for each slot"""
+
+        slot_values: Dict[str, List[Any]] = defaultdict(list)
+        """all values for each slot"""
+
         n = 0
         enums = {}
         robot_defs = {}
         slot_usage = {}
-        types = {}
         enum_columns = self.enum_columns
         enum_mask_columns = self.enum_mask_columns
         if len(rr) == 0:
@@ -316,6 +363,14 @@ class CsvDataGeneralizer(Generalizer):
             if n == 1 and self.robot:
                 for k, v in row.items():
                     robot_defs[k] = v
+                continue
+            if n <= self.data_dictionary_row_count:
+                if self.source_schema is None:
+                    self.source_schema = SchemaDefinition(id="auto", name="auto")
+                for k, v in row.items():
+                    if k not in self.source_schema.slots:
+                        self.source_schema.slots[k] = SlotDefinition(k)
+                    self.source_schema.slots[k].description = v
                 continue
             for k, v in row.items():
                 if k is None or k == '':
@@ -332,22 +387,44 @@ class CsvDataGeneralizer(Generalizer):
                     vs = [v]
                 if k not in slots:
                     slots[k] = {'range': None}
-                    slot_values[k] = set()
+                    slot_distinct_values[k] = set()
                 if v is not None and v != "" and not str(v).startswith('$ref:'):
                     slots[k]['examples'] = [{'value': v}]
-                    slot_values[k].update(vs)
+                    slot_distinct_values[k].update(vs)
+                    slot_values[k] += vs
                 if len(vs) > 1:
                     slots[k]['multivalued'] = True
         types = {}
         new_slots = {}
+        col_number = 0
+        unique_keys = []
         for sn, s in slots.items():
-            vals = slot_values[sn]
+            col_number += 1
+            is_unique = len(set(slot_values[sn])) == len(slot_values[sn])
+            is_pk = is_unique and col_number == 1
+            if self.source_schema and sn in self.source_schema.slots and self.source_schema.slots[sn].identifier:
+                is_pk = True
+            if is_pk:
+                s['identifier'] = True
+            elif is_unique:
+                unique_keys.append(sn)
+            vals = slot_distinct_values[sn]
+            if self.source_schema:
+                if sn in self.source_schema.slots:
+                    s['description'] = self.source_schema.slots[sn].description
             s['range'] = infer_range(s, vals, types)
+            logging.info(f"Slot {sn} has range {s['range']}")
             if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
+                filtered_vals = \
+                    [v
+                     for v in slot_values[sn]
+                     if not isinteger(v) and not isfloat(v) and not isboolean(v) and not is_date(v)]
+                n_filtered_vals = len(filtered_vals) + 1
                 n_distinct = len(vals)
                 longest = max([len(str(v)) for v in vals]) if n_distinct > 0 else 0
+                logging.info(f"Considering {sn} as enum: {n_distinct} distinct values / {n_filtered_vals}, longest={longest}")
                 if sn in enum_columns or \
-                        ((n_distinct / n) < self.enum_threshold and 0 < n_distinct <= self.max_enum_size
+                        ((n_distinct / n_filtered_vals) < self.enum_threshold and 0 < n_distinct <= self.max_enum_size
                          and longest < self.enum_strlen_threshold):
                     enum_name = sn.replace(' ', '_').replace('(s)', '')
                     enum_name = f'{enum_name}_enum'
@@ -416,6 +493,9 @@ class CsvDataGeneralizer(Generalizer):
         for sn, s in new_slots.items():
             if sn not in slots:
                 slots[sn] = s
+
+        unique_keys = [UniqueKey(f"{k}_key",
+                                 unique_key_slots=[k]) for k in unique_keys]
         schema = SchemaDefinition(
             id=f'https://w3id.org/{schema_name}',
             name=schema_name,
@@ -426,7 +506,9 @@ class CsvDataGeneralizer(Generalizer):
             classes=[
                 ClassDefinition(class_name,
                                 slots=class_slots,
-                                slot_usage=slot_usage)
+                                slot_usage=slot_usage,
+                                unique_keys=unique_keys,
+                                )
             ],
             slots=slots,
             enums=enums
@@ -464,6 +546,16 @@ def isfloat(value):
         return True
     except ValueError:
         return False
+
+def isinteger(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
+def isboolean(value):
+    return value in ['true', 'false']
 
 
 def is_measurement(value):
@@ -503,8 +595,18 @@ def is_all_measurement(values):
         return False
 
 
-def infer_range(slot: dict, vals: set, types: dict) -> str:
+def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
+    """
+    Infers the range of a slot based on the values
+
+    :param slot:
+    :param vals:
+    :param types:
+    :return:
+    """
+    logging.info(f"Inferring value for {list(vals)[0:5]}...")
     nn_vals = [v for v in vals if v is not None and v != ""]
+    logging.info(f"FILTERED: {list(nn_vals)[0:5]}...")
     if len(nn_vals) == 0:
         return 'string'
     if all(str(v).startswith('$ref:') for v in nn_vals):
@@ -513,12 +615,15 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
         return 'integer'
     if all(isinstance(v, float) for v in nn_vals):
         return 'float'
-    if all(str(v).isdigit() for v in nn_vals):
-        return 'integer'
-    if all(is_date(v) for v in nn_vals):
-        return 'datetime'
-    if all(isfloat(v) for v in nn_vals):
-        return 'float'
+    if coerce:
+        if all(isinteger(v) for v in nn_vals):
+            return 'integer'
+        if all(isboolean(v) for v in nn_vals):
+            return 'boolean'
+        if all(isfloat(v) for v in nn_vals):
+            return 'float'
+        if all(is_date(v) for v in nn_vals):
+            return 'datetime'
     if is_all_measurement(nn_vals):
         return 'measurement'
     v0 = nn_vals[0]
@@ -535,12 +640,17 @@ def infer_range(slot: dict, vals: set, types: dict) -> str:
     return 'string'
 
 
-def get_db(db_id: str) -> str:
-    parts = db_id.split(':')
-    if len(parts) > 1:
-        return parts[0]
-    else:
-        return None
+def get_db(db_id: str) -> Optional[str]:
+    """
+    Extracts the database from a CURIE
+
+    :param db_id:
+    :return:
+    """
+    if isinstance(db_id, str) and ':' in db_id:
+        parts = db_id.split(':')
+        if len(parts) > 1:
+            return parts[0]
 
 
 def is_date(string, fuzzy=False):
