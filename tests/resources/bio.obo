@@ -1,0 +1,13 @@
+format-version: 1.2
+ontology: bio
+
+[Term]
+id: BIO:1
+name: biochemical reaction
+def: "A biochemical reaction" []
+
+[Term]
+id: BIO:2
+name: chemical structure
+def: "A chemical structure" []
+

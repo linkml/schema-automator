@@ -55,6 +55,7 @@ class SchemaAnnotator:
         if self.mine_descriptions and elt.description:
             texts.append(elt.description)
         for text in texts:
+            logging.info(f"Annotating: {text}")
             for r in self.annotate_text(text):
                 logging.debug(f'MATCH: {r}')
                 if self.allow_partial or r.matches_whole_text:
@@ -91,6 +92,7 @@ class SchemaAnnotator:
         oi = self.ontology_implementation
         text_exp = uncamel(text)  # TODO: use main linkml_runtime method
         if isinstance(oi, TextAnnotatorInterface):
+            logging.debug(f"Using TextAnnotatorInterface on {text_exp}")
             # TextAnnotation is available; use this by default
             for r in oi.annotate_text(text_exp):
                 yield r
@@ -98,6 +100,7 @@ class SchemaAnnotator:
                 for r in oi.annotate_text(text_exp):
                     yield r
         elif isinstance(oi, SearchInterface):
+            logging.debug(f"Using SearchInterface on {text_exp}")
             # use search as an alternative
             cfg = SearchConfiguration(is_complete=True)
             for r in oi.basic_search(text, config=cfg):
@@ -128,7 +131,15 @@ class SchemaAnnotator:
         Enrich a schema by performing lookups on the external ontology/vocabulary endpoint,
         and copying over metadata
 
-        Currently the only metadata obtained is text definitions
+        Currently, the only metadata obtained is text definitions
+
+        .. code-block:: python
+
+        >>> from schema_automator.annotators.schema_annotator import SchemaAnnotator
+        >>> from oaklib.selector import get_implementation_from_shorthand
+        >>> oi = get_implementation_from_shorthand("sqlite:obo:so")
+        >>> sa = SchemaAnnotator(ontology_implementation=oi)
+        >>> schema = sa.enrich("tests/data/schema.yaml")
 
         :param schema:
         :return:
@@ -160,7 +171,7 @@ class SchemaAnnotator:
             if elt.description:
                 break
             try:
-                defn = oi.get_definition_by_curie(x)
+                defn = oi.definition(x)
                 if defn:
                     elt.description = defn
                 else:
