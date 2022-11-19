@@ -87,6 +87,13 @@ def main(verbose: int, quiet: bool):
 @click.option('--column-separator', '-s', default='\t', help='separator')
 @click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 @click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
+@click.option('--enum-threshold', type=click.FLOAT, help='set high to be more inclusive')
+@click.option('--max-enum-size',
+              type=click.INT,
+              help='set high to be more inclusive')
+@click.option('--data-dictionary-row-count',
+              type=click.INT,
+              help='rows that provide metadata about columns')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 @click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
 def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, **kwargs):
@@ -99,6 +106,7 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 
         schemauto generalize-tsv --class-name Person --schema-name PersonInfo my/data/persons.tsv
     """
+    kwargs = {k:v for k, v in kwargs.items() if v is not None}
     if pandera:
         ie = PandasDataGeneralizer(**kwargs)
     else:
@@ -387,16 +395,32 @@ def annotate_schema(schema: str, input: str, output: str, **kwargs):
 @main.command()
 @click.argument('schema')
 @click.option('--input', '-i', help="OAK input ontology selector")
+@click.option('--annotate/--no-annotate', default=True, help="If true, annotate the schema")
 @output_option
-def enrich_schema(schema: str, input: str, output: str, **args):
+def enrich_schema(schema: str, input: str, output: str, annotate: bool, **args):
     """
-    Annotate all elements of a schema
+    Enrich a schema using an ontology.
 
-    Requires Bioportal API key
+    This will use OAK to add additional metadata using uris and mappings in the schema.
+
+    For example, if your schema has a class with a mapping to a SO class,
+    then the definition of that will be copied to the class description.
+    
+    Example:
+
+        schemauto enrich-schema -i bioportal: my-schema.yaml -o my-enriched.yaml
+
+    If your schema has no mappings you can use --annotate to add them
+
+    Example:
+
+        schemauto enrich-schema -i so.obo --annotate my-schema.yaml -o my-enriched.yaml --annotate
     """
     impl = get_implementation_from_shorthand(input)
     annr = SchemaAnnotator(impl)
     logging.info(f"Enriching: {schema}")
+    if annotate:
+        schema = annr.annotate_schema(schema)
     schema = annr.enrich(schema)
     write_schema(schema, output)
 
