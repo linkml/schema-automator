@@ -42,43 +42,26 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--schema_name availabilities $<
 
 #OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
-OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN RELATIONSHIP VOCABULARY
-OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), local/$(r).csv)
+# TODO: DRUG_STRENGTH (empty table) throws error
 
-target/omop_5.yaml: $(OMOP_TABLES)
-	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ > $@
+OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN RELATIONSHIP VOCABULARY
+OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), tests/resources/tsvs/$(r).csv)
 
-#target/omop_relationship.yaml: local/CONCEPT_RELATIONSHIP.csv
-#	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
-
-target/%.yaml: local/%.csv
-	schemauto generalize-tsv --class-name $* --schema-name $* $^ > $@
-
-
-target/omop_person.yaml: local/person.tsv
-	schemauto generalize-tsv --class-name Person --schema-name omop_person $^ > $@
-
-build-omop:
-	$(MAKE) target/omop_person.yaml -B
-	$(MAKE) target/omop_5.yaml -B
-
-target/cpath_patient_manual.yaml:
-	echo "This file had to be manually hacked to be translateable"
-
-target/cpath_patient.ttl: target/cpath_patient_manual.yaml
-	linkml-convert -t rdf -s $< -m target/cpath_patient_manual.py -S person_list -C Person local/person.tsv
-
-target/model target/model/%:
+target/model/omop:
 	mkdir -p $@
 
-target/omop_%.ttl: #target/omop_5.yaml
-	linkml-convert -t rdf -s target/omop_5.yaml -S domains -C DOMAINTABLE local/$*.csv
+tests/outputs/omop.yaml: $(OMOP_TABLES)
+	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ > $@
 
-target/omop_5.py: target/omop_5.yaml | target/model/omop_5
-	$(RUN) gen-project -d target/model/omop_5 $< && mv target/model/omop_5/*.py target/
+tests/outputs/omop_data.ttl: tests/outputs/omop.yaml
+	$(RUN) linkml-convert -t rdf -s $< -S concept_list -C CONCEPT $@
 
-omop:
-	$(MAKE) target/omop_DOMAIN.ttl
+gen-omop: target/model/omop tests/outputs/omop.yaml
+	$(RUN) gen-project -d $^
+
+test-omop:
+	$(MAKE) tests/outputs/omop.yaml -B
+	$(MAKE) tests/outputs/omop_data.ttl
 
 target/cpath_patient_manual.py: target/cpath_patient_manual.yaml | target/model
 	$(RUN) gen-project -d target/model $< && mv target/model/*.py target/

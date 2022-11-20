@@ -1,0 +1,10 @@
+concept_id_1	concept_id_2	relationship_id	valid_start_date	valid_end_date	invalid_reason
+33014	33014	Maps to	19700101	20991231	
+33014	33014	Mapped from	19700101	20991231	
+32995	32995	Maps to	19700101	20991231	
+32995	32995	Mapped from	19700101	20991231	
+32996	32996	Maps to	19700101	20991231	
+32996	32996	Mapped from	19700101	20991231	
+5	58	Concept replaced by	20151016	20991231	
+6	58	Concept replaced by	20151016	20991231	
+9	58	Concept replaced by	20151016	20991231	

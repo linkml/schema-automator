@@ -1,0 +1,39 @@
+vocabulary_id	vocabulary_name	vocabulary_reference	vocabulary_version	vocabulary_concept_id
+None	OMOP Standardized Vocabularies	OMOP generated	v5.0 10-MAY-22	44819096
+Visit Type	OMOP Visit Type	OMOP generated		44819150
+OSM	OpenStreetMap	https://www.openstreetmap.org/copyright/en, https://wambachers-osm.website/boundaries/	OSM Release 2019-02-21	32541
+Type Concept	OMOP Type Concept	OMOP generated	Type Concept 20210212	32808
+Note Type	OMOP Note Type	OMOP generated		44819146
+Device Type	OMOP Device Type	OMOP generated		44819151
+Observation Type	OMOP Observation Type	OMOP generated		44819129
+UB04 Point of Origin	UB04 Claim Source Inpatient Admission Code (CMS)	https://www.resdac.org/cms-data/variables/Claim-Source-Inpatient-Admission-Code		32045
+Death Type	OMOP Death Type	OMOP generated		44819135
+Cost	OMOP Cost	OMOP generated		581457
+Plan Stop Reason	Plan Stop Reason - Reason for termination of the Health Plan	OMOP generated		32474
+Episode	OMOP Episode	OMOP generated	Episode 20201014	32523
+Condition Status	OMOP Condition Status	OMOP generated		32887
+Relationship	OMOP Relationship	OMOP generated		44819235
+US Census	United States Census Bureau	https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html	US Census 2017 Release	32570
+UB04 Pri Typ of Adm	UB04 Claim Inpatient Admission Type Code (CMS)	https://www.resdac.org/cms-data/variables/Claim-Inpatient-Admission-Type-Code		32046
+Drug Type	OMOP Drug Exposure Type	OMOP generated		44819126
+Meas Type	OMOP Measurement Type	OMOP generated		44819152
+Sponsor	Sponsor - institution or individual financing healthcare transactions	OMOP generated		32472
+UB04 Typ bill	UB04 Type of Bill - Institutional (USHIK)	https://ushik.ahrq.gov/ViewItemDetails?&system=apcd&itemKey=196987000		32044
+UB04 Pt dis status	UB04 Patient Discharge Status Code (CMS)	https://www.resdac.org/cms-data/variables/patient-discharge-status-code		32047
+Procedure Type	OMOP Procedure Occurrence Type	OMOP generated		44819128
+Vocabulary	OMOP Vocabulary	OMOP generated		44819232
+SOPT	Source of Payment Typology (PHDSC)	https://www.nahdo.org/sopt	SOPT Version 9.2	32473
+Condition Type	OMOP Condition Occurrence Type	OMOP generated		44819127
+Obs Period Type	OMOP Observation Period Type	OMOP generated		44819149
+UCUM	Unified Code for Units of Measure (Regenstrief Institute)	http://aurora.regenstrief.org/~ucum/ucum.html#section-Alphabetic-Index	Version 1.8.2	44819107
+Cost Type	OMOP Cost Type	OMOP generated		5029
+SNOMED	Systematic Nomenclature of Medicine - Clinical Terms (IHTSDO)	http://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html	2020-07-31 SNOMED CT International Edition; 2020-09-01 SNOMED CT US Edition; 2020-10-28 SNOMED CT UK Edition	44819097
+Cohort Type	OMOP Cohort Type	OMOP generated		44819234
+Domain	OMOP Domain	OMOP generated		44819147
+Korean Revenue Code	Korean Revenue Code	OMOP generated		32724
+CDM	OMOP Common DataModel	https://github.com/OHDSI/CommonDataModel	CDM v6.0.0	32485
+Concept Class	OMOP Concept Class	OMOP generated		44819233
+Visit	OMOP Visit	OMOP generated	Visit 20211216	44819119
+Metadata	Metadata	OMOP generated		32675
+Plan	Health Plan - contract to administer healthcare transactions by the payer, facilitated by the sponsor	OMOP generated		32471
+LOINC	Logical Observation Identifiers Names and Codes (Regenstrief Institute)	http://loinc.org/downloads/loinc	LOINC 2.72	44819102
