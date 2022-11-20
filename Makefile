@@ -42,11 +42,11 @@ target/availabilities_g_s_strain_202112151116.yaml: local/availabilities_g_s_str
 		--schema_name availabilities $<
 
 #OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN DRUG_STRENGTH RELATIONSHIP VOCABULARY
-OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN RELATIONSHIP VOCABULARY DRUG_STRENGTH
+OMOP_TABLE_NAMES=CONCEPT_RELATIONSHIP_HEAD CONCEPT_ANCESTOR CONCEPT_CLASS CONCEPT_SYNONYM CONCEPT DOMAIN RELATIONSHIP VOCABULARY
 OMOP_TABLES=$(foreach r,$(OMOP_TABLE_NAMES), local/$(r).csv)
 
 target/omop_5.yaml: $(OMOP_TABLES)
-	schemauto generalize-tsvs --schema-name omop_vocabulary $^ > $@
+	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ > $@
 
 #target/omop_relationship.yaml: local/CONCEPT_RELATIONSHIP.csv
 #	schemauto generalize-tsv --class-name omop_relationship --schema-name omop_relationship $^ > $@
@@ -68,8 +68,17 @@ target/cpath_patient_manual.yaml:
 target/cpath_patient.ttl: target/cpath_patient_manual.yaml
 	linkml-convert -t rdf -s $< -m target/cpath_patient_manual.py -S person_list -C Person local/person.tsv
 
-target/model:
+target/model target/model/%:
 	mkdir -p $@
+
+target/omop_%.ttl: #target/omop_5.yaml
+	linkml-convert -t rdf -s target/omop_5.yaml -S domains -C DOMAINTABLE local/$*.csv
+
+target/omop_5.py: target/omop_5.yaml | target/model/omop_5
+	$(RUN) gen-project -d target/model/omop_5 $< && mv target/model/omop_5/*.py target/
+
+omop:
+	$(MAKE) target/omop_DOMAIN.ttl
 
 target/cpath_patient_manual.py: target/cpath_patient_manual.yaml | target/model
 	$(RUN) gen-project -d target/model $< && mv target/model/*.py target/
