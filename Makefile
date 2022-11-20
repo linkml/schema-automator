@@ -51,13 +51,19 @@ target/model/omop:
 	mkdir -p $@
 
 tests/outputs/omop.yaml: $(OMOP_TABLES)
-	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ --output $@
+	echo "skipped"
+	#$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ --output $@
 
-tests/outputs/omop_data.ttl: tests/outputs/omop.yaml tests/resources/tsvs/CONCEPT.csv
-	$(RUN) linkml-convert -t rdf -s $< -S concept_list -C CONCEPT tests/resources/tsvs/CONCEPT.csv --output $@
+tests/outputs/omop_data.ttl: tests/outputs/omop/omop.py tests/outputs/omop.yaml tests/resources/tsvs/CONCEPT.csv
+	$(RUN) linkml-convert -t rdf -s tests/outputs/omop.yaml \
+		-m tests/outputs/omop/omop.py \
+		-S concept_list \
+		-C CONCEPT tests/resources/tsvs/CONCEPT.csv \
+		--output $@
 
-gen-omop: target/model/omop tests/outputs/omop.yaml
-	$(RUN) gen-project -d $^
+tests/outputs/omop/omop.py: tests/outputs/omop.yaml
+	rm -rf tests/outputs/omop && mkdir -p tests/outputs/omop
+	$(RUN) gen-project -d tests/outputs/omop $<
 
 test-omop:
 	#$(MAKE) tests/outputs/omop.yaml -B
@@ -75,7 +81,6 @@ target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv: targe
 		--modelfile $< \
 		--enum organism_enum \
 		--tsv_out $@
-
 
 # do some curation on target/availabilities_g_s_strain_202112151116_org_meanings_curateable.tsv
 #   and save as target/availabilities_g_s_strain_202112151116_org_meanings_curated.txt
