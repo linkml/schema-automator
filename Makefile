@@ -51,23 +51,17 @@ target/model/omop:
 	mkdir -p $@
 
 tests/outputs/omop.yaml: $(OMOP_TABLES)
-	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ > $@
+	$(RUN) schemauto generalize-tsvs --add-container-class true --schema-name omop_vocabulary $^ --output $@
 
-tests/outputs/omop_data.ttl: tests/outputs/omop.yaml
-	$(RUN) linkml-convert -t rdf -s $< -S concept_list -C CONCEPT $@
+tests/outputs/omop_data.ttl: tests/outputs/omop.yaml tests/resources/tsvs/CONCEPT.csv
+	$(RUN) linkml-convert -t rdf -s $< -S concept_list -C CONCEPT tests/resources/tsvs/CONCEPT.csv --output $@
 
 gen-omop: target/model/omop tests/outputs/omop.yaml
 	$(RUN) gen-project -d $^
 
 test-omop:
-	$(MAKE) tests/outputs/omop.yaml -B
+	#$(MAKE) tests/outputs/omop.yaml -B
 	$(MAKE) tests/outputs/omop_data.ttl
-
-target/cpath_patient_manual.py: target/cpath_patient_manual.yaml | target/model
-	$(RUN) gen-project -d target/model $< && mv target/model/*.py target/
-
-target/omop_relationship.ttl: target/omop_concepts.yaml
-	linkml-convert -t rdf -s $< -S concept_id_1 -C CONCEPT_RELATIONSHIP local/CONCEPT_RELATIONSHIP_HEAD.csv
 
 # KeyError: 'iri' could mean that an unrecognized ontology name was used
 target/availabilities_g_s_strain_202112151116_org_meanings.yaml: target/availabilities_g_s_strain_202112151116.yaml
