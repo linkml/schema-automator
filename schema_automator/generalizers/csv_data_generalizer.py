@@ -795,14 +795,17 @@ def add_container_class_to_schema(schema: SchemaDefinition):
         container_class_name = schema_class+"_CONTAINER"
         if container_class_name not in schema.classes:
             slot_name = schema_class.lower()+"_list"
-            slot_def = {'description': f'Container slot for {schema_class}.',
-                        'range': schema_class,
-                        'multivalued': True}
-            if slot_name not in schema.slots:
-                schema.slots[slot_name] = SlotDefinition(slot_def)
+            slot_definition = SlotDefinition(name=slot_name,
+                               range=schema_class,
+                               multivalued=True,
+                               description=f'Container slot for {schema_class}.')
             class_slots = list([slot_name])
-            class_def  = ClassDefinition(container_class_name,
-                            slots=class_slots)
+            class_def = ClassDefinition(container_class_name,
+                                        slots=class_slots)
+            if slot_name not in schema.slots:
+                schema.slots[slot_name] = slot_definition
+                #class_def.slot_usage[slot_name] = slot_definition
+
             new_classes[container_class_name] = class_def
     for cl in new_classes:
         schema.classes[cl] = new_classes[cl]
