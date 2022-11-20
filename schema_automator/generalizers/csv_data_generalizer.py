@@ -93,6 +93,9 @@ class CsvDataGeneralizer(Generalizer):
     downcase_header: bool = False
     """If true, coerce column names to be lower case"""
 
+    add_container_class: bool = False
+    """If true, add container classes for every inferred class in schema"""
+
     infer_foreign_keys: bool = False
     """For multi-CVS files, infer linkages between rows"""
 
@@ -518,6 +521,8 @@ class CsvDataGeneralizer(Generalizer):
         if robot_defs:
             self.add_prefix(schema, 'IAO', 'http://purl.obolibrary.org/obo/IAO_')
         add_missing_to_schema(schema)
+        if self.add_container_class:
+            add_container_class_to_schema(schema)
         return schema
 
 
@@ -783,6 +788,24 @@ def add_missing_to_schema(schema: SchemaDefinition):
                                    typeof='string',
                                    description='Holds a measurement serialized as a string')
 
+def add_container_class_to_schema(schema: SchemaDefinition):
+    new_classes = {}
+    for schema_class in schema.classes:
+        #tgt_cls = schema.classes[schema_class]
+        container_class_name = schema_class+"_CONTAINER"
+        if container_class_name not in schema.classes:
+            slot_name = schema_class.lower()+"_list"
+            slot_def = {'description': f'Container slot for {schema_class}.',
+                        'range': schema_class,
+                        'multivalued': True}
+            if slot_name not in schema.slots:
+                schema.slots[slot_name] = SlotDefinition(slot_def)
+            class_slots = list([slot_name])
+            class_def  = ClassDefinition(container_class_name,
+                            slots=class_slots)
+            new_classes[container_class_name] = class_def
+    for cl in new_classes:
+        schema.classes[cl] = new_classes[cl]
 
 @click.group()
 def main():

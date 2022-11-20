@@ -130,6 +130,7 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 @click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 @click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
 @click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
+@click.option('--add-container-class', default=False, help='set if you wish to add container classes for every inferred class')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
