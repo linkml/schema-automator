@@ -155,7 +155,7 @@
                 }
             }
         },
-        "supplementary_file_entity": {
+        "supplementary_file_reference": {
             "type": "object",
             "required": [
                 "file_id",
@@ -220,7 +220,7 @@
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "$ref": "system/links.json#/definitions/supplementary_file"
+                        "$ref": "system/links.json#/definitions/supplementary_file_reference"
                     }
                 },
                 "link_type": {
