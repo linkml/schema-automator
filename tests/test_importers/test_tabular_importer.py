@@ -2,6 +2,7 @@
 
 import unittest
 import os
+from pathlib import Path
 from sys import platform
 
 import pandas as pd
@@ -20,7 +21,6 @@ class TestTableImporter(unittest.TestCase):
     def setUp(self) -> None:
         pass
 
-    @unittest.skipIf(platform.startswith("win"), "Do not run on Windows")
     def test_import(self):
         """
         Test importing a table from HTML via BS
@@ -29,7 +29,7 @@ class TestTableImporter(unittest.TestCase):
                                element_type="enum",
                                columns=["permissible_value", "description"])
         # this doesn't work on windows:
-        dfs = pd.read_html(f"file://{INPUT_HTML}")
+        dfs = pd.read_html(Path(f"{INPUT_HTML}").as_uri())
         schema = ie.import_from_dataframe(dfs[0])
         write_schema(schema, OUT)
 

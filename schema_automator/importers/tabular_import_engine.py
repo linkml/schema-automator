@@ -39,7 +39,7 @@ class TableImportEngine(ImportEngine):
         :param df:
         :return:
         """
-        tf = NamedTemporaryFile()
+        tf = NamedTemporaryFile(delete=False)
         ix = 1
         line = pd.DataFrame(dict(zip(df.head(), self.columns)), index=[ix])
         df = pd.concat([df.iloc[:ix-1], line, df.iloc[ix-1:]]).reset_index(drop=True)
