@@ -24,6 +24,7 @@ from schema_automator.importers.jsonschema_import_engine import JsonSchemaImport
 from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
 from schema_automator.importers.sql_import_engine import SqlImportEngine
+from schema_automator.importers.tabular_import_engine import TableImportEngine
 from schema_automator.utils.schemautils import minify_schema, write_schema
 
 input_option = click.option(
@@ -34,7 +35,7 @@ input_option = click.option(
 output_option = click.option(
     "-o",
     "--output",
-    help="path to output file."
+    help="path to output file or directory."
 )
 schema_name_option = click.option(
     '--schema-name',
@@ -46,7 +47,10 @@ annotator_option = click.option(
     '--annotator',
     '-A',
     help='name of annotator to use for auto-annotating results. Must be an OAK selector')
-
+use_attributes_option = click.option(
+    "--use-attributes/--no-use-attributes",
+    help="If true, use attributes over slots/slot_usage"
+)
 
 @click.group()
 @click.option("-v", "--verbose",
@@ -166,19 +170,16 @@ def generalize_htmltable(url, output, class_name, schema_name, pandera: bool,
     """
     Generalizes from a table parsed from a URL
 
-    Uses pandas/beautiful soup
+    Uses pandas/beautiful soup.
+
+    Note: if the website cannot be accessed directly, you can download the HTML
+    and pass in an argument of the form file:///absolute/path/to/file.html
     """
     dfs = pd.read_html(url)
     logging.info(f"{url} has {len(dfs)} tables")
     df = dfs[table_number]
-    if data_output:
-        df.to_csv(data_output, sep="\t")
-    if pandera:
-        ie = PandasDataGeneralizer(**kwargs)
-        schema = ie.convert(df, class_name=class_name, schema_name=schema_name)
-    else:
-        ie = CsvDataGeneralizer(**kwargs)
-        schema = ie.convert_dicts(df.to_dict('records'))
+    importer = TableImportEngine(**kwargs)
+    schema = importer.import_from_dataframe(df)
     write_schema(schema, output)
 
 
@@ -216,6 +217,38 @@ def import_sql(db, output, **args):
     """
     ie = SqlImportEngine()
     schema = ie.convert(db, **args)
+    write_schema(schema, output)
+
+
+@main.command()
+@output_option
+@schema_name_option
+@click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
+@click.option('--data-output', help='Path to file of downloaded data')
+@click.option('--element-type', help='E.g. class, enum')
+@click.option('--parent', help='parent ID')
+@click.option('--columns',
+              required=True,
+              help='comma-separated schemasheets descriptors of each column. Must be in same order')
+@click.option('--table-number',
+              type=int,
+              default=0,
+              show_default=True,
+              help='If URL has multiple tables, use this one (zero-based)')
+@click.argument('url')  # input TSV (must have column headers
+def import_htmltable(url, output, class_name, schema_name, columns,
+                         table_number: int, data_output,
+                         **kwargs):
+    """
+    Generalizes from a table parsed from a URL
+
+    Uses pandas/beautiful soup
+    """
+    dfs = pd.read_html(url)
+    logging.info(f"{url} has {len(dfs)} tables")
+    df = dfs[table_number]
+    ie = TableImportEngine(columns=columns.split(","), **kwargs)
+    schema = ie.import_from_dataframe(df)
     write_schema(schema, output)
 
 
@@ -281,8 +314,11 @@ def generalize_toml(input, output, schema_name, omit_null, **kwargs):
 @click.argument('input')
 @output_option
 @schema_name_option
+@use_attributes_option
+@click.option("--import-project/--no-import-project",
+              help="If true, then the input path should be a directory with multiple schema files")
 @click.option('--format', '-f', default='json', help='JSON Schema format - yaml or json')
-def import_json_schema(input, output, schema_name, format, **args):
+def import_json_schema(input, output, import_project: bool, schema_name, format, **kwargs):
     """
     Imports from JSON Schema to LinkML
 
@@ -292,9 +328,17 @@ def import_json_schema(input, output, schema_name, format, **args):
 
         schemauto import-json-schema my/schema/personinfo.schema.json
     """
-    loader = JsonSchemaImportEngine()
-    schema = loader.load(input, name=schema_name, format=format)
-    write_schema(schema, output)
+    ie = JsonSchemaImportEngine(**kwargs)
+    if not import_project:
+        schema = ie.convert(input, name=schema_name, format=format)
+        write_schema(schema, output)
+    else:
+        if output is None:
+            raise ValueError(f"You must pass an export directory with --output")
+        ie.import_project(input, output, name=schema_name, format=format)
+
+
+
 
 
 @main.command()

@@ -1,5 +1,6 @@
 import copy
 import logging
+from pathlib import Path
 from typing import Union, Optional
 from deprecated.classic import deprecated
 
@@ -10,7 +11,7 @@ from linkml_runtime.linkml_model import SchemaDefinition
 from linkml_runtime.utils.schema_as_dict import schema_as_dict
 
 
-def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[str] = None):
+def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[Union[Path, str]] = None):
     """
     Convenience method for writing a schema to stdout or to a file
 
@@ -24,7 +25,7 @@ def write_schema(schema: Union[dict, SchemaDefinition], output: Optional[str] = 
         sdict = schema
     ys = yaml.safe_dump(sdict, sort_keys=False)
     if output:
-        with open(output, 'w', encoding='UTF-8') as stream:
+        with open(str(output), 'w', encoding='UTF-8') as stream:
             stream.write(ys)
     else:
         print(ys)

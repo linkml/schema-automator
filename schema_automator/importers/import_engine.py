@@ -1,8 +1,10 @@
 from abc import ABC
+from dataclasses import dataclass
 
 from linkml_runtime.linkml_model import SchemaDefinition, Prefix
 
 
+@dataclass
 class ImportEngine(ABC):
     """
     Abstract Base Class for all Import Engines.

@@ -4,6 +4,9 @@
 
 import unittest
 import os
+from pathlib import Path
+
+from linkml_runtime import SchemaView
 from linkml_runtime.utils.compile_python import compile_python
 
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
@@ -64,7 +67,7 @@ class TestJsonSchemaImporter(unittest.TestCase):
         axiom_type_options = schema.enums['axiom_type_options']
         self.assertIn('equivalentTo', axiom_type_options.permissible_values)
         self.assertIn('axiom_type', schema.slots)
-        self.assertIn('printf_clause', schema.classes)
+        self.assertIn('PrintfClause', schema.classes)
 
     def test_convert_vrs(self):
         """Test JSONSchema conversion."""
@@ -92,4 +95,33 @@ class TestJsonSchemaImporter(unittest.TestCase):
         self.assertIn('active', schema.enums['activity_status_options'].permissible_values)
         self.assertIn('activity_status', schema.slots)
         self.assertEqual('activity_status_options', schema.slots['activity_status'].range)
+
+    def test_import_hca_project(self):
+        """This also tests the ability to import a whole project.
+
+        Note that the following modifications were made:
+
+        - changed 10x to S10x
+        - modified links to remove name clashes with classes
+
+            - renamed protocol to protocol_reference
+            - renamed supplementary_file to supplementary_file_reference
+
+        """
+        ie = JsonSchemaImportEngine(use_attributes=True)
+        import_path = Path(INPUT_DIR) / "hca"
+        export_path = Path(OUTPUT_DIR) / "hca"
+        root_path = ie.import_project(import_path, export_path, name="hca")
+        print(root_path)
+        sv = SchemaView(root_path)
+        c = sv.get_class("OrganPartOntology")
+        ont_slot = c.attributes["ontology"]
+        rng = ont_slot.range
+        edef = sv.get_enum(rng)
+        print(yaml_dumper.dumps(edef))
+        print(yaml_dumper.dumps(c))
+        self.assertEqual(2, len(edef.include))
+        self.assertIsNotNone(ont_slot.title)
+        jsonschema_str = JsonSchemaGenerator(root_path).serialize()
+
 
