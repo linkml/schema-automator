@@ -67,7 +67,7 @@ class TestJsonSchemaImporter(unittest.TestCase):
         axiom_type_options = schema.enums['axiom_type_options']
         self.assertIn('equivalentTo', axiom_type_options.permissible_values)
         self.assertIn('axiom_type', schema.slots)
-        self.assertIn('printf_clause', schema.classes)
+        self.assertIn('PrintfClause', schema.classes)
 
     def test_convert_vrs(self):
         """Test JSONSchema conversion."""
