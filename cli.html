@@ -240,7 +240,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-annotate-schema-o">
 <span id="cmdoption-schemauto-annotate-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-annotate-schema-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -263,7 +263,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-annotate-using-jsonld-o">
 <span id="cmdoption-schemauto-annotate-using-jsonld-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-annotate-using-jsonld-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -310,7 +310,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-enrich-schema-o">
 <span id="cmdoption-schemauto-enrich-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-schema-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -325,7 +325,9 @@ then the definition of that will be copied to the class description.</p>
 <h4>generalize-htmltable<a class="headerlink" href="#schemauto-generalize-htmltable" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>Generalizes from a table parsed from a URL</p>
-<p>Uses pandas/beautiful soup</p>
+<p>Uses pandas/beautiful soup.</p>
+<p>Note: if the website cannot be accessed directly, you can download the HTML
+and pass in an argument of the form <a class="reference external" href="file:///absolute/path/to/file.html">file:///absolute/path/to/file.html</a></p>
 </div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-htmltable <span class="o">[</span>OPTIONS<span class="o">]</span> URL
 </pre></div>
@@ -334,7 +336,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-o">
 <span id="cmdoption-schemauto-generalize-htmltable-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -402,7 +404,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-json-o">
 <span id="cmdoption-schemauto-generalize-json-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-json-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -501,7 +503,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-rdf-o">
 <span id="cmdoption-schemauto-generalize-rdf-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-rdf-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -535,7 +537,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-toml-o">
 <span id="cmdoption-schemauto-generalize-toml-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-toml-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -610,7 +612,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-o">
 <span id="cmdoption-schemauto-generalize-tsv-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -710,7 +712,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-o">
 <span id="cmdoption-schemauto-generalize-tsvs-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -797,7 +799,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-import-dosdps-o">
 <span id="cmdoption-schemauto-import-dosdps-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-dosdps-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -825,6 +827,82 @@ then the definition of that will be copied to the class description.</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-import-htmltable">
+<h4>import-htmltable<a class="headerlink" href="#schemauto-import-htmltable" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Generalizes from a table parsed from a URL</p>
+<p>Uses pandas/beautiful soup</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-htmltable <span class="o">[</span>OPTIONS<span class="o">]</span> URL
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-o">
+<span id="cmdoption-schemauto-import-htmltable-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-n">
+<span id="cmdoption-schemauto-import-htmltable-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>MySchema</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-c">
+<span id="cmdoption-schemauto-import-htmltable-class-name"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core class name in schema</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-data-output">
+<span class="sig-name descname"><span class="pre">--data-output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-data-output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to file of downloaded data</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-element-type">
+<span class="sig-name descname"><span class="pre">--element-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;element_type&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-element-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>E.g. class, enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-parent">
+<span class="sig-name descname"><span class="pre">--parent</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;parent&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>parent ID</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-columns">
+<span class="sig-name descname"><span class="pre">--columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-columns" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> comma-separated schemasheets descriptors of each column. Must be in same order</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-table-number">
+<span class="sig-name descname"><span class="pre">--table-number</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;table_number&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-table-number" title="Permalink to this definition">¶</a></dt>
+<dd><p>If URL has multiple tables, use this one (zero-based)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-arg-URL">
+<span id="cmdoption-schemauto-import-htmltable-arg-url"></span><span class="sig-name descname"><span class="pre">URL</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-arg-URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-import-json-schema">
 <h4>import-json-schema<a class="headerlink" href="#schemauto-import-json-schema" title="Permalink to this headline">¶</a></h4>
 <blockquote>
@@ -842,7 +920,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-o">
 <span id="cmdoption-schemauto-import-json-schema-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -854,6 +932,18 @@ then the definition of that will be copied to the class description.</p>
 <dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-use-attributes">
+<span id="cmdoption-schemauto-import-json-schema-no-use-attributes"></span><span class="sig-name descname"><span class="pre">--use-attributes</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-use-attributes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-use-attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, use attributes over slots/slot_usage</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-json-schema-import-project">
+<span id="cmdoption-schemauto-import-json-schema-no-import-project"></span><span class="sig-name descname"><span class="pre">--import-project</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-import-project</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-json-schema-import-project" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, then the input path should be a directory with multiple schema files</p>
 </dd></dl>
 
 <dl class="std option">
@@ -894,7 +984,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-o">
 <span id="cmdoption-schemauto-import-owl-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -947,7 +1037,7 @@ then the definition of that will be copied to the class description.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-import-sql-o">
 <span id="cmdoption-schemauto-import-sql-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-sql-o" title="Permalink to this definition">¶</a></dt>
-<dd><p>path to output file.</p>
+<dd><p>path to output file or directory.</p>
 </dd></dl>
 
 <dl class="std option">
