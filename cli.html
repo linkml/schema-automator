@@ -1024,6 +1024,74 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 </section>
+<section id="schemauto-import-rdfs">
+<h4>import-rdfs<a class="headerlink" href="#schemauto-import-rdfs" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Import an RDFS schema to LinkML</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto import-rdfs prov.rdfs.ttl -o prov.yaml</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-rdfs <span class="o">[</span>OPTIONS<span class="o">]</span> RDFSFILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-o">
+<span id="cmdoption-schemauto-import-rdfs-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-n">
+<span id="cmdoption-schemauto-import-rdfs-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>MySchema</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-I">
+<span id="cmdoption-schemauto-import-rdfs-i"></span><span id="cmdoption-schemauto-import-rdfs-input-type"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;input_type&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input format, eg. turtle</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-0">
+<span id="cmdoption-schemauto-import-rdfs-identifier"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--identifier</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;identifier&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slot to use as identifier</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-model-uri">
+<span class="sig-name descname"><span class="pre">--model-uri</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;model_uri&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-model-uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model URI prefix</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-metamodel-mappings">
+<span class="sig-name descname"><span class="pre">--metamodel-mappings</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;metamodel_mappings&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-metamodel-mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to metamodel mappings YAML dicitonary</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-1">
+<span id="cmdoption-schemauto-import-rdfs-2"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to saved yaml schema</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-arg-RDFSFILE">
+<span id="cmdoption-schemauto-import-rdfs-arg-rdfsfile"></span><span class="sig-name descname"><span class="pre">RDFSFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-arg-RDFSFILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-import-sql">
 <h4>import-sql<a class="headerlink" href="#schemauto-import-sql" title="Permalink to this headline">¶</a></h4>
 <blockquote>
