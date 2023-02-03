@@ -23,6 +23,7 @@ from schema_automator.generalizers.json_instance_generalizer import JsonDataGene
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
+from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.importers.tabular_import_engine import TableImportEngine
 from schema_automator.utils.schemautils import minify_schema, write_schema
@@ -338,9 +339,6 @@ def import_json_schema(input, output, import_project: bool, schema_name, format,
         ie.import_project(input, output, name=schema_name, format=format)
 
 
-
-
-
 @main.command()
 @click.argument('owlfile')
 @output_option
@@ -366,6 +364,34 @@ def import_owl(owlfile, output, **args):
     schema = sie.convert(owlfile, **args)
     write_schema(schema, output)
 
+
+@main.command()
+@click.argument('rdfsfile')
+@output_option
+@schema_name_option
+@click.option('--input-type', '-I',
+              default='turtle',
+              help="Input format, eg. turtle")
+@click.option('--identifier', '-I', help="Slot to use as identifier")
+@click.option('--model-uri', help="Model URI prefix")
+@click.option('--metamodel-mappings',
+              help="Path to metamodel mappings YAML dicitonary")
+@click.option('--output', '-o', help="Path to saved yaml schema")
+def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
+    """
+    Import an RDFS schema to LinkML
+
+    Example:
+
+        schemauto import-rdfs prov.rdfs.ttl -o prov.yaml
+    """
+    mappings_obj = None
+    if metamodel_mappings:
+        with open(metamodel_mappings) as f:
+            mappings_obj = yaml.safe_load(f)
+    sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
+    schema = sie.convert(rdfsfile, **args)
+    write_schema(schema, output)
 
 @main.command()
 @click.argument('rdffile')

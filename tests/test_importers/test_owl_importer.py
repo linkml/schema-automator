@@ -17,10 +17,10 @@ OUTSCHEMA = os.path.join(OUTPUT_DIR, 'prov-from-owl.yaml')
 OUTSCHEMA_ENHANCED = os.path.join(OUTPUT_DIR, 'prov-from-owl.enhanced.yaml')
 
 class TestOwlImporter(unittest.TestCase):
-    """PROV """
+    """Tests OWL conversion """
 
     def test_from_owl(self):
-        """Test OWL conversion."""
+        """Test OWL conversion on reproschema."""
         oie = OwlImportEngine()
         schema = oie.convert(PROV, name='prov')
         write_schema(schema, OUTSCHEMA)

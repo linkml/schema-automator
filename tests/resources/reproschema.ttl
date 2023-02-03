@@ -1,0 +1,436 @@
+@prefix nidm: <http://purl.org/nidash/nidm#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix reproschema: <http://schema.repronim.org/> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+reproschema:Activity a nidm:Assessment,
+        rdfs:Class,
+        prov:Entity,
+        prov:Plan ;
+    rdfs:label "Activity" ;
+    rdfs:comment "An assessment in a protocol." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+reproschema:AdditionalNoteObj a rdfs:Class ;
+    rdfs:label "Additional Notes Object" ;
+    rdfs:comment "A set of objects to define notes in a field. For example, most Redcap and NDA data dictionaries have notes for each item which needs to be captured in reproschema" .
+
+reproschema:AdditionalProperty a rdfs:Class ;
+    rdfs:label "Additional properties" ;
+    rdfs:comment "An object to describe the various properties added to assessments and fields." .
+
+reproschema:AllowExport a rdfs:Class ;
+    rdfs:label "Allow export" ;
+    rdfs:comment "Indicates (by boolean) if data can be exported or not." .
+
+reproschema:AllowReplay a rdfs:Class ;
+    rdfs:label "Allow replay" ;
+    rdfs:comment "Indicates (by boolean) if items can be replayed or not." .
+
+reproschema:AutoAdvance a rdfs:Class ;
+    rdfs:label "Auto advance" ;
+    rdfs:comment "Indicates (by boolean) if assessments in a protocol can auto advance or not." .
+
+reproschema:Choice a rdfs:Class ;
+    rdfs:label "Response choice" ;
+    rdfs:comment "An object to describe a response option." .
+
+reproschema:ComputeSpecification a rdfs:Class ;
+    rdfs:label "Compute Specification" ;
+    rdfs:comment "An object to define computations in an activity or protocol." .
+
+reproschema:DisableBack a rdfs:Class ;
+    rdfs:label "Disable redo" ;
+    rdfs:comment "Indicates (by boolean) if we can go back to a completed assessment in a protocol." .
+
+reproschema:DontKnow a rdfs:Class ;
+    rdfs:label "Do not know" ;
+    rdfs:comment "An element to describe the choice when response is not known." .
+
+reproschema:Field a nidm:DataElement,
+        rdfs:Class,
+        prov:Entity ;
+    rdfs:label "Field" ;
+    rdfs:comment "An item in an assessment." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+reproschema:MessageSpecification a rdfs:Class ;
+    rdfs:label "Message Specification" ;
+    rdfs:comment "An object to define messages in an activity or protocol." .
+
+reproschema:OverrideProperty a rdfs:Class ;
+    rdfs:label "Additional properties" ;
+    rdfs:comment "An object to override the various properties added to assessments and fields." .
+
+reproschema:Participant a rdfs:Class,
+        prov:Person ;
+    rdfs:label "Participant" ;
+    rdfs:comment "An Agent describing characteristics associated with a participant." ;
+    rdfs:subClassOf prov:Agent .
+
+reproschema:Protocol a rdfs:Class,
+        prov:Entity,
+        prov:Plan ;
+    rdfs:label "Protocol" ;
+    rdfs:comment "A representation of a study which comprises one or more assessments." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+reproschema:Response a rdfs:Class,
+        prov:Entity ;
+    rdfs:label "Response" ;
+    rdfs:comment "Describes the response of an item." ;
+    rdfs:subClassOf schema:CreativeWork .
+
+reproschema:ResponseActivity a rdfs:Class,
+        prov:Activity ;
+    rdfs:label "ResponseActivity" ;
+    rdfs:comment "Captures information about some action that took place. It also links to information (entities) that were used during the activity" ;
+    rdfs:subClassOf schema:CreativeWork .
+
+reproschema:ResponseOption a rdfs:Class ;
+    rdfs:label "Response option" ;
+    rdfs:comment "An element (object or by URL)to describe the properties of response of the Field item." .
+
+reproschema:Skipped a rdfs:Class ;
+    rdfs:label "Skipped" ;
+    rdfs:comment "An element to describe the choice when the item is skipped." .
+
+reproschema:SoftwareAgent a rdfs:Class,
+        prov:SoftwareAgent ;
+    rdfs:label "Software Agent" ;
+    rdfs:comment "Captures information about some action that took place. It also links to information (entities) that were used during the activity" .
+
+reproschema:TimedOut a rdfs:Class ;
+    rdfs:label "Response timed out" ;
+    rdfs:comment "A boolean element to describe if the response did not occur within the prescribed time." .
+
+reproschema:UnitOption a rdfs:Class ;
+    rdfs:label "Unit options" ;
+    rdfs:comment "An object to represent a human displayable name alongside the more formal value for units." .
+
+nidm:subject_id rdfs:label "Participant identifier" ;
+    schema:domainIncludes reproschema:Participant ;
+    rdfs:comment "The identifier of a participant" .
+
+schema:about a rdf:Property ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol ;
+    rdfs:comment "The subject matter of the Field." .
+
+schema:associatedMedia a rdf:Property ;
+    rdfs:label "associatedMedia" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol ;
+    rdfs:comment "A media object that encodes this CreativeWork. This property is a synonym for encoding." .
+
+schema:citation schema:domainIncludes reproschema:Activity .
+
+schema:description schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol .
+
+schema:image a rdf:Property ;
+    rdfs:label "image" ;
+    schema:domainIncludes reproschema:Choice,
+        reproschema:Field ;
+    rdfs:comment "An image of the item. This can be a <a class=\"localLink\" href=\"http://schema.org/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"http://schema.org/ImageObject\">ImageObject</a>." .
+
+schema:inLanguage schema:domainIncludes reproschema:ResponseActivity .
+
+schema:isPartOf a rdf:Property ;
+    schema:domainIncludes reproschema:Field ;
+    schema:rangeIncludes reproschema:Activity .
+
+schema:maxValue schema:domainIncludes reproschema:ResponseOption .
+
+schema:minValue schema:domainIncludes reproschema:ResponseOption .
+
+schema:name schema:domainIncludes reproschema:Choice .
+
+schema:question a rdf:Property ;
+    schema:domainIncludes reproschema:Field .
+
+schema:readonlyValue a rdf:Property ;
+    schema:domainIncludes reproschema:Field .
+
+schema:schemaVersion a rdf:Property ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol .
+
+schema:url schema:domainIncludes reproschema:SoftwareAgent .
+
+schema:valueRequired schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty .
+
+schema:version a rdf:Property ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol,
+        reproschema:SoftwareAgent .
+
+reproschema:addProperties a rdf:Property ;
+    rdfs:label "addProperties" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes reproschema:AdditionalProperty ;
+    rdfs:comment "An array of objects to describe the various properties added to assessments and fields." .
+
+reproschema:additionalNotesObj a rdf:Property ;
+    rdfs:label "additional notes" ;
+    schema:domainIncludes reproschema:Field ;
+    schema:rangeIncludes reproschema:AdditionalNoteObj ;
+    rdfs:comment "A set of objects to define notes in a field. For example, most Redcap and NDA data dictionaries have notes for each item which needs to be captured in reproschema." .
+
+reproschema:allow a rdf:Property ;
+    rdfs:label "allow" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes schema:Thing ;
+    rdfs:comment "An array of items indicating properties allowed on an activity or protocol " .
+
+reproschema:choices a rdf:Property ;
+    rdfs:label "choices" ;
+    schema:domainIncludes reproschema:ResponseOption ;
+    schema:rangeIncludes schema:URL,
+        reproschema:Choice ;
+    schema:sameAs schema:itemListElement ;
+    rdfs:comment "An array to list the available options for response of the Field item." .
+
+reproschema:column a rdf:Property ;
+    rdfs:label "column" ;
+    schema:domainIncludes reproschema:AdditionalNoteObj ;
+    schema:rangeIncludes rdf:langString ;
+    rdfs:comment "An element to define the column name where the note was taken from." .
+
+reproschema:compute a rdf:Property ;
+    rdfs:label "computation" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes reproschema:ComputeSpecification ;
+    rdfs:comment "An array of objects indicating computations in an activity or protocol and maps it to the corresponding Field item. scoring logic is a subset of all computations that could be performed and not all computations will be scoring. For example, one may want to do conversion from one unit to another. " .
+
+reproschema:cronTable schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol .
+
+reproschema:datumType a rdf:Property ;
+    rdfs:label "datumType" ;
+    schema:domainIncludes reproschema:ResponseOption ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "Indicates what type of datum the response is (e.g. range,count,scalar etc.) for the Field item." .
+
+reproschema:inputType a rdf:Property ;
+    rdfs:label "inputType" ;
+    schema:domainIncludes reproschema:Field ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "An element to describe the input type of a Field item." .
+
+reproschema:isAbout a rdf:Property ;
+    rdfs:label "isAbout" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty,
+        reproschema:Response ;
+    schema:rangeIncludes reproschema:Activity,
+        reproschema:Field ;
+    rdfs:comment "A pointer to the node describing the item." .
+
+reproschema:isVis a rdf:Property ;
+    rdfs:label "visibility" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Text ;
+    rdfs:comment "An element to describe (by boolean or conditional statement) visibility conditions of items in an assessment." .
+
+reproschema:jsExpression a rdf:Property ;
+    rdfs:label "JavaScript Expression" ;
+    schema:domainIncludes reproschema:ComputeSpecification,
+        reproschema:MessageSpecification ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Text ;
+    rdfs:comment "A JavaScript expression for computations.",
+        "A JavaScript expression to compute a score from other variables." .
+
+reproschema:landingPage a rdf:Property ;
+    rdfs:label "Landing page content" ;
+    schema:domainIncludes reproschema:Protocol ;
+    schema:rangeIncludes schema:Text,
+        schema:URL ;
+    rdfs:comment "An element (by URL) to point to the protocol readme or landing page." .
+
+reproschema:limit a rdf:Property ;
+    rdfs:label "limit" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "An element to limit the duration (uses ISO 8601) this activity is allowed to be completed by once activity is available." .
+
+reproschema:maxRetakes a rdf:Property ;
+    rdfs:label "maxRetakes" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Number ;
+    rdfs:comment "Defines number of times the item is allowed to be redone." .
+
+reproschema:message a rdf:Property ;
+    rdfs:label "Message" ;
+    schema:domainIncludes reproschema:MessageSpecification ;
+    schema:rangeIncludes schema:Text,
+        rdf:langString ;
+    rdfs:comment "The message to be conditionally displayed for an item. " .
+
+reproschema:messages a rdf:Property ;
+    rdfs:label "messages" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes reproschema:MessageSpecification ;
+    rdfs:comment "An array of objects to define conditional messages in an activity or protocol." .
+
+reproschema:multipleChoice a rdf:Property ;
+    rdfs:label "Multiple choice response expectation" ;
+    schema:domainIncludes reproschema:ResponseOption ;
+    schema:rangeIncludes schema:Boolean ;
+    rdfs:comment "Indicates (by bool) if response for the Field item has one or more answer." .
+
+reproschema:order a rdf:Property ;
+    rdfs:label "Order" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes schema:URL,
+        reproschema:Activity,
+        reproschema:Field ;
+    rdfs:comment "An ordered list to describe the order in which the items of an assessment or protocol appear in the user interface." .
+
+reproschema:overrideProperties a rdf:Property ;
+    rdfs:label "overrideProperties" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes reproschema:OverrideProperty ;
+    rdfs:comment "An array of objects to override the various properties added to assessments and fields." .
+
+reproschema:preamble a rdf:Property ;
+    rdfs:label "Preamble" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field ;
+    schema:rangeIncludes schema:Text,
+        rdf:langString ;
+    rdfs:comment "The preamble for an assessment" .
+
+reproschema:randomMaxDelay a rdf:Property ;
+    rdfs:label "randomMaxDelay" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Present activity/item within some random offset of activity available time up to the maximum specified by this ISO 8601 duration" .
+
+reproschema:responseOptions a rdf:Property ;
+    rdfs:label "Response options" ;
+    schema:domainIncludes reproschema:Field ;
+    schema:rangeIncludes schema:URL,
+        reproschema:ResponseOption ;
+    rdfs:comment "An element (object or by URL)to describe the properties of response of the Field item." .
+
+reproschema:schedule a rdf:Property ;
+    rdfs:label "Schedule" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Schedule,
+        schema:Text ;
+    rdfs:comment "An element to set make activity available/repeat info using ISO 8601 repeating interval format." .
+
+reproschema:shuffle a rdf:Property ;
+    rdfs:label "Shuffle" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Protocol ;
+    schema:rangeIncludes schema:boolean ;
+    rdfs:comment "An element (bool) to determine if the list of items is shuffled or in order." .
+
+reproschema:source a rdf:Property ;
+    rdfs:label "source" ;
+    schema:domainIncludes reproschema:AdditionalNoteObj ;
+    schema:rangeIncludes rdf:langString ;
+    rdfs:comment "An element to define the source (eg. RedCap, NDA) where the note was taken from." .
+
+reproschema:statusOptions a rdf:Property ;
+    rdfs:label "Status options" ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "Provides information on whether or not a field item wants to be accompanied by the additional status option(s) defined in “statusOptions”" .
+
+reproschema:unitOptions a rdf:Property ;
+    rdfs:label "unitOptions" ;
+    schema:domainIncludes reproschema:ResponseOption ;
+    schema:rangeIncludes reproschema:UnitOption ;
+    rdfs:comment "A list of objects to represent a human displayable name alongside the more formal value for units." .
+
+reproschema:value a rdf:Property ;
+    rdfs:label "value" ;
+    schema:domainIncludes reproschema:AdditionalNoteObj,
+        reproschema:UnitOption ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Number,
+        schema:StructuredValue,
+        schema:Text,
+        schema:URL ;
+    schema:sameAs schema:value ;
+    rdfs:comment "The value for each option in choices or in additionalNotesObj" .
+
+reproschema:valueType a rdf:Property ;
+    rdfs:label "The type of the response" ;
+    schema:domainIncludes reproschema:ResponseOption ;
+    schema:rangeIncludes schema:Text,
+        rdf:langString ;
+    rdfs:comment "The type of the response of an item. For example, string, integer, etc." .
+
+reproschema:variableName a rdf:Property ;
+    rdfs:label "variableName" ;
+    schema:domainIncludes reproschema:AdditionalProperty,
+        reproschema:ComputeSpecification,
+        reproschema:OverrideProperty ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The name used to represent an item." .
+
+skos:altLabel a rdf:Property ;
+    rdfs:label "alternate label" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:Field,
+        reproschema:Protocol ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The alternate label." .
+
+skos:prefLabel a rdf:Property ;
+    rdfs:label "preferred label" ;
+    schema:domainIncludes reproschema:Activity,
+        reproschema:AdditionalProperty,
+        reproschema:Field,
+        reproschema:OverrideProperty,
+        reproschema:Protocol,
+        reproschema:UnitOption ;
+    schema:rangeIncludes schema:Text ;
+    rdfs:comment "The preferred label." .
+
+prov:endedAtTime schema:domainIncludes reproschema:ResponseActivity .
+
+prov:generated schema:domainIncludes reproschema:ResponseActivity .
+
+prov:startedAtTime schema:domainIncludes reproschema:ResponseActivity .
+
+prov:used schema:domainIncludes reproschema:ResponseActivity .
+
+prov:wasAttributedTo schema:domainIncludes reproschema:Response ;
+    schema:rangeIncludes reproschema:Participant .
+
+schema:value schema:domainIncludes reproschema:Choice,
+        reproschema:Response ;
+    schema:rangeIncludes schema:Boolean,
+        schema:Number,
+        schema:StructuredValue,
+        schema:Text,
+        schema:URL,
+        reproschema:DontKnow,
+        reproschema:Skipped .
