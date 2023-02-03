@@ -27,6 +27,7 @@ DEFAULT_METAMODEL_MAPPINGS = {
     "is_a": [RDFS.subClassOf, SKOS.broader],
     "domain_of": [HTTP_SDO.domainIncludes, SDO.domainIncludes],
     "rangeIncludes": [HTTP_SDO.rangeIncludes, SDO.rangeIncludes],
+    "exact_mappings": [OWL.sameAs, HTTP_SDO.sameAs],
     ClassDefinition.__name__: [RDFS.Class, OWL.Class, SKOS.Concept],
     SlotDefinition.__name__: [
         RDF.Property,
@@ -44,6 +45,7 @@ class RdfsImportEngine(ImportEngine):
     """
 
     mappings: dict = None
+    initial_metamodel_mappings: Dict[str, List[URIRef]] = None
     metamodel_mappings: Dict[str, List[URIRef]] = None
     reverse_metamodel_mappings: Dict[URIRef, List[str]] = None
     include_unmapped_annotations = False
@@ -58,9 +60,11 @@ class RdfsImportEngine(ImportEngine):
             self.metamodel_mappings[k].extend(vs)
             for v in vs:
                 self.reverse_metamodel_mappings[v].append(k)
-                print(
-                    f"REV {v} -> {k}, {type(v)} // {self.reverse_metamodel_mappings[v]}"
-                )
+        if self.initial_metamodel_mappings:
+            for k, vs in self.initial_metamodel_mappings.items():
+                self.metamodel_mappings[k].extend(vs)
+                for v in vs:
+                    self.reverse_metamodel_mappings[v].append(k)
         for e in sv.all_elements().values():
             mappings = []
             for ms in sv.get_mappings(e.name, expand=True).values():
@@ -75,6 +79,7 @@ class RdfsImportEngine(ImportEngine):
         file: str,
         name: str = None,
         format="turtle",
+        default_prefix: str = None,
         model_uri: str = None,
         identifier: str = None,
         **kwargs,
@@ -92,7 +97,21 @@ class RdfsImportEngine(ImportEngine):
         self.mappings = {}
         g = Graph()
         g.parse(file, format=format)
-        sb = SchemaBuilder()
+        if name is not None and default_prefix is None:
+            default_prefix = name
+        if name is None:
+            name = default_prefix
+        if name is None:
+            name = "example"
+        sb = SchemaBuilder(name=name)
+        schema = sb.schema
+        for k, v in g.namespaces():
+            sb.add_prefix(k, v)
+        if default_prefix is not None:
+            schema.default_prefix = default_prefix
+            if default_prefix not in schema.prefixes:
+                sb.add_prefix(default_prefix, model_uri)
+            schema.id = schema.prefixes[default_prefix].prefix_reference
         cls_slots = defaultdict(list)
         props = []
         for rdfs_property_metaclass in self._rdfs_metamodel_iri(
@@ -118,7 +137,7 @@ class RdfsImportEngine(ImportEngine):
                 init_dict["any_of"] = [{"range": x} for x in init_dict["rangeIncludes"]]
                 del init_dict["rangeIncludes"]
             slot = SlotDefinition(sn, **init_dict)
-            slot.slot_uri = str(p)
+            slot.slot_uri = str(p.n3(g.namespace_manager))
             sb.add_slot(slot)
         rdfs_classes = []
         for rdfs_class_metaclass in self._rdfs_metamodel_iri(ClassDefinition.__name__):
@@ -134,10 +153,17 @@ class RdfsImportEngine(ImportEngine):
             init_dict = self._dict_for_subject(g, s)
             c = ClassDefinition(cn, **init_dict)
             c.slots = cls_slots.get(cn, [])
-            c.class_uri = str(s)
+            c.class_uri = str(s.n3(g.namespace_manager))
             sb.add_class(c)
         sb.add_defaults()
-        return sb.schema
+        if identifier is not None:
+            id_slot = SlotDefinition(identifier, identifier=True, range="uriorcurie")
+            schema.slots[identifier] = id_slot
+            for c in schema.classes.values():
+                if not c.is_a and not c.mixins:
+                    if identifier not in c.slots:
+                        c.slots.append(identifier)
+        return schema
 
     def _dict_for_subject(self, g: Graph, s: URIRef) -> Dict[str, Any]:
         """
@@ -149,12 +175,14 @@ class RdfsImportEngine(ImportEngine):
         """
         init_dict = {}
         for pp, obj in g.predicate_objects(s):
+            if pp == RDF.type:
+                continue
             metaslot_name = self._element_from_iri(pp)
             if metaslot_name is None:
+                logging.warning(f"Not mapping {pp}")
                 continue
             if metaslot_name == "name":
-                logging.warning(f"Ignoring {obj} for name")
-                continue
+                metaslot_name = "title"
             v = self._object_to_value(obj)
             metaslot = self.metamodel.get_slot(metaslot_name)
             if not metaslot or metaslot.multivalued:
@@ -172,7 +200,7 @@ class RdfsImportEngine(ImportEngine):
         r = self.reverse_metamodel_mappings.get(iri, [])
         if len(r) > 0:
             if len(r) > 1:
-                logging.warning(f"Multiple mappings for {iri}: {r}")
+                logging.info(f"Multiple mappings for {iri}: {r}")
             return r[0]
 
     def _object_to_value(self, obj: Any) -> Any:

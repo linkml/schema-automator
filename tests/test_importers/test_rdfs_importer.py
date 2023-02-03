@@ -22,7 +22,7 @@ class TestRdfsImporter(unittest.TestCase):
     def test_from_rdfs(self):
         """Test OWL conversion."""
         oie = RdfsImportEngine()
-        schema = oie.convert(REPRO, name='reproschema
+        schema = oie.convert(REPRO, default_prefix='reproschema', identifier='id')
         write_schema(schema, OUTSCHEMA)
         # roundtrip
         s = YAMLGenerator(OUTSCHEMA).serialize()
