@@ -15,6 +15,7 @@ from deprecation import deprecated
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
 from linkml_runtime.linkml_model.meta import UniqueKey
+from linkml_runtime.utils.formatutils import underscore
 from quantulum3 import parser as q_parser
 from dataclasses import dataclass, field
 
@@ -93,6 +94,9 @@ class CsvDataGeneralizer(Generalizer):
     downcase_header: bool = False
     """If true, coerce column names to be lower case"""
 
+    snakecase_header: bool = False
+    """If true, coerce column names to be snake case"""
+
     infer_foreign_keys: bool = False
     """For multi-CVS files, infer linkages between rows"""
 
@@ -127,10 +131,14 @@ class CsvDataGeneralizer(Generalizer):
             c = os.path.splitext(os.path.basename(file))[0]
             if self.downcase_header:
                 c = c.lower()
+            if self.snakecase_header:
+                c = underscore(c)
             logging.info(f'READING {file} ')
             df = pd.read_csv(file, sep=self.column_separator, skipinitialspace=True).fillna("")
             if self.downcase_header:
                 df = df.rename(columns=str.lower)
+            if self.snakecase_header:
+                df = df.rename(columns=underscore)
             exclude = []
             for col in df.columns:
                 vals = set(df[col].tolist())
@@ -242,6 +250,8 @@ class CsvDataGeneralizer(Generalizer):
             c = os.path.splitext(os.path.basename(file))[0]
             if self.downcase_header:
                 c = c.lower()
+            if self.snakecase_header:
+                c = underscore(c)
             s = self.convert(file, class_name=c, **kwargs)
             if s is not None:
                 schemas.append(s)
@@ -266,6 +276,16 @@ class CsvDataGeneralizer(Generalizer):
             header = [h.strip() for h in tsv_file.readline().split('\t')]
             rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
+
+    def convert_from_dataframe(self, df: pd.DataFrame, **kwargs) -> SchemaDefinition:
+        """
+        Converts a single dataframe to a single-class schema
+
+        :param df:
+        :param kwargs:
+        :return:
+        """
+        return self.convert_dicts(df.to_dict('records'), **kwargs)
 
     def read_slot_tsv(self, file: str, **kwargs) -> Dict:
         with open(file, newline='') as tsv_file:
@@ -359,6 +379,8 @@ class CsvDataGeneralizer(Generalizer):
         for row in rr:
             if self.downcase_header:
                 row = {k.lower(): v for k, v in row.items()}
+            if self.snakecase_header:
+                row = {underscore(k): v for k, v in row.items()}
             n += 1
             if n == 1 and self.robot:
                 for k, v in row.items():
@@ -782,61 +804,6 @@ def add_missing_to_schema(schema: SchemaDefinition):
                     TypeDefinition('measurement',
                                    typeof='string',
                                    description='Holds a measurement serialized as a string')
-
-
-@click.group()
-def main():
-    pass
-
-
-@main.command()
-@click.argument('tsvfile')  # input TSV (must have column headers
-@click.option('--output', '-o', help='Output file')
-@click.option('--class_name', '-c', default='example', help='Core class name in schema')
-@click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--separator', '-s', default='\t', help='separator')
-@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
-@click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
-@click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def tsv2model(tsvfile, output, separator, class_name, schema_name, **kwargs):
-    """ Infer a model from a TSV """
-    ie = CsvDataGeneralizer(**kwargs)
-    schema = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
-    write_schema(schema, output)
-
-
-@main.command()
-@click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
-@click.option('--output', '-o', help='Output file')
-@click.option('--schema_name', '-n', default='example', help='Schema name')
-@click.option('--file_separator', '-s', default='\t', help='separator')
-@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
-@click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
-@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
-@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
-@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
-@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
-@click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def tsvs2model(tsvfiles, output, schema_name, **kwargs):
-    """ Infer a model from multiple TSVs """
-    ie = CsvDataGeneralizer(**kwargs)
-    schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
-    write_schema(schema, output)
-
-
-@main.command()
-@click.argument('yamlfile')
-@click.option('--zooma-confidence', '-Z', help='zooma confidence')
-@click.option('--results', '-r', help='mapping results file')
-def enrich(yamlfile, results, **args):
-    """ Infer a model from a TSV """
-    yamlobj = yaml.load(open(yamlfile))
-    cache = {}
-    infer_enum_meanings(yamlobj, cache=cache)
-    if results is not None:
-        with open(results, "w") as io:
-            io.write(yaml.dump(cache))
-    print(yaml.dump(yamlobj, default_flow_style=False, sort_keys=False))
 
 
 if __name__ == '__main__':

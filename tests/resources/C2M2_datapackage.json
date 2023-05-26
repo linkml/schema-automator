@@ -88,6 +88,7 @@
                   "description": "A filename with no prepended PATH information",
                   "type": "string",
                   "constraints": {
+                     "required": true, 
                      "pattern": "^[^\/\\:]+$"
                   }
                },
@@ -258,7 +259,7 @@
                   "format": "any"
                },
                {
-                  "name": "assay_type",
+                  "name": "sample_prep_method",
                   "description": "An OBI CV term ID (from the 'planned process' branch of the vocabulary, excluding the 'assay' subtree) describing the preparation method that produced this biosample",
                   "type": "string"
                },
@@ -286,9 +287,9 @@
                   }
                },
                {
-                  "fields": "assay_type",
+                  "fields": "sample_prep_method",
                   "reference": {
-                     "resource": "assay_type",
+                     "resource": "sample_prep_method",
                      "fields": "id"
                   }
                },
@@ -384,9 +385,7 @@
                      "cfde_subject_sex:0",
                      "cfde_subject_sex:1",
                      "cfde_subject_sex:2",
-                     "cfde_subject_sex:3",
-                     "cfde_subject_sex:4",
-                     "cfde_subject_sex:5"
+                     "cfde_subject_sex:3"
                   ]
                },
                {
@@ -2483,7 +2482,9 @@
                      "cfde_subject_race:1",
                      "cfde_subject_race:2",
                      "cfde_subject_race:3",
-                     "cfde_subject_race:4"
+                     "cfde_subject_race:4",
+                     "cfde_subject_race:5",
+                     "cfde_subject_race:6"
                   ]
                }
             ],
@@ -2597,7 +2598,7 @@
             "skipInitialSpace": true,
             "header": true
          },
-         "description": "List of Ontology for Biomedical Investigations (OBI) CV terms used to describe types of experiment that generate C2M2 biosamples or results stored in C2M2 files",
+         "description": "List of Ontology for Biomedical Investigations (OBI) CV terms used to describe types of experiment that generate results stored in C2M2 files",
          "schema": {
             "fields": [
                {
@@ -3262,6 +3263,53 @@
                   }
                }
             ]
+         }
+      },
+      {
+         "profile": "tabular-data-resource",
+         "name": "sample_prep_method",
+         "title": "sample_prep_method",
+         "path": "sample_prep_method.tsv",
+         "dialect": {
+            "delimiter": "\t",
+            "doubleQuote": false,
+            "lineTerminator": "\n",
+            "skipInitialSpace": true,
+            "header": true
+         },
+         "description": "List of Ontology for Biomedical Investigations (OBI) CV terms used to describe types of preparation methods that produce C2M2 biosamples",
+         "schema": {
+            "fields": [
+               {
+                  "name": "id",
+                  "description": "An OBI CV term",
+                  "type": "string",
+                  "constraints": {
+                     "required": true,
+                     "unique": true
+                  }
+               },
+               {
+                  "name": "name",
+                  "description": "A short, human-readable, machine-read-friendly label for this OBI term",
+                  "type": "string",
+                  "constraints": {
+                     "required": true
+                  }
+               },
+               {
+                  "name": "description",
+                  "description": "A human-readable description of this OBI term",
+                  "type": "string"
+               },
+               {
+                  "name": "synonyms",
+                  "description": "A list of synonyms for this term as identified by the OBI metadata",
+                  "type": "array"
+               }
+            ],
+            "missingValues": [ "" ],
+            "primaryKey": "id"
          }
       },
       {
