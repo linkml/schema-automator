@@ -168,7 +168,7 @@ flag should be specified BEFORE the subcommand:</p>
 <div><p>schemauto -vv SUBCOMMAND [OPTIONS] ARGUMENTS</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -187,7 +187,7 @@ flag should be specified BEFORE the subcommand:</p>
 <section id="schemauto-annotate-schema">
 <h4>annotate-schema<a class="headerlink" href="#schemauto-annotate-schema" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>Annotate all elements of a schema</p>
+<div><p>Annotate all elements of a schema.</p>
 <p>This uses OAK (<a class="reference external" href="https://incatools.github.io/ontology-access-kit">https://incatools.github.io/ontology-access-kit</a>),
 and you can provide any OAK backend that supports text annotation.</p>
 <p>At this time, the best choice is likely the bioportal backend</p>
@@ -216,7 +216,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 </ul>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto annotate-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>annotate-schema<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -256,7 +256,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 <blockquote>
 <div><p>Annotates a schema using a Json-LD context file</p>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto annotate-using-jsonld <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>annotate-using-jsonld<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -278,6 +278,9 @@ and you can provide any OAK backend that supports text annotation.</p>
 <h4>enrich-schema<a class="headerlink" href="#schemauto-enrich-schema" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>Enrich a schema using an ontology.</p>
+<p>Here, “enrich” means copying over metadata from the ontology to the schema.
+For example, if the schema has a class “Gene” that is mapped to a SO class for “gene”,
+then calling this command will copy the SO class definition to the schema class.</p>
 <p>This will use OAK to add additional metadata using uris and mappings in the schema.</p>
 <p>For example, if your schema has a class with a mapping to a SO class,
 then the definition of that will be copied to the class description.</p>
@@ -291,7 +294,7 @@ then the definition of that will be copied to the class description.</p>
 <div><p>schemauto enrich-schema -i so.obo –annotate my-schema.yaml -o my-enriched.yaml –annotate</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto enrich-schema <span class="o">[</span>OPTIONS<span class="o">]</span> SCHEMA
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>enrich-schema<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -329,7 +332,7 @@ then the definition of that will be copied to the class description.</p>
 <p>Note: if the website cannot be accessed directly, you can download the HTML
 and pass in an argument of the form <a class="reference external" href="file:///absolute/path/to/file.html">file:///absolute/path/to/file.html</a></p>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-htmltable <span class="o">[</span>OPTIONS<span class="o">]</span> URL
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-htmltable<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>URL
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -348,6 +351,42 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <dd class="field-odd"><p>MySchema</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-s">
+<span id="cmdoption-schemauto-generalize-htmltable-column-separator"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--column-separator</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;column_separator&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>separator</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-downcase-header">
+<span id="cmdoption-schemauto-generalize-htmltable-no-downcase-header"></span><span class="sig-name descname"><span class="pre">--downcase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-downcase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-downcase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers lowercase</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-snakecase-header">
+<span id="cmdoption-schemauto-generalize-htmltable-no-snakecase-header"></span><span class="sig-name descname"><span class="pre">--snakecase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-snakecase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-snakecase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers snakecase</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-E">
+<span id="cmdoption-schemauto-generalize-htmltable-e"></span><span id="cmdoption-schemauto-generalize-htmltable-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>column(s) that is forced to be an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-htmltable-max-enum-size">
+<span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-htmltable-max-enum-size" title="Permalink to this definition">¶</a></dt>
+<dd><p>do not create an enum if more than max distinct members</p>
 </dd></dl>
 
 <dl class="std option">
@@ -397,7 +436,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto generalize-json my/data/persons.json -o my.yaml</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-json <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-json<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -496,7 +535,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto generalize-rdf my/data/persons.ttl</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-rdf <span class="o">[</span>OPTIONS<span class="o">]</span> RDFFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-rdf<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RDFFILE
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -530,7 +569,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto generalize-toml my/data/conf.toml -o my.yaml</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-toml <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-toml<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -605,7 +644,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto generalize-tsv –class-name Person –schema-name PersonInfo my/data/persons.tsv</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-tsv <span class="o">[</span>OPTIONS<span class="o">]</span> TSVFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-tsv<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>TSVFILE
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -651,21 +690,27 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-snakecase-header">
+<span id="cmdoption-schemauto-generalize-tsv-no-snakecase-header"></span><span class="sig-name descname"><span class="pre">--snakecase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-snakecase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-snakecase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers snakecase</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-E">
 <span id="cmdoption-schemauto-generalize-tsv-e"></span><span id="cmdoption-schemauto-generalize-tsv-enum-columns"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--enum-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-E" title="Permalink to this definition">¶</a></dt>
-<dd><p>column that is forced to be an enum</p>
+<dd><p>column(s) that is forced to be an enum</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-enum-threshold">
 <span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-enum-threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>set high to be more inclusive</p>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-max-enum-size">
 <span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-max-enum-size" title="Permalink to this definition">¶</a></dt>
-<dd><p>set high to be more inclusive</p>
+<dd><p>do not create an enum if more than max distinct members</p>
 </dd></dl>
 
 <dl class="std option">
@@ -705,7 +750,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto generalize-tsvs –class-name Person –schema-name PersonInfo my/data/<a href="#id1"><span class="problematic" id="id2">*</span></a>.tsv</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto generalize-tsvs <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>TSVFILES<span class="o">]</span>...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-tsvs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TSVFILES<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -739,9 +784,9 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-infer-foreign-keys">
-<span id="cmdoption-schemauto-generalize-tsvs-no-infer-foreign-keys"></span><span class="sig-name descname"><span class="pre">--infer-foreign-keys</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-infer-foreign-keys</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-infer-foreign-keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>infer ranges/foreign keys</p>
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-snakecase-header">
+<span id="cmdoption-schemauto-generalize-tsvs-no-snakecase-header"></span><span class="sig-name descname"><span class="pre">--snakecase-header</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-snakecase-header</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-snakecase-header" title="Permalink to this definition">¶</a></dt>
+<dd><p>if true make headers snakecase</p>
 </dd></dl>
 
 <dl class="std option">
@@ -751,21 +796,15 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-enum-mask-columns">
-<span class="sig-name descname"><span class="pre">--enum-mask-columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_mask_columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-enum-mask-columns" title="Permalink to this definition">¶</a></dt>
-<dd><p>column(s) that are excluded from being enums</p>
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-enum-threshold">
+<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-enum-threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
 </dd></dl>
 
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-max-enum-size">
 <span class="sig-name descname"><span class="pre">--max-enum-size</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max_enum_size&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-max-enum-size" title="Permalink to this definition">¶</a></dt>
 <dd><p>do not create an enum if more than max distinct members</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-enum-threshold">
-<span class="sig-name descname"><span class="pre">--enum-threshold</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_threshold&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-enum-threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>if the number of distinct values / rows is less than this, do not make an enum</p>
 </dd></dl>
 
 <dl class="std option">
@@ -792,7 +831,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-dosdps –range-as-enums patterns/<a href="#id3"><span class="problematic" id="id4">*</span></a>yaml -o my-schema.yaml</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-dosdps <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>DPFILES<span class="o">]</span>...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-dosdps<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>DPFILES<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -827,13 +866,58 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 </section>
+<section id="schemauto-import-frictionless">
+<h4>import-frictionless<a class="headerlink" href="#schemauto-import-frictionless" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p>Imports from Frictionless data package to LinkML</p>
+<p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importer framework</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto import-frictionless cfde.package.json</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-frictionless<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-frictionless-o">
+<span id="cmdoption-schemauto-import-frictionless-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-frictionless-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-frictionless-n">
+<span id="cmdoption-schemauto-import-frictionless-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-frictionless-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>MySchema</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-frictionless-schema-id">
+<span class="sig-name descname"><span class="pre">--schema-id</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_id&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-frictionless-schema-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema id</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-frictionless-arg-INPUT">
+<span id="cmdoption-schemauto-import-frictionless-arg-input"></span><span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-frictionless-arg-INPUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-import-htmltable">
 <h4>import-htmltable<a class="headerlink" href="#schemauto-import-htmltable" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>Generalizes from a table parsed from a URL</p>
+<div><p>Imports from a table parsed from a URL using SchemaSheets</p>
 <p>Uses pandas/beautiful soup</p>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-htmltable <span class="o">[</span>OPTIONS<span class="o">]</span> URL
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-htmltable<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>URL
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -913,7 +997,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-json-schema my/schema/personinfo.schema.json</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-json-schema <span class="o">[</span>OPTIONS<span class="o">]</span> INPUT
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-json-schema<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -977,7 +1061,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-owl prov.ofn -o my.yaml</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-owl <span class="o">[</span>OPTIONS<span class="o">]</span> OWLFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-owl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>OWLFILE
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -1033,7 +1117,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-rdfs prov.rdfs.ttl -o prov.yaml</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-rdfs <span class="o">[</span>OPTIONS<span class="o">]</span> RDFSFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-rdfs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RDFSFILE
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -1098,7 +1182,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>Imports a schema by introspecting a relational database</p>
 <p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importers framework</p>
 </div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto import-sql <span class="o">[</span>OPTIONS<span class="o">]</span> DB
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-sql<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DB
 </pre></div>
 </div>
 <p class="rubric">Options</p>

@@ -162,14 +162,14 @@
 
 <div class="viewcode-block" id="JsonDataGeneralizer"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JsonDataGeneralizer</span><span class="p">(</span><span class="n">Generalizer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A generalizer that abstract from JSON instance data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">omit_null</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">inline_as_dict_slot_keys</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Mapping between the name of a dict-inlined slot and the unique key for that entity</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mapping between the name of a dict-inlined slot and the unique key for that entity</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
@@ -177,7 +177,7 @@
 <div class="viewcode-block" id="JsonDataGeneralizer.convert"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.JsonDataGeneralizer.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
                 <span class="n">container_class_name</span><span class="o">=</span><span class="s1">&#39;Container&#39;</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generalizes from a JSON file</span>
 
 <span class="sd">        :param input:</span>
@@ -227,7 +227,7 @@
         <span class="k">return</span> <span class="n">camelcase</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_convert_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;Container&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recursively transform an object into flattened key-value lists</span>
 
 <span class="sd">        :param obj:</span>
@@ -314,7 +314,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--enum-threshold&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;if the number of distinct values / rows is less than this, do not make an enum&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--omit-null/--no-omit-null&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;if true, ignore null values&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">json2model</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">omit_null</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Infer a model from JSON instance data</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Infer a model from JSON instance data</span>
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -331,7 +331,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--enum-threshold&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;if the number of distinct values / rows is less than this, do not make an enum&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--omit-null/--no-omit-null&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;if true, ignore null values&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">frontmatter2model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">omit_null</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Infer a model from frontmatter files</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Infer a model from frontmatter files</span>
 
 
 <span class="sd">    &quot;&quot;&quot;</span>

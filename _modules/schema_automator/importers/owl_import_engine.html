@@ -154,7 +154,7 @@
 
 <div class="viewcode-block" id="OwlImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.OwlImportEngine">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OwlImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An ImportEngine that takes schema-style OWL and converts it to a LinkML schema</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
@@ -162,7 +162,7 @@
 
 <div class="viewcode-block" id="OwlImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.OwlImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model_uri</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> \
             <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts an OWL schema-style ontology</span>
 
 <span class="sd">        :param file:</span>
@@ -512,7 +512,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--model-uri&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Model URI prefix&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to saved yaml schema&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">owl2model</span><span class="p">(</span><span class="n">owlfile</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Infer a model from OWL Ontology</span>
 
 <span class="sd">    Note: input must be in functional syntax</span>

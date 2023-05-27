@@ -156,13 +156,13 @@
 
 <div class="viewcode-block" id="RdfDataGeneralizer"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">RdfDataGeneralizer</span><span class="p">(</span><span class="n">Generalizer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A generalizer that generalizes from source RDF turtle data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mappings</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="RdfDataGeneralizer.convert"><a class="viewcode-back" href="../../../packages/generalizers.html#schema_automator.generalizers.RdfDataGeneralizer.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generalizes from an RDF file</span>
 
 <span class="sd">        :param file:</span>
@@ -216,7 +216,7 @@
             <span class="c1">#print(f&#39;  ROW={row}&#39;)</span>
         <span class="n">paths</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">rows_by_table</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s1">.tsv&#39;</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s1">.tsv&#39;</span>
             <span class="n">paths</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
             <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
@@ -245,7 +245,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;rdffile&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--dir&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">rdf2model</span><span class="p">(</span><span class="n">rdffile</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Infer a model from RDF instance data &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Infer a model from RDF instance data &quot;&quot;&quot;</span>
     <span class="n">sie</span> <span class="o">=</span> <span class="n">RdfDataGeneralizer</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>

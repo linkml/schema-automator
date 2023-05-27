@@ -159,7 +159,7 @@
 
 <div class="viewcode-block" id="DOSDPImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">DOSDPImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An ImportEngine that imports Ontology Design Patterns specified as DOSDP Yaml into a LinkML schema</span>
 
 <span class="sd">    See `DOSDPs &lt;https://github.com/INCATools/dead_simple_owl_design_patterns&gt;`_</span>
@@ -179,7 +179,7 @@
         <span class="k">return</span> <span class="n">yaml_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">target_class</span><span class="o">=</span><span class="n">Pattern</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DOSDPImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts one or more YAML files into a Schema</span>
 
 <span class="sd">        :param files:</span>
@@ -240,7 +240,7 @@
 
 <div class="viewcode-block" id="DOSDPImportEngine.create_class"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.DOSDPImportEngine.create_class">[docs]</a>    <span class="k">def</span> <span class="nf">create_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">range_as_enums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                      <span class="n">denormalize_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a LinkML class from a template/pattern</span>
 
 <span class="sd">        The class will have name FooTemplate, and will mixin TemplateClass,</span>
@@ -344,7 +344,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--range-as-enum/--no-range-as-enums&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Model range ontology classes as enyms&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to saved yaml schema&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">dosdp2model</span><span class="p">(</span><span class="n">dpfiles</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Infer a model from DOSDP</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

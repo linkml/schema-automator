@@ -175,7 +175,7 @@
 
 <div class="viewcode-block" id="FrictionlessImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.FrictionlessImportEngine">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">FrictionlessImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An ImportEngine that imports Frictionless data packages with schema information</span>
 
 <span class="sd">    See:</span>
@@ -185,8 +185,8 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FrictionlessImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.FrictionlessImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FrictionlessImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.FrictionlessImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts one or more JSON files into a Schema</span>
 
 <span class="sd">        :param files:</span>
@@ -198,8 +198,6 @@
         <span class="n">schema</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">schema</span>
         <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
             <span class="n">schema</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-            <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
-                <span class="n">sb</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">name</span>
         <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
@@ -267,7 +265,7 @@
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">toks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                     <span class="p">[</span><span class="n">prefix</span><span class="p">,</span> <span class="n">short</span><span class="p">]</span> <span class="o">=</span> <span class="n">toks</span>
                     <span class="n">pv</span> <span class="o">=</span> <span class="n">PermissibleValue</span><span class="p">(</span><span class="n">short</span><span class="p">,</span> <span class="n">meaning</span><span class="o">=</span><span class="n">code</span><span class="p">)</span>
-                    <span class="n">sb</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sb</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sb</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">,</span> <span class="n">replace_if_present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">e</span><span class="o">.</span><span class="n">permissible_values</span><span class="p">[</span><span class="n">pv</span><span class="o">.</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="n">sb</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot yet merge enums&quot;</span><span class="p">)</span>

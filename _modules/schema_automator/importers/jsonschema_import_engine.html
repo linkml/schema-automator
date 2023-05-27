@@ -164,13 +164,13 @@
 
 <div class="viewcode-block" id="JsonSchemaImportEngine"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JsonSchemaImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">use_attributes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="JsonSchemaImportEngine.convert"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts a JSON-Schema json file into a LinkML schema</span>
 
 <span class="sd">        :param input:</span>
@@ -445,7 +445,7 @@
         <span class="n">slot</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">ename</span>
 
 <div class="viewcode-block" id="JsonSchemaImportEngine.translate_object"><a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.translate_object">[docs]</a>    <span class="k">def</span> <span class="nf">translate_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassDefinitionName</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translates jsonschema obj of type object</span>
 
 <span class="sd">        Generates a ClassDefinition, inserts it into the schema, and returns the name</span>
@@ -510,7 +510,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--format&#39;</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;JSON Schema format - yaml or json&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;output path&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">jsonschema2model</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Infer a model from JSON Schema &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Infer a model from JSON Schema &quot;&quot;&quot;</span>
     <span class="n">ie</span> <span class="o">=</span> <span class="n">JsonSchemaImportEngine</span><span class="p">()</span>
     <span class="n">schema</span> <span class="o">=</span> <span class="n">ie</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
     <span class="n">write_schema</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>

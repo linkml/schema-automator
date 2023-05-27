@@ -142,11 +142,11 @@
 <section id="direct-installation">
 <h2>Direct Installation<a class="headerlink" href="#direct-installation" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">schema-automator</span></code> and its components require Python 3.9 or greater.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install schema-automator
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>schema-automator
 </pre></div>
 </div>
 <p>To check this works:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>--help
 </pre></div>
 </div>
 </section>
@@ -154,11 +154,11 @@
 <h2>Running via Docker<a class="headerlink" href="#running-via-docker" title="Permalink to this headline">¶</a></h2>
 <p>You can use the <a class="reference external" href="https://hub.docker.com/r/linkml/schema-automator">Schema Automator Docker Container</a></p>
 <p>To start a shell</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run  -v <span class="nv">$PWD</span>:/work -w /work -ti linkml/schema-automator
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w">  </span>-v<span class="w"> </span><span class="nv">$PWD</span>:/work<span class="w"> </span>-w<span class="w"> </span>/work<span class="w"> </span>-ti<span class="w"> </span>linkml/schema-automator
 </pre></div>
 </div>
 <p>Within the shell you should see all your files, and you should have access:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>--help
 </pre></div>
 </div>
 </section>
