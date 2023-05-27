@@ -35,9 +35,9 @@ class TestSqlmporter(unittest.TestCase):
         sb = SchemaBuilder()
         sb.add_class('Person',
                      ['id', 'name', 'email', 'age', 'knows'])
-        sb.add_slot(SlotDefinition('id', identifier=True))
-        sb.add_slot(SlotDefinition('age', range='integer'))
-        sb.add_slot(SlotDefinition('knows', range='Person', multivalued=True))
+        sb.add_slot(SlotDefinition('id', identifier=True), replace_if_present=True)
+        sb.add_slot(SlotDefinition('age', range='integer'), replace_if_present=True)
+        sb.add_slot(SlotDefinition('knows', range='Person', multivalued=True), replace_if_present=True)
         sb.add_defaults()
         schema = sb.schema
         #print(yaml_dumper.dumps(schema))
@@ -67,7 +67,11 @@ class TestSqlmporter(unittest.TestCase):
         for c in schemaview.all_classes().values():
             self.assertIn(c.name, schemaview_rt.all_classes())
             for s in schemaview.class_induced_slots(c.name):
-                self.assertIn(s.name, schemaview_rt.all_slots())
+                if s.name == "knows":
+                    # these slots are moved to join tables
+                    self.assertNotIn(s.name, schemaview_rt.all_slots().keys())
+                else:
+                    self.assertIn(s.name, schemaview_rt.all_slots().keys())
         person = schemaview_rt.get_class('Person')
         person_knows_join = schemaview_rt.get_class('Person_knows')
         id_slot = person.attributes['id']
@@ -75,7 +79,7 @@ class TestSqlmporter(unittest.TestCase):
         self.assertTrue(id_slot.identifier)
         self.assertEqual('integer', age_slot.range)
         self.assertEqual('Person', person_knows_join.attributes['Person_id'].range)
-        self.assertEqual('Person', person_knows_join.attributes['knows'].range)
+        self.assertEqual('Person', person_knows_join.attributes['knows_id'].range)
 
 
 
