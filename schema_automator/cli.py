@@ -13,7 +13,7 @@ import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
 from oaklib.selector import get_resource_from_shorthand, get_implementation_from_shorthand
 
-from schema_automator import JsonLdAnnotator
+from schema_automator import JsonLdAnnotator, FrictionlessImportEngine
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAULT_SCHEMA_NAME
@@ -44,6 +44,9 @@ schema_name_option = click.option(
     default=DEFAULT_SCHEMA_NAME,
     show_default=True,
     help='Schema name')
+schema_id_option = click.option(
+    '--schema-id',
+    help='Schema id')
 annotator_option = click.option(
     '--annotator',
     '-A',
@@ -52,6 +55,18 @@ use_attributes_option = click.option(
     "--use-attributes/--no-use-attributes",
     help="If true, use attributes over slots/slot_usage"
 )
+column_separator_option = click.option('--column-separator', '-s', default='\t', help='separator')
+
+# generalizer options
+
+downcase_header_option = click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
+snakecase_header_option = click.option('--snakecase-header/--no-snakecase-header', default=False, help='if true make headers snakecase')
+infer_foreign_keys_option = click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
+enum_columns_option = click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
+enum_mask_columns_option = click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
+max_enum_size_option = click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
+enum_threshold_option = click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
+
 
 @click.group()
 @click.option("-v", "--verbose",
@@ -89,13 +104,12 @@ def main(verbose: int, quiet: bool):
 @schema_name_option
 @annotator_option
 @click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
-@click.option('--column-separator', '-s', default='\t', help='separator')
-@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
-@click.option('--enum-columns', '-E', multiple=True, help='column that is forced to be an enum')
-@click.option('--enum-threshold', type=click.FLOAT, help='set high to be more inclusive')
-@click.option('--max-enum-size',
-              type=click.INT,
-              help='set high to be more inclusive')
+@column_separator_option
+@downcase_header_option
+@snakecase_header_option
+@enum_columns_option
+@enum_threshold_option
+@max_enum_size_option
 @click.option('--data-dictionary-row-count',
               type=click.INT,
               help='rows that provide metadata about columns')
@@ -128,13 +142,12 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 @click.argument('tsvfiles', nargs=-1)  # input TSV (must have column headers
 @output_option
 @schema_name_option
-@click.option('--column-separator', '-s', default='\t', help='separator')
-@click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
-@click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
-@click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
-@click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
-@click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
-@click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
+@column_separator_option
+@downcase_header_option
+@snakecase_header_option
+@enum_columns_option
+@enum_threshold_option
+@max_enum_size_option
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
@@ -157,6 +170,12 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
 @click.argument('url')  # input TSV (must have column headers
 @output_option
 @schema_name_option
+@column_separator_option
+@downcase_header_option
+@snakecase_header_option
+@enum_columns_option
+@enum_threshold_option
+@max_enum_size_option
 @click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
 @click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
 @click.option('--data-output', help='Path to file of downloaded data')
@@ -179,8 +198,13 @@ def generalize_htmltable(url, output, class_name, schema_name, pandera: bool,
     dfs = pd.read_html(url)
     logging.info(f"{url} has {len(dfs)} tables")
     df = dfs[table_number]
-    importer = TableImportEngine(**kwargs)
-    schema = importer.import_from_dataframe(df)
+    if data_output:
+        df.to_csv(data_output, index=False, sep="\t")
+    if pandera:
+        ge = PandasDataGeneralizer(**kwargs)
+    else:
+        ge = CsvDataGeneralizer(**kwargs)
+    schema = ge.convert_from_dataframe(df, class_name=class_name, schema_name=schema_name)
     write_schema(schema, output)
 
 
@@ -241,13 +265,15 @@ def import_htmltable(url, output, class_name, schema_name, columns,
                          table_number: int, data_output,
                          **kwargs):
     """
-    Generalizes from a table parsed from a URL
+    Imports from a table parsed from a URL using SchemaSheets
 
     Uses pandas/beautiful soup
     """
     dfs = pd.read_html(url)
     logging.info(f"{url} has {len(dfs)} tables")
     df = dfs[table_number]
+    if data_output:
+        df.to_csv(data_output, index=False, sep="\t")
     ie = TableImportEngine(columns=columns.split(","), **kwargs)
     schema = ie.import_from_dataframe(df)
     write_schema(schema, output)
@@ -340,6 +366,26 @@ def import_json_schema(input, output, import_project: bool, schema_name, format,
 
 
 @main.command()
+@click.argument('input')
+@output_option
+@schema_name_option
+@schema_id_option
+def import_frictionless(input, output, schema_name, schema_id, **kwargs):
+    """
+    Imports from Frictionless data package to LinkML
+
+    See :ref:`importers` for more on the importer framework
+
+    Example:
+
+        schemauto import-frictionless cfde.package.json
+    """
+    ie = FrictionlessImportEngine(**kwargs)
+    schema = ie.convert(input, name=schema_name, id=schema_id)
+    write_schema(schema, output)
+
+
+@main.command()
 @click.argument('owlfile')
 @output_option
 @schema_name_option
@@ -428,7 +474,7 @@ def generalize_rdf(rdffile, dir, output, **args):
 @output_option
 def annotate_schema(schema: str, input: str, output: str, **kwargs):
     """
-    Annotate all elements of a schema
+    Annotate all elements of a schema.
 
     This uses OAK (https://incatools.github.io/ontology-access-kit),
     and you can provide any OAK backend that supports text annotation.
@@ -470,6 +516,10 @@ def annotate_schema(schema: str, input: str, output: str, **kwargs):
 def enrich_schema(schema: str, input: str, output: str, annotate: bool, **args):
     """
     Enrich a schema using an ontology.
+
+    Here, "enrich" means copying over metadata from the ontology to the schema.
+    For example, if the schema has a class "Gene" that is mapped to a SO class for "gene",
+    then calling this command will copy the SO class definition to the schema class.
 
     This will use OAK to add additional metadata using uris and mappings in the schema.
 

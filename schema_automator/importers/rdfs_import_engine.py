@@ -104,13 +104,14 @@ class RdfsImportEngine(ImportEngine):
         if name is None:
             name = "example"
         sb = SchemaBuilder(name=name)
+        sb.add_defaults()
         schema = sb.schema
         for k, v in g.namespaces():
-            sb.add_prefix(k, v)
+            sb.add_prefix(k, v, replace_if_present=True)
         if default_prefix is not None:
             schema.default_prefix = default_prefix
             if default_prefix not in schema.prefixes:
-                sb.add_prefix(default_prefix, model_uri)
+                sb.add_prefix(default_prefix, model_uri, replace_if_present=True)
             schema.id = schema.prefixes[default_prefix].prefix_reference
         cls_slots = defaultdict(list)
         props = []
@@ -155,7 +156,6 @@ class RdfsImportEngine(ImportEngine):
             c.slots = cls_slots.get(cn, [])
             c.class_uri = str(s.n3(g.namespace_manager))
             sb.add_class(c)
-        sb.add_defaults()
         if identifier is not None:
             id_slot = SlotDefinition(identifier, identifier=True, range="uriorcurie")
             schema.slots[identifier] = id_slot

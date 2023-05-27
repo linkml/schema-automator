@@ -40,6 +40,9 @@ class TableImportEngine(ImportEngine):
         :return:
         """
         tf = NamedTemporaryFile(delete=False)
+        if not self.columns:
+            raise ValueError("Must specify columns")
+        logging.info(f"Using columns: {self.columns}")
         ix = 1
         line = pd.DataFrame(dict(zip(df.head(), self.columns)), index=[ix])
         df = pd.concat([df.iloc[:ix-1], line, df.iloc[ix-1:]]).reset_index(drop=True)
@@ -47,7 +50,6 @@ class TableImportEngine(ImportEngine):
             df.insert(0,
                       column="parent",
                       value=[f">{self.element_type}"] + [self.parent] * (len(df) - 1))
-        #print(df)
         df.to_csv(tf.name, sep='\t', index=False)
         #print(open(tf.name, 'r').read())
         #element_map = dict(zip(df.head(), self.columns))

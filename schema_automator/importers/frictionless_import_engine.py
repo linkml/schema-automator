@@ -46,7 +46,7 @@ class FrictionlessImportEngine(ImportEngine):
 
     """
 
-    def convert(self, file: str, id: str,name: str, **kwargs) -> SchemaDefinition:
+    def convert(self, file: str, id: str=None, name: str=None, **kwargs) -> SchemaDefinition:
         """
         Converts one or more JSON files into a Schema
 
@@ -59,8 +59,6 @@ class FrictionlessImportEngine(ImportEngine):
         schema = sb.schema
         if id:
             schema.id = id
-            if name:
-                sb.add_prefix(name, f"{id}/")
         if not name:
             name = package.name
         if name:
@@ -128,7 +126,7 @@ class FrictionlessImportEngine(ImportEngine):
                 if len(toks) == 2:
                     [prefix, short] = toks
                     pv = PermissibleValue(short, meaning=code)
-                    sb.add_prefix(prefix, f"{sb.schema.id}/{prefix}/")
+                    sb.add_prefix(prefix, f"{sb.schema.id}/{prefix}/", replace_if_present=True)
             e.permissible_values[pv.text] = pv
         if e.name is sb.schema:
             raise NotImplementedError(f"Cannot yet merge enums")

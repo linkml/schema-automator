@@ -3,7 +3,6 @@
 import unittest
 import os
 from pathlib import Path
-from sys import platform
 
 import pandas as pd
 
@@ -21,7 +20,7 @@ class TestTableImporter(unittest.TestCase):
     def setUp(self) -> None:
         pass
 
-    def test_import(self):
+    def test_html_import(self):
         """
         Test importing a table from HTML via BS
         """
@@ -32,6 +31,7 @@ class TestTableImporter(unittest.TestCase):
         dfs = pd.read_html(Path(f"{INPUT_HTML}").as_uri())
         schema = ie.import_from_dataframe(dfs[0])
         write_schema(schema, OUT)
+
 
 
 
