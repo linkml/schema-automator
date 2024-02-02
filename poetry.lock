@@ -1073,14 +1073,14 @@ beautifulsoup4 = "*"
 
 [[package]]
 name = "google-api-core"
-version = "2.16.1"
+version = "2.16.2"
 description = "Google API client core library"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "google-api-core-2.16.1.tar.gz", hash = "sha256:7f668ffa3d5b9f3c6930407e5f5d691c05a376050a5a5fd772b9dc32e70a0c30"},
-    {file = "google_api_core-2.16.1-py3-none-any.whl", hash = "sha256:257e9e152cd18da0c6701113c122ade04dca04731e179fc5c7dca48e1396ec4c"},
+    {file = "google-api-core-2.16.2.tar.gz", hash = "sha256:032d37b45d1d6bdaf68fb11ff621e2593263a239fa9246e2e94325f9c47876d2"},
+    {file = "google_api_core-2.16.2-py3-none-any.whl", hash = "sha256:449ca0e3f14c179b4165b664256066c7861610f70b6ffe54bb01a04e9b466929"},
 ]
 
 [package.dependencies]
@@ -6148,4 +6148,4 @@ mariadb = []
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "3cbd7112e7faa938fdbc697b7734856c0ef13373b852c80638d477abffef232a"
+content-hash = "b997bfe6a8abad852b85391e0de9936bac0fdfd414242fd5fbf6bfe3b72b7017"
