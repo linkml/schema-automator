@@ -17,7 +17,7 @@ of different sources that can be used for annotation, including:
 
 For documentation on selecting the right ontology source, see:
 
-`Selectors <https://incatools.github.io/ontology-access-kit/selectors.html>`_
+- `Selectors <https://incatools.github.io/ontology-access-kit/selectors.html>`_
 
 .. currentmodule:: schema_automator.annotators
 
@@ -27,4 +27,5 @@ For documentation on selecting the right ontology source, see:
 .. autoclass:: JsonLdAnnotator
     :members:
 
-
+.. autoclass:: LLMAnnotator
+    :members:

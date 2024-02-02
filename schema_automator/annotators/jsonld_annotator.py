@@ -5,6 +5,8 @@ from typing import Union, Dict, Optional
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, Definition, Prefix, DefinitionName
 
+from schema_automator.annotators import SchemaAnnotator
+
 JSON = Dict
 
 
@@ -14,7 +16,7 @@ def is_url(s: str) -> bool:
     else:
         return False
 
-class JsonLdAnnotator:
+class JsonLdAnnotator(SchemaAnnotator):
     """
     Annotates a schema using URIs/Prefixes derived from a JSON-LD file
     """

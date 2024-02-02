@@ -139,9 +139,10 @@ class DOSDPImportEngine(ImportEngine):
                 rangedef = ClassDefinition(camelcase(f'{range_base_name} class'))
                 #rangedef.is_a = METACLASS
                 rangedef.mixins = [GROUPING_CLASS]
-                subc_slot = SlotDefinition('subclass_of',
-                                           has_member=AnonymousSlotExpression(equals_string=var_range_as_curie))
-                rangedef.slot_usage[subc_slot.name] = subc_slot
+                # TODO: restore when owlgen fixed
+                #subc_slot = SlotDefinition('subclass_of',
+                #                           has_member=AnonymousSlotExpression(equals_string=var_range_as_curie))
+                #rangedef.slot_usage[subc_slot.name] = subc_slot
                 extra_classes.append(rangedef)
             rangedef.description = f'Any subclass of {var_range_as_curie} ({v.range})'
             slot = SlotDefinition(vn, range=rangedef.name)

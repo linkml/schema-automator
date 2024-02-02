@@ -14,6 +14,7 @@ default_prefix: dosdp
 classes:
 
   Pattern:
+    tree_root: true
     slots:
     - pattern_name
     - pattern_iri
@@ -43,7 +44,7 @@ classes:
     - disjointWith
     - name
     - comment
-    - definition
+    - def
     - namespace
     - exact_synonym
     - narrow_synonym
@@ -149,7 +150,7 @@ classes:
         range: PrintfAnnotationObo
       comment:
         range: PrintfAnnotationObo
-      definition:
+      def:
         range: PrintfAnnotationObo
       namespace:
         range: PrintfAnnotationObo
@@ -551,7 +552,7 @@ slots:
     range: PrintfAnnotationObo
   comment:
     range: PrintfAnnotationObo
-  definition:
+  def:
     range: PrintfAnnotationObo
   namespace:
     range: PrintfAnnotationObo

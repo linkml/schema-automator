@@ -7,13 +7,15 @@ import logging
 import os
 import click
 
+
 import pandas as pd
 
 import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
-from oaklib.selector import get_resource_from_shorthand, get_implementation_from_shorthand
+from oaklib.selector import get_implementation_from_shorthand
 
 from schema_automator import JsonLdAnnotator, FrictionlessImportEngine
+from schema_automator.annotators import llm_annotator
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAULT_SCHEMA_NAME
@@ -26,7 +28,7 @@ from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralize
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.importers.tabular_import_engine import TableImportEngine
-from schema_automator.utils.schemautils import minify_schema, write_schema
+from schema_automator.utils.schemautils import write_schema
 
 input_option = click.option(
     "-i",
@@ -507,13 +509,13 @@ def annotate_schema(schema: str, input: str, output: str, **kwargs):
     schema = annr.annotate_schema(schema)
     write_schema(schema, output)
 
-
 @main.command()
+#@main.command()
 @click.argument('schema')
 @click.option('--input', '-i', help="OAK input ontology selector")
 @click.option('--annotate/--no-annotate', default=True, help="If true, annotate the schema")
 @output_option
-def enrich_schema(schema: str, input: str, output: str, annotate: bool, **args):
+def enrich_using_ontology(schema: str, input: str, output: str, annotate: bool, **args):
     """
     Enrich a schema using an ontology.
 
@@ -523,18 +525,28 @@ def enrich_schema(schema: str, input: str, output: str, annotate: bool, **args):
 
     This will use OAK to add additional metadata using uris and mappings in the schema.
 
+    See the OAK docs for options for which annotators to use; examples include:
+
+     - bioportal:   # (include the colon) any ontology in bioportal
+
+     - bioportal:umls   # a specific ontology in bioportal
+
+     - my.obo       # any local OBO file
+
+     - sqlite:obo:cl   # a specific OBO file or semsql registered ontology
+
     For example, if your schema has a class with a mapping to a SO class,
     then the definition of that will be copied to the class description.
-    
+
     Example:
 
-        schemauto enrich-schema -i bioportal: my-schema.yaml -o my-enriched.yaml
+        schemauto enrich-using-ontology -i bioportal: my-schema.yaml -o my-enriched.yaml
 
     If your schema has no mappings you can use --annotate to add them
 
     Example:
 
-        schemauto enrich-schema -i so.obo --annotate my-schema.yaml -o my-enriched.yaml --annotate
+        schemauto enrich-using-ontology -i so.obo --annotate my-schema.yaml -o my-enriched.yaml --annotate
     """
     impl = get_implementation_from_shorthand(input)
     annr = SchemaAnnotator(impl)
@@ -542,6 +554,33 @@ def enrich_schema(schema: str, input: str, output: str, annotate: bool, **args):
     if annotate:
         schema = annr.annotate_schema(schema)
     schema = annr.enrich(schema)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.option('--model', '-m', help="Name of model")
+@output_option
+@click.argument('schema')
+def enrich_using_llm(schema: str, model: str, output: str, **args):
+    """
+    Enrich a schema using an LLM.
+
+    Example:
+
+        schemauto enrich-using-llm -m gpt-4-turbo my-schema.yaml -o my-enriched.yaml
+
+    This will enrich the schema by adding missing description fields. In future
+    other enrichments may be possible.
+
+    Note for this to work, you will need to have LLM installed as an extra.
+
+    Example:
+
+        pip install schema-automator[llm]
+
+    """
+    logging.info(f"Enriching: {schema}")
+    schema = llm_annotator.enrich_using_llm(schema, model)
     write_schema(schema, output)
 
 
