@@ -62,7 +62,7 @@ class JsonSchemaImportEngine(ImportEngine):
         for item in path.rglob("*"):
             if str(item).endswith(match_suffix):
                 relpath = item.relative_to(path)
-                module_name = str(relpath.with_suffix(""))
+                module_name = str(relpath.with_suffix("").as_posix())
                 module_name_safe = "-".join(relpath.with_suffix("").parts)
                 logging.info(f"Converting {item} => {module_name_safe}")
                 schema = self.convert(str(item), name=module_name_safe, **kwargs)

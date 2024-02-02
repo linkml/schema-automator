@@ -112,14 +112,11 @@ class TestJsonSchemaImporter(unittest.TestCase):
         import_path = Path(INPUT_DIR) / "hca"
         export_path = Path(OUTPUT_DIR) / "hca"
         root_path = ie.import_project(import_path, export_path, name="hca")
-        print(root_path)
         sv = SchemaView(root_path)
         c = sv.get_class("OrganPartOntology")
         ont_slot = c.attributes["ontology"]
         rng = ont_slot.range
         edef = sv.get_enum(rng)
-        print(yaml_dumper.dumps(edef))
-        print(yaml_dumper.dumps(c))
         self.assertEqual(2, len(edef.include))
         self.assertIsNotNone(ont_slot.title)
         jsonschema_str = JsonSchemaGenerator(root_path).serialize()

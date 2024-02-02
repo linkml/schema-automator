@@ -31,7 +31,7 @@ class SchemaAnnotator:
     A SchemaAnnotator wraps an OAK ontology interface.
     See `OAK documentation <https://incatools.github.io/ontology-access-kit/>`_ for more details
     """
-    ontology_implementation: BasicOntologyInterface
+    ontology_implementation: BasicOntologyInterface = None
     mine_descriptions: bool = False
     allow_partial: bool = False
     curie_only: bool = True
@@ -191,7 +191,9 @@ class SchemaAnnotator:
 @click.option('--output', '-o', help="Path to saved yaml schema")
 def annotate_schema(schema: str, input: str, output: str, **args):
     """
-    Annotate all elements of a schema
+    Annotate all elements of a schema.
+
+    DEPRECATED: use main schemauto CLI instead
     """
     logging.basicConfig(level=logging.INFO)
     annr = SchemaAnnotator()

@@ -5,7 +5,7 @@ Importers
 
 Importers take either a representation of a schema in a different language or example data and bootstraps a schema.
 
-Importers are the opposite of `Generalizers <https://linkml.io/linkml/generators/index.html>`_ in the core LinkML framework
+Importers are the opposite of `Generators <https://linkml.io/linkml/generators/index.html>`_ in the core LinkML framework
 
 .. warning::
 
