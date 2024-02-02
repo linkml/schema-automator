@@ -1,147 +1,41 @@
+<!DOCTYPE html>
 
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  
-  <title>Importers &mdash; Schema Automator  documentation</title>
-  
-
-  
-
-  
-
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
-
-  
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  
-    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+    <title>Importers &#8212; Schema Automator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generalizers" href="generalizers.html" />
+    <link rel="prev" title="Packages" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
 
   
-
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Schema Automator  documentation" href="../index.html"/>
-        <link rel="up" title="Packages" href="index.html"/>
-        <link rel="next" title="Generalizers" href="generalizers.html"/>
-        <link rel="prev" title="Packages" href="index.html"/>
 
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="cache-control" content="public" />
-    <meta name="robots" content="follow, all" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Add jQuery library -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  </head><body>
+  
 
-  </head>
-
-  <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="../index.html" class="fa fa-home"> Schema Automator </a>
-        <div role="search">
-	  <form id ="rtd-search-form" class="wy-form"
-		action="../search.html" method="get">
-	    <input type="text" name="q" placeholder="Search docs" />
-	    <input type="hidden" name="check_keywords" value="yes" />
-	    <input type="hidden" name="area" value="default" />
-	  </form>
-	</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
-          
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">LinkML Schema Automator</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html">Command Line</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html#annotating-schemas">Annotating schemas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html#general-utilities">General Utilities</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../install.html#direct-installation">Direct Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install.html#running-via-docker">Running via Docker</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command Line</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#preamble">Preamble</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#main-commands">Main commands</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Packages</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Importers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generalizers.html">Generalizers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="annotators.html">Annotators</a></li>
-</ul>
-</li>
-</ul>
 
-          
-        
-
-      </div>
-      &nbsp;
-    </nav>
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Porão do Juca</a>
-      </nav>
-
-      <div class="wy-nav-content">
-	<div class="fundo-claro">
-	</div>
-	<div class="fundo-escuro">
-	</div>
-
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-	    
-	    <!-- <ul class="wy-breadcrumbs"> -->
-	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
-
-	    <!--   <li>Features</li> -->
-	    <!--   <li class="wy-breadcrumbs-aside"> -->
-
-	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
-
-	    <!--   </li> -->
-	    <!-- </ul> -->
-	    <!-- <hr/> -->
-	  </div>
-
-          <div role="main" class="">
-
-	    <div id="content" class="hfeed entry-container hentry">
+          <div class="body" role="main">
+            
   <section id="importers">
-<h1>Importers<a class="headerlink" href="#importers" title="Permalink to this headline">¶</a></h1>
+<h1>Importers<a class="headerlink" href="#importers" title="Link to this heading">¶</a></h1>
 <p>Importers take either a representation of a schema in a different language or example data and bootstraps a schema.</p>
-<p>Importers are the opposite of <a class="reference external" href="https://linkml.io/linkml/generators/index.html">Generalizers</a> in the core LinkML framework</p>
+<p>Importers are the opposite of <a class="reference external" href="https://linkml.io/linkml/generators/index.html">Generators</a> in the core LinkML framework</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Generally importers take a <em>less expressive</em> language than LinkML and attempts to create the corresponding
@@ -150,14 +44,14 @@ representation that lacks <a class="reference external" href="https://linkml.io/
 will be created.</p>
 </div>
 <section id="importing-from-json-schema">
-<h2>Importing from JSON-Schema<a class="headerlink" href="#importing-from-json-schema" title="Permalink to this headline">¶</a></h2>
+<h2>Importing from JSON-Schema<a class="headerlink" href="#importing-from-json-schema" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">import-json-schema</span></code> command can be used:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">json</span><span class="o">-</span><span class="n">schema</span> <span class="n">tests</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">model_card</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
 </section>
 <section id="importing-from-owl">
-<h2>Importing from OWL<a class="headerlink" href="#importing-from-owl" title="Permalink to this headline">¶</a></h2>
+<h2>Importing from OWL<a class="headerlink" href="#importing-from-owl" title="Link to this heading">¶</a></h2>
 <p>You can import from a schema-style OWL ontology. This must be in functional syntax</p>
 <p>Use robot to convert ahead of time:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot</span> <span class="n">convert</span> <span class="o">-</span><span class="n">i</span> <span class="n">schemaorg</span><span class="o">.</span><span class="n">ttl</span> <span class="o">-</span><span class="n">o</span> <span class="n">schemaorg</span><span class="o">.</span><span class="n">ofn</span>
@@ -166,7 +60,7 @@ will be created.</p>
 </div>
 </section>
 <section id="importing-from-sql">
-<h2>Importing from SQL<a class="headerlink" href="#importing-from-sql" title="Permalink to this headline">¶</a></h2>
+<h2>Importing from SQL<a class="headerlink" href="#importing-from-sql" title="Link to this heading">¶</a></h2>
 <p>You can import a schema from a SQL database</p>
 <p>The default is to assume a SQLite database:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">sql</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">my</span><span class="o">.</span><span class="n">db</span>
@@ -180,17 +74,17 @@ installed, using a SQL Alchemy connection path.</p>
 </div>
 </section>
 <section id="packages">
-<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
+<h2>Packages<a class="headerlink" href="#packages" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Link to this definition">¶</a></dt>
 <dd><p>A <span class="xref std std-ref">ImportEngine</span> that imports a JSON-Schema representation to a LinkML Schema</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Converts a JSON-Schema json file into a LinkML schema</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
@@ -198,7 +92,7 @@ installed, using a SQL Alchemy connection path.</p>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -206,7 +100,7 @@ installed, using a SQL Alchemy connection path.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.translate_object">
-<span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.ClassDefinitionName</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.translate_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.translate_object" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ClassDefinitionName</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.translate_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.translate_object" title="Link to this definition">¶</a></dt>
 <dd><p>Translates jsonschema obj of type object</p>
 <p>Generates a ClassDefinition, inserts it into the schema, and returns the name</p>
 </dd></dl>
@@ -215,14 +109,14 @@ installed, using a SQL Alchemy connection path.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.OwlImportEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">OwlImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">OwlImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine" title="Link to this definition">¶</a></dt>
 <dd><p>An ImportEngine that takes schema-style OWL and converts it to a LinkML schema</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.OwlImportEngine.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/owl_import_engine.html#OwlImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.OwlImportEngine.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Converts an OWL schema-style ontology</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> – </p></li>
 <li><p><strong>name</strong> – </p></li>
@@ -231,7 +125,7 @@ installed, using a SQL Alchemy connection path.</p>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -241,7 +135,7 @@ installed, using a SQL Alchemy connection path.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.FrictionlessImportEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">FrictionlessImportEngine</span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">FrictionlessImportEngine</span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine" title="Link to this definition">¶</a></dt>
 <dd><p>An ImportEngine that imports Frictionless data packages with schema information</p>
 <p>See:</p>
 <blockquote>
@@ -250,16 +144,16 @@ installed, using a SQL Alchemy connection path.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.FrictionlessImportEngine.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/frictionless_import_engine.html#FrictionlessImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.FrictionlessImportEngine.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Converts one or more JSON files into a Schema</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>files</strong> – </p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -269,23 +163,23 @@ installed, using a SQL Alchemy connection path.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.DOSDPImportEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">DOSDPImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">DOSDPImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mappings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine" title="Link to this definition">¶</a></dt>
 <dd><p>An ImportEngine that imports Ontology Design Patterns specified as DOSDP Yaml into a LinkML schema</p>
 <p>See <a class="reference external" href="https://github.com/INCATools/dead_simple_owl_design_patterns">DOSDPs</a></p>
 <p>Every template maps to a LinkML class, the default name for a template Foo as FooTemplate</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.DOSDPImportEngine.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.convert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SchemaDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Converts one or more YAML files into a Schema</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>files</strong> – </p></li>
 <li><p><strong>range_as_enums</strong> – if True, then class ranges are mapped to Enums</p></li>
 <li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -293,20 +187,20 @@ installed, using a SQL Alchemy connection path.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.DOSDPImportEngine.create_class">
-<span class="sig-name descname"><span class="pre">create_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">schema_automator.metamodels.dosdp.model.Pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denormalize_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">linkml_runtime.linkml_model.meta.ClassDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.create_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.create_class" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_as_enums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denormalize_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ClassDefinition</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/dosdp_import_engine.html#DOSDPImportEngine.create_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.DOSDPImportEngine.create_class" title="Link to this definition">¶</a></dt>
 <dd><p>Create a LinkML class from a template/pattern</p>
 <p>The class will have name FooTemplate, and will mixin TemplateClass,
 and will have one slot per var (slots will also be inherited from TemplateClass)</p>
 <p>by default, the range of each var will be a class RangeClass, unless treated as enums</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pattern</strong> – DOSDP template</p></li>
 <li><p><strong>range_as_enums</strong> – if true, ranges will be enums</p></li>
 <li><p><strong>denoramlized</strong> – if true, create an optional label for each var</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -318,78 +212,88 @@ and will have one slot per var (slots will also be inherited from TemplateClass)
 </section>
 
 
-	    </div>
-            <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="generalizers.html" class="btn btn-neutral float-right" title="Generalizers">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="Packages"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Schema Automator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command Line</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Importers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-json-schema">Importing from JSON-Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-owl">Importing from OWL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-sql">Importing from SQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packages">Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="generalizers.html">Generalizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotators.html">Annotators</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Packages</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Packages</a></li>
+      <li>Next: <a href="generalizers.html" title="next chapter">Generalizers</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
-  
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, LinkML Developers.
-    </p>
-  </div>
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
 
-</footer>
-	</div>
-	</div>
-	  
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-    <script type="text/javascript" src="../_static/documentation_options.js">
 
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js">
 
-    </script>
-    <script type="text/javascript" src="../_static/underscore.js">
 
-    </script>
-    <script type="text/javascript" src="../_static/doctools.js">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2022, LinkML Developers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/packages/importers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-    </script>
-    <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
+    
 
-    </script>
-    <script type="text/javascript" src="../None">
-
-    </script>
-
-  
-
-   <script type="text/javascript"
-           src="../_static/js/theme.js"></script>
-
-   <script type="text/javascript"
-           src="../_static/js/pdj.js"></script>
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
-
+    
   </body>
 </html>

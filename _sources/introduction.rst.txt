@@ -30,6 +30,7 @@ See :ref:`importers`
 
 * OWL (but this only works for schema-style OWL)
 * JSON-Schema
+* SQL DDL
 
 In future other frameworks will be supported
 
@@ -42,6 +43,7 @@ Annotators to provide ways to automatically add metadata to your schema, includi
 
 * Assigning class or slot URIs to schema elements
 * Mapping enums to ontologies and vocabularies
+* Annotate using Large Language Models (LLMs)
 
 General Utilities
 ---------------------------------

@@ -1,144 +1,39 @@
+<!DOCTYPE html>
 
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  
-  <title>Introduction &mdash; Schema Automator  documentation</title>
-  
-
-  
-
-  
-
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
-
-  
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  
-    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+    <title>Introduction &#8212; Schema Automator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="LinkML Schema Automator" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
 
   
-
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Schema Automator  documentation" href="index.html"/>
-        <link rel="next" title="Installation" href="install.html"/>
-        <link rel="prev" title="LinkML Schema Automator" href="index.html"/>
 
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="cache-control" content="public" />
-    <meta name="robots" content="follow, all" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Add jQuery library -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  </head><body>
+  
 
-  </head>
-
-  <body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="index.html" class="fa fa-home"> Schema Automator </a>
-        <div role="search">
-	  <form id ="rtd-search-form" class="wy-form"
-		action="search.html" method="get">
-	    <input type="text" name="q" placeholder="Search docs" />
-	    <input type="hidden" name="check_keywords" value="yes" />
-	    <input type="hidden" name="area" value="default" />
-	  </form>
-	</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
-          
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">LinkML Schema Automator</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html">Command Line</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packages/index.html">Packages</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#generalization-from-instance-data">Generalization from Instance Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#annotating-schemas">Annotating schemas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#general-utilities">General Utilities</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html#direct-installation">Direct Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#running-via-docker">Running via Docker</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#preamble">Preamble</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#main-commands">Main commands</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Packages</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="packages/importers.html">Importers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packages/generalizers.html">Generalizers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packages/annotators.html">Annotators</a></li>
-</ul>
-</li>
-</ul>
 
-          
-        
-
-      </div>
-      &nbsp;
-    </nav>
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Porão do Juca</a>
-      </nav>
-
-      <div class="wy-nav-content">
-	<div class="fundo-claro">
-	</div>
-	<div class="fundo-escuro">
-	</div>
-
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-	    
-	    <!-- <ul class="wy-breadcrumbs"> -->
-	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
-
-	    <!--   <li>Features</li> -->
-	    <!--   <li class="wy-breadcrumbs-aside"> -->
-
-	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
-
-	    <!--   </li> -->
-	    <!-- </ul> -->
-	    <!-- <hr/> -->
-	  </div>
-
-          <div role="main" class="">
-
-	    <div id="content" class="hfeed entry-container hentry">
+          <div class="body" role="main">
+            
   <section id="introduction">
-<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
 <p>This is a toolkit that assists with generating and enhancing schemas and data models from a variety
 of sources.</p>
 <p>The primary end target is a <a class="reference external" href="https://linkml.io">LinkML</a> schema, but the framework can be used
@@ -146,7 +41,7 @@ to generate JSON-Schema, SHACL, SQL DDL etc via the <a class="reference external
 <p>All functionality is available via a <span class="xref std std-ref">cli</span>. In future there will be a web-based interface.
 The functionality is also available by using the relevant Python <a class="reference internal" href="packages/index.html#packages"><span class="std std-ref">Packages</span></a>.</p>
 <section id="generalization-from-instance-data">
-<h2>Generalization from Instance Data<a class="headerlink" href="#generalization-from-instance-data" title="Permalink to this headline">¶</a></h2>
+<h2>Generalization from Instance Data<a class="headerlink" href="#generalization-from-instance-data" title="Link to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="packages/generalizers.html#generalizers"><span class="std std-ref">Generalizers</span></a></p>
 <p>Generalizers allow you to <em>bootstrap</em> a schema by generalizing from existing data files</p>
 <ul class="simple">
@@ -156,102 +51,107 @@ The functionality is also available by using the relevant Python <a class="refer
 </ul>
 </section>
 <section id="importing-from-alternative-modeling-frameworks">
-<h2>Importing from alternative modeling frameworks<a class="headerlink" href="#importing-from-alternative-modeling-frameworks" title="Permalink to this headline">¶</a></h2>
+<h2>Importing from alternative modeling frameworks<a class="headerlink" href="#importing-from-alternative-modeling-frameworks" title="Link to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a></p>
 <ul class="simple">
 <li><p>OWL (but this only works for schema-style OWL)</p></li>
 <li><p>JSON-Schema</p></li>
+<li><p>SQL DDL</p></li>
 </ul>
 <p>In future other frameworks will be supported</p>
 </section>
 <section id="annotating-schemas">
-<h2>Annotating schemas<a class="headerlink" href="#annotating-schemas" title="Permalink to this headline">¶</a></h2>
+<h2>Annotating schemas<a class="headerlink" href="#annotating-schemas" title="Link to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="packages/annotators.html#annotators"><span class="std std-ref">Annotators</span></a></p>
 <p>Annotators to provide ways to automatically add metadata to your schema, including</p>
 <ul class="simple">
 <li><p>Assigning class or slot URIs to schema elements</p></li>
 <li><p>Mapping enums to ontologies and vocabularies</p></li>
+<li><p>Annotate using Large Language Models (LLMs)</p></li>
 </ul>
 </section>
 <section id="general-utilities">
-<h2>General Utilities<a class="headerlink" href="#general-utilities" title="Permalink to this headline">¶</a></h2>
+<h2>General Utilities<a class="headerlink" href="#general-utilities" title="Link to this heading">¶</a></h2>
 <p>See <span class="xref std std-ref">utilitiess</span></p>
 </section>
 </section>
 
 
-	    </div>
-            <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="install.html" class="btn btn-neutral float-right" title="Installation">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="LinkML Schema Automator"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Schema Automator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generalization-from-instance-data">Generalization from Instance Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-from-alternative-modeling-frameworks">Importing from alternative modeling frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#annotating-schemas">Annotating schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-utilities">General Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Packages</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">LinkML Schema Automator</a></li>
+      <li>Next: <a href="install.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
-  
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, LinkML Developers.
-    </p>
-  </div>
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
 
-</footer>
-	</div>
-	</div>
-	  
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-    <script type="text/javascript" src="_static/documentation_options.js">
 
-    </script>
-    <script type="text/javascript" src="_static/jquery.js">
 
-    </script>
-    <script type="text/javascript" src="_static/underscore.js">
 
-    </script>
-    <script type="text/javascript" src="_static/doctools.js">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2022, LinkML Developers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-    </script>
-    <script type="text/javascript" src="https://unpkg.com/mermaid/dist/mermaid.min.js">
+    
 
-    </script>
-    <script type="text/javascript" src="None">
-
-    </script>
-
-  
-
-   <script type="text/javascript"
-           src="_static/js/theme.js"></script>
-
-   <script type="text/javascript"
-           src="_static/js/pdj.js"></script>
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
-
+    
   </body>
 </html>
