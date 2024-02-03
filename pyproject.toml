@@ -56,3 +56,10 @@ extract-schema = "schema_automator.utils.schema_extractor:cli"
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
 mariadb = ["mariadb"]
+
+[tool.codespell]
+# Ref: https://github.com/codespell-project/codespell#using-a-config-file
+skip = '.git,*.lock'
+check-hidden = true
+# ignore-regex = ''
+# ignore-words-list = ''
