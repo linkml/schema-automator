@@ -78,7 +78,7 @@ that you can use as a starting point.
 
 ## How to Request an Enhancement
 
-We welcome request for enhancements and you can make these requestes via the issue tracker. Please be sure to provide
+We welcome request for enhancements and you can make these requests via the issue tracker. Please be sure to provide
 sufficient context to what the enhancement is trying to address, its utility, and how it's likely to be useful to you
 and the broader community.
 
