@@ -117,7 +117,7 @@ classes:
         inlined: true
         range: VarDeclaration
       list_vars:
-        description: A dictionary of variables refering to lists of owl classes. Key
+        description: A dictionary of variables referring to lists of owl classes. Key
           = variable name, value = variable range of items in list specified as a
           valid OWL data-type.
       data_vars:
@@ -522,7 +522,7 @@ slots:
     description: 'A dictionary of OWL annotation properties key : label; value : short
       form id'
   list_vars:
-    description: A dictionary of variables refering to lists of owl classes. Key =
+    description: A dictionary of variables referring to lists of owl classes. Key =
       variable name, value = variable range of items in list specified as a valid
       OWL data-type.
   data_vars:

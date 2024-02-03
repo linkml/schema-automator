@@ -423,7 +423,7 @@ def import_owl(owlfile, output, **args):
 @click.option('--identifier', '-I', help="Slot to use as identifier")
 @click.option('--model-uri', help="Model URI prefix")
 @click.option('--metamodel-mappings',
-              help="Path to metamodel mappings YAML dicitonary")
+              help="Path to metamodel mappings YAML dictionary")
 @click.option('--output', '-o', help="Path to saved yaml schema")
 def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
     """
