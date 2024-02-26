@@ -1,18 +1,7 @@
 """
 CADSR CDE Import Engine
 
-.. code-block::
-
-   * DataElement
-    * DataElementConcept
-     * ObjectClass
-
-E.g.
-
-DE Concept "Adverse Event Attribution" (AE_ATTR) from CEPT
-
-May have multiple CDEs associated with it; these may be different CDEs from different contexts
-
+This ingests the output of the caDSR API https://cadsrapi.cancer.gov/rad/NCIAPI/1.0/api
 """
 import logging
 import urllib
@@ -54,9 +43,21 @@ class CADSRImportEngine(ImportEngine):
     """
     An ImportEngine that imports NCI CADSR CDEs
 
-    See:
+    Ingests the output of `caDSR API <https://cadsrapi.cancer.gov/rad/NCIAPI/1.0/api>`_.
 
-    https://github.com/monarch-initiative/cde-harmonization
+    - Each CDE becomes a unique slot
+    - the CDE is added as a lot of a context-specific class
+    - the context-specific class is a subclass of the CDE's DataElementConcept
+
+    Note that this creates a lot of 1-1 classes, as in many cases there is no
+    attempt to group concepts. However, this is not always the case.
+
+    E.g. the concept with publicId 2012668 (Access Route) is used in 5 contexts
+    (AHRQ, CCR, ...)
+
+    Each context-specific concept has its own set of CDEs
+
+    See also https://github.com/monarch-initiative/cde-harmonization
     """
 
     def convert(self, paths: Iterable[str], id: str=None, name: str=None, **kwargs) -> SchemaDefinition:
