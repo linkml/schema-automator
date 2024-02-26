@@ -5,6 +5,7 @@ from typing import Union, Dict, Tuple, List, Any
 from collections import defaultdict
 
 from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
@@ -50,9 +51,12 @@ class RdfsImportEngine(ImportEngine):
     reverse_metamodel_mappings: Dict[URIRef, List[str]] = None
     include_unmapped_annotations = False
     metamodel = None
+    metamodel_schemaview: SchemaView = None
+    classdef_slots: List[str] = None
 
     def __post_init__(self):
         sv = package_schemaview("linkml_runtime.linkml_model.meta")
+        self.metamodel_schemaview = sv
         self.metamodel = sv
         self.metamodel_mappings = defaultdict(list)
         self.reverse_metamodel_mappings = defaultdict(list)
@@ -73,6 +77,7 @@ class RdfsImportEngine(ImportEngine):
                     mappings.append(uri)
                     self.reverse_metamodel_mappings[uri].append(e.name)
             self.metamodel_mappings[e.name] = mappings
+        self.defclass_slots = [s.name for s in sv.class_induced_slots(ClassDefinition.class_name)]
 
     def convert(
         self,
@@ -180,6 +185,8 @@ class RdfsImportEngine(ImportEngine):
             if pp == RDF.type:
                 continue
             metaslot_name = self._element_from_iri(pp)
+            if metaslot_name not in self.defclass_slots:
+                continue
             if metaslot_name is None:
                 logging.warning(f"Not mapping {pp}")
                 continue
