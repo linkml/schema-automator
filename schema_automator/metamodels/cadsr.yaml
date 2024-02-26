@@ -1,0 +1,1307 @@
+name: cadsr
+id: https://example.org/cadsr
+imports:
+- linkml:types
+prefixes:
+  cadsr: https://example.org/cadsr
+  linkml: https://w3id.org/linkml/
+default_prefix: cadsr
+slots:
+  publicId:
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    required: false
+  version:
+    description: The unique version identifier of the Administered Item.
+    required: false
+  longName:
+    description: A 255 character limit name for an item in the registry.
+  context: {}
+  ClassificationSchemeItems:
+    multivalued: true
+    range: ClassificationSchemeItem
+  preferredName:
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context. Referred to as Short Name.
+  preferredDefinition:
+    description: The text of the most desirable meaning for the Administered Item.
+  contextVersion:
+    description: The unique version identifier of the Administered Item.
+  Concepts:
+    multivalued: true
+    range: Concept
+  origin:
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+  workflowStatus:
+    description: A name of a designation of the status in the administrative life-cycle
+      of a Context Owner for handling new administered items.
+  registrationStatus:
+    description: A designation of the status in the registration life-cycle of an
+      Administered Item.
+  id:
+    description: The 36 character caDSR database identifier.
+  latestVersionIndicator:
+    description: The present form of an Administered Item.
+  beginDate:
+    description: The particular day, month and year this item became allowed.
+  endDate:
+    description: The day, month and year this item becomes no longer allowed.
+  createdBy:
+    description: This is a description of createdBy.
+  dateCreated:
+    description: The date the Administered Item was created.
+  modifiedBy:
+    description: Username of the person who modified the record
+  dateModified:
+    description: Date on which the record was modified; last date the object was modified
+  changeDescription:
+    description: The description of what has changed in the Administered Item since
+      the prior version of the Administered Item.
+  administrativeNotes: {}
+  unresolvedIssues:
+    description: Any problem that remains unresolved regarding proper documentation
+      of the Administered Item.
+  deletedIndicator:
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+  DataElement:
+    range: DataElement
+    required: false
+  CRDCDataElements:
+    multivalued: true
+    range: CRDCDataElement
+    required: false
+  numRecords:
+    required: false
+  DataElementQueryResults:
+    multivalued: true
+    range: DataElementQuery
+    required: false
+  name: {}
+  type: {}
+  CDE Public ID:
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+  Version:
+    description: The unique version identifier of the Administered Item.
+  CRDC Name:
+    description: CRDC Name
+  CRD Domain:
+    description: CRDC Domain
+  Example:
+    description: CRDC Example
+  VD Type:
+    description: Value Domain type
+  Coding Instruction:
+    description: CRDC Coding Instructions
+  Instructions:
+    description: CRDC Instructions
+  CRDC Definition:
+    description: CRD Definition
+  CDE Long Name:
+    description: A 255 character limit name for an item in the registry.
+  Registration Status:
+    description: A designation of the status in the registration life-cycle of an
+      Administered Item.
+  Workflow Status:
+    description: A name of a designation of the status in the administrative life-cycle
+      of a Context Owner for handling new administered items.
+  Owned By:
+    description: Who owns the Data Element
+  Used By:
+    description: Who is using the Data Element
+  Deep Link: {}
+  permissibleValues:
+    multivalued: true
+    range: permissibleValue
+  DataElementConcept:
+    range: DataElementConcept
+    required: false
+  ValueDomain:
+    range: ValueDomain
+    required: false
+  ClassificationSchemes:
+    multivalued: true
+    range: ClassificationScheme
+    required: false
+  AlternateNames:
+    multivalued: true
+    range: AlternateName
+    required: false
+  ReferenceDocuments:
+    multivalued: true
+    range: ReferenceDocument
+    required: false
+  dataType:
+    required: false
+  unitOfMeasure:
+    required: false
+  characterSet:
+    required: false
+  minLength:
+    required: false
+  maxLength:
+    required: false
+  minValue:
+    required: false
+  maxValue:
+    required: false
+  decimalPlace:
+    required: false
+  format:
+    required: false
+  PermissibleValues:
+    multivalued: true
+    range: CDEPermissibleValue
+    required: false
+  ConceptualDomain:
+    range: ConceptualDomain
+    required: false
+  RepresentationTerm:
+    range: RepresentationTerm
+    required: false
+  conceptCode: {}
+  definition: {}
+  evsSource:
+    description: The name of the EVS concept code that was the source for the concept
+      identifier.
+  primaryIndicator: {}
+  displayOrder: {}
+  ObjectClass:
+    range: ObjectClass
+    required: false
+  Property:
+    range: Property
+    required: false
+  description: {}
+  url: {}
+  value:
+    description: A representation of a Value Meaning in a specific Value Domain the
+      actual Value.
+    required: false
+  valueDescription:
+    description: The text of the most desirable meaning for Value
+    required: false
+  ValueMeaning:
+    range: ValueMeaning
+    required: false
+  contextName:
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context.
+  dataElementConceptPublicId:
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+  dataElementConceptVersion:
+    description: The unique version identifier of the Administered Item.
+  valueDomainPublicId:
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+  valueDomainVersion:
+    description: The unique version identifier of the Administered Item.
+  changeNote:
+    description: The description of what has changed in the Administered Item since
+      the prior version of the Administered Item.
+  Permissible Value:
+    description: A representation of a Value Meaning in a specific Value Domain the
+      actual Value.
+  VM Long Name:
+    description: A 255 character limit name for an item in the registry.
+  VM Public ID:
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+  Concept Code: {}
+  VM Description:
+    description: The text of the most desirable meaning for the Administered Item.
+  Begin Date:
+    description: The particular day, month and year this item became allowed.
+  End Date:
+    description: The day, month and year this item becomes no longer allowed.
+classes:
+  DataElementContainer:
+    slots:
+      - DataElement
+  ClassificationScheme:
+    slots:
+    - publicId
+    - version
+    - longName
+    - context
+    - ClassificationSchemeItems
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        required: false
+      longName:
+        required: false
+      context:
+        required: false
+      ClassificationSchemeItems:
+        multivalued: true
+        range: ClassificationSchemeItem
+  Property:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - Concepts
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+      contextVersion: {}
+      Concepts:
+        multivalued: true
+        range: Concept
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  DataElementpublicId_GET_response:
+    slots:
+    - DataElement
+    slot_usage:
+      DataElement:
+        range: DataElement
+        required: false
+  DataElementgetCRDCList_GET_response:
+    slots:
+    - CRDCDataElements
+    slot_usage:
+      CRDCDataElements:
+        multivalued: true
+        range: CRDCDataElement
+        required: false
+  DataElementqueryContext_GET_response:
+    slots:
+    - numRecords
+    - DataElementQueryResults
+    slot_usage:
+      numRecords:
+        required: false
+      DataElementQueryResults:
+        multivalued: true
+        range: DataElementQuery
+        required: false
+  AlternateName:
+    slots:
+    - name
+    - type
+    - context
+    slot_usage:
+      type:
+        required: false
+      context:
+        required: false
+  CRDCDataElement:
+    slots:
+    - CDE Public ID
+    - Version
+    - CRDC Name
+    - CRD Domain
+    - Example
+    - VD Type
+    - Coding Instruction
+    - Instructions
+    - CRDC Definition
+    - CDE Long Name
+    - Registration Status
+    - Workflow Status
+    - Owned By
+    - Used By
+    - Deep Link
+    - permissibleValues
+    slot_usage:
+      CDE Public ID:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+      Version:
+        description: The unique version identifier of the Administered Item.
+      CRDC Name:
+        description: CRDC Name
+      CRD Domain:
+        description: CRDC Domain
+      Example:
+        description: CRDC Example
+      VD Type:
+        description: Value Domain type
+      Coding Instruction:
+        description: CRDC Coding Instructions
+      Instructions:
+        description: CRDC Instructions
+      CRDC Definition:
+        description: CRD Definition
+      CDE Long Name:
+        description: A 255 character limit name for an item in the registry.
+      Registration Status:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      Workflow Status:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      Owned By:
+        description: Who owns the Data Element
+      Used By:
+        description: Who is using the Data Element
+      Deep Link: {}
+      permissibleValues:
+        multivalued: true
+        range: permissibleValue
+  ConceptualDomain:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+      contextVersion: {}
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  ClassificationSchemeItem:
+    slots:
+    - publicId
+    - version
+    - longName
+    - context
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        required: false
+      longName:
+        required: false
+      context:
+        required: false
+  DataElementqueryConcept_GET_response:
+    slots:
+    - numRecords
+    - DataElementQueryResults
+    slot_usage:
+      numRecords:
+        required: false
+      DataElementQueryResults:
+        multivalued: true
+        range: DataElementQuery
+        required: false
+  DataElement:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - DataElementConcept
+    - ValueDomain
+    - ClassificationSchemes
+    - AlternateNames
+    - ReferenceDocuments
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+      contextVersion: {}
+      DataElementConcept:
+        range: DataElementConcept
+        required: false
+      ValueDomain:
+        range: ValueDomain
+        required: false
+      ClassificationSchemes:
+        multivalued: true
+        range: ClassificationScheme
+        required: false
+      AlternateNames:
+        multivalued: true
+        range: AlternateName
+        required: false
+      ReferenceDocuments:
+        multivalued: true
+        range: ReferenceDocument
+        required: false
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  ValueDomain:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - type
+    - dataType
+    - unitOfMeasure
+    - characterSet
+    - minLength
+    - maxLength
+    - minValue
+    - maxValue
+    - decimalPlace
+    - format
+    - PermissibleValues
+    - ConceptualDomain
+    - RepresentationTerm
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+        required: false
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+        required: false
+      longName:
+        description: A 255 character limit name for an item in the registry.
+        required: false
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+        required: false
+      contextVersion:
+        required: false
+      type:
+        required: false
+      dataType:
+        required: false
+      unitOfMeasure:
+        required: false
+      characterSet:
+        required: false
+      minLength:
+        required: false
+      maxLength:
+        required: false
+      minValue:
+        required: false
+      maxValue:
+        required: false
+      decimalPlace:
+        required: false
+      format:
+        required: false
+      PermissibleValues:
+        multivalued: true
+        range: CDEPermissibleValue
+        required: false
+      ConceptualDomain:
+        range: ConceptualDomain
+        required: false
+      RepresentationTerm:
+        range: RepresentationTerm
+        required: false
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  ObjectClass:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - Concepts
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+      contextVersion: {}
+      Concepts:
+        multivalued: true
+        range: Concept
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  DataElementquery_GET_response:
+    slots:
+    - numRecords
+    - DataElementQueryResults
+    slot_usage:
+      numRecords:
+        required: false
+      DataElementQueryResults:
+        multivalued: true
+        range: DataElementQuery
+        required: false
+  Concept:
+    slots:
+    - longName
+    - conceptCode
+    - definition
+    - evsSource
+    - primaryIndicator
+    - displayOrder
+    slot_usage:
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      conceptCode: {}
+      definition: {}
+      evsSource:
+        description: The name of the EVS concept code that was the source for the
+          concept identifier.
+      primaryIndicator: {}
+      displayOrder: {}
+  DataElementConcept:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - ObjectClass
+    - Property
+    - ConceptualDomain
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+        required: false
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+        required: false
+      longName:
+        description: A 255 character limit name for an item in the registry.
+        required: false
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+        required: false
+      contextVersion:
+        required: false
+      ObjectClass:
+        range: ObjectClass
+        required: false
+      Property:
+        range: Property
+        required: false
+      ConceptualDomain:
+        range: ConceptualDomain
+        required: false
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  ValueMeaning:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - longName
+    - preferredDefinition
+    - context
+    - contextVersion
+    - Concepts
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+        required: false
+      longName:
+        description: A 255 character limit name for an item in the registry.
+        required: false
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+        required: false
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+        required: false
+      contextVersion:
+        required: false
+      Concepts:
+        multivalued: true
+        range: Concept
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  RepresentationTerm:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - context
+    - contextVersion
+    - Concepts
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeDescription
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      context:
+        description: An associated gov.nih.nci.cadsr.domain.Context object
+      contextVersion: {}
+      Concepts:
+        multivalued: true
+        range: Concept
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeDescription:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  ReferenceDocument:
+    slots:
+    - name
+    - type
+    - description
+    - url
+    - context
+    slot_usage:
+      type: {}
+      description: {}
+      url: {}
+      context: {}
+  CDEPermissibleValue:
+    slots:
+    - publicId
+    - value
+    - valueDescription
+    - ValueMeaning
+    - origin
+    - id
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for a Permissible Value
+        required: false
+      value:
+        description: A representation of a Value Meaning in a specific Value Domain
+          the actual Value.
+        required: false
+      valueDescription:
+        description: The text of the most desirable meaning for Value
+        required: false
+      ValueMeaning:
+        range: ValueMeaning
+        required: false
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  DataElementQuery:
+    slots:
+    - publicId
+    - version
+    - preferredName
+    - preferredDefinition
+    - longName
+    - contextName
+    - contextVersion
+    - dataElementConceptPublicId
+    - dataElementConceptVersion
+    - valueDomainPublicId
+    - valueDomainVersion
+    - origin
+    - workflowStatus
+    - registrationStatus
+    - id
+    - latestVersionIndicator
+    - beginDate
+    - endDate
+    - createdBy
+    - dateCreated
+    - modifiedBy
+    - dateModified
+    - changeNote
+    - administrativeNotes
+    - unresolvedIssues
+    - deletedIndicator
+    slot_usage:
+      publicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+        required: false
+      version:
+        description: The unique version identifier of the Administered Item.
+        required: false
+      preferredName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context. Referred to as Short Name.
+      preferredDefinition:
+        description: The text of the most desirable meaning for the Administered Item.
+      longName:
+        description: A 255 character limit name for an item in the registry.
+      contextName:
+        description: A 30 character limit name by which an Administered Item is designated
+          within a specific Context.
+      contextVersion:
+        description: The unique version identifier of the Administered Item.
+      dataElementConceptPublicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+      dataElementConceptVersion:
+        description: The unique version identifier of the Administered Item.
+      valueDomainPublicId:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+      valueDomainVersion:
+        description: The unique version identifier of the Administered Item.
+      origin:
+        description: The source (document, project, discipline or model) for the Administered
+          Item.
+      workflowStatus:
+        description: A name of a designation of the status in the administrative life-cycle
+          of a Context Owner for handling new administered items.
+      registrationStatus:
+        description: A designation of the status in the registration life-cycle of
+          an Administered Item.
+      id:
+        description: The 36 character caDSR database identifier.
+      latestVersionIndicator:
+        description: The present form of an Administered Item.
+      beginDate:
+        description: The particular day, month and year this item became allowed.
+      endDate:
+        description: The day, month and year this item becomes no longer allowed.
+      createdBy:
+        description: This is a description of createdBy.
+      dateCreated:
+        description: The date the Administered Item was created.
+      modifiedBy:
+        description: Username of the person who modified the record
+      dateModified:
+        description: Date on which the record was modified; last date the object was
+          modified
+      changeNote:
+        description: The description of what has changed in the Administered Item
+          since the prior version of the Administered Item.
+      administrativeNotes: {}
+      unresolvedIssues:
+        description: Any problem that remains unresolved regarding proper documentation
+          of the Administered Item.
+      deletedIndicator:
+        description: An indicator that characterizes the item as eliminated from the
+          registry, thought the physical record still exists.
+  permissibleValue:
+    description: List of Permissible Values
+    slots:
+    - Permissible Value
+    - VM Long Name
+    - VM Public ID
+    - Concept Code
+    - VM Description
+    - Begin Date
+    - End Date
+    slot_usage:
+      Permissible Value:
+        description: A representation of a Value Meaning in a specific Value Domain
+          the actual Value.
+      VM Long Name:
+        description: A 255 character limit name for an item in the registry.
+      VM Public ID:
+        description: The unique identifier for an Administered Item within a Registration
+          Authority.
+      Concept Code: {}
+      VM Description:
+        description: The text of the most desirable meaning for the Administered Item.
+      Begin Date:
+        description: The particular day, month and year this item became allowed.
+      End Date:
+        description: The day, month and year this item becomes no longer allowed.
+
