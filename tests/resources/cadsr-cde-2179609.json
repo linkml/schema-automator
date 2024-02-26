@@ -1,0 +1,1300 @@
+{
+  "DataElement": {
+    "publicId": "2179609",
+    "version": "4",
+    "preferredName": "Adverse Event Attribution Code",
+    "preferredDefinition": "The code that indicates whether the adverse event is related to the agent or device.",
+    "longName": "AE_ATTR_CD",
+    "context": "DCP",
+    "contextVersion": "1",
+    "DataElementConcept": {
+      "publicId": "2014018",
+      "version": "1",
+      "preferredName": "Adverse Event Attribution",
+      "preferredDefinition": "the causal relationship between the treatment modality and the specific adverse event.",
+      "longName": "AE_ATTR",
+      "context": "CTEP",
+      "contextVersion": "2.31",
+      "ObjectClass": {
+        "publicId": "2184272",
+        "version": "1",
+        "preferredName": "Adverse Event",
+        "preferredDefinition": "An unwanted effect caused by a drug or therapy.  Such effects can be drug related, dose related, route related, patient related, caused by an interaction with another drug, or caused by opioid initiation or dose escalation.",
+        "longName": "Adverse Event",
+        "context": "CTEP",
+        "contextVersion": "2.31",
+        "Concepts": [
+          {
+            "longName": "Adverse Event",
+            "conceptCode": "C41331",
+            "definition": "Any unfavorable or unintended disease, sign, or symptom (including an abnormal laboratory finding) that is temporally associated with the use of a medical treatment or procedure, and that may or may not be considered related to the medical treatment or procedure. Such events can be related to the intervention, dose, route of administration, patient, or caused by an interaction with another drug(s) or procedure(s).",
+            "evsSource": "NCI_CONCEPT_CODE",
+            "primaryIndicator": "Yes",
+            "displayOrder": "0"
+          }
+        ],
+        "origin": "NCI Thesaurus",
+        "workflowStatus": "RELEASED",
+        "registrationStatus": "Application",
+        "id": "DB6C8AC6-194E-3E75-E034-0003BA12F5E7",
+        "latestVersionIndicator": "Yes",
+        "beginDate": "2004-05-27",
+        "endDate": null,
+        "createdBy": "SBREXT",
+        "dateCreated": "2004-05-27",
+        "modifiedBy": "SBR",
+        "dateModified": "2005-04-06",
+        "changeDescription": "Change concept code to C41331 as C2861 is retired per EVS. dw",
+        "administrativeNotes": null,
+        "unresolvedIssues": null,
+        "deletedIndicator": "No"
+      },
+      "Property": {
+        "publicId": "2177640",
+        "version": "1",
+        "preferredName": "Attribution",
+        "preferredDefinition": "Attribution; assigning to a cause or source.",
+        "longName": "Attribution",
+        "context": "CTEP",
+        "contextVersion": "2.31",
+        "Concepts": [
+          {
+            "longName": "Attribution",
+            "conceptCode": "C25358",
+            "definition": "To assign to a cause or source.",
+            "evsSource": "NCI_CONCEPT_CODE",
+            "primaryIndicator": "Yes",
+            "displayOrder": "0"
+          }
+        ],
+        "origin": "NCI Thesaurus",
+        "workflowStatus": "RELEASED",
+        "registrationStatus": "Application",
+        "id": "AE29A78C-5187-3A05-E034-0003BA12F5E7",
+        "latestVersionIndicator": "Yes",
+        "beginDate": "2002-10-29",
+        "endDate": null,
+        "createdBy": "SBREXT",
+        "dateCreated": "2002-10-29",
+        "modifiedBy": "SBR",
+        "dateModified": "2005-04-06",
+        "changeDescription": null,
+        "administrativeNotes": null,
+        "unresolvedIssues": null,
+        "deletedIndicator": "No"
+      },
+      "ConceptualDomain": {
+        "publicId": "2008517",
+        "version": "1",
+        "preferredName": "Adverse Events",
+        "preferredDefinition": "any unfavorable symptoms, signs, or disease temporally associated with the use of a medical\r\ntreatment or procedure that may or may not be considered related to the medical\r\ntreatment or procedure.",
+        "longName": "AE",
+        "context": "CTEP",
+        "contextVersion": "2.31",
+        "origin": null,
+        "workflowStatus": "RELEASED",
+        "registrationStatus": "Application",
+        "id": "AB51E03C-635E-5672-E034-0003BA12F5E7",
+        "latestVersionIndicator": "Yes",
+        "beginDate": "2002-09-23",
+        "endDate": null,
+        "createdBy": "MSUPLEY",
+        "dateCreated": "2002-09-23",
+        "modifiedBy": "SBR",
+        "dateModified": "2003-10-29",
+        "changeDescription": "Definition copied from CTC Manual.",
+        "administrativeNotes": null,
+        "unresolvedIssues": null,
+        "deletedIndicator": "No"
+      },
+      "origin": null,
+      "workflowStatus": "RELEASED",
+      "registrationStatus": "Application",
+      "id": "B3095570-3435-0C8C-E034-0003BA12F5E7",
+      "latestVersionIndicator": "Yes",
+      "beginDate": "2002-12-30",
+      "endDate": null,
+      "createdBy": "MSUPLEY",
+      "dateCreated": "2002-12-30",
+      "modifiedBy": "SBR",
+      "dateModified": "2016-06-06",
+      "changeDescription": null,
+      "administrativeNotes": null,
+      "unresolvedIssues": null,
+      "deletedIndicator": "No"
+    },
+    "ValueDomain": {
+      "publicId": "2179504",
+      "version": "3",
+      "preferredName": "Adverse Event Attribution Code",
+      "preferredDefinition": "All codes that indicate whether the adverse event is related to the agent or device.",
+      "longName": "AE_ATTRIBUTION_CD",
+      "context": "DCP",
+      "contextVersion": "1",
+      "type": "Enumerated",
+      "dataType": "CHARACTER",
+      "minLength": "1",
+      "maxLength": "1",
+      "minValue": null,
+      "maxValue": null,
+      "decimalPlace": null,
+      "PermissibleValues": [
+        {
+          "value": "1",
+          "valueDescription": "Unrelated",
+          "ValueMeaning": {
+            "publicId": "2567629",
+            "version": "1",
+            "preferredName": "Unrelated",
+            "longName": "2567629",
+            "preferredDefinition": "A characteristic used to qualify the adverse event as clearly not related to the medical intervention.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Adverse Event Unrelated to Intervention",
+                "conceptCode": "C53256",
+                "definition": "A characteristic used to qualify the adverse event as clearly not related to the medical intervention.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-D53A-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-12-31",
+            "endDate": null,
+            "createdBy": "SBREXT",
+            "dateCreated": "2003-12-31",
+            "modifiedBy": "HARTLEYG",
+            "dateModified": "2016-12-14",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A55-35F2-E053-F662850A6D23",
+          "beginDate": "2004-01-05",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        },
+        {
+          "value": "2",
+          "valueDescription": "Unlikely",
+          "ValueMeaning": {
+            "publicId": "2567630",
+            "version": "1",
+            "preferredName": "Unlikely",
+            "longName": "2567630",
+            "preferredDefinition": "A characteristic used to qualify the adverse event as unlikely related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a temporal relationship to the medical intervention which makes a causal relationship improbable, and in which other interventions or underlying disease provide plausible explanations.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Adverse Event Unlikely Related to Intervention",
+                "conceptCode": "C53257",
+                "definition": "A characteristic used to qualify the adverse event as unlikely related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a temporal relationship to the medical intervention which makes a causal relationship improbable, and in which other interventions or underlying disease provide plausible explanations.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-D53B-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-12-31",
+            "endDate": null,
+            "createdBy": "SBREXT",
+            "dateCreated": "2003-12-31",
+            "modifiedBy": "MMADDINENI",
+            "dateModified": "2023-12-12",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A5F-35F2-E053-F662850A6D23",
+          "beginDate": "2002-09-09",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        },
+        {
+          "value": "3",
+          "valueDescription": "Possible",
+          "ValueMeaning": {
+            "publicId": "2567631",
+            "version": "1",
+            "preferredName": "Possible",
+            "longName": "2567631",
+            "preferredDefinition": "A characteristic indicating that an adverse event may be related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a reasonable time sequence to administration of the drug, but which could also be explained by concurrent disease or other drugs or chemicals. Information on drug withdrawal may be lacking or unclear.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Adverse Event Possibly Related to Intervention",
+                "conceptCode": "C53258",
+                "definition": "A characteristic indicating that an adverse event may be related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a reasonable time sequence to administration of the drug, but which could also be explained by concurrent disease or other drugs or chemicals. Information on drug withdrawal may be lacking or unclear.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-D53C-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-12-31",
+            "endDate": null,
+            "createdBy": "SBREXT",
+            "dateCreated": "2003-12-31",
+            "modifiedBy": "HARTLEYG",
+            "dateModified": "2016-12-14",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A69-35F2-E053-F662850A6D23",
+          "beginDate": "2002-09-09",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        },
+        {
+          "value": "4",
+          "valueDescription": "Probable",
+          "ValueMeaning": {
+            "publicId": "2567632",
+            "version": "1",
+            "preferredName": "Probable",
+            "longName": "2567632",
+            "preferredDefinition": "A characteristic used to qualify the adverse event as likely related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a reasonable time sequence to the medical intervention, unlikely to be attributed to concurrent disease or other medical interventions, and which follows a clinically reasonable response on withdrawal (dechallenge). Rechallenge information is not required to fulfill this definition.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Adverse Event Probably Related to Intervention",
+                "conceptCode": "C53259",
+                "definition": "A characteristic used to qualify the adverse event as likely related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, with a reasonable time sequence to the medical intervention, unlikely to be attributed to concurrent disease or other medical interventions, and which follows a clinically reasonable response on withdrawal (dechallenge). Rechallenge information is not required to fulfill this definition.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-D53D-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-12-31",
+            "endDate": null,
+            "createdBy": "SBREXT",
+            "dateCreated": "2003-12-31",
+            "modifiedBy": "HARTLEYG",
+            "dateModified": "2016-12-14",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A73-35F2-E053-F662850A6D23",
+          "beginDate": "2002-09-09",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        },
+        {
+          "value": "5",
+          "valueDescription": "Definite",
+          "ValueMeaning": {
+            "publicId": "2567633",
+            "version": "1",
+            "preferredName": "Definite",
+            "longName": "2567633",
+            "preferredDefinition": "A characteristic used to qualify the adverse event as certainly related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, occurring in a plausible time relationship to medical intervention, and which cannot be explained by concurrent disease or other interventions. The response to withdrawal of the medical product (dechallenge) should be clinically plausible. The event must be definitive pharmacologically or phenomenologically, using a satisfactory rechallenge procedure if necessary.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Adverse Event Definitely Related to Intervention",
+                "conceptCode": "C53260",
+                "definition": "A characteristic used to qualify the adverse event as certainly related to the medical intervention. According to WHO causality assessment criteria of suspected adverse reactions it is applicable to a clinical event, including laboratory test abnormality, occurring in a plausible time relationship to medical intervention, and which cannot be explained by concurrent disease or other interventions. The response to withdrawal of the medical product (dechallenge) should be clinically plausible. The event must be definitive pharmacologically or phenomenologically, using a satisfactory rechallenge procedure if necessary.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-D53E-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-12-31",
+            "endDate": null,
+            "createdBy": "SBREXT",
+            "dateCreated": "2003-12-31",
+            "modifiedBy": "HARTLEYG",
+            "dateModified": "2016-12-14",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A7D-35F2-E053-F662850A6D23",
+          "beginDate": "2002-09-09",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        },
+        {
+          "value": "6",
+          "valueDescription": "Unknown",
+          "ValueMeaning": {
+            "publicId": "2565695",
+            "version": "1",
+            "preferredName": "Unknown",
+            "longName": "2565695",
+            "preferredDefinition": "Not known, not observed, not recorded, or refused.",
+            "context": "NCIP",
+            "contextVersion": "1",
+            "Concepts": [
+              {
+                "longName": "Unknown",
+                "conceptCode": "C17998",
+                "definition": "Not known, observed, recorded; or reported as unknown by the data contributor.",
+                "evsSource": "NCI_CONCEPT_CODE",
+                "primaryIndicator": "Yes",
+                "displayOrder": "0"
+              }
+            ],
+            "origin": null,
+            "workflowStatus": "RELEASED",
+            "registrationStatus": "Application",
+            "id": "2509CE87-CDAC-5C23-E044-0003BA3F9857",
+            "latestVersionIndicator": "Yes",
+            "beginDate": "2003-02-26",
+            "endDate": null,
+            "createdBy": "MEDVEDOH",
+            "dateCreated": "2003-02-26",
+            "modifiedBy": "MMADDINENI",
+            "dateModified": "2024-02-09",
+            "changeDescription": null,
+            "administrativeNotes": null,
+            "unresolvedIssues": null,
+            "deletedIndicator": "No"
+          },
+          "origin": null,
+          "id": "43A6AC55-8A87-35F2-E053-F662850A6D23",
+          "beginDate": "2006-04-04",
+          "endDate": null,
+          "createdBy": "HARTLEYG",
+          "dateCreated": "2016-12-14",
+          "modifiedBy": "ONEDATA",
+          "dateModified": "2016-12-14",
+          "deletedIndicator": "No"
+        }
+      ],
+      "ConceptualDomain": {
+        "publicId": "2008583",
+        "version": "1",
+        "preferredName": "Response",
+        "preferredDefinition": "a spoken or written statement that is made in reply to a question or request.",
+        "longName": "RESPONSE",
+        "context": "EDRN",
+        "contextVersion": "1",
+        "origin": null,
+        "workflowStatus": "DRAFT NEW",
+        "registrationStatus": "Application",
+        "id": "CAAB9A16-A8FD-455E-E034-0003BA12F5E7",
+        "latestVersionIndicator": "Yes",
+        "beginDate": "2003-10-27",
+        "endDate": null,
+        "createdBy": "CURTIST",
+        "dateCreated": "2003-10-27",
+        "modifiedBy": "SBR",
+        "dateModified": "2003-10-29",
+        "changeDescription": null,
+        "administrativeNotes": null,
+        "unresolvedIssues": null,
+        "deletedIndicator": "No"
+      },
+      "RepresentationTerm": {
+        "publicId": "2261841",
+        "version": "1",
+        "preferredName": "Code",
+        "preferredDefinition": "A system of numbered categories for representation of data.",
+        "longName": "C25162",
+        "context": "NCIP",
+        "contextVersion": "1",
+        "Concepts": [
+          {
+            "longName": "Code",
+            "conceptCode": "C25162",
+            "definition": "A symbol or combination of symbols which is assigned to the members of a collection.",
+            "evsSource": "NCI_CONCEPT_CODE",
+            "primaryIndicator": "Yes",
+            "displayOrder": "0"
+          }
+        ],
+        "origin": "NCI Thesaurus",
+        "workflowStatus": "RELEASED",
+        "registrationStatus": "Standard",
+        "id": "FBB87F7A-6427-1AFC-E034-0003BA3F9857",
+        "latestVersionIndicator": "Yes",
+        "beginDate": "2005-07-13",
+        "endDate": null,
+        "createdBy": "MAESKEB",
+        "dateCreated": "2005-07-13",
+        "modifiedBy": "SBR",
+        "dateModified": "2005-09-08",
+        "changeDescription": null,
+        "administrativeNotes": null,
+        "unresolvedIssues": null,
+        "deletedIndicator": "No"
+      },
+      "origin": null,
+      "workflowStatus": "RELEASED",
+      "registrationStatus": "Application",
+      "id": "43A6AC55-8A3E-35F2-E053-F662850A6D23",
+      "latestVersionIndicator": "Yes",
+      "beginDate": "2004-07-07",
+      "endDate": null,
+      "createdBy": "HARTLEYG",
+      "dateCreated": "2016-12-14",
+      "modifiedBy": "HARTLEYG",
+      "dateModified": "2016-12-14",
+      "changeDescription": "Versioned to update PV concept codes_ghd",
+      "administrativeNotes": null,
+      "unresolvedIssues": null,
+      "deletedIndicator": "No"
+    },
+    "ClassificationSchemes": [
+      {
+        "publicId": "2008589",
+        "version": "2",
+        "longName": "Type of Category",
+        "context": "CTEP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812446",
+            "version": "1",
+            "longName": "Clinical Data Update System",
+            "context": "CTEP"
+          }
+        ]
+      },
+      {
+        "publicId": "2008601",
+        "version": "1",
+        "longName": "C3D Domain",
+        "context": "CCR",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2811685",
+            "version": "1",
+            "longName": "CCR",
+            "context": "CCR"
+          },
+          {
+            "publicId": "2812367",
+            "version": "1",
+            "longName": "caBIG",
+            "context": "CCR"
+          }
+        ]
+      },
+      {
+        "publicId": "2179692",
+        "version": "1",
+        "longName": "TYPE OF CATEGORY",
+        "context": "DCP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812969",
+            "version": "1",
+            "longName": "CSAERS Adverse Events",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2811734",
+            "version": "1",
+            "longName": "Case Report Forms",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2811695",
+            "version": "1",
+            "longName": "CSAERS Review Set",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812325",
+            "version": "1",
+            "longName": "SeriousAdverseEvents",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812730",
+            "version": "1",
+            "longName": "Adverse Events",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2957372",
+            "version": "1",
+            "longName": "Case Report Forms Version 3",
+            "context": "DCP"
+          }
+        ]
+      },
+      {
+        "publicId": "2182125",
+        "version": "1",
+        "longName": "CCR Implementation",
+        "context": "CCR",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2811673",
+            "version": "1",
+            "longName": "C3D",
+            "context": "CCR"
+          }
+        ]
+      },
+      {
+        "publicId": "2183535",
+        "version": "1",
+        "longName": "Clinical Trial Mgmt Systems",
+        "context": "NCIP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812625",
+            "version": "1",
+            "longName": "CTMS C3D Adopter Sites",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812831",
+            "version": "1",
+            "longName": "Oregon Health & Sciences University",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812832",
+            "version": "1",
+            "longName": "OHSU_288",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812727",
+            "version": "1",
+            "longName": "U of Pa Cancer Center",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812574",
+            "version": "1",
+            "longName": "UPCC 07403",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2811715",
+            "version": "1",
+            "longName": "Duke University",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812580",
+            "version": "1",
+            "longName": "Duke 500",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812726",
+            "version": "1",
+            "longName": "U Nebraska Med Center",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812981",
+            "version": "1",
+            "longName": "UNMC 284-04",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812733",
+            "version": "1",
+            "longName": "FMISO Study",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812731",
+            "version": "1",
+            "longName": "U Washington",
+            "context": "NCIP"
+          },
+          {
+            "publicId": "2812732",
+            "version": "1",
+            "longName": "FES Study",
+            "context": "NCIP"
+          }
+        ]
+      },
+      {
+        "publicId": "2194255",
+        "version": "1",
+        "longName": "Type of Condition",
+        "context": "DCP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812516",
+            "version": "1",
+            "longName": "Subclinical Neoplastic Lesions",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812102",
+            "version": "1",
+            "longName": "Budesonide Lung Nodules",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812148",
+            "version": "1",
+            "longName": "SAMe - Hepatitis C cirrhosis",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812149",
+            "version": "1",
+            "longName": "Pancreatic Mucinous Neoplasms",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812151",
+            "version": "1",
+            "longName": "Prostate - Lycopene",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812152",
+            "version": "1",
+            "longName": "Barretts Esophagus - ASA-Esomeprazole",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812154",
+            "version": "1",
+            "longName": "Bronchial Dysplasia - Sulindac",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812155",
+            "version": "1",
+            "longName": "Sporadic Colorectal Neoplasia - Atrovastatin",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812157",
+            "version": "1",
+            "longName": "Melanoma Pathobiology - Lovastatin",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812174",
+            "version": "1",
+            "longName": "Polyphenon E - Hormone Receptor-Negative Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812177",
+            "version": "1",
+            "longName": "Safety Study of Resiquimod for Atyical Nevi",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812182",
+            "version": "1",
+            "longName": "Tissue Effect of Finasteride - Prostate Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812183",
+            "version": "1",
+            "longName": "Atrovastatin in Women at High Risk for Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812184",
+            "version": "1",
+            "longName": "Spectral Markers in ASA",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812188",
+            "version": "1",
+            "longName": "Se-Methyl-Seleno-L-Cystein (MSC) in Adult Men",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812189",
+            "version": "1",
+            "longName": "Polyphenon E - Pre-prostatectomy Prostate Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812190",
+            "version": "1",
+            "longName": "Acolbifene - High Risk for Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812194",
+            "version": "1",
+            "longName": "ALA PDT - Oral Leukoplakia",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812197",
+            "version": "1",
+            "longName": "Phase II Resiquimod - Atypical Nevi",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812202",
+            "version": "1",
+            "longName": "DIM - Prostate Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812277",
+            "version": "1",
+            "longName": "Aminolevulinic Acid - Barrett's Esophagus",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812364",
+            "version": "1",
+            "longName": "Barretts Esophagus",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812377",
+            "version": "1",
+            "longName": "Bladder Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812388",
+            "version": "1",
+            "longName": "Oral Leukoplakia",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812399",
+            "version": "1",
+            "longName": "Polyphenon E for Cervical Ca",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812415",
+            "version": "1",
+            "longName": "Sulindac for Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812502",
+            "version": "1",
+            "longName": "Unconjugated Isoflavones in Women at High Risk for Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812258",
+            "version": "1",
+            "longName": "Drug and Carcinogen Enzymes - Resveratrol",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812876",
+            "version": "1",
+            "longName": "Bronchial Dysplasia - Myo-Inositol",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812551",
+            "version": "1",
+            "longName": "9cUAB30",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812553",
+            "version": "1",
+            "longName": "EGF Receptor Signaling in ACF",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812539",
+            "version": "1",
+            "longName": "Polyphenon E - Bladder Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812768",
+            "version": "1",
+            "longName": "PK and Safety - Novel Retinoid (9cUAB30)",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812836",
+            "version": "1",
+            "longName": "Imiquimod for Atypical Nevi",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812843",
+            "version": "1",
+            "longName": "Polyethylene Glycol - Colon Carcinogenesis",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812949",
+            "version": "1",
+            "longName": "Exp. PK Formulations of SR13668",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2842768",
+            "version": "1",
+            "longName": "Letrozole - Breast Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812736",
+            "version": "1",
+            "longName": "Transdermal 4-OHT vs oral TAM DCIS of the Breast",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812735",
+            "version": "1",
+            "longName": "3, 3-Diindolylmethane Cervical Intraepithelial",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2813002",
+            "version": "1",
+            "longName": "Sulindac - Increased Risk of Melanoma",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2812998",
+            "version": "1",
+            "longName": "Pioglitazone - Oral Leukoplakia",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2813043",
+            "version": "1",
+            "longName": "Ursodeoxycholic Acid - Barrett's Patients",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2859628",
+            "version": "1",
+            "longName": "Breast Sulindac DFMO",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3303133",
+            "version": "1",
+            "longName": "Pomegranate - Prostate Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2813064",
+            "version": "1",
+            "longName": "Erlotinib - Lesions of Lung",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2979172",
+            "version": "1",
+            "longName": "MyoInositol Chemoprevention in Colitis-Assoc. Dysplasia",
+            "context": "DCP"
+          },
+          {
+            "publicId": "2936518",
+            "version": "1",
+            "longName": "Polyphenon E in Women w/ Modulation of Arachidonic Acid",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3018781",
+            "version": "1",
+            "longName": "Metformin Colorectal Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3018782",
+            "version": "1",
+            "longName": "Resveratrol in Postmenopausal Women",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3114163",
+            "version": "1",
+            "longName": "Cholecalciferol and Genistein",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3110219",
+            "version": "1",
+            "longName": "MSC and L SeMet in Adult Men",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3152820",
+            "version": "1",
+            "longName": "Pioglitazone - Lung Pre-Surgical NSCLC",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3182879",
+            "version": "1",
+            "longName": "Metformin - Pre-Prostatectomy Prostate Cancer",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3182878",
+            "version": "1",
+            "longName": "Vitamin D - Bioactivity in the Skin",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3528035",
+            "version": "1",
+            "longName": "Docosahexaenoic Acid",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3211792",
+            "version": "1",
+            "longName": "Barrett's Esophagus Chemoprevention Metformin",
+            "context": "DCP"
+          },
+          {
+            "publicId": "3293737",
+            "version": "1",
+            "longName": "UAB30 in NMSC",
+            "context": "DCP"
+          }
+        ]
+      },
+      {
+        "publicId": "2487057",
+        "version": "1",
+        "longName": "DCP Enterprise System Knowledgebase ",
+        "context": "DCP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812178",
+            "version": "1",
+            "longName": "E-Progress Report",
+            "context": "DCP"
+          }
+        ]
+      },
+      {
+        "publicId": "2604617",
+        "version": "1",
+        "longName": "Submission and Reporting",
+        "context": "CTEP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "10000130",
+            "version": "1",
+            "longName": "Clinical Data Update System",
+            "context": "CTEP"
+          },
+          {
+            "publicId": "2812619",
+            "version": "1",
+            "longName": "Patient Treatment by Course",
+            "context": "CTEP"
+          }
+        ]
+      },
+      {
+        "publicId": "2857175",
+        "version": "1",
+        "longName": "C3D Adopter CDEs for Reuse",
+        "context": "CCR",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2812490",
+            "version": "1",
+            "longName": "CTMS 3.12B",
+            "context": "CCR"
+          }
+        ]
+      },
+      {
+        "publicId": "2931931",
+        "version": "1",
+        "longName": "Iloprost Trial",
+        "context": "SPOREs",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "2931952",
+            "version": "1",
+            "longName": "Iloprost 12079",
+            "context": "SPOREs"
+          }
+        ]
+      },
+      {
+        "publicId": "3335728",
+        "version": "1",
+        "longName": "Protocols",
+        "context": "ABTC",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "3335732",
+            "version": "1",
+            "longName": "ABTC 0904",
+            "context": "ABTC"
+          }
+        ]
+      },
+      {
+        "publicId": "5858960",
+        "version": "1",
+        "longName": "Adopted",
+        "context": "NRDS",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "5858963",
+            "version": "1",
+            "longName": "RAVE Integrations",
+            "context": "NRDS"
+          },
+          {
+            "publicId": "4861354",
+            "version": "1",
+            "longName": "caAERS",
+            "context": "NRDS"
+          }
+        ]
+      },
+      {
+        "publicId": "7434158",
+        "version": "1",
+        "longName": "CTEP CDISC Harmonization",
+        "context": "CTEP",
+        "ClassificationSchemeItems": [
+          {
+            "publicId": "7554867",
+            "version": "1",
+            "longName": "CTEP CDISC AE SAE CTCAEv5.0",
+            "context": "CTEP"
+          },
+          {
+            "publicId": "7554866",
+            "version": "1",
+            "longName": "CTEP CDISC AE SAE CTCAEv4.0",
+            "context": "CTEP"
+          }
+        ]
+      }
+    ],
+    "AlternateNames": [
+      {
+        "name": "NRDS",
+        "type": "USED_BY",
+        "context": "NRDS"
+      },
+      {
+        "name": "ATTRIBN",
+        "type": "C3D Name",
+        "context": "CCR"
+      },
+      {
+        "name": "CTC_AE_ATTR_SCALE",
+        "type": "NRDS Alternate Name",
+        "context": "NRDS"
+      },
+      {
+        "name": "COG",
+        "type": "USED_BY",
+        "context": "COG"
+      },
+      {
+        "name": "AE_ATTR_CD",
+        "type": "USED_BY",
+        "context": "CCTG"
+      },
+      {
+        "name": "Theradex",
+        "type": "USED_BY",
+        "context": "Theradex"
+      },
+      {
+        "name": "CTEP",
+        "type": "USED_BY",
+        "context": "CTEP"
+      },
+      {
+        "name": "AE_AEREL",
+        "type": "CTEP CDISC CDE",
+        "context": "CTEP"
+      },
+      {
+        "name": "NCI Standards",
+        "type": "USED_BY",
+        "context": "NCI Standards"
+      },
+      {
+        "name": "AE_AEREL",
+        "type": "CDISC SDTM Variable",
+        "context": "NCI Standards"
+      }
+    ],
+    "ReferenceDocuments": [
+      {
+        "name": "NRDS Question Text",
+        "type": "Alternate Question Text",
+        "description": "Attribution to study intervention",
+        "url": null,
+        "context": "NRDS"
+      },
+      {
+        "name": "Attribution",
+        "type": "Preferred Question Text",
+        "description": "Attribution",
+        "url": null,
+        "context": "DCP"
+      },
+      {
+        "name": "CRF TEXT",
+        "type": "Alternate Question Text",
+        "description": "Adverse Event Attribution Code",
+        "url": null,
+        "context": "NCIP"
+      },
+      {
+        "name": "DCP Document Text2",
+        "type": "Alternate Question Text",
+        "description": "AE Attribution",
+        "url": null,
+        "context": "DCP"
+      },
+      {
+        "name": "COG CRF Text 1",
+        "type": "Alternate Question Text",
+        "description": "AE attribution:",
+        "url": null,
+        "context": "COG"
+      },
+      {
+        "name": "Theradex - 2",
+        "type": "Alternate Question Text",
+        "description": "Attribution to research blood collection",
+        "url": null,
+        "context": "Theradex"
+      },
+      {
+        "name": "Theradex - 1",
+        "type": "Alternate Question Text",
+        "description": "Attribution to research biopsy",
+        "url": null,
+        "context": "Theradex"
+      },
+      {
+        "name": "COG CRF Text 10",
+        "type": "Alternate Question Text",
+        "description": "Attribution to study intervention:",
+        "url": null,
+        "context": "COG"
+      },
+      {
+        "name": "Relationship to Study Treatment",
+        "type": "Alternate Question Text",
+        "description": "Relationship to Study Treatment",
+        "url": null,
+        "context": "CTEP"
+      },
+      {
+        "name": "Attribution to study intervention",
+        "type": "Alternate Question Text",
+        "description": "Attribution to study intervention",
+        "url": null,
+        "context": "CTEP"
+      },
+      {
+        "name": "CTEP Text 1",
+        "type": "Alternate Question Text",
+        "description": "Was this adverse event related to study treatment?",
+        "url": null,
+        "context": "CTEP"
+      },
+      {
+        "name": "CTEP Text 2",
+        "type": "Alternate Question Text",
+        "description": "Relationship to study treatment",
+        "url": null,
+        "context": "CTEP"
+      },
+      {
+        "name": "CCTG_01",
+        "type": "Alternate Question Text",
+        "description": "Relation to study treatment",
+        "url": null,
+        "context": "CCTG"
+      }
+    ],
+    "origin": null,
+    "workflowStatus": "RELEASED",
+    "registrationStatus": "Qualified",
+    "id": "43A70877-7890-6838-E053-F662850A06C5",
+    "latestVersionIndicator": "Yes",
+    "beginDate": "2006-11-30",
+    "endDate": null,
+    "createdBy": "HARTLEYG",
+    "dateCreated": "2016-12-14",
+    "modifiedBy": "CLOHNES",
+    "dateModified": "2023-03-07",
+    "changeDescription": "Versioned due to version of VD (update of concepts)_ghd",
+    "administrativeNotes": "3/7/23 added 1 AQT for CCTG ticket request CADSR0002117 cjl; 3/3/23 added 2 AQTs for CTEP Harmonization project ticket request CADSR0002116 cjl.",
+    "unresolvedIssues": null,
+    "deletedIndicator": "No"
+  }
+}

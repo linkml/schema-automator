@@ -5,6 +5,8 @@ Command Line Interface to Schema Automator
 """
 import logging
 import os
+from pathlib import Path
+
 import click
 
 
@@ -20,6 +22,7 @@ from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAULT_SCHEMA_NAME
 from schema_automator.generalizers.pandas_generalizer import PandasDataGeneralizer
+from schema_automator.importers.cadsr_import_engine import CADSRImportEngine
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
@@ -384,6 +387,27 @@ def import_frictionless(input, output, schema_name, schema_id, **kwargs):
     """
     ie = FrictionlessImportEngine(**kwargs)
     schema = ie.convert(input, name=schema_name, id=schema_id)
+    write_schema(schema, output)
+
+
+@main.command()
+@output_option
+@schema_name_option
+@schema_id_option
+@click.argument('input')
+def import_cadsr(input, output, schema_name, schema_id, **kwargs):
+    """
+    Imports from CADSR CDE JSON API output to LinkML
+
+    See :ref:`importers` for more on the importer framework
+
+    Example:
+
+        schemauto import-cadsr "cdes/*.json"
+    """
+    ie = CADSRImportEngine()
+    paths = [str(gf.absolute())  for gf in Path().glob(input) if gf.is_file()]
+    schema = ie.convert(paths, name=schema_name, id=schema_id)
     write_schema(schema, output)
 
 
