@@ -214,7 +214,7 @@ def get_ols_term_annotations(iri_param, ontology_param, session_param, ols_terms
               default=2, show_default=True)
 @click.option('--max_cosine',
               help="""how much of a cosine distance will you tolerate 
-              when comparing an enum name to a term lable or synonym?""",
+              when comparing an enum name to a term label or synonym?""",
               default=0.05, show_default=True)
 @click.option('--query_field_string',
               help="""do you want to define a custom list of fields to search in? 

@@ -86,7 +86,7 @@ class CsvDataGeneralizer(Generalizer):
     """If number if distinct values divided by total number of values is greater than this, then the column is considered an enum"""
 
     enum_strlen_threshold: int = 30
-    """Maximimum length of a string to be considered a permissible enum value"""
+    """Maximum length of a string to be considered a permissible enum value"""
 
     max_enum_size: int = 50
     """Max number of permissible values for a column to be considered an enum"""
