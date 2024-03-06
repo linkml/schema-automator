@@ -1,0 +1,69 @@
+# Slot: ObjectClass
+
+URI: [cadsr:ObjectClass](https://example.org/cadsrObjectClass)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ObjectClass](ObjectClass.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DataElementConcept](DataElementConcept.md) | [ObjectClass](ObjectClass.md) | range | [ObjectClass](ObjectClass.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ObjectClass
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: ObjectClass
+domain_of:
+- DataElementConcept
+range: ObjectClass
+required: false
+
+```
+</details>

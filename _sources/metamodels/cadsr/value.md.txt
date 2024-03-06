@@ -1,0 +1,68 @@
+# Slot: value
+
+
+_A representation of a Value Meaning in a specific Value Domain the actual Value._
+
+
+
+URI: [cadsr:value](https://example.org/cadsrvalue)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: value
+description: A representation of a Value Meaning in a specific Value Domain the actual
+  Value.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: value
+domain_of:
+- CDEPermissibleValue
+required: false
+
+```
+</details>

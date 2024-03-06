@@ -1,0 +1,69 @@
+# Slot: ValueMeaning
+
+URI: [cadsr:ValueMeaning](https://example.org/cadsrValueMeaning)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ValueMeaning](ValueMeaning.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [CDEPermissibleValue](CDEPermissibleValue.md) | [ValueMeaning](ValueMeaning.md) | range | [ValueMeaning](ValueMeaning.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ValueMeaning
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: ValueMeaning
+domain_of:
+- CDEPermissibleValue
+range: ValueMeaning
+required: false
+
+```
+</details>

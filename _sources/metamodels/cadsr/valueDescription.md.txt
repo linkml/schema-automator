@@ -1,0 +1,67 @@
+# Slot: valueDescription
+
+
+_The text of the most desirable meaning for Value_
+
+
+
+URI: [cadsr:valueDescription](https://example.org/cadsrvalueDescription)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: valueDescription
+description: The text of the most desirable meaning for Value
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: valueDescription
+domain_of:
+- CDEPermissibleValue
+required: false
+
+```
+</details>

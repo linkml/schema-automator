@@ -1,0 +1,61 @@
+# Slot: doubleQuote
+
+URI: [frictionless:doubleQuote](https://w3id.org/linkml/frictionless/doubleQuote)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Dialect](Dialect.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Boolean](Boolean.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: doubleQuote
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: doubleQuote
+domain_of:
+- Dialect
+range: boolean
+
+```
+</details>

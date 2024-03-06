@@ -1,0 +1,72 @@
+# Slot: profile
+
+URI: [frictionless:profile](https://w3id.org/linkml/frictionless/profile)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Resource](Resource.md) |  |  no  |
+[Package](Package.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ProfileEnum](ProfileEnum.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| tabular-data-resource |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: profile
+examples:
+- value: tabular-data-resource
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: profile
+domain_of:
+- Resource
+- Package
+range: profile_enum
+
+```
+</details>

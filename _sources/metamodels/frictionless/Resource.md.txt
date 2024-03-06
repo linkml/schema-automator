@@ -1,0 +1,212 @@
+# Class: Resource
+
+
+
+URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
+
+
+
+
+```mermaid
+ classDiagram
+    class Resource
+      Resource : description
+        
+      Resource : dialect
+        
+      Resource : name
+        
+      Resource : path
+        
+      Resource : profile
+        
+          Resource --> profile_enum : profile
+        
+      Resource : schema
+        
+          Resource --> Schema : schema
+        
+      Resource : title
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [profile](profile.md) | 0..1 <br/> [ProfileEnum](ProfileEnum.md) |  | direct |
+| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [title](title.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [path](path.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [dialect](dialect.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [description](description.md) | 0..* <br/> [String](String.md) |  | direct |
+| [schema](schema.md) | 0..1 <br/> [Schema](Schema.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Package](Package.md) | [resources](resources.md) | range | [Resource](Resource.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Resource |
+| native | frictionless:Resource |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Resource
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- profile
+- name
+- title
+- path
+- dialect
+- description
+- schema
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Resource
+from_schema: https://w3id.org/linkml/frictionless
+attributes:
+  profile:
+    name: profile
+    examples:
+    - value: tabular-data-resource
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: profile
+    owner: Resource
+    domain_of:
+    - Resource
+    - Package
+    range: profile_enum
+  name:
+    name: name
+    examples:
+    - value: description
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:name
+    identifier: true
+    alias: name
+    owner: Resource
+    domain_of:
+    - Field
+    - Resource
+    - Package
+    range: string
+    required: true
+  title:
+    name: title
+    examples:
+    - value: id_namespace
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:title
+    alias: title
+    owner: Resource
+    domain_of:
+    - Resource
+    - Package
+    range: string
+  path:
+    name: path
+    examples:
+    - value: id_namespace.tsv
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: path
+    owner: Resource
+    domain_of:
+    - Resource
+    range: string
+  dialect:
+    name: dialect
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: dialect
+    owner: Resource
+    domain_of:
+    - Resource
+    range: string
+  description:
+    name: description
+    examples:
+    - value: A human-readable description of this identifier namespace
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:description
+    multivalued: true
+    alias: description
+    owner: Resource
+    domain_of:
+    - Field
+    - Resource
+    range: string
+  schema:
+    name: schema
+    from_schema: https://w3id.org/linkml/frictionless
+    close_mappings:
+    - linkml:ClassDefinition
+    rank: 1000
+    alias: schema
+    owner: Resource
+    domain_of:
+    - Resource
+    range: Schema
+
+```
+</details>

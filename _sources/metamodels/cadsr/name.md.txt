@@ -1,0 +1,62 @@
+# Slot: name
+
+URI: [cadsr:name](https://example.org/cadsrname)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[AlternateName](AlternateName.md) |  |  no  |
+[ReferenceDocument](ReferenceDocument.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: name
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: name
+domain_of:
+- AlternateName
+- ReferenceDocument
+
+```
+</details>

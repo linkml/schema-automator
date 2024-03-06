@@ -1,0 +1,76 @@
+# Enum: TypeEnum
+
+
+
+URI: [TypeEnum](TypeEnum.md)
+
+## Permissible Values
+
+| Value | Meaning | Description |
+| --- | --- | --- |
+| string | None | string |
+| datetime | None | datetime |
+| boolean | None | boolean |
+| integer | None | integer |
+| array | None | array |
+| number | None | number |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [type](type.md) |  |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: type_enum
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+permissible_values:
+  string:
+    text: string
+    description: string
+  datetime:
+    text: datetime
+    description: datetime
+  boolean:
+    text: boolean
+    description: boolean
+  integer:
+    text: integer
+    description: integer
+  array:
+    text: array
+    description: array
+  number:
+    text: number
+    description: number
+
+```
+</details>

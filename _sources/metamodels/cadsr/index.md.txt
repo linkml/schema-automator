@@ -1,0 +1,169 @@
+# cadsr
+
+
+
+URI: https://example.org/cadsr
+
+Name: cadsr
+
+
+
+## Classes
+
+| Class | Description |
+| --- | --- |
+| [AlternateName](AlternateName.md) | None |
+| [CDEPermissibleValue](CDEPermissibleValue.md) | None |
+| [ClassificationScheme](ClassificationScheme.md) | None |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) | None |
+| [Concept](Concept.md) | None |
+| [ConceptualDomain](ConceptualDomain.md) | None |
+| [CRDCDataElement](CRDCDataElement.md) | None |
+| [DataElement](DataElement.md) | None |
+| [DataElementConcept](DataElementConcept.md) | None |
+| [DataElementContainer](DataElementContainer.md) | None |
+| [DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) | None |
+| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) | None |
+| [DataElementQuery](DataElementQuery.md) | None |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) | None |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) | None |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) | None |
+| [ObjectClass](ObjectClass.md) | None |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |
+| [Property](Property.md) | None |
+| [ReferenceDocument](ReferenceDocument.md) | None |
+| [RepresentationTerm](RepresentationTerm.md) | None |
+| [ValueDomain](ValueDomain.md) | None |
+| [ValueMeaning](ValueMeaning.md) | None |
+
+
+
+## Slots
+
+| Slot | Description |
+| --- | --- |
+| [administrativeNotes](administrativeNotes.md) |  |
+| [AlternateNames](AlternateNames.md) |  |
+| [Begin_Date](Begin_Date.md) | The particular day, month and year this item became allowed |
+| [beginDate](beginDate.md) | The particular day, month and year this item became allowed |
+| [CDE_Long_Name](CDE_Long_Name.md) | A 255 character limit name for an item in the registry |
+| [CDE_Public_ID](CDE_Public_ID.md) | The unique identifier for an Administered Item within a Registration Authorit... |
+| [changeDescription](changeDescription.md) | The description of what has changed in the Administered Item since the prior ... |
+| [changeNote](changeNote.md) | The description of what has changed in the Administered Item since the prior ... |
+| [characterSet](characterSet.md) |  |
+| [ClassificationSchemeItems](ClassificationSchemeItems.md) |  |
+| [ClassificationSchemes](ClassificationSchemes.md) |  |
+| [Coding_Instruction](Coding_Instruction.md) | CRDC Coding Instructions |
+| [Concept_Code](Concept_Code.md) |  |
+| [conceptCode](conceptCode.md) |  |
+| [Concepts](Concepts.md) |  |
+| [ConceptualDomain](ConceptualDomain.md) |  |
+| [context](context.md) |  |
+| [contextName](contextName.md) | A 30 character limit name by which an Administered Item is designated within ... |
+| [contextVersion](contextVersion.md) | The unique version identifier of the Administered Item |
+| [CRD_Domain](CRD_Domain.md) | CRDC Domain |
+| [CRDC_Definition](CRDC_Definition.md) | CRD Definition |
+| [CRDC_Name](CRDC_Name.md) | CRDC Name |
+| [CRDCDataElements](CRDCDataElements.md) |  |
+| [createdBy](createdBy.md) | This is a description of createdBy |
+| [DataElement](DataElement.md) |  |
+| [DataElementConcept](DataElementConcept.md) |  |
+| [dataElementConceptPublicId](dataElementConceptPublicId.md) | The unique identifier for an Administered Item within a Registration Authorit... |
+| [dataElementConceptVersion](dataElementConceptVersion.md) | The unique version identifier of the Administered Item |
+| [DataElementQueryResults](DataElementQueryResults.md) |  |
+| [dataType](dataType.md) |  |
+| [dateCreated](dateCreated.md) | The date the Administered Item was created |
+| [dateModified](dateModified.md) | Date on which the record was modified; last date the object was modified |
+| [decimalPlace](decimalPlace.md) |  |
+| [Deep_Link](Deep_Link.md) |  |
+| [definition](definition.md) |  |
+| [deletedIndicator](deletedIndicator.md) | An indicator that characterizes the item as eliminated from the registry, tho... |
+| [description](description.md) |  |
+| [displayOrder](displayOrder.md) |  |
+| [End_Date](End_Date.md) | The day, month and year this item becomes no longer allowed |
+| [endDate](endDate.md) | The day, month and year this item becomes no longer allowed |
+| [evsSource](evsSource.md) | The name of the EVS concept code that was the source for the concept identifi... |
+| [Example](Example.md) | CRDC Example |
+| [format](format.md) |  |
+| [id](id.md) | The 36 character caDSR database identifier |
+| [Instructions](Instructions.md) | CRDC Instructions |
+| [latestVersionIndicator](latestVersionIndicator.md) | The present form of an Administered Item |
+| [longName](longName.md) | A 255 character limit name for an item in the registry |
+| [maxLength](maxLength.md) |  |
+| [maxValue](maxValue.md) |  |
+| [minLength](minLength.md) |  |
+| [minValue](minValue.md) |  |
+| [modifiedBy](modifiedBy.md) | Username of the person who modified the record |
+| [name](name.md) |  |
+| [numRecords](numRecords.md) |  |
+| [ObjectClass](ObjectClass.md) |  |
+| [origin](origin.md) | The source (document, project, discipline or model) for the Administered Item |
+| [Owned_By](Owned_By.md) | Who owns the Data Element |
+| [Permissible_Value](Permissible_Value.md) | A representation of a Value Meaning in a specific Value Domain the actual Val... |
+| [permissibleValues](permissibleValues.md) |  |
+| [PermissibleValues](PermissibleValues.md) |  |
+| [preferredDefinition](preferredDefinition.md) | The text of the most desirable meaning for the Administered Item |
+| [preferredName](preferredName.md) | A 30 character limit name by which an Administered Item is designated within ... |
+| [primaryIndicator](primaryIndicator.md) |  |
+| [Property](Property.md) |  |
+| [publicId](publicId.md) | The unique identifier for an Administered Item within a Registration Authorit... |
+| [ReferenceDocuments](ReferenceDocuments.md) |  |
+| [Registration_Status](Registration_Status.md) | A designation of the status in the registration life-cycle of an Administered... |
+| [registrationStatus](registrationStatus.md) | A designation of the status in the registration life-cycle of an Administered... |
+| [RepresentationTerm](RepresentationTerm.md) |  |
+| [type](type.md) |  |
+| [unitOfMeasure](unitOfMeasure.md) |  |
+| [unresolvedIssues](unresolvedIssues.md) | Any problem that remains unresolved regarding proper documentation of the Adm... |
+| [url](url.md) |  |
+| [Used_By](Used_By.md) | Who is using the Data Element |
+| [value](value.md) | A representation of a Value Meaning in a specific Value Domain the actual Val... |
+| [valueDescription](valueDescription.md) | The text of the most desirable meaning for Value |
+| [ValueDomain](ValueDomain.md) |  |
+| [valueDomainPublicId](valueDomainPublicId.md) | The unique identifier for an Administered Item within a Registration Authorit... |
+| [valueDomainVersion](valueDomainVersion.md) | The unique version identifier of the Administered Item |
+| [ValueMeaning](ValueMeaning.md) |  |
+| [VD_Type](VD_Type.md) | Value Domain type |
+| [version](version.md) | The unique version identifier of the Administered Item |
+| [Version](Version.md) | The unique version identifier of the Administered Item |
+| [VM_Description](VM_Description.md) | The text of the most desirable meaning for the Administered Item |
+| [VM_Long_Name](VM_Long_Name.md) | A 255 character limit name for an item in the registry |
+| [VM_Public_ID](VM_Public_ID.md) | The unique identifier for an Administered Item within a Registration Authorit... |
+| [Workflow_Status](Workflow_Status.md) | A name of a designation of the status in the administrative life-cycle of a C... |
+| [workflowStatus](workflowStatus.md) | A name of a designation of the status in the administrative life-cycle of a C... |
+
+
+## Enumerations
+
+| Enumeration | Description |
+| --- | --- |
+
+
+## Types
+
+| Type | Description |
+| --- | --- |
+| [Boolean](Boolean.md) | A binary (true or false) value |
+| [Curie](Curie.md) | a compact URI |
+| [Date](Date.md) | a date (year, month and day) in an idealized calendar |
+| [DateOrDatetime](DateOrDatetime.md) | Either a date or a datetime |
+| [Datetime](Datetime.md) | The combination of a date and time |
+| [Decimal](Decimal.md) | A real number with arbitrary precision that conforms to the xsd:decimal speci... |
+| [Double](Double.md) | A real number that conforms to the xsd:double specification |
+| [Float](Float.md) | A real number that conforms to the xsd:float specification |
+| [Integer](Integer.md) | An integer |
+| [Jsonpath](Jsonpath.md) | A string encoding a JSON Path |
+| [Jsonpointer](Jsonpointer.md) | A string encoding a JSON Pointer |
+| [Ncname](Ncname.md) | Prefix part of CURIE |
+| [Nodeidentifier](Nodeidentifier.md) | A URI, CURIE or BNODE that represents a node in a model |
+| [Objectidentifier](Objectidentifier.md) | A URI or CURIE that represents an object in the model |
+| [Sparqlpath](Sparqlpath.md) | A string encoding a SPARQL Property Path |
+| [String](String.md) | A character string |
+| [Time](Time.md) | A time object represents a (local) time of day, independent of any particular... |
+| [Uri](Uri.md) | a complete URI |
+| [Uriorcurie](Uriorcurie.md) | a URI or a CURIE |
+
+
+## Subsets
+
+| Subset | Description |
+| --- | --- |

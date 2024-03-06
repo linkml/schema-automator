@@ -1,0 +1,70 @@
+# Slot: format
+
+URI: [frictionless:format](https://w3id.org/linkml/frictionless/format)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Field](Field.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [FormatEnum](FormatEnum.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| any |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: format
+examples:
+- value: any
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: format
+domain_of:
+- Field
+range: format_enum
+
+```
+</details>

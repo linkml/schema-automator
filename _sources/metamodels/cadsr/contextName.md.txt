@@ -1,0 +1,67 @@
+# Slot: contextName
+
+
+_A 30 character limit name by which an Administered Item is designated within a specific Context._
+
+
+
+URI: [cadsr:contextName](https://example.org/cadsrcontextName)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: contextName
+description: A 30 character limit name by which an Administered Item is designated
+  within a specific Context.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: contextName
+domain_of:
+- DataElementQuery
+
+```
+</details>

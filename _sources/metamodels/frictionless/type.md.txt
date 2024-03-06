@@ -1,0 +1,70 @@
+# Slot: type
+
+URI: [frictionless:type](https://w3id.org/linkml/frictionless/type)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Field](Field.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [TypeEnum](TypeEnum.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| string |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: type
+examples:
+- value: string
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: type
+domain_of:
+- Field
+range: type_enum
+
+```
+</details>

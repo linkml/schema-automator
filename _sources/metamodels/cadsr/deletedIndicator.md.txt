@@ -1,0 +1,85 @@
+# Slot: deletedIndicator
+
+
+_An indicator that characterizes the item as eliminated from the registry, thought the physical record still exists._
+
+
+
+URI: [cadsr:deletedIndicator](https://example.org/cadsrdeletedIndicator)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: deletedIndicator
+description: An indicator that characterizes the item as eliminated from the registry,
+  thought the physical record still exists.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: deletedIndicator
+domain_of:
+- Property
+- ConceptualDomain
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- CDEPermissibleValue
+- DataElementQuery
+
+```
+</details>

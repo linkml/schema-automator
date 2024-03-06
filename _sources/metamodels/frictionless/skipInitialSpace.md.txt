@@ -1,0 +1,61 @@
+# Slot: skipInitialSpace
+
+URI: [frictionless:skipInitialSpace](https://w3id.org/linkml/frictionless/skipInitialSpace)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Dialect](Dialect.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Boolean](Boolean.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: skipInitialSpace
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: skipInitialSpace
+domain_of:
+- Dialect
+range: boolean
+
+```
+</details>

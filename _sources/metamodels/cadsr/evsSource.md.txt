@@ -1,0 +1,67 @@
+# Slot: evsSource
+
+
+_The name of the EVS concept code that was the source for the concept identifier._
+
+
+
+URI: [cadsr:evsSource](https://example.org/cadsrevsSource)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Concept](Concept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: evsSource
+description: The name of the EVS concept code that was the source for the concept
+  identifier.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: evsSource
+domain_of:
+- Concept
+
+```
+</details>

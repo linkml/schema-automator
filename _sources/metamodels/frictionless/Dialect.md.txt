@@ -1,0 +1,152 @@
+# Class: Dialect
+
+
+
+URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
+
+
+
+
+```mermaid
+ classDiagram
+    class Dialect
+      Dialect : delimiter
+        
+      Dialect : doubleQuote
+        
+      Dialect : header
+        
+      Dialect : lineTerminator
+        
+      Dialect : skipInitialSpace
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [delimiter](delimiter.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [doubleQuote](doubleQuote.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+| [lineTerminator](lineTerminator.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [skipInitialSpace](skipInitialSpace.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+| [header](header.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Dialect |
+| native | frictionless:Dialect |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Dialect
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- delimiter
+- doubleQuote
+- lineTerminator
+- skipInitialSpace
+- header
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Dialect
+from_schema: https://w3id.org/linkml/frictionless
+attributes:
+  delimiter:
+    name: delimiter
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: delimiter
+    owner: Dialect
+    domain_of:
+    - Dialect
+    range: string
+  doubleQuote:
+    name: doubleQuote
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: doubleQuote
+    owner: Dialect
+    domain_of:
+    - Dialect
+    range: boolean
+  lineTerminator:
+    name: lineTerminator
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: lineTerminator
+    owner: Dialect
+    domain_of:
+    - Dialect
+    range: string
+  skipInitialSpace:
+    name: skipInitialSpace
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: skipInitialSpace
+    owner: Dialect
+    domain_of:
+    - Dialect
+    range: boolean
+  header:
+    name: header
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: header
+    owner: Dialect
+    domain_of:
+    - Dialect
+    range: boolean
+
+```
+</details>

@@ -28,6 +28,7 @@ schema frameworks, including:
    install
    cli
    packages/index
+   metamodels/index
 
 
 Indices and tables

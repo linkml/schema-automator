@@ -1,0 +1,66 @@
+# Slot: dataElementConceptVersion
+
+
+_The unique version identifier of the Administered Item._
+
+
+
+URI: [cadsr:dataElementConceptVersion](https://example.org/cadsrdataElementConceptVersion)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: dataElementConceptVersion
+description: The unique version identifier of the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: dataElementConceptVersion
+domain_of:
+- DataElementQuery
+
+```
+</details>

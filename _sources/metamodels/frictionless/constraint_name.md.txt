@@ -1,0 +1,69 @@
+# Slot: constraint_name
+
+URI: [frictionless:constraint_name](https://w3id.org/linkml/frictionless/constraint_name)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ForeignKeys](ForeignKeys.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| dcc_project_fkey |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: constraint_name
+examples:
+- value: dcc_project_fkey
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: constraint_name
+domain_of:
+- ForeignKeys
+
+```
+</details>

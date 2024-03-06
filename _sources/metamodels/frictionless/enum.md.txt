@@ -1,0 +1,66 @@
+# Slot: enum
+
+URI: [frictionless:enum](https://w3id.org/linkml/frictionless/enum)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Field](Field.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [String](String.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: enum
+from_schema: https://w3id.org/linkml/frictionless
+close_mappings:
+- linkml:range
+rank: 1000
+multivalued: true
+alias: enum
+domain_of:
+- Field
+range: string
+
+```
+</details>

@@ -1,0 +1,70 @@
+# Slot: resource
+
+URI: [frictionless:resource](https://w3id.org/linkml/frictionless/resource)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Reference](Reference.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [String](String.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| gene |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: resource
+examples:
+- value: gene
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: resource
+domain_of:
+- Reference
+range: string
+
+```
+</details>

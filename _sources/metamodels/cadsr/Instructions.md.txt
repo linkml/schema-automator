@@ -1,0 +1,66 @@
+# Slot: Instructions
+
+
+_CRDC Instructions_
+
+
+
+URI: [cadsr:Instructions](https://example.org/cadsrInstructions)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Instructions
+description: CRDC Instructions
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Instructions
+domain_of:
+- CRDCDataElement
+
+```
+</details>

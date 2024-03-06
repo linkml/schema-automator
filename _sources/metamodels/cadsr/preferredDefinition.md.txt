@@ -1,0 +1,82 @@
+# Slot: preferredDefinition
+
+
+_The text of the most desirable meaning for the Administered Item._
+
+
+
+URI: [cadsr:preferredDefinition](https://example.org/cadsrpreferredDefinition)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: preferredDefinition
+description: The text of the most desirable meaning for the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: preferredDefinition
+domain_of:
+- Property
+- ConceptualDomain
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- DataElementQuery
+
+```
+</details>

@@ -1,0 +1,83 @@
+# Slot: unresolvedIssues
+
+
+_Any problem that remains unresolved regarding proper documentation of the Administered Item._
+
+
+
+URI: [cadsr:unresolvedIssues](https://example.org/cadsrunresolvedIssues)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: unresolvedIssues
+description: Any problem that remains unresolved regarding proper documentation of
+  the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: unresolvedIssues
+domain_of:
+- Property
+- ConceptualDomain
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- DataElementQuery
+
+```
+</details>

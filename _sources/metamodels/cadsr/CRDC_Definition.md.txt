@@ -1,0 +1,66 @@
+# Slot: CRDC_Definition
+
+
+_CRD Definition_
+
+
+
+URI: [cadsr:CRDC_Definition](https://example.org/cadsrCRDC_Definition)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: CRDC Definition
+description: CRD Definition
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: CRDC_Definition
+domain_of:
+- CRDCDataElement
+
+```
+</details>

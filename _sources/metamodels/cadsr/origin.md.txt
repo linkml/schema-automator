@@ -1,0 +1,85 @@
+# Slot: origin
+
+
+_The source (document, project, discipline or model) for the Administered Item._
+
+
+
+URI: [cadsr:origin](https://example.org/cadsrorigin)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: origin
+description: The source (document, project, discipline or model) for the Administered
+  Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: origin
+domain_of:
+- Property
+- ConceptualDomain
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- CDEPermissibleValue
+- DataElementQuery
+
+```
+</details>

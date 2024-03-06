@@ -1,0 +1,82 @@
+# Slot: context
+
+URI: [cadsr:context](https://example.org/cadsrcontext)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+[Property](Property.md) |  |  yes  |
+[AlternateName](AlternateName.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: context
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: context
+domain_of:
+- ClassificationScheme
+- Property
+- AlternateName
+- ConceptualDomain
+- ClassificationSchemeItem
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- ReferenceDocument
+
+```
+</details>

@@ -1,0 +1,61 @@
+# Slot: header
+
+URI: [frictionless:header](https://w3id.org/linkml/frictionless/header)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Dialect](Dialect.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Boolean](Boolean.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: header
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: header
+domain_of:
+- Dialect
+range: boolean
+
+```
+</details>

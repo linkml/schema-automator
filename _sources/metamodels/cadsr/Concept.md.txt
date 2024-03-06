@@ -1,0 +1,273 @@
+# Class: Concept
+
+
+
+URI: [cadsr:Concept](https://example.org/cadsrConcept)
+
+
+
+
+```mermaid
+ classDiagram
+    class Concept
+      Concept : conceptCode
+        
+          Concept --> None : conceptCode
+        
+      Concept : definition
+        
+          Concept --> None : definition
+        
+      Concept : displayOrder
+        
+          Concept --> None : displayOrder
+        
+      Concept : evsSource
+        
+          Concept --> None : evsSource
+        
+      Concept : longName
+        
+          Concept --> None : longName
+        
+      Concept : primaryIndicator
+        
+          Concept --> None : primaryIndicator
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [longName](longName.md) | 0..1 <br/> [String](String.md) | A 255 character limit name for an item in the registry | direct |
+| [conceptCode](conceptCode.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [definition](definition.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [evsSource](evsSource.md) | 0..1 <br/> [String](String.md) | The name of the EVS concept code that was the source for the concept identifi... | direct |
+| [primaryIndicator](primaryIndicator.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [displayOrder](displayOrder.md) | 0..1 <br/> [String](String.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Property](Property.md) | [Concepts](Concepts.md) | range | [Concept](Concept.md) |
+| [ObjectClass](ObjectClass.md) | [Concepts](Concepts.md) | range | [Concept](Concept.md) |
+| [ValueMeaning](ValueMeaning.md) | [Concepts](Concepts.md) | range | [Concept](Concept.md) |
+| [RepresentationTerm](RepresentationTerm.md) | [Concepts](Concepts.md) | range | [Concept](Concept.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Concept |
+| native | cadsr:Concept |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Concept
+from_schema: https://example.org/cadsr
+slots:
+- longName
+- conceptCode
+- definition
+- evsSource
+- primaryIndicator
+- displayOrder
+slot_usage:
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  conceptCode:
+    name: conceptCode
+    domain_of:
+    - Concept
+  definition:
+    name: definition
+    domain_of:
+    - Concept
+  evsSource:
+    name: evsSource
+    description: The name of the EVS concept code that was the source for the concept
+      identifier.
+    domain_of:
+    - Concept
+  primaryIndicator:
+    name: primaryIndicator
+    domain_of:
+    - Concept
+  displayOrder:
+    name: displayOrder
+    domain_of:
+    - Concept
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Concept
+from_schema: https://example.org/cadsr
+slot_usage:
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  conceptCode:
+    name: conceptCode
+    domain_of:
+    - Concept
+  definition:
+    name: definition
+    domain_of:
+    - Concept
+  evsSource:
+    name: evsSource
+    description: The name of the EVS concept code that was the source for the concept
+      identifier.
+    domain_of:
+    - Concept
+  primaryIndicator:
+    name: primaryIndicator
+    domain_of:
+    - Concept
+  displayOrder:
+    name: displayOrder
+    domain_of:
+    - Concept
+attributes:
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: longName
+    owner: Concept
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  conceptCode:
+    name: conceptCode
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: conceptCode
+    owner: Concept
+    domain_of:
+    - Concept
+  definition:
+    name: definition
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: definition
+    owner: Concept
+    domain_of:
+    - Concept
+  evsSource:
+    name: evsSource
+    description: The name of the EVS concept code that was the source for the concept
+      identifier.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: evsSource
+    owner: Concept
+    domain_of:
+    - Concept
+  primaryIndicator:
+    name: primaryIndicator
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: primaryIndicator
+    owner: Concept
+    domain_of:
+    - Concept
+  displayOrder:
+    name: displayOrder
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: displayOrder
+    owner: Concept
+    domain_of:
+    - Concept
+
+```
+</details>

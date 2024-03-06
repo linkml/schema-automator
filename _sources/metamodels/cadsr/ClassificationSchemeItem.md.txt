@@ -1,0 +1,333 @@
+# Class: ClassificationSchemeItem
+
+
+
+URI: [cadsr:ClassificationSchemeItem](https://example.org/cadsrClassificationSchemeItem)
+
+
+
+
+```mermaid
+ classDiagram
+    class ClassificationSchemeItem
+      ClassificationSchemeItem : context
+        
+          ClassificationSchemeItem --> None : context
+        
+      ClassificationSchemeItem : longName
+        
+          ClassificationSchemeItem --> None : longName
+        
+      ClassificationSchemeItem : publicId
+        
+          ClassificationSchemeItem --> None : publicId
+        
+      ClassificationSchemeItem : version
+        
+          ClassificationSchemeItem --> None : version
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [publicId](publicId.md) | 0..1 <br/> [String](String.md) | The unique identifier for an Administered Item within a Registration Authorit... | direct |
+| [version](version.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
+| [longName](longName.md) | 0..1 <br/> [String](String.md) | A 255 character limit name for an item in the registry | direct |
+| [context](context.md) | 0..1 <br/> [String](String.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [ClassificationScheme](ClassificationScheme.md) | [ClassificationSchemeItems](ClassificationSchemeItems.md) | range | [ClassificationSchemeItem](ClassificationSchemeItem.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ClassificationSchemeItem |
+| native | cadsr:ClassificationSchemeItem |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: ClassificationSchemeItem
+from_schema: https://example.org/cadsr
+slots:
+- publicId
+- version
+- longName
+- context
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  longName:
+    name: longName
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  context:
+    name: context
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - AlternateName
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - ReferenceDocument
+    required: false
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: ClassificationSchemeItem
+from_schema: https://example.org/cadsr
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  longName:
+    name: longName
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  context:
+    name: context
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - AlternateName
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - ReferenceDocument
+    required: false
+attributes:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: publicId
+    owner: ClassificationSchemeItem
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    description: The unique version identifier of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: version
+    owner: ClassificationSchemeItem
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: longName
+    owner: ClassificationSchemeItem
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  context:
+    name: context
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: context
+    owner: ClassificationSchemeItem
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - AlternateName
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - ReferenceDocument
+    required: false
+
+```
+</details>

@@ -1,0 +1,64 @@
+# Enum: FormatEnum
+
+
+
+URI: [FormatEnum](FormatEnum.md)
+
+## Permissible Values
+
+| Value | Meaning | Description |
+| --- | --- | --- |
+| any | None | any |
+| email | None | email |
+| binary | None | binary |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [format](format.md) |  |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: format_enum
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+permissible_values:
+  any:
+    text: any
+    description: any
+  email:
+    text: email
+    description: email
+  binary:
+    text: binary
+    description: binary
+
+```
+</details>

@@ -1,0 +1,83 @@
+# Slot: preferredName
+
+
+_A 30 character limit name by which an Administered Item is designated within a specific Context. Referred to as Short Name._
+
+
+
+URI: [cadsr:preferredName](https://example.org/cadsrpreferredName)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: preferredName
+description: A 30 character limit name by which an Administered Item is designated
+  within a specific Context. Referred to as Short Name.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: preferredName
+domain_of:
+- Property
+- ConceptualDomain
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- DataElementQuery
+
+```
+</details>

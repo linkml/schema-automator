@@ -1,0 +1,61 @@
+# Slot: lineTerminator
+
+URI: [frictionless:lineTerminator](https://w3id.org/linkml/frictionless/lineTerminator)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Dialect](Dialect.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [String](String.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: lineTerminator
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: lineTerminator
+domain_of:
+- Dialect
+range: string
+
+```
+</details>

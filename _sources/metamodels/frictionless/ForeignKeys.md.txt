@@ -1,0 +1,168 @@
+# Class: ForeignKeys
+
+
+
+URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys)
+
+
+
+
+```mermaid
+ classDiagram
+    class ForeignKeys
+      ForeignKeys : constraint_name
+        
+          ForeignKeys --> None : constraint_name
+        
+      ForeignKeys : fields
+        
+          ForeignKeys --> Field : fields
+        
+      ForeignKeys : reference
+        
+          ForeignKeys --> Reference : reference
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
+| [reference](reference.md) | 0..1 <br/> [Reference](Reference.md) |  | direct |
+| [constraint_name](constraint_name.md) | 0..1 <br/> [String](String.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Schema](Schema.md) | [foreignKeys](foreignKeys.md) | range | [ForeignKeys](ForeignKeys.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:ForeignKeys |
+| native | frictionless:ForeignKeys |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: ForeignKeys
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- fields
+- reference
+- constraint_name
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: false
+  range:
+    name: range
+    id_prefixes:
+    - Any
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: ForeignKeys
+from_schema: https://w3id.org/linkml/frictionless
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: false
+  range:
+    name: range
+    id_prefixes:
+    - Any
+attributes:
+  fields:
+    name: fields
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: fields
+    owner: ForeignKeys
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    range: Field
+    inlined: false
+  reference:
+    name: reference
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: reference
+    owner: ForeignKeys
+    domain_of:
+    - ForeignKeys
+    range: Reference
+  constraint_name:
+    name: constraint_name
+    examples:
+    - value: dcc_project_fkey
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: constraint_name
+    owner: ForeignKeys
+    domain_of:
+    - ForeignKeys
+
+```
+</details>

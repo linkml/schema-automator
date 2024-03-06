@@ -1,0 +1,104 @@
+# Class: DataElementContainer
+
+
+
+URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
+
+
+
+
+```mermaid
+ classDiagram
+    class DataElementContainer
+      DataElementContainer : DataElement
+        
+          DataElementContainer --> DataElement : DataElement
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [DataElement](DataElement.md) | 0..1 <br/> [DataElement](DataElement.md) |  | direct |
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:DataElementContainer |
+| native | cadsr:DataElementContainer |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: DataElementContainer
+from_schema: https://example.org/cadsr
+slots:
+- DataElement
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: DataElementContainer
+from_schema: https://example.org/cadsr
+attributes:
+  DataElement:
+    name: DataElement
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: DataElement
+    owner: DataElementContainer
+    domain_of:
+    - DataElementContainer
+    - DataElementpublicId_GET_response
+    range: DataElement
+    required: false
+
+```
+</details>

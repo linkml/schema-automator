@@ -1,0 +1,58 @@
+# Enum: ProfileEnum
+
+
+
+URI: [ProfileEnum](ProfileEnum.md)
+
+## Permissible Values
+
+| Value | Meaning | Description |
+| --- | --- | --- |
+| tabular-data-resource | None |  |
+| tabular-data-package | None |  |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [profile](profile.md) |  |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: profile_enum
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+permissible_values:
+  tabular-data-resource:
+    text: tabular-data-resource
+  tabular-data-package:
+    text: tabular-data-package
+
+```
+</details>

@@ -1,0 +1,67 @@
+# Slot: Registration_Status
+
+
+_A designation of the status in the registration life-cycle of an Administered Item._
+
+
+
+URI: [cadsr:Registration_Status](https://example.org/cadsrRegistration_Status)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Registration Status
+description: A designation of the status in the registration life-cycle of an Administered
+  Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Registration_Status
+domain_of:
+- CRDCDataElement
+
+```
+</details>

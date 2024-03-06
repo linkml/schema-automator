@@ -1,0 +1,1315 @@
+# Class: DataElementQuery
+
+
+
+URI: [cadsr:DataElementQuery](https://example.org/cadsrDataElementQuery)
+
+
+
+
+```mermaid
+ classDiagram
+    class DataElementQuery
+      DataElementQuery : administrativeNotes
+        
+          DataElementQuery --> None : administrativeNotes
+        
+      DataElementQuery : beginDate
+        
+          DataElementQuery --> None : beginDate
+        
+      DataElementQuery : changeNote
+        
+          DataElementQuery --> None : changeNote
+        
+      DataElementQuery : contextName
+        
+          DataElementQuery --> None : contextName
+        
+      DataElementQuery : contextVersion
+        
+          DataElementQuery --> None : contextVersion
+        
+      DataElementQuery : createdBy
+        
+          DataElementQuery --> None : createdBy
+        
+      DataElementQuery : dataElementConceptPublicId
+        
+          DataElementQuery --> None : dataElementConceptPublicId
+        
+      DataElementQuery : dataElementConceptVersion
+        
+          DataElementQuery --> None : dataElementConceptVersion
+        
+      DataElementQuery : dateCreated
+        
+          DataElementQuery --> None : dateCreated
+        
+      DataElementQuery : dateModified
+        
+          DataElementQuery --> None : dateModified
+        
+      DataElementQuery : deletedIndicator
+        
+          DataElementQuery --> None : deletedIndicator
+        
+      DataElementQuery : endDate
+        
+          DataElementQuery --> None : endDate
+        
+      DataElementQuery : id
+        
+          DataElementQuery --> None : id
+        
+      DataElementQuery : latestVersionIndicator
+        
+          DataElementQuery --> None : latestVersionIndicator
+        
+      DataElementQuery : longName
+        
+          DataElementQuery --> None : longName
+        
+      DataElementQuery : modifiedBy
+        
+          DataElementQuery --> None : modifiedBy
+        
+      DataElementQuery : origin
+        
+          DataElementQuery --> None : origin
+        
+      DataElementQuery : preferredDefinition
+        
+          DataElementQuery --> None : preferredDefinition
+        
+      DataElementQuery : preferredName
+        
+          DataElementQuery --> None : preferredName
+        
+      DataElementQuery : publicId
+        
+          DataElementQuery --> None : publicId
+        
+      DataElementQuery : registrationStatus
+        
+          DataElementQuery --> None : registrationStatus
+        
+      DataElementQuery : unresolvedIssues
+        
+          DataElementQuery --> None : unresolvedIssues
+        
+      DataElementQuery : valueDomainPublicId
+        
+          DataElementQuery --> None : valueDomainPublicId
+        
+      DataElementQuery : valueDomainVersion
+        
+          DataElementQuery --> None : valueDomainVersion
+        
+      DataElementQuery : version
+        
+          DataElementQuery --> None : version
+        
+      DataElementQuery : workflowStatus
+        
+          DataElementQuery --> None : workflowStatus
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [publicId](publicId.md) | 0..1 <br/> [String](String.md) | The unique identifier for an Administered Item within a Registration Authorit... | direct |
+| [version](version.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
+| [preferredName](preferredName.md) | 0..1 <br/> [String](String.md) | A 30 character limit name by which an Administered Item is designated within ... | direct |
+| [preferredDefinition](preferredDefinition.md) | 0..1 <br/> [String](String.md) | The text of the most desirable meaning for the Administered Item | direct |
+| [longName](longName.md) | 0..1 <br/> [String](String.md) | A 255 character limit name for an item in the registry | direct |
+| [contextName](contextName.md) | 0..1 <br/> [String](String.md) | A 30 character limit name by which an Administered Item is designated within ... | direct |
+| [contextVersion](contextVersion.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
+| [dataElementConceptPublicId](dataElementConceptPublicId.md) | 0..1 <br/> [String](String.md) | The unique identifier for an Administered Item within a Registration Authorit... | direct |
+| [dataElementConceptVersion](dataElementConceptVersion.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
+| [valueDomainPublicId](valueDomainPublicId.md) | 0..1 <br/> [String](String.md) | The unique identifier for an Administered Item within a Registration Authorit... | direct |
+| [valueDomainVersion](valueDomainVersion.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
+| [origin](origin.md) | 0..1 <br/> [String](String.md) | The source (document, project, discipline or model) for the Administered Item | direct |
+| [workflowStatus](workflowStatus.md) | 0..1 <br/> [String](String.md) | A name of a designation of the status in the administrative life-cycle of a C... | direct |
+| [registrationStatus](registrationStatus.md) | 0..1 <br/> [String](String.md) | A designation of the status in the registration life-cycle of an Administered... | direct |
+| [id](id.md) | 0..1 <br/> [String](String.md) | The 36 character caDSR database identifier | direct |
+| [latestVersionIndicator](latestVersionIndicator.md) | 0..1 <br/> [String](String.md) | The present form of an Administered Item | direct |
+| [beginDate](beginDate.md) | 0..1 <br/> [String](String.md) | The particular day, month and year this item became allowed | direct |
+| [endDate](endDate.md) | 0..1 <br/> [String](String.md) | The day, month and year this item becomes no longer allowed | direct |
+| [createdBy](createdBy.md) | 0..1 <br/> [String](String.md) | This is a description of createdBy | direct |
+| [dateCreated](dateCreated.md) | 0..1 <br/> [String](String.md) | The date the Administered Item was created | direct |
+| [modifiedBy](modifiedBy.md) | 0..1 <br/> [String](String.md) | Username of the person who modified the record | direct |
+| [dateModified](dateModified.md) | 0..1 <br/> [String](String.md) | Date on which the record was modified; last date the object was modified | direct |
+| [changeNote](changeNote.md) | 0..1 <br/> [String](String.md) | The description of what has changed in the Administered Item since the prior ... | direct |
+| [administrativeNotes](administrativeNotes.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [unresolvedIssues](unresolvedIssues.md) | 0..1 <br/> [String](String.md) | Any problem that remains unresolved regarding proper documentation of the Adm... | direct |
+| [deletedIndicator](deletedIndicator.md) | 0..1 <br/> [String](String.md) | An indicator that characterizes the item as eliminated from the registry, tho... | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) | [DataElementQueryResults](DataElementQueryResults.md) | range | [DataElementQuery](DataElementQuery.md) |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) | [DataElementQueryResults](DataElementQueryResults.md) | range | [DataElementQuery](DataElementQuery.md) |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) | [DataElementQueryResults](DataElementQueryResults.md) | range | [DataElementQuery](DataElementQuery.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:DataElementQuery |
+| native | cadsr:DataElementQuery |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: DataElementQuery
+from_schema: https://example.org/cadsr
+slots:
+- publicId
+- version
+- preferredName
+- preferredDefinition
+- longName
+- contextName
+- contextVersion
+- dataElementConceptPublicId
+- dataElementConceptVersion
+- valueDomainPublicId
+- valueDomainVersion
+- origin
+- workflowStatus
+- registrationStatus
+- id
+- latestVersionIndicator
+- beginDate
+- endDate
+- createdBy
+- dateCreated
+- modifiedBy
+- dateModified
+- changeNote
+- administrativeNotes
+- unresolvedIssues
+- deletedIndicator
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  preferredName:
+    name: preferredName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context. Referred to as Short Name.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  preferredDefinition:
+    name: preferredDefinition
+    description: The text of the most desirable meaning for the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  contextName:
+    name: contextName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context.
+    domain_of:
+    - DataElementQuery
+  contextVersion:
+    name: contextVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  dataElementConceptPublicId:
+    name: dataElementConceptPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - DataElementQuery
+  dataElementConceptVersion:
+    name: dataElementConceptVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  valueDomainPublicId:
+    name: valueDomainPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - DataElementQuery
+  valueDomainVersion:
+    name: valueDomainVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  workflowStatus:
+    name: workflowStatus
+    description: A name of a designation of the status in the administrative life-cycle
+      of a Context Owner for handling new administered items.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  registrationStatus:
+    name: registrationStatus
+    description: A designation of the status in the registration life-cycle of an
+      Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  latestVersionIndicator:
+    name: latestVersionIndicator
+    description: The present form of an Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  changeNote:
+    name: changeNote
+    description: The description of what has changed in the Administered Item since
+      the prior version of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  administrativeNotes:
+    name: administrativeNotes
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  unresolvedIssues:
+    name: unresolvedIssues
+    description: Any problem that remains unresolved regarding proper documentation
+      of the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: DataElementQuery
+from_schema: https://example.org/cadsr
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  preferredName:
+    name: preferredName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context. Referred to as Short Name.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  preferredDefinition:
+    name: preferredDefinition
+    description: The text of the most desirable meaning for the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  contextName:
+    name: contextName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context.
+    domain_of:
+    - DataElementQuery
+  contextVersion:
+    name: contextVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  dataElementConceptPublicId:
+    name: dataElementConceptPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - DataElementQuery
+  dataElementConceptVersion:
+    name: dataElementConceptVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  valueDomainPublicId:
+    name: valueDomainPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    domain_of:
+    - DataElementQuery
+  valueDomainVersion:
+    name: valueDomainVersion
+    description: The unique version identifier of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  workflowStatus:
+    name: workflowStatus
+    description: A name of a designation of the status in the administrative life-cycle
+      of a Context Owner for handling new administered items.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  registrationStatus:
+    name: registrationStatus
+    description: A designation of the status in the registration life-cycle of an
+      Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  latestVersionIndicator:
+    name: latestVersionIndicator
+    description: The present form of an Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  changeNote:
+    name: changeNote
+    description: The description of what has changed in the Administered Item since
+      the prior version of the Administered Item.
+    domain_of:
+    - DataElementQuery
+  administrativeNotes:
+    name: administrativeNotes
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  unresolvedIssues:
+    name: unresolvedIssues
+    description: Any problem that remains unresolved regarding proper documentation
+      of the Administered Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+attributes:
+  publicId:
+    name: publicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: publicId
+    owner: DataElementQuery
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  version:
+    name: version
+    description: The unique version identifier of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: version
+    owner: DataElementQuery
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+    required: false
+  preferredName:
+    name: preferredName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context. Referred to as Short Name.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: preferredName
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  preferredDefinition:
+    name: preferredDefinition
+    description: The text of the most desirable meaning for the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: preferredDefinition
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  longName:
+    name: longName
+    description: A 255 character limit name for an item in the registry.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: longName
+    owner: DataElementQuery
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - Concept
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  contextName:
+    name: contextName
+    description: A 30 character limit name by which an Administered Item is designated
+      within a specific Context.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: contextName
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  contextVersion:
+    name: contextVersion
+    description: The unique version identifier of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: contextVersion
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  dataElementConceptPublicId:
+    name: dataElementConceptPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dataElementConceptPublicId
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  dataElementConceptVersion:
+    name: dataElementConceptVersion
+    description: The unique version identifier of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dataElementConceptVersion
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  valueDomainPublicId:
+    name: valueDomainPublicId
+    description: The unique identifier for an Administered Item within a Registration
+      Authority.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: valueDomainPublicId
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  valueDomainVersion:
+    name: valueDomainVersion
+    description: The unique version identifier of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: valueDomainVersion
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: origin
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  workflowStatus:
+    name: workflowStatus
+    description: A name of a designation of the status in the administrative life-cycle
+      of a Context Owner for handling new administered items.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: workflowStatus
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  registrationStatus:
+    name: registrationStatus
+    description: A designation of the status in the registration life-cycle of an
+      Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: registrationStatus
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: id
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  latestVersionIndicator:
+    name: latestVersionIndicator
+    description: The present form of an Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: latestVersionIndicator
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: beginDate
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: endDate
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: createdBy
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dateCreated
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: modifiedBy
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dateModified
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  changeNote:
+    name: changeNote
+    description: The description of what has changed in the Administered Item since
+      the prior version of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: changeNote
+    owner: DataElementQuery
+    domain_of:
+    - DataElementQuery
+  administrativeNotes:
+    name: administrativeNotes
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: administrativeNotes
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  unresolvedIssues:
+    name: unresolvedIssues
+    description: Any problem that remains unresolved regarding proper documentation
+      of the Administered Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: unresolvedIssues
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: deletedIndicator
+    owner: DataElementQuery
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+
+```
+</details>

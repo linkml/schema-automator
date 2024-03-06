@@ -1,0 +1,186 @@
+# Class: Schema
+
+
+
+URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
+
+
+
+
+```mermaid
+ classDiagram
+    class Schema
+      Schema : fields
+        
+          Schema --> Field : fields
+        
+      Schema : foreignKeys
+        
+          Schema --> ForeignKeys : foreignKeys
+        
+      Schema : missingValues
+        
+          Schema --> None : missingValues
+        
+      Schema : primaryKey
+        
+          Schema --> Field : primaryKey
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
+| [missingValues](missingValues.md) | 0..* <br/> [String](String.md) |  | direct |
+| [primaryKey](primaryKey.md) | 0..* <br/> [Field](Field.md) |  | direct |
+| [foreignKeys](foreignKeys.md) | 0..* <br/> [ForeignKeys](ForeignKeys.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Resource](Resource.md) | [schema](schema.md) | range | [Schema](Schema.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Schema |
+| native | frictionless:Schema |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Schema
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- fields
+- missingValues
+- primaryKey
+- foreignKeys
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: true
+    inlined_as_list: true
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Schema
+from_schema: https://w3id.org/linkml/frictionless
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: true
+    inlined_as_list: true
+attributes:
+  fields:
+    name: fields
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: fields
+    owner: Schema
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    range: Field
+    inlined: true
+    inlined_as_list: true
+  missingValues:
+    name: missingValues
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: missingValues
+    owner: Schema
+    domain_of:
+    - Schema
+  primaryKey:
+    name: primaryKey
+    examples:
+    - value: id
+    from_schema: https://w3id.org/linkml/frictionless
+    close_mappings:
+    - linkml:identifier
+    - linkml:unique_keys
+    rank: 1000
+    multivalued: true
+    alias: primaryKey
+    owner: Schema
+    domain_of:
+    - Schema
+    range: Field
+  foreignKeys:
+    name: foreignKeys
+    examples:
+    - value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: foreignKeys
+    owner: Schema
+    domain_of:
+    - Schema
+    range: ForeignKeys
+
+```
+</details>

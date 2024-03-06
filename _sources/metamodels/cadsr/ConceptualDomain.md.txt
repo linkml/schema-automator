@@ -1,0 +1,72 @@
+# Slot: ConceptualDomain
+
+URI: [cadsr:ConceptualDomain](https://example.org/cadsrConceptualDomain)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ConceptualDomain](ConceptualDomain.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [ValueDomain](ValueDomain.md) | [ConceptualDomain](ConceptualDomain.md) | range | [ConceptualDomain](ConceptualDomain.md) |
+| [DataElementConcept](DataElementConcept.md) | [ConceptualDomain](ConceptualDomain.md) | range | [ConceptualDomain](ConceptualDomain.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ConceptualDomain
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: ConceptualDomain
+domain_of:
+- ValueDomain
+- DataElementConcept
+range: ConceptualDomain
+required: false
+
+```
+</details>

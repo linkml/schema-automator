@@ -1,0 +1,67 @@
+# Slot: changeNote
+
+
+_The description of what has changed in the Administered Item since the prior version of the Administered Item._
+
+
+
+URI: [cadsr:changeNote](https://example.org/cadsrchangeNote)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: changeNote
+description: The description of what has changed in the Administered Item since the
+  prior version of the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: changeNote
+domain_of:
+- DataElementQuery
+
+```
+</details>

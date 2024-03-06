@@ -1,0 +1,66 @@
+# Slot: VM_Description
+
+
+_The text of the most desirable meaning for the Administered Item._
+
+
+
+URI: [cadsr:VM_Description](https://example.org/cadsrVM_Description)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: VM Description
+description: The text of the most desirable meaning for the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: VM_Description
+domain_of:
+- permissibleValue
+
+```
+</details>

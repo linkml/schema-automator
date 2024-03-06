@@ -1,0 +1,61 @@
+# Slot: unitOfMeasure
+
+URI: [cadsr:unitOfMeasure](https://example.org/cadsrunitOfMeasure)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: unitOfMeasure
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: unitOfMeasure
+domain_of:
+- ValueDomain
+required: false
+
+```
+</details>

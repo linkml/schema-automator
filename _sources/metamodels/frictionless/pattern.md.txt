@@ -1,0 +1,61 @@
+# Slot: pattern
+
+URI: [linkml:pattern](https://w3id.org/linkml/pattern)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Constraints](Constraints.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: pattern
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+slot_uri: linkml:pattern
+alias: pattern
+domain_of:
+- Constraints
+
+```
+</details>

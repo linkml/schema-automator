@@ -1,0 +1,66 @@
+# Slot: VM_Long_Name
+
+
+_A 255 character limit name for an item in the registry._
+
+
+
+URI: [cadsr:VM_Long_Name](https://example.org/cadsrVM_Long_Name)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: VM Long Name
+description: A 255 character limit name for an item in the registry.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: VM_Long_Name
+domain_of:
+- permissibleValue
+
+```
+</details>

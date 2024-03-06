@@ -1,0 +1,66 @@
+# Slot: Begin_Date
+
+
+_The particular day, month and year this item became allowed._
+
+
+
+URI: [cadsr:Begin_Date](https://example.org/cadsrBegin_Date)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Begin Date
+description: The particular day, month and year this item became allowed.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Begin_Date
+domain_of:
+- permissibleValue
+
+```
+</details>

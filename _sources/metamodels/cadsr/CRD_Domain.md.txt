@@ -1,0 +1,66 @@
+# Slot: CRD_Domain
+
+
+_CRDC Domain_
+
+
+
+URI: [cadsr:CRD_Domain](https://example.org/cadsrCRD_Domain)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: CRD Domain
+description: CRDC Domain
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: CRD_Domain
+domain_of:
+- CRDCDataElement
+
+```
+</details>

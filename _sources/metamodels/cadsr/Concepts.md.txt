@@ -1,0 +1,70 @@
+# Slot: Concepts
+
+URI: [cadsr:Concepts](https://example.org/cadsrConcepts)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Property](Property.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Concept](Concept.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Concepts
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: Concepts
+domain_of:
+- Property
+- ObjectClass
+- ValueMeaning
+- RepresentationTerm
+range: Concept
+
+```
+</details>

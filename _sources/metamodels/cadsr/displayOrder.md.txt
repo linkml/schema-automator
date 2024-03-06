@@ -1,0 +1,60 @@
+# Slot: displayOrder
+
+URI: [cadsr:displayOrder](https://example.org/cadsrdisplayOrder)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Concept](Concept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: displayOrder
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: displayOrder
+domain_of:
+- Concept
+
+```
+</details>

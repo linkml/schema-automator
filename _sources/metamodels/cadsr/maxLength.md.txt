@@ -1,0 +1,61 @@
+# Slot: maxLength
+
+URI: [cadsr:maxLength](https://example.org/cadsrmaxLength)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: maxLength
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: maxLength
+domain_of:
+- ValueDomain
+required: false
+
+```
+</details>

@@ -1,0 +1,73 @@
+# Slot: title
+
+URI: [linkml:title](https://w3id.org/linkml/title)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Resource](Resource.md) |  |  no  |
+[Package](Package.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [String](String.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| id_namespace |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: title
+examples:
+- value: id_namespace
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+slot_uri: linkml:title
+alias: title
+domain_of:
+- Resource
+- Package
+range: string
+
+```
+</details>

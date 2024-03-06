@@ -1,0 +1,137 @@
+# Class: Constraints
+
+
+
+URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints)
+
+
+
+
+```mermaid
+ classDiagram
+    class Constraints
+      Constraints : pattern
+        
+          Constraints --> None : pattern
+        
+      Constraints : required
+        
+      Constraints : unique
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [required](required.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+| [pattern](pattern.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [unique](unique.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Field](Field.md) | [constraints](constraints.md) | range | [Constraints](Constraints.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Constraints |
+| native | frictionless:Constraints |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Constraints
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- required
+- pattern
+- unique
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Constraints
+from_schema: https://w3id.org/linkml/frictionless
+attributes:
+  required:
+    name: required
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:required
+    alias: required
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: boolean
+  pattern:
+    name: pattern
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:pattern
+    alias: pattern
+    owner: Constraints
+    domain_of:
+    - Constraints
+  unique:
+    name: unique
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:identifier
+    alias: unique
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: boolean
+
+```
+</details>

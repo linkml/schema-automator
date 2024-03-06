@@ -1,0 +1,61 @@
+# Slot: reference
+
+URI: [frictionless:reference](https://w3id.org/linkml/frictionless/reference)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ForeignKeys](ForeignKeys.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Reference](Reference.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: reference
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: reference
+domain_of:
+- ForeignKeys
+range: Reference
+
+```
+</details>

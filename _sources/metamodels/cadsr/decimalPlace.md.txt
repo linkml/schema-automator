@@ -1,0 +1,61 @@
+# Slot: decimalPlace
+
+URI: [cadsr:decimalPlace](https://example.org/cadsrdecimalPlace)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: decimalPlace
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: decimalPlace
+domain_of:
+- ValueDomain
+required: false
+
+```
+</details>

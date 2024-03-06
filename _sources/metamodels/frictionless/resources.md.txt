@@ -1,0 +1,66 @@
+# Slot: resources
+
+URI: [frictionless:resources](https://w3id.org/linkml/frictionless/resources)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Package](Package.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Resource](Resource.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: resources
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+multivalued: true
+alias: resources
+domain_of:
+- Package
+range: Resource
+inlined: true
+inlined_as_list: true
+
+```
+</details>

@@ -1,0 +1,65 @@
+# Slot: AlternateNames
+
+URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElement](DataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [AlternateName](AlternateName.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: AlternateNames
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: AlternateNames
+domain_of:
+- DataElement
+range: AlternateName
+required: false
+
+```
+</details>

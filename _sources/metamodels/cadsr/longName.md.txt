@@ -1,0 +1,88 @@
+# Slot: longName
+
+
+_A 255 character limit name for an item in the registry._
+
+
+
+URI: [cadsr:longName](https://example.org/cadsrlongName)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[Concept](Concept.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: longName
+description: A 255 character limit name for an item in the registry.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: longName
+domain_of:
+- ClassificationScheme
+- Property
+- ConceptualDomain
+- ClassificationSchemeItem
+- DataElement
+- ValueDomain
+- ObjectClass
+- Concept
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- DataElementQuery
+
+```
+</details>

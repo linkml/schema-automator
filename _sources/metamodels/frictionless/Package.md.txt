@@ -1,0 +1,162 @@
+# Class: Package
+
+
+
+URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
+
+
+
+
+```mermaid
+ classDiagram
+    class Package
+      Package : name
+        
+      Package : profile
+        
+          Package --> profile_enum : profile
+        
+      Package : resources
+        
+          Package --> Resource : resources
+        
+      Package : title
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [profile](profile.md) | 0..1 <br/> [ProfileEnum](ProfileEnum.md) |  | direct |
+| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [title](title.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [resources](resources.md) | 0..* <br/> [Resource](Resource.md) |  | direct |
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Package |
+| native | frictionless:Package |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Package
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- profile
+- name
+- title
+- resources
+tree_root: true
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Package
+from_schema: https://w3id.org/linkml/frictionless
+attributes:
+  profile:
+    name: profile
+    examples:
+    - value: tabular-data-resource
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: profile
+    owner: Package
+    domain_of:
+    - Resource
+    - Package
+    range: profile_enum
+  name:
+    name: name
+    examples:
+    - value: description
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:name
+    identifier: true
+    alias: name
+    owner: Package
+    domain_of:
+    - Field
+    - Resource
+    - Package
+    range: string
+    required: true
+  title:
+    name: title
+    examples:
+    - value: id_namespace
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:title
+    alias: title
+    owner: Package
+    domain_of:
+    - Resource
+    - Package
+    range: string
+  resources:
+    name: resources
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: resources
+    owner: Package
+    domain_of:
+    - Package
+    range: Resource
+    inlined: true
+    inlined_as_list: true
+tree_root: true
+
+```
+</details>

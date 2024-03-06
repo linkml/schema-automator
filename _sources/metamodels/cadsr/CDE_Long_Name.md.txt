@@ -1,0 +1,66 @@
+# Slot: CDE_Long_Name
+
+
+_A 255 character limit name for an item in the registry._
+
+
+
+URI: [cadsr:CDE_Long_Name](https://example.org/cadsrCDE_Long_Name)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: CDE Long Name
+description: A 255 character limit name for an item in the registry.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: CDE_Long_Name
+domain_of:
+- CRDCDataElement
+
+```
+</details>

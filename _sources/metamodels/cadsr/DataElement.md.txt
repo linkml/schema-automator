@@ -1,0 +1,72 @@
+# Slot: DataElement
+
+URI: [cadsr:DataElement](https://example.org/cadsrDataElement)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementContainer](DataElementContainer.md) |  |  no  |
+[DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [DataElement](DataElement.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DataElementContainer](DataElementContainer.md) | [DataElement](DataElement.md) | range | [DataElement](DataElement.md) |
+| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) | [DataElement](DataElement.md) | range | [DataElement](DataElement.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: DataElement
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: DataElement
+domain_of:
+- DataElementContainer
+- DataElementpublicId_GET_response
+range: DataElement
+required: false
+
+```
+</details>

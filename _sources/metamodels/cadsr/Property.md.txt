@@ -1,0 +1,69 @@
+# Slot: Property
+
+URI: [cadsr:Property](https://example.org/cadsrProperty)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Property](Property.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DataElementConcept](DataElementConcept.md) | [Property](Property.md) | range | [Property](Property.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Property
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Property
+domain_of:
+- DataElementConcept
+range: Property
+required: false
+
+```
+</details>

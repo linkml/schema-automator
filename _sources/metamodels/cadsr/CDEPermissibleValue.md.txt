@@ -1,0 +1,718 @@
+# Class: CDEPermissibleValue
+
+
+
+URI: [cadsr:CDEPermissibleValue](https://example.org/cadsrCDEPermissibleValue)
+
+
+
+
+```mermaid
+ classDiagram
+    class CDEPermissibleValue
+      CDEPermissibleValue : beginDate
+        
+          CDEPermissibleValue --> None : beginDate
+        
+      CDEPermissibleValue : createdBy
+        
+          CDEPermissibleValue --> None : createdBy
+        
+      CDEPermissibleValue : dateCreated
+        
+          CDEPermissibleValue --> None : dateCreated
+        
+      CDEPermissibleValue : dateModified
+        
+          CDEPermissibleValue --> None : dateModified
+        
+      CDEPermissibleValue : deletedIndicator
+        
+          CDEPermissibleValue --> None : deletedIndicator
+        
+      CDEPermissibleValue : endDate
+        
+          CDEPermissibleValue --> None : endDate
+        
+      CDEPermissibleValue : id
+        
+          CDEPermissibleValue --> None : id
+        
+      CDEPermissibleValue : modifiedBy
+        
+          CDEPermissibleValue --> None : modifiedBy
+        
+      CDEPermissibleValue : origin
+        
+          CDEPermissibleValue --> None : origin
+        
+      CDEPermissibleValue : publicId
+        
+          CDEPermissibleValue --> None : publicId
+        
+      CDEPermissibleValue : value
+        
+          CDEPermissibleValue --> None : value
+        
+      CDEPermissibleValue : valueDescription
+        
+          CDEPermissibleValue --> None : valueDescription
+        
+      CDEPermissibleValue : ValueMeaning
+        
+          CDEPermissibleValue --> ValueMeaning : ValueMeaning
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [publicId](publicId.md) | 0..1 <br/> [String](String.md) | The unique identifier for a Permissible Value | direct |
+| [value](value.md) | 0..1 <br/> [String](String.md) | A representation of a Value Meaning in a specific Value Domain the actual Val... | direct |
+| [valueDescription](valueDescription.md) | 0..1 <br/> [String](String.md) | The text of the most desirable meaning for Value | direct |
+| [ValueMeaning](ValueMeaning.md) | 0..1 <br/> [ValueMeaning](ValueMeaning.md) |  | direct |
+| [origin](origin.md) | 0..1 <br/> [String](String.md) | The source (document, project, discipline or model) for the Administered Item | direct |
+| [id](id.md) | 0..1 <br/> [String](String.md) | The 36 character caDSR database identifier | direct |
+| [beginDate](beginDate.md) | 0..1 <br/> [String](String.md) | The particular day, month and year this item became allowed | direct |
+| [endDate](endDate.md) | 0..1 <br/> [String](String.md) | The day, month and year this item becomes no longer allowed | direct |
+| [createdBy](createdBy.md) | 0..1 <br/> [String](String.md) | This is a description of createdBy | direct |
+| [dateCreated](dateCreated.md) | 0..1 <br/> [String](String.md) | The date the Administered Item was created | direct |
+| [modifiedBy](modifiedBy.md) | 0..1 <br/> [String](String.md) | Username of the person who modified the record | direct |
+| [dateModified](dateModified.md) | 0..1 <br/> [String](String.md) | Date on which the record was modified; last date the object was modified | direct |
+| [deletedIndicator](deletedIndicator.md) | 0..1 <br/> [String](String.md) | An indicator that characterizes the item as eliminated from the registry, tho... | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [ValueDomain](ValueDomain.md) | [PermissibleValues](PermissibleValues.md) | range | [CDEPermissibleValue](CDEPermissibleValue.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CDEPermissibleValue |
+| native | cadsr:CDEPermissibleValue |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: CDEPermissibleValue
+from_schema: https://example.org/cadsr
+slots:
+- publicId
+- value
+- valueDescription
+- ValueMeaning
+- origin
+- id
+- beginDate
+- endDate
+- createdBy
+- dateCreated
+- modifiedBy
+- dateModified
+- deletedIndicator
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for a Permissible Value
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  value:
+    name: value
+    description: A representation of a Value Meaning in a specific Value Domain the
+      actual Value.
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  valueDescription:
+    name: valueDescription
+    description: The text of the most desirable meaning for Value
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  ValueMeaning:
+    name: ValueMeaning
+    domain_of:
+    - CDEPermissibleValue
+    range: ValueMeaning
+    required: false
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: CDEPermissibleValue
+from_schema: https://example.org/cadsr
+slot_usage:
+  publicId:
+    name: publicId
+    description: The unique identifier for a Permissible Value
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  value:
+    name: value
+    description: A representation of a Value Meaning in a specific Value Domain the
+      actual Value.
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  valueDescription:
+    name: valueDescription
+    description: The text of the most desirable meaning for Value
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  ValueMeaning:
+    name: ValueMeaning
+    domain_of:
+    - CDEPermissibleValue
+    range: ValueMeaning
+    required: false
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+attributes:
+  publicId:
+    name: publicId
+    description: The unique identifier for a Permissible Value
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: publicId
+    owner: CDEPermissibleValue
+    domain_of:
+    - ClassificationScheme
+    - Property
+    - ConceptualDomain
+    - ClassificationSchemeItem
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+    required: false
+  value:
+    name: value
+    description: A representation of a Value Meaning in a specific Value Domain the
+      actual Value.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: value
+    owner: CDEPermissibleValue
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  valueDescription:
+    name: valueDescription
+    description: The text of the most desirable meaning for Value
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: valueDescription
+    owner: CDEPermissibleValue
+    domain_of:
+    - CDEPermissibleValue
+    required: false
+  ValueMeaning:
+    name: ValueMeaning
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: ValueMeaning
+    owner: CDEPermissibleValue
+    domain_of:
+    - CDEPermissibleValue
+    range: ValueMeaning
+    required: false
+  origin:
+    name: origin
+    description: The source (document, project, discipline or model) for the Administered
+      Item.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: origin
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  id:
+    name: id
+    description: The 36 character caDSR database identifier.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: id
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  beginDate:
+    name: beginDate
+    description: The particular day, month and year this item became allowed.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: beginDate
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  endDate:
+    name: endDate
+    description: The day, month and year this item becomes no longer allowed.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: endDate
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  createdBy:
+    name: createdBy
+    description: This is a description of createdBy.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: createdBy
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateCreated:
+    name: dateCreated
+    description: The date the Administered Item was created.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dateCreated
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  modifiedBy:
+    name: modifiedBy
+    description: Username of the person who modified the record
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: modifiedBy
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  dateModified:
+    name: dateModified
+    description: Date on which the record was modified; last date the object was modified
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: dateModified
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+  deletedIndicator:
+    name: deletedIndicator
+    description: An indicator that characterizes the item as eliminated from the registry,
+      thought the physical record still exists.
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    alias: deletedIndicator
+    owner: CDEPermissibleValue
+    domain_of:
+    - Property
+    - ConceptualDomain
+    - DataElement
+    - ValueDomain
+    - ObjectClass
+    - DataElementConcept
+    - ValueMeaning
+    - RepresentationTerm
+    - CDEPermissibleValue
+    - DataElementQuery
+
+```
+</details>

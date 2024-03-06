@@ -1,0 +1,60 @@
+# Slot: conceptCode
+
+URI: [cadsr:conceptCode](https://example.org/cadsrconceptCode)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Concept](Concept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: conceptCode
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: conceptCode
+domain_of:
+- Concept
+
+```
+</details>

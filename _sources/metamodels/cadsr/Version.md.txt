@@ -1,0 +1,66 @@
+# Slot: Version
+
+
+_The unique version identifier of the Administered Item._
+
+
+
+URI: [cadsr:Version](https://example.org/cadsrVersion)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Version
+description: The unique version identifier of the Administered Item.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Version
+domain_of:
+- CRDCDataElement
+
+```
+</details>

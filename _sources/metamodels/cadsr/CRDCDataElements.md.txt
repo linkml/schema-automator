@@ -1,0 +1,65 @@
+# Slot: CRDCDataElements
+
+URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [CRDCDataElement](CRDCDataElement.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: CRDCDataElements
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: CRDCDataElements
+domain_of:
+- DataElementgetCRDCList_GET_response
+range: CRDCDataElement
+required: false
+
+```
+</details>

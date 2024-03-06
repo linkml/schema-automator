@@ -1,0 +1,66 @@
+# Slot: End_Date
+
+
+_The day, month and year this item becomes no longer allowed._
+
+
+
+URI: [cadsr:End_Date](https://example.org/cadsrEnd_Date)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: End Date
+description: The day, month and year this item becomes no longer allowed.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: End_Date
+domain_of:
+- permissibleValue
+
+```
+</details>

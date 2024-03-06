@@ -1,0 +1,65 @@
+# Slot: PermissibleValues
+
+URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [CDEPermissibleValue](CDEPermissibleValue.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: PermissibleValues
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: PermissibleValues
+domain_of:
+- ValueDomain
+range: CDEPermissibleValue
+required: false
+
+```
+</details>

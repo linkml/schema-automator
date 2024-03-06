@@ -1,0 +1,63 @@
+# Slot: schema
+
+URI: [frictionless:schema](https://w3id.org/linkml/frictionless/schema)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Resource](Resource.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Schema](Schema.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: schema
+from_schema: https://w3id.org/linkml/frictionless
+close_mappings:
+- linkml:ClassDefinition
+rank: 1000
+alias: schema
+domain_of:
+- Resource
+range: Schema
+
+```
+</details>

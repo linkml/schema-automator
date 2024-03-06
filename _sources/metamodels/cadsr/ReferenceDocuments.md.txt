@@ -1,0 +1,65 @@
+# Slot: ReferenceDocuments
+
+URI: [cadsr:ReferenceDocuments](https://example.org/cadsrReferenceDocuments)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElement](DataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ReferenceDocument](ReferenceDocument.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ReferenceDocuments
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: ReferenceDocuments
+domain_of:
+- DataElement
+range: ReferenceDocument
+required: false
+
+```
+</details>

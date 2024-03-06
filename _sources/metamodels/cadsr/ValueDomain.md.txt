@@ -1,0 +1,69 @@
+# Slot: ValueDomain
+
+URI: [cadsr:ValueDomain](https://example.org/cadsrValueDomain)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[DataElement](DataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ValueDomain](ValueDomain.md)
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [DataElement](DataElement.md) | [ValueDomain](ValueDomain.md) | range | [ValueDomain](ValueDomain.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ValueDomain
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: ValueDomain
+domain_of:
+- DataElement
+range: ValueDomain
+required: false
+
+```
+</details>

@@ -1,0 +1,62 @@
+# Slot: required
+
+URI: [linkml:required](https://w3id.org/linkml/required)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Constraints](Constraints.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Boolean](Boolean.md)
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: required
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+slot_uri: linkml:required
+alias: required
+domain_of:
+- Constraints
+range: boolean
+
+```
+</details>

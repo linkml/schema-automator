@@ -1,0 +1,60 @@
+# Slot: primaryIndicator
+
+URI: [cadsr:primaryIndicator](https://example.org/cadsrprimaryIndicator)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Concept](Concept.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: primaryIndicator
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: primaryIndicator
+domain_of:
+- Concept
+
+```
+</details>

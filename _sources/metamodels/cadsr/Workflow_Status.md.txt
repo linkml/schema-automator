@@ -1,0 +1,67 @@
+# Slot: Workflow_Status
+
+
+_A name of a designation of the status in the administrative life-cycle of a Context Owner for handling new administered items._
+
+
+
+URI: [cadsr:Workflow_Status](https://example.org/cadsrWorkflow_Status)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Workflow Status
+description: A name of a designation of the status in the administrative life-cycle
+  of a Context Owner for handling new administered items.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Workflow_Status
+domain_of:
+- CRDCDataElement
+
+```
+</details>

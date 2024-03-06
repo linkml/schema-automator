@@ -1,0 +1,66 @@
+# Slot: Used_By
+
+
+_Who is using the Data Element_
+
+
+
+URI: [cadsr:Used_By](https://example.org/cadsrUsed_By)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Used By
+description: Who is using the Data Element
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Used_By
+domain_of:
+- CRDCDataElement
+
+```
+</details>

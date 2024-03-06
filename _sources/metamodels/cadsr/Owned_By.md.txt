@@ -1,0 +1,66 @@
+# Slot: Owned_By
+
+
+_Who owns the Data Element_
+
+
+
+URI: [cadsr:Owned_By](https://example.org/cadsrOwned_By)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Owned By
+description: Who owns the Data Element
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Owned_By
+domain_of:
+- CRDCDataElement
+
+```
+</details>

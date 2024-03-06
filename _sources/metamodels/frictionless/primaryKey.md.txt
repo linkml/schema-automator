@@ -1,0 +1,76 @@
+# Slot: primaryKey
+
+URI: [frictionless:primaryKey](https://w3id.org/linkml/frictionless/primaryKey)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Schema](Schema.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [Field](Field.md)
+
+* Multivalued: True
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| id |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: primaryKey
+examples:
+- value: id
+from_schema: https://w3id.org/linkml/frictionless
+close_mappings:
+- linkml:identifier
+- linkml:unique_keys
+rank: 1000
+multivalued: true
+alias: primaryKey
+domain_of:
+- Schema
+range: Field
+
+```
+</details>

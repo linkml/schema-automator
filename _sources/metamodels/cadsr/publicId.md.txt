@@ -1,0 +1,90 @@
+# Slot: publicId
+
+
+_The unique identifier for an Administered Item within a Registration Authority._
+
+
+
+URI: [cadsr:publicId](https://example.org/cadsrpublicId)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+[Property](Property.md) |  |  yes  |
+[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+[DataElement](DataElement.md) |  |  yes  |
+[ValueDomain](ValueDomain.md) |  |  yes  |
+[ObjectClass](ObjectClass.md) |  |  yes  |
+[DataElementConcept](DataElementConcept.md) |  |  yes  |
+[ValueMeaning](ValueMeaning.md) |  |  yes  |
+[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+[DataElementQuery](DataElementQuery.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: publicId
+description: The unique identifier for an Administered Item within a Registration
+  Authority.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: publicId
+domain_of:
+- ClassificationScheme
+- Property
+- ConceptualDomain
+- ClassificationSchemeItem
+- DataElement
+- ValueDomain
+- ObjectClass
+- DataElementConcept
+- ValueMeaning
+- RepresentationTerm
+- CDEPermissibleValue
+- DataElementQuery
+required: false
+
+```
+</details>

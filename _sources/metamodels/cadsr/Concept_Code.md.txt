@@ -1,0 +1,60 @@
+# Slot: Concept_Code
+
+URI: [cadsr:Concept_Code](https://example.org/cadsrConcept_Code)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: Concept Code
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: Concept_Code
+domain_of:
+- permissibleValue
+
+```
+</details>

@@ -1,0 +1,64 @@
+# Slot: ClassificationSchemeItems
+
+URI: [cadsr:ClassificationSchemeItems](https://example.org/cadsrClassificationSchemeItems)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [ClassificationSchemeItem](ClassificationSchemeItem.md)
+
+* Multivalued: True
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: ClassificationSchemeItems
+from_schema: https://example.org/cadsr
+rank: 1000
+multivalued: true
+alias: ClassificationSchemeItems
+domain_of:
+- ClassificationScheme
+range: ClassificationSchemeItem
+
+```
+</details>

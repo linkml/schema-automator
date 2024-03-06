@@ -1,0 +1,152 @@
+# Class: Reference
+
+
+
+URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
+
+
+
+
+```mermaid
+ classDiagram
+    class Reference
+      Reference : fields
+        
+          Reference --> Field : fields
+        
+      Reference : resource
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [resource](resource.md) | 0..1 <br/> [String](String.md) |  | direct |
+| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [ForeignKeys](ForeignKeys.md) | [reference](reference.md) | range | [Reference](Reference.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Reference |
+| native | frictionless:Reference |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Reference
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- resource
+- fields
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: false
+  range:
+    name: range
+    id_prefixes:
+    - Any
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Reference
+from_schema: https://w3id.org/linkml/frictionless
+slot_usage:
+  fields:
+    name: fields
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    inlined: false
+  range:
+    name: range
+    id_prefixes:
+    - Any
+attributes:
+  resource:
+    name: resource
+    examples:
+    - value: gene
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: resource
+    owner: Reference
+    domain_of:
+    - Reference
+    range: string
+  fields:
+    name: fields
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    multivalued: true
+    alias: fields
+    owner: Reference
+    domain_of:
+    - Reference
+    - ForeignKeys
+    - Schema
+    range: Field
+    inlined: false
+
+```
+</details>

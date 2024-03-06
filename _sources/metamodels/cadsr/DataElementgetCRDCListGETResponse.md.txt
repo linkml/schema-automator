@@ -1,0 +1,120 @@
+# Class: DataElementgetCRDCListGETResponse
+
+
+
+URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElementgetCRDCListGETResponse)
+
+
+
+
+```mermaid
+ classDiagram
+    class DataElementgetCRDCListGETResponse
+      DataElementgetCRDCListGETResponse : CRDCDataElements
+        
+          DataElementgetCRDCListGETResponse --> CRDCDataElement : CRDCDataElements
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [CRDCDataElements](CRDCDataElements.md) | 0..* <br/> [CRDCDataElement](CRDCDataElement.md) |  | direct |
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:DataElementgetCRDCListGETResponse |
+| native | cadsr:DataElementgetCRDCListGETResponse |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: DataElementgetCRDCList_GET_response
+from_schema: https://example.org/cadsr
+slots:
+- CRDCDataElements
+slot_usage:
+  CRDCDataElements:
+    name: CRDCDataElements
+    multivalued: true
+    domain_of:
+    - DataElementgetCRDCList_GET_response
+    range: CRDCDataElement
+    required: false
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: DataElementgetCRDCList_GET_response
+from_schema: https://example.org/cadsr
+slot_usage:
+  CRDCDataElements:
+    name: CRDCDataElements
+    multivalued: true
+    domain_of:
+    - DataElementgetCRDCList_GET_response
+    range: CRDCDataElement
+    required: false
+attributes:
+  CRDCDataElements:
+    name: CRDCDataElements
+    from_schema: https://example.org/cadsr
+    rank: 1000
+    multivalued: true
+    alias: CRDCDataElements
+    owner: DataElementgetCRDCList_GET_response
+    domain_of:
+    - DataElementgetCRDCList_GET_response
+    range: CRDCDataElement
+    required: false
+
+```
+</details>

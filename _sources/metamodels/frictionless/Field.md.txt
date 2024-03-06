@@ -1,0 +1,200 @@
+# Class: Field
+
+
+
+URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
+
+
+
+
+```mermaid
+ classDiagram
+    class Field
+      Field : constraints
+        
+          Field --> Constraints : constraints
+        
+      Field : description
+        
+      Field : enum
+        
+      Field : format
+        
+          Field --> format_enum : format
+        
+      Field : name
+        
+      Field : type
+        
+          Field --> type_enum : type
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [description](description.md) | 0..* <br/> [String](String.md) |  | direct |
+| [type](type.md) | 0..1 <br/> [TypeEnum](TypeEnum.md) |  | direct |
+| [constraints](constraints.md) | 0..1 <br/> [Constraints](Constraints.md) |  | direct |
+| [format](format.md) | 0..1 <br/> [FormatEnum](FormatEnum.md) |  | direct |
+| [enum](enum.md) | 0..* <br/> [String](String.md) |  | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [Reference](Reference.md) | [fields](fields.md) | range | [Field](Field.md) |
+| [ForeignKeys](ForeignKeys.md) | [fields](fields.md) | range | [Field](Field.md) |
+| [Schema](Schema.md) | [fields](fields.md) | range | [Field](Field.md) |
+| [Schema](Schema.md) | [primaryKey](primaryKey.md) | range | [Field](Field.md) |
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:Field |
+| native | frictionless:Field |
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: Field
+from_schema: https://w3id.org/linkml/frictionless
+slots:
+- name
+- description
+- type
+- constraints
+- format
+- enum
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: Field
+from_schema: https://w3id.org/linkml/frictionless
+attributes:
+  name:
+    name: name
+    examples:
+    - value: description
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:name
+    identifier: true
+    alias: name
+    owner: Field
+    domain_of:
+    - Field
+    - Resource
+    - Package
+    range: string
+    required: true
+  description:
+    name: description
+    examples:
+    - value: A human-readable description of this identifier namespace
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    slot_uri: linkml:description
+    multivalued: true
+    alias: description
+    owner: Field
+    domain_of:
+    - Field
+    - Resource
+    range: string
+  type:
+    name: type
+    examples:
+    - value: string
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: type
+    owner: Field
+    domain_of:
+    - Field
+    range: type_enum
+  constraints:
+    name: constraints
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: constraints
+    owner: Field
+    domain_of:
+    - Field
+    range: Constraints
+  format:
+    name: format
+    examples:
+    - value: any
+    from_schema: https://w3id.org/linkml/frictionless
+    rank: 1000
+    alias: format
+    owner: Field
+    domain_of:
+    - Field
+    range: format_enum
+  enum:
+    name: enum
+    from_schema: https://w3id.org/linkml/frictionless
+    close_mappings:
+    - linkml:range
+    rank: 1000
+    multivalued: true
+    alias: enum
+    owner: Field
+    domain_of:
+    - Field
+    range: string
+
+```
+</details>

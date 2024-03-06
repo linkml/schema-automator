@@ -1,0 +1,70 @@
+# Slot: path
+
+URI: [frictionless:path](https://w3id.org/linkml/frictionless/path)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[Resource](Resource.md) |  |  no  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: [String](String.md)
+
+
+
+
+
+
+## Examples
+
+| Value |
+| --- |
+| id_namespace.tsv |
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: path
+examples:
+- value: id_namespace.tsv
+from_schema: https://w3id.org/linkml/frictionless
+rank: 1000
+alias: path
+domain_of:
+- Resource
+range: string
+
+```
+</details>

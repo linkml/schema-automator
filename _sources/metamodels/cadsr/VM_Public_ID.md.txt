@@ -1,0 +1,67 @@
+# Slot: VM_Public_ID
+
+
+_The unique identifier for an Administered Item within a Registration Authority._
+
+
+
+URI: [cadsr:VM_Public_ID](https://example.org/cadsrVM_Public_ID)
+
+
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+
+
+
+
+
+
+
+## Properties
+
+* Range: NONE
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://example.org/cadsr
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: VM Public ID
+description: The unique identifier for an Administered Item within a Registration
+  Authority.
+from_schema: https://example.org/cadsr
+rank: 1000
+alias: VM_Public_ID
+domain_of:
+- permissibleValue
+
+```
+</details>
