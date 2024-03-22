@@ -117,11 +117,16 @@ class CADSRImportEngine(ImportEngine):
                     title=cde.preferredName,
                     description=cde.preferredDefinition,
                     aliases=[cde.longName],
+                    conforms_to=f"cadsr:DataElement",
                     source=source,
                 )
+                # each data element belongs to a concept
+                # (may be reused across classes?)
                 slots[slot.name] = slot
                 concept = cde.DataElementConcept
+                # a concept is linked to a class
                 objectClass = concept.ObjectClass
+                # NCIT concepts describing the class
                 mainConcept, mappings = extract_concepts(objectClass.Concepts)
                 class_name = objectClass.longName
                 concept_name = urllib.parse.quote(camelcase(f"{ctxt} {class_name}"))
@@ -135,6 +140,7 @@ class CADSRImportEngine(ImportEngine):
                         class_uri=f"cadsr:{objectClass.publicId}",
                         exact_mappings=[mainConcept[0]],
                         broad_mappings=mappings,
+                        conforms_to=f"cadsr:ObjectClass",
                     )
                     classes[parent_concept_name] = parent_cls
                 if concept_name not in classes:
@@ -145,6 +151,7 @@ class CADSRImportEngine(ImportEngine):
                         aliases=[concept.longName],
                         class_uri=f"cadsr:{concept.publicId}",
                         is_a=parent_concept_name,
+                        conforms_to=f"cadsr:DataElementConcept",
                     )
                     classes[concept_name] = cls
                 else:
@@ -156,9 +163,9 @@ class CADSRImportEngine(ImportEngine):
                 # Agent (C1708) defined as "An active power or cause (as principle,
                 # substance, physical or biological factor, etc.) that produces a specific effect."
                 # which is very upper-ontological
-                for ocConcept in objectClass.Concepts:
-                    if ocConcept.evsSource == "NCI_CONCEPT_CODE":
-                        cls.is_a = f"NCIT:{ocConcept.conceptCode}"
+                #for ocConcept in objectClass.Concepts:
+                #    if ocConcept.evsSource == "NCI_CONCEPT_CODE":
+                #        cls.is_a = f"NCIT:{ocConcept.conceptCode}"
                 valueDomain = cde.ValueDomain
                 # TODO
                 conceptualDomain = valueDomain.ConceptualDomain
