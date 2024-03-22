@@ -31,6 +31,7 @@ schemasheets = ">=0.1.24"
 xmltodict = "^0.13.0"
 click-default-group = "^1.2.4"
 linkml-runtime = "^1.7.2"
+duckdb = "^0.10.1"
 
 
 [tool.poetry.dev-dependencies]
