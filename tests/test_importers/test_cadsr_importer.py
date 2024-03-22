@@ -24,3 +24,12 @@ def test_cadsr_import():
     with open(OWL_OUT, "w", encoding="utf-8") as stream:
         owlgen = OwlSchemaGenerator(OUT, add_root_classes=True, metaclasses=False, type_objects=False)
         stream.write(owlgen.serialize())
+
+
+def test_cadsr_to_table():
+    ie = CADSRImportEngine()
+    paths = [os.path.join(INPUT_DIR, f"cadsr-cde-{i}.json") for i in IDS]
+    rows = list(ie.as_rows(paths))
+    assert rows
+    for row in rows:
+        print(row)

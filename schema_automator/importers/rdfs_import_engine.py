@@ -1,7 +1,5 @@
-import click
 import logging
-import yaml
-from typing import Union, Dict, Tuple, List, Any
+from typing import Dict, List, Any
 from collections import defaultdict
 
 from linkml.utils.schema_builder import SchemaBuilder
@@ -16,6 +14,7 @@ from funowl import *
 
 from dataclasses import dataclass, field
 
+from linkml_runtime.utils.formatutils import underscore
 from linkml_runtime.utils.introspection import package_schemaview
 from rdflib import Graph, RDF, OWL, URIRef, RDFS, SKOS, SDO, Namespace
 from schema_automator.importers.import_engine import ImportEngine
@@ -66,9 +65,12 @@ class RdfsImportEngine(ImportEngine):
                 self.reverse_metamodel_mappings[v].append(k)
         if self.initial_metamodel_mappings:
             for k, vs in self.initial_metamodel_mappings.items():
+                if not isinstance(vs, list):
+                    vs = [vs]
                 self.metamodel_mappings[k].extend(vs)
                 for v in vs:
-                    self.reverse_metamodel_mappings[v].append(k)
+                    self.reverse_metamodel_mappings[URIRef(v)].append(k)
+                    logging.info(f"Adding mapping {k} -> {v}")
         for e in sv.all_elements().values():
             mappings = []
             for ms in sv.get_mappings(e.name, expand=True).values():
@@ -185,6 +187,7 @@ class RdfsImportEngine(ImportEngine):
             if pp == RDF.type:
                 continue
             metaslot_name = self._element_from_iri(pp)
+            logging.debug(f"Mapping {pp} -> {metaslot_name}")
             if metaslot_name not in self.defclass_slots:
                 continue
             if metaslot_name is None:
@@ -192,14 +195,15 @@ class RdfsImportEngine(ImportEngine):
                 continue
             if metaslot_name == "name":
                 metaslot_name = "title"
-            v = self._object_to_value(obj)
             metaslot = self.metamodel.get_slot(metaslot_name)
+            v = self._object_to_value(obj, metaslot=metaslot)
+            metaslot_name_safe = underscore(metaslot_name)
             if not metaslot or metaslot.multivalued:
-                if metaslot_name not in init_dict:
-                    init_dict[metaslot_name] = []
-                init_dict[metaslot_name].append(v)
+                if metaslot_name_safe not in init_dict:
+                    init_dict[metaslot_name_safe] = []
+                init_dict[metaslot_name_safe].append(v)
             else:
-                init_dict[metaslot_name] = v
+                init_dict[metaslot_name_safe] = v
         return init_dict
 
     def _rdfs_metamodel_iri(self, name: str) -> List[URIRef]:
@@ -209,11 +213,13 @@ class RdfsImportEngine(ImportEngine):
         r = self.reverse_metamodel_mappings.get(iri, [])
         if len(r) > 0:
             if len(r) > 1:
-                logging.info(f"Multiple mappings for {iri}: {r}")
+                logging.debug(f"Multiple mappings for {iri}: {r}")
             return r[0]
 
-    def _object_to_value(self, obj: Any) -> Any:
+    def _object_to_value(self, obj: Any, metaslot: SlotDefinition = None) -> Any:
         if isinstance(obj, URIRef):
+            if metaslot.range == "uriorcurie" or metaslot.range == "uri":
+                return str(obj)
             return self.iri_to_name(obj)
         if isinstance(obj, Literal):
             return obj.value

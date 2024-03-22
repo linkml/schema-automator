@@ -5,23 +5,32 @@ from pathlib import Path
 import click
 import yaml
 import logging
-from copy import copy
-from typing import Any, Tuple, Dict, Union, List, Optional
+from typing import Any, Tuple, Dict, List, Optional
 
-from deprecation import deprecated
 from linkml.utils.schema_builder import SchemaBuilder
-from linkml_runtime.linkml_model import SchemaDefinition, Element, ClassDefinition, \
+from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, \
     SlotDefinition, EnumDefinition, \
-    ClassDefinitionName, \
-    SlotDefinitionName, Prefix
+    ClassDefinitionName, Prefix
 from linkml_runtime.linkml_model.meta import ReachabilityQuery, AnonymousEnumExpression
 from linkml_runtime.utils.formatutils import underscore, camelcase
 
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.utils.schemautils import minify_schema, write_schema
+from schema_automator.utils.schemautils import write_schema
 
 # TODO: move to core. https://github.com/linkml/linkml/issues/104
 RESERVED = ['in', 'not', 'def']
+
+
+def json_schema_from_open_api(oa: Dict) -> Dict:
+    """
+    Convert an OpenAPI schema to a JSON-Schema schema
+
+    :param oa:
+    :return:
+    """
+    schemas = oa.get('components', {}).get('schemas', {})
+    schema = {'$defs': schemas}
+    return schema
 
 @dataclass
 class JsonSchemaImportEngine(ImportEngine):
@@ -29,6 +38,7 @@ class JsonSchemaImportEngine(ImportEngine):
     A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema
     """
     use_attributes: bool = False
+    is_openapi: bool = False
 
     def convert(self, input: str, name=None, format = 'json', **kwargs) -> SchemaDefinition:
         """
@@ -111,6 +121,8 @@ class JsonSchemaImportEngine(ImportEngine):
         return self.convert(input, name=name, format=format, **kwargs)
 
     def loads(self, obj: Any, name=None, **kwargs) -> SchemaDefinition:
+        if self.is_openapi:
+            obj = json_schema_from_open_api(obj)
         return self.translate_schema(obj, name, **kwargs)
 
     def _class_name(self, cn: str) -> str:
