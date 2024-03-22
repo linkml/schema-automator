@@ -39,23 +39,32 @@
 <span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">linkml.utils.schema_builder</span> <span class="kn">import</span> <span class="n">SchemaBuilder</span>
-<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model</span> <span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">ClassDefinition</span><span class="p">,</span> \
     <span class="n">SlotDefinition</span><span class="p">,</span> <span class="n">EnumDefinition</span><span class="p">,</span> \
-    <span class="n">ClassDefinitionName</span><span class="p">,</span> \
-    <span class="n">SlotDefinitionName</span><span class="p">,</span> <span class="n">Prefix</span>
+    <span class="n">ClassDefinitionName</span><span class="p">,</span> <span class="n">Prefix</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model.meta</span> <span class="kn">import</span> <span class="n">ReachabilityQuery</span><span class="p">,</span> <span class="n">AnonymousEnumExpression</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime.utils.formatutils</span> <span class="kn">import</span> <span class="n">underscore</span><span class="p">,</span> <span class="n">camelcase</span>
 
 <span class="kn">from</span> <span class="nn">schema_automator.importers.import_engine</span> <span class="kn">import</span> <span class="n">ImportEngine</span>
-<span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">minify_schema</span><span class="p">,</span> <span class="n">write_schema</span>
+<span class="kn">from</span> <span class="nn">schema_automator.utils.schemautils</span> <span class="kn">import</span> <span class="n">write_schema</span>
 
 <span class="c1"># TODO: move to core. https://github.com/linkml/linkml/issues/104</span>
 <span class="n">RESERVED</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="s1">&#39;not&#39;</span><span class="p">,</span> <span class="s1">&#39;def&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">json_schema_from_open_api</span><span class="p">(</span><span class="n">oa</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an OpenAPI schema to a JSON-Schema schema</span>
+
+<span class="sd">    :param oa:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">schemas</span> <span class="o">=</span> <span class="n">oa</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;components&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;schemas&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;$defs&#39;</span><span class="p">:</span> <span class="n">schemas</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">schema</span>
 
 <div class="viewcode-block" id="JsonSchemaImportEngine">
 <a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine">[docs]</a>
@@ -65,6 +74,7 @@
 <span class="sd">    A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">use_attributes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">is_openapi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="JsonSchemaImportEngine.convert">
 <a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.convert">[docs]</a>
@@ -150,6 +160,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_openapi</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">json_schema_from_open_api</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">translate_schema</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cn</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

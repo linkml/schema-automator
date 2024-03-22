@@ -50,6 +50,13 @@ will be created.</p>
 </pre></div>
 </div>
 </section>
+<section id="importing-from-kwalify">
+<h2>Importing from Kwalify<a class="headerlink" href="#importing-from-kwalify" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">import-kwalify</span></code> command can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">kwalify</span> <span class="n">tests</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">kwalify</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</section>
 <section id="importing-from-owl">
 <h2>Importing from OWL<a class="headerlink" href="#importing-from-owl" title="Link to this heading">¶</a></h2>
 <p>You can import from a schema-style OWL ontology. This must be in functional syntax</p>
@@ -77,7 +84,7 @@ installed, using a SQL Alchemy connection path.</p>
 <h2>Packages<a class="headerlink" href="#packages" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schema_automator.importers.</span></span><span class="sig-name descname"><span class="pre">JsonSchemaImportEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_openapi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine" title="Link to this definition">¶</a></dt>
 <dd><p>A <span class="xref std std-ref">ImportEngine</span> that imports a JSON-Schema representation to a LinkML Schema</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.convert">
@@ -236,6 +243,7 @@ and will have one slot per var (slots will also be inherited from TemplateClass)
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Packages</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Importers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-json-schema">Importing from JSON-Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-kwalify">Importing from Kwalify</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-owl">Importing from OWL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-sql">Importing from SQL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#packages">Packages</a></li>
