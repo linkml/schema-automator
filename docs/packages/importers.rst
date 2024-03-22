@@ -23,6 +23,15 @@ The ``import-json-schema`` command can be used:
 
     schemauto import-json-schema tests/resources/model_card.schema.json
 
+Importing from Kwalify
+---------
+
+The ``import-kwalify`` command can be used:
+
+.. code-block::
+
+    schemauto import-kwalify tests/resources/test.kwalify.yaml
+
 Importing from OWL
 ---------
 

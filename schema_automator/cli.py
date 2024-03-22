@@ -26,6 +26,7 @@ from schema_automator.importers.cadsr_import_engine import CADSRImportEngine
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
+from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
 from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
@@ -347,6 +348,12 @@ def generalize_toml(input, output, schema_name, omit_null, **kwargs):
 @output_option
 @schema_name_option
 @use_attributes_option
+@click.option(
+    "--is-openapi/--no-is-openapi",
+    default=False,
+    show_default=True,
+    help="If true, use OpenAPI schema style"
+)
 @click.option("--import-project/--no-import-project",
               help="If true, then the input path should be a directory with multiple schema files")
 @click.option('--format', '-f', default='json', help='JSON Schema format - yaml or json')
@@ -369,6 +376,25 @@ def import_json_schema(input, output, import_project: bool, schema_name, format,
             raise ValueError(f"You must pass an export directory with --output")
         ie.import_project(input, output, name=schema_name, format=format)
 
+
+@main.command()
+@click.argument('input')
+@output_option
+@schema_name_option
+@use_attributes_option
+def import_kwalify(input, output, schema_name, **kwargs):
+    """
+    Imports from Kwalify Schema to LinkML
+
+    See :ref:`importers` for more on the importer framework
+
+    Example:
+
+        schemauto import-kwalify my/schema/personinfo.kwalify.yaml
+    """
+    ie = KwalifyImportEngine(**kwargs)
+    schema = ie.convert(input, output, name=schema_name, format=format)
+    write_schema(schema, output)
 
 @main.command()
 @click.argument('input')
