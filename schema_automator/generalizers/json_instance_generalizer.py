@@ -36,13 +36,14 @@ class JsonDataGeneralizer(Generalizer):
 
 
     def convert(self, input: Union[str, Dict], format: str = 'json',
+                index_slot: str = None,
                 container_class_name='Container',
                 **kwargs) -> SchemaDefinition:
         """
         Generalizes from a JSON file
 
         :param input:
-        :param format:
+        :param format: json or yaml; use yaml_multi for multiple documents
         :param container_class_name:
         :param kwargs:
         :return:
@@ -62,6 +63,8 @@ class JsonDataGeneralizer(Generalizer):
                     obj = json.load(stream)
                 elif format == 'yaml':
                     obj = yaml.safe_load(stream)
+                elif format == 'yaml_multi':
+                    obj = list(yaml.safe_load_all(stream))
                 elif format == 'toml':
                     obj_str = "".join(stream.readlines())
                     toml_obj = tomlkit.parse(obj_str)
@@ -69,6 +72,10 @@ class JsonDataGeneralizer(Generalizer):
                     obj = json.loads(json_str)
                 else:
                     raise Exception(f'bad format {format}')
+        if isinstance(obj, list):
+            if index_slot is None:
+                index_slot = 'members'
+            obj = {index_slot: obj}
         rows_by_table = defaultdict(list)
         self.rows_by_table = rows_by_table
         self._convert_obj(obj, table=container_class_name)

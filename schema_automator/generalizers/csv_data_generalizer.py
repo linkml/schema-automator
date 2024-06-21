@@ -264,7 +264,7 @@ class CsvDataGeneralizer(Generalizer):
         self.inject_foreign_keys(sv, fks)
         return sv.schema
 
-    def convert(self, file: str, **kwargs) -> SchemaDefinition:
+    def convert(self, file: str, delimiter=None, **kwargs) -> SchemaDefinition:
         """
         Converts a single TSV file to a single-class schema
         
@@ -272,9 +272,14 @@ class CsvDataGeneralizer(Generalizer):
         :param kwargs:
         :return:
         """
+        if delimiter is None:
+            if file.endswith(".csv"):
+                delimiter = ","
+            else:
+                delimiter = self.column_separator
         with open(file, newline='', encoding='utf-8') as tsv_file:
-            header = [h.strip() for h in tsv_file.readline().split('\t')]
-            rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
+            header = [h.strip() for h in tsv_file.readline().split(delimiter)]
+            rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=delimiter, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
 
     def convert_from_dataframe(self, df: pd.DataFrame, **kwargs) -> SchemaDefinition:

@@ -242,7 +242,7 @@ def import_dosdps(dpfiles, output, **args):
 @schema_name_option
 def import_sql(db, output, **args):
     """
-    Imports a schema by introspecting a relational database
+    Imports a schema by introspecting a relational database.
 
     See :ref:`importers` for more on the importers framework
     """
@@ -297,13 +297,14 @@ def import_htmltable(url, output, class_name, schema_name, columns,
 @click.option('--enum-threshold', default=0.1, help='if the number of distinct values / rows is less than this, do not make an enum')
 @click.option('--omit-null/--no-omit-null', default=False, help="if true, ignore null values")
 @click.option('--inlined-map', multiple=True, help="SLOT_NAME.KEY pairs indicating which slots are inlined as dict")
+@click.option('--index-slot', help="slot to inject for lists of objects")
 @click.option('--depluralize/--no-depluralized',
               default=True,
               show_default=True,
               help="Auto-depluralize class names to singular form")
 def generalize_json(input, output, schema_name, depluralize: bool, format, omit_null, inlined_map, **kwargs):
     """
-    Generalizes from a JSON file to a schema
+    Generalizes from a JSON (or YAML) file to a schema
 
     See :ref:`generalizers` for more on the generalization framework
 
