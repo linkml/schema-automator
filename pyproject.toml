@@ -32,7 +32,7 @@ xmltodict = "^0.13.0"
 click-default-group = "^1.2.4"
 linkml-runtime = "^1.7.2"
 duckdb = "^0.10.1"
-sssom= { git = "https://github.com/mapping-commons/sssom-py.git", branch = "master" }
+numpy = "^1.21.4,<2.0.0"
 
 
 [tool.poetry.dev-dependencies]
