@@ -24,6 +24,7 @@ from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAUL
 from schema_automator.generalizers.pandas_generalizer import PandasDataGeneralizer
 from schema_automator.importers.cadsr_import_engine import CADSRImportEngine
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
+from schema_automator.importers.eml_import_engine import EMLImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
@@ -489,6 +490,23 @@ def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
             mappings_obj = yaml.safe_load(f)
     sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
     schema = sie.convert(rdfsfile, **args)
+    write_schema(schema, output)
+
+@main.command()
+@click.argument('input')
+@output_option
+@schema_name_option
+@schema_id_option
+def import_eml(input, output, schema_name, schema_id, **kwargs):
+    """
+    Import Ecological Metadata Language (EML) format data and metadata to LinkML schema
+
+    Example:
+
+        schemauto import-eml dataset.eml -o dataset.yaml
+    """
+    ie = EMLImportEngine(**kwargs)
+    schema = ie.convert(input, name=schema_name, id=schema_id)
     write_schema(schema, output)
 
 @main.command()
