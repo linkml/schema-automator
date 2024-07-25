@@ -64,4 +64,4 @@ mariadb = ["mariadb"]
 skip = '.git,*.lock,resources'
 check-hidden = true
 ignore-regex = '\bOGER\b'
-ignore-words-list = 'sie'
+ignore-words-list = 'sie,assertIn'
