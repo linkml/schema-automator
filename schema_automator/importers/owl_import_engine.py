@@ -266,7 +266,10 @@ class OwlImportEngine(ImportEngine):
                 val = a.value.v
                 if isinstance(sub, IRI):
                     sub = self.iri_to_name(sub)
-                    if isinstance(val, Literal):
+                    if isinstance(val, AnonymousIndividual):
+                        logging.info(f'Ignoring anonymous individuals: {sub} {strp} {val}')
+                        continue
+                    elif isinstance(val, Literal):
                         val = str(val.v)
                     elif isinstance(val, IRI):
                         val = val.v

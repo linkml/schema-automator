@@ -1,0 +1,123 @@
+Prefix(:=<https://ontologies.metaphacts.com/test-ontology/0.2#>)
+Prefix(sh:=<http://www.w3.org/ns/shacl#>)
+Prefix(dct:=<http://purl.org/dc/terms/>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+Prefix(vaem:=<http://www.linkedmodel.org/1.2/schema/vaem#>)
+
+
+Ontology(<https://ontologies.metaphacts.com/test-ontology/0.2>
+Annotation(<http://open-services.net/ns/core#modifiedBy> "admin")
+Annotation(dct:contributor "admin")
+Annotation(dct:created "2024-07-16T13:56:07.545Z"^^xsd:dateTime)
+Annotation(dct:creator "admin")
+Annotation(dct:modified "2024-07-17T13:31:13.848Z"^^xsd:dateTime)
+Annotation(dct:title "Test Ontology"@en)
+Annotation(<http://purl.org/ontology/bibo/status> <http://purl.org/spar/pso/draft>)
+Annotation(vaem:namespace <https://ontologies.metaphacts.com/test-ontology/>)
+Annotation(rdfs:label "Test Ontology"@en)
+Annotation(owl:priorVersion <https://ontologies.metaphacts.com/test-ontology/0.1>)
+Annotation(owl:versionInfo "0.2")
+
+Declaration(Class(sh:NodeShape))
+Declaration(Class(<https://ontologies.metaphacts.com/test-ontology/Person>))
+Declaration(Class(<https://ontologies.metaphacts.com/test-ontology/Team>))
+Declaration(ObjectProperty(<https://ontologies.metaphacts.com/test-ontology/contains>))
+Declaration(DataProperty(<https://ontologies.metaphacts.com/test-ontology/name>))
+Declaration(NamedIndividual(<https://ontologies.metaphacts.com/test-ontology/PersonShape>))
+Declaration(NamedIndividual(<https://ontologies.metaphacts.com/test-ontology/TeamShape>))
+Declaration(AnnotationProperty(<http://open-services.net/ns/core#modifiedBy>))
+Declaration(AnnotationProperty(dct:contributor))
+Declaration(AnnotationProperty(dct:created))
+Declaration(AnnotationProperty(dct:creator))
+Declaration(AnnotationProperty(dct:modified))
+Declaration(AnnotationProperty(dct:title))
+Declaration(AnnotationProperty(<http://purl.org/ontology/bibo/status>))
+Declaration(AnnotationProperty(vaem:namespace))
+Declaration(AnnotationProperty(sh:class))
+Declaration(AnnotationProperty(sh:datatype))
+Declaration(AnnotationProperty(sh:path))
+Declaration(AnnotationProperty(sh:property))
+Declaration(AnnotationProperty(sh:targetClass))
+
+############################
+#   Object Properties
+############################
+
+# Object Property: <https://ontologies.metaphacts.com/test-ontology/contains> (contains)
+
+AnnotationAssertion(<http://open-services.net/ns/core#modifiedBy> <https://ontologies.metaphacts.com/test-ontology/contains> "admin")
+AnnotationAssertion(dct:contributor <https://ontologies.metaphacts.com/test-ontology/contains> "admin")
+AnnotationAssertion(dct:created <https://ontologies.metaphacts.com/test-ontology/contains> "2024-07-17T13:31:13.848Z"^^xsd:dateTime)
+AnnotationAssertion(dct:creator <https://ontologies.metaphacts.com/test-ontology/contains> "admin")
+AnnotationAssertion(dct:modified <https://ontologies.metaphacts.com/test-ontology/contains> "2024-07-17T13:31:13.848Z"^^xsd:dateTime)
+AnnotationAssertion(rdfs:isDefinedBy <https://ontologies.metaphacts.com/test-ontology/contains> <https://ontologies.metaphacts.com/test-ontology/0.2>)
+AnnotationAssertion(rdfs:label <https://ontologies.metaphacts.com/test-ontology/contains> "contains")
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: <https://ontologies.metaphacts.com/test-ontology/name> (name)
+
+AnnotationAssertion(<http://open-services.net/ns/core#modifiedBy> <https://ontologies.metaphacts.com/test-ontology/name> "admin")
+AnnotationAssertion(dct:contributor <https://ontologies.metaphacts.com/test-ontology/name> "admin")
+AnnotationAssertion(dct:created <https://ontologies.metaphacts.com/test-ontology/name> "2024-07-16T13:57:08.281Z"^^xsd:dateTime)
+AnnotationAssertion(dct:creator <https://ontologies.metaphacts.com/test-ontology/name> "admin")
+AnnotationAssertion(dct:modified <https://ontologies.metaphacts.com/test-ontology/name> "2024-07-16T13:57:08.281Z"^^xsd:dateTime)
+AnnotationAssertion(rdfs:isDefinedBy <https://ontologies.metaphacts.com/test-ontology/name> <https://ontologies.metaphacts.com/test-ontology/0.2>)
+AnnotationAssertion(rdfs:label <https://ontologies.metaphacts.com/test-ontology/name> "name")
+
+
+
+############################
+#   Classes
+############################
+
+# Class: <https://ontologies.metaphacts.com/test-ontology/Person> (Person)
+
+AnnotationAssertion(<http://open-services.net/ns/core#modifiedBy> <https://ontologies.metaphacts.com/test-ontology/Person> "admin")
+AnnotationAssertion(dct:contributor <https://ontologies.metaphacts.com/test-ontology/Person> "admin")
+AnnotationAssertion(dct:created <https://ontologies.metaphacts.com/test-ontology/Person> "2024-07-16T13:57:08.281Z"^^xsd:dateTime)
+AnnotationAssertion(dct:creator <https://ontologies.metaphacts.com/test-ontology/Person> "admin")
+AnnotationAssertion(dct:modified <https://ontologies.metaphacts.com/test-ontology/Person> "2024-07-16T13:57:08.281Z"^^xsd:dateTime)
+AnnotationAssertion(rdfs:isDefinedBy <https://ontologies.metaphacts.com/test-ontology/Person> <https://ontologies.metaphacts.com/test-ontology/0.2>)
+AnnotationAssertion(rdfs:label <https://ontologies.metaphacts.com/test-ontology/Person> "Person"@en)
+
+# Class: <https://ontologies.metaphacts.com/test-ontology/Team> (Team)
+
+AnnotationAssertion(<http://open-services.net/ns/core#modifiedBy> <https://ontologies.metaphacts.com/test-ontology/Team> "admin")
+AnnotationAssertion(dct:contributor <https://ontologies.metaphacts.com/test-ontology/Team> "admin")
+AnnotationAssertion(dct:created <https://ontologies.metaphacts.com/test-ontology/Team> "2024-07-17T13:31:13.848Z"^^xsd:dateTime)
+AnnotationAssertion(dct:creator <https://ontologies.metaphacts.com/test-ontology/Team> "admin")
+AnnotationAssertion(dct:modified <https://ontologies.metaphacts.com/test-ontology/Team> "2024-07-17T13:31:13.848Z"^^xsd:dateTime)
+AnnotationAssertion(rdfs:isDefinedBy <https://ontologies.metaphacts.com/test-ontology/Team> <https://ontologies.metaphacts.com/test-ontology/0.2>)
+AnnotationAssertion(rdfs:label <https://ontologies.metaphacts.com/test-ontology/Team> "Team"@en)
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: <https://ontologies.metaphacts.com/test-ontology/PersonShape> (<https://ontologies.metaphacts.com/test-ontology/PersonShape>)
+
+AnnotationAssertion(sh:property <https://ontologies.metaphacts.com/test-ontology/PersonShape> _:genid2147483649)
+AnnotationAssertion(sh:targetClass <https://ontologies.metaphacts.com/test-ontology/PersonShape> <https://ontologies.metaphacts.com/test-ontology/Person>)
+ClassAssertion(sh:NodeShape <https://ontologies.metaphacts.com/test-ontology/PersonShape>)
+
+# Individual: <https://ontologies.metaphacts.com/test-ontology/TeamShape> (<https://ontologies.metaphacts.com/test-ontology/TeamShape>)
+
+AnnotationAssertion(sh:property <https://ontologies.metaphacts.com/test-ontology/TeamShape> _:genid2147483648)
+AnnotationAssertion(sh:targetClass <https://ontologies.metaphacts.com/test-ontology/TeamShape> <https://ontologies.metaphacts.com/test-ontology/Team>)
+ClassAssertion(sh:NodeShape <https://ontologies.metaphacts.com/test-ontology/TeamShape>)
+
+
+AnnotationAssertion(sh:class _:genid2147483648 <https://ontologies.metaphacts.com/test-ontology/Person>)
+AnnotationAssertion(sh:path _:genid2147483648 <https://ontologies.metaphacts.com/test-ontology/contains>)
+AnnotationAssertion(sh:datatype _:genid2147483649 xsd:string)
+AnnotationAssertion(sh:path _:genid2147483649 rdfs:label)
+)
