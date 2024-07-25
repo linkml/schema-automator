@@ -28,4 +28,12 @@ class TestOwlImporter(unittest.TestCase):
         with open(OUTSCHEMA_ENHANCED, 'w') as stream:
             stream.write(s)
 
+    def test_anon_individuals(self):
+        """
+        Test that anonymous individuals are handled correctly
+        """
+        oie = OwlImportEngine()
+        schema = oie.convert(os.path.join(INPUT_DIR, 'test-anon-individual.ofn'), name='anon_individuals')
+        write_schema(schema, os.path.join(OUTPUT_DIR, 'anon-individual-from-owl.yaml'))
+
 

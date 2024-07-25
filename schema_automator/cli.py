@@ -454,6 +454,10 @@ def import_owl(owlfile, output, **args):
 
     See :ref:`importers` for more on the importer framework
 
+    For a list of caveats on LinkML to OWL mapping, see:
+
+    - https://linkml.io/linkml/generators/owl.html
+
     Example:
 
         schemauto import-owl prov.ofn -o my.yaml
