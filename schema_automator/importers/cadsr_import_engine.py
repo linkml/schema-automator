@@ -68,7 +68,9 @@ class CADSRImportEngine(ImportEngine):
 
     Ingests the output of `caDSR API <https://cadsrapi.cancer.gov/rad/NCIAPI/1.0/api>`_.
 
-    - Each CDE becomes a unique slot
+    Note that we include a LinkML schema for this in schema_automator.metamodels.cadsr
+
+    - Each CDE (DataElement) becomes a unique slot
     - the CDE is added as a lot of a context-specific class
     - the context-specific class is a subclass of the CDE's DataElementConcept
 
@@ -109,24 +111,32 @@ class CADSRImportEngine(ImportEngine):
                 container = json_loader.load(file, target_class=cadsr.DataElementContainer)
                 cde = container.DataElement
                 ctxt = cde.context
+                ln = cde.longName
                 source = urllib.parse.quote(ctxt)
                 source = f"cadsr:{source}"
+                # Each DataElement becomes one slot;
+                # we make the name both unique and human readable
+                # TODO: check this; frequently reused, e.g.
+                # NCI Standards + Group ID
                 slot = SlotDefinition(
-                    name=urllib.parse.quote(underscore(f"{ctxt} {cde.preferredName}")),
+                    name=urllib.parse.quote(underscore(f"{ctxt} {cde.preferredName} {ln}")),
                     slot_uri=f"cadsr:{cde.publicId}",
                     title=cde.preferredName,
                     description=cde.preferredDefinition,
-                    aliases=[cde.longName],
+                    aliases=[ln],
                     conforms_to=f"cadsr:DataElement",
                     source=source,
                 )
                 # each data element belongs to a concept
                 # (may be reused across classes?)
                 slots[slot.name] = slot
-                concept = cde.DataElementConcept
+                dec = cde.DataElementConcept
+                property = dec.Property
+                main_prop_concept, prop_mappings = extract_concepts(property.Concepts)
                 # a concept is linked to a class
-                objectClass = concept.ObjectClass
-                # NCIT concepts describing the class
+                objectClass = dec.ObjectClass
+                # NCIT concepts describing the class;
+                # there will be one primary and possibly secondary concepts
                 mainConcept, mappings = extract_concepts(objectClass.Concepts)
                 class_name = objectClass.longName
                 concept_name = urllib.parse.quote(camelcase(f"{ctxt} {class_name}"))
@@ -146,10 +156,10 @@ class CADSRImportEngine(ImportEngine):
                 if concept_name not in classes:
                     cls = ClassDefinition(
                         name=concept_name,
-                        title=f"{concept.preferredName} ({ctxt})",
-                        description=concept.preferredDefinition,
-                        aliases=[concept.longName],
-                        class_uri=f"cadsr:{concept.publicId}",
+                        title=f"{dec.preferredName} ({ctxt})",
+                        description=dec.preferredDefinition,
+                        aliases=[dec.longName],
+                        class_uri=f"cadsr:{dec.publicId}",
                         is_a=parent_concept_name,
                         conforms_to=f"cadsr:DataElementConcept",
                     )
