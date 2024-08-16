@@ -33,6 +33,7 @@ from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.importers.tabular_import_engine import TableImportEngine
 from schema_automator.utils.schemautils import write_schema
+from schema_automator import __version__
 
 input_option = click.option(
     "-i",
@@ -80,6 +81,7 @@ enum_threshold_option = click.option('--enum-threshold', default=0.1, help='if t
               help="Set the level of verbosity")
 @click.option("-q", "--quiet",
               help="Silence all diagnostics")
+@click.version_option(__version__, "-V", "--version")
 def main(verbose: int, quiet: bool):
     """Run the LinkML Schema Automator Command Line.
 

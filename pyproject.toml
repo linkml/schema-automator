@@ -48,8 +48,11 @@ lxml = ">=4.9.1"
 llm = ">=0.12"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = true
 
 [tool.poetry.scripts]
 schemauto = "schema_automator.cli:main"
