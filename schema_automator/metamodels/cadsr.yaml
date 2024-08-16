@@ -11,6 +11,10 @@ slots:
     description: The unique identifier for an Administered Item within a Registration
       Authority.
     required: false
+    range: string  ## usually a number encoded as string?
+    # identifier: true ## TODO - try this
+    comments:
+      - note this can appear at different levels
   version:
     description: The unique version identifier of the Administered Item.
     required: false
@@ -453,6 +457,11 @@ classes:
         description: The text of the most desirable meaning for the Administered Item.
       longName:
         description: A 255 character limit name for an item in the registry.
+        examples:
+          - value: ASSESS
+          - value: TX
+          - value: ANAT_SITES
+          - value: AE_RESULTS
       context:
         description: An associated gov.nih.nci.cadsr.domain.Context object
       contextVersion: {}
@@ -521,6 +530,10 @@ classes:
         range: DataElementQuery
         required: false
   DataElement:
+    description: An element representing a specific metadata element.
+      Corresponds to *slot* in LinkML
+    exact_mappings:
+      - linkml:SlotDefinition
     slots:
     - publicId
     - version
@@ -560,16 +573,31 @@ classes:
       preferredName:
         description: A 30 character limit name by which an Administered Item is designated
           within a specific Context.
+        examples:
+          - value: Completion Status
+          - value: Specimen Type
+          - value: Date of Collection
       preferredDefinition:
         description: The text of the most desirable meaning for the Administered Item.
       longName:
-        description: A 255 character limit name for an item in the registry.
+        description: The long name of the data element. Maybe be a semi-human readable code,
+          may be a non-semantic number. Not guaranteed to be unique
+        examples:
+          - value: AE_OUTCOME_CD
+          - value: 2854464v1.0:2854442v1.0
       context:
         description: An associated gov.nih.nci.cadsr.domain.Context object
       contextVersion: {}
       DataElementConcept:
         range: DataElementConcept
         required: false
+        description: The long name of the data element concept. Like the parent DataElement,
+          Maybe be a semi-human readable code, may be a non-semantic number. Not guaranteed to be unique,
+          in fact we should see reuse of the same DEC across DEs
+        examples:
+          - value: TX_COHORT_STDY
+          - value: 2867629v1.0:2423441v1.0
+          - value: PERSON_ID
       ValueDomain:
         range: ValueDomain
         required: false
@@ -748,6 +776,12 @@ classes:
         description: An indicator that characterizes the item as eliminated from the
           registry, thought the physical record still exists.
   ObjectClass:
+    aliases:
+      - OC
+    description: Class or class expression used to annotated a DataElementConcept (DEC).
+      OCs may correspond to a single NCIT concept, or they may be a composition. E.g.
+      DEC.OC.ln=C41136:C52673 (Dental Professional Practice) may correspond to 
+      C52673 'Professional Practice' (primary) and C41136 'Dental' (secondary)
     slots:
     - publicId
     - version
@@ -786,13 +820,22 @@ classes:
       preferredDefinition:
         description: The text of the most desirable meaning for the Administered Item.
       longName:
-        description: A 255 character limit name for an item in the registry.
+        description: The long name of the ObjectClass. This is typically the NCIT code,
+          or composition of codes
+        examples:
+          - value: C16960
+            description: example value for DataElementConcept.ObjectClass
+          - value: C41136:C52673
+            description: example value for DataElementConcept.ObjectClass
+          - value: Adverse Event
+            description: example value for DataElementConcept.ObjectClass
       context:
         description: An associated gov.nih.nci.cadsr.domain.Context object
       contextVersion: {}
       Concepts:
         multivalued: true
         range: Concept
+        description: Concepts from NCIT that annotate the ObjectClass
       origin:
         description: The source (document, project, discipline or model) for the Administered
           Item.
@@ -850,8 +893,15 @@ classes:
     - displayOrder
     slot_usage:
       longName:
-        description: A 255 character limit name for an item in the registry.
-      conceptCode: {}
+        description: name of the concept. Note that in other contexts, longName may be an identifier,
+          but in Concepts it is the label (always from NCIT).
+        examples:
+          - value: "No"
+          - value: "Increase"
+          - value: "Nucleic Acid Amplification Test"
+      conceptCode:
+        examples:
+          - value: C20055
       definition: {}
       evsSource:
         description: The name of the EVS concept code that was the source for the
@@ -987,9 +1037,13 @@ classes:
         description: The unique version identifier of the Administered Item.
         required: false
       preferredName:
-        description: A 30 character limit name by which an Administered Item is designated
-          within a specific Context.
+        description: human-readable name of the PV
         required: false
+        examples:
+          - value: "No"
+          - value: "Not Applicable"
+          - value: "Absent"
+          - value: "Liver"
       longName:
         description: A 255 character limit name for an item in the registry.
         required: false

@@ -64,6 +64,21 @@ For example, for the `RNA Central public database <https://rnacentral.org/help/p
 
     schemauto import-sql postgresql+psycopg2://reader:NWDMCE5xdipIjRrp@hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs
 
+Importing from caDSR
+---------
+
+caDSR is an ISO-11179 compliant metadata registry. The ISO-11179 conceptual model can be mapped to LinkML. The
+canonical mapping maps a CDE onto a LinkML *slot*.
+
+See `this entry in LinkML FAQ <https://linkml.io/linkml/faq/why-linkml.html#why-should-i-use-linkml-over-iso-11179>`_.
+
+NCI implements a JSON serialization of ISO-11197. You can import this JSON and convert to LinkML:
+
+.. code-block::
+
+    schemauto import-cadsr "cdes/*.json"
+
+
 Packages
 -------
 
@@ -81,3 +96,5 @@ Packages
 .. autoclass:: DOSDPImportEngine
     :members:
 
+.. autoclass:: CADSRImportEngine
+    :members:
