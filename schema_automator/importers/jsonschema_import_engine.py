@@ -35,7 +35,7 @@ def json_schema_from_open_api(oa: Dict) -> Dict:
 @dataclass
 class JsonSchemaImportEngine(ImportEngine):
     """
-    A :ref:`ImportEngine` that imports a JSON-Schema representation to a LinkML Schema
+    An ImportEngine that imports a JSON-Schema representation to a LinkML Schema
     """
     use_attributes: bool = False
     is_openapi: bool = False

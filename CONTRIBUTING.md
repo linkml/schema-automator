@@ -29,7 +29,7 @@ For running tests, we use `pytest`.
 ## Discussion
 
 If you run into any issues or find certain functionality not documented/explained properly then feel free to 
-raise a ticket in the project's [issue tracker](https://github.com/linkml/issues). 
+raise a ticket in the project's [issue tracker](https://github.com/linkml/schema-automator/issues). 
 There are issue templates to capture certain types of issues.
 
 ## First Time Contributors
@@ -73,7 +73,7 @@ with a 'Do Not Merge' label.
 ## How to Report a Bug
 
 We recommend making a new ticket for each bug that you encounter while working with KGX. Please be sure to provide
-sufficient context for a bug you are reporting. There are [Issue Templates](https://github.com/linkml/issues/new/choose) 
+sufficient context for a bug you are reporting. There are [Issue Templates](https://github.com/linkml/schema-automator/issues/new/choose) 
 that you can use as a starting point.
 
 ## How to Request an Enhancement
