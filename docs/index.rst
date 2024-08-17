@@ -1,5 +1,5 @@
 LinkML Schema Automator
-============================================
+=======================
 
 Schema Automator is a toolkit for bootstrapping and automatically enhancing schemas from a variety of sources.
 
@@ -25,7 +25,6 @@ schema frameworks, including:
    :maxdepth: 3
    :caption: Contents:
 
-   index
    introduction
    install
    cli

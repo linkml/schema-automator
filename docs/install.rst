@@ -1,8 +1,8 @@
 Installation
-======
+============
 
 Direct Installation
-------------
+-------------------
 
 ``schema-automator`` and its components require Python 3.9 or greater.
 
@@ -17,7 +17,7 @@ To check this works:
    schemauto --help
 
 Running via Docker
-------------
+------------------
 
 You can use the `Schema Automator Docker Container <https://hub.docker.com/r/linkml/schema-automator>`_
 

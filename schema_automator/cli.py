@@ -129,7 +129,7 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 
     Example:
 
-        schemauto generalize-tsv --class-name Person --schema-name PersonInfo my/data/persons.tsv
+        ``schemauto generalize-tsv --class-name Person --schema-name PersonInfo my/data/persons.tsv``
     """
     kwargs = {k:v for k, v in kwargs.items() if v is not None}
     if pandera:
@@ -161,11 +161,11 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
 
     See :ref:`generalizers` for more on the generalization framework
 
-    This uses :ref:`CsvDataGeneralizer.convert_multiple`
+    This uses CsvDataGeneralizer.convert_multiple
 
     Example:
 
-        schemauto generalize-tsvs --class-name Person --schema-name PersonInfo my/data/*.tsv
+        ``schemauto generalize-tsvs --class-name Person --schema-name PersonInfo my/data/*.tsv``
     """
     ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
@@ -229,7 +229,7 @@ def import_dosdps(dpfiles, output, **args):
 
     Example:
 
-        schemauto import-dosdps --range-as-enums patterns/*yaml -o my-schema.yaml
+        ``schemauto import-dosdps --range-as-enums patterns/*.yaml -o my-schema.yaml``
     """
     ie = DOSDPImportEngine()
     schema = ie.convert(dpfiles, **args)
@@ -309,7 +309,7 @@ def generalize_json(input, output, schema_name, depluralize: bool, format, omit_
 
     Example:
 
-        schemauto generalize-json my/data/persons.json -o my.yaml
+        ``schemauto generalize-json my/data/persons.json -o my.yaml``
     """
     ie = JsonDataGeneralizer(omit_null=omit_null, depluralize_class_names=depluralize)
     if inlined_map:
@@ -336,7 +336,7 @@ def generalize_toml(input, output, schema_name, omit_null, **kwargs):
 
     Example:
 
-        schemauto generalize-toml my/data/conf.toml -o my.yaml
+        ``schemauto generalize-toml my/data/conf.toml -o my.yaml``
     """
     ie = JsonDataGeneralizer(omit_null=omit_null)
     schema = ie.convert(input, format='toml', **kwargs)
@@ -365,7 +365,7 @@ def import_json_schema(input, output, import_project: bool, schema_name, format,
 
     Example:
 
-        schemauto import-json-schema my/schema/personinfo.schema.json
+        ``schemauto import-json-schema my/schema/personinfo.schema.json``
     """
     ie = JsonSchemaImportEngine(**kwargs)
     if not import_project:
@@ -390,7 +390,7 @@ def import_kwalify(input, output, schema_name, **kwargs):
 
     Example:
 
-        schemauto import-kwalify my/schema/personinfo.kwalify.yaml
+        ``schemauto import-kwalify my/schema/personinfo.kwalify.yaml``
     """
     ie = KwalifyImportEngine(**kwargs)
     schema = ie.convert(input, output, name=schema_name, format=format)
@@ -409,7 +409,7 @@ def import_frictionless(input, output, schema_name, schema_id, **kwargs):
 
     Example:
 
-        schemauto import-frictionless cfde.package.json
+        ``schemauto import-frictionless cfde.package.json``
     """
     ie = FrictionlessImportEngine(**kwargs)
     schema = ie.convert(input, name=schema_name, id=schema_id)
@@ -429,7 +429,7 @@ def import_cadsr(input, output, schema_name, schema_id, **kwargs):
 
     Example:
 
-        schemauto import-cadsr "cdes/*.json"
+        ``schemauto import-cadsr "cdes/*.json"``
     """
     ie = CADSRImportEngine()
     paths = [str(gf.absolute())  for gf in Path().glob(input) if gf.is_file()]
@@ -460,7 +460,7 @@ def import_owl(owlfile, output, **args):
 
     Example:
 
-        schemauto import-owl prov.ofn -o my.yaml
+        ``schemauto import-owl prov.ofn -o my.yaml``
     """
     sie = OwlImportEngine()
     schema = sie.convert(owlfile, **args)
@@ -509,7 +509,7 @@ def generalize_rdf(rdffile, dir, output, **args):
 
     Example:
 
-        schemauto generalize-rdf my/data/persons.ttl
+        ``schemauto generalize-rdf my/data/persons.ttl``
     """
     sie = RdfDataGeneralizer()
     if not os.path.exists(dir):
@@ -539,13 +539,13 @@ def annotate_schema(schema: str, input: str, output: str, **kwargs):
     
     Example:
     
-        schemauto annotate-schema -i bioportal: my-schema.yaml -o annotated.yaml
+        ``schemauto annotate-schema -i bioportal: my-schema.yaml -o annotated.yaml``
         
     This will require you setting the API key via OAK - see OAK docs.
         
     You can specify a specific ontology
     
-        schemauto annotate-schema -i bioportal:ncbitaxon my-schema.yaml -o annotated.yaml
+        ``schemauto annotate-schema -i bioportal:ncbitaxon my-schema.yaml -o annotated.yaml``
 
     In future OAK will support a much wider variety of annotators including:
     
@@ -594,13 +594,13 @@ def enrich_using_ontology(schema: str, input: str, output: str, annotate: bool, 
 
     Example:
 
-        schemauto enrich-using-ontology -i bioportal: my-schema.yaml -o my-enriched.yaml
+        ``schemauto enrich-using-ontology -i bioportal: my-schema.yaml -o my-enriched.yaml``
 
     If your schema has no mappings you can use --annotate to add them
 
     Example:
 
-        schemauto enrich-using-ontology -i so.obo --annotate my-schema.yaml -o my-enriched.yaml --annotate
+        ``schemauto enrich-using-ontology -i so.obo --annotate my-schema.yaml -o my-enriched.yaml --annotate``
     """
     impl = get_implementation_from_shorthand(input)
     annr = SchemaAnnotator(impl)
@@ -630,7 +630,7 @@ def enrich_using_llm(schema: str, model: str, output: str, **args):
 
     Example:
 
-        pip install schema-automator[llm]
+        ``pip install schema-automator[llm]``
 
     """
     logging.info(f"Enriching: {schema}")

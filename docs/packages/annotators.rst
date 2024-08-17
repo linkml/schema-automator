@@ -1,7 +1,5 @@
-.. annotators:
-
 Annotators
-=========
+==========
 
 Importers take an existing schema and *annotate* it with information
 

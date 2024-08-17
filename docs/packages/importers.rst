@@ -1,5 +1,3 @@
-.. importers:
-
 Importers
 =========
 
@@ -15,7 +13,7 @@ Importers are the opposite of `Generators <https://linkml.io/linkml/generators/i
    will be created.
 
 Importing from JSON-Schema
----------
+--------------------------
 
 The ``import-json-schema`` command can be used:
 
@@ -24,7 +22,7 @@ The ``import-json-schema`` command can be used:
     schemauto import-json-schema tests/resources/model_card.schema.json
 
 Importing from Kwalify
----------
+----------------------
 
 The ``import-kwalify`` command can be used:
 
@@ -33,7 +31,7 @@ The ``import-kwalify`` command can be used:
     schemauto import-kwalify tests/resources/test.kwalify.yaml
 
 Importing from OWL
----------
+------------------
 
 You can import from a schema-style OWL ontology. This must be in functional syntax
 
@@ -45,7 +43,7 @@ Use robot to convert ahead of time:
     schemauto import-owl schemaorg.ofn
 
 Importing from SQL
----------
+------------------
 
 You can import a schema from a SQL database
 
@@ -65,7 +63,7 @@ For example, for the `RNA Central public database <https://rnacentral.org/help/p
     schemauto import-sql postgresql+psycopg2://reader:NWDMCE5xdipIjRrp@hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs
 
 Importing from caDSR
----------
+--------------------
 
 caDSR is an ISO-11179 compliant metadata registry. The ISO-11179 conceptual model can be mapped to LinkML. The
 canonical mapping maps a CDE onto a LinkML *slot*.
@@ -79,8 +77,8 @@ NCI implements a JSON serialization of ISO-11197. You can import this JSON and c
     schemauto import-cadsr "cdes/*.json"
 
 
-Packages
--------
+Packages for importing
+----------------------  
 
 .. currentmodule:: schema_automator.importers
 

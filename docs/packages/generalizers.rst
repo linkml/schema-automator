@@ -1,7 +1,5 @@
-.. generalizers:
-
 Generalizers
-=========
+============
 
 Generalizers take example data and *generalizes* to a schema
 
@@ -11,7 +9,7 @@ Generalizers take example data and *generalizes* to a schema
    that *semi*-automates the creation of a new schema for you.
 
 Generalizing from a single TSV
------------------
+------------------------------
 
 .. code-block::
 
@@ -92,7 +90,7 @@ Enums will be automatically inferred:
 
 
 Generalizing from multiple TSVs
-------------
+-------------------------------
 
 You can use the ``generalize-tsvs`` command to generalize from *multiple* TSVs, with
 foreign key linkages auto-inferred.
@@ -161,7 +159,7 @@ slots:
     range: string
 
 Generalizing from tables on the web
------------------
+-----------------------------------
 
 You can use ``generalize-htmltable``
 
@@ -218,12 +216,12 @@ Will generate:
         - TWAS P value
 
 Generalizing from JSON
------------
+----------------------
 
 tbw
 
 Chaining an annotator
------------------
+---------------------
 
 If you provide an ``--annotator`` option you can auto-annotate enums:
 
@@ -279,8 +277,8 @@ The annotation can also be run as a separate step
 
 See :ref:`annotators`
 
-Packages
---------
+Packages for generalizing
+-------------------------
 
 .. currentmodule:: schema_automator.generalizers
 
