@@ -42,6 +42,16 @@ Use robot to convert ahead of time:
     robot convert -i schemaorg.ttl -o schemaorg.ofn
     schemauto import-owl schemaorg.ofn
 
+Importing from SHACL
+--------------------
+
+You can import from a SHACL shapes file.
+
+.. code-block::
+
+    schemauto import-shacl tests/resources/test_shacl_simple.ttl
+
+
 Importing from SQL
 ------------------
 

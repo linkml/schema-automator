@@ -498,6 +498,34 @@ def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
     write_schema(schema, output)
 
 @main.command()
+@click.argument('shaclfile')
+@output_option
+@schema_name_option
+@click.option('--input-type', '-I',
+              default='turtle',
+              help="Input format, eg. turtle")
+@click.option('--identifier', '-I', help="Slot to use as identifier")
+@click.option('--model-uri', help="Model URI prefix")
+@click.option('--metamodel-mappings',
+              help="Path to metamodel mappings YAML dictionary")
+@click.option('--output', '-o', help="Path to saved yaml schema")
+def import_shacl(shaclfile, output, metamodel_mappings, **args):
+    """
+    Import an SHACL profile to LinkML
+
+    Example:
+
+        schemauto import-shacl mymodel.shacl.ttl -o mymodel.yaml
+    """
+    mappings_obj = None
+    if metamodel_mappings:
+        with open(metamodel_mappings) as f:
+            mappings_obj = yaml.safe_load(f)
+    sie = ShaclImportEngine(initial_metamodel_mappings=mappings_obj)
+    schema = sie.convert(shaclfile, **args)
+    write_schema(schema, output)
+
+@main.command()
 @click.argument('rdffile')
 @output_option
 @click.option('--dir', '-d', required=True)
