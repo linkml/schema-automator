@@ -10,3 +10,4 @@ The code is organized into different python *packages*
    importers
    generalizers
    annotators
+   utilities
