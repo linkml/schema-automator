@@ -53,6 +53,8 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry-dynamic-versioning]
 enable = true
+vcs = "git"
+style = "pep440"
 
 [tool.poetry.scripts]
 schemauto = "schema_automator.cli:main"
