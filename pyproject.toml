@@ -5,7 +5,6 @@ description = "Infer models, enrich with meaning for terms including enum permis
 authors = ["Chris Mungall", "Mark Miller", "Sierra Moxon", "Harshad Hegde"]
 license = "BSD 3-Clause"
 readme = "README.md"
-requires-python = ">=3.9"
 
 keywords = ["schema", "linked data", "data modeling", "rdf", "owl"]
 
