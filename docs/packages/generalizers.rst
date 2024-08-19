@@ -1,7 +1,5 @@
-.. generalizers:
-
 Generalizers
-=========
+============
 
 Generalizers take example data and *generalizes* to a schema
 
@@ -11,7 +9,7 @@ Generalizers take example data and *generalizes* to a schema
    that *semi*-automates the creation of a new schema for you.
 
 Generalizing from a single TSV
------------------
+------------------------------
 
 .. code-block::
 
@@ -90,65 +88,9 @@ Enums will be automatically inferred:
           Lowland Black Spruce:
             description: Lowland Black Spruce
 
-Chaining an annotator
------------------
-
-If you provide an ``--annotator`` option you can auto-annotate enums:
-
-.. code-block::
-
-    schemauto  generalize-csv \
-        --annotator bioportal:envo \
-        tests/resources/NWT_wildfires_biophysical_2016.tsv \
-        -o wildfire.yaml
-
-.. code-block:: yaml
-
-      ecosystem_enum:
-        from_schema: https://w3id.org/MySchema
-        permissible_values:
-          Open Fen:
-            description: Open Fen
-            meaning: ENVO:00000232
-            exact_mappings:
-            - ENVO:00000232
-          Treed Fen:
-            description: Treed Fen
-            meaning: ENVO:00000232
-            exact_mappings:
-            - ENVO:00000232
-          Black Spruce:
-            description: Black Spruce
-          Poor Fen:
-            description: Poor Fen
-            meaning: ENVO:00000232
-            exact_mappings:
-            - ENVO:00000232
-          Fen:
-            description: Fen
-            meaning: ENVO:00000232
-          Lowland:
-            description: Lowland
-          Upland:
-            description: Upland
-            meaning: ENVO:00000182
-          Bog:
-            description: Bog
-            meaning: ENVO:01000534
-            exact_mappings:
-            - ENVO:01000535
-            - ENVO:00000044
-            - ENVO:01001209
-            - ENVO:01000527
-          Lowland Black Spruce:
-            description: Lowland Black Spruce
-
-The annotation can also be run as a separate step
-
-See :ref:`annotators`
 
 Generalizing from multiple TSVs
-------------
+-------------------------------
 
 You can use the ``generalize-tsvs`` command to generalize from *multiple* TSVs, with
 foreign key linkages auto-inferred.
@@ -217,7 +159,7 @@ slots:
     range: string
 
 Generalizing from tables on the web
------------------
+-----------------------------------
 
 You can use ``generalize-htmltable``
 
@@ -274,12 +216,69 @@ Will generate:
         - TWAS P value
 
 Generalizing from JSON
------------
+----------------------
 
+tbw
 
+Chaining an annotator
+---------------------
 
-Packages
---------
+If you provide an ``--annotator`` option you can auto-annotate enums:
+
+.. code-block::
+
+    schemauto  generalize-csv \
+        --annotator bioportal:envo \
+        tests/resources/NWT_wildfires_biophysical_2016.tsv \
+        -o wildfire.yaml
+
+.. code-block:: yaml
+
+      ecosystem_enum:
+        from_schema: https://w3id.org/MySchema
+        permissible_values:
+          Open Fen:
+            description: Open Fen
+            meaning: ENVO:00000232
+            exact_mappings:
+            - ENVO:00000232
+          Treed Fen:
+            description: Treed Fen
+            meaning: ENVO:00000232
+            exact_mappings:
+            - ENVO:00000232
+          Black Spruce:
+            description: Black Spruce
+          Poor Fen:
+            description: Poor Fen
+            meaning: ENVO:00000232
+            exact_mappings:
+            - ENVO:00000232
+          Fen:
+            description: Fen
+            meaning: ENVO:00000232
+          Lowland:
+            description: Lowland
+          Upland:
+            description: Upland
+            meaning: ENVO:00000182
+          Bog:
+            description: Bog
+            meaning: ENVO:01000534
+            exact_mappings:
+            - ENVO:01000535
+            - ENVO:00000044
+            - ENVO:01001209
+            - ENVO:01000527
+          Lowland Black Spruce:
+            description: Lowland Black Spruce
+
+The annotation can also be run as a separate step
+
+See :ref:`annotators`
+
+Packages for generalizing
+-------------------------
 
 .. currentmodule:: schema_automator.generalizers
 

@@ -118,9 +118,9 @@ class CsvDataGeneralizer(Generalizer):
 
         This procedure can generate false positives, so additional heuristics are applied. Each potential
         foreign key relationship gets an ad-hoc score:
-         - links across tables score more highly than within
-         - suffixes such as _id are more likely on PK and FK tables
-         - the foreign key column table is likely to start with the base column name
+        - links across tables score more highly than within
+        - suffixes such as _id are more likely on PK and FK tables
+        - the foreign key column table is likely to start with the base column name
         In addition, if there are competing primary keys for a table, the top scoring one is selected
         """
         fks: List[ForeignKey] = []

@@ -6,6 +6,26 @@ authors = ["Chris Mungall", "Mark Miller", "Sierra Moxon", "Harshad Hegde"]
 license = "BSD 3-Clause"
 readme = "README.md"
 
+keywords = ["schema", "linked data", "data modeling", "rdf", "owl"]
+
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Programming Language :: Python",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Healthcare Industry",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+repository = "https://github.com/linkml/schema-automator/"
+documentation = "https://linkml.io/schema-automator/"
+
 packages = [
     { include = "schema_automator" }
 ]
