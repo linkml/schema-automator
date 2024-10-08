@@ -1,13 +1,25 @@
+from collections import defaultdict
 import logging
+
+from dataclasses import dataclass
+from typing import Dict, List, Any
+
+from rdflib import Graph, RDF, OWL, URIRef, RDFS, SKOS, SDO, Namespace
+
+from funowl import Literal
 
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime import SchemaView
+from linkml_runtime.utils.formatutils import underscore
+from linkml_runtime.utils.introspection import package_schemaview
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
     ClassDefinition,
 )
+from schema_automator.importers.import_engine import ImportEngine
 
+logger = logging.getLogger(__name__)
 
 HTTP_SDO = Namespace("http://schema.org/")
 
@@ -80,7 +92,7 @@ class ShaclImportEngine(ImportEngine):
         **kwargs,
     ) -> SchemaDefinition:
         """
-        Converts an OWL schema-style ontology
+        Converts an shacl shapes file
 
         :param file:
         :param name:
@@ -110,6 +122,7 @@ class ShaclImportEngine(ImportEngine):
             if default_prefix not in schema.prefixes:
                 sb.add_prefix(default_prefix, model_uri, replace_if_present=True)
             schema.id = schema.prefixes[default_prefix].prefix_reference
+
         cls_slots = defaultdict(list)
         props = []
         for rdfs_property_metaclass in self._rdfs_metamodel_iri(
@@ -137,6 +150,7 @@ class ShaclImportEngine(ImportEngine):
             slot = SlotDefinition(sn, **init_dict)
             slot.slot_uri = str(p.n3(g.namespace_manager))
             sb.add_slot(slot)
+            
         rdfs_classes = []
         for rdfs_class_metaclass in self._rdfs_metamodel_iri(ClassDefinition.__name__):
             for s in g.subjects(RDF.type, rdfs_class_metaclass):
@@ -201,7 +215,7 @@ class ShaclImportEngine(ImportEngine):
         r = self.reverse_metamodel_mappings.get(iri, [])
         if len(r) > 0:
             if len(r) > 1:
-                logging.debug(f"Multiple mappings for {iri}: {r}")
+                logger.debug(f"Multiple mappings for {iri}: {r}")
             return r[0]
 
     def _object_to_value(self, obj: Any, metaslot: SlotDefinition = None) -> Any:

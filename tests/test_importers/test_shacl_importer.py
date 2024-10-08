@@ -11,18 +11,17 @@ from tests import INPUT_DIR, OUTPUT_DIR
 
 # TODO - Write tests (this is a copy of test_rdfs_importer)
 
-REPRO = os.path.join(INPUT_DIR, 'reproschema.ttl')
-OUTSCHEMA = os.path.join(OUTPUT_DIR, 'reproschema-from-ttl.yaml')
-
+REPRO = os.path.join(INPUT_DIR, 'shacl_simple.ttl')
+OUTSCHEMA = os.path.join(OUTPUT_DIR, 'user_from_shacl_simple2.yaml')
 
 
 def test_from_shacl():
     """Test Shacl conversion."""
-    oie = ShaclImportEngine()
+    sie = ShaclImportEngine()
     
-    return
-    schema = oie.convert(REPRO, default_prefix='reproschema', identifier='id')
+    schema = sie.convert(REPRO, default_prefix='usr', identifier='id')
     write_schema(schema, OUTSCHEMA)
+    return
     # roundtrip
     s = YAMLGenerator(OUTSCHEMA).serialize()
     print(s[0:100])
@@ -35,7 +34,3 @@ def test_from_shacl():
     assert len(slots) == 1
     slot = slots[0]
     assert slot.name == "id"
-
-
-
-
