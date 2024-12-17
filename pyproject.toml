@@ -40,7 +40,7 @@ jsonpatch = ">=1.32"
 quantulum3 = ">=0.7.9"
 funowl = ">=0.2.3"
 click-log = ">=0.4.0"
-psycopg2-binary = "^2.9.2"
+psycopg2-binary = { version = "^2.9.2", optional = true }
 strsimpy = ">=0.2.1"
 requests = ">=2.26.0"
 oaklib = ">=0.5.25"
@@ -83,6 +83,7 @@ extract-schema = "schema_automator.utils.schema_extractor:cli"
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
 mariadb = ["mariadb"]
+postgres = ["psycopg2-binary"]
 
 [tool.codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
