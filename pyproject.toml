@@ -58,7 +58,6 @@ jsonasobj2 = "^1.0.4"
 deprecation = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
-mkdocs = ">=1.2.3"
 pytest = ">=7.1.1"
 Sphinx = ">=4.4.0"
 sphinx-pdj-theme = ">=0.2.1"
