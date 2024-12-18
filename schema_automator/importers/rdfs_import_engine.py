@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Iterable, List, Any, Optional
+from typing import Dict, Iterable, List, Any
 import typing
 from collections import defaultdict
 
@@ -9,9 +9,8 @@ from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
     ClassDefinition,
+    Prefix
 )
-# from funowl.converters.functional_converter import to_python
-# from funowl import *
 
 from dataclasses import dataclass, field
 
@@ -19,7 +18,6 @@ from linkml_runtime.utils.formatutils import underscore
 from linkml_runtime.utils.introspection import package_schemaview
 from rdflib import Graph, RDF, OWL, URIRef, RDFS, SKOS, SDO, Namespace, Literal
 from schema_automator.importers.import_engine import ImportEngine
-from schema_automator.utils.schemautils import write_schema
 
 
 HTTP_SDO = Namespace("http://schema.org/")
@@ -124,11 +122,13 @@ class RdfsImportEngine(ImportEngine):
             if k == "schema" and v != "http://schema.org/":
                 continue
             sb.add_prefix(k, v, replace_if_present=True)
-        if default_prefix is not None and schema.prefixes is not None :
+        if default_prefix is not None and isinstance(schema.prefixes, dict):
             schema.default_prefix = default_prefix
             if model_uri is not None and default_prefix not in schema.prefixes:
                 sb.add_prefix(default_prefix, model_uri, replace_if_present=True)
-            schema.id = schema.prefixes[default_prefix].prefix_reference
+            prefix = schema.prefixes[default_prefix]
+            if isinstance(prefix, Prefix):
+                schema.id = prefix.prefix_reference
         cls_slots = defaultdict(list)
 
         for slot in self.generate_rdfs_properties(g, cls_slots):
@@ -136,14 +136,33 @@ class RdfsImportEngine(ImportEngine):
         for cls in self.process_rdfs_classes(g, cls_slots):
             sb.add_class(cls)
 
-        if identifier is not None:
+        if identifier is not None and isinstance(schema.slots, dict) and isinstance(schema.classes, dict):
             id_slot = SlotDefinition(identifier, identifier=True, range="uriorcurie")
             schema.slots[identifier] = id_slot
             for c in schema.classes.values():
-                if not c.is_a and not c.mixins:
-                    if identifier not in c.slots:
-                        c.slots.append(identifier)
+                if isinstance(c, ClassDefinition) and isinstance(c.slots, list):
+                    if not c.is_a and not c.mixins:
+                        if identifier not in c.slots:
+                            c.slots.append(identifier)
+        self.fix_missing(schema)
         return schema
+
+    def fix_missing(self, schema: SchemaDefinition) -> None:
+        """
+        For some properties we have a `subproperty_of` that references a slot that doesn't exist.
+        This removes such links.
+        For example with `schema:name`, we have a `subPropertyOf` that references `rdfs:label`, which is from
+        the RDFS metamodel that we don't currently import.
+        """
+        if not isinstance(schema.slots, dict):
+            raise ValueError("SchemaBuilder schema must have slots as a dict")
+        slot_names: set[str] = set(schema.slots.keys())
+        for slot in schema.slots.values():
+            if not isinstance(slot, SlotDefinition):
+                raise ValueError(f"Slot {slot} is not a SlotDefinition")
+            if slot.subproperty_of is not None and slot.subproperty_of not in slot_names:
+                logging.warning(f"Slot {slot.name} has subproperty_of {slot.subproperty_of}, but that slot is missing")
+                slot.subproperty_of = None
 
     def process_rdfs_classes(
         self,
