@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, List, Any
+from typing import Dict, Iterable, List, Any, Optional
 import typing
 from collections import defaultdict
 
@@ -131,13 +131,63 @@ class RdfsImportEngine(ImportEngine):
             schema.id = schema.prefixes[default_prefix].prefix_reference
         cls_slots = defaultdict(list)
 
-        # Build a list of all properties in the schema
-        props: list[URIRef] = []
+        for slot in self.generate_rdfs_properties(g, cls_slots):
+            sb.add_slot(slot)
+        for cls in self.process_rdfs_classes(g, cls_slots):
+            sb.add_class(cls)
+
+        if identifier is not None:
+            id_slot = SlotDefinition(identifier, identifier=True, range="uriorcurie")
+            schema.slots[identifier] = id_slot
+            for c in schema.classes.values():
+                if not c.is_a and not c.mixins:
+                    if identifier not in c.slots:
+                        c.slots.append(identifier)
+        return schema
+
+    def process_rdfs_classes(
+        self,
+        g: Graph, 
+        cls_slots: Dict[str, List[str]], 
+    ) -> Iterable[ClassDefinition]:
+        """
+        Converts the RDFS classes in the graph to LinkML SlotDefinitions
+        """
+        rdfs_classes: List[URIRef] = []
+        
+        for rdfs_class_metaclass in self._rdfs_metamodel_iri(ClassDefinition.__name__):
+            for s in g.subjects(RDF.type, rdfs_class_metaclass):
+                if isinstance(s, URIRef):
+                    rdfs_classes.append(s)
+        
+        # implicit classes
+        for metap in [RDFS.subClassOf]:
+            for s, _, o in g.triples((None, metap, None)):
+                if isinstance(s, URIRef):
+                    rdfs_classes.append(s)
+                if isinstance(o, URIRef):
+                    rdfs_classes.append(o)
+        
+        for s in set(rdfs_classes):
+            cn = self.iri_to_name(s)
+            init_dict = self._dict_for_subject(g, s, "class")
+            c = ClassDefinition(cn, **init_dict)
+            c.slots = cls_slots.get(cn, [])
+            c.class_uri = str(s.n3(g.namespace_manager))
+            yield c
+
+    def generate_rdfs_properties(
+        self,
+        g: Graph, 
+        cls_slots: Dict[str, List[str]]
+    ) -> Iterable[SlotDefinition]:
+        """
+        Converts the RDFS properties in the graph to LinkML SlotDefinitions
+        """
+        props: List[URIRef] = []
 
         # Add explicit properties, ie those with a RDF.type mapping
-        for rdfs_property_metaclass in self._rdfs_metamodel_iri(
-            SlotDefinition.__name__
-        ):
+        for rdfs_property_metaclass in self._rdfs_metamodel_iri(SlotDefinition.__name__):
             for p in g.subjects(RDF.type, rdfs_property_metaclass):
                 if isinstance(p, URIRef):
                     props.append(p)
@@ -167,35 +217,9 @@ class RdfsImportEngine(ImportEngine):
                 if isinstance(range, list):
                     init_dict["any_of"] = [{"range": x} for x in init_dict["rangeIncludes"]]
                     del init_dict["range"]
-                # elif isinstance(range, str):
-                #     init_dict["range"] = range
             slot = SlotDefinition(sn, **init_dict)
             slot.slot_uri = str(p.n3(g.namespace_manager))
-            sb.add_slot(slot)
-        rdfs_classes = []
-        for rdfs_class_metaclass in self._rdfs_metamodel_iri(ClassDefinition.__name__):
-            for s in g.subjects(RDF.type, rdfs_class_metaclass):
-                rdfs_classes.append(s)
-        # implicit classes
-        for metap in [RDFS.subClassOf]:
-            for s, _, o in g.triples((None, metap, None)):
-                rdfs_classes.append(s)
-                rdfs_classes.append(o)
-        for s in set(rdfs_classes):
-            cn = self.iri_to_name(s)
-            init_dict = self._dict_for_subject(g, s, "class")
-            c = ClassDefinition(cn, **init_dict)
-            c.slots = cls_slots.get(cn, [])
-            c.class_uri = str(s.n3(g.namespace_manager))
-            sb.add_class(c)
-        if identifier is not None:
-            id_slot = SlotDefinition(identifier, identifier=True, range="uriorcurie")
-            schema.slots[identifier] = id_slot
-            for c in schema.classes.values():
-                if not c.is_a and not c.mixins:
-                    if identifier not in c.slots:
-                        c.slots.append(identifier)
-        return schema
+            yield slot
 
     def _dict_for_subject(self, g: Graph, s: URIRef, subject_type: typing.Literal["slot", "class"]) -> Dict[str, Any]:
         """
