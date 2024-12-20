@@ -53,6 +53,7 @@ click-default-group = "^1.2.4"
 linkml-runtime = "^1.7.2"
 duckdb = "^0.10.1"
 numpy = "<2.0"
+lxml = "^5.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=7.1.1"

@@ -32,6 +32,7 @@ from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralize
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.importers.tabular_import_engine import TableImportEngine
+from schema_automator.importers.xsd_import_engine import XsdImportEngine
 from schema_automator.utils.schemautils import write_schema
 from schema_automator import __version__
 
@@ -495,6 +496,23 @@ def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
             mappings_obj = yaml.safe_load(f)
     sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
     schema = sie.convert(rdfsfile, **args)
+    write_schema(schema, output)
+
+@main.command()
+@click.argument('xsd')
+@output_option
+@schema_name_option
+@click.option('--output', '-o', help="Path to saved yaml schema")
+def import_xsd(xsd: str, output: str, **kwargs):
+    """
+    Import an XML Schema Definition Language (XSD) schema to LinkML
+
+    Example:
+
+        schemauto import-xsd schema.xml -o prov.yaml
+    """
+    engine = XsdImportEngine()
+    schema = engine.convert(xsd, **kwargs)
     write_schema(schema, output)
 
 @main.command()
