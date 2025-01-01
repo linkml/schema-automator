@@ -7,7 +7,7 @@ from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
-    ClassDefinition,
+    ClassDefinition
 )
 from linkml_runtime.linkml_model.meta import AnonymousClassExpression
 from linkml_runtime.utils import formatutils
@@ -72,6 +72,9 @@ XSD = "http://www.w3.org/2001/XMLSchema"
 NAMESPACES={"xsd": "http://www.w3.org/2001/XMLSchema"}
 
 def xsd_to_linkml_type(xsd_type: etree.QName) -> str:
+    """
+    Returns the LinkML type from an XSD type
+    """
     if xsd_type.namespace == XSD:
         if xsd_type.localname in TYPE_MAP:
             # Atomic XSD types can be looked up
@@ -87,6 +90,9 @@ def xsd_to_linkml_type(xsd_type: etree.QName) -> str:
 def resolve_type(el: etree.ElementBase) -> etree.QName:
     """
     Returns the fully resolved type of an XSD element
+
+    Params:
+        el: the element to resolve the type of. Must be either an <xsd:element> or <xsd:attribute>, with a 'type' attribute.
     """
     typ: str = el.attrib.get('type', "string")
     if typ.count(":") == 1:
@@ -99,6 +105,9 @@ def resolve_type(el: etree.ElementBase) -> etree.QName:
 def element_to_linkml_type(el: etree.ElementBase) -> str:
     """
     Returns the LinkML type of an XSD element
+
+    Params:
+        el: the element to resolve the type of. Must be either an <xsd:element> or <xsd:attribute>, with a 'type' attribute.
     """
     return xsd_to_linkml_type(resolve_type(el))
 
@@ -148,6 +157,9 @@ class XsdImportEngine(ImportEngine):
     target_ns: str | None = None
 
     def visit_element(self, el: etree.ElementBase) -> SlotDefinition:
+        """
+        Converts an xsd:element into a SlotDefinition
+        """
         name: str | None = el.attrib.get('name')
         if name is None and "ref" in el.attrib:
             name = formatutils.lcamelcase(el.attrib['ref'])
@@ -170,6 +182,9 @@ class XsdImportEngine(ImportEngine):
         return slot
 
     def visit_attribute(self, el: etree.ElementBase) -> SlotDefinition:
+        """
+        Converts an xsd:attribute into a SlotDefinition
+        """
         return SlotDefinition(
             name=el.attrib['name'],
             slot_uri=urljoin(self.target_ns, el.attrib['name']) if self.target_ns else None,
@@ -177,6 +192,9 @@ class XsdImportEngine(ImportEngine):
         )
 
     def visit_complex_type(self, el: etree.ElementBase) -> ClassDefinition:
+        """
+        Converts an xsd:complexType into a ClassDefinition
+        """
         name: str | None = el.attrib.get('name')
         if name is None:
             for parent in el.iterancestors():
@@ -193,17 +211,26 @@ class XsdImportEngine(ImportEngine):
         for child in el:
             if child.tag == f"{{{XSD}}}sequence":
                 cls.attributes |= {slot.name: slot for slot in self.visit_sequence(child)}
+            elif child.tag == f"{{{XSD}}}choice":
+                cls
             if child.tag == f"{{{XSD}}}attribute":
                 slot = self.visit_attribute(child)
                 cls.attributes[slot.name] = slot
+            cls.any_of
 
         return cls
 
     def visit_choice(self, el: etree.ElementBase) -> Iterable[SlotDefinition]:
+        """
+        Converts an xsd:choice into a list of SlotDefinitions
+        """
         # TODO: indicate that not all slots can be used at the same time
         return self.visit_sequence(el)
 
     def visit_sequence(self, el: etree.ElementBase) -> Iterable[SlotDefinition]:
+        """
+        Converts an xsd:sequence into a list of SlotDefinitions
+        """
         for child in el:
             if child.tag == f"{{{XSD}}}element":
                 yield self.visit_element(child)
@@ -217,6 +244,9 @@ class XsdImportEngine(ImportEngine):
                 print(f"Skipping unknown tag {child.tag}")
 
     def visit_schema(self, schema: etree.ElementBase) -> None:
+        """
+        Converts an xsd:schema into a SchemaDefinition
+        """
         self.target_ns = schema.attrib.get('targetNamespace')
         for child in schema:
             # A top level element can be treated as a class
