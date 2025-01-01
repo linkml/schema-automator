@@ -1,15 +1,12 @@
 from dataclasses import dataclass, field
 from typing import Iterable
 from urllib.parse import urljoin
-from xml.etree import ElementTree
 from linkml.utils.schema_builder import SchemaBuilder
-from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
     ClassDefinition
 )
-from linkml_runtime.linkml_model.meta import AnonymousClassExpression
 from linkml_runtime.utils import formatutils
 from lxml import etree
 
@@ -126,30 +123,6 @@ def find_class_name(el: etree.ElementBase, root_name: str = "Root") -> str:
             return root_name
     raise ValueError("Could not find class name for element")
 
-# def visit_element(el: etree.ElementBase, sb: SchemaBuilder, target_ns: str | None) -> None:
-#     """
-#     Adds an XSD element as an attribute to a class in the schema
-
-#     Params:
-#         el: the <xsd:element> to add
-#         sb: the schema builder to add the element to
-#     """
-#     cls_name = find_class_name(el)
-#     attrib_name = formatutils.lcamelcase(el.attrib['name'])
-#     if cls_name in sb.schema.classes:
-#         cls = sb.schema.classes[cls_name]
-#     else:
-#         cls = ClassDefinition(
-#             cls_name,
-#             class_uri=urljoin(target_ns, cls_name) if target_ns else None,
-#         )
-#         sb.add_class(cls)
-
-#     cls.attributes[attrib_name] = SlotDefinition(
-#         name=attrib_name,
-#         slot_uri=urljoin(cls.class_uri, el.attrib['name']) if cls.class_uri else None,
-#         range=element_to_linkml_type(el)
-#     )
 
 @dataclass
 class XsdImportEngine(ImportEngine):
@@ -260,15 +233,4 @@ class XsdImportEngine(ImportEngine):
     def convert(self, file: str, **kwargs) -> SchemaDefinition:
         tree = etree.parse(file)
         self.visit_schema(tree.getroot())
-        # target_ns: str | None = tree.getroot().attrib.get('targetNamespace')
-        # for element in tree.findall("//xsd:element", namespaces=NAMESPACES):
-        #     visit_element(element, sb, target_ns=target_ns)
-        # for element in tree.findall("//xsd:attribute", namespaces=NAMESPACES):
-        #     visit_element(element, sb, target_ns=target_ns)
-        # tree: etree._ElementTree = etree.parse(file)
-        # target_ns: str | None = tree.getroot().attrib.get('targetNamespace')
-        # sb.add_class(self.el_to_class(tree.getroot(), "Root", target_ns))
-        # for typ in tree.findall("//xsd:complexType[@name]", namespaces=NAMESPACES):
-        #     sb.add_class(self.el_to_class(typ, typ.attrib['name'], target_ns))
-
         return self.sb.schema
