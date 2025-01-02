@@ -194,7 +194,8 @@ class XsdImportEngine(ImportEngine):
             range=range,
             multivalued=multivalued,
             any_of=any_of,
-            description=description
+            description=description,
+            keywords=["Child Element"],
         )
 
     def visit_documentation(self, el: etree.ElementBase) -> str:
@@ -253,11 +254,12 @@ class XsdImportEngine(ImportEngine):
                 description = self.visit_annotation(child)
 
         return SlotDefinition(
-            name=el.attrib["name"],
+            name=formatutils.lcamelcase(el.attrib["name"]),
             slot_uri=(
                 urljoin(self.target_ns, el.attrib["name"]) if self.target_ns else None
             ),
             range=element_to_linkml_type(el),
+            keywords=["XML Attribute"],
             description=description
         )
 
