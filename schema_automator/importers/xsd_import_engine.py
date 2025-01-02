@@ -71,7 +71,6 @@ MISSING_TYPES = {
 XSD = "http://www.w3.org/2001/XMLSchema"
 NAMESPACES = {"xsd": "http://www.w3.org/2001/XMLSchema"}
 
-
 def xsd_to_linkml_type(xsd_type: etree.QName) -> str:
     """
     Returns the LinkML type from an XSD type
@@ -132,6 +131,12 @@ def find_class_name(el: etree.ElementBase, root_name: str = "Root") -> str:
             return root_name
     raise ValueError("Could not find class name for element")
 
+def get_value_element(cls: ClassDefinition) -> SlotDefinition:
+    if not isinstance(cls.attributes, dict):
+        raise ValueError("cls.attributes should be a dictionary at this point")
+    if "value" not in cls.attributes:
+        raise ValueError("Value element should have been added by this stage")
+    return cast(SlotDefinition, cls.attributes["value"])
 
 @dataclass
 class XsdImportEngine(ImportEngine):
@@ -205,43 +210,192 @@ class XsdImportEngine(ImportEngine):
         # return re.sub(r"\w+", " ", dedent(el.text))
         return dedent(el.text).replace("\n", " ").strip()
 
-    def visit_annotation(self, el: etree.ElementBase) -> str:
+    def visit_annotation(self, el: etree.ElementBase, existing: str | None = None) -> str:
         """
-        Converts an xsd:annotation into a string to be used for documentation
+        Converts an annotation into a string to be used for documentation
 
         See https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-annotation
+
+        Params:
+            el: the <xsd:annotation> element
+            existing: any existing documentation to append to
         """
         # Note: This only supports xsd:documentation, other annotation types are ignored
         text = []
+        if existing is not None:
+            text.append(existing)
         for child in el:
             if child.tag == f"{{{XSD}}}documentation":
                 text.append(self.visit_documentation(child))
         return "\n".join(text)
 
-    def visit_simple_type(self, el: etree.ElementBase) -> AnonymousSlotExpression:
+    def visit_simple_type_restriction(self, el: etree.ElementBase, slot: SlotDefinition | AnonymousSlotExpression) -> None:
+        """"
+        Visits an <xsd:restriction> and applies type restrictions to a slot.
+
+        Despite the name, this can be used for both simple types:
+            ```xml
+            <xsd:simpleType>
+                <xsd:restriction>
+                ...
+                </xsd:restriction>
+            </xsd:simpleType>
+            ```
+        and complex types:
+            ```xml
+            <xsd:complexType>
+                <xsd:simpleContent>
+                    <xsd:restriction>
+                    ...
+                    </xsd:restriction>
+                </xsd:simpleContent>
+            </xsd:complexType>
+            ```
+        Since there are a subset of elements that can be used inside both.
+        """
+        slot.is_a = el.attrib["base"]
+        for child in el:
+            if child.tag == f"{{{XSD}}}minInclusive":
+                slot.minimum_value = child.attrib["value"]
+            elif child.tag == f"{{{XSD}}}maxInclusive":
+                slot.maximum_value = child.attrib["value"]
+            elif child.tag == f"{{{XSD}}}pattern":
+                slot.pattern = child.attrib["value"]
+            elif child.tag == f"{{{XSD}}}minLength":
+                slot.minimum_cardinality = child.attrib["value"]
+            elif child.tag == f"{{{XSD}}}maxLength":
+                slot.maximum_cardinality = child.attrib["value"]
+
+    def visit_simple_content_restriction(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+        """
+        Visit a restriction inside a simple content element:
+        ```xml
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:restriction>
+                ...
+                </xsd:restriction>
+            </xsd:simpleContent>
+        </xsd:complexType>
+        ```
+        """
+        value = get_value_element(cls)
+        self.visit_simple_type_restriction(el, value)
+        for child in el:
+            if child.tag == f"{{{XSD}}}attribute":
+                if cls.attributes is None:
+                    cls.attributes = {}
+                cls.attributes[child.attrib["name"]] = self.visit_attribute(child)
+
+    def visit_simple_content_extension(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+        """
+        Visit a:
+        ```xml
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension>
+                ...
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+        ```
+        """
+        cls.is_a = el.attrib["base"]
+        for child in el:
+            if child.tag == f"{{{XSD}}}attribute":
+                cls.attributes[child.attrib["name"]] = self.visit_attribute(child)
+
+    def visit_simple_content(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+        """
+        Visit a:
+        ```xml
+        <xsd:complexType>
+            <xsd:simpleContent>
+                ...
+            </xsd:simpleContent>
+        </xsd:complexType>
+        ```
+        See 3.4.2.2 Mapping Rules for Complex Types with Simple Content: https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/datatypes.html#xr-defn
+
+        simpleContent maps to a ClassDefinition as it can have multiple values due to XML attributes. 
+        It must also have a main value which is the content inside the XML element. Therefore:
+        ```xml
+        <xsd:complexType name="SomeClass">
+            <xsd:simpleContent>
+                <xsd:restriction base="xsd:string">
+                    <xsd:attribute name="someAttr" type="xsd:integer"/>
+                </xsd:restriction>
+            </xsd:simpleContent>
+        </xsd:complexType>
+        ```
+        Would be represented as:
+        ```yaml
+        SomeClass:
+            attributes:
+                someAttr:
+                    range: integer
+                value:
+                    range: string
+        ```
+        """
+        value_slot = SlotDefinition(
+            name="value",
+            comments=["Mapped from the main content of the element"],
+        )
+
+        cls.attributes["value"] = value_slot
+        for child in el:
+            if child.tag == f"{{{XSD}}}restriction":
+                self.visit_simple_content_restriction(child, cls)
+            elif child.tag == f"{{{XSD}}}extension":
+                self.visit_simple_content_extension(child, cls)
+            elif child.tag == f"{{{XSD}}}annotation":
+                # Annotations inside simple content are applied to the value slot, not the class
+                value_slot.description = self.visit_annotation(child, value_slot.description)
+
+    def visit_simple_type(self, el: etree.ElementBase, slot: SlotDefinition | AnonymousSlotExpression) -> None:
         """
         Converts an xsd:simpleType into a LinkML type
 
-        See https://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/datatypes.html#xr-defn
+        A simple type always maps to a slot in LinkML since it cannnot have attributes or children.
+        e.g.
+        ```xml
+        <xsd:attribute>
+            <xsd:simpleType>
+             ...
+            </xsd:simpleType>
+          </xsd:attribute>
+        ```
+
+        See 3.16.2 XML Representation of Simple Type Definition Schema Components: https://www.w3.org/TR/xmlschema11-1/#declare-datatype
+
+        Params:
+            el: a <xsd:simpleType> element
+            slot: the slot to annotate
         """
-        ret = AnonymousSlotExpression()
         for child in el:
             if child.tag == f"{{{XSD}}}annotation":
-                ret.description = self.visit_annotation(child)
+                slot.description = self.visit_annotation(child, slot.description)
             elif child.tag == f"{{{XSD}}}restriction":
-                ret.range = child.attrib["base"]
+                self.visit_simple_type_restriction(child, slot)
             elif child.tag == f"{{{XSD}}}list":
-                ret.multivalued=True
+                slot.multivalued = True
                 if "itemType" in child.attrib:
-                    ret.range=child.attrib["itemType"]
+                    slot.range = child.attrib["itemType"]
                 else:
+                    slot.range = AnonymousSlotExpression()
                     for list_child in child:
-                        ret.range=self.visit_simple_type(list_child),
+                        if list_child.tag == f"{{{XSD}}}simpleType":
+                            self.visit_simple_type(list_child, slot.range)
+                        else:
+                            raise ValueError("Only xsd:simpleType is allowed inside xsd:list")
                 raise ValueError("xsd:list must have an itemType attribute or an xsd:simpleType child element")
             elif child.tag == f"{{{XSD}}}union":
-                ret.any_of=[self.visit_simple_type(union_child) for union_child in child]
-
-        return ret
+                slot.any_of = []
+                for union_child in child:
+                    union_slot = AnonymousSlotExpression()
+                    self.visit_simple_type(union_child, union_slot)
+                    slot.any_of.append(union_slot)
 
     def visit_attribute(self, el: etree.ElementBase) -> SlotDefinition:
         """
@@ -262,10 +416,83 @@ class XsdImportEngine(ImportEngine):
             keywords=["XML Attribute"],
             description=description
         )
+    
+    def visit_complex_content_child(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+        """
+        Visit any of the following children of an xsd:complexContent element.
+        We can re-use the functionality since each of these elements can contain sequence, group, choice etc
 
+        ```xml
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension>
+                    ...
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>,
+        ```, or
+
+        ```xml
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:restriction>
+                    ...
+                </xsd:restriction>
+            </xsd:complexContent>
+        </xsd:complexType>
+        ```
+        """
+        if "base" in el.attrib:
+            cls.is_a = el.attrib["base"]
+
+        if el.tag == f"{{{XSD}}}sequence":
+            cls.attributes |= {
+                slot.name: slot for slot in self.visit_sequence(el)
+            }
+        elif el.tag == f"{{{XSD}}}group":
+            raise NotImplementedError("xsd:group is not yet supported")
+        elif el.tag == f"{{{XSD}}}all":
+            raise NotImplementedError("xsd:all is not yet supported")
+        elif el.tag == f"{{{XSD}}}choice":
+            cls.attributes |= {
+                slot.name: slot for slot in self.visit_choice(el)
+            }
+        elif el.tag == f"{{{XSD}}}attribute":
+            slot = self.visit_attribute(el)
+            cls.attributes[slot.name] = slot
+        elif el.tag == f"{{{XSD}}}annotation":
+            cls.description = self.visit_annotation(el, cls.description)
+    
+    def visit_complex_content(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+        """
+        Visit a:
+        ```xml
+        <xsd:complexType>
+            <xsd:complexContent>
+                ...
+            </xsd:complexContent>
+        </xsd:complexType>
+
+        See 3.4.2.3 Mapping Rules for Complex Types with Complex Content: https://www.w3.org/TR/xmlschema11-1/#dcl.ctd.ctcc
+
+        Params:
+            el: the <xsd:complexContent> element
+            cls: the class to annotate, derived from the enclosing <xsd:complexType> element
+        """
+        #: If we have found an extension or restriction
+        for child in el:
+            if child.tag == f"{{{XSD}}}extension":
+                self.visit_complex_content_child(child, cls)
+            elif child.tag == f"{{{XSD}}}restriction":
+                self.visit_complex_content_child(child, cls)
+            elif child.tag == f"{{{XSD}}}annotation":
+                cls.description = self.visit_annotation(child, cls.description)
+                
     def visit_complex_type(self, el: etree.ElementBase) -> ClassDefinition:
         """
-        Converts an xsd:complexType into a ClassDefinition
+        Converts an `<xsd:complexType>` into a ClassDefinition
+
+        See 3.4 Complex Type Definitions: https://www.w3.org/TR/xmlschema11-1/#Complex_Type_Definitions
         """
         name: str | None = el.attrib.get("name")
         if name is None:
@@ -281,20 +508,22 @@ class XsdImportEngine(ImportEngine):
             attributes={}
         )
 
+        found_content = False
         for child in el:
-            if child.tag == f"{{{XSD}}}sequence":
-                cls.attributes |= {
-                    slot.name: slot for slot in self.visit_sequence(child)
-                }
-            elif child.tag == f"{{{XSD}}}choice":
-                cls.attributes |= {
-                    slot.name: slot for slot in self.visit_choice(child)
-                }
-            elif child.tag == f"{{{XSD}}}attribute":
-                slot = self.visit_attribute(child)
-                cls.attributes[slot.name] = slot
-            elif child.tag == f"{{{XSD}}}annotation":
-                cls.description = self.visit_annotation(child)
+            if child.tag == f"{{{XSD}}}complexContent":
+                self.visit_complex_content(child, cls)
+                found_content = True
+            elif child.tag == f"{{{XSD}}}simpleContent":
+                self.visit_simple_content(child, cls)
+                found_content = True
+
+        if not found_content:
+            """ 
+            3.4.2.3.2 Mapping Rules for Complex Types with Implicit Complex Content:
+            > When the <complexType> source declaration has neither <simpleContent> nor <complexContent> as a child, it is taken as shorthand for complex content restricting ·xs:anyType·. 
+            """
+            for child in el:
+                self.visit_complex_content_child(child, cls)
 
         return cls
 
