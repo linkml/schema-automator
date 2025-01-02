@@ -326,6 +326,10 @@ class XsdImportEngine(ImportEngine):
         Converts an xsd:schema into a SchemaDefinition
         """
         self.target_ns = schema.attrib.get("targetNamespace")
+        if self.target_ns is not None and not self.target_ns.endswith("/"):
+            # Ensure that the target namespace ends with a slash
+            self.target_ns += "/"
+
         for child in schema:
             # A top level element can be treated as a class
             if child.tag == f"{{{XSD}}}element":
