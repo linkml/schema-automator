@@ -33,6 +33,7 @@ TYPE_MAP = {
     # NMTOKEN is basically just a string inside an attribute
     "NMTOKEN": "String",
 }
+PLACEHOLDER_NAME = "<placeholder>"
 MISSING_TYPES = {
     "base64Binary",
     "duration",
@@ -143,9 +144,11 @@ class XsdImportEngine(ImportEngine):
     sb: SchemaBuilder = field(default_factory=SchemaBuilder)
     target_ns: str | None = None
 
-    def visit_element(self, el: etree.ElementBase) -> SlotDefinition:
+    def visit_element(self, el: etree.ElementBase) -> ClassDefinition | SlotDefinition:
         """
-        Converts an xsd:element into a SlotDefinition
+        Converts an `<xsd:element>` into a SlotDefinition
+
+        See 3.3.2 XML Representation of Element Declaration Schema Components: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-element
         """
         name: str | None = el.attrib.get("name")
         """
@@ -162,62 +165,66 @@ class XsdImportEngine(ImportEngine):
             some_flag: true
         ```
         """
-        range: str | ClassDefinition = "boolean"
-        any_of: list[AnonymousSlotExpression] = []
-        multivalued: bool | None = None
-        description: str | None = None
+        name: str = el.attrib.get("name", PLACEHOLDER_NAME)
 
-        if name is None and "ref" in el.attrib:
+        if name == PLACEHOLDER_NAME and "ref" in el.attrib:
             # If we find a ref, the slot's range is a reference to another class
             # We can make up a name for the slot using the referenced class, although the slot doesn't actually have a name in XSD
-            range = el.attrib["ref"]
             name = formatutils.lcamelcase(el.attrib["ref"])
 
-        for child in el:
-            if child.tag == f"{{{XSD}}}complexType":
-                # If we find a complex type, the slot defines a new class type
-                range = self.visit_complex_type(child)
-            if child.tag == f"{{{XSD}}}simpleType":
-                # If we find a simple type, the range is a restriction of a primitive type
-                simple_type = self.visit_simple_type(child)
-                range = simple_type.range
-                multivalued = cast(bool | None, simple_type.multivalued)
-                any_of = cast(list[AnonymousSlotExpression], simple_type.any_of)
-            if child.tag == f"{{{XSD}}}annotation":
-                # If we find an annotation, we can use it as documentation
-                description = self.visit_annotation(child)
-
-        if "type" in el.attrib:
-            range = element_to_linkml_type(el)
-
-        if name is None:
-            raise ValueError("Could not find name for element")
-
-        return SlotDefinition(
+        cls = ClassDefinition(
             name=name,
-            slot_uri=urljoin(self.target_ns, name) if self.target_ns else None,
-            range=range,
-            multivalued=multivalued,
-            any_of=any_of,
-            description=description,
+            class_uri=urljoin(self.target_ns, name) if self.target_ns else None,
             keywords=["Child Element"],
         )
+        slot = SlotDefinition(
+            name=name,
+            slot_uri=urljoin(self.target_ns, name) if self.target_ns else None,
+            keywords=["Child Element"],
+        )
+        ret: ClassDefinition | SlotDefinition = slot
+        # ret is either cls or slot, but we don't know which yet
+
+        # First pass, to determine if this is a class or a slot
+        for child in el:
+            if child.tag == f"{{{XSD}}}complexType":
+                ret = cls
+                self.visit_complex_type(child, ret)
+            if child.tag == f"{{{XSD}}}simpleType":
+                ret = slot
+                # If we find a simple type, the range is a restriction of a primitive type
+                self.visit_simple_type(child, ret)
+
+        if "type" in el.attrib:
+            ret = slot
+            ret.range = element_to_linkml_type(el)
+
+        if "ref" in el.attrib:
+            ret = slot
+            ret.range = el.attrib["ref"]
+        
+        # Second pass, to add annotations
+        for child in el:
+            if child.tag == f"{{{XSD}}}annotation":
+                # If we find an annotation, we can use it as documentation
+                ret.description = self.visit_annotation(child, ret.description)
+
+        return ret
 
     def visit_documentation(self, el: etree.ElementBase) -> str:
         """
-        Converts an xsd:documentation into a string
+        Converts an `<xsd:documentation>` into a string
         """
-        # return re.sub(r"\w+", " ", dedent(el.text))
         return dedent(el.text).replace("\n", " ").strip()
 
     def visit_annotation(self, el: etree.ElementBase, existing: str | None = None) -> str:
         """
         Converts an annotation into a string to be used for documentation
 
-        See https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-annotation
+        See 3.15.2 XML Representation of Annotation Schema Components: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-annotation
 
         Params:
-            el: the <xsd:annotation> element
+            el: the `<xsd:annotation>` element
             existing: any existing documentation to append to
         """
         # Note: This only supports xsd:documentation, other annotation types are ignored
@@ -355,9 +362,9 @@ class XsdImportEngine(ImportEngine):
 
     def visit_simple_type(self, el: etree.ElementBase, slot: SlotDefinition | AnonymousSlotExpression) -> None:
         """
-        Converts an xsd:simpleType into a LinkML type
+        Converts an `<xsd:simpleType>` into a LinkML type
 
-        A simple type always maps to a slot in LinkML since it cannnot have attributes or children.
+        A simple type always maps to a slot in LinkML since it cannot have attributes or children.
         e.g.
         ```xml
         <xsd:attribute>
@@ -399,7 +406,7 @@ class XsdImportEngine(ImportEngine):
 
     def visit_attribute(self, el: etree.ElementBase) -> SlotDefinition:
         """
-        Converts an xsd:attribute into a SlotDefinition
+        Converts an `<xsd:attribute>` into a SlotDefinition
         """
         description: str | None = None
 
@@ -472,6 +479,7 @@ class XsdImportEngine(ImportEngine):
                 ...
             </xsd:complexContent>
         </xsd:complexType>
+        ```
 
         See 3.4.2.3 Mapping Rules for Complex Types with Complex Content: https://www.w3.org/TR/xmlschema11-1/#dcl.ctd.ctcc
 
@@ -488,25 +496,30 @@ class XsdImportEngine(ImportEngine):
             elif child.tag == f"{{{XSD}}}annotation":
                 cls.description = self.visit_annotation(child, cls.description)
                 
-    def visit_complex_type(self, el: etree.ElementBase) -> ClassDefinition:
+    def visit_complex_type(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
         """
-        Converts an `<xsd:complexType>` into a ClassDefinition
+        Adds information from a `<xsd:complexType>` onto a ClassDefinition
 
         See 3.4 Complex Type Definitions: https://www.w3.org/TR/xmlschema11-1/#Complex_Type_Definitions
         """
-        name: str | None = el.attrib.get("name")
-        if name is None:
-            for parent in el.iterancestors():
-                if "name" in parent.attrib:
-                    name = parent.attrib["name"]
-        if name is None:
-            raise ValueError("Could not find name for complex type")
+        # name: str | None = el.attrib.get("name")
+        # if name is None:
+        #     for parent in el.iterancestors():
+        #         if "name" in parent.attrib:
+        #             name = parent.attrib["name"]
+        # if name is None:
+        #     raise ValueError("Could not find name for complex type")
 
-        cls = ClassDefinition(
-            name=name,
-            class_uri=urljoin(self.target_ns, name) if self.target_ns else None,
-            attributes={}
-        )
+        # cls = ClassDefinition(
+        #     name=name,
+        #     class_uri=urljoin(self.target_ns, name) if self.target_ns else None,
+        #     attributes={}
+        # )
+
+        # Update the class name using the complex type's name, if we don't already have one
+        if cls.name == PLACEHOLDER_NAME and "name" in el.attrib:
+            cls.name = el.attrib["name"]
+            cls.class_uri = urljoin(self.target_ns, cls.name) if self.target_ns else None
 
         found_content = False
         for child in el:
@@ -560,13 +573,15 @@ class XsdImportEngine(ImportEngine):
             self.target_ns += "/"
 
         for child in schema:
-            # A top level element can be treated as a class
             if child.tag == f"{{{XSD}}}element":
-                slot = self.visit_element(child)
-                if isinstance(slot.range, ClassDefinition):
-                    self.sb.add_class(slot.range)
+                definition = self.visit_element(child)
+                if isinstance(definition, ClassDefinition):
+                    self.sb.add_class(definition)
             elif child.tag == f"{{{XSD}}}complexType":
-                self.sb.add_class(self.visit_complex_type(child))
+                # complexType can be at the top level
+                cls = ClassDefinition(name=PLACEHOLDER_NAME)
+                self.visit_complex_type(child, cls)
+                self.sb.add_class(cls)
 
     def convert(self, file: str, **kwargs) -> SchemaDefinition:
         parser = etree.XMLParser(remove_blank_text=True)
