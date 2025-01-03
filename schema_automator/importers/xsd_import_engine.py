@@ -594,16 +594,23 @@ class XsdImportEngine(ImportEngine):
             # Ensure that the target namespace ends with a slash
             self.target_ns += "/"
 
+        attributes: dict[str, SlotDefinition] = {}
         for child in schema:
             if child.tag == f"{{{XSD}}}element":
                 definition = self.visit_element(child)
-                if isinstance(definition, ClassDefinition):
-                    self.sb.add_class(definition)
+                attributes[definition.name] = definition
             elif child.tag == f"{{{XSD}}}complexType":
                 # complexType can be at the top level
                 cls = ClassDefinition(name=PLACEHOLDER_NAME)
                 self.visit_complex_type(child, cls)
                 self.sb.add_class(cls)
+        schema_root = ClassDefinition(
+            name="SchemaRoot",
+            class_uri=urljoin(self.target_ns, "SchemaRoot") if self.target_ns else None,
+            attributes=attributes,
+            description="Entry point of the schema, treated as a class",
+        )
+        self.sb.add_class(schema_root)
 
     def convert(self, file: str, **kwargs: Any) -> SchemaDefinition:
         parser = etree.XMLParser(remove_blank_text=True)

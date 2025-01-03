@@ -1,8 +1,8 @@
-from linkml_runtime.linkml_model.meta import SchemaDefinition
+from linkml_runtime import SchemaView
 from schema_automator.importers import XsdImportEngine
 import tempfile
 
-def parse_string(xsd: str) -> SchemaDefinition:
+def parse_string(xsd: str) -> SchemaView:
     engine = XsdImportEngine()
     with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
         f.write('''<xsd:schema
@@ -15,8 +15,37 @@ def parse_string(xsd: str) -> SchemaDefinition:
         ''')
         f.write(xsd)
         f.write("</xsd:schema>")
-    return engine.convert(f.name)
+    schema = engine.convert(f.name)
+    return SchemaView(schema)
 
 def test_embedded_type():
-    schema = parse_string('<xsd:element name="AcquisitionDate" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>')
-    assert True
+    schema = parse_string('<xsd:element name="AcquisitionDate" type="xsd:dateTime"/>')
+    assert len(schema.all_classes()) == 1
+    root = schema.get_class("SchemaRoot")
+    assert len(root.attributes) == 1
+    assert root.attributes["acquisitionDate"].range == "DateTime"
+
+def test_complex_type():
+    schema = parse_string('''
+        <xsd:element name="MyClass">
+            <xsd:annotation>
+                <xsd:documentation>
+                    Some docs
+                </xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="elementSlotA" type="xsd:float"/>
+                    <xsd:element name="elementSlotB" type="xsd:integer"/>
+                </xsd:sequence>
+                <xsd:attribute name="attributeSlot" type="xsd:boolean"/>
+            </xsd:complexType>
+        </xsd:element>
+    ''')
+    assert len(schema.all_classes()) == 2
+    my_class = schema.get_class("MyClass")
+    assert len(my_class.attributes) == 3
+    assert my_class.attributes["elementSlotA"].range == "Float"
+    assert my_class.attributes["elementSlotB"].range == "Integer"
+    assert my_class.attributes["attributeSlot"].range == "Boolean"
+    assert my_class.description == "Some docs"
