@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 from textwrap import dedent
-from typing import Any, Iterable, cast
 import re
+from types import GenericAlias
+from typing import Any, Iterable, Type, cast, TypeVar
 from urllib.parse import urljoin
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model import (
@@ -9,7 +10,7 @@ from linkml_runtime.linkml_model import (
     SlotDefinition,
     ClassDefinition,
 )
-from linkml_runtime.linkml_model.meta import AnonymousSlotExpression, Bool
+from linkml_runtime.linkml_model.meta import AnonymousSlotExpression
 from linkml_runtime.utils import formatutils
 from lxml import etree
 
@@ -33,7 +34,8 @@ TYPE_MAP = {
     # NMTOKEN is basically just a string inside an attribute
     "NMTOKEN": "String",
 }
-PLACEHOLDER_NAME = "<placeholder>"
+PLACEHOLDER_NAME = "PLACEHOLDER"
+Attributes = dict[str, SlotDefinition]
 MISSING_TYPES = {
     "base64Binary",
     "duration",
@@ -72,6 +74,22 @@ MISSING_TYPES = {
 XSD = "http://www.w3.org/2001/XMLSchema"
 NAMESPACES = {"xsd": "http://www.w3.org/2001/XMLSchema"}
 
+T = TypeVar("T")
+def assert_type(x: Any, t: Type[T]) -> T:
+    """
+    Utility function to assert that a value is of a certain type.
+    Useful when we know that, say, `element.text` is a string and not bytes.
+    Unlike `cast`, this function will raise an error if the type is incorrect to avoid silent failures.
+    """
+    # Allow generics such as list[t] to be passed in, but only check the base type such as list
+    if isinstance(t, GenericAlias):
+        base_type = t.__origin__
+    else:
+        base_type = t
+    if not isinstance(x, base_type):
+        raise TypeError(f"Expected {t}, got {type(x)}")
+    return x
+
 def xsd_to_linkml_type(xsd_type: etree.QName) -> str:
     """
     Returns the LinkML type from an XSD type
@@ -91,14 +109,15 @@ def xsd_to_linkml_type(xsd_type: etree.QName) -> str:
         return xsd_type.localname
 
 
-def resolve_type(el: etree.ElementBase) -> etree.QName:
+def resolve_type(el: etree._Element, attribute: str) -> etree.QName:
     """
     Returns the fully resolved type of an XSD element
 
     Params:
         el: the element to resolve the type of. Must be either an <xsd:element> or <xsd:attribute>, with a 'type' attribute.
+        attribute: the attribute that holds the type information, e.g. "type" or "base"
     """
-    typ: str = el.attrib.get("type", "string")
+    typ: str = el.attrib.get(attribute, "string")
     if typ.count(":") == 1:
         # Hacky fallback for when a custom namespace is used
         prefix, name = typ.split(":")
@@ -107,17 +126,18 @@ def resolve_type(el: etree.ElementBase) -> etree.QName:
         return etree.QName(typ)
 
 
-def element_to_linkml_type(el: etree.ElementBase) -> str:
+def element_to_linkml_type(el: etree._Element, attribute: str) -> str:
     """
     Returns the LinkML type of an XSD element
 
     Params:
         el: the element to resolve the type of. Must be either an <xsd:element> or <xsd:attribute>, with a 'type' attribute.
+        attribute: the attribute that holds the type information, e.g. "type" or "base"
     """
-    return xsd_to_linkml_type(resolve_type(el))
+    return xsd_to_linkml_type(resolve_type(el, attribute))
 
 
-def find_class_name(el: etree.ElementBase, root_name: str = "Root") -> str:
+def find_class_name(el: etree._Element, root_name: str = "Root") -> str:
     """
     Returns the name of the class that this element is a slot for
 
@@ -127,7 +147,7 @@ def find_class_name(el: etree.ElementBase, root_name: str = "Root") -> str:
     """
     for parent in el.iterancestors():
         if "name" in parent.attrib:
-            return parent.attrib["name"]
+            return assert_type(parent.attrib["name"], str)
         elif parent.tag == f"{{{XSD}}}schema":
             return root_name
     raise ValueError("Could not find class name for element")
@@ -141,16 +161,30 @@ def get_value_element(cls: ClassDefinition) -> SlotDefinition:
 
 @dataclass
 class XsdImportEngine(ImportEngine):
-    sb: SchemaBuilder = field(default_factory=SchemaBuilder)
+    sb: SchemaBuilder = field(default_factory=lambda: SchemaBuilder())
     target_ns: str | None = None
 
-    def visit_element(self, el: etree.ElementBase) -> ClassDefinition | SlotDefinition:
+    def visit_element(self, el: etree._Element) -> ClassDefinition | SlotDefinition:
         """
         Converts an `<xsd:element>` into a SlotDefinition
 
         See 3.3.2 XML Representation of Element Declaration Schema Components: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-element
         """
-        name: str | None = el.attrib.get("name")
+
+        cls_name: str = el.attrib.get("name", PLACEHOLDER_NAME)
+        cls = ClassDefinition(
+            name=cls_name,
+            class_uri=urljoin(self.target_ns, cls_name) if self.target_ns else None,
+            keywords=["Child Element"],
+        )
+
+        slot_name = formatutils.lcamelcase(assert_type(el.attrib["name"], str)) if "name" in el.attrib else PLACEHOLDER_NAME
+        slot = SlotDefinition(
+            name=formatutils.lcamelcase(slot_name) if "name" in el.attrib else PLACEHOLDER_NAME,
+            slot_uri=urljoin(self.target_ns, slot_name) if self.target_ns else None,
+            keywords=["Child Element"],
+            range = "boolean",
+        )
         """
         XML supports empty elements, which we can represent as booleans.
         For example this XML data:
@@ -165,23 +199,6 @@ class XsdImportEngine(ImportEngine):
             some_flag: true
         ```
         """
-        name: str = el.attrib.get("name", PLACEHOLDER_NAME)
-
-        if name == PLACEHOLDER_NAME and "ref" in el.attrib:
-            # If we find a ref, the slot's range is a reference to another class
-            # We can make up a name for the slot using the referenced class, although the slot doesn't actually have a name in XSD
-            name = formatutils.lcamelcase(el.attrib["ref"])
-
-        cls = ClassDefinition(
-            name=name,
-            class_uri=urljoin(self.target_ns, name) if self.target_ns else None,
-            keywords=["Child Element"],
-        )
-        slot = SlotDefinition(
-            name=name,
-            slot_uri=urljoin(self.target_ns, name) if self.target_ns else None,
-            keywords=["Child Element"],
-        )
         ret: ClassDefinition | SlotDefinition = slot
         # ret is either cls or slot, but we don't know which yet
 
@@ -197,11 +214,16 @@ class XsdImportEngine(ImportEngine):
 
         if "type" in el.attrib:
             ret = slot
-            ret.range = element_to_linkml_type(el)
+            ret.range = element_to_linkml_type(el, "type")
 
         if "ref" in el.attrib:
+            # If we find a ref, we're creating a slot. Also, that slot's range is a reference to another class.
+            # We can make up a name for the slot using the referenced class, although the slot doesn't actually have a name in XSD
             ret = slot
-            ret.range = el.attrib["ref"]
+            ret.range = assert_type(el.attrib["ref"], str)
+
+            if ret.name == PLACEHOLDER_NAME:
+                ret.name = formatutils.lcamelcase(assert_type(el.attrib["ref"], str))
         
         # Second pass, to add annotations
         for child in el:
@@ -211,13 +233,13 @@ class XsdImportEngine(ImportEngine):
 
         return ret
 
-    def visit_documentation(self, el: etree.ElementBase) -> str:
+    def visit_documentation(self, el: etree._Element) -> str:
         """
         Converts an `<xsd:documentation>` into a string
         """
-        return dedent(el.text).replace("\n", " ").strip()
+        return re.sub(r"\s+", " ", assert_type(el.text, str)).strip()
 
-    def visit_annotation(self, el: etree.ElementBase, existing: str | None = None) -> str:
+    def visit_annotation(self, el: etree._Element, existing: str | None = None) -> str:
         """
         Converts an annotation into a string to be used for documentation
 
@@ -236,7 +258,7 @@ class XsdImportEngine(ImportEngine):
                 text.append(self.visit_documentation(child))
         return "\n".join(text)
 
-    def visit_simple_type_restriction(self, el: etree.ElementBase, slot: SlotDefinition | AnonymousSlotExpression) -> None:
+    def visit_simple_type_restriction(self, el: etree._Element, slot: SlotDefinition | AnonymousSlotExpression) -> None:
         """"
         Visits an <xsd:restriction> and applies type restrictions to a slot.
 
@@ -260,20 +282,21 @@ class XsdImportEngine(ImportEngine):
             ```
         Since there are a subset of elements that can be used inside both.
         """
-        slot.is_a = el.attrib["base"]
+        slot.range = element_to_linkml_type(el, "base")
         for child in el:
+            value = assert_type(child.attrib["value"], str)
             if child.tag == f"{{{XSD}}}minInclusive":
-                slot.minimum_value = child.attrib["value"]
+                slot.minimum_value = value
             elif child.tag == f"{{{XSD}}}maxInclusive":
-                slot.maximum_value = child.attrib["value"]
+                slot.maximum_value = value
             elif child.tag == f"{{{XSD}}}pattern":
-                slot.pattern = child.attrib["value"]
+                slot.pattern = value
             elif child.tag == f"{{{XSD}}}minLength":
-                slot.minimum_cardinality = child.attrib["value"]
+                slot.minimum_cardinality = int(value)
             elif child.tag == f"{{{XSD}}}maxLength":
-                slot.maximum_cardinality = child.attrib["value"]
+                slot.maximum_cardinality = int(value)
 
-    def visit_simple_content_restriction(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_simple_content_restriction(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit a restriction inside a simple content element:
         ```xml
@@ -292,9 +315,11 @@ class XsdImportEngine(ImportEngine):
             if child.tag == f"{{{XSD}}}attribute":
                 if cls.attributes is None:
                     cls.attributes = {}
-                cls.attributes[child.attrib["name"]] = self.visit_attribute(child)
+                attributes = assert_type(cls.attributes, Attributes)
+                name = assert_type(child.attrib["name"], str)
+                attributes[name] = self.visit_attribute(child)
 
-    def visit_simple_content_extension(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_simple_content_extension(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit a:
         ```xml
@@ -307,12 +332,14 @@ class XsdImportEngine(ImportEngine):
         </xsd:complexType>
         ```
         """
-        cls.is_a = el.attrib["base"]
+        cls.is_a = element_to_linkml_type(el, "base")
         for child in el:
             if child.tag == f"{{{XSD}}}attribute":
-                cls.attributes[child.attrib["name"]] = self.visit_attribute(child)
+                name = assert_type(child.attrib["name"], str)
+                attributes = assert_type(cls.attributes, dict[str, SlotDefinition])
+                attributes[name] = self.visit_attribute(child)
 
-    def visit_simple_content(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_simple_content(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit a:
         ```xml
@@ -350,7 +377,8 @@ class XsdImportEngine(ImportEngine):
             comments=["Mapped from the main content of the element"],
         )
 
-        cls.attributes["value"] = value_slot
+        attributes = assert_type(cls.attributes, Attributes)
+        attributes["value"] = value_slot
         for child in el:
             if child.tag == f"{{{XSD}}}restriction":
                 self.visit_simple_content_restriction(child, cls)
@@ -360,7 +388,7 @@ class XsdImportEngine(ImportEngine):
                 # Annotations inside simple content are applied to the value slot, not the class
                 value_slot.description = self.visit_annotation(child, value_slot.description)
 
-    def visit_simple_type(self, el: etree.ElementBase, slot: SlotDefinition | AnonymousSlotExpression) -> None:
+    def visit_simple_type(self, el: etree._Element, slot: SlotDefinition | AnonymousSlotExpression) -> None:
         """
         Converts an `<xsd:simpleType>` into a LinkML type
 
@@ -388,7 +416,7 @@ class XsdImportEngine(ImportEngine):
             elif child.tag == f"{{{XSD}}}list":
                 slot.multivalued = True
                 if "itemType" in child.attrib:
-                    slot.range = child.attrib["itemType"]
+                    slot.range = assert_type(child.attrib["itemType"], str)
                 else:
                     slot.range = AnonymousSlotExpression()
                     for list_child in child:
@@ -404,7 +432,7 @@ class XsdImportEngine(ImportEngine):
                     self.visit_simple_type(union_child, union_slot)
                     slot.any_of.append(union_slot)
 
-    def visit_attribute(self, el: etree.ElementBase) -> SlotDefinition:
+    def visit_attribute(self, el: etree._Element) -> SlotDefinition:
         """
         Converts an `<xsd:attribute>` into a SlotDefinition
         """
@@ -415,16 +443,17 @@ class XsdImportEngine(ImportEngine):
                 description = self.visit_annotation(child)
 
         return SlotDefinition(
-            name=formatutils.lcamelcase(el.attrib["name"]),
+            name=formatutils.lcamelcase(assert_type(el.attrib["name"], str)),
             slot_uri=(
-                urljoin(self.target_ns, el.attrib["name"]) if self.target_ns else None
+                urljoin(self.target_ns, assert_type(el.attrib["name"], str)) if self.target_ns else None
             ),
-            range=element_to_linkml_type(el),
+            range=element_to_linkml_type(el, "type"),
+            required=el.attrib.get("use") == "required",
             keywords=["XML Attribute"],
             description=description
         )
     
-    def visit_complex_content_child(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_complex_content_child(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit any of the following children of an xsd:complexContent element.
         We can re-use the functionality since each of these elements can contain sequence, group, choice etc
@@ -450,10 +479,11 @@ class XsdImportEngine(ImportEngine):
         ```
         """
         if "base" in el.attrib:
-            cls.is_a = el.attrib["base"]
+            cls.is_a = element_to_linkml_type(el, "base")
 
+        attributes = assert_type(cls.attributes, Attributes)
         if el.tag == f"{{{XSD}}}sequence":
-            cls.attributes |= {
+            attributes |= {
                 slot.name: slot for slot in self.visit_sequence(el)
             }
         elif el.tag == f"{{{XSD}}}group":
@@ -461,16 +491,16 @@ class XsdImportEngine(ImportEngine):
         elif el.tag == f"{{{XSD}}}all":
             raise NotImplementedError("xsd:all is not yet supported")
         elif el.tag == f"{{{XSD}}}choice":
-            cls.attributes |= {
+            attributes |= {
                 slot.name: slot for slot in self.visit_choice(el)
             }
         elif el.tag == f"{{{XSD}}}attribute":
             slot = self.visit_attribute(el)
-            cls.attributes[slot.name] = slot
+            attributes[slot.name] = slot
         elif el.tag == f"{{{XSD}}}annotation":
             cls.description = self.visit_annotation(el, cls.description)
     
-    def visit_complex_content(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_complex_content(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit a:
         ```xml
@@ -496,7 +526,7 @@ class XsdImportEngine(ImportEngine):
             elif child.tag == f"{{{XSD}}}annotation":
                 cls.description = self.visit_annotation(child, cls.description)
                 
-    def visit_complex_type(self, el: etree.ElementBase, cls: ClassDefinition) -> None:
+    def visit_complex_type(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Adds information from a `<xsd:complexType>` onto a ClassDefinition
 
@@ -518,7 +548,7 @@ class XsdImportEngine(ImportEngine):
 
         # Update the class name using the complex type's name, if we don't already have one
         if cls.name == PLACEHOLDER_NAME and "name" in el.attrib:
-            cls.name = el.attrib["name"]
+            cls.name = assert_type(el.attrib["name"], str)
             cls.class_uri = urljoin(self.target_ns, cls.name) if self.target_ns else None
 
         found_content = False
@@ -538,16 +568,14 @@ class XsdImportEngine(ImportEngine):
             for child in el:
                 self.visit_complex_content_child(child, cls)
 
-        return cls
-
-    def visit_choice(self, el: etree.ElementBase) -> Iterable[SlotDefinition]:
+    def visit_choice(self, el: etree._Element) -> Iterable[SlotDefinition | ClassDefinition]:
         """
         Converts an xsd:choice into a list of SlotDefinitions
         """
         # TODO: indicate that not all slots can be used at the same time
         return self.visit_sequence(el)
 
-    def visit_sequence(self, el: etree.ElementBase) -> Iterable[SlotDefinition]:
+    def visit_sequence(self, el: etree._Element) -> Iterable[SlotDefinition | ClassDefinition]:
         """
         Converts an xsd:sequence into a list of SlotDefinitions
         """
@@ -563,7 +591,7 @@ class XsdImportEngine(ImportEngine):
             else:
                 print(f"Skipping unknown tag {child.tag}")
 
-    def visit_schema(self, schema: etree.ElementBase) -> None:
+    def visit_schema(self, schema: etree._Element) -> None:
         """
         Converts an xsd:schema into a SchemaDefinition
         """
@@ -583,7 +611,7 @@ class XsdImportEngine(ImportEngine):
                 self.visit_complex_type(child, cls)
                 self.sb.add_class(cls)
 
-    def convert(self, file: str, **kwargs) -> SchemaDefinition:
+    def convert(self, file: str, **kwargs: Any) -> SchemaDefinition:
         parser = etree.XMLParser(remove_blank_text=True)
         tree = etree.parse(file, parser=parser)
         self.visit_schema(tree.getroot())
