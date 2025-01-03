@@ -164,26 +164,19 @@ class XsdImportEngine(ImportEngine):
     sb: SchemaBuilder = field(default_factory=lambda: SchemaBuilder())
     target_ns: str | None = None
 
-    def visit_element(self, el: etree._Element) -> ClassDefinition | SlotDefinition:
+    def visit_element(self, el: etree._Element) -> SlotDefinition:
         """
         Converts an `<xsd:element>` into a SlotDefinition
 
         See 3.3.2 XML Representation of Element Declaration Schema Components: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-element
         """
 
-        cls_name: str = el.attrib.get("name", PLACEHOLDER_NAME)
-        cls = ClassDefinition(
-            name=cls_name,
-            class_uri=urljoin(self.target_ns, cls_name) if self.target_ns else None,
-            keywords=["Child Element"],
-        )
-
         slot_name = formatutils.lcamelcase(assert_type(el.attrib["name"], str)) if "name" in el.attrib else PLACEHOLDER_NAME
         slot = SlotDefinition(
             name=formatutils.lcamelcase(slot_name) if "name" in el.attrib else PLACEHOLDER_NAME,
             slot_uri=urljoin(self.target_ns, slot_name) if self.target_ns else None,
             keywords=["Child Element"],
-            range = "boolean",
+            range = "boolean"
         )
         """
         XML supports empty elements, which we can represent as booleans.
@@ -199,39 +192,41 @@ class XsdImportEngine(ImportEngine):
             some_flag: true
         ```
         """
-        ret: ClassDefinition | SlotDefinition = slot
-        # ret is either cls or slot, but we don't know which yet
 
-        # First pass, to determine if this is a class or a slot
+        # First pass, to determine if this is simple or complex
         for child in el:
             if child.tag == f"{{{XSD}}}complexType":
-                ret = cls
-                self.visit_complex_type(child, ret)
+                # If we find a complex type, we need to create a class
+                cls_name: str = el.attrib.get("name", PLACEHOLDER_NAME)
+                cls = ClassDefinition(
+                    name=cls_name,
+                    class_uri=urljoin(self.target_ns, cls_name) if self.target_ns else None
+                )
+                self.sb.add_class(cls)
+                slot.range = cls_name
+                self.visit_complex_type(child, cls)
             if child.tag == f"{{{XSD}}}simpleType":
-                ret = slot
                 # If we find a simple type, the range is a restriction of a primitive type
-                self.visit_simple_type(child, ret)
+                self.visit_simple_type(child, slot)
 
         if "type" in el.attrib:
-            ret = slot
-            ret.range = element_to_linkml_type(el, "type")
+            slot.range = element_to_linkml_type(el, "type")
 
         if "ref" in el.attrib:
             # If we find a ref, we're creating a slot. Also, that slot's range is a reference to another class.
             # We can make up a name for the slot using the referenced class, although the slot doesn't actually have a name in XSD
-            ret = slot
-            ret.range = assert_type(el.attrib["ref"], str)
+            slot.range = assert_type(el.attrib["ref"], str)
 
-            if ret.name == PLACEHOLDER_NAME:
-                ret.name = formatutils.lcamelcase(assert_type(el.attrib["ref"], str))
+            if slot.name == PLACEHOLDER_NAME:
+                slot.name = formatutils.lcamelcase(assert_type(el.attrib["ref"], str))
         
         # Second pass, to add annotations
         for child in el:
             if child.tag == f"{{{XSD}}}annotation":
                 # If we find an annotation, we can use it as documentation
-                ret.description = self.visit_annotation(child, ret.description)
+                slot.description = self.visit_annotation(child, slot.description)
 
-        return ret
+        return slot
 
     def visit_documentation(self, el: etree._Element) -> str:
         """
@@ -568,14 +563,14 @@ class XsdImportEngine(ImportEngine):
             for child in el:
                 self.visit_complex_content_child(child, cls)
 
-    def visit_choice(self, el: etree._Element) -> Iterable[SlotDefinition | ClassDefinition]:
+    def visit_choice(self, el: etree._Element) -> Iterable[SlotDefinition]:
         """
         Converts an xsd:choice into a list of SlotDefinitions
         """
         # TODO: indicate that not all slots can be used at the same time
         return self.visit_sequence(el)
 
-    def visit_sequence(self, el: etree._Element) -> Iterable[SlotDefinition | ClassDefinition]:
+    def visit_sequence(self, el: etree._Element) -> Iterable[SlotDefinition]:
         """
         Converts an xsd:sequence into a list of SlotDefinitions
         """
