@@ -119,7 +119,10 @@ class RdfsImportEngine(ImportEngine):
         sb.add_defaults()
         schema = sb.schema
         for k, v in g.namespaces():
-            if k == "schema" and v != "http://schema.org/":
+            if str(v) == "https://schema.org/":
+                # Normalise schema.org to HTTP
+                v = "http://schema.org/"
+            if k == "schema" and str(v) != "http://schema.org/":
                 continue
             sb.add_prefix(k, v, replace_if_present=True)
         if default_prefix is not None and isinstance(schema.prefixes, dict):
