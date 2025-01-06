@@ -24,8 +24,8 @@ HTTP_SDO = Namespace("http://schema.org/")
 
 DEFAULT_METAMODEL_MAPPINGS: Dict[str, List[URIRef]] = {
     "is_a": [RDFS.subClassOf, SKOS.broader],
-    "domain_of": [HTTP_SDO.domainIncludes, SDO.domainIncludes],
-    "range": [HTTP_SDO.rangeIncludes, SDO.rangeIncludes],
+    "domain_of": [HTTP_SDO.domainIncludes, SDO.domainIncludes, RDFS.domain],
+    "range": [HTTP_SDO.rangeIncludes, SDO.rangeIncludes, RDFS.range],
     "exact_mappings": [OWL.sameAs, HTTP_SDO.sameAs],
     ClassDefinition.__name__: [RDFS.Class, OWL.Class, SKOS.Concept],
     SlotDefinition.__name__: [
