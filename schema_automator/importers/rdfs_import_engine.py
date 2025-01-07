@@ -107,7 +107,7 @@ class RdfsImportEngine(ImportEngine):
         :param kwargs:
         :return:
         """
-        g = Graph()
+        g = Graph(bind_namespaces="none")
         g.parse(file, format=format)
         if name is not None and default_prefix is None:
             default_prefix = name
