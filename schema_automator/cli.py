@@ -473,7 +473,7 @@ def import_owl(owlfile, output, **args):
 @click.argument('rdfsfile')
 @output_option
 @schema_name_option
-@click.option('--input-type', '-I',
+@click.option('--format', '-f',
               default='turtle',
               help="Input format, eg. turtle")
 @click.option('--identifier', '-I', help="Slot to use as identifier")
