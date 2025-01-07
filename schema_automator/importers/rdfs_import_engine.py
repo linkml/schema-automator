@@ -56,6 +56,7 @@ class RdfsImportEngine(ImportEngine):
     classdef_slots: set[str] = field(init=False)
     #: The names of LinkML SlotDefinition slot slots
     slotdef_slots: set[str] = field(init=False)
+    seen_prefixes: set[str] = field(default_factory=set)
 
     def __post_init__(self):
         sv = package_schemaview("linkml_runtime.linkml_model.meta")
@@ -147,6 +148,10 @@ class RdfsImportEngine(ImportEngine):
                     if not c.is_a and not c.mixins:
                         if identifier not in c.slots:
                             c.slots.append(identifier)
+
+        # Remove prefixes that aren't used
+        schema.prefixes = {key: value for key, value in schema.prefixes.items() if key in self.seen_prefixes}
+
         self.fix_missing(schema)
         return schema
 
@@ -166,6 +171,13 @@ class RdfsImportEngine(ImportEngine):
             if slot.subproperty_of is not None and slot.subproperty_of not in slot_names:
                 logging.warning(f"Slot {slot.name} has subproperty_of {slot.subproperty_of}, but that slot is missing")
                 slot.subproperty_of = None
+
+    def track_uri(self, uri: URIRef, g: Graph) -> None:
+        """
+        Updates the set of prefixes seen in the graph
+        """
+        prefix, namespace, name = g.namespace_manager.compute_qname(uri)
+        self.seen_prefixes.add(prefix)
 
     def process_rdfs_classes(
         self,
@@ -189,8 +201,9 @@ class RdfsImportEngine(ImportEngine):
                     rdfs_classes.append(s)
                 if isinstance(o, URIRef):
                     rdfs_classes.append(o)
-        
+
         for s in set(rdfs_classes):
+            self.track_uri(s, g)
             cn = self.iri_to_name(s)
             init_dict = self._dict_for_subject(g, s, "class")
             c = ClassDefinition(cn, **init_dict)
@@ -224,6 +237,7 @@ class RdfsImportEngine(ImportEngine):
                     props.append(p)
 
         for p in set(props):
+            self.track_uri(p, g)
             sn = self.iri_to_name(p)
             #: kwargs for SlotDefinition
             init_dict = self._dict_for_subject(g, p, "slot")
