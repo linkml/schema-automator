@@ -9,7 +9,8 @@ from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,
     ClassDefinition,
-    Prefix
+    Prefix,
+    Uriorcurie
 )
 
 from dataclasses import dataclass, field
@@ -150,6 +151,10 @@ class RdfsImportEngine(ImportEngine):
                             c.slots.append(identifier)
 
         # Remove prefixes that aren't used
+        if isinstance(schema.imports, list):
+            for imp in schema.imports:
+                prefix, suffix = imp.split(":", 1)
+                self.seen_prefixes.add(prefix)
         schema.prefixes = {key: value for key, value in schema.prefixes.items() if key in self.seen_prefixes}
 
         self.fix_missing(schema)
@@ -172,7 +177,7 @@ class RdfsImportEngine(ImportEngine):
                 logging.warning(f"Slot {slot.name} has subproperty_of {slot.subproperty_of}, but that slot is missing")
                 slot.subproperty_of = None
 
-    def track_uri(self, uri: URIRef, g: Graph) -> None:
+    def track_uri(self, uri: str, g: Graph) -> None:
         """
         Updates the set of prefixes seen in the graph
         """
