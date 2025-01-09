@@ -3,6 +3,26 @@ from pydbml import PyDBML
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, SlotDefinition
 from dataclasses import dataclass
 
+
+def _map_dbml_type_to_linkml(dbml_type: str) -> str:
+    """
+    Maps DBML data types to LinkML types.
+
+    :param dbml_type: The DBML column type.
+    :return: Corresponding LinkML type.
+    """
+    type_mapping = {
+        "int": "integer",
+        "varchar": "string",
+        "text": "string",
+        "float": "float",
+        "boolean": "boolean",
+        "date": "date",
+        "datetime": "datetime",
+    }
+    return type_mapping.get(dbml_type.lower(), "string")
+
+
 @dataclass
 class DbmlImportEngine(ImportEngine):
     """
@@ -48,14 +68,14 @@ class DbmlImportEngine(ImportEngine):
             # Handle primary key and unique constraints
             primary_key_columns = [col for col in table.columns if col.primary_key]
             unique_columns = [col for col in table.columns if col.unique and not col.primary_key]
-            multi_column_unique_keys = table.indexes  # Assuming `indexes` captures multi-column unique keys
+            # multi_column_unique_keys = table.indexes  # Assuming `indexes` captures multi-column unique keys
 
             # Process columns
             for column in table.columns:
                 slot_name = column.name
                 slot_def = SlotDefinition(
                     name=slot_name,
-                    range=self._map_dbml_type_to_linkml(column.type),
+                    range=_map_dbml_type_to_linkml(column.type),
                     description=column.note or f"Column '{slot_name}'",
                     required=column in primary_key_columns or column.unique,
                     identifier=column in primary_key_columns,  # Mark primary key columns as identifiers
@@ -64,10 +84,10 @@ class DbmlImportEngine(ImportEngine):
                 class_def.slots.append(slot_name)
                 processed_slots.add(slot_name)
 
-            # Add multi-column unique keys
-            for index in multi_column_unique_keys:
-                if index.unique:
-                    class_def.unique_keys.append([col.name for col in index.columns])
+            # # Add multi-column unique keys
+            # for index in multi_column_unique_keys:
+            #     if index.unique:
+            #         class_def.unique_keys.append([col.name for col in index.columns])
 
             # Handle single unique column as primary key if no explicit primary key exists
             if not primary_key_columns and len(unique_columns) == 1:
@@ -78,21 +98,3 @@ class DbmlImportEngine(ImportEngine):
             schema.classes[table.name] = class_def
 
         return schema
-
-    def _map_dbml_type_to_linkml(self, dbml_type: str) -> str:
-        """
-        Maps DBML data types to LinkML types.
-
-        :param dbml_type: The DBML column type.
-        :return: Corresponding LinkML type.
-        """
-        type_mapping = {
-            "int": "integer",
-            "varchar": "string",
-            "text": "string",
-            "float": "float",
-            "boolean": "boolean",
-            "date": "date",
-            "datetime": "datetime",
-        }
-        return type_mapping.get(dbml_type.lower(), "string")
