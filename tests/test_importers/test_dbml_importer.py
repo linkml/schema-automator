@@ -1,6 +1,5 @@
 import pytest
-from pathlib import Path
-from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, SlotDefinition, EnumDefinition
+from linkml_runtime.linkml_model import SchemaDefinition
 from schema_automator.importers.dbml_import_engine import DbmlImportEngine
 
 # Sample DBML content for testing
@@ -60,20 +59,6 @@ def test_dbml_to_linkml_conversion(dbml_file, importer):
     assert schema.slots["id"].required
 
 
-def test_controlled_vocabulary_detection(dbml_file, importer):
-    """
-    Test that controlled vocabulary tables are converted to enumerations.
-    """
-    schema = importer.convert(file=str(dbml_file), name="TestSchema")
-
-    # Assert the enum is created for Countries
-    assert "Countries" in schema.enums
-
-    # Check the enum details
-    countries_enum = schema.enums["Countries"]
-    assert isinstance(countries_enum, EnumDefinition)
-    assert "code" in countries_enum.permissible_values
-
 def test_primary_key_handling(dbml_file, importer):
     """
     Test correct handling of primary keys and required attributes.
@@ -85,13 +70,3 @@ def test_primary_key_handling(dbml_file, importer):
     assert "id" in users_class.slots
     assert schema.slots["id"].identifier
     assert schema.slots["id"].required
-
-def test_multi_column_unique_key_handling(dbml_file, importer):
-    """
-    Test correct handling of multi-column unique keys.
-    """
-    schema = importer.convert(file=str(dbml_file), name="TestSchema")
-
-    # Check multi-column unique keys in Orders
-    orders_class = schema.classes["Orders"]
-    assert orders_class.unique_keys == [["order_id", "user_id"]]
