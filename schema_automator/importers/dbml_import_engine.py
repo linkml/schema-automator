@@ -68,7 +68,6 @@ class DbmlImportEngine(ImportEngine):
             # Handle primary key and unique constraints
             primary_key_columns = [col for col in table.columns if col.pk]
             unique_columns = [col for col in table.columns if col.unique and not col.pk]
-            # multi_column_unique_keys = table.indexes  # Assuming `indexes` captures multi-column unique keys
 
             # Process columns
             for column in table.columns:
@@ -84,11 +83,6 @@ class DbmlImportEngine(ImportEngine):
                 schema.slots[slot_name] = slot_def
                 class_def.slots.append(slot_name)
                 processed_slots.add(slot_name)
-
-            # # Add multi-column unique keys
-            # for index in multi_column_unique_keys:
-            #     if index.unique:
-            #         class_def.unique_keys.append([col.name for col in index.columns])
 
             # Handle single unique column as primary key if no explicit primary key exists
             if not primary_key_columns and len(unique_columns) == 1:
