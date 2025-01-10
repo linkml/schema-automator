@@ -66,12 +66,13 @@ class DbmlImportEngine(ImportEngine):
             processed_slots = set()  # Track processed slot names to avoid duplicates
 
             # Handle primary key and unique constraints
-            primary_key_columns = [col for col in table.columns if col.primary_key]
-            unique_columns = [col for col in table.columns if col.unique and not col.primary_key]
+            primary_key_columns = [col for col in table.columns if col.pk]
+            unique_columns = [col for col in table.columns if col.unique and not col.pk]
             # multi_column_unique_keys = table.indexes  # Assuming `indexes` captures multi-column unique keys
 
             # Process columns
             for column in table.columns:
+
                 slot_name = column.name
                 slot_def = SlotDefinition(
                     name=slot_name,

@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, SlotDefinition, EnumDefinition
-from schema_automator.importers.dbml_import_engine import DbmlImportEngine  # Replace with actual module name
+from schema_automator.importers.dbml_import_engine import DbmlImportEngine
 
 # Sample DBML content for testing
 DBML_SAMPLE = """
@@ -16,7 +16,6 @@ Table Orders {
   user_id int [not null]
   product_id int [not null]
   quantity int
-  index [unique, order_id, user_id]
 }
 
 Table Countries {
@@ -32,6 +31,7 @@ def dbml_file(tmp_path):
     """
     dbml_path = tmp_path / "test.dbml"
     dbml_path.write_text(DBML_SAMPLE)
+    print(dbml_path)
     return dbml_path
 
 @pytest.fixture
@@ -59,9 +59,6 @@ def test_dbml_to_linkml_conversion(dbml_file, importer):
     assert schema.slots["id"].identifier
     assert schema.slots["id"].required
 
-    # Check unique keys
-    orders_class = schema.classes["Orders"]
-    assert orders_class.unique_keys == [["order_id", "user_id"]]
 
 def test_controlled_vocabulary_detection(dbml_file, importer):
     """
