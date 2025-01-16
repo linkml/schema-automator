@@ -450,7 +450,7 @@ class XsdImportEngine(ImportEngine):
     def visit_complex_content_child(self, el: etree._Element, cls: ClassDefinition) -> None:
         """
         Visit any of the following children of an xsd:complexContent element.
-        We can re-use the functionality since each of these elements can contain sequence, group, choice etc
+        We can reuse the functionality since each of these elements can contain sequence, group, choice etc
 
         ```xml
         <xsd:complexType>
