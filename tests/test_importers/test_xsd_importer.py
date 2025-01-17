@@ -24,6 +24,8 @@ def test_embedded_type():
     root = schema.get_class("SchemaRoot")
     assert len(root.attributes) == 1
     assert root.attributes["acquisitionDate"].range == "DateTime"
+    assert "xsd:element" in root.attributes["acquisitionDate"].instantiates
+    assert "xsd" in schema.schema.prefixes
 
 def test_complex_type():
     schema = parse_string('''

@@ -163,6 +163,10 @@ class XsdImportEngine(ImportEngine):
     sb: SchemaBuilder = field(default_factory=lambda: SchemaBuilder())
     target_ns: str | None = None
 
+    def __post_init__(self):
+        self.sb.add_defaults()
+        self.sb.add_prefix("xsd", XSD)
+
     def visit_element(self, el: etree._Element) -> SlotDefinition:
         """
         Converts an `<xsd:element>` into a SlotDefinition
@@ -174,7 +178,7 @@ class XsdImportEngine(ImportEngine):
         slot = SlotDefinition(
             name=formatutils.lcamelcase(slot_name) if "name" in el.attrib else PLACEHOLDER_NAME,
             slot_uri=urljoin(self.target_ns, slot_name) if self.target_ns else None,
-            keywords=["Child Element"],
+            instantiates=["xsd:element"],
             range = "boolean"
         )
         """
@@ -443,7 +447,7 @@ class XsdImportEngine(ImportEngine):
             ),
             range=element_to_linkml_type(el, "type"),
             required=el.attrib.get("use") == "required",
-            keywords=["XML Attribute"],
+            instantiates=["xsd:attribute"],
             description=description
         )
     
