@@ -209,9 +209,10 @@ class XsdImportEngine(ImportEngine):
                 self.sb.add_class(cls)
                 slot.range = cls_name
                 self.visit_complex_type(child, cls)
-            if child.tag == f"{{{XSD}}}simpleType":
+            elif child.tag == f"{{{XSD}}}simpleType":
                 # If we find a simple type, the range is a restriction of a primitive type
                 self.visit_simple_type(child, slot)
+
 
         if "type" in el.attrib:
             slot.range = element_to_linkml_type(el, "type")

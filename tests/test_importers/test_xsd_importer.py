@@ -50,4 +50,10 @@ def test_complex_type():
     assert my_class.attributes["elementSlotA"].range == "Float"
     assert my_class.attributes["elementSlotB"].range == "Integer"
     assert my_class.attributes["attributeSlot"].range == "Boolean"
-    assert my_class.description == "Some docs"
+    # The annotation should be applied to the slot and not the class
+    assert my_class.description is None
+
+    root = schema.get_class("SchemaRoot")
+    assert len(root.attributes) == 1
+    assert root.attributes["myClass"].range == "MyClass"
+    assert root.attributes["myClass"].description == "Some docs"
