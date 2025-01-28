@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
 import re
 from types import GenericAlias
@@ -530,20 +531,6 @@ class XsdImportEngine(ImportEngine):
 
         See 3.4 Complex Type Definitions: https://www.w3.org/TR/xmlschema11-1/#Complex_Type_Definitions
         """
-        # name: str | None = el.attrib.get("name")
-        # if name is None:
-        #     for parent in el.iterancestors():
-        #         if "name" in parent.attrib:
-        #             name = parent.attrib["name"]
-        # if name is None:
-        #     raise ValueError("Could not find name for complex type")
-
-        # cls = ClassDefinition(
-        #     name=name,
-        #     class_uri=urljoin(self.target_ns, name) if self.target_ns else None,
-        #     attributes={}
-        # )
-
         # Update the class name using the complex type's name, if we don't already have one
         if cls.name == PLACEHOLDER_NAME and "name" in el.attrib:
             cls.name = assert_type(el.attrib["name"], str)
