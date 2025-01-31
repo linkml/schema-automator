@@ -224,13 +224,14 @@ class RdfsImportEngine(ImportEngine):
         """
         Converts the RDFS properties in the graph to LinkML SlotDefinitions
         """
-        props: List[URIRef] = []
+        # All property IDs
+        props: set[URIRef] = set()
 
         # Add explicit properties, ie those with a RDF.type mapping
         for rdfs_property_metaclass in self._rdfs_metamodel_iri(SlotDefinition.__name__):
             for p in g.subjects(RDF.type, rdfs_property_metaclass):
                 if isinstance(p, URIRef):
-                    props.append(p)
+                    props.add(p)
 
         # Add implicit properties, ie those that are the domain or range of a property
         for metap in (
@@ -239,9 +240,9 @@ class RdfsImportEngine(ImportEngine):
         ):
             for p, _, _o in g.triples((None, metap, None)):
                 if isinstance(p, URIRef):
-                    props.append(p)
+                    props.add(p)
 
-        for p in set(props):
+        for p in props:
             self.track_uri(p, g)
             sn = self.iri_to_name(p)
             #: kwargs for SlotDefinition
