@@ -77,6 +77,13 @@ NCI implements a JSON serialization of ISO-11197. You can import this JSON and c
     schemauto import-cadsr "cdes/*.json"
 
 
+Importing from DBML
+--------------------
+
+DBML is a simple DSL for defining database schemas. It is a subset of SQL DDL.
+
+
+
 Packages for importing
 ----------------------  
 
