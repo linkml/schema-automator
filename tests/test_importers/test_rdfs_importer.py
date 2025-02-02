@@ -16,7 +16,18 @@ from tests import INPUT_DIR, OUTPUT_DIR
 
 REPRO = os.path.join(INPUT_DIR, 'reproschema.ttl')
 OUTSCHEMA = os.path.join(OUTPUT_DIR, 'reproschema-from-ttl.yaml')
+FOAF = os.path.join(INPUT_DIR, 'foaf_snippet.ttl')
 
+
+def test_import_foaf():
+    engine = RdfsImportEngine()
+    schema = engine.convert(FOAF)
+    sv = SchemaView(schema)
+    assert len(sv.all_classes()) == 3
+    assert len(sv.all_slots()) == 1
+    assert sv.get_slot("knows").range == "Person"
+    assert sv.schema.default_prefix == "example"
+    assert "example" in sv.schema.prefixes
 
 
 def test_from_rdfs():
@@ -36,7 +47,3 @@ def test_from_rdfs():
     assert len(slots) == 1
     slot = slots[0]
     assert slot.name == "id"
-
-
-
-
