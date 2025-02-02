@@ -2439,13 +2439,13 @@ requests = "*"
 
 [[package]]
 name = "llm"
-version = "0.20"
+version = "0.21"
 description = "A CLI utility and Python library for interacting with Large Language Models, including OpenAI, PaLM and local models installed on your own machine."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "llm-0.20-py3-none-any.whl", hash = "sha256:530d8e88a9e662376360a8ec17bcd603d6ed5812c69766ef5a146189839d0f08"},
-    {file = "llm-0.20.tar.gz", hash = "sha256:7f185db83d9e433923fe78fdd4ce4923952fb2c642273e3c099c03b0b48c1ad5"},
+    {file = "llm-0.21-py3-none-any.whl", hash = "sha256:d045276c92d0eb4e5f2978123ad1a0f607085cdd454ef055731a55487ae5c0a6"},
+    {file = "llm-0.21.tar.gz", hash = "sha256:ac1717e7cb68275271ad90d8f045407e59215a69b4ccc222ef4e60c43edeb95e"},
 ]
 
 [package.dependencies]
@@ -2464,7 +2464,7 @@ sqlite-migrate = ">=0.1a2"
 sqlite-utils = ">=3.37"
 
 [package.extras]
-test = ["black (>=24.1.0)", "cogapp", "mypy (>=1.10.0)", "numpy", "pytest", "pytest-asyncio", "pytest-httpx (>=0.33.0)", "ruff", "types-PyYAML", "types-click", "types-setuptools"]
+test = ["black (==24.10.0)", "cogapp", "mypy (>=1.10.0)", "numpy", "pytest", "pytest-asyncio", "pytest-httpx (>=0.33.0)", "ruff", "types-PyYAML", "types-click", "types-setuptools"]
 
 [[package]]
 name = "lxml"
@@ -6049,4 +6049,4 @@ postgres = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "1671538b16185046ad50c6f13f18a81d14cf7a2eb94311443e4346fb52e2110d"
+content-hash = "27c653fc4138926dd153b314d6e318857f241e60a229aa23e5fa5cac56135640"

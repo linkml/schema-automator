@@ -58,6 +58,8 @@ jsonasobj2 = "^1.0.4"
 deprecation = "^2.1.0"
 numpy = "<2.0"
 pydbml = "^1.1.2"
+pyyaml = "^6.0.2"
+llm = {version = "^0.21", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = ">=7.1.1"
@@ -68,10 +70,6 @@ sphinxcontrib-mermaid = ">=0.9.2"
 myst-parser = "*"
 jupyter = ">=1.0.0"
 lxml = ">=4.9.1"
-
-[tool.poetry.group.llm.dependencies]
-llm = ">=0.12"
-
 
 [tool.poetry.group.dev.dependencies]
 deptry = "^0.23.0"
@@ -93,6 +91,8 @@ extract-schema = "schema_automator.utils.schema_extractor:cli"
 docs = ["Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
 mariadb = ["mariadb"]
 postgres = ["psycopg2-binary"]
+duckdb = ["duckdb"]
+llm = ["llm"]
 
 [tool.codespell]
 # Ref: https://github.com/codespell-project/codespell#using-a-config-file
