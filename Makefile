@@ -2,7 +2,7 @@ RUN = poetry run
 VERSION = $(shell git tag | tail -1)
 MODELS = cadsr frictionless
 
-.PHONY: all clean test all-docs sphinx-html
+.PHONY: all clean test all-docs sphinx-html check-dependencies
 
 all: clean test
 
@@ -13,6 +13,8 @@ test:
 schema_automator/metamodels/%.py: schema_automator/metamodels/%.yaml
 	$(RUN) gen-python $< > $@.tmp && mv $@.tmp $@
 
+check-dependencies:
+	$(RUN) deptry schema_automator --known-first-party schema_automator
 
 # create a convenient wrapper script;
 # this can be used outside the poetry environment
