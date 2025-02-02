@@ -606,7 +606,7 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 name = "click-default-group"
 version = "1.2.4"
 description = "click_default_group"
-optional = false
+optional = true
 python-versions = ">=2.7"
 files = [
     {file = "click_default_group-1.2.4-py2.py3-none-any.whl", hash = "sha256:9b60486923720e7fc61731bdb32b617039aba820e22e1c88766b1125592eaa5f"},
@@ -820,7 +820,7 @@ tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
 name = "distro"
 version = "1.9.0"
 description = "Distro - an OS platform information API"
-optional = false
+optional = true
 python-versions = ">=3.6"
 files = [
     {file = "distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"},
@@ -1783,7 +1783,7 @@ i18n = ["Babel (>=2.7)"]
 name = "jiter"
 version = "0.8.2"
 description = "Fast iterable JSON parser."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "jiter-0.8.2-cp310-cp310-macosx_10_12_x86_64.whl", hash = "sha256:ca8577f6a413abe29b079bc30f907894d7eb07a865c4df69475e868d73e71c7b"},
@@ -2441,7 +2441,7 @@ requests = "*"
 name = "llm"
 version = "0.21"
 description = "A CLI utility and Python library for interacting with Large Language Models, including OpenAI, PaLM and local models installed on your own machine."
-optional = false
+optional = true
 python-versions = ">=3.9"
 files = [
     {file = "llm-0.21-py3-none-any.whl", hash = "sha256:d045276c92d0eb4e5f2978123ad1a0f607085cdd454ef055731a55487ae5c0a6"},
@@ -3218,7 +3218,7 @@ tests = ["coverage", "pytest", "unittest-templates"]
 name = "openai"
 version = "1.60.2"
 description = "The official Python library for the openai API"
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "openai-1.60.2-py3-none-any.whl", hash = "sha256:993bd11b96900b9098179c728026f016b4982ded7ee30dfcf4555eab1171fff9"},
@@ -3466,7 +3466,7 @@ ptyprocess = ">=0.5"
 name = "pip"
 version = "25.0"
 description = "The PyPA recommended tool for installing Python packages."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "pip-25.0-py3-none-any.whl", hash = "sha256:b6eb97a803356a52b2dd4bb73ba9e65b2ba16caa6bcb25a7497350a4e5859b65"},
@@ -3764,7 +3764,7 @@ tests = ["pytest"]
 name = "puremagic"
 version = "1.28"
 description = "Pure python implementation of magic file detection"
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "puremagic-1.28-py3-none-any.whl", hash = "sha256:e16cb9708ee2007142c37931c58f07f7eca956b3472489106a7245e5c3aa1241"},
@@ -4000,7 +4000,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 name = "pyreadline3"
 version = "3.5.4"
 description = "A python implementation of GNU readline."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "pyreadline3-3.5.4-py3-none-any.whl", hash = "sha256:eaf8e6cc3c49bcccf145fc6067ba8643d1df34d604a1ec0eccbf7a18e6d3fae6"},
@@ -4163,7 +4163,7 @@ dev = ["backports.zoneinfo", "black", "build", "freezegun", "mdx_truly_sane_list
 name = "python-ulid"
 version = "3.0.0"
 description = "Universally unique lexicographically sortable identifier"
-optional = false
+optional = true
 python-versions = ">=3.9"
 files = [
     {file = "python_ulid-3.0.0-py3-none-any.whl", hash = "sha256:e4c4942ff50dbd79167ad01ac725ec58f924b4018025ce22c858bfcff99a5e31"},
@@ -5369,7 +5369,7 @@ url = ["furl (>=0.4.1)"]
 name = "sqlite-fts4"
 version = "1.0.3"
 description = "Python functions for working with SQLite FTS4 search"
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "sqlite-fts4-1.0.3.tar.gz", hash = "sha256:78b05eeaf6680e9dbed8986bde011e9c086a06cb0c931b3cf7da94c214e8930c"},
@@ -5383,7 +5383,7 @@ test = ["pytest"]
 name = "sqlite-migrate"
 version = "0.1b0"
 description = "A simple database migration system for SQLite, based on sqlite-utils"
-optional = false
+optional = true
 python-versions = "*"
 files = [
     {file = "sqlite-migrate-0.1b0.tar.gz", hash = "sha256:8d502b3ca4b9c45e56012bd35c03d23235f0823c976d4ce940cbb40e33087ded"},
@@ -5400,7 +5400,7 @@ test = ["black", "mypy", "pytest", "ruff"]
 name = "sqlite-utils"
 version = "3.38"
 description = "CLI tool and Python library for manipulating SQLite databases"
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "sqlite_utils-3.38-py3-none-any.whl", hash = "sha256:8a27441015c3b2ef475f555861f7a2592f73bc60d247af9803a11b65fc605bf9"},
@@ -6043,10 +6043,12 @@ type = ["pytest-mypy"]
 
 [extras]
 docs = []
+duckdb = ["duckdb"]
+llm = ["llm"]
 mariadb = ["mariadb"]
 postgres = ["psycopg2-binary"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "27c653fc4138926dd153b314d6e318857f241e60a229aa23e5fa5cac56135640"
+content-hash = "e9cc287ec9e7de3b0da046033e7a848238fccd02e2dec118afb74dd6132c6e94"

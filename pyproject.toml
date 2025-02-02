@@ -52,7 +52,6 @@ click = "^8.1.7"
 deprecated = "^1.2.15"
 mariadb = {version = "^1.1.11", optional = true}
 sqlalchemy = "^2.0.36"
-ruamel-yaml = "^0.18.6"
 rdflib = "^7.1.1"
 jsonasobj2 = "^1.0.4"
 deprecation = "^2.1.0"
@@ -100,3 +99,6 @@ skip = '.git,*.lock,resources'
 check-hidden = true
 ignore-regex = '\bOGER\b'
 ignore-words-list = 'sie,assertIn'
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["numpy", "psycopg2-binary", "duckdb", "mariadb"]
