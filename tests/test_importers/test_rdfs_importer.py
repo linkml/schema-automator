@@ -2,6 +2,7 @@
 
 """Test the module can be imported."""
 
+from io import StringIO
 import unittest
 import os
 import yaml
@@ -26,9 +27,45 @@ def test_import_foaf():
     assert len(sv.all_classes()) == 3
     assert len(sv.all_slots()) == 1
     assert sv.get_slot("knows").range == "Person"
-    assert sv.schema.default_prefix == "example"
-    assert "example" in sv.schema.prefixes
+    assert sv.schema.default_prefix == "foaf"
+    assert "foaf" in sv.schema.prefixes
 
+def test_comment_description():
+    """
+    rdfs:comment should be converted to description
+    """
+    rdf = StringIO("""
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+    <http://example.org/Class> a rdfs:Class ;
+        rdfs:comment "A class." .
+    """)
+    engine = RdfsImportEngine()
+    schema = engine.convert(rdf)
+    sv = SchemaView(schema)
+    cls = sv.get_class("Class")
+    assert cls.description == "A class."
+
+def test_infer_prefix():
+    """
+    If the schema has no name, id or default prefix, the importer should infer them from prefix usage in the schema.
+    """
+    rdf = StringIO("""
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix foo: <https://foo.com> .
+
+    foo:Class a rdfs:Class ;
+        rdfs:comment "A class." .
+
+    foo:prop a rdfs:Property ;
+        rdfs:comment "A property." .
+    """)
+    engine = RdfsImportEngine()
+    schema = engine.convert(rdf)
+    # Although not explicitly provided, the importer should realise that the prefix is "foo"
+    assert schema.default_prefix == "foo"
+    assert schema.id == "https://foo.com"
+    assert schema.name == "foo"
 
 def test_from_rdfs():
     """Test OWL conversion."""
@@ -37,7 +74,6 @@ def test_from_rdfs():
     write_schema(schema, OUTSCHEMA)
     # roundtrip
     s = YAMLGenerator(OUTSCHEMA).serialize()
-    print(s[0:100])
     sv = SchemaView(OUTSCHEMA)
     activity = sv.get_class("Activity")
     assert activity

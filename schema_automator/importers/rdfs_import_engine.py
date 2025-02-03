@@ -1,8 +1,10 @@
 import logging
-from typing import Dict, Iterable, List, Any
+from pathlib import Path
+from typing import Dict, Iterable, List, Any, Mapping, TextIO
 import typing
-from collections import defaultdict
+from collections import defaultdict, Counter
 
+from jsonasobj2 import JsonObj
 from linkml.utils.schema_builder import SchemaBuilder
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
@@ -10,7 +12,6 @@ from linkml_runtime.linkml_model import (
     SlotDefinition,
     ClassDefinition,
     Prefix,
-    Uriorcurie
 )
 
 from dataclasses import dataclass, field
@@ -24,6 +25,8 @@ from schema_automator.importers.import_engine import ImportEngine
 HTTP_SDO = Namespace("http://schema.org/")
 
 DEFAULT_METAMODEL_MAPPINGS: Dict[str, List[URIRef]] = {
+    # See https://github.com/linkml/linkml/issues/2507
+    "description": [RDFS.comment],
     "is_a": [RDFS.subClassOf, SKOS.broader],
     "domain_of": [HTTP_SDO.domainIncludes, SDO.domainIncludes, RDFS.domain],
     "range": [HTTP_SDO.rangeIncludes, SDO.rangeIncludes, RDFS.range],
@@ -55,9 +58,12 @@ class RdfsImportEngine(ImportEngine):
     reverse_metamodel_mappings: Dict[URIRef, List[str]] = field(default_factory=lambda: defaultdict(list))
     #: The names of LinkML ClassDefinition slots
     classdef_slots: set[str] = field(init=False)
-    #: The names of LinkML SlotDefinition slot slots
+    #: The names of LinkML SlotDefinition slots
     slotdef_slots: set[str] = field(init=False)
+    #: Every prefix seen in the graph
     seen_prefixes: set[str] = field(default_factory=set)
+    #: The counts of each prefix, used to infer the default prefix
+    prefix_counts: Counter[str] = field(default_factory=Counter)
 
     def __post_init__(self):
         sv = package_schemaview("linkml_runtime.linkml_model.meta")
@@ -91,7 +97,7 @@ class RdfsImportEngine(ImportEngine):
 
     def convert(
         self,
-        file: str,
+        file: str | Path | TextIO,
         name: str | None = None,
         format: str | None="turtle",
         default_prefix: str | None = None,
@@ -101,23 +107,10 @@ class RdfsImportEngine(ImportEngine):
     ) -> SchemaDefinition:
         """
         Converts an OWL schema-style ontology
-
-        :param file:
-        :param name:
-        :param model_uri:
-        :param identifier:
-        :param kwargs:
-        :return:
         """
         g = Graph(bind_namespaces="none")
         g.parse(file, format=format)
-        if name is not None and default_prefix is None:
-            default_prefix = name
-        if name is None:
-            name = default_prefix
-        if name is None:
-            name = "example"
-        sb = SchemaBuilder(name=name)
+        sb = SchemaBuilder()
         sb.add_defaults()
         schema = sb.schema
         for k, v in g.namespaces():
@@ -153,12 +146,28 @@ class RdfsImportEngine(ImportEngine):
         # Remove prefixes that aren't used
         if isinstance(schema.imports, list):
             for imp in schema.imports:
-                prefix, suffix = imp.split(":", 1)
+                prefix, _suffix = imp.split(":", 1)
                 self.seen_prefixes.add(prefix)
         schema.prefixes = {key: value for key, value in schema.prefixes.items() if key in self.seen_prefixes}
-
+        self.infer_metadata(schema, name, default_prefix, model_uri)
         self.fix_missing(schema)
         return schema
+
+    def infer_metadata(self, schema: SchemaDefinition, name: str | None, default_prefix: str | None = None, model_uri: str | None = None):
+        top_count = self.prefix_counts.most_common(1)
+        if len(top_count) == 0:
+            raise ValueError("No prefixes found in the graph")
+        inferred_prefix = top_count[0][0]
+
+        schema.name = name or inferred_prefix
+        schema.default_prefix = default_prefix or inferred_prefix
+        prefix_uri = None
+        if isinstance(schema.prefixes, Mapping):
+            prefix_uri = schema.prefixes.get(inferred_prefix)
+        elif isinstance(schema.prefixes, JsonObj):
+            prefix_uri = schema.prefixes._get(inferred_prefix)
+        if isinstance(prefix_uri, Prefix):
+            schema.id = model_uri or prefix_uri.prefix_reference
 
     def fix_missing(self, schema: SchemaDefinition) -> None:
         """
@@ -181,8 +190,9 @@ class RdfsImportEngine(ImportEngine):
         """
         Updates the set of prefixes seen in the graph
         """
-        prefix, namespace, name = g.namespace_manager.compute_qname(uri)
+        prefix, _namespace, _name = g.namespace_manager.compute_qname(uri)
         self.seen_prefixes.add(prefix)
+        self.prefix_counts.update([prefix])
 
     def process_rdfs_classes(
         self,
