@@ -86,3 +86,6 @@ jobs:
         run: |
           poetry run pip install -U pytest
           poetry run pytest tests/
+
+      - name: Check project dependencies
+        run: make check-dependencies
