@@ -13,7 +13,7 @@ Generalizing from a single TSV
 
 .. code-block::
 
-    schemauto  generalize-csv tests/resources/NWT_wildfires_biophysical_2016.tsv -o wildfire.yaml
+    schemauto  generalize-tsv tests/resources/NWT_wildfires_biophysical_2016.tsv -o wildfire.yaml
 
 The schema will have a slot for every column, e,g:
 
@@ -227,7 +227,7 @@ If you provide an ``--annotator`` option you can auto-annotate enums:
 
 .. code-block::
 
-    schemauto  generalize-csv \
+    schemauto  generalize-tsv \
         --annotator bioportal:envo \
         tests/resources/NWT_wildfires_biophysical_2016.tsv \
         -o wildfire.yaml
