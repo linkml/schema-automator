@@ -53,6 +53,7 @@ click-default-group = "^1.2.4"
 linkml-runtime = "^1.7.2"
 duckdb = "^0.10.1"
 numpy = "<2.0"
+lxml = "^5.3.0"
 pydbml = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
@@ -63,7 +64,7 @@ sphinx-click = ">=3.1.0"
 sphinxcontrib-mermaid = ">=0.9.2"
 myst-parser = "*"
 jupyter = ">=1.0.0"
-lxml = ">=4.9.1"
+lxml-stubs = "^0.5.1"
 
 [tool.poetry.group.llm.dependencies]
 llm = ">=0.12"
