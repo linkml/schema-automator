@@ -473,7 +473,7 @@ def import_owl(owlfile, output, **args):
 @click.argument('rdfsfile')
 @output_option
 @schema_name_option
-@click.option('--input-type', '-I',
+@click.option('--format', '-f',
               default='turtle',
               help="Input format, eg. turtle")
 @click.option('--identifier', '-I', help="Slot to use as identifier")
@@ -481,7 +481,7 @@ def import_owl(owlfile, output, **args):
 @click.option('--metamodel-mappings',
               help="Path to metamodel mappings YAML dictionary")
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
+def import_rdfs(rdfsfile: str, output: str, metamodel_mappings: str, schema_name: str, **args):
     """
     Import an RDFS schema to LinkML
 
@@ -494,7 +494,7 @@ def import_rdfs(rdfsfile, output, metamodel_mappings, **args):
         with open(metamodel_mappings) as f:
             mappings_obj = yaml.safe_load(f)
     sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
-    schema = sie.convert(rdfsfile, **args)
+    schema = sie.convert(rdfsfile, name=schema_name, **args)
     write_schema(schema, output)
 
 @main.command()

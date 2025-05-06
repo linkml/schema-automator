@@ -1,0 +1,19 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+foaf:knows rdf:type owl:ObjectProperty ;
+           rdfs:domain foaf:Person ;
+           rdfs:range foaf:Person ;
+           rdfs:comment "A person known by this person (indicating some level of reciprocated interaction between the parties)." ;
+           rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+           rdfs:label "knows" .
+
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> ,
+                            foaf:Agent ;
+            owl:disjointWith foaf:Project ;
+            rdfs:comment "A person." ;
+            rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+            rdfs:label "Person" .
