@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Dict, Iterable, List, Any, Mapping, TextIO
+from typing import Dict, Iterable, List, Mapping, TextIO, Union
 import typing
 from collections import defaultdict, Counter
 
@@ -51,7 +51,7 @@ class RdfsImportEngine(ImportEngine):
     #: Mapping from field names in this RDF schema (e.g. `price`) to IRIs (e.g. `http://schema.org/price`)
     mappings: Dict[str, URIRef] = field(default_factory=dict)
     #: User-defined mapping from LinkML metamodel slots (such as `domain_of`) to RDFS IRIs (such as http://schema.org/domainIncludes)
-    initial_metamodel_mappings: Dict[str, URIRef | List[URIRef]] = field(default_factory=dict)
+    initial_metamodel_mappings: Dict[str, Union[URIRef, List[URIRef]]] = field(default_factory=dict)
     #: Combined mapping from LinkML metamodel slots to RDFS IRIs
     metamodel_mappings: Dict[str, List[URIRef]] = field(default_factory=lambda: defaultdict(list))
     #: Reverse of `metamodel_mappings`, but supports multiple terms mapping to the same IRI
