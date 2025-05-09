@@ -645,6 +645,8 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
         if all(isfloat(v) for v in nn_vals):
             return 'float'
         if all(is_date(v) for v in nn_vals):
+            if all(len(str(v).split('T')) == 1 for v in nn_vals):  # Check if values are just dates without time
+                return 'date'
             return 'datetime'
     if is_all_measurement(nn_vals):
         return 'measurement'
