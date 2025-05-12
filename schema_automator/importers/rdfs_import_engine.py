@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Dict, Iterable, List, Mapping, TextIO, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, TextIO, Union
 import typing
 from collections import defaultdict, Counter
 
@@ -96,13 +96,12 @@ class RdfsImportEngine(ImportEngine):
         self.slotdef_slots = {s.name for s in sv.class_induced_slots(SlotDefinition.class_name)}
 
     def convert(
-        self,
-        file: str | Path | TextIO,
-        name: str | None = None,
-        format: str | None="turtle",
-        default_prefix: str | None = None,
-        model_uri: str | None = None,
-        identifier: str | None = None,
+        file: Union[str, Path, TextIO],
+        name: Optional[str] = None,
+        format: Optional[str] = "turtle",
+        default_prefix: Optional[str] = None,
+        model_uri: Optional[str] = None,
+        identifier: Optional[str] = None,
         **kwargs: Any,
     ) -> SchemaDefinition:
         """
