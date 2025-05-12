@@ -152,7 +152,13 @@ class RdfsImportEngine(ImportEngine):
         self.fix_missing(schema)
         return schema
 
-    def infer_metadata(self, schema: SchemaDefinition, name: str | None, default_prefix: str | None = None, model_uri: str | None = None):
+    def infer_metadata(
+        self,
+        schema: SchemaDefinition,
+        name: Optional[str] = None,
+        default_prefix: Optional[str] = None,
+        model_uri: Optional[str] = None,
+    ):
         top_count = self.prefix_counts.most_common(1)
         if len(top_count) == 0:
             raise ValueError("No prefixes found in the graph")
@@ -312,7 +318,7 @@ class RdfsImportEngine(ImportEngine):
     def _rdfs_metamodel_iri(self, name: str) -> List[URIRef]:
         return self.metamodel_mappings.get(name, [])
 
-    def _element_from_iri(self, iri: URIRef) -> str | None:
+    def _element_from_iri(self, iri: URIRef) -> Optional[str]:
         r = self.reverse_metamodel_mappings.get(iri, [])
         if len(r) > 0:
             if len(r) > 1:
