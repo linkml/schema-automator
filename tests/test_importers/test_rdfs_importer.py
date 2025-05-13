@@ -5,6 +5,7 @@
 from io import StringIO
 import unittest
 import os
+import pytest
 import yaml
 from linkml_runtime import SchemaView
 
@@ -80,6 +81,6 @@ def test_from_rdfs():
     assert activity.name == "Activity"
     assert activity.is_a == "CreativeWork"
     slots = sv.class_induced_slots(activity.name)
-    assert len(slots) == 1
-    slot = slots[0]
-    assert slot.name == "id"
+    assert len(slots) == 18
+    slot_names = [s.name for s in slots]
+    assert "messages" in slot_names

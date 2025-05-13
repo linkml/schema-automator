@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, TextIO, Union
 import typing
 from collections import defaultdict, Counter
+import warnings
 
 from jsonasobj2 import JsonObj
 from linkml.utils.schema_builder import SchemaBuilder
@@ -96,6 +97,7 @@ class RdfsImportEngine(ImportEngine):
         self.slotdef_slots = {s.name for s in sv.class_induced_slots(SlotDefinition.class_name)}
 
     def convert(
+        self,
         file: Union[str, Path, TextIO],
         name: Optional[str] = None,
         format: Optional[str] = "turtle",
@@ -129,7 +131,10 @@ class RdfsImportEngine(ImportEngine):
         cls_slots = defaultdict(list)
 
         for slot in self.generate_rdfs_properties(g, cls_slots):
-            sb.add_slot(slot)
+            if slot.name in sb.schema.slots:
+                warnings.warn(f"Slot '{slot.name}' already exists in schema; skipping duplicate.")
+            else:
+                sb.add_slot(slot)
         for cls in self.process_rdfs_classes(g, cls_slots):
             sb.add_class(cls)
 
@@ -150,6 +155,7 @@ class RdfsImportEngine(ImportEngine):
         schema.prefixes = {key: value for key, value in schema.prefixes.items() if key in self.seen_prefixes}
         self.infer_metadata(schema, name, default_prefix, model_uri)
         self.fix_missing(schema)
+        self._normalize_slot_ranges(schema)
         return schema
 
     def infer_metadata(
@@ -346,3 +352,25 @@ class RdfsImportEngine(ImportEngine):
             if sep in v_str:
                 return v_str.split(sep)[-1]
         return v_str
+
+    def _normalize_slot_ranges(self, schema: SchemaDefinition) -> None:
+        """
+        Normalize slot ranges to valid LinkML scalars where needed.
+        Currently supports remapping RDF types like 'langString'.
+        """
+        RDF_DATATYPE_MAP = {
+            "langString": "string",
+            "Text": "string",
+            "Thing": "string",
+            "landingPage": "string",
+            "Boolean": "boolean",
+            "Number": "integer",
+            "URL": "uri",
+        }
+
+        for slot in schema.slots.values():
+            if slot.range in RDF_DATATYPE_MAP:
+                warnings.warn(
+                    f"Slot '{slot.name}' has unsupported range '{slot.range}'; mapping to '{RDF_DATATYPE_MAP[slot.range]}'."
+                )
+                slot.range = RDF_DATATYPE_MAP[slot.range]
