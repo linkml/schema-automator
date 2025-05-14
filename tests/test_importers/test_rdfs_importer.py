@@ -33,6 +33,7 @@ def test_import_foaf():
     engine = RdfsImportEngine()
     schema = engine.convert(FOAF)
     sv = SchemaView(schema)
+    assert sv.all_classes() == ["Person", "Agent", "Document"]
     assert len(sv.all_classes()) == 3
     assert len(sv.all_slots()) == 1
     assert sv.get_slot("knows").range == "Person"
