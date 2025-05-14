@@ -7,7 +7,10 @@ if platform.system() == "Windows":
     from jsonasobj2 import JsonObj
     if not hasattr(JsonObj, 'values'):
         def _values(self):
-            return getattr(self, '__dict__', {}).values()
+            return {
+                k: v for k, v in self.__dict__.items()
+                if not callable(v) and not k.startswith('_')
+            }.values()
         JsonObj.values = _values
 
 from io import StringIO
