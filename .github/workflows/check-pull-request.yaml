@@ -25,6 +25,9 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    # Allow Python 3.13 to fail due to scipy not being available yet
+    continue-on-error: ${{ matrix.python-version == '3.13' }}
+
     steps:
 
       #----------------------------------------------
