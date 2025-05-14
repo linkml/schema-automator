@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
 
+# Monkey patching jsonobj to fix windows issue
+import platform
+
+if platform.system() == "Windows":
+    from jsonasobj2 import JsonObj
+    if not hasattr(JsonObj, 'values'):
+        def _values(self):
+            return dict(self).values()
+        JsonObj.values = _values
+
 from io import StringIO
 import unittest
 import os
