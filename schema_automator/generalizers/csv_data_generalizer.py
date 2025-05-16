@@ -1,3 +1,4 @@
+import datetime
 import click
 import logging
 import yaml
@@ -644,13 +645,12 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
             return 'boolean'
         if all(isfloat(v) for v in nn_vals):
             return 'float'
-        if all(is_date(v) for v in nn_vals):
-            if all(
-                not hasattr(parse(str(v)), 'hour') or
-                (parse(str(v)).hour == 0 and parse(str(v)).minute == 0 and parse(str(v)).second == 0)
-                for v in nn_vals
-            ):  # Check if values are just dates without time
-                return 'date'
+        parsed_datetimes = [is_date_or_datetime(v) for v in nn_vals]
+        if all(pd in ('date', 'datetime') for pd in parsed_datetimes):
+            # This selects date when values are mixed which may fail validation
+            # but is the best we can do... we know it isn't string
+            return 'date'
+        if all(pd == 'datetime' for pd in parsed_datetimes):
             return 'datetime'
     if is_all_measurement(nn_vals):
         return 'measurement'
@@ -681,19 +681,21 @@ def get_db(db_id: str) -> Optional[str]:
             return parts[0]
 
 
-def is_date(string, fuzzy=False):
+def is_date_or_datetime(string, fuzzy=False):
     """
-    Return whether the string can be interpreted as a date.
+    Return whether the string can be interpreted as a date or datetime.
 
     :param string: str, string to check for date
     :param fuzzy: bool, ignore unknown tokens in string if True
     """
     try:
-        parse(string, fuzzy=fuzzy)
-        return True
+        dt = parse(string, fuzzy=fuzzy)
+        if dt.hour == 0 and dt.minute == 0 and dt.second == 0:
+            return 'date'
+        return 'datetime'
     except Exception:
         # https://stackoverflow.com/questions/4990718/how-can-i-write-a-try-except-block-that-catches-all-exceptions
-        # we don't know all the different parse exceptions, we assume any error means this is a date
+        # we don't know all the different parse exceptions, we assume any error means this is not a date
         return False
 
 
