@@ -680,6 +680,22 @@ def get_db(db_id: str) -> Optional[str]:
             return parts[0]
 
 
+def is_date(string, fuzzy=False):
+    """
+    Return whether the string can be interpreted as a date.
+
+    :param string: str, string to check for date
+    :param fuzzy: bool, ignore unknown tokens in string if True
+    """
+    try:
+        parse(string, fuzzy=fuzzy)
+        return True
+    except Exception:
+        # https://stackoverflow.com/questions/4990718/how-can-i-write-a-try-except-block-that-catches-all-exceptions
+        # we don't know all the different parse exceptions, we assume any error means this is a date
+        return False
+
+
 def is_date_or_datetime(string, fuzzy=False):
     """
     Return whether the string can be interpreted as a date or datetime.
