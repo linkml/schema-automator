@@ -132,7 +132,7 @@ class RdfsImportEngine(ImportEngine):
 
         for slot in self.generate_rdfs_properties(g, cls_slots):
             if slot.name in sb.schema.slots:
-                warnings.warn(f"Slot '{slot.name}' already exists in schema; skipping duplicate.")
+                logging.warning(f"Slot '{slot.name}' already exists in schema; skipping duplicate.")
             else:
                 sb.add_slot(slot)
         for cls in self.process_rdfs_classes(g, cls_slots):
