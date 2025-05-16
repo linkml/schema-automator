@@ -1,8 +1,9 @@
 import logging
 from pathlib import Path
-from typing import Dict, Iterable, List, Any, Mapping, TextIO
+from typing import Any, Dict, Iterable, List, Mapping, Optional, TextIO, Union
 import typing
 from collections import defaultdict, Counter
+import warnings
 
 from jsonasobj2 import JsonObj
 from linkml.utils.schema_builder import SchemaBuilder
@@ -51,7 +52,7 @@ class RdfsImportEngine(ImportEngine):
     #: Mapping from field names in this RDF schema (e.g. `price`) to IRIs (e.g. `http://schema.org/price`)
     mappings: Dict[str, URIRef] = field(default_factory=dict)
     #: User-defined mapping from LinkML metamodel slots (such as `domain_of`) to RDFS IRIs (such as http://schema.org/domainIncludes)
-    initial_metamodel_mappings: Dict[str, URIRef | List[URIRef]] = field(default_factory=dict)
+    initial_metamodel_mappings: Dict[str, Union[URIRef, List[URIRef]]] = field(default_factory=dict)
     #: Combined mapping from LinkML metamodel slots to RDFS IRIs
     metamodel_mappings: Dict[str, List[URIRef]] = field(default_factory=lambda: defaultdict(list))
     #: Reverse of `metamodel_mappings`, but supports multiple terms mapping to the same IRI
@@ -97,12 +98,12 @@ class RdfsImportEngine(ImportEngine):
 
     def convert(
         self,
-        file: str | Path | TextIO,
-        name: str | None = None,
-        format: str | None="turtle",
-        default_prefix: str | None = None,
-        model_uri: str | None = None,
-        identifier: str | None = None,
+        file: Union[str, Path, TextIO],
+        name: Optional[str] = None,
+        format: Optional[str] = "turtle",
+        default_prefix: Optional[str] = None,
+        model_uri: Optional[str] = None,
+        identifier: Optional[str] = None,
         **kwargs: Any,
     ) -> SchemaDefinition:
         """
@@ -130,7 +131,10 @@ class RdfsImportEngine(ImportEngine):
         cls_slots = defaultdict(list)
 
         for slot in self.generate_rdfs_properties(g, cls_slots):
-            sb.add_slot(slot)
+            if slot.name in sb.schema.slots:
+                logging.warning(f"Slot '{slot.name}' already exists in schema; skipping duplicate.")
+            else:
+                sb.add_slot(slot)
         for cls in self.process_rdfs_classes(g, cls_slots):
             sb.add_class(cls)
 
@@ -151,9 +155,16 @@ class RdfsImportEngine(ImportEngine):
         schema.prefixes = {key: value for key, value in schema.prefixes.items() if key in self.seen_prefixes}
         self.infer_metadata(schema, name, default_prefix, model_uri)
         self.fix_missing(schema)
+        self._normalize_slot_ranges(schema)
         return schema
 
-    def infer_metadata(self, schema: SchemaDefinition, name: str | None, default_prefix: str | None = None, model_uri: str | None = None):
+    def infer_metadata(
+        self,
+        schema: SchemaDefinition,
+        name: Optional[str] = None,
+        default_prefix: Optional[str] = None,
+        model_uri: Optional[str] = None,
+    ):
         top_count = self.prefix_counts.most_common(1)
         if len(top_count) == 0:
             raise ValueError("No prefixes found in the graph")
@@ -313,7 +324,7 @@ class RdfsImportEngine(ImportEngine):
     def _rdfs_metamodel_iri(self, name: str) -> List[URIRef]:
         return self.metamodel_mappings.get(name, [])
 
-    def _element_from_iri(self, iri: URIRef) -> str | None:
+    def _element_from_iri(self, iri: URIRef) -> Optional[str]:
         r = self.reverse_metamodel_mappings.get(iri, [])
         if len(r) > 0:
             if len(r) > 1:
@@ -341,3 +352,25 @@ class RdfsImportEngine(ImportEngine):
             if sep in v_str:
                 return v_str.split(sep)[-1]
         return v_str
+
+    def _normalize_slot_ranges(self, schema: SchemaDefinition) -> None:
+        """
+        Normalize slot ranges to valid LinkML scalars where needed.
+        Currently supports remapping RDF types like 'langString'.
+        """
+        RDF_DATATYPE_MAP = {
+            "langString": "string",
+            "Text": "string",
+            "Thing": "string",
+            "landingPage": "string",
+            "Boolean": "boolean",
+            "Number": "integer",
+            "URL": "uri",
+        }
+
+        for slot in schema.slots.values():
+            if slot.range in RDF_DATATYPE_MAP:
+                warnings.warn(
+                    f"Slot '{slot.name}' has unsupported range '{slot.range}'; mapping to '{RDF_DATATYPE_MAP[slot.range]}'."
+                )
+                slot.range = RDF_DATATYPE_MAP[slot.range]
