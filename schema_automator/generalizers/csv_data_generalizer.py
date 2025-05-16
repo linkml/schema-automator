@@ -1,3 +1,4 @@
+import datetime
 import click
 import logging
 import yaml
@@ -644,13 +645,11 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
             return 'boolean'
         if all(isfloat(v) for v in nn_vals):
             return 'float'
-        if all(is_date(v) for v in nn_vals):
-            if all(
-                not hasattr(parse(str(v)), 'hour') or
-                (parse(str(v)).hour == 0 and parse(str(v)).minute == 0 and parse(str(v)).second == 0)
-                for v in nn_vals
-            ):  # Check if values are just dates without time
-                return 'date'
+        parsed_datetimes = [is_date_or_datetime(v) for v in nn_vals]
+        if all(pd == 'date' for pd in parsed_datetimes):
+            return 'date'
+        if all(pd in ('date', 'datetime') for pd in parsed_datetimes):
+            # This selects datetime when values are mixed which may fail validation
             return 'datetime'
     if is_all_measurement(nn_vals):
         return 'measurement'
@@ -694,6 +693,24 @@ def is_date(string, fuzzy=False):
     except Exception:
         # https://stackoverflow.com/questions/4990718/how-can-i-write-a-try-except-block-that-catches-all-exceptions
         # we don't know all the different parse exceptions, we assume any error means this is a date
+        return False
+
+
+def is_date_or_datetime(string, fuzzy=False):
+    """
+    Return whether the string can be interpreted as a date or datetime.
+
+    :param string: str, string to check for date
+    :param fuzzy: bool, ignore unknown tokens in string if True
+    """
+    try:
+        dt = parse(string, fuzzy=fuzzy)
+        if dt.hour == 0 and dt.minute == 0 and dt.second == 0:
+            return 'date'
+        return 'datetime'
+    except Exception:
+        # https://stackoverflow.com/questions/4990718/how-can-i-write-a-try-except-block-that-catches-all-exceptions
+        # we don't know all the different parse exceptions, we assume any error means this is not a date
         return False
 
 
