@@ -646,11 +646,10 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
         if all(isfloat(v) for v in nn_vals):
             return 'float'
         parsed_datetimes = [is_date_or_datetime(v) for v in nn_vals]
-        if all(pd in ('date', 'datetime') for pd in parsed_datetimes):
-            # This selects date when values are mixed which may fail validation
-            # but is the best we can do... we know it isn't string
+        if all(pd == 'date' for pd in parsed_datetimes):
             return 'date'
-        if all(pd == 'datetime' for pd in parsed_datetimes):
+        if all(pd in ('date', 'datetime') for pd in parsed_datetimes):
+            # This selects datetime when values are mixed which may fail validation
             return 'datetime'
     if is_all_measurement(nn_vals):
         return 'measurement'
