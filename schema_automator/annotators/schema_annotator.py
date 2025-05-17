@@ -1,12 +1,13 @@
 import click
 import logging
+import re
 import yaml
 from dataclasses import dataclass
 from typing import List, Union, Iterator
 
 from linkml_runtime.linkml_model import SchemaDefinition, Element, PermissibleValue, ClassDefinition, SlotDefinition
 from linkml_runtime.utils.metamodelcore import Curie
-from linkml_runtime.utils.schemaview import SchemaView, re, EnumDefinition
+from linkml_runtime.utils.schemaview import SchemaView, EnumDefinition
 from oaklib import BasicOntologyInterface
 from oaklib.datamodels.search import SearchConfiguration
 from oaklib.datamodels.text_annotator import TextAnnotation

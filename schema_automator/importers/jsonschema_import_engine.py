@@ -101,7 +101,7 @@ class JsonSchemaImportEngine(ImportEngine):
                     if rng in schema.classes:
                         # no need to self-import
                         continue
-                    import_module_name = class_name_to_module_map[rng]
+                    import_module_name = rel + class_name_to_module_map[rng]
                     if import_module_name not in schema.imports:
                         logging.info(f"Adding import to {import_module_name} in {schema.name} for {rng}")
                         schema.imports.append(import_module_name)
