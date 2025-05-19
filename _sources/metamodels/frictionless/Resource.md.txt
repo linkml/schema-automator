@@ -1,4 +1,6 @@
-# Class: Resource
+
+
+# Class: Resource 
 
 
 
@@ -7,9 +9,12 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Resource
+    click Resource href "../Resource"
       Resource : description
         
       Resource : dialect
@@ -20,11 +25,25 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
         
       Resource : profile
         
-          Resource --> profile_enum : profile
+          
+    
+        
+        
+        Resource --> "0..1" ProfileEnum : profile
+        click ProfileEnum href "../ProfileEnum"
+    
+
         
       Resource : schema
         
-          Resource --> Schema : schema
+          
+    
+        
+        
+        Resource --> "0..1" Schema : schema
+        click Schema href "../Schema"
+    
+
         
       Resource : title
         
@@ -42,11 +61,11 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [profile](profile.md) | 0..1 <br/> [ProfileEnum](ProfileEnum.md) |  | direct |
-| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
 | [title](title.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [path](path.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [dialect](dialect.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [description](description.md) | 0..* <br/> [String](String.md) |  | direct |
+| [description](description.md) | * <br/> [String](String.md) |  | direct |
 | [schema](schema.md) | 0..1 <br/> [Schema](Schema.md) |  | direct |
 
 
@@ -80,13 +99,14 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Resource |
 | native | frictionless:Resource |
+
+
 
 
 
@@ -189,13 +209,13 @@ attributes:
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
     slot_uri: linkml:description
-    multivalued: true
     alias: description
     owner: Resource
     domain_of:
     - Field
     - Resource
     range: string
+    multivalued: true
   schema:
     name: schema
     from_schema: https://w3id.org/linkml/frictionless

@@ -1,4 +1,4 @@
-# Type: Curie
+# Type: Curie 
 
 
 
@@ -39,6 +39,16 @@ URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:string |
+| native | cadsr:curie |
 
 
 

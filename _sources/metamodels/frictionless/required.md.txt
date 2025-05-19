@@ -1,10 +1,14 @@
-# Slot: required
+
+
+# Slot: required 
+
+
 
 URI: [linkml:required](https://w3id.org/linkml/required)
-
-
+Alias: required
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [linkml:required](https://w3id.org/linkml/required)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [linkml:required](https://w3id.org/linkml/required)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:required |
+| native | frictionless:required |
 
 
 

@@ -1,4 +1,4 @@
-# Type: Uri
+# Type: Uri 
 
 
 
@@ -38,6 +38,17 @@ URI: [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:anyURI |
+| native | frictionless:uri |
+| close | schema:URL |
 
 
 

@@ -1,10 +1,14 @@
-# Slot: ValueDomain
+
+
+# Slot: ValueDomain 
+
+
 
 URI: [cadsr:ValueDomain](https://example.org/cadsrValueDomain)
-
-
+Alias: ValueDomain
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:ValueDomain](https://example.org/cadsrValueDomain)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElement](DataElement.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:ValueDomain](https://example.org/cadsrValueDomain)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ValueDomain |
+| native | cadsr:ValueDomain |
 
 
 

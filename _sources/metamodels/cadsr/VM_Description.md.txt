@@ -1,15 +1,19 @@
-# Slot: VM_Description
+
+
+# Slot: VM_Description 
 
 
 _The text of the most desirable meaning for the Administered Item._
 
 
 
+
+
 URI: [cadsr:VM_Description](https://example.org/cadsrVM_Description)
-
-
+Alias: VM_Description
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:VM_Description](https://example.org/cadsrVM_Description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:VM_Description](https://example.org/cadsrVM_Description)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:VM_Description |
+| native | cadsr:VM_Description |
 
 
 

@@ -1,4 +1,6 @@
-# Class: Constraints
+
+
+# Class: Constraints 
 
 
 
@@ -7,12 +9,13 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 
 
+
+
 ```mermaid
  classDiagram
     class Constraints
+    click Constraints href "../Constraints"
       Constraints : pattern
-        
-          Constraints --> None : pattern
         
       Constraints : required
         
@@ -66,13 +69,14 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Constraints |
 | native | frictionless:Constraints |
+
+
 
 
 

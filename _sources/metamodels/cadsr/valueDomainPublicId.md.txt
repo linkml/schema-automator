@@ -1,15 +1,19 @@
-# Slot: valueDomainPublicId
+
+
+# Slot: valueDomainPublicId 
 
 
 _The unique identifier for an Administered Item within a Registration Authority._
 
 
 
+
+
 URI: [cadsr:valueDomainPublicId](https://example.org/cadsrvalueDomainPublicId)
-
-
+Alias: valueDomainPublicId
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:valueDomainPublicId](https://example.org/cadsrvalueDomainPublicId)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:valueDomainPublicId](https://example.org/cadsrvalueDomainPublicId)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:valueDomainPublicId |
+| native | cadsr:valueDomainPublicId |
 
 
 

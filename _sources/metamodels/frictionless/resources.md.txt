@@ -1,10 +1,14 @@
-# Slot: resources
+
+
+# Slot: resources 
+
+
 
 URI: [frictionless:resources](https://w3id.org/linkml/frictionless/resources)
-
-
+Alias: resources
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:resources](https://w3id.org/linkml/frictionless/resources)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Package](Package.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
@@ -47,6 +51,16 @@ URI: [frictionless:resources](https://w3id.org/linkml/frictionless/resources)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:resources |
+| native | frictionless:resources |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,11 +68,11 @@ URI: [frictionless:resources](https://w3id.org/linkml/frictionless/resources)
 name: resources
 from_schema: https://w3id.org/linkml/frictionless
 rank: 1000
-multivalued: true
 alias: resources
 domain_of:
 - Package
 range: Resource
+multivalued: true
 inlined: true
 inlined_as_list: true
 

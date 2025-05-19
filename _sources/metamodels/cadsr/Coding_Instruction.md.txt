@@ -1,15 +1,19 @@
-# Slot: Coding_Instruction
+
+
+# Slot: Coding_Instruction 
 
 
 _CRDC Coding Instructions_
 
 
 
+
+
 URI: [cadsr:Coding_Instruction](https://example.org/cadsrCoding_Instruction)
-
-
+Alias: Coding_Instruction
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Coding_Instruction](https://example.org/cadsrCoding_Instruction)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Coding_Instruction](https://example.org/cadsrCoding_Instruction)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Coding_Instruction |
+| native | cadsr:Coding_Instruction |
 
 
 

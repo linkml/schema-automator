@@ -1,10 +1,14 @@
-# Slot: maxLength
+
+
+# Slot: maxLength 
+
+
 
 URI: [cadsr:maxLength](https://example.org/cadsrmaxLength)
-
-
+Alias: maxLength
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:maxLength](https://example.org/cadsrmaxLength)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:maxLength](https://example.org/cadsrmaxLength)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:maxLength |
+| native | cadsr:maxLength |
 
 
 

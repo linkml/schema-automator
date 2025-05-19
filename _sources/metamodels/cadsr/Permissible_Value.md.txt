@@ -1,15 +1,19 @@
-# Slot: Permissible_Value
+
+
+# Slot: Permissible_Value 
 
 
 _A representation of a Value Meaning in a specific Value Domain the actual Value._
 
 
 
+
+
 URI: [cadsr:Permissible_Value](https://example.org/cadsrPermissible_Value)
-
-
+Alias: Permissible_Value
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Permissible_Value](https://example.org/cadsrPermissible_Value)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Permissible_Value](https://example.org/cadsrPermissible_Value)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Permissible_Value |
+| native | cadsr:Permissible_Value |
 
 
 

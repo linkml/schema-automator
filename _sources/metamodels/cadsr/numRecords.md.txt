@@ -1,10 +1,14 @@
-# Slot: numRecords
+
+
+# Slot: numRecords 
+
+
 
 URI: [cadsr:numRecords](https://example.org/cadsrnumRecords)
-
-
+Alias: numRecords
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,9 +17,9 @@ URI: [cadsr:numRecords](https://example.org/cadsrnumRecords)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
-[DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-[DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 
 
 
@@ -43,6 +47,16 @@ URI: [cadsr:numRecords](https://example.org/cadsrnumRecords)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:numRecords |
+| native | cadsr:numRecords |
 
 
 

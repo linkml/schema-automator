@@ -1,10 +1,14 @@
-# Slot: ReferenceDocuments
+
+
+# Slot: ReferenceDocuments 
+
+
 
 URI: [cadsr:ReferenceDocuments](https://example.org/cadsrReferenceDocuments)
-
-
+Alias: ReferenceDocuments
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:ReferenceDocuments](https://example.org/cadsrReferenceDocuments)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElement](DataElement.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 
 
 
@@ -47,6 +51,16 @@ URI: [cadsr:ReferenceDocuments](https://example.org/cadsrReferenceDocuments)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ReferenceDocuments |
+| native | cadsr:ReferenceDocuments |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,12 +68,12 @@ URI: [cadsr:ReferenceDocuments](https://example.org/cadsrReferenceDocuments)
 name: ReferenceDocuments
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: ReferenceDocuments
 domain_of:
 - DataElement
 range: ReferenceDocument
 required: false
+multivalued: true
 
 ```
 </details>

@@ -1,10 +1,14 @@
-# Slot: ObjectClass
+
+
+# Slot: ObjectClass 
+
+
 
 URI: [cadsr:ObjectClass](https://example.org/cadsrObjectClass)
-
-
+Alias: ObjectClass
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:ObjectClass](https://example.org/cadsrObjectClass)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:ObjectClass](https://example.org/cadsrObjectClass)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ObjectClass |
+| native | cadsr:ObjectClass |
 
 
 

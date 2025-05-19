@@ -1,15 +1,19 @@
-# Slot: Owned_By
+
+
+# Slot: Owned_By 
 
 
 _Who owns the Data Element_
 
 
 
+
+
 URI: [cadsr:Owned_By](https://example.org/cadsrOwned_By)
-
-
+Alias: Owned_By
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Owned_By](https://example.org/cadsrOwned_By)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Owned_By](https://example.org/cadsrOwned_By)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Owned_By |
+| native | cadsr:Owned_By |
 
 
 

@@ -1,10 +1,14 @@
-# Slot: description
+
+
+# Slot: description 
+
+
 
 URI: [linkml:description](https://w3id.org/linkml/description)
-
-
+Alias: description
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,8 +17,8 @@ URI: [linkml:description](https://w3id.org/linkml/description)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Field](Field.md) |  |  no  |
-[Resource](Resource.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -55,6 +59,16 @@ URI: [linkml:description](https://w3id.org/linkml/description)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:description |
+| native | frictionless:description |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -65,12 +79,12 @@ examples:
 from_schema: https://w3id.org/linkml/frictionless
 rank: 1000
 slot_uri: linkml:description
-multivalued: true
 alias: description
 domain_of:
 - Field
 - Resource
 range: string
+multivalued: true
 
 ```
 </details>

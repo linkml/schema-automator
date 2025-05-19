@@ -1,4 +1,4 @@
-# Enum: FormatEnum
+# Enum: FormatEnum 
 
 
 
@@ -38,6 +38,8 @@ URI: [FormatEnum](FormatEnum.md)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
 
 
 

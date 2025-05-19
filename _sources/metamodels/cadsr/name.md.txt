@@ -1,10 +1,14 @@
-# Slot: name
+
+
+# Slot: name 
+
+
 
 URI: [cadsr:name](https://example.org/cadsrname)
-
-
+Alias: name
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,8 +17,8 @@ URI: [cadsr:name](https://example.org/cadsrname)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[AlternateName](AlternateName.md) |  |  no  |
-[ReferenceDocument](ReferenceDocument.md) |  |  no  |
+| [AlternateName](AlternateName.md) |  |  no  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  no  |
 
 
 
@@ -42,6 +46,16 @@ URI: [cadsr:name](https://example.org/cadsrname)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:name |
+| native | cadsr:name |
 
 
 

@@ -1,15 +1,19 @@
-# Slot: workflowStatus
+
+
+# Slot: workflowStatus 
 
 
 _A name of a designation of the status in the administrative life-cycle of a Context Owner for handling new administered items._
 
 
 
+
+
 URI: [cadsr:workflowStatus](https://example.org/cadsrworkflowStatus)
-
-
+Alias: workflowStatus
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,15 +22,15 @@ URI: [cadsr:workflowStatus](https://example.org/cadsrworkflowStatus)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -54,6 +58,16 @@ URI: [cadsr:workflowStatus](https://example.org/cadsrworkflowStatus)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:workflowStatus |
+| native | cadsr:workflowStatus |
 
 
 

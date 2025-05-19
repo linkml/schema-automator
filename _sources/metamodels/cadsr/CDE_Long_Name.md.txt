@@ -1,15 +1,19 @@
-# Slot: CDE_Long_Name
+
+
+# Slot: CDE_Long_Name 
 
 
 _A 255 character limit name for an item in the registry._
 
 
 
+
+
 URI: [cadsr:CDE_Long_Name](https://example.org/cadsrCDE_Long_Name)
-
-
+Alias: CDE_Long_Name
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:CDE_Long_Name](https://example.org/cadsrCDE_Long_Name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:CDE_Long_Name](https://example.org/cadsrCDE_Long_Name)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CDE_Long_Name |
+| native | cadsr:CDE_Long_Name |
 
 
 

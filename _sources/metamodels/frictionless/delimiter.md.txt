@@ -1,10 +1,14 @@
-# Slot: delimiter
+
+
+# Slot: delimiter 
+
+
 
 URI: [frictionless:delimiter](https://w3id.org/linkml/frictionless/delimiter)
-
-
+Alias: delimiter
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:delimiter](https://w3id.org/linkml/frictionless/delimiter)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Dialect](Dialect.md) |  |  no  |
+| [Dialect](Dialect.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:delimiter](https://w3id.org/linkml/frictionless/delimiter)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:delimiter |
+| native | frictionless:delimiter |
 
 
 

@@ -1,15 +1,19 @@
-# Slot: CRDC_Definition
+
+
+# Slot: CRDC_Definition 
 
 
 _CRD Definition_
 
 
 
+
+
 URI: [cadsr:CRDC_Definition](https://example.org/cadsrCRDC_Definition)
-
-
+Alias: CRDC_Definition
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:CRDC_Definition](https://example.org/cadsrCRDC_Definition)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:CRDC_Definition](https://example.org/cadsrCRDC_Definition)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CRDC_Definition |
+| native | cadsr:CRDC_Definition |
 
 
 

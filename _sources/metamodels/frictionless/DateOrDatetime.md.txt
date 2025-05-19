@@ -1,4 +1,4 @@
-# Type: DateOrDatetime
+# Type: DateOrDatetime 
 
 
 
@@ -34,6 +34,16 @@ URI: [linkml:DateOrDatetime](https://w3id.org/linkml/DateOrDatetime)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:DateOrDatetime |
+| native | frictionless:date_or_datetime |
 
 
 

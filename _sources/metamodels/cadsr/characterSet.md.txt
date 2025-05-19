@@ -1,10 +1,14 @@
-# Slot: characterSet
+
+
+# Slot: characterSet 
+
+
 
 URI: [cadsr:characterSet](https://example.org/cadsrcharacterSet)
-
-
+Alias: characterSet
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:characterSet](https://example.org/cadsrcharacterSet)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:characterSet](https://example.org/cadsrcharacterSet)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:characterSet |
+| native | cadsr:characterSet |
 
 
 

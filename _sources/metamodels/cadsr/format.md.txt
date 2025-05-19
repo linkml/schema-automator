@@ -1,10 +1,14 @@
-# Slot: format
+
+
+# Slot: format 
+
+
 
 URI: [cadsr:format](https://example.org/cadsrformat)
-
-
+Alias: format
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:format](https://example.org/cadsrformat)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:format](https://example.org/cadsrformat)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:format |
+| native | cadsr:format |
 
 
 

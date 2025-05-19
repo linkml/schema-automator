@@ -12,29 +12,29 @@ Name: cadsr
 
 | Class | Description |
 | --- | --- |
-| [AlternateName](AlternateName.md) | None |
-| [CDEPermissibleValue](CDEPermissibleValue.md) | None |
-| [ClassificationScheme](ClassificationScheme.md) | None |
-| [ClassificationSchemeItem](ClassificationSchemeItem.md) | None |
-| [Concept](Concept.md) | None |
-| [ConceptualDomain](ConceptualDomain.md) | None |
-| [CRDCDataElement](CRDCDataElement.md) | None |
-| [DataElement](DataElement.md) | None |
-| [DataElementConcept](DataElementConcept.md) | None |
-| [DataElementContainer](DataElementContainer.md) | None |
-| [DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) | None |
-| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) | None |
-| [DataElementQuery](DataElementQuery.md) | None |
-| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) | None |
-| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) | None |
-| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) | None |
-| [ObjectClass](ObjectClass.md) | None |
+| [AlternateName](AlternateName.md) |  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |
+| [ClassificationScheme](ClassificationScheme.md) |  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |
+| [Concept](Concept.md) |  |
+| [ConceptualDomain](ConceptualDomain.md) |  |
+| [CRDCDataElement](CRDCDataElement.md) |  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |
+| [DataElementConcept](DataElementConcept.md) |  |
+| [DataElementContainer](DataElementContainer.md) |  |
+| [DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) |  |
+| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |  |
+| [DataElementQuery](DataElementQuery.md) |  |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |
 | [PermissibleValue](PermissibleValue.md) | List of Permissible Values |
-| [Property](Property.md) | None |
-| [ReferenceDocument](ReferenceDocument.md) | None |
-| [RepresentationTerm](RepresentationTerm.md) | None |
-| [ValueDomain](ValueDomain.md) | None |
-| [ValueMeaning](ValueMeaning.md) | None |
+| [Property](Property.md) |  |
+| [ReferenceDocument](ReferenceDocument.md) |  |
+| [RepresentationTerm](RepresentationTerm.md) |  |
+| [ValueDomain](ValueDomain.md) |  |
+| [ValueMeaning](ValueMeaning.md) |  |
 
 
 

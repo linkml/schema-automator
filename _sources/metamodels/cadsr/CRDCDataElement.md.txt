@@ -1,4 +1,6 @@
-# Class: CRDCDataElement
+
+
+# Class: CRDCDataElement 
 
 
 
@@ -7,72 +9,52 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 
 
+
+
 ```mermaid
  classDiagram
     class CRDCDataElement
+    click CRDCDataElement href "../CRDCDataElement"
       CRDCDataElement : CDE_Long_Name
-        
-          CRDCDataElement --> None : CDE_Long_Name
         
       CRDCDataElement : CDE_Public_ID
         
-          CRDCDataElement --> None : CDE_Public_ID
-        
       CRDCDataElement : Coding_Instruction
-        
-          CRDCDataElement --> None : Coding_Instruction
         
       CRDCDataElement : CRD_Domain
         
-          CRDCDataElement --> None : CRD_Domain
-        
       CRDCDataElement : CRDC_Definition
-        
-          CRDCDataElement --> None : CRDC_Definition
         
       CRDCDataElement : CRDC_Name
         
-          CRDCDataElement --> None : CRDC_Name
-        
       CRDCDataElement : Deep_Link
-        
-          CRDCDataElement --> None : Deep_Link
         
       CRDCDataElement : Example
         
-          CRDCDataElement --> None : Example
-        
       CRDCDataElement : Instructions
-        
-          CRDCDataElement --> None : Instructions
         
       CRDCDataElement : Owned_By
         
-          CRDCDataElement --> None : Owned_By
-        
       CRDCDataElement : permissibleValues
         
-          CRDCDataElement --> permissibleValue : permissibleValues
+          
+    
+        
+        
+        CRDCDataElement --> "*" PermissibleValue : permissibleValues
+        click PermissibleValue href "../PermissibleValue"
+    
+
         
       CRDCDataElement : Registration_Status
         
-          CRDCDataElement --> None : Registration_Status
-        
       CRDCDataElement : Used_By
-        
-          CRDCDataElement --> None : Used_By
         
       CRDCDataElement : VD_Type
         
-          CRDCDataElement --> None : VD_Type
-        
       CRDCDataElement : Version
         
-          CRDCDataElement --> None : Version
-        
       CRDCDataElement : Workflow_Status
-        
-          CRDCDataElement --> None : Workflow_Status
         
       
 ```
@@ -102,7 +84,7 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 | [Owned_By](Owned_By.md) | 0..1 <br/> [String](String.md) | Who owns the Data Element | direct |
 | [Used_By](Used_By.md) | 0..1 <br/> [String](String.md) | Who is using the Data Element | direct |
 | [Deep_Link](Deep_Link.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [permissibleValues](permissibleValues.md) | 0..* <br/> [PermissibleValue](PermissibleValue.md) |  | direct |
+| [permissibleValues](permissibleValues.md) | * <br/> [PermissibleValue](PermissibleValue.md) |  | direct |
 
 
 
@@ -135,13 +117,14 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:CRDCDataElement |
 | native | cadsr:CRDCDataElement |
+
+
 
 
 
@@ -179,85 +162,53 @@ slot_usage:
     name: CDE Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - CRDCDataElement
   Version:
     name: Version
     description: The unique version identifier of the Administered Item.
-    domain_of:
-    - CRDCDataElement
   CRDC Name:
     name: CRDC Name
     description: CRDC Name
-    domain_of:
-    - CRDCDataElement
   CRD Domain:
     name: CRD Domain
     description: CRDC Domain
-    domain_of:
-    - CRDCDataElement
   Example:
     name: Example
     description: CRDC Example
-    domain_of:
-    - CRDCDataElement
   VD Type:
     name: VD Type
     description: Value Domain type
-    domain_of:
-    - CRDCDataElement
   Coding Instruction:
     name: Coding Instruction
     description: CRDC Coding Instructions
-    domain_of:
-    - CRDCDataElement
   Instructions:
     name: Instructions
     description: CRDC Instructions
-    domain_of:
-    - CRDCDataElement
   CRDC Definition:
     name: CRDC Definition
     description: CRD Definition
-    domain_of:
-    - CRDCDataElement
   CDE Long Name:
     name: CDE Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - CRDCDataElement
   Registration Status:
     name: Registration Status
     description: A designation of the status in the registration life-cycle of an
       Administered Item.
-    domain_of:
-    - CRDCDataElement
   Workflow Status:
     name: Workflow Status
     description: A name of a designation of the status in the administrative life-cycle
       of a Context Owner for handling new administered items.
-    domain_of:
-    - CRDCDataElement
   Owned By:
     name: Owned By
     description: Who owns the Data Element
-    domain_of:
-    - CRDCDataElement
   Used By:
     name: Used By
     description: Who is using the Data Element
-    domain_of:
-    - CRDCDataElement
   Deep Link:
     name: Deep Link
-    domain_of:
-    - CRDCDataElement
   permissibleValues:
     name: permissibleValues
-    multivalued: true
-    domain_of:
-    - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 
 ```
 </details>
@@ -273,85 +224,53 @@ slot_usage:
     name: CDE Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - CRDCDataElement
   Version:
     name: Version
     description: The unique version identifier of the Administered Item.
-    domain_of:
-    - CRDCDataElement
   CRDC Name:
     name: CRDC Name
     description: CRDC Name
-    domain_of:
-    - CRDCDataElement
   CRD Domain:
     name: CRD Domain
     description: CRDC Domain
-    domain_of:
-    - CRDCDataElement
   Example:
     name: Example
     description: CRDC Example
-    domain_of:
-    - CRDCDataElement
   VD Type:
     name: VD Type
     description: Value Domain type
-    domain_of:
-    - CRDCDataElement
   Coding Instruction:
     name: Coding Instruction
     description: CRDC Coding Instructions
-    domain_of:
-    - CRDCDataElement
   Instructions:
     name: Instructions
     description: CRDC Instructions
-    domain_of:
-    - CRDCDataElement
   CRDC Definition:
     name: CRDC Definition
     description: CRD Definition
-    domain_of:
-    - CRDCDataElement
   CDE Long Name:
     name: CDE Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - CRDCDataElement
   Registration Status:
     name: Registration Status
     description: A designation of the status in the registration life-cycle of an
       Administered Item.
-    domain_of:
-    - CRDCDataElement
   Workflow Status:
     name: Workflow Status
     description: A name of a designation of the status in the administrative life-cycle
       of a Context Owner for handling new administered items.
-    domain_of:
-    - CRDCDataElement
   Owned By:
     name: Owned By
     description: Who owns the Data Element
-    domain_of:
-    - CRDCDataElement
   Used By:
     name: Used By
     description: Who is using the Data Element
-    domain_of:
-    - CRDCDataElement
   Deep Link:
     name: Deep Link
-    domain_of:
-    - CRDCDataElement
   permissibleValues:
     name: permissibleValues
-    multivalued: true
-    domain_of:
-    - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 attributes:
   CDE Public ID:
     name: CDE Public ID
@@ -494,12 +413,12 @@ attributes:
     name: permissibleValues
     from_schema: https://example.org/cadsr
     rank: 1000
-    multivalued: true
     alias: permissibleValues
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 
 ```
 </details>

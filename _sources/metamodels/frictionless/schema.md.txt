@@ -1,10 +1,14 @@
-# Slot: schema
+
+
+# Slot: schema 
+
+
 
 URI: [frictionless:schema](https://w3id.org/linkml/frictionless/schema)
-
-
+Alias: schema
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:schema](https://w3id.org/linkml/frictionless/schema)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Resource](Resource.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
 
 
 
@@ -41,6 +45,17 @@ URI: [frictionless:schema](https://w3id.org/linkml/frictionless/schema)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:schema |
+| native | frictionless:schema |
+| close | linkml:ClassDefinition |
 
 
 

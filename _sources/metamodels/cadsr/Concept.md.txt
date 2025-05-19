@@ -1,4 +1,6 @@
-# Class: Concept
+
+
+# Class: Concept 
 
 
 
@@ -7,32 +9,23 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Concept
+    click Concept href "../Concept"
       Concept : conceptCode
-        
-          Concept --> None : conceptCode
         
       Concept : definition
         
-          Concept --> None : definition
-        
       Concept : displayOrder
-        
-          Concept --> None : displayOrder
         
       Concept : evsSource
         
-          Concept --> None : evsSource
-        
       Concept : longName
         
-          Concept --> None : longName
-        
       Concept : primaryIndicator
-        
-          Concept --> None : primaryIndicator
         
       
 ```
@@ -47,7 +40,7 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [longName](longName.md) | 0..1 <br/> [String](String.md) | A 255 character limit name for an item in the registry | direct |
+| [longName](longName.md) | 0..1 <br/> [String](String.md) | name of the concept | direct |
 | [conceptCode](conceptCode.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [definition](definition.md) | 0..1 <br/> [String](String.md) |  | direct |
 | [evsSource](evsSource.md) | 0..1 <br/> [String](String.md) | The name of the EVS concept code that was the source for the concept identifi... | direct |
@@ -88,13 +81,14 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:Concept |
 | native | cadsr:Concept |
+
+
 
 
 
@@ -120,42 +114,26 @@ slots:
 slot_usage:
   longName:
     name: longName
-    description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
+    description: name of the concept. Note that in other contexts, longName may be
+      an identifier, but in Concepts it is the label (always from NCIT).
+    examples:
+    - value: 'No'
+    - value: Increase
+    - value: Nucleic Acid Amplification Test
   conceptCode:
     name: conceptCode
-    domain_of:
-    - Concept
+    examples:
+    - value: C20055
   definition:
     name: definition
-    domain_of:
-    - Concept
   evsSource:
     name: evsSource
     description: The name of the EVS concept code that was the source for the concept
       identifier.
-    domain_of:
-    - Concept
   primaryIndicator:
     name: primaryIndicator
-    domain_of:
-    - Concept
   displayOrder:
     name: displayOrder
-    domain_of:
-    - Concept
 
 ```
 </details>
@@ -169,46 +147,35 @@ from_schema: https://example.org/cadsr
 slot_usage:
   longName:
     name: longName
-    description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
+    description: name of the concept. Note that in other contexts, longName may be
+      an identifier, but in Concepts it is the label (always from NCIT).
+    examples:
+    - value: 'No'
+    - value: Increase
+    - value: Nucleic Acid Amplification Test
   conceptCode:
     name: conceptCode
-    domain_of:
-    - Concept
+    examples:
+    - value: C20055
   definition:
     name: definition
-    domain_of:
-    - Concept
   evsSource:
     name: evsSource
     description: The name of the EVS concept code that was the source for the concept
       identifier.
-    domain_of:
-    - Concept
   primaryIndicator:
     name: primaryIndicator
-    domain_of:
-    - Concept
   displayOrder:
     name: displayOrder
-    domain_of:
-    - Concept
 attributes:
   longName:
     name: longName
-    description: A 255 character limit name for an item in the registry.
+    description: name of the concept. Note that in other contexts, longName may be
+      an identifier, but in Concepts it is the label (always from NCIT).
+    examples:
+    - value: 'No'
+    - value: Increase
+    - value: Nucleic Acid Amplification Test
     from_schema: https://example.org/cadsr
     rank: 1000
     alias: longName
@@ -228,6 +195,8 @@ attributes:
     - DataElementQuery
   conceptCode:
     name: conceptCode
+    examples:
+    - value: C20055
     from_schema: https://example.org/cadsr
     rank: 1000
     alias: conceptCode

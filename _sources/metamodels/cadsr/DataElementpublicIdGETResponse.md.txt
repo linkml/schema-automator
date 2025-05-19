@@ -1,4 +1,6 @@
-# Class: DataElementpublicIdGETResponse
+
+
+# Class: DataElementpublicIdGETResponse 
 
 
 
@@ -7,12 +9,22 @@ URI: [cadsr:DataElementpublicIdGETResponse](https://example.org/cadsrDataElement
 
 
 
+
+
 ```mermaid
  classDiagram
     class DataElementpublicIdGETResponse
+    click DataElementpublicIdGETResponse href "../DataElementpublicIdGETResponse"
       DataElementpublicIdGETResponse : DataElement
         
-          DataElementpublicIdGETResponse --> DataElement : DataElement
+          
+    
+        
+        
+        DataElementpublicIdGETResponse --> "0..1" DataElement : DataElement
+        click DataElement href "../DataElement"
+    
+
         
       
 ```
@@ -53,13 +65,14 @@ URI: [cadsr:DataElementpublicIdGETResponse](https://example.org/cadsrDataElement
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:DataElementpublicIdGETResponse |
 | native | cadsr:DataElementpublicIdGETResponse |
+
+
 
 
 
@@ -80,9 +93,6 @@ slots:
 slot_usage:
   DataElement:
     name: DataElement
-    domain_of:
-    - DataElementContainer
-    - DataElementpublicId_GET_response
     range: DataElement
     required: false
 
@@ -98,9 +108,6 @@ from_schema: https://example.org/cadsr
 slot_usage:
   DataElement:
     name: DataElement
-    domain_of:
-    - DataElementContainer
-    - DataElementpublicId_GET_response
     range: DataElement
     required: false
 attributes:

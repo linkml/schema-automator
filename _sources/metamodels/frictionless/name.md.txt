@@ -1,10 +1,14 @@
-# Slot: name
+
+
+# Slot: name 
+
+
 
 URI: [linkml:name](https://w3id.org/linkml/name)
-
-
+Alias: name
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,9 +17,9 @@ URI: [linkml:name](https://w3id.org/linkml/name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Field](Field.md) |  |  no  |
-[Resource](Resource.md) |  |  no  |
-[Package](Package.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -52,6 +56,16 @@ URI: [linkml:name](https://w3id.org/linkml/name)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:name |
+| native | frictionless:name |
 
 
 

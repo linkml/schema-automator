@@ -1,10 +1,14 @@
-# Slot: path
+
+
+# Slot: path 
+
+
 
 URI: [frictionless:path](https://w3id.org/linkml/frictionless/path)
-
-
+Alias: path
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:path](https://w3id.org/linkml/frictionless/path)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Resource](Resource.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
 
 
 
@@ -48,6 +52,16 @@ URI: [frictionless:path](https://w3id.org/linkml/frictionless/path)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:path |
+| native | frictionless:path |
 
 
 

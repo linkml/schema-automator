@@ -1,10 +1,14 @@
-# Slot: maxValue
+
+
+# Slot: maxValue 
+
+
 
 URI: [cadsr:maxValue](https://example.org/cadsrmaxValue)
-
-
+Alias: maxValue
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:maxValue](https://example.org/cadsrmaxValue)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:maxValue](https://example.org/cadsrmaxValue)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:maxValue |
+| native | cadsr:maxValue |
 
 
 

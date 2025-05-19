@@ -1,10 +1,14 @@
-# Slot: DataElementConcept
+
+
+# Slot: DataElementConcept 
+
+
 
 URI: [cadsr:DataElementConcept](https://example.org/cadsrDataElementConcept)
-
-
+Alias: DataElementConcept
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:DataElementConcept](https://example.org/cadsrDataElementConcept)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElement](DataElement.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:DataElementConcept](https://example.org/cadsrDataElementConcept)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:DataElementConcept |
+| native | cadsr:DataElementConcept |
 
 
 

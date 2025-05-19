@@ -1,15 +1,19 @@
-# Slot: contextName
+
+
+# Slot: contextName 
 
 
 _A 30 character limit name by which an Administered Item is designated within a specific Context._
 
 
 
+
+
 URI: [cadsr:contextName](https://example.org/cadsrcontextName)
-
-
+Alias: contextName
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:contextName](https://example.org/cadsrcontextName)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:contextName](https://example.org/cadsrcontextName)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:contextName |
+| native | cadsr:contextName |
 
 
 

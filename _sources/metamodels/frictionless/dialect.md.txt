@@ -1,10 +1,14 @@
-# Slot: dialect
+
+
+# Slot: dialect 
+
+
 
 URI: [frictionless:dialect](https://w3id.org/linkml/frictionless/dialect)
-
-
+Alias: dialect
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:dialect](https://w3id.org/linkml/frictionless/dialect)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Resource](Resource.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:dialect](https://w3id.org/linkml/frictionless/dialect)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:dialect |
+| native | frictionless:dialect |
 
 
 

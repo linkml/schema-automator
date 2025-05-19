@@ -1,4 +1,6 @@
-# Class: ClassificationSchemeItem
+
+
+# Class: ClassificationSchemeItem 
 
 
 
@@ -7,24 +9,19 @@ URI: [cadsr:ClassificationSchemeItem](https://example.org/cadsrClassificationSch
 
 
 
+
+
 ```mermaid
  classDiagram
     class ClassificationSchemeItem
+    click ClassificationSchemeItem href "../ClassificationSchemeItem"
       ClassificationSchemeItem : context
-        
-          ClassificationSchemeItem --> None : context
         
       ClassificationSchemeItem : longName
         
-          ClassificationSchemeItem --> None : longName
-        
       ClassificationSchemeItem : publicId
         
-          ClassificationSchemeItem --> None : publicId
-        
       ClassificationSchemeItem : version
-        
-          ClassificationSchemeItem --> None : version
         
       
 ```
@@ -75,13 +72,14 @@ URI: [cadsr:ClassificationSchemeItem](https://example.org/cadsrClassificationSch
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:ClassificationSchemeItem |
 | native | cadsr:ClassificationSchemeItem |
+
+
 
 
 
@@ -107,66 +105,15 @@ slot_usage:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - CDEPermissibleValue
-    - DataElementQuery
     required: false
   version:
     name: version
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   longName:
     name: longName
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
 
 ```
@@ -183,72 +130,23 @@ slot_usage:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - CDEPermissibleValue
-    - DataElementQuery
     required: false
   version:
     name: version
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   longName:
     name: longName
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
 attributes:
   publicId:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
+    comments:
+    - note this can appear at different levels
     from_schema: https://example.org/cadsr
     rank: 1000
     alias: publicId
@@ -266,6 +164,7 @@ attributes:
     - RepresentationTerm
     - CDEPermissibleValue
     - DataElementQuery
+    range: string
     required: false
   version:
     name: version

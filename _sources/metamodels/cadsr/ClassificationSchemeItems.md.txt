@@ -1,10 +1,14 @@
-# Slot: ClassificationSchemeItems
+
+
+# Slot: ClassificationSchemeItems 
+
+
 
 URI: [cadsr:ClassificationSchemeItems](https://example.org/cadsrClassificationSchemeItems)
-
-
+Alias: ClassificationSchemeItems
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:ClassificationSchemeItems](https://example.org/cadsrClassificationSc
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
 
 
 
@@ -47,6 +51,16 @@ URI: [cadsr:ClassificationSchemeItems](https://example.org/cadsrClassificationSc
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ClassificationSchemeItems |
+| native | cadsr:ClassificationSchemeItems |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,11 +68,11 @@ URI: [cadsr:ClassificationSchemeItems](https://example.org/cadsrClassificationSc
 name: ClassificationSchemeItems
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: ClassificationSchemeItems
 domain_of:
 - ClassificationScheme
 range: ClassificationSchemeItem
+multivalued: true
 
 ```
 </details>

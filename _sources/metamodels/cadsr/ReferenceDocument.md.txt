@@ -1,4 +1,6 @@
-# Class: ReferenceDocument
+
+
+# Class: ReferenceDocument 
 
 
 
@@ -7,28 +9,21 @@ URI: [cadsr:ReferenceDocument](https://example.org/cadsrReferenceDocument)
 
 
 
+
+
 ```mermaid
  classDiagram
     class ReferenceDocument
+    click ReferenceDocument href "../ReferenceDocument"
       ReferenceDocument : context
-        
-          ReferenceDocument --> None : context
         
       ReferenceDocument : description
         
-          ReferenceDocument --> None : description
-        
       ReferenceDocument : name
-        
-          ReferenceDocument --> None : name
         
       ReferenceDocument : type
         
-          ReferenceDocument --> None : type
-        
       ReferenceDocument : url
-        
-          ReferenceDocument --> None : url
         
       
 ```
@@ -80,13 +75,14 @@ URI: [cadsr:ReferenceDocument](https://example.org/cadsrReferenceDocument)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:ReferenceDocument |
 | native | cadsr:ReferenceDocument |
+
+
 
 
 
@@ -111,33 +107,12 @@ slots:
 slot_usage:
   type:
     name: type
-    domain_of:
-    - AlternateName
-    - ValueDomain
-    - ReferenceDocument
   description:
     name: description
-    domain_of:
-    - ReferenceDocument
   url:
     name: url
-    domain_of:
-    - ReferenceDocument
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
 
 ```
 </details>
@@ -151,33 +126,12 @@ from_schema: https://example.org/cadsr
 slot_usage:
   type:
     name: type
-    domain_of:
-    - AlternateName
-    - ValueDomain
-    - ReferenceDocument
   description:
     name: description
-    domain_of:
-    - ReferenceDocument
   url:
     name: url
-    domain_of:
-    - ReferenceDocument
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
 attributes:
   name:
     name: name

@@ -1,10 +1,14 @@
-# Slot: displayOrder
+
+
+# Slot: displayOrder 
+
+
 
 URI: [cadsr:displayOrder](https://example.org/cadsrdisplayOrder)
-
-
+Alias: displayOrder
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:displayOrder](https://example.org/cadsrdisplayOrder)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Concept](Concept.md) |  |  yes  |
+| [Concept](Concept.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:displayOrder](https://example.org/cadsrdisplayOrder)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:displayOrder |
+| native | cadsr:displayOrder |
 
 
 

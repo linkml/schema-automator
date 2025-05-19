@@ -1,15 +1,19 @@
-# Slot: valueDescription
+
+
+# Slot: valueDescription 
 
 
 _The text of the most desirable meaning for Value_
 
 
 
+
+
 URI: [cadsr:valueDescription](https://example.org/cadsrvalueDescription)
-
-
+Alias: valueDescription
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:valueDescription](https://example.org/cadsrvalueDescription)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:valueDescription](https://example.org/cadsrvalueDescription)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:valueDescription |
+| native | cadsr:valueDescription |
 
 
 

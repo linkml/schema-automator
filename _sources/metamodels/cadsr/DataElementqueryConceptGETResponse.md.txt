@@ -1,4 +1,6 @@
-# Class: DataElementqueryConceptGETResponse
+
+
+# Class: DataElementqueryConceptGETResponse 
 
 
 
@@ -7,16 +9,24 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 
 
+
+
 ```mermaid
  classDiagram
     class DataElementqueryConceptGETResponse
+    click DataElementqueryConceptGETResponse href "../DataElementqueryConceptGETResponse"
       DataElementqueryConceptGETResponse : DataElementQueryResults
         
-          DataElementqueryConceptGETResponse --> DataElementQuery : DataElementQueryResults
+          
+    
+        
+        
+        DataElementqueryConceptGETResponse --> "*" DataElementQuery : DataElementQueryResults
+        click DataElementQuery href "../DataElementQuery"
+    
+
         
       DataElementqueryConceptGETResponse : numRecords
-        
-          DataElementqueryConceptGETResponse --> None : numRecords
         
       
 ```
@@ -32,7 +42,7 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [numRecords](numRecords.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [DataElementQueryResults](DataElementQueryResults.md) | 0..* <br/> [DataElementQuery](DataElementQuery.md) |  | direct |
+| [DataElementQueryResults](DataElementQueryResults.md) | * <br/> [DataElementQuery](DataElementQuery.md) |  | direct |
 
 
 
@@ -58,13 +68,14 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:DataElementqueryConceptGETResponse |
 | native | cadsr:DataElementqueryConceptGETResponse |
+
+
 
 
 
@@ -86,20 +97,12 @@ slots:
 slot_usage:
   numRecords:
     name: numRecords
-    domain_of:
-    - DataElementqueryContext_GET_response
-    - DataElementqueryConcept_GET_response
-    - DataElementquery_GET_response
     required: false
   DataElementQueryResults:
     name: DataElementQueryResults
-    multivalued: true
-    domain_of:
-    - DataElementqueryContext_GET_response
-    - DataElementqueryConcept_GET_response
-    - DataElementquery_GET_response
     range: DataElementQuery
     required: false
+    multivalued: true
 
 ```
 </details>
@@ -113,20 +116,12 @@ from_schema: https://example.org/cadsr
 slot_usage:
   numRecords:
     name: numRecords
-    domain_of:
-    - DataElementqueryContext_GET_response
-    - DataElementqueryConcept_GET_response
-    - DataElementquery_GET_response
     required: false
   DataElementQueryResults:
     name: DataElementQueryResults
-    multivalued: true
-    domain_of:
-    - DataElementqueryContext_GET_response
-    - DataElementqueryConcept_GET_response
-    - DataElementquery_GET_response
     range: DataElementQuery
     required: false
+    multivalued: true
 attributes:
   numRecords:
     name: numRecords
@@ -143,7 +138,6 @@ attributes:
     name: DataElementQueryResults
     from_schema: https://example.org/cadsr
     rank: 1000
-    multivalued: true
     alias: DataElementQueryResults
     owner: DataElementqueryConcept_GET_response
     domain_of:
@@ -152,6 +146,7 @@ attributes:
     - DataElementquery_GET_response
     range: DataElementQuery
     required: false
+    multivalued: true
 
 ```
 </details>

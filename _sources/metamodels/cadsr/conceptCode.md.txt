@@ -1,10 +1,14 @@
-# Slot: conceptCode
+
+
+# Slot: conceptCode 
+
+
 
 URI: [cadsr:conceptCode](https://example.org/cadsrconceptCode)
-
-
+Alias: conceptCode
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:conceptCode](https://example.org/cadsrconceptCode)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Concept](Concept.md) |  |  yes  |
+| [Concept](Concept.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:conceptCode](https://example.org/cadsrconceptCode)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:conceptCode |
+| native | cadsr:conceptCode |
 
 
 

@@ -4,11 +4,6 @@
 .. automodule:: schema_automator.utils.schemautils
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -17,15 +12,3 @@
       minify_schema
       write_schema
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

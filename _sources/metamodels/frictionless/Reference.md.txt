@@ -1,4 +1,6 @@
-# Class: Reference
+
+
+# Class: Reference 
 
 
 
@@ -7,12 +9,22 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Reference
+    click Reference href "../Reference"
       Reference : fields
         
-          Reference --> Field : fields
+          
+    
+        
+        
+        Reference --> "*" Field : fields
+        click Field href "../Field"
+    
+
         
       Reference : resource
         
@@ -30,7 +42,7 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [resource](resource.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
+| [fields](fields.md) | * <br/> [Field](Field.md) |  | direct |
 
 
 
@@ -63,13 +75,14 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Reference |
 | native | frictionless:Reference |
+
+
 
 
 
@@ -91,10 +104,6 @@ slots:
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: false
   range:
     name: range
@@ -113,10 +122,6 @@ from_schema: https://w3id.org/linkml/frictionless
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: false
   range:
     name: range
@@ -136,9 +141,10 @@ attributes:
     range: string
   fields:
     name: fields
+    examples:
+    - value: id
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: fields
     owner: Reference
     domain_of:
@@ -146,6 +152,7 @@ attributes:
     - ForeignKeys
     - Schema
     range: Field
+    multivalued: true
     inlined: false
 
 ```

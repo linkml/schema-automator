@@ -1,15 +1,19 @@
-# Slot: changeDescription
+
+
+# Slot: changeDescription 
 
 
 _The description of what has changed in the Administered Item since the prior version of the Administered Item._
 
 
 
+
+
 URI: [cadsr:changeDescription](https://example.org/cadsrchangeDescription)
-
-
+Alias: changeDescription
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,14 +22,14 @@ URI: [cadsr:changeDescription](https://example.org/cadsrchangeDescription)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -53,6 +57,16 @@ URI: [cadsr:changeDescription](https://example.org/cadsrchangeDescription)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:changeDescription |
+| native | cadsr:changeDescription |
 
 
 

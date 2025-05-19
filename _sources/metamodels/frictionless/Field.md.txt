@@ -1,4 +1,6 @@
-# Class: Field
+
+
+# Class: Field 
 
 
 
@@ -7,12 +9,22 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Field
+    click Field href "../Field"
       Field : constraints
         
-          Field --> Constraints : constraints
+          
+    
+        
+        
+        Field --> "0..1" Constraints : constraints
+        click Constraints href "../Constraints"
+    
+
         
       Field : description
         
@@ -20,13 +32,27 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
         
       Field : format
         
-          Field --> format_enum : format
+          
+    
+        
+        
+        Field --> "0..1" FormatEnum : format
+        click FormatEnum href "../FormatEnum"
+    
+
         
       Field : name
         
       Field : type
         
-          Field --> type_enum : type
+          
+    
+        
+        
+        Field --> "0..1" TypeEnum : type
+        click TypeEnum href "../TypeEnum"
+    
+
         
       
 ```
@@ -41,12 +67,12 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
-| [description](description.md) | 0..* <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
+| [description](description.md) | * <br/> [String](String.md) |  | direct |
 | [type](type.md) | 0..1 <br/> [TypeEnum](TypeEnum.md) |  | direct |
 | [constraints](constraints.md) | 0..1 <br/> [Constraints](Constraints.md) |  | direct |
 | [format](format.md) | 0..1 <br/> [FormatEnum](FormatEnum.md) |  | direct |
-| [enum](enum.md) | 0..* <br/> [String](String.md) |  | direct |
+| [enum](enum.md) | * <br/> [String](String.md) |  | direct |
 
 
 
@@ -82,13 +108,14 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Field |
 | native | frictionless:Field |
+
+
 
 
 
@@ -145,13 +172,13 @@ attributes:
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
     slot_uri: linkml:description
-    multivalued: true
     alias: description
     owner: Field
     domain_of:
     - Field
     - Resource
     range: string
+    multivalued: true
   type:
     name: type
     examples:
@@ -189,12 +216,12 @@ attributes:
     close_mappings:
     - linkml:range
     rank: 1000
-    multivalued: true
     alias: enum
     owner: Field
     domain_of:
     - Field
     range: string
+    multivalued: true
 
 ```
 </details>

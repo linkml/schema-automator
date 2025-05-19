@@ -1,15 +1,19 @@
-# Slot: longName
+
+
+# Slot: longName 
 
 
 _A 255 character limit name for an item in the registry._
 
 
 
+
+
 URI: [cadsr:longName](https://example.org/cadsrlongName)
-
-
+Alias: longName
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,18 +22,18 @@ URI: [cadsr:longName](https://example.org/cadsrlongName)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[Concept](Concept.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [Concept](Concept.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -57,6 +61,16 @@ URI: [cadsr:longName](https://example.org/cadsrlongName)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:longName |
+| native | cadsr:longName |
 
 
 

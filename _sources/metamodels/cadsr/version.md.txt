@@ -1,15 +1,19 @@
-# Slot: version
+
+
+# Slot: version 
 
 
 _The unique version identifier of the Administered Item._
 
 
 
+
+
 URI: [cadsr:version](https://example.org/cadsrversion)
-
-
+Alias: version
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,17 +22,17 @@ URI: [cadsr:version](https://example.org/cadsrversion)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -56,6 +60,16 @@ URI: [cadsr:version](https://example.org/cadsrversion)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:version |
+| native | cadsr:version |
 
 
 

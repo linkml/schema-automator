@@ -1,15 +1,19 @@
-# Slot: VD_Type
+
+
+# Slot: VD_Type 
 
 
 _Value Domain type_
 
 
 
+
+
 URI: [cadsr:VD_Type](https://example.org/cadsrVD_Type)
-
-
+Alias: VD_Type
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:VD_Type](https://example.org/cadsrVD_Type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:VD_Type](https://example.org/cadsrVD_Type)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:VD_Type |
+| native | cadsr:VD_Type |
 
 
 

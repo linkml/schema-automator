@@ -1,4 +1,6 @@
-# Class: Schema
+
+
+# Class: Schema 
 
 
 
@@ -7,24 +9,46 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Schema
+    click Schema href "../Schema"
       Schema : fields
         
-          Schema --> Field : fields
+          
+    
+        
+        
+        Schema --> "*" Field : fields
+        click Field href "../Field"
+    
+
         
       Schema : foreignKeys
         
-          Schema --> ForeignKeys : foreignKeys
+          
+    
+        
+        
+        Schema --> "*" ForeignKeys : foreignKeys
+        click ForeignKeys href "../ForeignKeys"
+    
+
         
       Schema : missingValues
         
-          Schema --> None : missingValues
-        
       Schema : primaryKey
         
-          Schema --> Field : primaryKey
+          
+    
+        
+        
+        Schema --> "*" Field : primaryKey
+        click Field href "../Field"
+    
+
         
       
 ```
@@ -39,10 +63,10 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
-| [missingValues](missingValues.md) | 0..* <br/> [String](String.md) |  | direct |
-| [primaryKey](primaryKey.md) | 0..* <br/> [Field](Field.md) |  | direct |
-| [foreignKeys](foreignKeys.md) | 0..* <br/> [ForeignKeys](ForeignKeys.md) |  | direct |
+| [fields](fields.md) | * <br/> [Field](Field.md) |  | direct |
+| [missingValues](missingValues.md) | * <br/> [String](String.md) |  | direct |
+| [primaryKey](primaryKey.md) | * <br/> [Field](Field.md) |  | direct |
+| [foreignKeys](foreignKeys.md) | * <br/> [ForeignKeys](ForeignKeys.md) |  | direct |
 
 
 
@@ -75,13 +99,14 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Schema |
 | native | frictionless:Schema |
+
+
 
 
 
@@ -105,10 +130,6 @@ slots:
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: true
     inlined_as_list: true
 
@@ -124,18 +145,15 @@ from_schema: https://w3id.org/linkml/frictionless
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: true
     inlined_as_list: true
 attributes:
   fields:
     name: fields
+    examples:
+    - value: id
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: fields
     owner: Schema
     domain_of:
@@ -143,17 +161,18 @@ attributes:
     - ForeignKeys
     - Schema
     range: Field
+    multivalued: true
     inlined: true
     inlined_as_list: true
   missingValues:
     name: missingValues
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: missingValues
     owner: Schema
     domain_of:
     - Schema
+    multivalued: true
   primaryKey:
     name: primaryKey
     examples:
@@ -163,24 +182,24 @@ attributes:
     - linkml:identifier
     - linkml:unique_keys
     rank: 1000
-    multivalued: true
     alias: primaryKey
     owner: Schema
     domain_of:
     - Schema
     range: Field
+    multivalued: true
   foreignKeys:
     name: foreignKeys
     examples:
     - value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: foreignKeys
     owner: Schema
     domain_of:
     - Schema
     range: ForeignKeys
+    multivalued: true
 
 ```
 </details>

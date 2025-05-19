@@ -1,4 +1,6 @@
-# Class: Dialect
+
+
+# Class: Dialect 
 
 
 
@@ -7,9 +9,12 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Dialect
+    click Dialect href "../Dialect"
       Dialect : delimiter
         
       Dialect : doubleQuote
@@ -63,13 +68,14 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Dialect |
 | native | frictionless:Dialect |
+
+
 
 
 

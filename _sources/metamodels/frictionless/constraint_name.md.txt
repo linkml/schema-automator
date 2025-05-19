@@ -1,10 +1,14 @@
-# Slot: constraint_name
+
+
+# Slot: constraint_name 
+
+
 
 URI: [frictionless:constraint_name](https://w3id.org/linkml/frictionless/constraint_name)
-
-
+Alias: constraint_name
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:constraint_name](https://w3id.org/linkml/frictionless/constra
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ForeignKeys](ForeignKeys.md) |  |  no  |
+| [ForeignKeys](ForeignKeys.md) |  |  no  |
 
 
 
@@ -48,6 +52,16 @@ URI: [frictionless:constraint_name](https://w3id.org/linkml/frictionless/constra
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:constraint_name |
+| native | frictionless:constraint_name |
 
 
 

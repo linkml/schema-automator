@@ -1,10 +1,14 @@
-# Slot: fields
+
+
+# Slot: fields 
+
+
 
 URI: [frictionless:fields](https://w3id.org/linkml/frictionless/fields)
-
-
+Alias: fields
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,9 +17,9 @@ URI: [frictionless:fields](https://w3id.org/linkml/frictionless/fields)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Reference](Reference.md) |  |  yes  |
-[ForeignKeys](ForeignKeys.md) |  |  yes  |
-[Schema](Schema.md) |  |  yes  |
+| [Schema](Schema.md) |  |  yes  |
+| [Reference](Reference.md) |  |  yes  |
+| [ForeignKeys](ForeignKeys.md) |  |  yes  |
 
 
 
@@ -56,6 +60,16 @@ URI: [frictionless:fields](https://w3id.org/linkml/frictionless/fields)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:fields |
+| native | frictionless:fields |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -65,13 +79,13 @@ examples:
 - value: id
 from_schema: https://w3id.org/linkml/frictionless
 rank: 1000
-multivalued: true
 alias: fields
 domain_of:
 - Reference
 - ForeignKeys
 - Schema
 range: Field
+multivalued: true
 
 ```
 </details>

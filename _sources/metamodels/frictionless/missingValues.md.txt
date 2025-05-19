@@ -1,10 +1,14 @@
-# Slot: missingValues
+
+
+# Slot: missingValues 
+
+
 
 URI: [frictionless:missingValues](https://w3id.org/linkml/frictionless/missingValues)
-
-
+Alias: missingValues
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:missingValues](https://w3id.org/linkml/frictionless/missingVa
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Schema](Schema.md) |  |  no  |
+| [Schema](Schema.md) |  |  no  |
 
 
 
@@ -47,6 +51,16 @@ URI: [frictionless:missingValues](https://w3id.org/linkml/frictionless/missingVa
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:missingValues |
+| native | frictionless:missingValues |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,10 +68,10 @@ URI: [frictionless:missingValues](https://w3id.org/linkml/frictionless/missingVa
 name: missingValues
 from_schema: https://w3id.org/linkml/frictionless
 rank: 1000
-multivalued: true
 alias: missingValues
 domain_of:
 - Schema
+multivalued: true
 
 ```
 </details>

@@ -1,4 +1,6 @@
-# Class: ForeignKeys
+
+
+# Class: ForeignKeys 
 
 
 
@@ -7,20 +9,35 @@ URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys
 
 
 
+
+
 ```mermaid
  classDiagram
     class ForeignKeys
+    click ForeignKeys href "../ForeignKeys"
       ForeignKeys : constraint_name
-        
-          ForeignKeys --> None : constraint_name
         
       ForeignKeys : fields
         
-          ForeignKeys --> Field : fields
+          
+    
+        
+        
+        ForeignKeys --> "*" Field : fields
+        click Field href "../Field"
+    
+
         
       ForeignKeys : reference
         
-          ForeignKeys --> Reference : reference
+          
+    
+        
+        
+        ForeignKeys --> "0..1" Reference : reference
+        click Reference href "../Reference"
+    
+
         
       
 ```
@@ -35,7 +52,7 @@ URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [fields](fields.md) | 0..* <br/> [Field](Field.md) |  | direct |
+| [fields](fields.md) | * <br/> [Field](Field.md) |  | direct |
 | [reference](reference.md) | 0..1 <br/> [Reference](Reference.md) |  | direct |
 | [constraint_name](constraint_name.md) | 0..1 <br/> [String](String.md) |  | direct |
 
@@ -70,13 +87,14 @@ URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:ForeignKeys |
 | native | frictionless:ForeignKeys |
+
+
 
 
 
@@ -99,10 +117,6 @@ slots:
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: false
   range:
     name: range
@@ -121,10 +135,6 @@ from_schema: https://w3id.org/linkml/frictionless
 slot_usage:
   fields:
     name: fields
-    domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
     inlined: false
   range:
     name: range
@@ -133,9 +143,10 @@ slot_usage:
 attributes:
   fields:
     name: fields
+    examples:
+    - value: id
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: fields
     owner: ForeignKeys
     domain_of:
@@ -143,6 +154,7 @@ attributes:
     - ForeignKeys
     - Schema
     range: Field
+    multivalued: true
     inlined: false
   reference:
     name: reference

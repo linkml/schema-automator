@@ -1,10 +1,14 @@
-# Slot: primaryIndicator
+
+
+# Slot: primaryIndicator 
+
+
 
 URI: [cadsr:primaryIndicator](https://example.org/cadsrprimaryIndicator)
-
-
+Alias: primaryIndicator
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:primaryIndicator](https://example.org/cadsrprimaryIndicator)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Concept](Concept.md) |  |  yes  |
+| [Concept](Concept.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:primaryIndicator](https://example.org/cadsrprimaryIndicator)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:primaryIndicator |
+| native | cadsr:primaryIndicator |
 
 
 

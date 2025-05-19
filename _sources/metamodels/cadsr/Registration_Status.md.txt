@@ -1,15 +1,19 @@
-# Slot: Registration_Status
+
+
+# Slot: Registration_Status 
 
 
 _A designation of the status in the registration life-cycle of an Administered Item._
 
 
 
+
+
 URI: [cadsr:Registration_Status](https://example.org/cadsrRegistration_Status)
-
-
+Alias: Registration_Status
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Registration_Status](https://example.org/cadsrRegistration_Status)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Registration_Status](https://example.org/cadsrRegistration_Status)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Registration_Status |
+| native | cadsr:Registration_Status |
 
 
 

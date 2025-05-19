@@ -1,4 +1,4 @@
-# Type: Datetime
+# Type: Datetime 
 
 
 
@@ -34,6 +34,17 @@ URI: [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:dateTime |
+| native | cadsr:datetime |
+| exact | schema:DateTime |
 
 
 

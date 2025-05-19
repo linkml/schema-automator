@@ -1,4 +1,4 @@
-# Type: Time
+# Type: Time 
 
 
 
@@ -34,6 +34,17 @@ URI: [xsd:time](http://www.w3.org/2001/XMLSchema#time)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:time |
+| native | frictionless:time |
+| exact | schema:Time |
 
 
 

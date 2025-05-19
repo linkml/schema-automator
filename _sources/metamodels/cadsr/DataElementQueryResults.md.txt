@@ -1,10 +1,14 @@
-# Slot: DataElementQueryResults
+
+
+# Slot: DataElementQueryResults 
+
+
 
 URI: [cadsr:DataElementQueryResults](https://example.org/cadsrDataElementQueryResults)
-
-
+Alias: DataElementQueryResults
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,9 +17,9 @@ URI: [cadsr:DataElementQueryResults](https://example.org/cadsrDataElementQueryRe
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
-[DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-[DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 
 
 
@@ -49,6 +53,16 @@ URI: [cadsr:DataElementQueryResults](https://example.org/cadsrDataElementQueryRe
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:DataElementQueryResults |
+| native | cadsr:DataElementQueryResults |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -56,7 +70,6 @@ URI: [cadsr:DataElementQueryResults](https://example.org/cadsrDataElementQueryRe
 name: DataElementQueryResults
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: DataElementQueryResults
 domain_of:
 - DataElementqueryContext_GET_response
@@ -64,6 +77,7 @@ domain_of:
 - DataElementquery_GET_response
 range: DataElementQuery
 required: false
+multivalued: true
 
 ```
 </details>

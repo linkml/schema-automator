@@ -1,15 +1,19 @@
-# Slot: VM_Public_ID
+
+
+# Slot: VM_Public_ID 
 
 
 _The unique identifier for an Administered Item within a Registration Authority._
 
 
 
+
+
 URI: [cadsr:VM_Public_ID](https://example.org/cadsrVM_Public_ID)
-
-
+Alias: VM_Public_ID
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:VM_Public_ID](https://example.org/cadsrVM_Public_ID)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:VM_Public_ID](https://example.org/cadsrVM_Public_ID)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:VM_Public_ID |
+| native | cadsr:VM_Public_ID |
 
 
 

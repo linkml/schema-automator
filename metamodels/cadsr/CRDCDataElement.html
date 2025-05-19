@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Class: CRDCDataElement &#8212; Schema Automator  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -35,69 +35,47 @@
 <p>URI: <a class="reference external" href="https://example.org/cadsrCRDCDataElement">cadsr:CRDCDataElement</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class CRDCDataElement
+    click CRDCDataElement href &quot;../CRDCDataElement&quot;
       CRDCDataElement : CDE_Long_Name
-        
-          CRDCDataElement --&gt; None : CDE_Long_Name
         
       CRDCDataElement : CDE_Public_ID
         
-          CRDCDataElement --&gt; None : CDE_Public_ID
-        
       CRDCDataElement : Coding_Instruction
-        
-          CRDCDataElement --&gt; None : Coding_Instruction
         
       CRDCDataElement : CRD_Domain
         
-          CRDCDataElement --&gt; None : CRD_Domain
-        
       CRDCDataElement : CRDC_Definition
-        
-          CRDCDataElement --&gt; None : CRDC_Definition
         
       CRDCDataElement : CRDC_Name
         
-          CRDCDataElement --&gt; None : CRDC_Name
-        
       CRDCDataElement : Deep_Link
-        
-          CRDCDataElement --&gt; None : Deep_Link
         
       CRDCDataElement : Example
         
-          CRDCDataElement --&gt; None : Example
-        
       CRDCDataElement : Instructions
-        
-          CRDCDataElement --&gt; None : Instructions
         
       CRDCDataElement : Owned_By
         
-          CRDCDataElement --&gt; None : Owned_By
-        
       CRDCDataElement : permissibleValues
         
-          CRDCDataElement --&gt; permissibleValue : permissibleValues
+          
+    
+        
+        
+        CRDCDataElement --&gt; &quot;*&quot; PermissibleValue : permissibleValues
+        click PermissibleValue href &quot;../PermissibleValue&quot;
+    
+
         
       CRDCDataElement : Registration_Status
         
-          CRDCDataElement --&gt; None : Registration_Status
-        
       CRDCDataElement : Used_By
-        
-          CRDCDataElement --&gt; None : Used_By
         
       CRDCDataElement : VD_Type
         
-          CRDCDataElement --&gt; None : VD_Type
-        
       CRDCDataElement : Version
         
-          CRDCDataElement --&gt; None : Version
-        
       CRDCDataElement : Workflow_Status
-        
-          CRDCDataElement --&gt; None : Workflow_Status
         
       
 </pre></div>
@@ -190,7 +168,7 @@
 <td><p>direct</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="permissibleValues.html"><span class="std std-doc">permissibleValues</span></a></p></td>
-<td><p>0..* <br/> <a class="reference internal" href="PermissibleValue.html"><span class="std std-doc">PermissibleValue</span></a></p></td>
+<td><p>* <br/> <a class="reference internal" href="PermissibleValue.html"><span class="std std-doc">PermissibleValue</span></a></p></td>
 <td><p></p></td>
 <td><p>direct</p></td>
 </tr>
@@ -274,85 +252,53 @@ slot_usage:
     name: CDE Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - CRDCDataElement
   Version:
     name: Version
     description: The unique version identifier of the Administered Item.
-    domain_of:
-    - CRDCDataElement
   CRDC Name:
     name: CRDC Name
     description: CRDC Name
-    domain_of:
-    - CRDCDataElement
   CRD Domain:
     name: CRD Domain
     description: CRDC Domain
-    domain_of:
-    - CRDCDataElement
   Example:
     name: Example
     description: CRDC Example
-    domain_of:
-    - CRDCDataElement
   VD Type:
     name: VD Type
     description: Value Domain type
-    domain_of:
-    - CRDCDataElement
   Coding Instruction:
     name: Coding Instruction
     description: CRDC Coding Instructions
-    domain_of:
-    - CRDCDataElement
   Instructions:
     name: Instructions
     description: CRDC Instructions
-    domain_of:
-    - CRDCDataElement
   CRDC Definition:
     name: CRDC Definition
     description: CRD Definition
-    domain_of:
-    - CRDCDataElement
   CDE Long Name:
     name: CDE Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - CRDCDataElement
   Registration Status:
     name: Registration Status
     description: A designation of the status in the registration life-cycle of an
       Administered Item.
-    domain_of:
-    - CRDCDataElement
   Workflow Status:
     name: Workflow Status
     description: A name of a designation of the status in the administrative life-cycle
       of a Context Owner for handling new administered items.
-    domain_of:
-    - CRDCDataElement
   Owned By:
     name: Owned By
     description: Who owns the Data Element
-    domain_of:
-    - CRDCDataElement
   Used By:
     name: Used By
     description: Who is using the Data Element
-    domain_of:
-    - CRDCDataElement
   Deep Link:
     name: Deep Link
-    domain_of:
-    - CRDCDataElement
   permissibleValues:
     name: permissibleValues
-    multivalued: true
-    domain_of:
-    - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;/details&gt;
 
 ### Induced
@@ -366,85 +312,53 @@ slot_usage:
     name: CDE Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - CRDCDataElement
   Version:
     name: Version
     description: The unique version identifier of the Administered Item.
-    domain_of:
-    - CRDCDataElement
   CRDC Name:
     name: CRDC Name
     description: CRDC Name
-    domain_of:
-    - CRDCDataElement
   CRD Domain:
     name: CRD Domain
     description: CRDC Domain
-    domain_of:
-    - CRDCDataElement
   Example:
     name: Example
     description: CRDC Example
-    domain_of:
-    - CRDCDataElement
   VD Type:
     name: VD Type
     description: Value Domain type
-    domain_of:
-    - CRDCDataElement
   Coding Instruction:
     name: Coding Instruction
     description: CRDC Coding Instructions
-    domain_of:
-    - CRDCDataElement
   Instructions:
     name: Instructions
     description: CRDC Instructions
-    domain_of:
-    - CRDCDataElement
   CRDC Definition:
     name: CRDC Definition
     description: CRD Definition
-    domain_of:
-    - CRDCDataElement
   CDE Long Name:
     name: CDE Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - CRDCDataElement
   Registration Status:
     name: Registration Status
     description: A designation of the status in the registration life-cycle of an
       Administered Item.
-    domain_of:
-    - CRDCDataElement
   Workflow Status:
     name: Workflow Status
     description: A name of a designation of the status in the administrative life-cycle
       of a Context Owner for handling new administered items.
-    domain_of:
-    - CRDCDataElement
   Owned By:
     name: Owned By
     description: Who owns the Data Element
-    domain_of:
-    - CRDCDataElement
   Used By:
     name: Used By
     description: Who is using the Data Element
-    domain_of:
-    - CRDCDataElement
   Deep Link:
     name: Deep Link
-    domain_of:
-    - CRDCDataElement
   permissibleValues:
     name: permissibleValues
-    multivalued: true
-    domain_of:
-    - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 attributes:
   CDE Public ID:
     name: CDE Public ID
@@ -587,17 +501,16 @@ attributes:
     name: permissibleValues
     from_schema: https://example.org/cadsr
     rank: 1000
-    multivalued: true
     alias: permissibleValues
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
     range: permissibleValue
+    multivalued: true
 
 </pre></div>
 </div>
-</details>
-</section>
+</details></section>
 </section>
 </section>
 
@@ -606,7 +519,7 @@ attributes:
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../index.html">Schema Automator</a></h1>
 
@@ -622,10 +535,9 @@ attributes:
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../packages/index.html">Packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Source Metamodels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
 <div class="relations">
@@ -635,7 +547,7 @@ attributes:
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -643,7 +555,7 @@ attributes:
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -661,7 +573,7 @@ attributes:
       &#169;2022, LinkML Developers.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |

@@ -1,15 +1,19 @@
-# Slot: publicId
+
+
+# Slot: publicId 
 
 
 _The unique identifier for an Administered Item within a Registration Authority._
 
 
 
+
+
 URI: [cadsr:publicId](https://example.org/cadsrpublicId)
-
-
+Alias: publicId
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,18 +22,18 @@ URI: [cadsr:publicId](https://example.org/cadsrpublicId)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -39,11 +43,15 @@ URI: [cadsr:publicId](https://example.org/cadsrpublicId)
 
 ## Properties
 
-* Range: NONE
+* Range: [String](String.md)
 
 
 
 
+
+## Comments
+
+* note this can appear at different levels
 
 ## Identifier and Mapping Information
 
@@ -61,6 +69,16 @@ URI: [cadsr:publicId](https://example.org/cadsrpublicId)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:publicId |
+| native | cadsr:publicId |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -68,6 +86,8 @@ URI: [cadsr:publicId](https://example.org/cadsrpublicId)
 name: publicId
 description: The unique identifier for an Administered Item within a Registration
   Authority.
+comments:
+- note this can appear at different levels
 from_schema: https://example.org/cadsr
 rank: 1000
 alias: publicId
@@ -84,6 +104,7 @@ domain_of:
 - RepresentationTerm
 - CDEPermissibleValue
 - DataElementQuery
+range: string
 required: false
 
 ```

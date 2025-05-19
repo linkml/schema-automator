@@ -1,15 +1,19 @@
-# Slot: dateCreated
+
+
+# Slot: dateCreated 
 
 
 _The date the Administered Item was created._
 
 
 
+
+
 URI: [cadsr:dateCreated](https://example.org/cadsrdateCreated)
-
-
+Alias: dateCreated
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,16 +22,16 @@ URI: [cadsr:dateCreated](https://example.org/cadsrdateCreated)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -55,6 +59,16 @@ URI: [cadsr:dateCreated](https://example.org/cadsrdateCreated)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:dateCreated |
+| native | cadsr:dateCreated |
 
 
 

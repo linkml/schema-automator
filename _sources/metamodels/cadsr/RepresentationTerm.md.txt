@@ -1,10 +1,14 @@
-# Slot: RepresentationTerm
+
+
+# Slot: RepresentationTerm 
+
+
 
 URI: [cadsr:RepresentationTerm](https://example.org/cadsrRepresentationTerm)
-
-
+Alias: RepresentationTerm
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:RepresentationTerm](https://example.org/cadsrRepresentationTerm)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:RepresentationTerm](https://example.org/cadsrRepresentationTerm)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:RepresentationTerm |
+| native | cadsr:RepresentationTerm |
 
 
 

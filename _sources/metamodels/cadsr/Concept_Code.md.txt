@@ -1,10 +1,14 @@
-# Slot: Concept_Code
+
+
+# Slot: Concept_Code 
+
+
 
 URI: [cadsr:Concept_Code](https://example.org/cadsrConcept_Code)
-
-
+Alias: Concept_Code
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:Concept_Code](https://example.org/cadsrConcept_Code)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:Concept_Code](https://example.org/cadsrConcept_Code)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Concept_Code |
+| native | cadsr:Concept_Code |
 
 
 

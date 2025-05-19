@@ -1,15 +1,19 @@
-# Slot: valueDomainVersion
+
+
+# Slot: valueDomainVersion 
 
 
 _The unique version identifier of the Administered Item._
 
 
 
+
+
 URI: [cadsr:valueDomainVersion](https://example.org/cadsrvalueDomainVersion)
-
-
+Alias: valueDomainVersion
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:valueDomainVersion](https://example.org/cadsrvalueDomainVersion)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:valueDomainVersion](https://example.org/cadsrvalueDomainVersion)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:valueDomainVersion |
+| native | cadsr:valueDomainVersion |
 
 
 

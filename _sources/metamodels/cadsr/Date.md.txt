@@ -1,4 +1,4 @@
-# Type: Date
+# Type: Date 
 
 
 
@@ -34,6 +34,17 @@ URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:date |
+| native | cadsr:date |
+| exact | schema:Date |
 
 
 

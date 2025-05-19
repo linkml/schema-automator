@@ -1,10 +1,14 @@
-# Slot: reference
+
+
+# Slot: reference 
+
+
 
 URI: [frictionless:reference](https://w3id.org/linkml/frictionless/reference)
-
-
+Alias: reference
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:reference](https://w3id.org/linkml/frictionless/reference)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ForeignKeys](ForeignKeys.md) |  |  no  |
+| [ForeignKeys](ForeignKeys.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:reference](https://w3id.org/linkml/frictionless/reference)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:reference |
+| native | frictionless:reference |
 
 
 

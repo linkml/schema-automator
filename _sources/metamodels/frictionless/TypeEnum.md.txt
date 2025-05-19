@@ -1,4 +1,4 @@
-# Enum: TypeEnum
+# Enum: TypeEnum 
 
 
 
@@ -41,6 +41,8 @@ URI: [TypeEnum](TypeEnum.md)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
 
 
 

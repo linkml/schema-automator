@@ -1,10 +1,14 @@
-# Slot: ConceptualDomain
+
+
+# Slot: ConceptualDomain 
+
+
 
 URI: [cadsr:ConceptualDomain](https://example.org/cadsrConceptualDomain)
-
-
+Alias: ConceptualDomain
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,8 +17,8 @@ URI: [cadsr:ConceptualDomain](https://example.org/cadsrConceptualDomain)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
 
 
 
@@ -50,6 +54,16 @@ URI: [cadsr:ConceptualDomain](https://example.org/cadsrConceptualDomain)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ConceptualDomain |
+| native | cadsr:ConceptualDomain |
 
 
 

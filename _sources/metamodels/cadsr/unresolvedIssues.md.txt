@@ -1,15 +1,19 @@
-# Slot: unresolvedIssues
+
+
+# Slot: unresolvedIssues 
 
 
 _Any problem that remains unresolved regarding proper documentation of the Administered Item._
 
 
 
+
+
 URI: [cadsr:unresolvedIssues](https://example.org/cadsrunresolvedIssues)
-
-
+Alias: unresolvedIssues
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,15 +22,15 @@ URI: [cadsr:unresolvedIssues](https://example.org/cadsrunresolvedIssues)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -54,6 +58,16 @@ URI: [cadsr:unresolvedIssues](https://example.org/cadsrunresolvedIssues)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:unresolvedIssues |
+| native | cadsr:unresolvedIssues |
 
 
 

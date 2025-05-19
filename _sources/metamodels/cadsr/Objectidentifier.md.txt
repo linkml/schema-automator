@@ -1,4 +1,4 @@
-# Type: Objectidentifier
+# Type: Objectidentifier 
 
 
 
@@ -38,6 +38,16 @@ URI: [shex:iri](http://www.w3.org/ns/shex#iri)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | shex:iri |
+| native | cadsr:objectidentifier |
 
 
 

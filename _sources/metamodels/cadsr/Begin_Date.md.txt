@@ -1,15 +1,19 @@
-# Slot: Begin_Date
+
+
+# Slot: Begin_Date 
 
 
 _The particular day, month and year this item became allowed._
 
 
 
+
+
 URI: [cadsr:Begin_Date](https://example.org/cadsrBegin_Date)
-
-
+Alias: Begin_Date
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Begin_Date](https://example.org/cadsrBegin_Date)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Begin_Date](https://example.org/cadsrBegin_Date)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Begin_Date |
+| native | cadsr:Begin_Date |
 
 
 

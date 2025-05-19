@@ -1,10 +1,14 @@
-# Slot: enum
+
+
+# Slot: enum 
+
+
 
 URI: [frictionless:enum](https://w3id.org/linkml/frictionless/enum)
-
-
+Alias: enum
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:enum](https://w3id.org/linkml/frictionless/enum)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Field](Field.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -47,6 +51,17 @@ URI: [frictionless:enum](https://w3id.org/linkml/frictionless/enum)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:enum |
+| native | frictionless:enum |
+| close | linkml:range |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -56,11 +71,11 @@ from_schema: https://w3id.org/linkml/frictionless
 close_mappings:
 - linkml:range
 rank: 1000
-multivalued: true
 alias: enum
 domain_of:
 - Field
 range: string
+multivalued: true
 
 ```
 </details>

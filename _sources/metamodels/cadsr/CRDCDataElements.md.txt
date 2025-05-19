@@ -1,10 +1,14 @@
-# Slot: CRDCDataElements
+
+
+# Slot: CRDCDataElements 
+
+
 
 URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
-
-
+Alias: CRDCDataElements
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) |  |  yes  |
+| [DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) |  |  yes  |
 
 
 
@@ -47,6 +51,16 @@ URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CRDCDataElements |
+| native | cadsr:CRDCDataElements |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,12 +68,12 @@ URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
 name: CRDCDataElements
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: CRDCDataElements
 domain_of:
 - DataElementgetCRDCList_GET_response
 range: CRDCDataElement
 required: false
+multivalued: true
 
 ```
 </details>

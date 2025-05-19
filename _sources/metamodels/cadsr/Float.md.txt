@@ -1,4 +1,4 @@
-# Type: Float
+# Type: Float 
 
 
 
@@ -33,6 +33,17 @@ URI: [xsd:float](http://www.w3.org/2001/XMLSchema#float)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:float |
+| native | cadsr:float |
+| exact | schema:Float |
 
 
 

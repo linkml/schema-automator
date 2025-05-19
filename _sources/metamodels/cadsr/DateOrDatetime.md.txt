@@ -1,4 +1,4 @@
-# Type: DateOrDatetime
+# Type: DateOrDatetime 
 
 
 
@@ -34,6 +34,16 @@ URI: [linkml:DateOrDatetime](https://w3id.org/linkml/DateOrDatetime)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:DateOrDatetime |
+| native | cadsr:date_or_datetime |
 
 
 

@@ -1,10 +1,14 @@
-# Slot: ValueMeaning
+
+
+# Slot: ValueMeaning 
+
+
 
 URI: [cadsr:ValueMeaning](https://example.org/cadsrValueMeaning)
-
-
+Alias: ValueMeaning
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:ValueMeaning](https://example.org/cadsrValueMeaning)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:ValueMeaning](https://example.org/cadsrValueMeaning)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:ValueMeaning |
+| native | cadsr:ValueMeaning |
 
 
 

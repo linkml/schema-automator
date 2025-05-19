@@ -1,10 +1,14 @@
-# Slot: doubleQuote
+
+
+# Slot: doubleQuote 
+
+
 
 URI: [frictionless:doubleQuote](https://w3id.org/linkml/frictionless/doubleQuote)
-
-
+Alias: doubleQuote
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:doubleQuote](https://w3id.org/linkml/frictionless/doubleQuote
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Dialect](Dialect.md) |  |  no  |
+| [Dialect](Dialect.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:doubleQuote](https://w3id.org/linkml/frictionless/doubleQuote
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:doubleQuote |
+| native | frictionless:doubleQuote |
 
 
 

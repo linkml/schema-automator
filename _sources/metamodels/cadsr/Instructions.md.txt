@@ -1,15 +1,19 @@
-# Slot: Instructions
+
+
+# Slot: Instructions 
 
 
 _CRDC Instructions_
 
 
 
+
+
 URI: [cadsr:Instructions](https://example.org/cadsrInstructions)
-
-
+Alias: Instructions
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Instructions](https://example.org/cadsrInstructions)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Instructions](https://example.org/cadsrInstructions)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Instructions |
+| native | cadsr:Instructions |
 
 
 

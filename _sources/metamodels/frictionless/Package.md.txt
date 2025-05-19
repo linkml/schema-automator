@@ -1,4 +1,6 @@
-# Class: Package
+
+
+# Class: Package 
 
 
 
@@ -7,18 +9,35 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 
 
+
+
 ```mermaid
  classDiagram
     class Package
+    click Package href "../Package"
       Package : name
         
       Package : profile
         
-          Package --> profile_enum : profile
+          
+    
+        
+        
+        Package --> "0..1" ProfileEnum : profile
+        click ProfileEnum href "../ProfileEnum"
+    
+
         
       Package : resources
         
-          Package --> Resource : resources
+          
+    
+        
+        
+        Package --> "*" Resource : resources
+        click Resource href "../Resource"
+    
+
         
       Package : title
         
@@ -36,9 +55,9 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
 | [profile](profile.md) | 0..1 <br/> [ProfileEnum](ProfileEnum.md) |  | direct |
-| [name](name.md) | 1..1 <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
 | [title](title.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [resources](resources.md) | 0..* <br/> [Resource](Resource.md) |  | direct |
+| [resources](resources.md) | * <br/> [Resource](Resource.md) |  | direct |
 
 
 
@@ -64,13 +83,14 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | frictionless:Package |
 | native | frictionless:Package |
+
+
 
 
 
@@ -148,12 +168,12 @@ attributes:
     name: resources
     from_schema: https://w3id.org/linkml/frictionless
     rank: 1000
-    multivalued: true
     alias: resources
     owner: Package
     domain_of:
     - Package
     range: Resource
+    multivalued: true
     inlined: true
     inlined_as_list: true
 tree_root: true

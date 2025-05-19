@@ -1,4 +1,6 @@
-# Class: DataElementContainer
+
+
+# Class: DataElementContainer 
 
 
 
@@ -7,12 +9,22 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 
 
+
+
 ```mermaid
  classDiagram
     class DataElementContainer
+    click DataElementContainer href "../DataElementContainer"
       DataElementContainer : DataElement
         
-          DataElementContainer --> DataElement : DataElement
+          
+    
+        
+        
+        DataElementContainer --> "0..1" DataElement : DataElement
+        click DataElement href "../DataElement"
+    
+
         
       
 ```
@@ -53,13 +65,14 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:DataElementContainer |
 | native | cadsr:DataElementContainer |
+
+
 
 
 

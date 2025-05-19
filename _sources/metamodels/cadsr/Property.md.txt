@@ -1,10 +1,14 @@
-# Slot: Property
+
+
+# Slot: Property 
+
+
 
 URI: [cadsr:Property](https://example.org/cadsrProperty)
-
-
+Alias: Property
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:Property](https://example.org/cadsrProperty)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
 
 
 
@@ -48,6 +52,16 @@ URI: [cadsr:Property](https://example.org/cadsrProperty)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Property |
+| native | cadsr:Property |
 
 
 

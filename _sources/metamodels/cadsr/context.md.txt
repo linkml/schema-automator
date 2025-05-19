@@ -1,10 +1,14 @@
-# Slot: context
+
+
+# Slot: context 
+
+
 
 URI: [cadsr:context](https://example.org/cadsrcontext)
-
-
+Alias: context
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,18 +17,18 @@ URI: [cadsr:context](https://example.org/cadsrcontext)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ClassificationScheme](ClassificationScheme.md) |  |  yes  |
-[Property](Property.md) |  |  yes  |
-[AlternateName](AlternateName.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [AlternateName](AlternateName.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -52,6 +56,16 @@ URI: [cadsr:context](https://example.org/cadsrcontext)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:context |
+| native | cadsr:context |
 
 
 

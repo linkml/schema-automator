@@ -1,15 +1,19 @@
-# Slot: Example
+
+
+# Slot: Example 
 
 
 _CRDC Example_
 
 
 
+
+
 URI: [cadsr:Example](https://example.org/cadsrExample)
-
-
+Alias: Example
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Example](https://example.org/cadsrExample)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Example](https://example.org/cadsrExample)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Example |
+| native | cadsr:Example |
 
 
 

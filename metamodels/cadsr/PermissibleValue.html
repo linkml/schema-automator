@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Class: PermissibleValue &#8212; Schema Automator  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -36,33 +36,20 @@
 <p>URI: <a class="reference external" href="https://example.org/cadsrPermissibleValue">cadsr:PermissibleValue</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class PermissibleValue
+    click PermissibleValue href &quot;../PermissibleValue&quot;
       PermissibleValue : Begin_Date
-        
-          PermissibleValue --&gt; None : Begin_Date
         
       PermissibleValue : Concept_Code
         
-          PermissibleValue --&gt; None : Concept_Code
-        
       PermissibleValue : End_Date
-        
-          PermissibleValue --&gt; None : End_Date
         
       PermissibleValue : Permissible_Value
         
-          PermissibleValue --&gt; None : Permissible_Value
-        
       PermissibleValue : VM_Description
-        
-          PermissibleValue --&gt; None : VM_Description
         
       PermissibleValue : VM_Long_Name
         
-          PermissibleValue --&gt; None : VM_Long_Name
-        
       PermissibleValue : VM_Public_ID
-        
-          PermissibleValue --&gt; None : VM_Public_ID
         
       
 </pre></div>
@@ -186,38 +173,24 @@ slot_usage:
     name: Permissible Value
     description: A representation of a Value Meaning in a specific Value Domain the
       actual Value.
-    domain_of:
-    - permissibleValue
   VM Long Name:
     name: VM Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - permissibleValue
   VM Public ID:
     name: VM Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - permissibleValue
   Concept Code:
     name: Concept Code
-    domain_of:
-    - permissibleValue
   VM Description:
     name: VM Description
     description: The text of the most desirable meaning for the Administered Item.
-    domain_of:
-    - permissibleValue
   Begin Date:
     name: Begin Date
     description: The particular day, month and year this item became allowed.
-    domain_of:
-    - permissibleValue
   End Date:
     name: End Date
     description: The day, month and year this item becomes no longer allowed.
-    domain_of:
-    - permissibleValue
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;/details&gt;
 
 ### Induced
@@ -232,38 +205,24 @@ slot_usage:
     name: Permissible Value
     description: A representation of a Value Meaning in a specific Value Domain the
       actual Value.
-    domain_of:
-    - permissibleValue
   VM Long Name:
     name: VM Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - permissibleValue
   VM Public ID:
     name: VM Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - permissibleValue
   Concept Code:
     name: Concept Code
-    domain_of:
-    - permissibleValue
   VM Description:
     name: VM Description
     description: The text of the most desirable meaning for the Administered Item.
-    domain_of:
-    - permissibleValue
   Begin Date:
     name: Begin Date
     description: The particular day, month and year this item became allowed.
-    domain_of:
-    - permissibleValue
   End Date:
     name: End Date
     description: The day, month and year this item becomes no longer allowed.
-    domain_of:
-    - permissibleValue
 attributes:
   Permissible Value:
     name: Permissible Value
@@ -332,8 +291,7 @@ attributes:
 
 </pre></div>
 </div>
-</details>
-</section>
+</details></section>
 </section>
 </section>
 
@@ -342,7 +300,7 @@ attributes:
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../index.html">Schema Automator</a></h1>
 
@@ -358,10 +316,9 @@ attributes:
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../packages/index.html">Packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Source Metamodels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
 <div class="relations">
@@ -371,7 +328,7 @@ attributes:
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -379,7 +336,7 @@ attributes:
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -397,7 +354,7 @@ attributes:
       &#169;2022, LinkML Developers.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |

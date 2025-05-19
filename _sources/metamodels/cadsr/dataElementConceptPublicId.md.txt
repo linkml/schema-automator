@@ -1,15 +1,19 @@
-# Slot: dataElementConceptPublicId
+
+
+# Slot: dataElementConceptPublicId 
 
 
 _The unique identifier for an Administered Item within a Registration Authority._
 
 
 
+
+
 URI: [cadsr:dataElementConceptPublicId](https://example.org/cadsrdataElementConceptPublicId)
-
-
+Alias: dataElementConceptPublicId
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:dataElementConceptPublicId](https://example.org/cadsrdataElementConc
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:dataElementConceptPublicId](https://example.org/cadsrdataElementConc
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:dataElementConceptPublicId |
+| native | cadsr:dataElementConceptPublicId |
 
 
 

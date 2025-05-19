@@ -1,4 +1,6 @@
-# Class: DataElementgetCRDCListGETResponse
+
+
+# Class: DataElementgetCRDCListGETResponse 
 
 
 
@@ -7,12 +9,22 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 
 
 
+
+
 ```mermaid
  classDiagram
     class DataElementgetCRDCListGETResponse
+    click DataElementgetCRDCListGETResponse href "../DataElementgetCRDCListGETResponse"
       DataElementgetCRDCListGETResponse : CRDCDataElements
         
-          DataElementgetCRDCListGETResponse --> CRDCDataElement : CRDCDataElements
+          
+    
+        
+        
+        DataElementgetCRDCListGETResponse --> "*" CRDCDataElement : CRDCDataElements
+        click CRDCDataElement href "../CRDCDataElement"
+    
+
         
       
 ```
@@ -27,7 +39,7 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [CRDCDataElements](CRDCDataElements.md) | 0..* <br/> [CRDCDataElement](CRDCDataElement.md) |  | direct |
+| [CRDCDataElements](CRDCDataElements.md) | * <br/> [CRDCDataElement](CRDCDataElement.md) |  | direct |
 
 
 
@@ -53,13 +65,14 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:DataElementgetCRDCListGETResponse |
 | native | cadsr:DataElementgetCRDCListGETResponse |
+
+
 
 
 
@@ -80,11 +93,9 @@ slots:
 slot_usage:
   CRDCDataElements:
     name: CRDCDataElements
-    multivalued: true
-    domain_of:
-    - DataElementgetCRDCList_GET_response
     range: CRDCDataElement
     required: false
+    multivalued: true
 
 ```
 </details>
@@ -98,23 +109,21 @@ from_schema: https://example.org/cadsr
 slot_usage:
   CRDCDataElements:
     name: CRDCDataElements
-    multivalued: true
-    domain_of:
-    - DataElementgetCRDCList_GET_response
     range: CRDCDataElement
     required: false
+    multivalued: true
 attributes:
   CRDCDataElements:
     name: CRDCDataElements
     from_schema: https://example.org/cadsr
     rank: 1000
-    multivalued: true
     alias: CRDCDataElements
     owner: DataElementgetCRDCList_GET_response
     domain_of:
     - DataElementgetCRDCList_GET_response
     range: CRDCDataElement
     required: false
+    multivalued: true
 
 ```
 </details>

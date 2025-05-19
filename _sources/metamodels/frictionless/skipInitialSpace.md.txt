@@ -1,10 +1,14 @@
-# Slot: skipInitialSpace
+
+
+# Slot: skipInitialSpace 
+
+
 
 URI: [frictionless:skipInitialSpace](https://w3id.org/linkml/frictionless/skipInitialSpace)
-
-
+Alias: skipInitialSpace
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:skipInitialSpace](https://w3id.org/linkml/frictionless/skipIn
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Dialect](Dialect.md) |  |  no  |
+| [Dialect](Dialect.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:skipInitialSpace](https://w3id.org/linkml/frictionless/skipIn
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:skipInitialSpace |
+| native | frictionless:skipInitialSpace |
 
 
 

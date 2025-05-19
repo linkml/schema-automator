@@ -12,15 +12,15 @@ Name: frictionless
 
 | Class | Description |
 | --- | --- |
-| [Any](Any.md) | None |
-| [Constraints](Constraints.md) | None |
-| [Dialect](Dialect.md) | None |
-| [Field](Field.md) | None |
-| [ForeignKeys](ForeignKeys.md) | None |
-| [Package](Package.md) | None |
-| [Reference](Reference.md) | None |
-| [Resource](Resource.md) | None |
-| [Schema](Schema.md) | None |
+| [Any](Any.md) |  |
+| [Constraints](Constraints.md) |  |
+| [Dialect](Dialect.md) |  |
+| [Field](Field.md) |  |
+| [ForeignKeys](ForeignKeys.md) |  |
+| [Package](Package.md) |  |
+| [Reference](Reference.md) |  |
+| [Resource](Resource.md) |  |
+| [Schema](Schema.md) |  |
 
 
 

@@ -1,15 +1,19 @@
-# Slot: changeNote
+
+
+# Slot: changeNote 
 
 
 _The description of what has changed in the Administered Item since the prior version of the Administered Item._
 
 
 
+
+
 URI: [cadsr:changeNote](https://example.org/cadsrchangeNote)
-
-
+Alias: changeNote
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:changeNote](https://example.org/cadsrchangeNote)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:changeNote](https://example.org/cadsrchangeNote)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:changeNote |
+| native | cadsr:changeNote |
 
 
 

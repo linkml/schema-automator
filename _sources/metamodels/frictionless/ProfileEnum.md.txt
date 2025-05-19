@@ -1,4 +1,4 @@
-# Enum: ProfileEnum
+# Enum: ProfileEnum 
 
 
 
@@ -37,6 +37,8 @@ URI: [ProfileEnum](ProfileEnum.md)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
 
 
 

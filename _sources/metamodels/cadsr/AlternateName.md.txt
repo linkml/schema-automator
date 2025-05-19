@@ -1,4 +1,6 @@
-# Class: AlternateName
+
+
+# Class: AlternateName 
 
 
 
@@ -7,20 +9,17 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 
 
+
+
 ```mermaid
  classDiagram
     class AlternateName
+    click AlternateName href "../AlternateName"
       AlternateName : context
-        
-          AlternateName --> None : context
         
       AlternateName : name
         
-          AlternateName --> None : name
-        
       AlternateName : type
-        
-          AlternateName --> None : type
         
       
 ```
@@ -70,13 +69,14 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:AlternateName |
 | native | cadsr:AlternateName |
+
+
 
 
 
@@ -99,26 +99,9 @@ slots:
 slot_usage:
   type:
     name: type
-    domain_of:
-    - AlternateName
-    - ValueDomain
-    - ReferenceDocument
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
 
 ```
@@ -133,26 +116,9 @@ from_schema: https://example.org/cadsr
 slot_usage:
   type:
     name: type
-    domain_of:
-    - AlternateName
-    - ValueDomain
-    - ReferenceDocument
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
 attributes:
   name:

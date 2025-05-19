@@ -1,10 +1,14 @@
-# Slot: minLength
+
+
+# Slot: minLength 
+
+
 
 URI: [cadsr:minLength](https://example.org/cadsrminLength)
-
-
+Alias: minLength
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:minLength](https://example.org/cadsrminLength)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:minLength](https://example.org/cadsrminLength)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:minLength |
+| native | cadsr:minLength |
 
 
 

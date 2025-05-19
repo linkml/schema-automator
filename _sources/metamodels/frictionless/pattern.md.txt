@@ -1,10 +1,14 @@
-# Slot: pattern
+
+
+# Slot: pattern 
+
+
 
 URI: [linkml:pattern](https://w3id.org/linkml/pattern)
-
-
+Alias: pattern
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [linkml:pattern](https://w3id.org/linkml/pattern)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [linkml:pattern](https://w3id.org/linkml/pattern)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:pattern |
+| native | frictionless:pattern |
 
 
 

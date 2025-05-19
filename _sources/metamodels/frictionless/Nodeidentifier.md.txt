@@ -1,4 +1,4 @@
-# Type: Nodeidentifier
+# Type: Nodeidentifier 
 
 
 
@@ -34,6 +34,16 @@ URI: [shex:nonLiteral](http://www.w3.org/ns/shex#nonLiteral)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | shex:nonLiteral |
+| native | frictionless:nodeidentifier |
 
 
 

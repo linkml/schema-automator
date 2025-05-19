@@ -1,4 +1,6 @@
-# Class: PermissibleValue
+
+
+# Class: PermissibleValue 
 
 
 _List of Permissible Values_
@@ -12,36 +14,25 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 
 
+
+
 ```mermaid
  classDiagram
     class PermissibleValue
+    click PermissibleValue href "../PermissibleValue"
       PermissibleValue : Begin_Date
-        
-          PermissibleValue --> None : Begin_Date
         
       PermissibleValue : Concept_Code
         
-          PermissibleValue --> None : Concept_Code
-        
       PermissibleValue : End_Date
-        
-          PermissibleValue --> None : End_Date
         
       PermissibleValue : Permissible_Value
         
-          PermissibleValue --> None : Permissible_Value
-        
       PermissibleValue : VM_Description
-        
-          PermissibleValue --> None : VM_Description
         
       PermissibleValue : VM_Long_Name
         
-          PermissibleValue --> None : VM_Long_Name
-        
       PermissibleValue : VM_Public_ID
-        
-          PermissibleValue --> None : VM_Public_ID
         
       
 ```
@@ -95,13 +86,14 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:PermissibleValue |
 | native | cadsr:PermissibleValue |
+
+
 
 
 
@@ -131,38 +123,24 @@ slot_usage:
     name: Permissible Value
     description: A representation of a Value Meaning in a specific Value Domain the
       actual Value.
-    domain_of:
-    - permissibleValue
   VM Long Name:
     name: VM Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - permissibleValue
   VM Public ID:
     name: VM Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - permissibleValue
   Concept Code:
     name: Concept Code
-    domain_of:
-    - permissibleValue
   VM Description:
     name: VM Description
     description: The text of the most desirable meaning for the Administered Item.
-    domain_of:
-    - permissibleValue
   Begin Date:
     name: Begin Date
     description: The particular day, month and year this item became allowed.
-    domain_of:
-    - permissibleValue
   End Date:
     name: End Date
     description: The day, month and year this item becomes no longer allowed.
-    domain_of:
-    - permissibleValue
 
 ```
 </details>
@@ -179,38 +157,24 @@ slot_usage:
     name: Permissible Value
     description: A representation of a Value Meaning in a specific Value Domain the
       actual Value.
-    domain_of:
-    - permissibleValue
   VM Long Name:
     name: VM Long Name
     description: A 255 character limit name for an item in the registry.
-    domain_of:
-    - permissibleValue
   VM Public ID:
     name: VM Public ID
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - permissibleValue
   Concept Code:
     name: Concept Code
-    domain_of:
-    - permissibleValue
   VM Description:
     name: VM Description
     description: The text of the most desirable meaning for the Administered Item.
-    domain_of:
-    - permissibleValue
   Begin Date:
     name: Begin Date
     description: The particular day, month and year this item became allowed.
-    domain_of:
-    - permissibleValue
   End Date:
     name: End Date
     description: The day, month and year this item becomes no longer allowed.
-    domain_of:
-    - permissibleValue
 attributes:
   Permissible Value:
     name: Permissible Value

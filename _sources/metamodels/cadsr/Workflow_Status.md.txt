@@ -1,15 +1,19 @@
-# Slot: Workflow_Status
+
+
+# Slot: Workflow_Status 
 
 
 _A name of a designation of the status in the administrative life-cycle of a Context Owner for handling new administered items._
 
 
 
+
+
 URI: [cadsr:Workflow_Status](https://example.org/cadsrWorkflow_Status)
-
-
+Alias: Workflow_Status
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Workflow_Status](https://example.org/cadsrWorkflow_Status)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Workflow_Status](https://example.org/cadsrWorkflow_Status)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Workflow_Status |
+| native | cadsr:Workflow_Status |
 
 
 

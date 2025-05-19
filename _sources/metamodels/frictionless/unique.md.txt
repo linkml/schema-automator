@@ -1,10 +1,14 @@
-# Slot: unique
+
+
+# Slot: unique 
+
+
 
 URI: [linkml:identifier](https://w3id.org/linkml/identifier)
-
-
+Alias: unique
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [linkml:identifier](https://w3id.org/linkml/identifier)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [linkml:identifier](https://w3id.org/linkml/identifier)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | linkml:identifier |
+| native | frictionless:unique |
 
 
 

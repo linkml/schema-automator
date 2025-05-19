@@ -1,10 +1,14 @@
-# Slot: type
+
+
+# Slot: type 
+
+
 
 URI: [frictionless:type](https://w3id.org/linkml/frictionless/type)
-
-
+Alias: type
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:type](https://w3id.org/linkml/frictionless/type)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Field](Field.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -48,6 +52,16 @@ URI: [frictionless:type](https://w3id.org/linkml/frictionless/type)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:type |
+| native | frictionless:type |
 
 
 

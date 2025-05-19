@@ -1,10 +1,14 @@
-# Slot: format
+
+
+# Slot: format 
+
+
 
 URI: [frictionless:format](https://w3id.org/linkml/frictionless/format)
-
-
+Alias: format
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:format](https://w3id.org/linkml/frictionless/format)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Field](Field.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -48,6 +52,16 @@ URI: [frictionless:format](https://w3id.org/linkml/frictionless/format)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:format |
+| native | frictionless:format |
 
 
 

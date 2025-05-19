@@ -1,15 +1,19 @@
-# Slot: evsSource
+
+
+# Slot: evsSource 
 
 
 _The name of the EVS concept code that was the source for the concept identifier._
 
 
 
+
+
 URI: [cadsr:evsSource](https://example.org/cadsrevsSource)
-
-
+Alias: evsSource
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:evsSource](https://example.org/cadsrevsSource)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Concept](Concept.md) |  |  yes  |
+| [Concept](Concept.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:evsSource](https://example.org/cadsrevsSource)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:evsSource |
+| native | cadsr:evsSource |
 
 
 

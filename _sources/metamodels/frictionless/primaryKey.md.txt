@@ -1,10 +1,14 @@
-# Slot: primaryKey
+
+
+# Slot: primaryKey 
+
+
 
 URI: [frictionless:primaryKey](https://w3id.org/linkml/frictionless/primaryKey)
-
-
+Alias: primaryKey
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:primaryKey](https://w3id.org/linkml/frictionless/primaryKey)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Schema](Schema.md) |  |  no  |
+| [Schema](Schema.md) |  |  no  |
 
 
 
@@ -54,6 +58,17 @@ URI: [frictionless:primaryKey](https://w3id.org/linkml/frictionless/primaryKey)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:primaryKey |
+| native | frictionless:primaryKey |
+| close | linkml:identifier, linkml:unique_keys |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -66,11 +81,11 @@ close_mappings:
 - linkml:identifier
 - linkml:unique_keys
 rank: 1000
-multivalued: true
 alias: primaryKey
 domain_of:
 - Schema
 range: Field
+multivalued: true
 
 ```
 </details>

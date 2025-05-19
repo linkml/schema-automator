@@ -1,10 +1,14 @@
-# Slot: url
+
+
+# Slot: url 
+
+
 
 URI: [cadsr:url](https://example.org/cadsrurl)
-
-
+Alias: url
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:url](https://example.org/cadsrurl)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:url](https://example.org/cadsrurl)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:url |
+| native | cadsr:url |
 
 
 

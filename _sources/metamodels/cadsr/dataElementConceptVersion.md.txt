@@ -1,15 +1,19 @@
-# Slot: dataElementConceptVersion
+
+
+# Slot: dataElementConceptVersion 
 
 
 _The unique version identifier of the Administered Item._
 
 
 
+
+
 URI: [cadsr:dataElementConceptVersion](https://example.org/cadsrdataElementConceptVersion)
-
-
+Alias: dataElementConceptVersion
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:dataElementConceptVersion](https://example.org/cadsrdataElementConce
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:dataElementConceptVersion](https://example.org/cadsrdataElementConce
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:dataElementConceptVersion |
+| native | cadsr:dataElementConceptVersion |
 
 
 

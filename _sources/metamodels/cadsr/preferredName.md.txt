@@ -1,15 +1,19 @@
-# Slot: preferredName
+
+
+# Slot: preferredName 
 
 
 _A 30 character limit name by which an Administered Item is designated within a specific Context. Referred to as Short Name._
 
 
 
+
+
 URI: [cadsr:preferredName](https://example.org/cadsrpreferredName)
-
-
+Alias: preferredName
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,15 +22,15 @@ URI: [cadsr:preferredName](https://example.org/cadsrpreferredName)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Property](Property.md) |  |  yes  |
-[ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-[DataElement](DataElement.md) |  |  yes  |
-[ValueDomain](ValueDomain.md) |  |  yes  |
-[ObjectClass](ObjectClass.md) |  |  yes  |
-[DataElementConcept](DataElementConcept.md) |  |  yes  |
-[ValueMeaning](ValueMeaning.md) |  |  yes  |
-[RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-[DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -54,6 +58,16 @@ URI: [cadsr:preferredName](https://example.org/cadsrpreferredName)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:preferredName |
+| native | cadsr:preferredName |
 
 
 

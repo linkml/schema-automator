@@ -1,15 +1,19 @@
-# Slot: End_Date
+
+
+# Slot: End_Date 
 
 
 _The day, month and year this item becomes no longer allowed._
 
 
 
+
+
 URI: [cadsr:End_Date](https://example.org/cadsrEnd_Date)
-
-
+Alias: End_Date
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:End_Date](https://example.org/cadsrEnd_Date)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:End_Date](https://example.org/cadsrEnd_Date)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:End_Date |
+| native | cadsr:End_Date |
 
 
 

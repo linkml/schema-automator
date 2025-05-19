@@ -1,4 +1,6 @@
-# Class: ClassificationScheme
+
+
+# Class: ClassificationScheme 
 
 
 
@@ -7,28 +9,30 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 
 
 
+
+
 ```mermaid
  classDiagram
     class ClassificationScheme
+    click ClassificationScheme href "../ClassificationScheme"
       ClassificationScheme : ClassificationSchemeItems
         
-          ClassificationScheme --> ClassificationSchemeItem : ClassificationSchemeItems
+          
+    
+        
+        
+        ClassificationScheme --> "*" ClassificationSchemeItem : ClassificationSchemeItems
+        click ClassificationSchemeItem href "../ClassificationSchemeItem"
+    
+
         
       ClassificationScheme : context
         
-          ClassificationScheme --> None : context
-        
       ClassificationScheme : longName
-        
-          ClassificationScheme --> None : longName
         
       ClassificationScheme : publicId
         
-          ClassificationScheme --> None : publicId
-        
       ClassificationScheme : version
-        
-          ClassificationScheme --> None : version
         
       
 ```
@@ -47,7 +51,7 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 | [version](version.md) | 0..1 <br/> [String](String.md) | The unique version identifier of the Administered Item | direct |
 | [longName](longName.md) | 0..1 <br/> [String](String.md) | A 255 character limit name for an item in the registry | direct |
 | [context](context.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [ClassificationSchemeItems](ClassificationSchemeItems.md) | 0..* <br/> [ClassificationSchemeItem](ClassificationSchemeItem.md) |  | direct |
+| [ClassificationSchemeItems](ClassificationSchemeItems.md) | * <br/> [ClassificationSchemeItem](ClassificationSchemeItem.md) |  | direct |
 
 
 
@@ -80,13 +84,14 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 
 
 
-
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
 | self | cadsr:ClassificationScheme |
 | native | cadsr:ClassificationScheme |
+
+
 
 
 
@@ -113,73 +118,20 @@ slot_usage:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - CDEPermissibleValue
-    - DataElementQuery
     required: false
   version:
     name: version
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   longName:
     name: longName
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
   ClassificationSchemeItems:
     name: ClassificationSchemeItems
-    multivalued: true
-    domain_of:
-    - ClassificationScheme
     range: ClassificationSchemeItem
+    multivalued: true
 
 ```
 </details>
@@ -195,78 +147,27 @@ slot_usage:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - CDEPermissibleValue
-    - DataElementQuery
     required: false
   version:
     name: version
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   longName:
     name: longName
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - Concept
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - DataElementQuery
     required: false
   context:
     name: context
-    domain_of:
-    - ClassificationScheme
-    - Property
-    - AlternateName
-    - ConceptualDomain
-    - ClassificationSchemeItem
-    - DataElement
-    - ValueDomain
-    - ObjectClass
-    - DataElementConcept
-    - ValueMeaning
-    - RepresentationTerm
-    - ReferenceDocument
     required: false
   ClassificationSchemeItems:
     name: ClassificationSchemeItems
-    multivalued: true
-    domain_of:
-    - ClassificationScheme
     range: ClassificationSchemeItem
+    multivalued: true
 attributes:
   publicId:
     name: publicId
     description: The unique identifier for an Administered Item within a Registration
       Authority.
+    comments:
+    - note this can appear at different levels
     from_schema: https://example.org/cadsr
     rank: 1000
     alias: publicId
@@ -284,6 +185,7 @@ attributes:
     - RepresentationTerm
     - CDEPermissibleValue
     - DataElementQuery
+    range: string
     required: false
   version:
     name: version
@@ -350,12 +252,12 @@ attributes:
     name: ClassificationSchemeItems
     from_schema: https://example.org/cadsr
     rank: 1000
-    multivalued: true
     alias: ClassificationSchemeItems
     owner: ClassificationScheme
     domain_of:
     - ClassificationScheme
     range: ClassificationSchemeItem
+    multivalued: true
 
 ```
 </details>

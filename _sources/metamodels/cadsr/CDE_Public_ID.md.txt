@@ -1,15 +1,19 @@
-# Slot: CDE_Public_ID
+
+
+# Slot: CDE_Public_ID 
 
 
 _The unique identifier for an Administered Item within a Registration Authority._
 
 
 
+
+
 URI: [cadsr:CDE_Public_ID](https://example.org/cadsrCDE_Public_ID)
-
-
+Alias: CDE_Public_ID
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:CDE_Public_ID](https://example.org/cadsrCDE_Public_ID)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:CDE_Public_ID](https://example.org/cadsrCDE_Public_ID)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CDE_Public_ID |
+| native | cadsr:CDE_Public_ID |
 
 
 

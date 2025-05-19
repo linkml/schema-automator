@@ -1,15 +1,19 @@
-# Slot: Version
+
+
+# Slot: Version 
 
 
 _The unique version identifier of the Administered Item._
 
 
 
+
+
 URI: [cadsr:Version](https://example.org/cadsrVersion)
-
-
+Alias: Version
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Version](https://example.org/cadsrVersion)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Version](https://example.org/cadsrVersion)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Version |
+| native | cadsr:Version |
 
 
 

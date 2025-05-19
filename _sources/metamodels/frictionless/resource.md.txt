@@ -1,10 +1,14 @@
-# Slot: resource
+
+
+# Slot: resource 
+
+
 
 URI: [frictionless:resource](https://w3id.org/linkml/frictionless/resource)
-
-
+Alias: resource
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:resource](https://w3id.org/linkml/frictionless/resource)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Reference](Reference.md) |  |  no  |
+| [Reference](Reference.md) |  |  no  |
 
 
 
@@ -48,6 +52,16 @@ URI: [frictionless:resource](https://w3id.org/linkml/frictionless/resource)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:resource |
+| native | frictionless:resource |
 
 
 

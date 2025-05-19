@@ -1,15 +1,19 @@
-# Slot: CRD_Domain
+
+
+# Slot: CRD_Domain 
 
 
 _CRDC Domain_
 
 
 
+
+
 URI: [cadsr:CRD_Domain](https://example.org/cadsrCRD_Domain)
-
-
+Alias: CRD_Domain
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:CRD_Domain](https://example.org/cadsrCRD_Domain)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:CRD_Domain](https://example.org/cadsrCRD_Domain)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:CRD_Domain |
+| native | cadsr:CRD_Domain |
 
 
 

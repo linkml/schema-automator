@@ -1,10 +1,14 @@
-# Slot: Deep_Link
+
+
+# Slot: Deep_Link 
+
+
 
 URI: [cadsr:Deep_Link](https://example.org/cadsrDeep_Link)
-
-
+Alias: Deep_Link
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:Deep_Link](https://example.org/cadsrDeep_Link)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:Deep_Link](https://example.org/cadsrDeep_Link)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Deep_Link |
+| native | cadsr:Deep_Link |
 
 
 

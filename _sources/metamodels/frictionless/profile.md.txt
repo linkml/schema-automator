@@ -1,10 +1,14 @@
-# Slot: profile
+
+
+# Slot: profile 
+
+
 
 URI: [frictionless:profile](https://w3id.org/linkml/frictionless/profile)
-
-
+Alias: profile
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,8 +17,8 @@ URI: [frictionless:profile](https://w3id.org/linkml/frictionless/profile)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Resource](Resource.md) |  |  no  |
-[Package](Package.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
@@ -49,6 +53,16 @@ URI: [frictionless:profile](https://w3id.org/linkml/frictionless/profile)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:profile |
+| native | frictionless:profile |
 
 
 

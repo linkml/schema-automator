@@ -1,10 +1,14 @@
-# Slot: decimalPlace
+
+
+# Slot: decimalPlace 
+
+
 
 URI: [cadsr:decimalPlace](https://example.org/cadsrdecimalPlace)
-
-
+Alias: decimalPlace
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:decimalPlace](https://example.org/cadsrdecimalPlace)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:decimalPlace](https://example.org/cadsrdecimalPlace)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:decimalPlace |
+| native | cadsr:decimalPlace |
 
 
 

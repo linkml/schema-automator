@@ -1,15 +1,19 @@
-# Slot: VM_Long_Name
+
+
+# Slot: VM_Long_Name 
 
 
 _A 255 character limit name for an item in the registry._
 
 
 
+
+
 URI: [cadsr:VM_Long_Name](https://example.org/cadsrVM_Long_Name)
-
-
+Alias: VM_Long_Name
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:VM_Long_Name](https://example.org/cadsrVM_Long_Name)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
+| [PermissibleValue](PermissibleValue.md) | List of Permissible Values |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:VM_Long_Name](https://example.org/cadsrVM_Long_Name)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:VM_Long_Name |
+| native | cadsr:VM_Long_Name |
 
 
 

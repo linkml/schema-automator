@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Slot: enum &#8212; Schema Automator  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,8 @@
             
   <section id="slot-enum">
 <h1>Slot: enum<a class="headerlink" href="#slot-enum" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/enum">frictionless:enum</a></p>
+<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/enum">frictionless:enum</a>
+Alias: enum</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
 <h2>Applicable Classes<a class="headerlink" href="#applicable-classes" title="Link to this heading">¶</a></h2>
@@ -67,6 +68,27 @@
 </ul>
 </section>
 </section>
+<section id="mappings">
+<h2>Mappings<a class="headerlink" href="#mappings" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Mapping Type</p></th>
+<th class="head"><p>Mapped Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>self</p></td>
+<td><p>frictionless:enum</p></td>
+</tr>
+<tr class="row-odd"><td><p>native</p></td>
+<td><p>frictionless:enum</p></td>
+</tr>
+<tr class="row-even"><td><p>close</p></td>
+<td><p>linkml:range</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="linkml-source">
 <h2>LinkML Source<a class="headerlink" href="#linkml-source" title="Link to this heading">¶</a></h2>
 <details>
@@ -76,11 +98,11 @@ from_schema: https://w3id.org/linkml/frictionless
 close_mappings:
 - linkml:range
 rank: 1000
-multivalued: true
 alias: enum
 domain_of:
 - Field
 range: string
+multivalued: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -92,7 +114,7 @@ range: string
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../../index.html">Schema Automator</a></h1>
 
@@ -108,10 +130,9 @@ range: string
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../packages/index.html">Packages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Source Metamodels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
 <div class="relations">
@@ -121,7 +142,7 @@ range: string
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
@@ -129,7 +150,7 @@ range: string
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -147,7 +168,7 @@ range: string
       &#169;2022, LinkML Developers.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |

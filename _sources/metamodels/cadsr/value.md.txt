@@ -1,15 +1,19 @@
-# Slot: value
+
+
+# Slot: value 
 
 
 _A representation of a Value Meaning in a specific Value Domain the actual Value._
 
 
 
+
+
 URI: [cadsr:value](https://example.org/cadsrvalue)
-
-
+Alias: value
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:value](https://example.org/cadsrvalue)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:value](https://example.org/cadsrvalue)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:value |
+| native | cadsr:value |
 
 
 

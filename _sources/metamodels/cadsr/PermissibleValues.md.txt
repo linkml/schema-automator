@@ -1,10 +1,14 @@
-# Slot: PermissibleValues
+
+
+# Slot: PermissibleValues 
+
+
 
 URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
-
-
+Alias: PermissibleValues
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -47,6 +51,16 @@ URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:PermissibleValues |
+| native | cadsr:PermissibleValues |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,12 +68,12 @@ URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
 name: PermissibleValues
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: PermissibleValues
 domain_of:
 - ValueDomain
 range: CDEPermissibleValue
 required: false
+multivalued: true
 
 ```
 </details>

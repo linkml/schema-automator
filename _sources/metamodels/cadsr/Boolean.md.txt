@@ -1,4 +1,4 @@
-# Type: Boolean
+# Type: Boolean 
 
 
 
@@ -34,6 +34,17 @@ URI: [xsd:boolean](http://www.w3.org/2001/XMLSchema#boolean)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | xsd:boolean |
+| native | cadsr:boolean |
+| exact | schema:Boolean |
 
 
 

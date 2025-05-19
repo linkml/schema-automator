@@ -1,15 +1,19 @@
-# Slot: Used_By
+
+
+# Slot: Used_By 
 
 
 _Who is using the Data Element_
 
 
 
+
+
 URI: [cadsr:Used_By](https://example.org/cadsrUsed_By)
-
-
+Alias: Used_By
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -18,7 +22,7 @@ URI: [cadsr:Used_By](https://example.org/cadsrUsed_By)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[CRDCDataElement](CRDCDataElement.md) |  |  yes  |
+| [CRDCDataElement](CRDCDataElement.md) |  |  yes  |
 
 
 
@@ -46,6 +50,16 @@ URI: [cadsr:Used_By](https://example.org/cadsrUsed_By)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:Used_By |
+| native | cadsr:Used_By |
 
 
 

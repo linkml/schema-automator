@@ -1,10 +1,14 @@
-# Slot: header
+
+
+# Slot: header 
+
+
 
 URI: [frictionless:header](https://w3id.org/linkml/frictionless/header)
-
-
+Alias: header
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [frictionless:header](https://w3id.org/linkml/frictionless/header)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[Dialect](Dialect.md) |  |  no  |
+| [Dialect](Dialect.md) |  |  no  |
 
 
 
@@ -41,6 +45,16 @@ URI: [frictionless:header](https://w3id.org/linkml/frictionless/header)
 
 
 * from schema: https://w3id.org/linkml/frictionless
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | frictionless:header |
+| native | frictionless:header |
 
 
 

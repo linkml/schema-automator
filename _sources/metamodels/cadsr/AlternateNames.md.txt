@@ -1,10 +1,14 @@
-# Slot: AlternateNames
+
+
+# Slot: AlternateNames 
+
+
 
 URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
-
-
+Alias: AlternateNames
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[DataElement](DataElement.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 
 
 
@@ -47,6 +51,16 @@ URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
 
 
 
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:AlternateNames |
+| native | cadsr:AlternateNames |
+
+
+
+
 ## LinkML Source
 
 <details>
@@ -54,12 +68,12 @@ URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
 name: AlternateNames
 from_schema: https://example.org/cadsr
 rank: 1000
-multivalued: true
 alias: AlternateNames
 domain_of:
 - DataElement
 range: AlternateName
 required: false
+multivalued: true
 
 ```
 </details>

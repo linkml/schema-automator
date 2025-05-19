@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>schema_automator.importers.cadsr_import_engine &#8212; Schema Automator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for schema_automator.importers.cadsr_import_engine</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CADSR CDE Import Engine</span>
+
+<span class="sd">This ingests the output of the caDSR API https://cadsrapi.cancer.gov/rad/NCIAPI/1.0/api</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml.utils.schema_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchemaBuilder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml_runtime.linkml_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml_runtime.linkml_model.meta</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="n">SlotDefinition</span><span class="p">,</span> <span class="n">EnumDefinition</span><span class="p">,</span> \
+    <span class="n">PermissibleValue</span><span class="p">,</span> <span class="n">UniqueKey</span><span class="p">,</span> <span class="n">ClassDefinition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml_runtime.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">json_loader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml_runtime.utils.formatutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">camelcase</span><span class="p">,</span> <span class="n">underscore</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">schema_automator.importers.import_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImportEngine</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">schema_automator.metamodels.cadsr</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cadsr</span>
+
+<span class="n">ID_LABEL_PAIR</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+
+<span class="n">TMAP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DATE&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NUMBER&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ALPHANUMERIC&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CHARACTER&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HL7EDv3&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HL7CDv3&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java.lang.Double&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Numeric Alpha DVG&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SAS Date&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java.util.Date&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DATE/TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;datetime&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIME&quot;</span><span class="p">:</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Integer&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java.lang.Integer&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Floating-point&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_concepts</span><span class="p">(</span><span class="n">concepts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cadsr</span><span class="o">.</span><span class="n">Concept</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ID_LABEL_PAIR</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="n">main</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rest</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">concepts</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No concepts&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">concepts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">concept</span><span class="o">.</span><span class="n">evsSource</span> <span class="o">!=</span> <span class="s2">&quot;NCI_CONCEPT_CODE&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;NCIT:</span><span class="si">{</span><span class="n">concept</span><span class="o">.</span><span class="n">conceptCode</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">pair</span> <span class="o">=</span> <span class="nb">id</span><span class="p">,</span> <span class="n">concept</span><span class="o">.</span><span class="n">longName</span>
+        <span class="k">if</span> <span class="n">concept</span><span class="o">.</span><span class="n">primaryIndicator</span> <span class="o">==</span> <span class="s2">&quot;Yes&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">main</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Multiple primary for: </span><span class="si">{</span><span class="n">concepts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">main</span> <span class="o">=</span> <span class="n">pair</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rest</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">main</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No primary, using arbitrary from </span><span class="si">{</span><span class="n">rest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">main</span> <span class="o">=</span> <span class="n">rest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">rest</span> <span class="o">=</span> <span class="n">rest</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">main</span><span class="p">,</span> <span class="n">rest</span>
+
+<div class="viewcode-block" id="CADSRImportEngine">
+<a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.CADSRImportEngine">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CADSRImportEngine</span><span class="p">(</span><span class="n">ImportEngine</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An ImportEngine that imports NCI CADSR CDEs</span>
+
+<span class="sd">    Ingests the output of `caDSR API &lt;https://cadsrapi.cancer.gov/rad/NCIAPI/1.0/api&gt;`_.</span>
+
+<span class="sd">    Note that we include a LinkML schema for this in schema_automator.metamodels.cadsr</span>
+
+<span class="sd">    - Each CDE (DataElement) becomes a unique slot</span>
+<span class="sd">    - the CDE is added as a lot of a context-specific class</span>
+<span class="sd">    - the context-specific class is a subclass of the CDE&#39;s DataElementConcept</span>
+
+<span class="sd">    Note that this creates a lot of 1-1 classes, as in many cases there is no</span>
+<span class="sd">    attempt to group concepts. However, this is not always the case.</span>
+
+<span class="sd">    E.g. the concept with publicId 2012668 (Access Route) is used in 5 contexts</span>
+<span class="sd">    (AHRQ, CCR, ...)</span>
+
+<span class="sd">    Each context-specific concept has its own set of CDEs</span>
+
+<span class="sd">    See also https://github.com/monarch-initiative/cde-harmonization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CADSRImportEngine.convert">
+<a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.CADSRImportEngine.convert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchemaDefinition</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts one or more CDE JSON files into LinkML</span>
+
+<span class="sd">        :param files:</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sb</span> <span class="o">=</span> <span class="n">SchemaBuilder</span><span class="p">()</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">schema</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">slots</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">enums</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">):</span>
+                <span class="n">container</span><span class="p">:</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementContainer</span>
+                <span class="n">container</span> <span class="o">=</span> <span class="n">json_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">target_class</span><span class="o">=</span><span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementContainer</span><span class="p">)</span>
+                <span class="n">cde</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">DataElement</span>
+                <span class="n">ctxt</span> <span class="o">=</span> <span class="n">cde</span><span class="o">.</span><span class="n">context</span>
+                <span class="n">ln</span> <span class="o">=</span> <span class="n">cde</span><span class="o">.</span><span class="n">longName</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">ctxt</span><span class="p">)</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cadsr:</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="c1"># Each DataElement becomes one slot;</span>
+                <span class="c1"># we make the name both unique and human readable</span>
+                <span class="c1"># TODO: check this; frequently reused, e.g.</span>
+                <span class="c1"># NCI Standards + Group ID</span>
+                <span class="n">slot</span> <span class="o">=</span> <span class="n">SlotDefinition</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">underscore</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ctxt</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">cde</span><span class="o">.</span><span class="n">preferredName</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ln</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)),</span>
+                    <span class="n">slot_uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:</span><span class="si">{</span><span class="n">cde</span><span class="o">.</span><span class="n">publicId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">cde</span><span class="o">.</span><span class="n">preferredName</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="n">cde</span><span class="o">.</span><span class="n">preferredDefinition</span><span class="p">,</span>
+                    <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="n">ln</span><span class="p">],</span>
+                    <span class="n">conforms_to</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:DataElement&quot;</span><span class="p">,</span>
+                    <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="c1"># each data element belongs to a concept</span>
+                <span class="c1"># (may be reused across classes?)</span>
+                <span class="n">slots</span><span class="p">[</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">slot</span>
+                <span class="n">dec</span> <span class="o">=</span> <span class="n">cde</span><span class="o">.</span><span class="n">DataElementConcept</span>
+                <span class="nb">property</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">Property</span>
+                <span class="n">main_prop_concept</span><span class="p">,</span> <span class="n">prop_mappings</span> <span class="o">=</span> <span class="n">extract_concepts</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">Concepts</span><span class="p">)</span>
+                <span class="c1"># a concept is linked to a class</span>
+                <span class="n">objectClass</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">ObjectClass</span>
+                <span class="c1"># NCIT concepts describing the class;</span>
+                <span class="c1"># there will be one primary and possibly secondary concepts</span>
+                <span class="n">mainConcept</span><span class="p">,</span> <span class="n">mappings</span> <span class="o">=</span> <span class="n">extract_concepts</span><span class="p">(</span><span class="n">objectClass</span><span class="o">.</span><span class="n">Concepts</span><span class="p">)</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">objectClass</span><span class="o">.</span><span class="n">longName</span>
+                <span class="n">concept_name</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">camelcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ctxt</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="n">parent_concept_name</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">parent_concept_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+                    <span class="n">parent_cls</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">parent_concept_name</span><span class="p">,</span>
+                        <span class="n">title</span><span class="o">=</span><span class="n">objectClass</span><span class="o">.</span><span class="n">preferredName</span><span class="p">,</span>
+                        <span class="n">description</span><span class="o">=</span><span class="n">objectClass</span><span class="o">.</span><span class="n">preferredDefinition</span><span class="p">,</span>
+                        <span class="c1">#aliases=[concept.longName],</span>
+                        <span class="n">class_uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:</span><span class="si">{</span><span class="n">objectClass</span><span class="o">.</span><span class="n">publicId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">exact_mappings</span><span class="o">=</span><span class="p">[</span><span class="n">mainConcept</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                        <span class="n">broad_mappings</span><span class="o">=</span><span class="n">mappings</span><span class="p">,</span>
+                        <span class="n">conforms_to</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:ObjectClass&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">classes</span><span class="p">[</span><span class="n">parent_concept_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_cls</span>
+                <span class="k">if</span> <span class="n">concept_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+                    <span class="bp">cls</span> <span class="o">=</span> <span class="n">ClassDefinition</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">concept_name</span><span class="p">,</span>
+                        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dec</span><span class="o">.</span><span class="n">preferredName</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ctxt</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                        <span class="n">description</span><span class="o">=</span><span class="n">dec</span><span class="o">.</span><span class="n">preferredDefinition</span><span class="p">,</span>
+                        <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="n">dec</span><span class="o">.</span><span class="n">longName</span><span class="p">],</span>
+                        <span class="n">class_uri</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:</span><span class="si">{</span><span class="n">dec</span><span class="o">.</span><span class="n">publicId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">is_a</span><span class="o">=</span><span class="n">parent_concept_name</span><span class="p">,</span>
+                        <span class="n">conforms_to</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;cadsr:DataElementConcept&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">classes</span><span class="p">[</span><span class="n">concept_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">cls</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="n">concept_name</span><span class="p">]</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="c1"># In theory the ObjectClass should link to a general class of utility in NCIT.</span>
+                <span class="c1"># In practice the actual concept may not be so useful. E.g. in 2724331</span>
+                <span class="c1"># &quot;Agent Adverse Event Attribution Name&quot; the DataConcept is</span>
+                <span class="c1"># Agent (C1708) defined as &quot;An active power or cause (as principle,</span>
+                <span class="c1"># substance, physical or biological factor, etc.) that produces a specific effect.&quot;</span>
+                <span class="c1"># which is very upper-ontological</span>
+                <span class="c1">#for ocConcept in objectClass.Concepts:</span>
+                <span class="c1">#    if ocConcept.evsSource == &quot;NCI_CONCEPT_CODE&quot;:</span>
+                <span class="c1">#        cls.is_a = f&quot;NCIT:{ocConcept.conceptCode}&quot;</span>
+                <span class="n">valueDomain</span> <span class="o">=</span> <span class="n">cde</span><span class="o">.</span><span class="n">ValueDomain</span>
+                <span class="c1"># TODO</span>
+                <span class="n">conceptualDomain</span> <span class="o">=</span> <span class="n">valueDomain</span><span class="o">.</span><span class="n">ConceptualDomain</span>
+                <span class="n">pvs</span> <span class="o">=</span> <span class="n">valueDomain</span><span class="o">.</span><span class="n">PermissibleValues</span>
+                <span class="k">if</span> <span class="n">pvs</span><span class="p">:</span>
+                    <span class="n">enum_name</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">camelcase</span><span class="p">(</span><span class="n">valueDomain</span><span class="o">.</span><span class="n">preferredName</span><span class="p">))</span>
+                    <span class="n">enum</span> <span class="o">=</span> <span class="n">EnumDefinition</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">enum_name</span><span class="p">,</span>
+                        <span class="n">title</span><span class="o">=</span><span class="n">valueDomain</span><span class="o">.</span><span class="n">preferredName</span><span class="p">,</span>
+                        <span class="n">description</span><span class="o">=</span><span class="n">valueDomain</span><span class="o">.</span><span class="n">preferredDefinition</span><span class="p">,</span>
+                        <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="n">valueDomain</span><span class="o">.</span><span class="n">longName</span><span class="p">],</span>
+                        <span class="c1"># enum_uri=f&quot;cadsr:{valueDomain.publicId}&quot;,</span>
+                    <span class="p">)</span>
+                    <span class="n">enums</span><span class="p">[</span><span class="n">enum_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">enum</span>
+                    <span class="n">rng</span> <span class="o">=</span> <span class="n">enum_name</span>
+                    <span class="k">for</span> <span class="n">pv</span> <span class="ow">in</span> <span class="n">pvs</span><span class="p">:</span>
+                        <span class="c1"># url encode the value to escape symbols like &lt;, &gt;, etc.</span>
+                        <span class="n">pv_value</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%20&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+                        <span class="n">tgt_pv</span> <span class="o">=</span> <span class="n">PermissibleValue</span><span class="p">(</span>
+                            <span class="n">text</span><span class="o">=</span><span class="n">pv_value</span><span class="p">,</span>
+                            <span class="n">title</span><span class="o">=</span><span class="n">pv</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="n">pv</span><span class="o">.</span><span class="n">valueDescription</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">enum</span><span class="o">.</span><span class="n">permissible_values</span><span class="p">[</span><span class="n">tgt_pv</span><span class="o">.</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="n">tgt_pv</span>
+                        <span class="n">vm</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">ValueMeaning</span>
+                        <span class="n">tgt_pv</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">preferredName</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">tgt_pv</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+                            <span class="n">tgt_pv</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">preferredDefinition</span>
+                        <span class="k">if</span> <span class="n">vm</span><span class="o">.</span><span class="n">Concepts</span><span class="p">:</span>
+                            <span class="n">mainConcept</span><span class="p">,</span> <span class="n">mappings</span> <span class="o">=</span> <span class="n">extract_concepts</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">Concepts</span><span class="p">)</span>
+                            <span class="n">tgt_pv</span><span class="o">.</span><span class="n">meaning</span> <span class="o">=</span> <span class="n">mainConcept</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">tgt_pv</span><span class="o">.</span><span class="n">broad_mappings</span> <span class="o">=</span> <span class="n">mappings</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">datatype</span> <span class="o">=</span> <span class="n">valueDomain</span><span class="o">.</span><span class="n">dataType</span>
+                    <span class="n">rng</span> <span class="o">=</span> <span class="n">TMAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">datatype</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span>
+                <span class="n">slot</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="n">rng</span>
+                <span class="n">anns</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">rd</span> <span class="ow">in</span> <span class="n">cde</span><span class="o">.</span><span class="n">ReferenceDocuments</span><span class="p">:</span>
+                    <span class="n">rf_type</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">underscore</span><span class="p">(</span><span class="n">rd</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+                    <span class="n">anns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Annotation</span><span class="p">(</span>
+                        <span class="n">tag</span><span class="o">=</span><span class="n">rf_type</span><span class="p">,</span>
+                        <span class="n">value</span><span class="o">=</span><span class="n">rd</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="p">))</span>
+                <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">anns</span><span class="p">:</span>
+                    <span class="n">slot</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="n">ann</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">ann</span>
+
+        <span class="n">sb</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="s2">&quot;NCIT&quot;</span><span class="p">,</span> <span class="s2">&quot;http://purl.obolibrary.org/obo/NCIT_&quot;</span><span class="p">)</span>
+        <span class="n">sb</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="s2">&quot;cadsr&quot;</span><span class="p">,</span> <span class="s2">&quot;http://example.org/cadsr/&quot;</span><span class="p">)</span>
+        <span class="n">sb</span><span class="o">.</span><span class="n">add_defaults</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">from_schema</span> <span class="o">=</span> <span class="s1">&#39;http://example.org/&#39;</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">schema</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">slots</span> <span class="o">=</span> <span class="n">slots</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">enums</span> <span class="o">=</span> <span class="n">enums</span>
+        <span class="k">return</span> <span class="n">schema</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">):</span>
+                <span class="n">container</span><span class="p">:</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementContainer</span>
+                <span class="n">container</span> <span class="o">=</span> <span class="n">json_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">target_class</span><span class="o">=</span><span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementContainer</span><span class="p">)</span>
+                <span class="n">cde</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">DataElement</span>
+                <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">cde</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obj_as_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">cadsr</span><span class="o">.</span><span class="n">DataElement</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementConcept</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">Concept</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">Property</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">ObjectClass</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">ConceptualDomain</span><span class="p">,</span>
+        <span class="n">cadsr</span><span class="o">.</span><span class="n">ValueDomain</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">PermissibleValue</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">ValueMeaning</span><span class="p">],</span> <span class="n">parent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">Concept</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">conceptCode</span><span class="p">,</span>
+                <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">evsSource</span><span class="p">,</span>
+                <span class="s2">&quot;longName&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">longName</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">CDEPermissibleValue</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">publicId</span><span class="p">,</span>
+                <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="s2">&quot;valueDescription&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">valueDescription</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">publicId</span><span class="p">,</span>
+                <span class="s2">&quot;preferredName&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">preferredName</span><span class="p">,</span>
+                <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
+                <span class="s2">&quot;longName&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">longName</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;parentId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_id</span>
+        <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">class_name</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="n">obj</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">DataElement</span><span class="p">):</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">DataElementConcept</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ValueDomain</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">DataElementConcept</span><span class="p">):</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ObjectClass</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">Property</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">ConceptualDomain</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">ValueDomain</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">pv</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">PermissibleValues</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">ValueMeaning</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">cadsr</span><span class="o">.</span><span class="n">ObjectClass</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">Property</span><span class="p">,</span> <span class="n">cadsr</span><span class="o">.</span><span class="n">PermissibleValue</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">Concepts</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_as_rows</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span></div>
+
+
+
+
+
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Schema Automator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/index.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../metamodels/index.html">Source Metamodels</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2022, LinkML Developers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

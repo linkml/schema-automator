@@ -1,10 +1,14 @@
-# Slot: unitOfMeasure
+
+
+# Slot: unitOfMeasure 
+
+
 
 URI: [cadsr:unitOfMeasure](https://example.org/cadsrunitOfMeasure)
-
-
+Alias: unitOfMeasure
 
 <!-- no inheritance hierarchy -->
+
 
 
 
@@ -13,7 +17,7 @@ URI: [cadsr:unitOfMeasure](https://example.org/cadsrunitOfMeasure)
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-[ValueDomain](ValueDomain.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -41,6 +45,16 @@ URI: [cadsr:unitOfMeasure](https://example.org/cadsrunitOfMeasure)
 
 
 * from schema: https://example.org/cadsr
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | cadsr:unitOfMeasure |
+| native | cadsr:unitOfMeasure |
 
 
 
