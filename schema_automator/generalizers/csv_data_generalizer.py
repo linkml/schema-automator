@@ -461,6 +461,7 @@ class CsvDataGeneralizer(Generalizer):
                         for bv in bad_vals:
                             print(f"  🧪 Bad value: {repr(bv)}")
                         print("  ⛏ Dig into this column in the source TSV!")
+                    vals = [v for v in vals if not has_control_chars(v)]  # Skip vals with control chars
 
                     enums[enum_name] = {
                         'permissible_values': {v:{'description': v} for v in vals}
