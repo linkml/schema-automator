@@ -452,6 +452,16 @@ class CsvDataGeneralizer(Generalizer):
                     enum_name = sn.replace(' ', '_').replace('(s)', '')
                     enum_name = f'{enum_name}_enum'
                     s['range'] = enum_name
+
+                    def has_control_chars(s):
+                        return bool(re.search(r'[^\x20-\x7E]', str(s)))  # ASCII non-printable chars only
+                    bad_vals = [v for v in vals if has_control_chars(v)]
+                    if bad_vals:
+                        print(f"\n🚨 Suspicious enum values in slot '{sn}' → enum '{enum_name}':")
+                        for bv in bad_vals:
+                            print(f"  🧪 Bad value: {repr(bv)}")
+                        print("  ⛏ Dig into this column in the source TSV!")
+
                     enums[enum_name] = {
                         'permissible_values': {v:{'description': v} for v in vals}
                     }
