@@ -288,7 +288,7 @@ class OwlImportEngine(ImportEngine):
                             self.element_info(t, sub, 'description', val, multivalued=False)
                         elif strp == 'schema:rangeIncludes':
                             range_cn = self.iri_to_name(val)
-                            logging.error(f'UNTESTED RANGE: schema.org {sub} {val} // {domain_cn}')
+                            logging.error(f'UNTESTED RANGE: schema.org {sub} {val} // {range_cn}')
                             self.add_range(sub, range_cn)
                         elif strp == 'schema:domainIncludes':
                             domain_cn = self.iri_to_name(val)
