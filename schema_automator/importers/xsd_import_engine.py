@@ -73,6 +73,28 @@ MISSING_TYPES = {
 }
 XSD = "http://www.w3.org/2001/XMLSchema"
 NAMESPACES = {"xsd": "http://www.w3.org/2001/XMLSchema"}
+SCHEMA = etree.QName(XSD, "schema")
+COMPLEX_TYPE = etree.QName(XSD, "complexType")
+SIMPLE_TYPE = etree.QName(XSD, "simpleType")
+DOCUMENTATION = etree.QName(XSD, "documentation")
+ANNOTATION = etree.QName(XSD, "annotation")
+LIST = etree.QName(XSD, "list")
+COMPLEX_CONTENT = etree.QName(XSD, "complexContent")
+SIMPLE_CONTENT = etree.QName(XSD, "simpleContent")
+ELEMENT = etree.QName(XSD, "element")
+SEQUENCE = etree.QName(XSD, "sequence")
+CHOICE = etree.QName(XSD, "choice")
+RESTRICTION = etree.QName(XSD, "restriction")
+EXTENSION = etree.QName(XSD, "extension")
+UNION = etree.QName(XSD, "union")
+ALL = etree.QName(XSD, "all")
+MIN_LENGTH = etree.QName(XSD, "minLength")
+MAX_LENGTH = etree.QName(XSD, "maxLength")
+PATTERN = etree.QName(XSD, "pattern")
+ATTRIBUTE = etree.QName(XSD, "attribute")
+MIN_INCLUSIVE = etree.QName(XSD, "minInclusive")
+MAX_INCLUSIVE = etree.QName(XSD, "maxInclusive")
+GROUP = etree.QName(XSD, "group")
 
 T = TypeVar("T")
 def assert_type(x: Any, t: Type[T]) -> T:
@@ -148,7 +170,7 @@ def find_class_name(el: etree._Element, root_name: str = "Root") -> str:
     for parent in el.iterancestors():
         if "name" in parent.attrib:
             return assert_type(parent.attrib["name"], str)
-        elif parent.tag == f"{{{XSD}}}schema":
+        elif parent.tag == SCHEMA:
             return root_name
     raise ValueError("Could not find class name for element")
 
@@ -199,7 +221,7 @@ class XsdImportEngine(ImportEngine):
 
         # First pass, to determine if this is simple or complex
         for child in el:
-            if child.tag == f"{{{XSD}}}complexType":
+            if child.tag == COMPLEX_TYPE:
                 # If we find a complex type, we need to create a class
                 cls_name: str = el.attrib.get("name", PLACEHOLDER_NAME)
                 cls = ClassDefinition(
@@ -209,7 +231,7 @@ class XsdImportEngine(ImportEngine):
                 self.sb.add_class(cls)
                 slot.range = cls_name
                 self.visit_complex_type(child, cls)
-            elif child.tag == f"{{{XSD}}}simpleType":
+            elif child.tag == SIMPLE_TYPE:
                 # If we find a simple type, the range is a restriction of a primitive type
                 self.visit_simple_type(child, slot)
 
@@ -227,7 +249,7 @@ class XsdImportEngine(ImportEngine):
         
         # Second pass, to add annotations
         for child in el:
-            if child.tag == f"{{{XSD}}}annotation":
+            if child.tag == ANNOTATION:
                 # If we find an annotation, we can use it as documentation
                 slot.description = self.visit_annotation(child, slot.description)
 
@@ -254,7 +276,7 @@ class XsdImportEngine(ImportEngine):
         if existing is not None:
             text.append(existing)
         for child in el:
-            if child.tag == f"{{{XSD}}}documentation":
+            if child.tag == DOCUMENTATION:
                 text.append(self.visit_documentation(child))
         return "\n".join(text)
 
@@ -285,15 +307,15 @@ class XsdImportEngine(ImportEngine):
         slot.range = element_to_linkml_type(el, "base")
         for child in el:
             value = assert_type(child.attrib["value"], str)
-            if child.tag == f"{{{XSD}}}minInclusive":
+            if child.tag == MIN_INCLUSIVE:
                 slot.minimum_value = value
-            elif child.tag == f"{{{XSD}}}maxInclusive":
+            elif child.tag == MAX_INCLUSIVE:
                 slot.maximum_value = value
-            elif child.tag == f"{{{XSD}}}pattern":
+            elif child.tag == PATTERN:
                 slot.pattern = value
-            elif child.tag == f"{{{XSD}}}minLength":
+            elif child.tag == MIN_LENGTH:
                 slot.minimum_cardinality = int(value)
-            elif child.tag == f"{{{XSD}}}maxLength":
+            elif child.tag == MAX_LENGTH:
                 slot.maximum_cardinality = int(value)
 
     def visit_simple_content_restriction(self, el: etree._Element, cls: ClassDefinition) -> None:
@@ -312,7 +334,7 @@ class XsdImportEngine(ImportEngine):
         value = get_value_element(cls)
         self.visit_simple_type_restriction(el, value)
         for child in el:
-            if child.tag == f"{{{XSD}}}attribute":
+            if child.tag == ATTRIBUTE:
                 if cls.attributes is None:
                     cls.attributes = {}
                 attributes = assert_type(cls.attributes, Attributes)
@@ -334,7 +356,7 @@ class XsdImportEngine(ImportEngine):
         """
         cls.is_a = element_to_linkml_type(el, "base")
         for child in el:
-            if child.tag == f"{{{XSD}}}attribute":
+            if child.tag == ATTRIBUTE:
                 name = assert_type(child.attrib["name"], str)
                 attributes = assert_type(cls.attributes, dict[str, SlotDefinition])
                 attributes[name] = self.visit_attribute(child)
@@ -380,11 +402,11 @@ class XsdImportEngine(ImportEngine):
         attributes = assert_type(cls.attributes, Attributes)
         attributes["value"] = value_slot
         for child in el:
-            if child.tag == f"{{{XSD}}}restriction":
+            if child.tag == RESTRICTION:
                 self.visit_simple_content_restriction(child, cls)
-            elif child.tag == f"{{{XSD}}}extension":
+            elif child.tag == EXTENSION:
                 self.visit_simple_content_extension(child, cls)
-            elif child.tag == f"{{{XSD}}}annotation":
+            elif child.tag == ANNOTATION:
                 # Annotations inside simple content are applied to the value slot, not the class
                 value_slot.description = self.visit_annotation(child, value_slot.description)
 
@@ -409,23 +431,23 @@ class XsdImportEngine(ImportEngine):
             slot: the slot to annotate
         """
         for child in el:
-            if child.tag == f"{{{XSD}}}annotation":
+            if child.tag == ANNOTATION:
                 slot.description = self.visit_annotation(child, slot.description)
-            elif child.tag == f"{{{XSD}}}restriction":
+            elif child.tag == RESTRICTION:
                 self.visit_simple_type_restriction(child, slot)
-            elif child.tag == f"{{{XSD}}}list":
+            elif child.tag == LIST:
                 slot.multivalued = True
                 if "itemType" in child.attrib:
                     slot.range = assert_type(child.attrib["itemType"], str)
                 else:
                     slot.range = AnonymousSlotExpression()
                     for list_child in child:
-                        if list_child.tag == f"{{{XSD}}}simpleType":
+                        if list_child.tag == SIMPLE_TYPE:
                             self.visit_simple_type(list_child, slot.range)
                         else:
                             raise ValueError("Only xsd:simpleType is allowed inside xsd:list")
                 raise ValueError("xsd:list must have an itemType attribute or an xsd:simpleType child element")
-            elif child.tag == f"{{{XSD}}}union":
+            elif child.tag == UNION:
                 slot.any_of = []
                 for union_child in child:
                     union_slot = AnonymousSlotExpression()
@@ -439,7 +461,7 @@ class XsdImportEngine(ImportEngine):
         description: str | None = None
 
         for child in el:
-            if child.tag == f"{{{XSD}}}annotation":
+            if child.tag == ANNOTATION:
                 description = self.visit_annotation(child)
 
         return SlotDefinition(
@@ -482,22 +504,22 @@ class XsdImportEngine(ImportEngine):
             cls.is_a = element_to_linkml_type(el, "base")
 
         attributes = assert_type(cls.attributes, Attributes)
-        if el.tag == f"{{{XSD}}}sequence":
+        if el.tag == SEQUENCE:
             attributes |= {
                 slot.name: slot for slot in self.visit_sequence(el)
             }
-        elif el.tag == f"{{{XSD}}}group":
+        elif el.tag == GROUP:
             raise NotImplementedError("xsd:group is not yet supported")
-        elif el.tag == f"{{{XSD}}}all":
+        elif el.tag == ALL:
             raise NotImplementedError("xsd:all is not yet supported")
-        elif el.tag == f"{{{XSD}}}choice":
+        elif el.tag == CHOICE:
             attributes |= {
                 slot.name: slot for slot in self.visit_choice(el)
             }
-        elif el.tag == f"{{{XSD}}}attribute":
+        elif el.tag == ATTRIBUTE:
             slot = self.visit_attribute(el)
             attributes[slot.name] = slot
-        elif el.tag == f"{{{XSD}}}annotation":
+        elif el.tag == ANNOTATION:
             cls.description = self.visit_annotation(el, cls.description)
     
     def visit_complex_content(self, el: etree._Element, cls: ClassDefinition) -> None:
@@ -519,11 +541,11 @@ class XsdImportEngine(ImportEngine):
         """
         #: If we have found an extension or restriction
         for child in el:
-            if child.tag == f"{{{XSD}}}extension":
+            if child.tag == EXTENSION:
                 self.visit_complex_content_child(child, cls)
-            elif child.tag == f"{{{XSD}}}restriction":
+            elif child.tag == RESTRICTION:
                 self.visit_complex_content_child(child, cls)
-            elif child.tag == f"{{{XSD}}}annotation":
+            elif child.tag == ANNOTATION:
                 cls.description = self.visit_annotation(child, cls.description)
                 
     def visit_complex_type(self, el: etree._Element, cls: ClassDefinition) -> None:
@@ -539,10 +561,10 @@ class XsdImportEngine(ImportEngine):
 
         found_content = False
         for child in el:
-            if child.tag == f"{{{XSD}}}complexContent":
+            if child.tag == COMPLEX_CONTENT:
                 self.visit_complex_content(child, cls)
                 found_content = True
-            elif child.tag == f"{{{XSD}}}simpleContent":
+            elif child.tag == SIMPLE_CONTENT:
                 self.visit_simple_content(child, cls)
                 found_content = True
 
@@ -566,11 +588,11 @@ class XsdImportEngine(ImportEngine):
         Converts an xsd:sequence into a list of SlotDefinitions
         """
         for child in el:
-            if child.tag == f"{{{XSD}}}element":
+            if child.tag == ELEMENT:
                 yield self.visit_element(child)
-            elif child.tag == f"{{{XSD}}}choice":
+            elif child.tag == CHOICE:
                 yield from self.visit_choice(child)
-            elif child.tag == f"{{{XSD}}}sequence":
+            elif child.tag == SEQUENCE:
                 yield from self.visit_sequence(child)
             elif isinstance(child, etree._Comment):
                 pass
@@ -588,10 +610,10 @@ class XsdImportEngine(ImportEngine):
 
         attributes: dict[str, SlotDefinition] = {}
         for child in schema:
-            if child.tag == f"{{{XSD}}}element":
+            if child.tag == ELEMENT:
                 definition = self.visit_element(child)
                 attributes[definition.name] = definition
-            elif child.tag == f"{{{XSD}}}complexType":
+            elif child.tag == COMPLEX_TYPE:
                 # complexType can be at the top level
                 cls = ClassDefinition(name=PLACEHOLDER_NAME)
                 self.visit_complex_type(child, cls)
