@@ -17,12 +17,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        python-version: [ "3.9", "3.10" ]
-        exclude:
-          - os: windows-latest
-            python-version: "3.9"
+        python-version: [ "3.9", "3.10", "3.11", "3.12" , "3.13" ]
 
     runs-on: ${{ matrix.os }}
+
+    # Allow Python 3.13 to fail due to scipy not being available yet
+    continue-on-error: ${{ matrix.python-version == '3.13' }}
 
     steps:
 
@@ -57,7 +57,7 @@ jobs:
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}

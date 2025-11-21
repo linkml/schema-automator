@@ -68,6 +68,10 @@ class TestCsvDataGeneralizer(unittest.TestCase):
             (['5.999', '7.955', '7.990', '6.990'], "float"),
             (["2mm", "3m", "4 mm"], "measurement"),
             (["true", "false"], "boolean"),
+            (["2024-01-01", "2023-12-31"], "date"),
+            (["2024-01-01T12:30:00", "2023-12-31T08:15:00"], "datetime"),
+            (["2024-01-01", "2023-12-31T08:15:00"], "datetime"),
+            (["2024-01-01", "not-a-date"], "string"),
         ]
         for values, expected in cases:
             self.assertEqual(infer_range({}, values, {}), expected, f"Failed on {values}")

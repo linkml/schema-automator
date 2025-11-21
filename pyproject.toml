@@ -32,7 +32,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-linkml = "^1.7.4"
+linkml = "^1.9.1"
 pandas = ">=1.3.5"
 python-dateutil = ">=2.8.2"
 quantulum3 = ">=0.7.9"
@@ -45,8 +45,8 @@ oaklib = ">=0.5.25"
 pandera = ">=0.12.0"
 tomlkit = ">=0.11.4"
 inflect = ">=6.0.0"
-schemasheets = ">=0.1.24"
-linkml-runtime = "^1.7.2"
+schemasheets = "^0.4.0"
+linkml-runtime = "^1.9.2"
 duckdb = { version = "^0.10.1", optional = true }
 click = "^8.1.7"
 deprecated = "^1.2.15"
@@ -61,7 +61,7 @@ pydbml = "^1.1.2"
 pyyaml = "^6.0.2"
 llm = {version = "^0.21", optional = true}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = ">=7.1.1"
 Sphinx = ">=4.4.0"
 sphinx-pdj-theme = ">=0.2.1"

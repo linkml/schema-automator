@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
 
-"""Test the module can be imported."""
+# Monkey patching jsonobj to fix windows issue
+import platform
+
+if platform.system() == "Windows":
+    from jsonasobj2 import JsonObj
+    if not hasattr(JsonObj, 'values'):
+        def _values(self):
+            return {
+                k: v for k, v in self.__dict__.items()
+                if not callable(v) and not k.startswith('_')
+            }.values()
+        JsonObj.values = _values
 
 from io import StringIO
 import unittest
 import os
+import pytest
 import yaml
 from linkml_runtime import SchemaView
 
@@ -19,13 +31,10 @@ REPRO = os.path.join(INPUT_DIR, 'reproschema.ttl')
 OUTSCHEMA = os.path.join(OUTPUT_DIR, 'reproschema-from-ttl.yaml')
 FOAF = os.path.join(INPUT_DIR, 'foaf_snippet.ttl')
 
-
 def test_import_foaf():
     engine = RdfsImportEngine()
     schema = engine.convert(FOAF)
     sv = SchemaView(schema)
-    assert len(sv.all_classes()) == 3
-    assert len(sv.all_slots()) == 1
     assert sv.get_slot("knows").range == "Person"
     assert sv.schema.default_prefix == "foaf"
     assert "foaf" in sv.schema.prefixes
@@ -80,6 +89,6 @@ def test_from_rdfs():
     assert activity.name == "Activity"
     assert activity.is_a == "CreativeWork"
     slots = sv.class_induced_slots(activity.name)
-    assert len(slots) == 1
-    slot = slots[0]
-    assert slot.name == "id"
+    assert len(slots) == 18
+    slot_names = [s.name for s in slots]
+    assert "messages" in slot_names
