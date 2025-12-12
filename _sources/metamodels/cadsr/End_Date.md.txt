@@ -29,7 +29,6 @@ Alias: End_Date
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: End_Date
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

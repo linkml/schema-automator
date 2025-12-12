@@ -24,11 +24,9 @@ Alias: format
 
 
 
-
 ## Properties
 
 * Range: [FormatEnum](FormatEnum.md)
-
 
 
 
@@ -41,7 +39,6 @@ Alias: format
 | any |
 
 ## Identifier and Mapping Information
-
 
 
 

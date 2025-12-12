@@ -29,7 +29,6 @@ Alias: Coding_Instruction
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Coding_Instruction
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

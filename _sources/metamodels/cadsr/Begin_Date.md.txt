@@ -29,7 +29,6 @@ Alias: Begin_Date
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Begin_Date
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

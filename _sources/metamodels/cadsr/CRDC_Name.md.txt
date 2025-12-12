@@ -29,7 +29,6 @@ Alias: CRDC_Name
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: CRDC_Name
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

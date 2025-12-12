@@ -24,7 +24,6 @@ Alias: reference
 
 
 
-
 ## Properties
 
 * Range: [Reference](Reference.md)
@@ -32,9 +31,7 @@ Alias: reference
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

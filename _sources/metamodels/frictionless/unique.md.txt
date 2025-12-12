@@ -24,7 +24,6 @@ Alias: unique
 
 
 
-
 ## Properties
 
 * Range: [Boolean](Boolean.md)
@@ -32,9 +31,7 @@ Alias: unique
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

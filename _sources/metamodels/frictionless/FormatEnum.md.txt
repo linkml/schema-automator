@@ -2,7 +2,7 @@
 
 
 
-URI: [FormatEnum](FormatEnum.md)
+URI: [frictionless:format_enum](https://w3id.org/linkml/frictionless/format_enum)
 
 ## Permissible Values
 
@@ -25,9 +25,7 @@ URI: [FormatEnum](FormatEnum.md)
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -10,11 +10,10 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 
 
-
 ```mermaid
  classDiagram
     class Schema
-    click Schema href "../Schema"
+    click Schema href "../Schema/"
       Schema : fields
         
           
@@ -22,7 +21,7 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
         
         
         Schema --> "*" Field : fields
-        click Field href "../Field"
+        click Field href "../Field/"
     
 
         
@@ -33,7 +32,7 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
         
         
         Schema --> "*" ForeignKeys : foreignKeys
-        click ForeignKeys href "../ForeignKeys"
+        click ForeignKeys href "../ForeignKeys/"
     
 
         
@@ -46,7 +45,7 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
         
         
         Schema --> "*" Field : primaryKey
-        click Field href "../Field"
+        click Field href "../Field/"
     
 
         
@@ -83,8 +82,8 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -105,7 +104,6 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 | ---  | ---  |
 | self | frictionless:Schema |
 | native | frictionless:Schema |
-
 
 
 

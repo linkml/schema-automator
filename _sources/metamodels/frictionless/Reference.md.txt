@@ -10,11 +10,10 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 
 
-
 ```mermaid
  classDiagram
     class Reference
-    click Reference href "../Reference"
+    click Reference href "../Reference/"
       Reference : fields
         
           
@@ -22,7 +21,7 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
         
         
         Reference --> "*" Field : fields
-        click Field href "../Field"
+        click Field href "../Field/"
     
 
         
@@ -59,8 +58,8 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -81,7 +80,6 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 | ---  | ---  |
 | self | frictionless:Reference |
 | native | frictionless:Reference |
-
 
 
 

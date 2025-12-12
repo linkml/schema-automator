@@ -10,11 +10,10 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 
 
 
-
 ```mermaid
  classDiagram
     class DataElementgetCRDCListGETResponse
-    click DataElementgetCRDCListGETResponse href "../DataElementgetCRDCListGETResponse"
+    click DataElementgetCRDCListGETResponse href "../DataElementgetCRDCListGETResponse/"
       DataElementgetCRDCListGETResponse : CRDCDataElements
         
           
@@ -22,7 +21,7 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
         
         
         DataElementgetCRDCListGETResponse --> "*" CRDCDataElement : CRDCDataElements
-        click CRDCDataElement href "../CRDCDataElement"
+        click CRDCDataElement href "../CRDCDataElement/"
     
 
         
@@ -49,8 +48,8 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -71,7 +70,6 @@ URI: [cadsr:DataElementgetCRDCListGETResponse](https://example.org/cadsrDataElem
 | ---  | ---  |
 | self | cadsr:DataElementgetCRDCListGETResponse |
 | native | cadsr:DataElementgetCRDCListGETResponse |
-
 
 
 

@@ -29,7 +29,6 @@ Alias: Registration_Status
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Registration_Status
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

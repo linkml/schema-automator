@@ -24,7 +24,6 @@ Alias: PermissibleValues
 
 
 
-
 ## Properties
 
 * Range: [CDEPermissibleValue](CDEPermissibleValue.md)
@@ -34,9 +33,7 @@ Alias: PermissibleValues
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

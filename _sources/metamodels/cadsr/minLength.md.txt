@@ -24,7 +24,6 @@ Alias: minLength
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: minLength
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

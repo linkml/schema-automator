@@ -24,7 +24,6 @@ Alias: permissibleValues
 
 
 
-
 ## Properties
 
 * Range: [PermissibleValue](PermissibleValue.md)
@@ -34,9 +33,7 @@ Alias: permissibleValues
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

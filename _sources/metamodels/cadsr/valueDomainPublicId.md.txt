@@ -29,7 +29,6 @@ Alias: valueDomainPublicId
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: valueDomainPublicId
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

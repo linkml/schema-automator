@@ -24,7 +24,6 @@ Alias: unitOfMeasure
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: unitOfMeasure
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

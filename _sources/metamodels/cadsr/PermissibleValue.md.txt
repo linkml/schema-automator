@@ -15,11 +15,10 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 
 
-
 ```mermaid
  classDiagram
     class PermissibleValue
-    click PermissibleValue href "../PermissibleValue"
+    click PermissibleValue href "../PermissibleValue/"
       PermissibleValue : Begin_Date
         
       PermissibleValue : Concept_Code
@@ -70,8 +69,8 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -92,7 +91,6 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 | ---  | ---  |
 | self | cadsr:PermissibleValue |
 | native | cadsr:PermissibleValue |
-
 
 
 

@@ -24,7 +24,6 @@ Alias: ReferenceDocuments
 
 
 
-
 ## Properties
 
 * Range: [ReferenceDocument](ReferenceDocument.md)
@@ -34,9 +33,7 @@ Alias: ReferenceDocuments
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,13 +24,11 @@ Alias: primaryKey
 
 
 
-
 ## Properties
 
 * Range: [Field](Field.md)
 
 * Multivalued: True
-
 
 
 
@@ -43,7 +41,6 @@ Alias: primaryKey
 | id |
 
 ## Identifier and Mapping Information
-
 
 
 

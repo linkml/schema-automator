@@ -29,7 +29,6 @@ Alias: valueDomainVersion
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: valueDomainVersion
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

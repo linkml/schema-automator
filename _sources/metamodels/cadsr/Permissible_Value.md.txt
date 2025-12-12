@@ -29,7 +29,6 @@ Alias: Permissible_Value
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Permissible_Value
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,7 +24,6 @@ Alias: enum
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
@@ -34,9 +33,7 @@ Alias: enum
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

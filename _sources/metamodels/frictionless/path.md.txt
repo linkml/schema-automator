@@ -24,11 +24,9 @@ Alias: path
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
-
 
 
 
@@ -41,7 +39,6 @@ Alias: path
 | id_namespace.tsv |
 
 ## Identifier and Mapping Information
-
 
 
 

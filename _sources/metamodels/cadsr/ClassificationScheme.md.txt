@@ -10,11 +10,10 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 
 
 
-
 ```mermaid
  classDiagram
     class ClassificationScheme
-    click ClassificationScheme href "../ClassificationScheme"
+    click ClassificationScheme href "../ClassificationScheme/"
       ClassificationScheme : ClassificationSchemeItems
         
           
@@ -22,7 +21,7 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
         
         
         ClassificationScheme --> "*" ClassificationSchemeItem : ClassificationSchemeItems
-        click ClassificationSchemeItem href "../ClassificationSchemeItem"
+        click ClassificationSchemeItem href "../ClassificationSchemeItem/"
     
 
         
@@ -68,8 +67,8 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -90,7 +89,6 @@ URI: [cadsr:ClassificationScheme](https://example.org/cadsrClassificationScheme)
 | ---  | ---  |
 | self | cadsr:ClassificationScheme |
 | native | cadsr:ClassificationScheme |
-
 
 
 

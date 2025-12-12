@@ -24,7 +24,6 @@ Alias: dataType
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: dataType
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

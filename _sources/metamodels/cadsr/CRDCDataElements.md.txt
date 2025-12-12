@@ -24,7 +24,6 @@ Alias: CRDCDataElements
 
 
 
-
 ## Properties
 
 * Range: [CRDCDataElement](CRDCDataElement.md)
@@ -34,9 +33,7 @@ Alias: CRDCDataElements
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,7 +24,6 @@ Alias: ObjectClass
 
 
 
-
 ## Properties
 
 * Range: [ObjectClass](ObjectClass.md)
@@ -39,9 +38,7 @@ Alias: ObjectClass
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

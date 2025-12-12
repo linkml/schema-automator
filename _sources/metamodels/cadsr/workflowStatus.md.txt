@@ -22,16 +22,15 @@ Alias: workflowStatus
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
-| [Property](Property.md) |  |  yes  |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 | [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
 | [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
-
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 
 
 
@@ -45,9 +44,7 @@ Alias: workflowStatus
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

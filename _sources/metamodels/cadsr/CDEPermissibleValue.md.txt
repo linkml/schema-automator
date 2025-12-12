@@ -10,11 +10,10 @@ URI: [cadsr:CDEPermissibleValue](https://example.org/cadsrCDEPermissibleValue)
 
 
 
-
 ```mermaid
  classDiagram
     class CDEPermissibleValue
-    click CDEPermissibleValue href "../CDEPermissibleValue"
+    click CDEPermissibleValue href "../CDEPermissibleValue/"
       CDEPermissibleValue : beginDate
         
       CDEPermissibleValue : createdBy
@@ -46,7 +45,7 @@ URI: [cadsr:CDEPermissibleValue](https://example.org/cadsrCDEPermissibleValue)
         
         
         CDEPermissibleValue --> "0..1" ValueMeaning : ValueMeaning
-        click ValueMeaning href "../ValueMeaning"
+        click ValueMeaning href "../ValueMeaning/"
     
 
         
@@ -92,8 +91,8 @@ URI: [cadsr:CDEPermissibleValue](https://example.org/cadsrCDEPermissibleValue)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -114,7 +113,6 @@ URI: [cadsr:CDEPermissibleValue](https://example.org/cadsrCDEPermissibleValue)
 | ---  | ---  |
 | self | cadsr:CDEPermissibleValue |
 | native | cadsr:CDEPermissibleValue |
-
 
 
 

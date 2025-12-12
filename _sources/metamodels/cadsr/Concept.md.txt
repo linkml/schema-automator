@@ -10,11 +10,10 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 
 
 
-
 ```mermaid
  classDiagram
     class Concept
-    click Concept href "../Concept"
+    click Concept href "../Concept/"
       Concept : conceptCode
         
       Concept : definition
@@ -65,8 +64,8 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -87,7 +86,6 @@ URI: [cadsr:Concept](https://example.org/cadsrConcept)
 | ---  | ---  |
 | self | cadsr:Concept |
 | native | cadsr:Concept |
-
 
 
 

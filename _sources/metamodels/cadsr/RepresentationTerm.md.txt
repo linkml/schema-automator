@@ -24,7 +24,6 @@ Alias: RepresentationTerm
 
 
 
-
 ## Properties
 
 * Range: [RepresentationTerm](RepresentationTerm.md)
@@ -39,9 +38,7 @@ Alias: RepresentationTerm
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

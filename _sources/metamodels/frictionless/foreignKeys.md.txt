@@ -24,13 +24,11 @@ Alias: foreignKeys
 
 
 
-
 ## Properties
 
 * Range: [ForeignKeys](ForeignKeys.md)
 
 * Multivalued: True
-
 
 
 
@@ -43,7 +41,6 @@ Alias: foreignKeys
 | ['$ref:ForeignKeys', '$ref:ForeignKeys'] |
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,7 +24,6 @@ Alias: ValueMeaning
 
 
 
-
 ## Properties
 
 * Range: [ValueMeaning](ValueMeaning.md)
@@ -39,9 +38,7 @@ Alias: ValueMeaning
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

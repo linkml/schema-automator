@@ -24,7 +24,6 @@ Alias: Property
 
 
 
-
 ## Properties
 
 * Range: [Property](Property.md)
@@ -39,9 +38,7 @@ Alias: Property
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -17,10 +17,9 @@ Alias: name
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Resource](Resource.md) |  |  no  |
 | [Package](Package.md) |  |  no  |
+| [Resource](Resource.md) |  |  no  |
 | [Field](Field.md) |  |  no  |
-
 
 
 
@@ -37,7 +36,6 @@ Alias: name
 
 
 
-
 ## Examples
 
 | Value |
@@ -45,7 +43,6 @@ Alias: name
 | description |
 
 ## Identifier and Mapping Information
-
 
 
 

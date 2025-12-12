@@ -2,7 +2,7 @@
 
 
 
-URI: [TypeEnum](TypeEnum.md)
+URI: [frictionless:type_enum](https://w3id.org/linkml/frictionless/type_enum)
 
 ## Permissible Values
 
@@ -28,9 +28,7 @@ URI: [TypeEnum](TypeEnum.md)
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

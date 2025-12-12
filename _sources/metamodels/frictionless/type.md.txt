@@ -24,11 +24,9 @@ Alias: type
 
 
 
-
 ## Properties
 
 * Range: [TypeEnum](TypeEnum.md)
-
 
 
 
@@ -41,7 +39,6 @@ Alias: type
 | string |
 
 ## Identifier and Mapping Information
-
 
 
 

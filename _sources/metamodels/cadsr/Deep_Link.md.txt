@@ -24,7 +24,6 @@ Alias: Deep_Link
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: Deep_Link
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

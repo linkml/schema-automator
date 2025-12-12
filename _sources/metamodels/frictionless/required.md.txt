@@ -24,7 +24,6 @@ Alias: required
 
 
 
-
 ## Properties
 
 * Range: [Boolean](Boolean.md)
@@ -32,9 +31,7 @@ Alias: required
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -25,13 +25,11 @@ Alias: description
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
 
 * Multivalued: True
-
 
 
 
@@ -44,7 +42,6 @@ Alias: description
 | A human-readable description of this identifier namespace |
 
 ## Identifier and Mapping Information
-
 
 
 

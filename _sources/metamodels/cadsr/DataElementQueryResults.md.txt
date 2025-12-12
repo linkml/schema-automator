@@ -17,10 +17,9 @@ Alias: DataElementQueryResults
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
-
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
 
 
 
@@ -36,9 +35,7 @@ Alias: DataElementQueryResults
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

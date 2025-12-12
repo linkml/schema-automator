@@ -24,7 +24,6 @@ Alias: doubleQuote
 
 
 
-
 ## Properties
 
 * Range: [Boolean](Boolean.md)
@@ -32,9 +31,7 @@ Alias: doubleQuote
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

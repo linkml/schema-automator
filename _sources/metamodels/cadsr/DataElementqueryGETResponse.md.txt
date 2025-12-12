@@ -10,11 +10,10 @@ URI: [cadsr:DataElementqueryGETResponse](https://example.org/cadsrDataElementque
 
 
 
-
 ```mermaid
  classDiagram
     class DataElementqueryGETResponse
-    click DataElementqueryGETResponse href "../DataElementqueryGETResponse"
+    click DataElementqueryGETResponse href "../DataElementqueryGETResponse/"
       DataElementqueryGETResponse : DataElementQueryResults
         
           
@@ -22,7 +21,7 @@ URI: [cadsr:DataElementqueryGETResponse](https://example.org/cadsrDataElementque
         
         
         DataElementqueryGETResponse --> "*" DataElementQuery : DataElementQueryResults
-        click DataElementQuery href "../DataElementQuery"
+        click DataElementQuery href "../DataElementQuery/"
     
 
         
@@ -52,8 +51,8 @@ URI: [cadsr:DataElementqueryGETResponse](https://example.org/cadsrDataElementque
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -74,7 +73,6 @@ URI: [cadsr:DataElementqueryGETResponse](https://example.org/cadsrDataElementque
 | ---  | ---  |
 | self | cadsr:DataElementqueryGETResponse |
 | native | cadsr:DataElementqueryGETResponse |
-
 
 
 

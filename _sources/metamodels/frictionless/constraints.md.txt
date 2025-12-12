@@ -24,7 +24,6 @@ Alias: constraints
 
 
 
-
 ## Properties
 
 * Range: [Constraints](Constraints.md)
@@ -32,9 +31,7 @@ Alias: constraints
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

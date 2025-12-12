@@ -24,7 +24,6 @@ Alias: DataElementConcept
 
 
 
-
 ## Properties
 
 * Range: [DataElementConcept](DataElementConcept.md)
@@ -39,9 +38,7 @@ Alias: DataElementConcept
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

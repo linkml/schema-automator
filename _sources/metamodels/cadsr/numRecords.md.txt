@@ -17,10 +17,9 @@ Alias: numRecords
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
-
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
 
 
 
@@ -34,9 +33,7 @@ Alias: numRecords
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

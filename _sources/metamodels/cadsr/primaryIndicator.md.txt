@@ -24,7 +24,6 @@ Alias: primaryIndicator
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: primaryIndicator
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,7 +24,6 @@ Alias: maxValue
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: maxValue
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

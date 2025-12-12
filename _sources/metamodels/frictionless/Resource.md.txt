@@ -10,11 +10,10 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 
 
 
-
 ```mermaid
  classDiagram
     class Resource
-    click Resource href "../Resource"
+    click Resource href "../Resource/"
       Resource : description
         
       Resource : dialect
@@ -30,7 +29,7 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
         
         
         Resource --> "0..1" ProfileEnum : profile
-        click ProfileEnum href "../ProfileEnum"
+        click ProfileEnum href "../ProfileEnum/"
     
 
         
@@ -41,7 +40,7 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
         
         
         Resource --> "0..1" Schema : schema
-        click Schema href "../Schema"
+        click Schema href "../Schema/"
     
 
         
@@ -83,8 +82,8 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -105,7 +104,6 @@ URI: [frictionless:Resource](https://w3id.org/linkml/frictionless/Resource)
 | ---  | ---  |
 | self | frictionless:Resource |
 | native | frictionless:Resource |
-
 
 
 

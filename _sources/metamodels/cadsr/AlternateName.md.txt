@@ -10,11 +10,10 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 
 
-
 ```mermaid
  classDiagram
     class AlternateName
-    click AlternateName href "../AlternateName"
+    click AlternateName href "../AlternateName/"
       AlternateName : context
         
       AlternateName : name
@@ -53,8 +52,8 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -75,7 +74,6 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 | ---  | ---  |
 | self | cadsr:AlternateName |
 | native | cadsr:AlternateName |
-
 
 
 

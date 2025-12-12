@@ -29,7 +29,6 @@ Alias: Version
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Version
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

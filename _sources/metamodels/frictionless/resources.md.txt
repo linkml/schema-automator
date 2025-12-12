@@ -24,7 +24,6 @@ Alias: resources
 
 
 
-
 ## Properties
 
 * Range: [Resource](Resource.md)
@@ -34,9 +33,7 @@ Alias: resources
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -29,7 +29,6 @@ Alias: contextName
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: contextName
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

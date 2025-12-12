@@ -26,13 +26,11 @@ Alias: fields
 
 
 
-
 ## Properties
 
 * Range: [Field](Field.md)
 
 * Multivalued: True
-
 
 
 
@@ -45,7 +43,6 @@ Alias: fields
 | id |
 
 ## Identifier and Mapping Information
-
 
 
 

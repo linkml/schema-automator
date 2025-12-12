@@ -29,7 +29,6 @@ Alias: dataElementConceptPublicId
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: dataElementConceptPublicId
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

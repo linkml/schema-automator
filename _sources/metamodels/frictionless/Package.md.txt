@@ -10,11 +10,10 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 
 
-
 ```mermaid
  classDiagram
     class Package
-    click Package href "../Package"
+    click Package href "../Package/"
       Package : name
         
       Package : profile
@@ -24,7 +23,7 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
         
         
         Package --> "0..1" ProfileEnum : profile
-        click ProfileEnum href "../ProfileEnum"
+        click ProfileEnum href "../ProfileEnum/"
     
 
         
@@ -35,7 +34,7 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
         
         
         Package --> "*" Resource : resources
-        click Resource href "../Resource"
+        click Resource href "../Resource/"
     
 
         
@@ -67,8 +66,8 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -89,7 +88,6 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 | ---  | ---  |
 | self | frictionless:Package |
 | native | frictionless:Package |
-
 
 
 

@@ -24,11 +24,9 @@ Alias: constraint_name
 
 
 
-
 ## Properties
 
 * Range: NONE
-
 
 
 
@@ -41,7 +39,6 @@ Alias: constraint_name
 | dcc_project_fkey |
 
 ## Identifier and Mapping Information
-
 
 
 

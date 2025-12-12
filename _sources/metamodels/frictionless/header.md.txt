@@ -24,7 +24,6 @@ Alias: header
 
 
 
-
 ## Properties
 
 * Range: [Boolean](Boolean.md)
@@ -32,9 +31,7 @@ Alias: header
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

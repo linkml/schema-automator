@@ -24,7 +24,6 @@ Alias: definition
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: definition
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

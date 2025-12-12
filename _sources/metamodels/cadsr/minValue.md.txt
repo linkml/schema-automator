@@ -24,7 +24,6 @@ Alias: minValue
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: minValue
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

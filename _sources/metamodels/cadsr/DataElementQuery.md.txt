@@ -10,11 +10,10 @@ URI: [cadsr:DataElementQuery](https://example.org/cadsrDataElementQuery)
 
 
 
-
 ```mermaid
  classDiagram
     class DataElementQuery
-    click DataElementQuery href "../DataElementQuery"
+    click DataElementQuery href "../DataElementQuery/"
       DataElementQuery : administrativeNotes
         
       DataElementQuery : beginDate
@@ -124,8 +123,8 @@ URI: [cadsr:DataElementQuery](https://example.org/cadsrDataElementQuery)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -146,7 +145,6 @@ URI: [cadsr:DataElementQuery](https://example.org/cadsrDataElementQuery)
 | ---  | ---  |
 | self | cadsr:DataElementQuery |
 | native | cadsr:DataElementQuery |
-
 
 
 

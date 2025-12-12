@@ -29,7 +29,6 @@ Alias: VD_Type
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: VD_Type
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

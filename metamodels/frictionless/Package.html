@@ -35,7 +35,7 @@
 <p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/Package">frictionless:Package</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class Package
-    click Package href &quot;../Package&quot;
+    click Package href &quot;../Package/&quot;
       Package : name
         
       Package : profile
@@ -45,7 +45,7 @@
         
         
         Package --&gt; &quot;0..1&quot; ProfileEnum : profile
-        click ProfileEnum href &quot;../ProfileEnum&quot;
+        click ProfileEnum href &quot;../ProfileEnum/&quot;
     
 
         
@@ -56,7 +56,7 @@
         
         
         Package --&gt; &quot;*&quot; Resource : resources
-        click Resource href &quot;../Resource&quot;
+        click Resource href &quot;../Resource/&quot;
     
 
         

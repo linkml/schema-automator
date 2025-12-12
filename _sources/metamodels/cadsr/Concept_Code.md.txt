@@ -24,7 +24,6 @@ Alias: Concept_Code
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: Concept_Code
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

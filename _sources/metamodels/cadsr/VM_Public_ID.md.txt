@@ -29,7 +29,6 @@ Alias: VM_Public_ID
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: VM_Public_ID
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

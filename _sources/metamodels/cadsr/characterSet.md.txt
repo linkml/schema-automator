@@ -24,7 +24,6 @@ Alias: characterSet
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: characterSet
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -10,11 +10,10 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 
 
-
 ```mermaid
  classDiagram
     class Constraints
-    click Constraints href "../Constraints"
+    click Constraints href "../Constraints/"
       Constraints : pattern
         
       Constraints : required
@@ -53,8 +52,8 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -75,7 +74,6 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 | ---  | ---  |
 | self | frictionless:Constraints |
 | native | frictionless:Constraints |
-
 
 
 

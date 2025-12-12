@@ -29,7 +29,6 @@ Alias: Workflow_Status
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Workflow_Status
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

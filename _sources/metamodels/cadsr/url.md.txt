@@ -24,7 +24,6 @@ Alias: url
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: url
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,7 +24,6 @@ Alias: lineTerminator
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
@@ -32,9 +31,7 @@ Alias: lineTerminator
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

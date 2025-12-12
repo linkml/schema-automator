@@ -10,11 +10,10 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 
 
-
 ```mermaid
  classDiagram
     class Field
-    click Field href "../Field"
+    click Field href "../Field/"
       Field : constraints
         
           
@@ -22,7 +21,7 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
         
         
         Field --> "0..1" Constraints : constraints
-        click Constraints href "../Constraints"
+        click Constraints href "../Constraints/"
     
 
         
@@ -37,7 +36,7 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
         
         
         Field --> "0..1" FormatEnum : format
-        click FormatEnum href "../FormatEnum"
+        click FormatEnum href "../FormatEnum/"
     
 
         
@@ -50,7 +49,7 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
         
         
         Field --> "0..1" TypeEnum : type
-        click TypeEnum href "../TypeEnum"
+        click TypeEnum href "../TypeEnum/"
     
 
         
@@ -92,8 +91,8 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -114,7 +113,6 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 | ---  | ---  |
 | self | frictionless:Field |
 | native | frictionless:Field |
-
 
 
 

@@ -10,11 +10,10 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 
 
-
 ```mermaid
  classDiagram
     class DataElementqueryConceptGETResponse
-    click DataElementqueryConceptGETResponse href "../DataElementqueryConceptGETResponse"
+    click DataElementqueryConceptGETResponse href "../DataElementqueryConceptGETResponse/"
       DataElementqueryConceptGETResponse : DataElementQueryResults
         
           
@@ -22,7 +21,7 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
         
         
         DataElementqueryConceptGETResponse --> "*" DataElementQuery : DataElementQueryResults
-        click DataElementQuery href "../DataElementQuery"
+        click DataElementQuery href "../DataElementQuery/"
     
 
         
@@ -52,8 +51,8 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -74,7 +73,6 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 | ---  | ---  |
 | self | cadsr:DataElementqueryConceptGETResponse |
 | native | cadsr:DataElementqueryConceptGETResponse |
-
 
 
 

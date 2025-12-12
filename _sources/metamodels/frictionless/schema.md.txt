@@ -24,7 +24,6 @@ Alias: schema
 
 
 
-
 ## Properties
 
 * Range: [Schema](Schema.md)
@@ -32,9 +31,7 @@ Alias: schema
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

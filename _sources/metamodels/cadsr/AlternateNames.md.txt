@@ -24,7 +24,6 @@ Alias: AlternateNames
 
 
 
-
 ## Properties
 
 * Range: [AlternateName](AlternateName.md)
@@ -34,9 +33,7 @@ Alias: AlternateNames
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

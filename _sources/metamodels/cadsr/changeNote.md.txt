@@ -29,7 +29,6 @@ Alias: changeNote
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: changeNote
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

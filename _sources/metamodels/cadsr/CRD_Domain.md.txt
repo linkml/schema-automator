@@ -29,7 +29,6 @@ Alias: CRD_Domain
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: CRD_Domain
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

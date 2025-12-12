@@ -24,7 +24,6 @@ Alias: ValueDomain
 
 
 
-
 ## Properties
 
 * Range: [ValueDomain](ValueDomain.md)
@@ -39,9 +38,7 @@ Alias: ValueDomain
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

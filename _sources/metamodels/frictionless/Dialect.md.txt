@@ -10,11 +10,10 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 
 
-
 ```mermaid
  classDiagram
     class Dialect
-    click Dialect href "../Dialect"
+    click Dialect href "../Dialect/"
       Dialect : delimiter
         
       Dialect : doubleQuote
@@ -52,8 +51,8 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -74,7 +73,6 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 | ---  | ---  |
 | self | frictionless:Dialect |
 | native | frictionless:Dialect |
-
 
 
 

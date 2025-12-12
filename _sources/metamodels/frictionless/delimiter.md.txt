@@ -24,7 +24,6 @@ Alias: delimiter
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
@@ -32,9 +31,7 @@ Alias: delimiter
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

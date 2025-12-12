@@ -22,18 +22,17 @@ Alias: version
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
-| [Property](Property.md) |  |  yes  |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
-
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 
 
 
@@ -47,9 +46,7 @@ Alias: version
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -10,11 +10,10 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 
 
-
 ```mermaid
  classDiagram
     class CRDCDataElement
-    click CRDCDataElement href "../CRDCDataElement"
+    click CRDCDataElement href "../CRDCDataElement/"
       CRDCDataElement : CDE_Long_Name
         
       CRDCDataElement : CDE_Public_ID
@@ -42,7 +41,7 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
         
         
         CRDCDataElement --> "*" PermissibleValue : permissibleValues
-        click PermissibleValue href "../PermissibleValue"
+        click PermissibleValue href "../PermissibleValue/"
     
 
         
@@ -101,8 +100,8 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -123,7 +122,6 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 | ---  | ---  |
 | self | cadsr:CRDCDataElement |
 | native | cadsr:CRDCDataElement |
-
 
 
 

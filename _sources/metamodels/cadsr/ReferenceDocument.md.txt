@@ -10,11 +10,10 @@ URI: [cadsr:ReferenceDocument](https://example.org/cadsrReferenceDocument)
 
 
 
-
 ```mermaid
  classDiagram
     class ReferenceDocument
-    click ReferenceDocument href "../ReferenceDocument"
+    click ReferenceDocument href "../ReferenceDocument/"
       ReferenceDocument : context
         
       ReferenceDocument : description
@@ -59,8 +58,8 @@ URI: [cadsr:ReferenceDocument](https://example.org/cadsrReferenceDocument)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -81,7 +80,6 @@ URI: [cadsr:ReferenceDocument](https://example.org/cadsrReferenceDocument)
 | ---  | ---  |
 | self | cadsr:ReferenceDocument |
 | native | cadsr:ReferenceDocument |
-
 
 
 

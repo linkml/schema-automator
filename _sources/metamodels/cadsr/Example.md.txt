@@ -29,7 +29,6 @@ Alias: Example
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: Example
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

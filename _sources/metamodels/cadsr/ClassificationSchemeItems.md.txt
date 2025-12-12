@@ -24,7 +24,6 @@ Alias: ClassificationSchemeItems
 
 
 
-
 ## Properties
 
 * Range: [ClassificationSchemeItem](ClassificationSchemeItem.md)
@@ -34,9 +33,7 @@ Alias: ClassificationSchemeItems
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

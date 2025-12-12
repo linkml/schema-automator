@@ -10,11 +10,10 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 
 
-
 ```mermaid
  classDiagram
     class DataElementContainer
-    click DataElementContainer href "../DataElementContainer"
+    click DataElementContainer href "../DataElementContainer/"
       DataElementContainer : DataElement
         
           
@@ -22,7 +21,7 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
         
         
         DataElementContainer --> "0..1" DataElement : DataElement
-        click DataElement href "../DataElement"
+        click DataElement href "../DataElement/"
     
 
         
@@ -49,8 +48,8 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 
 
-## Identifier and Mapping Information
 
+## Identifier and Mapping Information
 
 
 
@@ -71,7 +70,6 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 | ---  | ---  |
 | self | cadsr:DataElementContainer |
 | native | cadsr:DataElementContainer |
-
 
 
 

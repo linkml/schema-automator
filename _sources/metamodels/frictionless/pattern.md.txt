@@ -24,7 +24,6 @@ Alias: pattern
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -32,9 +31,7 @@ Alias: pattern
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

@@ -24,11 +24,9 @@ Alias: resource
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
-
 
 
 
@@ -41,7 +39,6 @@ Alias: resource
 | gene |
 
 ## Identifier and Mapping Information
-
 
 
 

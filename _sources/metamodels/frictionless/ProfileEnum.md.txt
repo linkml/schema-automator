@@ -2,7 +2,7 @@
 
 
 
-URI: [ProfileEnum](ProfileEnum.md)
+URI: [frictionless:profile_enum](https://w3id.org/linkml/frictionless/profile_enum)
 
 ## Permissible Values
 
@@ -24,9 +24,7 @@ URI: [ProfileEnum](ProfileEnum.md)
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

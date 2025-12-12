@@ -29,7 +29,6 @@ Alias: VM_Description
 
 
 
-
 ## Properties
 
 * Range: NONE
@@ -37,9 +36,7 @@ Alias: VM_Description
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

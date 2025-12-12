@@ -24,7 +24,6 @@ Alias: dialect
 
 
 
-
 ## Properties
 
 * Range: [String](String.md)
@@ -32,9 +31,7 @@ Alias: dialect
 
 
 
-
 ## Identifier and Mapping Information
-
 
 
 

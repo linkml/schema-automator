@@ -17,9 +17,8 @@ Alias: profile
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Resource](Resource.md) |  |  no  |
 | [Package](Package.md) |  |  no  |
-
+| [Resource](Resource.md) |  |  no  |
 
 
 
@@ -34,7 +33,6 @@ Alias: profile
 
 
 
-
 ## Examples
 
 | Value |
@@ -42,7 +40,6 @@ Alias: profile
 | tabular-data-resource |
 
 ## Identifier and Mapping Information
-
 
 
 
