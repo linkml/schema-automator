@@ -21,8 +21,6 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    continue-on-error: ${{ matrix.python-version == '3.14' }}
-
     steps:
 
       #----------------------------------------------
@@ -80,17 +78,6 @@ jobs:
 #         #   poetry-version: ${{ matrix.poetry-version }}
 #       - name: View poetry --help
 #         run: poetry --help
-
-      - name: Check Python build info
-        run: |
-          poetry run python -c "import sys; print(sys.version); import sysconfig; print('GIL disabled:', sysconfig.get_config_var('Py_GIL_DISABLED'))"
-
-      - name: Diagnose C extension imports
-        run: |
-          poetry run python -c "import lxml; print('lxml OK:', lxml.__version__)"
-          poetry run python -c "import numpy; print('numpy OK:', numpy.__version__)"
-          poetry run python -c "import greenlet; print('greenlet OK:', greenlet.__version__)"
-          poetry run python -c "import rdflib; print('rdflib OK:', rdflib.__version__)"
 
       - name: Run test suite
         run: |
