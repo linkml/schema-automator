@@ -274,7 +274,7 @@ class CsvDataGeneralizer(Generalizer):
         :return:
         """
         with open(file, newline='', encoding='utf-8') as tsv_file:
-            header = [h.strip() for h in tsv_file.readline().split('\t')]
+            header = [h.strip() for h in tsv_file.readline().split(self.column_separator)]
             rr = csv.DictReader(tsv_file, fieldnames=header, delimiter=self.column_separator, skipinitialspace=False)
             return self.convert_dicts([r for r in rr], **kwargs)
 
