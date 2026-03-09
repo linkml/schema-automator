@@ -19,8 +19,8 @@ Alias: Concepts
 | --- | --- | --- |
 | [Property](Property.md) |  |  yes  |
 | [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 | [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 
 
 

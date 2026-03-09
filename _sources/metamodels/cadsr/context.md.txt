@@ -17,18 +17,18 @@ Alias: context
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementConcept](DataElementConcept.md) |  |  yes  |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
 | [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
 | [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [AlternateName](AlternateName.md) |  |  yes  |
 | [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
-| [AlternateName](AlternateName.md) |  |  yes  |
-| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
-| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-| [Property](Property.md) |  |  yes  |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 
 
 
