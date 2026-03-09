@@ -4,7 +4,7 @@ Installation
 Direct Installation
 -------------------
 
-``schema-automator`` and its components require Python 3.9 or greater.
+``schema-automator`` and its components require Python 3.10 or greater.
 
 .. code:: bash
 
