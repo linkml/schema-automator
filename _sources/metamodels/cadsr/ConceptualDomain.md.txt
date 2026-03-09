@@ -17,8 +17,8 @@ Alias: ConceptualDomain
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 

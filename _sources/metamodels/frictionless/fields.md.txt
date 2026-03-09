@@ -17,9 +17,9 @@ Alias: fields
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Schema](Schema.md) |  |  yes  |
-| [Reference](Reference.md) |  |  yes  |
 | [ForeignKeys](ForeignKeys.md) |  |  yes  |
+| [Reference](Reference.md) |  |  yes  |
+| [Schema](Schema.md) |  |  yes  |
 
 
 
