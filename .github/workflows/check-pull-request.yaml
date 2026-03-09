@@ -17,12 +17,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        python-version: [ "3.9", "3.10", "3.11", "3.12" , "3.13" ]
+        python-version: [ "3.10", "3.11", "3.12", "3.13", "3.14" ]
 
     runs-on: ${{ matrix.os }}
-
-    # Allow Python 3.13 to fail due to scipy not being available yet
-    continue-on-error: ${{ matrix.python-version == '3.13' }}
 
     steps:
 
@@ -30,10 +27,10 @@ jobs:
       #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -57,7 +54,7 @@ jobs:
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
