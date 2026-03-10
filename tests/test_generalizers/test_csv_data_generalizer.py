@@ -114,6 +114,29 @@ class TestCsvDataGeneralizer(unittest.TestCase):
         write_schema(schema)
 
 
+    def test_infer_optional(self):
+        rows = [
+            {"id": "1", "name": "Fido", "age": "3", "notes": "friendly"},
+            {"id": "2", "name": "Rover", "age": "", "notes": ""},
+            {"id": "3", "name": "Buster", "age": "2", "notes": None},
+        ]
+        ie = CsvDataGeneralizer(infer_optional=True)
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        slots = schema.slots
+        self.assertFalse(slots["age"].required)
+        self.assertFalse(slots["notes"].required)
+        self.assertIsNone(slots["name"].required)
+        self.assertIsNone(slots["id"].required)
+
+    def test_infer_optional_off_by_default(self):
+        rows = [
+            {"id": "1", "name": "Fido", "age": "3"},
+            {"id": "2", "name": "Rover", "age": ""},
+        ]
+        ie = CsvDataGeneralizer()
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        self.assertIsNone(schema.slots["age"].required)
+
     def _convert(self, base_name: str, cn='Example', index_slot='examples') -> SchemaDefinition:
         ie = CsvDataGeneralizer()
         fn = f'{base_name}.tsv'
