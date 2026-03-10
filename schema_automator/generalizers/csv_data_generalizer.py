@@ -113,6 +113,9 @@ class CsvDataGeneralizer(Generalizer):
     infer_optional: bool = False
     """If true, mark slots as not required when columns have null or empty values"""
 
+    infer_mixed_types: bool = False
+    """If true, use any_of to represent columns with mixed types instead of collapsing to string"""
+
     def infer_linkages(self, files: List[str], **kwargs) -> List[ForeignKey]:
         """
         Heuristic procedure for determining which tables are linked to others via implicit foreign keys
@@ -443,11 +446,17 @@ class CsvDataGeneralizer(Generalizer):
             if self.source_schema:
                 if sn in self.source_schema.slots:
                     s['description'] = self.source_schema.slots[sn].description
-            s['range'] = infer_range(s, vals, types)
-            logging.info(f"Slot {sn} has range {s['range']}")
+            mixed = infer_mixed_range(vals) if self.infer_mixed_types else None
+            if mixed:
+                s['any_of'] = [{'range': t} for t in mixed]
+                del s['range']
+                logging.info(f"Slot {sn} has mixed types: {mixed}")
+            else:
+                s['range'] = infer_range(s, vals, types)
+                logging.info(f"Slot {sn} has range {s['range']}")
             if self.infer_optional and sn in slot_has_nulls and not s.get('identifier'):
                 s['required'] = False
-            if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
+            if 'any_of' not in s and (s.get('range') == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 filtered_vals = \
                     [v
                      for v in slot_values[sn]
@@ -675,6 +684,31 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
             types[t] = {'typeof': 'string'}
             return t
     return 'string'
+
+
+def _classify_value(v) -> str:
+    if isinstance(v, int) or isinteger(v):
+        return 'integer'
+    if isinstance(v, float) or isfloat(v):
+        return 'float'
+    if isboolean(v):
+        return 'boolean'
+    dt = is_date_or_datetime(v)
+    if dt in ('date', 'datetime'):
+        return dt
+    return 'string'
+
+
+def infer_mixed_range(vals: set) -> Optional[List[str]]:
+    nn_vals = [v for v in vals if v is not None and v != ""]
+    if len(nn_vals) == 0:
+        return None
+    types_found = set()
+    for v in nn_vals:
+        types_found.add(_classify_value(v))
+    if len(types_found) <= 1:
+        return None
+    return sorted(types_found)
 
 
 def get_db(db_id: str) -> Optional[str]:

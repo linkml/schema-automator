@@ -71,6 +71,7 @@ downcase_header_option = click.option('--downcase-header/--no-downcase-header', 
 snakecase_header_option = click.option('--snakecase-header/--no-snakecase-header', default=False, help='if true make headers snakecase')
 infer_foreign_keys_option = click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
 infer_optional_option = click.option('--infer-optional/--no-infer-optional', default=False, help='mark slots as not required when columns have null or empty values (ignored in pandera mode)')
+infer_mixed_types_option = click.option('--infer-mixed-types/--no-infer-mixed-types', default=False, help='use any_of to represent columns with mixed types')
 enum_columns_option = click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
 enum_mask_columns_option = click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 max_enum_size_option = click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
@@ -121,6 +122,7 @@ def main(verbose: int, quiet: bool):
 @enum_threshold_option
 @max_enum_size_option
 @infer_optional_option
+@infer_mixed_types_option
 @click.option('--data-dictionary-row-count',
               type=click.INT,
               help='rows that provide metadata about columns')
@@ -160,6 +162,7 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 @enum_threshold_option
 @max_enum_size_option
 @infer_optional_option
+@infer_mixed_types_option
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
@@ -189,6 +192,7 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
 @enum_threshold_option
 @max_enum_size_option
 @infer_optional_option
+@infer_mixed_types_option
 @click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
 @click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
 @click.option('--data-output', help='Path to file of downloaded data')

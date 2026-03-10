@@ -137,6 +137,39 @@ class TestCsvDataGeneralizer(unittest.TestCase):
         schema = ie.convert_dicts(rows, "test", "Pet")
         self.assertIsNone(schema.slots["age"].required)
 
+    def test_infer_mixed_types(self):
+        rows = [
+            {"id": "1", "name": "Fido", "score": "3"},
+            {"id": "2", "name": "Rover", "score": "high"},
+            {"id": "3", "name": "Buster", "score": "5"},
+        ]
+        ie = CsvDataGeneralizer(infer_mixed_types=True)
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        slot = schema.slots["score"]
+        self.assertIsNone(slot.range)
+        any_of_ranges = [expr.range for expr in slot.any_of]
+        self.assertCountEqual(any_of_ranges, ["integer", "string"])
+
+    def test_infer_mixed_types_homogeneous(self):
+        rows = [
+            {"id": "1", "val": "10"},
+            {"id": "2", "val": "20"},
+        ]
+        ie = CsvDataGeneralizer(infer_mixed_types=True)
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        self.assertEqual(schema.slots["val"].range, "integer")
+        self.assertEqual(len(schema.slots["val"].any_of), 0)
+
+    def test_infer_mixed_types_off_by_default(self):
+        rows = [
+            {"id": "1", "score": "3"},
+            {"id": "2", "score": "high"},
+        ]
+        ie = CsvDataGeneralizer()
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        self.assertEqual(schema.slots["score"].range, "string")
+        self.assertEqual(len(schema.slots["score"].any_of), 0)
+
     def _convert(self, base_name: str, cn='Example', index_slot='examples') -> SchemaDefinition:
         ie = CsvDataGeneralizer()
         fn = f'{base_name}.tsv'
