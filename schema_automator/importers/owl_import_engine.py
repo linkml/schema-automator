@@ -160,6 +160,13 @@ class OwlImportEngine(ImportEngine):
                             lit = lit.literal
                         set_slot_usage(p, 'equals_string', str(lit))
                         #slot_usage_map[child][p]['equals_string'] = str(lit)
+                    elif isinstance(a.superClassExpression, ObjectHasValue):
+                        x = a.superClassExpression
+                        p = self.iri_to_name(x.objectPropertyExpression)
+                        # Get the individual name
+                        individual_name = self.iri_to_name(x.individual)
+                        # Store as equals_string constraint (LinkML doesn't have object equals, so we use string)
+                        set_slot_usage(p, 'equals_string', individual_name)
                     else:
                         logging.error(f"cannot handle anon parent classes for {a}")
                 else:
