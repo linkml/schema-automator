@@ -110,6 +110,9 @@ class CsvDataGeneralizer(Generalizer):
     source_schema: Optional[SchemaDefinition] = None
     """Optional base schema to draw from"""
 
+    infer_optional: bool = False
+    """If true, mark slots as not required when columns have null or empty values"""
+
     def infer_linkages(self, files: List[str], **kwargs) -> List[ForeignKey]:
         """
         Heuristic procedure for determining which tables are linked to others via implicit foreign keys
@@ -369,6 +372,9 @@ class CsvDataGeneralizer(Generalizer):
         slot_values: Dict[str, List[Any]] = defaultdict(list)
         """all values for each slot"""
 
+        slot_has_nulls: Set[str] = set()
+        """slots that have at least one null or empty value"""
+
         n = 0
         enums = {}
         robot_defs = {}
@@ -411,6 +417,8 @@ class CsvDataGeneralizer(Generalizer):
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_distinct_values[k] = set()
+                if v == "":
+                    slot_has_nulls.add(k)
                 if v is not None and v != "" and not str(v).startswith('$ref:'):
                     slots[k]['examples'] = [{'value': v}]
                     slot_distinct_values[k].update(vs)
@@ -437,6 +445,8 @@ class CsvDataGeneralizer(Generalizer):
                     s['description'] = self.source_schema.slots[sn].description
             s['range'] = infer_range(s, vals, types)
             logging.info(f"Slot {sn} has range {s['range']}")
+            if self.infer_optional and sn in slot_has_nulls and not s.get('identifier'):
+                s['required'] = False
             if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 filtered_vals = \
                     [v
