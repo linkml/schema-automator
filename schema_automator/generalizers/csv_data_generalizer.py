@@ -417,7 +417,7 @@ class CsvDataGeneralizer(Generalizer):
                 if k not in slots:
                     slots[k] = {'range': None}
                     slot_distinct_values[k] = set()
-                if v is None or v == "":
+                if v == "":
                     slot_has_nulls.add(k)
                 if v is not None and v != "" and not str(v).startswith('$ref:'):
                     slots[k]['examples'] = [{'value': v}]
@@ -445,7 +445,7 @@ class CsvDataGeneralizer(Generalizer):
                     s['description'] = self.source_schema.slots[sn].description
             s['range'] = infer_range(s, vals, types)
             logging.info(f"Slot {sn} has range {s['range']}")
-            if self.infer_optional and sn in slot_has_nulls:
+            if self.infer_optional and sn in slot_has_nulls and not s.get('identifier'):
                 s['required'] = False
             if (s['range'] == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 filtered_vals = \

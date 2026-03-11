@@ -70,7 +70,7 @@ column_separator_option = click.option('--column-separator', '-s', default='\t',
 downcase_header_option = click.option('--downcase-header/--no-downcase-header', default=False, help='if true make headers lowercase')
 snakecase_header_option = click.option('--snakecase-header/--no-snakecase-header', default=False, help='if true make headers snakecase')
 infer_foreign_keys_option = click.option('--infer-foreign-keys/--no-infer-foreign-keys', default=False, help='infer ranges/foreign keys')
-infer_optional_option = click.option('--infer-optional/--no-infer-optional', default=False, help='mark slots as not required when columns have null or empty values')
+infer_optional_option = click.option('--infer-optional/--no-infer-optional', default=False, help='mark slots as not required when columns have null or empty values (ignored in pandera mode)')
 enum_columns_option = click.option('--enum-columns', '-E', multiple=True, help='column(s) that is forced to be an enum')
 enum_mask_columns_option = click.option('--enum-mask-columns', multiple=True, help='column(s) that are excluded from being enums')
 max_enum_size_option = click.option('--max-enum-size', default=50, help='do not create an enum if more than max distinct members')
