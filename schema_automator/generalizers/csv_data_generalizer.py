@@ -687,12 +687,12 @@ def infer_range(slot: dict, vals: set, types: dict, coerce=True) -> str:
 
 
 def _classify_value(v) -> str:
+    if isinstance(v, bool) or isboolean(v):
+        return 'boolean'
     if isinstance(v, int) or isinteger(v):
         return 'integer'
     if isinstance(v, float) or isfloat(v):
         return 'float'
-    if isboolean(v):
-        return 'boolean'
     dt = is_date_or_datetime(v)
     if dt in ('date', 'datetime'):
         return dt
