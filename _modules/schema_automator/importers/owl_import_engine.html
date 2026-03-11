@@ -495,6 +495,13 @@ window.addEventListener("load", initFullscreen);
                             <span class="n">lit</span> <span class="o">=</span> <span class="n">lit</span><span class="o">.</span><span class="n">literal</span>
                         <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;equals_string&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lit</span><span class="p">))</span>
                         <span class="c1">#slot_usage_map[child][p][&#39;equals_string&#39;] = str(lit)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span><span class="p">,</span> <span class="n">ObjectHasValue</span><span class="p">):</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">superClassExpression</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">objectPropertyExpression</span><span class="p">)</span>
+                        <span class="c1"># Get the individual name</span>
+                        <span class="n">individual_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iri_to_name</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span>
+                        <span class="c1"># Store as equals_string constraint (LinkML doesn&#39;t have object equals, so we use string)</span>
+                        <span class="n">set_slot_usage</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;equals_string&#39;</span><span class="p">,</span> <span class="n">individual_name</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cannot handle anon parent classes for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>

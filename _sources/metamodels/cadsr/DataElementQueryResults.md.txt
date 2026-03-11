@@ -17,9 +17,9 @@ Alias: DataElementQueryResults
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 | [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 
 
 
