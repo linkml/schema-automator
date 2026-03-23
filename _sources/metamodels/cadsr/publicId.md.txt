@@ -22,18 +22,18 @@ Alias: publicId
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
-| [Property](Property.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 | [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
-| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [CDEPermissibleValue](CDEPermissibleValue.md) |  |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
 
 
 

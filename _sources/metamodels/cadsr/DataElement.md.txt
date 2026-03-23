@@ -17,8 +17,8 @@ Alias: DataElement
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementContainer](DataElementContainer.md) |  |  no  |
 | [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |  |  yes  |
+| [DataElementContainer](DataElementContainer.md) |  |  no  |
 
 
 
