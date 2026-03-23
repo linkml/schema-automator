@@ -116,6 +116,9 @@ class CsvDataGeneralizer(Generalizer):
     infer_mixed_types: bool = False
     """If true, use any_of to represent columns with mixed types instead of collapsing to string"""
 
+    infer_enum_from_integers: bool = False
+    """If true, treat low-cardinality integer columns as enum candidates"""
+
     def infer_linkages(self, files: List[str], **kwargs) -> List[ForeignKey]:
         """
         Heuristic procedure for determining which tables are linked to others via implicit foreign keys
@@ -456,6 +459,21 @@ class CsvDataGeneralizer(Generalizer):
                 logging.info(f"Slot {sn} has range {s['range']}")
             if self.infer_optional and sn in slot_has_nulls and not s.get('identifier'):
                 s['required'] = False
+            if (self.infer_enum_from_integers
+                    and s.get('range') == 'integer'
+                    and sn not in enum_mask_columns
+                    and not s.get('identifier')):
+                n_distinct = len(vals)
+                n_total = len(slot_values[sn]) + 1
+                if (sn in enum_columns
+                        or ((n_distinct / n_total) < self.enum_threshold
+                            and 0 < n_distinct <= self.max_enum_size)):
+                    enum_name = sn.replace(' ', '_').replace('(s)', '') + '_enum'
+                    s['range'] = enum_name
+                    enums[enum_name] = {
+                        'permissible_values': {str(v): {'description': str(v)} for v in vals}
+                    }
+                    logging.info(f"Slot {sn}: low-cardinality integers treated as enum {enum_name}")
             if 'any_of' not in s and (s.get('range') == 'string' or sn in enum_columns) and sn not in enum_mask_columns:
                 filtered_vals = \
                     [v

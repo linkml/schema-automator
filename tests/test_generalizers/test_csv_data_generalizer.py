@@ -170,6 +170,50 @@ class TestCsvDataGeneralizer(unittest.TestCase):
         self.assertEqual(schema.slots["score"].range, "string")
         self.assertEqual(len(schema.slots["score"].any_of), 0)
 
+    def test_infer_enum_from_integers(self):
+        rows = [
+            {"id": "1", "name": "Alice", "status": "1"},
+            {"id": "2", "name": "Bob", "status": "2"},
+            {"id": "3", "name": "Carol", "status": "1"},
+            {"id": "4", "name": "Dave", "status": "2"},
+            {"id": "5", "name": "Eve", "status": "1"},
+            {"id": "6", "name": "Frank", "status": "2"},
+            {"id": "7", "name": "Grace", "status": "1"},
+            {"id": "8", "name": "Hank", "status": "2"},
+            {"id": "9", "name": "Ivy", "status": "1"},
+            {"id": "10", "name": "Jack", "status": "2"},
+        ]
+        ie = CsvDataGeneralizer(infer_enum_from_integers=True, enum_threshold=0.5)
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        # status has 2 distinct values out of 10 rows => ratio 0.18 < 0.5 threshold
+        self.assertEqual(schema.slots["status"].range, "status_enum")
+        pvs = list(schema.enums["status_enum"].permissible_values.keys())
+        self.assertCountEqual(pvs, ["1", "2"])
+
+    def test_infer_enum_from_integers_high_cardinality_stays_integer(self):
+        rows = [{"id": str(i), "val": str(i)} for i in range(1, 21)]
+        ie = CsvDataGeneralizer(infer_enum_from_integers=True, enum_threshold=0.1)
+        schema = ie.convert_dicts(rows, "test", "Thing")
+        # 20 distinct out of 20 rows => ratio 1.0, well above threshold
+        self.assertEqual(schema.slots["val"].range, "integer")
+
+    def test_infer_enum_from_integers_off_by_default(self):
+        rows = [
+            {"id": "1", "status": "1"},
+            {"id": "2", "status": "2"},
+            {"id": "3", "status": "1"},
+            {"id": "4", "status": "2"},
+            {"id": "5", "status": "1"},
+            {"id": "6", "status": "2"},
+            {"id": "7", "status": "1"},
+            {"id": "8", "status": "2"},
+            {"id": "9", "status": "1"},
+            {"id": "10", "status": "2"},
+        ]
+        ie = CsvDataGeneralizer()
+        schema = ie.convert_dicts(rows, "test", "Pet")
+        self.assertEqual(schema.slots["status"].range, "integer")
+
     def _convert(self, base_name: str, cn='Example', index_slot='examples') -> SchemaDefinition:
         ie = CsvDataGeneralizer()
         fn = f'{base_name}.tsv'
