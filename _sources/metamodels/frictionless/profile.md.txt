@@ -17,8 +17,8 @@ Alias: profile
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Package](Package.md) |  |  no  |
 | [Resource](Resource.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
