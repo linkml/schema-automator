@@ -34,6 +34,5 @@ class TomlDataGeneralizer(Generalizer):
         :param kwargs:
         :return:
         """
-        w
         json_engine = JsonDataGeneralizer(**kwargs)
         return json_engine.convert(input, format='toml', **kwargs)

@@ -39,4 +39,4 @@ def __getattr__(name):
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
-__all__ = list(_LAZY_IMPORTS.keys())
+__all__ = ["__version__", *_LAZY_IMPORTS.keys()]
