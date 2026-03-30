@@ -12,7 +12,7 @@ import pandas as pd
 import time
 
 from dateutil.parser import parse
-from deprecation import deprecated
+from deprecated.classic import deprecated
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, TypeDefinition, SlotDefinition
 from linkml_runtime.linkml_model.meta import UniqueKey

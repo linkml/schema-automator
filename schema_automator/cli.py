@@ -16,7 +16,8 @@ import yaml
 from linkml_runtime.linkml_model import SchemaDefinition
 from oaklib.selector import get_implementation_from_shorthand
 
-from schema_automator import JsonLdAnnotator, FrictionlessImportEngine
+from schema_automator.annotators.jsonld_annotator import JsonLdAnnotator
+from schema_automator.importers.frictionless_import_engine import FrictionlessImportEngine
 from schema_automator.annotators import llm_annotator
 from schema_automator.annotators.schema_annotator import SchemaAnnotator
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
@@ -408,7 +409,7 @@ def import_kwalify(input, output, schema_name, **kwargs):
         ``schemauto import-kwalify my/schema/personinfo.kwalify.yaml``
     """
     ie = KwalifyImportEngine(**kwargs)
-    schema = ie.convert(input, output, name=schema_name, format=format)
+    schema = ie.convert(input, name=schema_name)
     write_schema(schema, output)
 
 @main.command()

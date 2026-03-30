@@ -55,8 +55,6 @@ mariadb = {version = "^1.1.11", optional = true}
 sqlalchemy = "^2.0.36"
 rdflib = "^7.1.1"
 jsonasobj2 = "^1.0.4"
-deprecation = "^2.1.0"
-numpy = ">=1.26"
 lxml = ">=5.3.0"
 pydbml = "^1.1.2"
 pyyaml = "^6.0.2"
@@ -71,10 +69,6 @@ sphinxcontrib-mermaid = ">=0.9.2"
 myst-parser = "*"
 jupyter = ">=1.0.0"
 lxml-stubs = "^0.5.1"
-
-[tool.poetry.group.llm.dependencies]
-llm = ">=0.12"
-lxml = ">=4.9.1"
 deptry = "^0.23.0"
 
 [build-system]
@@ -105,4 +99,4 @@ ignore-regex = '\bOGER\b'
 ignore-words-list = 'sie,assertIn'
 
 [tool.deptry.per_rule_ignores]
-DEP002 = ["numpy", "psycopg2-binary", "duckdb", "mariadb"]
+DEP002 = ["psycopg2-binary", "duckdb", "mariadb"]

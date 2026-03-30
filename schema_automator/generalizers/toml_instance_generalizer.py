@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import SchemaDefinition
 
-from schema_automator import JsonDataGeneralizer
+from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.generalizers.generalizer import Generalizer
 from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from linkml_runtime.utils.formatutils import camelcase
@@ -34,6 +34,5 @@ class TomlDataGeneralizer(Generalizer):
         :param kwargs:
         :return:
         """
-        w
         json_engine = JsonDataGeneralizer(**kwargs)
         return json_engine.convert(input, format='toml', **kwargs)

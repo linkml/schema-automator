@@ -10,7 +10,7 @@ from linkml.utils.schema_fixer import SchemaFixer
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, SlotDefinition
 from pandera import Column
 
-from schema_automator import CsvDataGeneralizer
+from schema_automator.generalizers.csv_data_generalizer import CsvDataGeneralizer
 from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME
 
 DATA_TYPE_MAP = {
