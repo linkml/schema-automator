@@ -17,8 +17,8 @@ Alias: type
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
 | [AlternateName](AlternateName.md) |  |  yes  |
 
 
