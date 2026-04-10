@@ -35,54 +35,29 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       #----------------------------------------------
-      #          install & configure poetry
+      #              install uv
       #----------------------------------------------
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3.1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-#       # Install dependencies
-#       - name: pip Install Dependencies
-#         run: |
-#           pip install --upgrade pip
-#           pip install -r requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
 
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
       - name: Load cached venv
-        id: cached-poetry-dependencies
+        id: cached-uv-dependencies
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/uv.lock') }}
 
       #----------------------------------------------
-      # install dependencies if cache does not exist
+      #              install dependencies
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-
-      #----------------------------------------------
-      #    install your root project, if required
-      #----------------------------------------------
-      - name: Install library
-        run: poetry install --no-interaction
-
-#       - name: Run image
-#         uses: abatilo/actions-poetry@v2.0.0
-#         # with:
-#         #   poetry-version: ${{ matrix.poetry-version }}
-#       - name: View poetry --help
-#         run: poetry --help
+        run: uv sync
 
       - name: Run test suite
-        run: |
-          poetry run pip install -U pytest
-          poetry run pytest tests/
+        run: uv run pytest tests/
 
       - name: Check project dependencies
         run: make check-dependencies
