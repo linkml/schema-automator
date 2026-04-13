@@ -21,7 +21,6 @@ _LAZY_IMPORTS = {
     "DbmlImportEngine": "schema_automator.importers.dbml_import_engine",
     "RdfsImportEngine": "schema_automator.importers.rdfs_import_engine",
     "SqlImportEngine": "schema_automator.importers.sql_import_engine",
-    "TableImportEngine": "schema_automator.importers.tabular_import_engine",
     # generalizers
     "CsvDataGeneralizer": "schema_automator.generalizers.csv_data_generalizer",
     "JsonDataGeneralizer": "schema_automator.generalizers.json_instance_generalizer",
