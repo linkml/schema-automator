@@ -56,6 +56,7 @@ dependencies = [
     "lxml >= 5.3.0",
     "pydbml >= 1.1.2, < 2",
     "pyyaml >= 6.0.2, < 7",
+    "setuptools",
 ]
 
 [project.optional-dependencies]
