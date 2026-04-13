@@ -105,4 +105,4 @@ ignore-regex = '\bOGER\b'
 ignore-words-list = 'sie,assertIn'
 
 [tool.deptry.per_rule_ignores]
-DEP002 = ["psycopg2-binary", "duckdb", "mariadb", "Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid"]
+DEP002 = ["psycopg2-binary", "duckdb", "mariadb", "Sphinx", "sphinx-pdj-theme", "sphinxcontrib-mermaid", "setuptools"]
