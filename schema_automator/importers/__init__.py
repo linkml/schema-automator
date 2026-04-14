@@ -8,7 +8,6 @@ from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
 from schema_automator.importers.dbml_import_engine import DbmlImportEngine
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
-from schema_automator.importers.tabular_import_engine import TableImportEngine
 
 __all__ = [
     'JsonSchemaImportEngine',
@@ -21,5 +20,4 @@ __all__ = [
     'DbmlImportEngine',
     'RdfsImportEngine',
     'SqlImportEngine',
-    'TableImportEngine',
 ]

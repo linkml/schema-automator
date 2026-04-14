@@ -32,7 +32,6 @@ from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
-from schema_automator.importers.tabular_import_engine import TableImportEngine
 from schema_automator.importers.xsd_import_engine import XsdImportEngine
 from schema_automator.utils.schemautils import write_schema
 from schema_automator import __version__
@@ -264,40 +263,6 @@ def import_sql(db, output, **args):
     """
     ie = SqlImportEngine()
     schema = ie.convert(db, **args)
-    write_schema(schema, output)
-
-
-@main.command()
-@output_option
-@schema_name_option
-@click.option('--class-name', '-c', default=DEFAULT_CLASS_NAME, help='Core class name in schema')
-@click.option('--data-output', help='Path to file of downloaded data')
-@click.option('--element-type', help='E.g. class, enum')
-@click.option('--parent', help='parent ID')
-@click.option('--columns',
-              required=True,
-              help='comma-separated schemasheets descriptors of each column. Must be in same order')
-@click.option('--table-number',
-              type=int,
-              default=0,
-              show_default=True,
-              help='If URL has multiple tables, use this one (zero-based)')
-@click.argument('url')  # input TSV (must have column headers
-def import_htmltable(url, output, class_name, schema_name, columns,
-                         table_number: int, data_output,
-                         **kwargs):
-    """
-    Imports from a table parsed from a URL using SchemaSheets
-
-    Uses pandas/beautiful soup
-    """
-    dfs = pd.read_html(url)
-    logging.info(f"{url} has {len(dfs)} tables")
-    df = dfs[table_number]
-    if data_output:
-        df.to_csv(data_output, index=False, sep="\t")
-    ie = TableImportEngine(columns=columns.split(","), **kwargs)
-    schema = ie.import_from_dataframe(df)
     write_schema(schema, output)
 
 
