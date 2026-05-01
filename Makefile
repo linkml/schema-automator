@@ -1,4 +1,4 @@
-RUN = poetry run
+RUN = uv run
 MODELS = cadsr frictionless
 
 .PHONY: all clean test all-docs sphinx-html check-dependencies
