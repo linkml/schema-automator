@@ -26,15 +26,29 @@ Alias: permissibleValues
 
 ## Properties
 
-* Range: [PermissibleValue](PermissibleValue.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [PermissibleValue](PermissibleValue.md) |
+| Domain Of | [CRDCDataElement](CRDCDataElement.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -57,7 +57,6 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -83,8 +82,12 @@ URI: [frictionless:Schema](https://w3id.org/linkml/frictionless/Schema)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

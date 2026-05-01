@@ -29,15 +29,29 @@ Alias: Concepts
 
 ## Properties
 
-* Range: [Concept](Concept.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [Concept](Concept.md) |
+| Domain Of | [Property](Property.md), [ObjectClass](ObjectClass.md), [ValueMeaning](ValueMeaning.md), [RepresentationTerm](RepresentationTerm.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

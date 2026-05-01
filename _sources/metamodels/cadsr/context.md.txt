@@ -17,18 +17,18 @@ Alias: context
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
-| [AlternateName](AlternateName.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
-| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
 | [Property](Property.md) |  |  yes  |
 | [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ReferenceDocument](ReferenceDocument.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [AlternateName](AlternateName.md) |  |  yes  |
 
 
 
@@ -37,13 +37,28 @@ Alias: context
 
 ## Properties
 
-* Range: NONE
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [ClassificationScheme](ClassificationScheme.md), [Property](Property.md), [AlternateName](AlternateName.md), [ConceptualDomain](ConceptualDomain.md), [ClassificationSchemeItem](ClassificationSchemeItem.md), [DataElement](DataElement.md), [ValueDomain](ValueDomain.md), [ObjectClass](ObjectClass.md), [DataElementConcept](DataElementConcept.md), [ValueMeaning](ValueMeaning.md), [RepresentationTerm](RepresentationTerm.md), [ReferenceDocument](ReferenceDocument.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

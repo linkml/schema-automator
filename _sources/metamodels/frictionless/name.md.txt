@@ -17,9 +17,9 @@ Alias: name
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Package](Package.md) |  |  no  |
-| [Field](Field.md) |  |  no  |
 | [Resource](Resource.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
@@ -28,9 +28,30 @@ Alias: name
 
 ## Properties
 
-* Range: [String](String.md)
+### Type and Range
 
-* Required: True
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Field](Field.md), [Resource](Resource.md), [Package](Package.md) |
+| Slot URI | [linkml:name](https://w3id.org/linkml/name) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Required | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Identifier | Yes |
+
+
+
+
+
+
 
 
 
@@ -42,8 +63,9 @@ Alias: name
 | --- |
 | description |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

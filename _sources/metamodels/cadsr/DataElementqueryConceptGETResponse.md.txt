@@ -35,7 +35,6 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -52,8 +51,12 @@ URI: [cadsr:DataElementqueryConceptGETResponse](https://example.org/cadsrDataEle
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

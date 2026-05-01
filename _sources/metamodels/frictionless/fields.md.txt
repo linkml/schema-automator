@@ -17,9 +17,9 @@ Alias: fields
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Reference](Reference.md) |  |  yes  |
 | [Schema](Schema.md) |  |  yes  |
 | [ForeignKeys](ForeignKeys.md) |  |  yes  |
+| [Reference](Reference.md) |  |  yes  |
 
 
 
@@ -28,9 +28,22 @@ Alias: fields
 
 ## Properties
 
-* Range: [Field](Field.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [Field](Field.md) |
+| Domain Of | [Reference](Reference.md), [ForeignKeys](ForeignKeys.md), [Schema](Schema.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
 
 
 
@@ -42,8 +55,9 @@ Alias: fields
 | --- |
 | id |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

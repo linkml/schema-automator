@@ -26,15 +26,29 @@ Alias: missingValues
 
 ## Properties
 
-* Range: NONE
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [Schema](Schema.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

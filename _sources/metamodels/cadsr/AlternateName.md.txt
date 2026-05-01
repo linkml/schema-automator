@@ -28,7 +28,6 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -53,8 +52,12 @@ URI: [cadsr:AlternateName](https://example.org/cadsrAlternateName)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

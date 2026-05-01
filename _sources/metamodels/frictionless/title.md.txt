@@ -17,8 +17,8 @@ Alias: title
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Package](Package.md) |  |  no  |
 | [Resource](Resource.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
@@ -27,7 +27,22 @@ Alias: title
 
 ## Properties
 
-* Range: [String](String.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Resource](Resource.md), [Package](Package.md) |
+| Slot URI | [linkml:title](https://w3id.org/linkml/title) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -39,8 +54,9 @@ Alias: title
 | --- |
 | id_namespace |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

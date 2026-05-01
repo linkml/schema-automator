@@ -26,7 +26,18 @@ Alias: DataElementConcept
 
 ## Properties
 
-* Range: [DataElementConcept](DataElementConcept.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [DataElementConcept](DataElementConcept.md) |
+| Domain Of | [DataElement](DataElement.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -38,8 +49,12 @@ Alias: DataElementConcept
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

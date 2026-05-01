@@ -26,7 +26,18 @@ Alias: Property
 
 ## Properties
 
-* Range: [Property](Property.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Property](Property.md) |
+| Domain Of | [DataElementConcept](DataElementConcept.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -38,8 +49,12 @@ Alias: Property
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

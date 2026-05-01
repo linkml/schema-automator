@@ -26,15 +26,29 @@ Alias: PermissibleValues
 
 ## Properties
 
-* Range: [CDEPermissibleValue](CDEPermissibleValue.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [CDEPermissibleValue](CDEPermissibleValue.md) |
+| Domain Of | [ValueDomain](ValueDomain.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -61,7 +61,6 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -92,8 +91,12 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

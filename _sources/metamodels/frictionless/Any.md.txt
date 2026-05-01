@@ -22,6 +22,12 @@ URI: [linkml:Any](https://w3id.org/linkml/Any)
 
 <!-- no inheritance hierarchy -->
 
+## Class Properties
+
+| Property | Value |
+| --- | --- |
+| Class URI | [linkml:Any](https://w3id.org/linkml/Any) |
+
 
 ## Slots
 
@@ -37,8 +43,12 @@ URI: [linkml:Any](https://w3id.org/linkml/Any)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

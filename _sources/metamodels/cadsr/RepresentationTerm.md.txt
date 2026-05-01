@@ -26,7 +26,18 @@ Alias: RepresentationTerm
 
 ## Properties
 
-* Range: [RepresentationTerm](RepresentationTerm.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [RepresentationTerm](RepresentationTerm.md) |
+| Domain Of | [ValueDomain](ValueDomain.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -38,8 +49,12 @@ Alias: RepresentationTerm
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

@@ -27,7 +27,18 @@ Alias: DataElement
 
 ## Properties
 
-* Range: [DataElement](DataElement.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [DataElement](DataElement.md) |
+| Domain Of | [DataElementContainer](DataElementContainer.md), [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -40,8 +51,12 @@ Alias: DataElement
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

@@ -22,14 +22,14 @@ Alias: workflowStatus
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [DataElementQuery](DataElementQuery.md) |  |  yes  |
 | [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [Property](Property.md) |  |  yes  |
 
 
@@ -39,13 +39,28 @@ Alias: workflowStatus
 
 ## Properties
 
-* Range: NONE
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [Property](Property.md), [ConceptualDomain](ConceptualDomain.md), [DataElement](DataElement.md), [ValueDomain](ValueDomain.md), [ObjectClass](ObjectClass.md), [DataElementConcept](DataElementConcept.md), [ValueMeaning](ValueMeaning.md), [RepresentationTerm](RepresentationTerm.md), [DataElementQuery](DataElementQuery.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

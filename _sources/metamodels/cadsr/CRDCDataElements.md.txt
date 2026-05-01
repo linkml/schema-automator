@@ -26,15 +26,29 @@ Alias: CRDCDataElements
 
 ## Properties
 
-* Range: [CRDCDataElement](CRDCDataElement.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [CRDCDataElement](CRDCDataElement.md) |
+| Domain Of | [DataElementgetCRDCListGETResponse](DataElementgetCRDCListGETResponse.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

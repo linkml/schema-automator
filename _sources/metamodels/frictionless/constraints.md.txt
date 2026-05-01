@@ -26,13 +26,28 @@ Alias: constraints
 
 ## Properties
 
-* Range: [Constraints](Constraints.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Constraints](Constraints.md) |
+| Domain Of | [Field](Field.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

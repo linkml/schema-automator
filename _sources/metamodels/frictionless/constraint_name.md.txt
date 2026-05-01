@@ -26,7 +26,21 @@ Alias: constraint_name
 
 ## Properties
 
-* Range: NONE
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [ForeignKeys](ForeignKeys.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -38,8 +52,9 @@ Alias: constraint_name
 | --- |
 | dcc_project_fkey |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

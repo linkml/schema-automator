@@ -17,9 +17,9 @@ Alias: DataElementQueryResults
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
 
 
 
@@ -28,15 +28,29 @@ Alias: DataElementQueryResults
 
 ## Properties
 
-* Range: [DataElementQuery](DataElementQuery.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [DataElementQuery](DataElementQuery.md) |
+| Domain Of | [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md), [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md), [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

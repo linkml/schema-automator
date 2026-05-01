@@ -63,7 +63,6 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -101,8 +100,12 @@ URI: [cadsr:CRDCDataElement](https://example.org/cadsrCRDCDataElement)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

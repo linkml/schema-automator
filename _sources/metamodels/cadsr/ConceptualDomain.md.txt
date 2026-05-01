@@ -17,8 +17,8 @@ Alias: ConceptualDomain
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
 
 
 
@@ -27,7 +27,18 @@ Alias: ConceptualDomain
 
 ## Properties
 
-* Range: [ConceptualDomain](ConceptualDomain.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [ConceptualDomain](ConceptualDomain.md) |
+| Domain Of | [ValueDomain](ValueDomain.md), [DataElementConcept](DataElementConcept.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -40,8 +51,12 @@ Alias: ConceptualDomain
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

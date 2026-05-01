@@ -26,7 +26,21 @@ Alias: format
 
 ## Properties
 
-* Range: [FormatEnum](FormatEnum.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [FormatEnum](FormatEnum.md) |
+| Domain Of | [Field](Field.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -38,8 +52,9 @@ Alias: format
 | --- |
 | any |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

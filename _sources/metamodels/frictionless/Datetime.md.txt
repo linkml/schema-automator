@@ -9,20 +9,26 @@ _The combination of a date and time_
 
 URI: [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime)
 
-* [base](https://w3id.org/linkml/base): XSDDateTime
+## Type Properties
 
-* [uri](https://w3id.org/linkml/uri): xsd:dateTime
+| Property | Value |
+| --- | --- |
+| Base | `XSDDateTime` |
+| Type URI | [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime) |
+| Representation | `str` |
 
-* [repr](https://w3id.org/linkml/repr): str
 
 
 
 
+
+## Notes
+
+* If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "datetime".
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

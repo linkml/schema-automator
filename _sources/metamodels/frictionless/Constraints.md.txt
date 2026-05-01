@@ -28,7 +28,6 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -53,8 +52,12 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

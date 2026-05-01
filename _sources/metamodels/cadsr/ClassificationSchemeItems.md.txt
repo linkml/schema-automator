@@ -26,15 +26,29 @@ Alias: ClassificationSchemeItems
 
 ## Properties
 
-* Range: [ClassificationSchemeItem](ClassificationSchemeItem.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [ClassificationSchemeItem](ClassificationSchemeItem.md) |
+| Domain Of | [ClassificationScheme](ClassificationScheme.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

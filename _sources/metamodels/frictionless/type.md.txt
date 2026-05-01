@@ -26,7 +26,21 @@ Alias: type
 
 ## Properties
 
-* Range: [TypeEnum](TypeEnum.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [TypeEnum](TypeEnum.md) |
+| Domain Of | [Field](Field.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -38,8 +52,9 @@ Alias: type
 | --- |
 | string |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

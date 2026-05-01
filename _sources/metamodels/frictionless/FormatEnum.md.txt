@@ -5,7 +5,6 @@
 URI: [frictionless:format_enum](https://w3id.org/linkml/frictionless/format_enum)
 
 ## Permissible Values
-
 | Value | Meaning | Description |
 | --- | --- | --- |
 | any | None | any |
@@ -25,8 +24,12 @@ URI: [frictionless:format_enum](https://w3id.org/linkml/frictionless/format_enum
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

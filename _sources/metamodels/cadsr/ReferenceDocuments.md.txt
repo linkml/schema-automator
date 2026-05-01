@@ -26,15 +26,29 @@ Alias: ReferenceDocuments
 
 ## Properties
 
-* Range: [ReferenceDocument](ReferenceDocument.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [ReferenceDocument](ReferenceDocument.md) |
+| Domain Of | [DataElement](DataElement.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

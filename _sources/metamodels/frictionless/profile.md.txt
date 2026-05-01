@@ -17,8 +17,8 @@ Alias: profile
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Package](Package.md) |  |  no  |
 | [Resource](Resource.md) |  |  no  |
+| [Package](Package.md) |  |  no  |
 
 
 
@@ -27,7 +27,21 @@ Alias: profile
 
 ## Properties
 
-* Range: [ProfileEnum](ProfileEnum.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [ProfileEnum](ProfileEnum.md) |
+| Domain Of | [Resource](Resource.md), [Package](Package.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -39,8 +53,9 @@ Alias: profile
 | --- |
 | tabular-data-resource |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

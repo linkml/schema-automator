@@ -26,13 +26,28 @@ Alias: reference
 
 ## Properties
 
-* Range: [Reference](Reference.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Reference](Reference.md) |
+| Domain Of | [ForeignKeys](ForeignKeys.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -41,7 +41,6 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -70,8 +69,12 @@ URI: [cadsr:PermissibleValue](https://example.org/cadsrPermissibleValue)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

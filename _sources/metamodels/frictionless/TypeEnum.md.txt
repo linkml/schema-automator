@@ -5,7 +5,6 @@
 URI: [frictionless:type_enum](https://w3id.org/linkml/frictionless/type_enum)
 
 ## Permissible Values
-
 | Value | Meaning | Description |
 | --- | --- | --- |
 | string | None | string |
@@ -28,8 +27,12 @@ URI: [frictionless:type_enum](https://w3id.org/linkml/frictionless/type_enum)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

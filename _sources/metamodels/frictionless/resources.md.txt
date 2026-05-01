@@ -26,15 +26,29 @@ Alias: resources
 
 ## Properties
 
-* Range: [Resource](Resource.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [Resource](Resource.md) |
+| Domain Of | [Package](Package.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

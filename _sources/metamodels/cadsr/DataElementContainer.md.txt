@@ -33,7 +33,6 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -49,8 +48,12 @@ URI: [cadsr:DataElementContainer](https://example.org/cadsrDataElementContainer)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

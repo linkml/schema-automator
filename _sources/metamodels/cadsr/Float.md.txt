@@ -9,19 +9,25 @@ _A real number that conforms to the xsd:float specification_
 
 URI: [xsd:float](http://www.w3.org/2001/XMLSchema#float)
 
-* [base](https://w3id.org/linkml/base): float
+## Type Properties
 
-* [uri](https://w3id.org/linkml/uri): xsd:float
+| Property | Value |
+| --- | --- |
+| Base | `float` |
+| Type URI | [xsd:float](http://www.w3.org/2001/XMLSchema#float) |
 
 
 
 
 
+
+## Notes
+
+* If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "float".
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

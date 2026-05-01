@@ -9,12 +9,13 @@ _a compact URI_
 
 URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
 
-* [base](https://w3id.org/linkml/base): Curie
+## Type Properties
 
-* [uri](https://w3id.org/linkml/uri): xsd:string
-
-* [repr](https://w3id.org/linkml/repr): str
-
+| Property | Value |
+| --- | --- |
+| Base | `Curie` |
+| Type URI | [xsd:string](http://www.w3.org/2001/XMLSchema#string) |
+| Representation | `str` |
 
 
 
@@ -26,8 +27,13 @@ URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
 * in RDF serializations this MUST be expanded to a URI
 * in non-RDF serializations MAY be serialized as the compact representation
 
-## Identifier and Mapping Information
+## Notes
 
+* If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "curie".
+
+
+
+## Identifier and Mapping Information
 
 
 

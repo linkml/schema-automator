@@ -26,7 +26,18 @@ Alias: ObjectClass
 
 ## Properties
 
-* Range: [ObjectClass](ObjectClass.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [ObjectClass](ObjectClass.md) |
+| Domain Of | [DataElementConcept](DataElementConcept.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -38,8 +49,12 @@ Alias: ObjectClass
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

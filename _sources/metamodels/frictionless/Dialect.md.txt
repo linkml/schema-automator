@@ -32,7 +32,6 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -52,8 +51,12 @@ URI: [frictionless:Dialect](https://w3id.org/linkml/frictionless/Dialect)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

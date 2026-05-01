@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Packages" href="packages/index.html" />
@@ -62,6 +62,7 @@ flag should be specified BEFORE the subcommand:</p>
 <blockquote>
 <div><p>schemauto -vv SUBCOMMAND [OPTIONS] ARGUMENTS</p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
@@ -114,6 +115,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 <li><p><a class="reference external" href="https://incatools.github.io/ontology-access-kit/selectors.html">https://incatools.github.io/ontology-access-kit/selectors.html</a></p></li>
 </ul>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>annotate-schema<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
@@ -152,6 +154,7 @@ and you can provide any OAK backend that supports text annotation.</p>
 <section id="schemauto-annotate-using-jsonld">
 <h4>annotate-using-jsonld<a class="headerlink" href="#schemauto-annotate-using-jsonld" title="Link to this heading">¶</a></h4>
 <p>Annotates a schema using a Json-LD context file</p>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>annotate-using-jsonld<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
@@ -184,6 +187,7 @@ other enrichments may be possible.</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">schema-automator[llm]</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>enrich-using-llm<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
@@ -235,6 +239,7 @@ then the definition of that will be copied to the class description.</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">enrich-using-ontology</span> <span class="pre">-i</span> <span class="pre">so.obo</span> <span class="pre">--annotate</span> <span class="pre">my-schema.yaml</span> <span class="pre">-o</span> <span class="pre">my-enriched.yaml</span> <span class="pre">--annotate</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>enrich-using-ontology<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
 </pre></div>
 </div>
@@ -271,6 +276,7 @@ then the definition of that will be copied to the class description.</p>
 <p>Uses pandas/beautiful soup.</p>
 <p>Note: if the website cannot be accessed directly, you can download the HTML
 and pass in an argument of the form <a class="reference external" href="file:///absolute/path/to/file.html">file:///absolute/path/to/file.html</a></p>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-htmltable<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>URL
 </pre></div>
 </div>
@@ -391,6 +397,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">generalize-json</span> <span class="pre">my/data/persons.json</span> <span class="pre">-o</span> <span class="pre">my.yaml</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-json<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -488,6 +495,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">generalize-rdf</span> <span class="pre">my/data/persons.ttl</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-rdf<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RDFFILE
 </pre></div>
 </div>
@@ -520,6 +528,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">generalize-toml</span> <span class="pre">my/data/conf.toml</span> <span class="pre">-o</span> <span class="pre">my.yaml</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-toml<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -593,6 +602,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">generalize-tsv</span> <span class="pre">--class-name</span> <span class="pre">Person</span> <span class="pre">--schema-name</span> <span class="pre">PersonInfo</span> <span class="pre">my/data/persons.tsv</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-tsv<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>TSVFILE
 </pre></div>
 </div>
@@ -715,6 +725,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">generalize-tsvs</span> <span class="pre">--class-name</span> <span class="pre">Person</span> <span class="pre">--schema-name</span> <span class="pre">PersonInfo</span> <span class="pre">my/data/*.tsv</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>generalize-tsvs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TSVFILES<span class="o">]</span>...
 </pre></div>
 </div>
@@ -812,6 +823,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-cadsr</span> <span class="pre">&quot;cdes/*.json&quot;</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-cadsr<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -855,6 +867,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-dosdps</span> <span class="pre">--range-as-enums</span> <span class="pre">patterns/*.yaml</span> <span class="pre">-o</span> <span class="pre">my-schema.yaml</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-dosdps<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>DPFILES<span class="o">]</span>...
 </pre></div>
 </div>
@@ -898,6 +911,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-frictionless</span> <span class="pre">cfde.package.json</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-frictionless<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -933,80 +947,6 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 </section>
-<section id="schemauto-import-htmltable">
-<h4>import-htmltable<a class="headerlink" href="#schemauto-import-htmltable" title="Link to this heading">¶</a></h4>
-<p>Imports from a table parsed from a URL using SchemaSheets</p>
-<p>Uses pandas/beautiful soup</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-htmltable<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>URL
-</pre></div>
-</div>
-<p class="rubric">Options</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-o">
-<span id="cmdoption-schemauto-import-htmltable-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-o" title="Link to this definition">¶</a></dt>
-<dd><p>path to output file or directory.</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-n">
-<span id="cmdoption-schemauto-import-htmltable-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-n" title="Link to this definition">¶</a></dt>
-<dd><p>Schema name</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'MySchema'</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-c">
-<span id="cmdoption-schemauto-import-htmltable-class-name"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--class-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-c" title="Link to this definition">¶</a></dt>
-<dd><p>Core class name in schema</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-data-output">
-<span class="sig-name descname"><span class="pre">--data-output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-data-output" title="Link to this definition">¶</a></dt>
-<dd><p>Path to file of downloaded data</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-element-type">
-<span class="sig-name descname"><span class="pre">--element-type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;element_type&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-element-type" title="Link to this definition">¶</a></dt>
-<dd><p>E.g. class, enum</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-parent">
-<span class="sig-name descname"><span class="pre">--parent</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;parent&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-parent" title="Link to this definition">¶</a></dt>
-<dd><p>parent ID</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-columns">
-<span class="sig-name descname"><span class="pre">--columns</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;columns&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-columns" title="Link to this definition">¶</a></dt>
-<dd><p><strong>Required</strong> comma-separated schemasheets descriptors of each column. Must be in same order</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-table-number">
-<span class="sig-name descname"><span class="pre">--table-number</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;table_number&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-table-number" title="Link to this definition">¶</a></dt>
-<dd><p>If URL has multiple tables, use this one (zero-based)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Default<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<p class="rubric">Arguments</p>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-htmltable-arg-URL">
-<span class="sig-name descname"><span class="pre">URL</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-htmltable-arg-URL" title="Link to this definition">¶</a></dt>
-<dd><p>Required argument</p>
-</dd></dl>
-
-</section>
 <section id="schemauto-import-json-schema">
 <h4>import-json-schema<a class="headerlink" href="#schemauto-import-json-schema" title="Link to this heading">¶</a></h4>
 <p>Imports from JSON Schema to LinkML</p>
@@ -1015,6 +955,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-json-schema</span> <span class="pre">my/schema/personinfo.schema.json</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-json-schema<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -1081,6 +1022,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-kwalify</span> <span class="pre">my/schema/personinfo.kwalify.yaml</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-kwalify<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
@@ -1135,6 +1077,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-owl</span> <span class="pre">prov.ofn</span> <span class="pre">-o</span> <span class="pre">my.yaml</span></code></p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-owl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>OWLFILE
 </pre></div>
 </div>
@@ -1189,6 +1132,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p>schemauto import-rdfs prov.rdfs.ttl -o prov.yaml</p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-rdfs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RDFSFILE
 </pre></div>
 </div>
@@ -1252,6 +1196,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <h4>import-sql<a class="headerlink" href="#schemauto-import-sql" title="Link to this heading">¶</a></h4>
 <p>Imports a schema by introspecting a relational database</p>
 <p>See <a class="reference internal" href="packages/importers.html#importers"><span class="std std-ref">Importers</span></a> for more on the importers framework</p>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-sql<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DB
 </pre></div>
 </div>
@@ -1288,6 +1233,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <blockquote>
 <div><p>schemauto import-xsd schema.xml -o prov.yaml</p>
 </div></blockquote>
+<p class="rubric">Usage</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-xsd<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>XSD
 </pre></div>
 </div>
@@ -1394,7 +1340,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
       &#169;2022, LinkML Developers.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |

@@ -26,7 +26,21 @@ Alias: resource
 
 ## Properties
 
-* Range: [String](String.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Reference](Reference.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
 
 
 
@@ -38,8 +52,9 @@ Alias: resource
 | --- |
 | gene |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

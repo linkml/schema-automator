@@ -46,7 +46,6 @@ URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -71,8 +70,12 @@ URI: [frictionless:ForeignKeys](https://w3id.org/linkml/frictionless/ForeignKeys
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

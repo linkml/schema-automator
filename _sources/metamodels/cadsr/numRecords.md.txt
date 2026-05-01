@@ -17,9 +17,9 @@ Alias: numRecords
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
-| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
+| [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
+| [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
 
 
 
@@ -28,13 +28,28 @@ Alias: numRecords
 
 ## Properties
 
-* Range: NONE
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md), [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md), [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -35,7 +35,6 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -59,8 +58,12 @@ URI: [frictionless:Reference](https://w3id.org/linkml/frictionless/Reference)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

@@ -26,9 +26,22 @@ Alias: primaryKey
 
 ## Properties
 
-* Range: [Field](Field.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [Field](Field.md) |
+| Domain Of | [Schema](Schema.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
 
 
 
@@ -40,8 +53,9 @@ Alias: primaryKey
 | --- |
 | id |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

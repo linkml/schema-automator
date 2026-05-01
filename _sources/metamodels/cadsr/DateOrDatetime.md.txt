@@ -9,20 +9,26 @@ _Either a date or a datetime_
 
 URI: [linkml:DateOrDatetime](https://w3id.org/linkml/DateOrDatetime)
 
-* [base](https://w3id.org/linkml/base): str
+## Type Properties
 
-* [uri](https://w3id.org/linkml/uri): linkml:DateOrDatetime
+| Property | Value |
+| --- | --- |
+| Base | `str` |
+| Type URI | [linkml:DateOrDatetime](https://w3id.org/linkml/DateOrDatetime) |
+| Representation | `str` |
 
-* [repr](https://w3id.org/linkml/repr): str
 
 
 
 
+
+## Notes
+
+* If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "date_or_datetime".
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

@@ -26,13 +26,28 @@ Alias: schema
 
 ## Properties
 
-* Range: [Schema](Schema.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Schema](Schema.md) |
+| Domain Of | [Resource](Resource.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

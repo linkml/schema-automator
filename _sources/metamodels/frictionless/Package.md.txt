@@ -48,6 +48,12 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 <!-- no inheritance hierarchy -->
 
+## Class Properties
+
+| Property | Value |
+| --- | --- |
+| Tree Root | Yes |
+
 
 ## Slots
 
@@ -67,8 +73,12 @@ URI: [frictionless:Package](https://w3id.org/linkml/frictionless/Package)
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

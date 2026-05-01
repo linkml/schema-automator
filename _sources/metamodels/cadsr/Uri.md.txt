@@ -9,12 +9,13 @@ _a complete URI_
 
 URI: [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI)
 
-* [base](https://w3id.org/linkml/base): URI
+## Type Properties
 
-* [uri](https://w3id.org/linkml/uri): xsd:anyURI
-
-* [repr](https://w3id.org/linkml/repr): str
-
+| Property | Value |
+| --- | --- |
+| Base | `URI` |
+| Type URI | [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI) |
+| Representation | `str` |
 
 
 
@@ -25,8 +26,13 @@ URI: [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI)
 
 * in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node
 
-## Identifier and Mapping Information
+## Notes
 
+* If you are authoring schemas in LinkML YAML, the type is referenced with the lower case "uri".
+
+
+
+## Identifier and Mapping Information
 
 
 

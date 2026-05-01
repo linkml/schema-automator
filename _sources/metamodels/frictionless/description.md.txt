@@ -17,8 +17,8 @@ Alias: description
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Field](Field.md) |  |  no  |
 | [Resource](Resource.md) |  |  no  |
+| [Field](Field.md) |  |  no  |
 
 
 
@@ -27,9 +27,23 @@ Alias: description
 
 ## Properties
 
-* Range: [String](String.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Field](Field.md), [Resource](Resource.md) |
+| Slot URI | [linkml:description](https://w3id.org/linkml/description) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
 
 
 
@@ -41,8 +55,9 @@ Alias: description
 | --- |
 | A human-readable description of this identifier namespace |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

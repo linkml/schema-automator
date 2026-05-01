@@ -30,7 +30,6 @@ URI: [cadsr:ClassificationSchemeItem](https://example.org/cadsrClassificationSch
 
 <!-- no inheritance hierarchy -->
 
-
 ## Slots
 
 | Name | Cardinality and Range | Description | Inheritance |
@@ -56,8 +55,12 @@ URI: [cadsr:ClassificationSchemeItem](https://example.org/cadsrClassificationSch
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

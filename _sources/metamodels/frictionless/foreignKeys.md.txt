@@ -26,9 +26,22 @@ Alias: foreignKeys
 
 ## Properties
 
-* Range: [ForeignKeys](ForeignKeys.md)
+### Type and Range
 
-* Multivalued: True
+| Property | Value |
+| --- | --- |
+| Range | [ForeignKeys](ForeignKeys.md) |
+| Domain Of | [Schema](Schema.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+| Multivalued | Yes |
+
+
+
+
 
 
 
@@ -40,8 +53,9 @@ Alias: foreignKeys
 | --- |
 | ['$ref:ForeignKeys', '$ref:ForeignKeys'] |
 
-## Identifier and Mapping Information
 
+
+## Identifier and Mapping Information
 
 
 

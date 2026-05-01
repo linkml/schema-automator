@@ -26,7 +26,18 @@ Alias: ValueMeaning
 
 ## Properties
 
-* Range: [ValueMeaning](ValueMeaning.md)
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [ValueMeaning](ValueMeaning.md) |
+| Domain Of | [CDEPermissibleValue](CDEPermissibleValue.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
 
 ## Usages
 
@@ -38,8 +49,12 @@ Alias: ValueMeaning
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 

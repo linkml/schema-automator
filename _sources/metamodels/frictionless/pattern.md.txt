@@ -26,13 +26,29 @@ Alias: pattern
 
 ## Properties
 
-* Range: NONE
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | NONE |
+| Domain Of | [Constraints](Constraints.md) |
+| Slot URI | [linkml:pattern](https://w3id.org/linkml/pattern) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+
+
+
+
+
+
 
 
 
 
 ## Identifier and Mapping Information
-
 
 
 

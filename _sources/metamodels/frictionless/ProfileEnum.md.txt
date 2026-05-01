@@ -5,7 +5,6 @@
 URI: [frictionless:profile_enum](https://w3id.org/linkml/frictionless/profile_enum)
 
 ## Permissible Values
-
 | Value | Meaning | Description |
 | --- | --- | --- |
 | tabular-data-resource | None |  |
@@ -24,8 +23,12 @@ URI: [frictionless:profile_enum](https://w3id.org/linkml/frictionless/profile_en
 
 
 
-## Identifier and Mapping Information
 
+
+
+
+
+## Identifier and Mapping Information
 
 
 
