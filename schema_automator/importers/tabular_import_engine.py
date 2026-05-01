@@ -7,8 +7,13 @@
 # elements) is planned to be reimplemented natively as part of the data
 # dictionary input format work (see #191).
 
-raise NotImplementedError(
+_REMOVAL_MESSAGE = (
     "TableImportEngine has been removed. "
     "The schemasheets dependency it relied on is no longer included. "
     "See https://github.com/linkml/schema-automator/issues/191"
 )
+
+
+class TableImportEngine:
+    def __init__(self, *args, **kwargs):
+        raise NotImplementedError(_REMOVAL_MESSAGE)
