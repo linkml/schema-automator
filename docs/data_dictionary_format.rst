@@ -322,7 +322,7 @@ scope:
   ``old_name`` in v3," "valid from 2020-01 to 2023-06," provenance chains.
   Versioning concerns belong at the dataset/schema level, not per-row.
 
-- **Cross-column constraints.** Conditional requireds, dependencies
+- **Cross-column constraints.** Conditional required-fields, dependencies
   ("field A is required only if field B is X"), value relationships
   across columns. The general case needs a real expression language, not
   a small format extension.
