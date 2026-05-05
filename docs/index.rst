@@ -28,6 +28,7 @@ schema frameworks, including:
    introduction
    install
    cli
+   data_dictionary_format
    packages/index
    metamodels/index
 

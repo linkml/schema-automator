@@ -1,0 +1,54 @@
+entries:
+
+  - name: subject_id
+    type: string
+    description: De-identified study participant identifier.
+
+  - name: age_years
+    type: integer
+    description: Participant age at enrollment.
+    unit: years
+    min: 0
+    max: 120
+
+  - name: weight_kg
+    type: decimal
+    description: Participant body weight at enrollment.
+    unit: kg
+    min: 0
+    max: 500
+
+  - name: lab_creatinine
+    type: decimal
+    description: Serum creatinine measurement.
+    unit: mg/dL
+    min: none
+    max: none
+
+  - name: is_smoker
+    type: boolean
+    description: Whether the participant currently smokes.
+
+  - name: enrollment_date
+    type: date
+    description: Date the participant was enrolled in the study.
+
+  - name: sex
+    type: permissible_values
+    description: Self-reported sex of the participant.
+    codes: F, Female | M, Male | O, Other | U, Unknown
+
+  - name: data_source
+    type: permissible_values
+    description: Source from which this record was derived.
+    codes: EHR | Survey | Lab
+
+  - name: concept_iri
+    type: uri
+    description: >-
+      Reference to a controlled-vocabulary concept describing the
+      participant's primary diagnosis.
+
+  - name: omop_concept_id
+    type: curie
+    description: OMOP concept identifier for the primary diagnosis.

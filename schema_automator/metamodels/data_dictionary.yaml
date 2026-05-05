@@ -1,0 +1,237 @@
+id: https://w3id.org/linkml/schema-automator/data-dictionary
+name: data_dictionary
+title: Schema Automator Data Dictionary Format
+description: >-
+  Canonical, opinionated data dictionary format consumed by Schema Automator
+  to produce maximally-enriched LinkML schemas. Designed as a forward-looking
+  target spec for new studies onboarding to data-sharing pipelines, not as a
+  format for legacy or messy data dictionaries (those are normalized to this
+  format separately). The format is row-per-variable, substrate-agnostic
+  (TSV/CSV primary, YAML sanctioned), and intentionally minimal.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dd: https://w3id.org/linkml/schema-automator/data-dictionary/
+  schema: http://schema.org/
+
+default_prefix: dd
+
+imports:
+  - linkml:types
+
+classes:
+
+  DataDictionary:
+    description: >-
+      A collection of variable declarations describing the columns of a
+      tabular dataset.
+    tree_root: true
+    attributes:
+      entries:
+        description: The variable declarations in this data dictionary.
+        range: DataDictionaryEntry
+        multivalued: true
+        inlined_as_list: true
+        required: true
+
+  DataDictionaryEntry:
+    description: >-
+      A declaration of a single variable (column) in the dataset. Spec A
+      fields (name, type, description, and the type-conditional codes / unit /
+      min / max) are recommended best practice for every entry. Spec B fields
+      (label, multivalued, required, pattern, uri, see_also) are optional and
+      may be adopted independently.
+    attributes:
+
+      # ---- Spec A: recommended ----
+
+      name:
+        description: >-
+          The column name as it appears in the data file. Accepts a string
+          identifier or a URI/CURIE; URI/CURIE forms are preferred when the
+          column has a known semantic identity in a controlled vocabulary.
+        required: true
+        identifier: true
+        range: string
+
+      type:
+        description: >-
+          The data type of the variable, drawn from the canonical type
+          vocabulary. Composite or multi-typed declarations are not permitted;
+          enumerated columns use the `permissible_values` type and declare
+          their codes in the `codes` field.
+        required: true
+        range: DataDictionaryType
+
+      description:
+        description: >-
+          Human-readable prose description of what the variable represents.
+          MUST NOT contain code lists, enumerated values, unit declarations,
+          numeric ranges, or example values — those have their own fields.
+          Descriptions polluted with such content are less useful, not more,
+          and indicate the author put information in the wrong place.
+        required: true
+        range: string
+
+      codes:
+        description: >-
+          Permissible values for this variable when its type is
+          `permissible_values`. Encoded as `code, label | code, label | ...`.
+          Bareword shorthand is allowed: a token without a comma is
+          interpreted as `value, value` (the literal value serves as both the
+          code and its meaning). Code values cannot contain `|`; comma-bearing
+          values must use bareword shorthand or wait for v2 escaping.
+        range: string
+        pattern: "^[^|]+(\\|[^|]+)*$"
+
+      unit:
+        description: >-
+          The unit of measure for numeric variables. Use the literal token
+          `none` for genuinely unitless quantities (counts, ratios). An empty
+          cell means the author has not declared a unit and is reported as a
+          conformance issue; `none` is the explicit declaration of no unit.
+          UCUM-compliant units are encouraged but not required; reasonable
+          freeform units (e.g., `mg/dL`, `mmHg`, `servings/week`) are
+          accepted.
+        range: string
+
+      # min/max accept either a numeric value or the literal string "none";
+      # no top-level `range:` is set so the JSON Schema generator emits the
+      # any_of cleanly without a conflicting top-level `type: string`.
+      # The `no_undeclared_ranges` linkml-lint rule will flag these slots —
+      # the any_of expression is the range declaration, but the lint rule
+      # doesn't currently recognize that. See linkml/linkml upstream issues
+      # tracking both quirks.
+      min:
+        description: >-
+          Minimum permissible value for numeric variables. Use the literal
+          token `none` for genuinely unbounded variables. An empty cell means
+          the author has not declared a minimum and is reported as a
+          conformance issue.
+        any_of:
+          - range: decimal
+          - range: string
+            equals_string: none
+
+      max:
+        description: >-
+          Maximum permissible value for numeric variables. Use the literal
+          token `none` for genuinely unbounded variables. An empty cell means
+          the author has not declared a maximum and is reported as a
+          conformance issue.
+        any_of:
+          - range: decimal
+          - range: string
+            equals_string: none
+
+      # ---- Spec B: optional, independently adoptable ----
+
+      label:
+        description: >-
+          Short human-readable name for the variable. Distinct from
+          `description` (which is prose) and from `name` (which is the
+          machine-readable column identifier).
+        range: string
+
+      multivalued:
+        description: >-
+          Whether each cell of this column contains a list of values rather
+          than a single value (e.g., multi-select responses).
+        range: boolean
+
+      required:
+        description: >-
+          Whether this column requires a value in every row (no nulls
+          permitted). Authors are not asked to fill this in by default —
+          missing required-ness is inferred from data.
+        range: boolean
+
+      pattern:
+        description: >-
+          Regular expression that all values of this column must match.
+          Power-user field; if not provided, schema-automator may infer
+          patterns from data.
+        range: string
+
+      uri:
+        description: >-
+          URI or CURIE that semantically anchors this variable in a
+          controlled vocabulary (e.g., an OMOP concept, an OBA term).
+          Equivalent to LinkML's `slot_uri` for the emitted slot.
+        range: uriorcurie
+
+      see_also:
+        description: >-
+          External references (URIs/CURIEs) related to this variable —
+          codebooks, study protocols, standards documents.
+        range: uriorcurie
+        multivalued: true
+
+    rules:
+
+      - description: >-
+          When type is `permissible_values`, the `codes` field is required.
+        preconditions:
+          slot_conditions:
+            type:
+              equals_string: permissible_values
+        postconditions:
+          slot_conditions:
+            codes:
+              required: true
+
+      - description: >-
+          When type is numeric (integer or decimal), `unit`, `min`, and `max`
+          are required (use the literal `none` for genuinely unitless or
+          unbounded cases).
+        preconditions:
+          slot_conditions:
+            type:
+              any_of:
+                - equals_string: integer
+                - equals_string: decimal
+        postconditions:
+          slot_conditions:
+            unit:
+              required: true
+            min:
+              required: true
+            max:
+              required: true
+
+enums:
+
+  DataDictionaryType:
+    description: >-
+      The canonical data type vocabulary. Anything outside this set is
+      disallowed (warn-by-default; fail in strict mode). Curated to be
+      researcher-comprehensible: technical LinkML built-ins (ncname,
+      jsonpath, nodeidentifier, etc.) are excluded.
+    permissible_values:
+      string:
+        description: A sequence of characters.
+      integer:
+        description: A whole number.
+      decimal:
+        description: >-
+          A real number. Covers float and double at the LinkML emission
+          layer; schema-automator chooses the appropriate LinkML primitive
+          based on observed data.
+      boolean:
+        description: A true/false value.
+      date:
+        description: A calendar date, ISO 8601 (YYYY-MM-DD) by default.
+      datetime:
+        description: A date and time, ISO 8601 by default.
+      time:
+        description: A time of day, ISO 8601 by default.
+      uri:
+        description: A Uniform Resource Identifier (full IRI form).
+      curie:
+        description: A compact URI (e.g., `OMOP:1234567`).
+      permissible_values:
+        description: >-
+          The variable is enumerated. The `codes` field declares the
+          permissible values for this entry.
