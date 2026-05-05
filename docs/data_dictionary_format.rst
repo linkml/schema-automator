@@ -8,7 +8,8 @@ This is a forward-looking, prescriptive target spec. The audience is a data
 owner at a *new* study, preparing their data for sharing, before any
 inconsistent local conventions have set in. Handling of legacy or messy
 data dictionaries is a separate concern; those are normalized into this
-format by an upstream layer (see :ref:`linkml/schema-automator#200`).
+format by an upstream layer (see `linkml/schema-automator#200
+<https://github.com/linkml/schema-automator/issues/200>`_).
 
 Goals
 -----
@@ -244,19 +245,107 @@ adds coupling, filename encoding that's fragile to parse) has worse
 trade-offs than dropping document-level metadata entirely. If a future
 revision adds it, the substrate decision will need to be revisited.
 
+Relationship to existing formats
+--------------------------------
+
+Across communities, real-world data dictionaries converge on a small core:
+**name, description, and (sometimes, partially) type information**. That
+common ground is what nearly every author actually writes, regardless of
+which format they nominally produce. This spec is a deliberately small
+extension of that core — adding the structure needed to validate and
+enrich, while staying close to what people already draft in the wild.
+
+The flat-file shape is a deliberate alignment, not an oversight. Every
+format below (with the partial exception of XML codebook standards) starts
+from row-per-variable, columns-of-attributes. That's how data dictionaries
+naturally exist in researcher hands — a spreadsheet, a CSV, a few columns
+deep. Adding hierarchy, sidecar files, or required tooling would make
+authoring harder *and* make conversion from existing formats harder. We
+chose simplicity at this layer in exchange for keeping the
+existing-format-to-this-format adapters tractable.
+
+We are implementing the core of the formats listed below. If our spec ever
+diverges substantially from that core, that's a signal we've over-rotated
+on novelty and should re-examine the divergence rather than ship it.
+
+**Frictionless Table Schema** (data.gov, OpenML, the ``datasets`` package).
+Our type vocabulary is a researcher-comprehensible subset of Frictionless's;
+``pattern`` and per-column structure align directly. Where we diverge: we
+treat enumerated values as a primary type (``permissible_values``) rather
+than a string-with-enum-constraint, matching how researchers think about
+multiple-choice columns. We intend to ship a Frictionless adapter
+(translator in both directions).
+
+**REDCap data dictionary** (de facto standard in clinical research). Our
+codes encoding (``code, label | code, label | ...`` with bareword
+shorthand) is taken directly from REDCap. Our type-as-major-axis approach
+mirrors REDCap's Field Type. We diverge by collapsing REDCap's UI-flavored
+types (``radio``, ``dropdown``, ``checkbox``) into the single semantic
+type ``permissible_values`` — a data dictionary describes data, not the
+form widget that produced it. We intend to ship a REDCap adapter.
+
+**SchemaSheets** (LinkML community). This format supersedes SchemaSheets
+for the data-dictionary use case. Where SchemaSheets requires authors to
+work with LinkML conventions (slot/class distinctions, slot URIs, mixin
+semantics), we present a researcher-comprehensible flat surface.
+SchemaSheets capabilities not directly expressible here will be addressed
+during the migration period. A SchemaSheets adapter is part of the
+planned tooling.
+
+**DDI / CDISC** (heavyweight institutional standards). These describe a
+different scope — full study lifecycle, regulatory submission. Not
+displaced; complementary in cases where they apply.
+
+Out of scope
+------------
+
+This format intentionally covers a single, flat tabular dataset described
+by a single data dictionary. The following use cases need a higher-order
+artifact on top of, or alongside, this format, and are explicitly out of
+scope:
+
+- **Hierarchical or nested data.** Columns containing JSON-shaped
+  structures, repeated groups, document trees. Authoring as a flat
+  row-per-column descriptor doesn't fit. Use a structured data model
+  (LinkML class definitions, JSON Schema, Avro) for the nesting and
+  reference this format for leaf-level columns where applicable.
+
+- **Multi-table datasets with relationships.** Several related tables
+  sharing keys (e.g., dbGaP's phs/pht/phv structure, relational
+  databases). Each table can have its own data dictionary in this format,
+  but the relational structure between them — foreign keys, joins, shared
+  dimensions — is the job of a higher-order schema artifact. A simple
+  manifest pattern (a list of data dictionaries plus a relations file)
+  would address this without burdening per-DD authoring.
+
+- **Variable versioning and lineage.** "This variable was renamed from
+  ``old_name`` in v3," "valid from 2020-01 to 2023-06," provenance chains.
+  Versioning concerns belong at the dataset/schema level, not per-row.
+
+- **Cross-column constraints.** Conditional requireds, dependencies
+  ("field A is required only if field B is X"), value relationships
+  across columns. The general case needs a real expression language, not
+  a small format extension.
+
+- **Domain-specific metadata.** Clinical (codeset versions, encounter
+  types), survey (question wording, branching logic), environmental
+  (sensor calibration, measurement uncertainty). The format is
+  intentionally domain-naive. Domain extensions can live in optional
+  Spec B columns by convention, but defining them is the responsibility
+  of domain communities, not this spec.
+
 Future revisions
 ----------------
 
-The following are explicitly deferred from v1:
+The following are deferred from v1 but may be added as small additive
+extensions to *this* format in future revisions:
 
 - Named, reusable enum definitions (e.g., declaring an enum once and
   referencing it from multiple ``permissible_values`` columns).
 - A ``format`` field for refining types (``string`` + ``format: email``,
   date format strings, etc.).
 - Escaping for ``|`` and ``,`` in code values.
-- Cross-column constraints (conditional requireds, dependencies).
 - Document-level metadata and file-level conventions.
-- Per-variable provenance, lineage, and versioning.
 
 Examples
 --------
