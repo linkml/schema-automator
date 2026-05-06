@@ -1,14 +1,14 @@
 name	type	description	codes	unit	min	max
-subject_id	string	De-identified study participant identifier.
+subject_id	string	De-identified study participant identifier.				
 age_years	integer	Participant age at enrollment.		years	0	120
 weight_kg	decimal	Participant body weight at enrollment.		kg	0	500
 lab_creatinine	decimal	Serum creatinine measurement.		mg/dL	none	none
-is_smoker	boolean	Whether the participant currently smokes.
-enrollment_date	date	Date the participant was enrolled in the study.
-last_contact_datetime	datetime	Timestamp of the most recent participant contact.
-visit_time	time	Time of day the participant arrived for the visit.
-sex	permissible_values	Self-reported sex of the participant.	F, Female | M, Male | O, Other | U, Unknown
-data_source	permissible_values	Source from which this record was derived.	EHR | Survey | Lab
-race_ethnicity	permissible_values	Combined race and ethnicity classification.	1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic
-concept_iri	uri	Reference to a controlled-vocabulary concept describing the participant's primary diagnosis.
-omop_concept_id	curie	OMOP concept identifier for the primary diagnosis.
+is_smoker	boolean	Whether the participant currently smokes.				
+enrollment_date	date	Date the participant was enrolled in the study.				
+last_contact_datetime	datetime	Timestamp of the most recent participant contact.				
+visit_time	time	Time of day the participant arrived for the visit.				
+sex	permissible_values	Self-reported sex of the participant.	F, Female | M, Male | O, Other | U, Unknown			
+data_source	permissible_values	Source from which this record was derived.	EHR | Survey | Lab			
+race_ethnicity	permissible_values	Combined race and ethnicity classification.	1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic			
+concept_iri	uri	Reference to a controlled-vocabulary concept describing the participant's primary diagnosis.				
+omop_concept_id	curie	OMOP concept identifier for the primary diagnosis.				

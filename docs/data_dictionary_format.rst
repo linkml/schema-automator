@@ -130,13 +130,27 @@ imply including ``required``.
        LinkML's ``slot_uri`` for the emitted slot.
    * - ``see_also``
      - External references — codebooks, study protocols, standards.
-       Multivalued; in TSV form, multiple values are pipe-separated within
-       a single cell.
+       Multivalued in TSV form: see "Multivalued TSV cells" below.
    * - ``example_values``
      - Sample values for this column. Useful as authoring guidance for
        consumers and as a fallback signal for pattern inference when
-       ``pattern`` is not provided. Multivalued; in TSV form, multiple
-       values are pipe-separated within a single cell.
+       ``pattern`` is not provided. Multivalued in TSV form: see
+       "Multivalued TSV cells" below.
+
+Multivalued TSV cells
+~~~~~~~~~~~~~~~~~~~~~
+
+Multivalued Spec B fields (``see_also``, ``example_values``) encode
+multiple values pipe-separated within a single cell, using the same
+convention as the ``codes`` field. Whitespace around the ``|`` separator
+is trimmed; the values themselves are kept verbatim. If a value contains
+a literal pipe, escape it as ``\|`` (same rule as in codes).
+
+Example (a ``see_also`` cell)::
+
+    LOINC:2160-0 | https://example.org/protocol.pdf
+
+In YAML form, multivalued fields are written as plain YAML lists.
 
 Type vocabulary
 ---------------
@@ -209,8 +223,8 @@ Examples::
 Escaping
 ~~~~~~~~
 
-To include a literal ``,``, ``|``, or ``\`` in a code, prefix it with a
-backslash:
+To include a literal comma, pipe, or backslash in a code, prefix it with
+a backslash:
 
 - ``\,`` — literal comma
 - ``\|`` — literal pipe
@@ -384,7 +398,6 @@ extensions to *this* format in future revisions:
   referencing it from multiple ``permissible_values`` columns).
 - A ``format`` field for refining types (``string`` + ``format: email``,
   date format strings, etc.).
-- Escaping for ``|`` and ``,`` in code values.
 - Document-level metadata and file-level conventions.
 
 Examples
