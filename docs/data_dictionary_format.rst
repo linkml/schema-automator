@@ -130,6 +130,13 @@ imply including ``required``.
        LinkML's ``slot_uri`` for the emitted slot.
    * - ``see_also``
      - External references — codebooks, study protocols, standards.
+       Multivalued; in TSV form, multiple values are pipe-separated within
+       a single cell.
+   * - ``example_values``
+     - Sample values for this column. Useful as authoring guidance for
+       consumers and as a fallback signal for pattern inference when
+       ``pattern`` is not provided. Multivalued; in TSV form, multiple
+       values are pipe-separated within a single cell.
 
 Type vocabulary
 ---------------
@@ -186,20 +193,42 @@ containing pipe-separated tokens. Each token is either:
 
 - ``code, label`` — a comma-separated pair, where ``code`` is the literal
   value as it appears in the data and ``label`` is the human-readable
-  meaning. Whitespace around the separators is ignored.
+  meaning. The first comma in a token separates code from label;
+  subsequent commas in the label are literal text. Whitespace around the
+  separators is ignored.
 - ``value`` — bareword shorthand, interpreted as ``value, value``. Use
   this when the literal data value is itself the human-readable form
   (e.g., color names, country codes, status strings).
 
-Example::
+Examples::
 
     1, Yes | 0, No | 2, Unknown
     EHR | Survey | Lab
     F, Female | M, Male | O, Other | U, Unknown
 
-Limitations: code or label values cannot contain ``|``; values containing
-``,`` must use bareword shorthand or wait for a future spec revision that
-introduces escaping.
+Escaping
+~~~~~~~~
+
+To include a literal ``,``, ``|``, or ``\`` in a code, prefix it with a
+backslash:
+
+- ``\,`` — literal comma
+- ``\|`` — literal pipe
+- ``\\`` — literal backslash
+
+Examples with escaping::
+
+    1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic
+    >=$50\,000, Middle income | <$50\,000, Low income
+
+Note that labels (the part after the first comma in a ``code, label``
+token) may contain unescaped commas — only the first comma per token is
+parsed as the code/label separator. Codes (the part before the comma, or
+the entire bareword) must escape commas because the first unescaped comma
+would otherwise be parsed as the separator.
+
+Other backslash sequences (e.g., ``\n``, ``\t``) are reserved for future
+revisions and are currently invalid.
 
 Conformance
 -----------
@@ -211,13 +240,24 @@ requirements are reported as warnings. Tooling continues processing; the
 author sees a list of issues to address.
 
 **Strict mode (fail).** Any missing best-practice/conditional field, any
-invalid type vocabulary value, or any malformed codes encoding causes
-validation to fail. Use this in CI or when consuming a data dictionary
-that must be clean.
+invalid type vocabulary value, malformed codes encoding, or
+type-inappropriate field (e.g., ``codes`` on a ``boolean`` row, ``unit``
+on a ``string`` row) causes validation to fail. Use this in CI or when
+consuming a data dictionary that must be clean.
 
 Both modes are implemented by the same validator running against the same
 LinkML schema. Strict mode runs ``linkml-validate`` directly; default mode
 wraps it and downgrades non-fatal issues to warnings.
+
+A small number of content-quality concerns cannot be expressed in the
+LinkML schema cleanly and are enforced by an additional lint pass:
+
+- Descriptions containing code lists, units, ranges, or example values
+  (see "Description content rules" below).
+- Numeric ``min``/``max`` values whose numeric form does not match the
+  declared type — e.g., a fractional ``0.5`` minimum on an ``integer``
+  column. The schema accepts any number for ``min``/``max``; the lint
+  pass catches the type mismatch.
 
 Description content rules
 -------------------------
@@ -228,7 +268,7 @@ is disallowed:
 - Code lists or enumerated values (use ``codes``)
 - Unit declarations (use ``unit``)
 - Numeric ranges (use ``min`` and ``max``)
-- Example values (use the optional Spec B field, when added)
+- Example values (use ``example_values``, optional Spec B)
 
 Descriptions polluted with such content are less useful, not more, and
 indicate the author put information in the wrong place. Enforcement is

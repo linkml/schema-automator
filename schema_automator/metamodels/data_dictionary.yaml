@@ -69,9 +69,10 @@ classes:
         description: >-
           Human-readable prose description of what the variable represents.
           MUST NOT contain code lists, enumerated values, unit declarations,
-          numeric ranges, or example values — those have their own fields.
-          Descriptions polluted with such content are less useful, not more,
-          and indicate the author put information in the wrong place.
+          numeric ranges, or example values — those have dedicated fields
+          (`codes`, `unit`, `min`, `max`, `example_values`). Descriptions
+          polluted with such content are less useful, not more, and indicate
+          the author put information in the wrong place.
         required: true
         range: string
 
@@ -81,10 +82,14 @@ classes:
           `permissible_values`. Encoded as `code, label | code, label | ...`.
           Bareword shorthand is allowed: a token without a comma is
           interpreted as `value, value` (the literal value serves as both the
-          code and its meaning). Code values cannot contain `|`; comma-bearing
-          values must use bareword shorthand or wait for v2 escaping.
+          code and its meaning). The first comma in a token separates code
+          from label; subsequent commas in the label are literal text.
+          Special characters (`,`, `|`, `\`) are escaped with a backslash:
+          `\,` for a literal comma, `\|` for a literal pipe, `\\` for a
+          literal backslash. Other backslash sequences are reserved for
+          future revisions.
         range: string
-        pattern: "^[^|]+(\\|[^|]+)*$"
+        pattern: '^(?:[^,|\\\s]|\\[,|\\])(?:[^,|\\]|\\[,|\\])*(?:,(?:[^|\\]|\\[,|\\])+)?(?:\s*\|\s*(?:[^,|\\\s]|\\[,|\\])(?:[^,|\\]|\\[,|\\])*(?:,(?:[^|\\]|\\[,|\\])+)?)*$'
 
       unit:
         description: >-
@@ -165,8 +170,18 @@ classes:
       see_also:
         description: >-
           External references (URIs/CURIEs) related to this variable —
-          codebooks, study protocols, standards documents.
+          codebooks, study protocols, standards documents. In TSV form,
+          multiple values are encoded pipe-separated within a single cell.
         range: uriorcurie
+        multivalued: true
+
+      example_values:
+        description: >-
+          Sample values for this column. Useful as authoring guidance for
+          consumers and as a fallback signal for pattern inference when
+          `pattern` is not provided. In TSV form, multiple values are
+          encoded pipe-separated within a single cell.
+        range: string
         multivalued: true
 
     rules:
@@ -200,6 +215,61 @@ classes:
               required: true
             max:
               required: true
+
+      - description: >-
+          The `codes` field is permitted only when type is
+          `permissible_values`.
+        preconditions:
+          slot_conditions:
+            type:
+              none_of:
+                - equals_string: permissible_values
+        postconditions:
+          slot_conditions:
+            codes:
+              value_presence: ABSENT
+
+      - description: >-
+          The `unit` field is permitted only on numeric types (`integer` or
+          `decimal`).
+        preconditions:
+          slot_conditions:
+            type:
+              none_of:
+                - equals_string: integer
+                - equals_string: decimal
+        postconditions:
+          slot_conditions:
+            unit:
+              value_presence: ABSENT
+
+      - description: >-
+          The `min` field is permitted only on numeric types (`integer` or
+          `decimal`).
+        preconditions:
+          slot_conditions:
+            type:
+              none_of:
+                - equals_string: integer
+                - equals_string: decimal
+        postconditions:
+          slot_conditions:
+            min:
+              value_presence: ABSENT
+
+      - description: >-
+          The `max` field is permitted only on numeric types (`integer` or
+          `decimal`).
+        preconditions:
+          slot_conditions:
+            type:
+              none_of:
+                - equals_string: integer
+                - equals_string: decimal
+        postconditions:
+          slot_conditions:
+            max:
+              value_presence: ABSENT
 
 enums:
 

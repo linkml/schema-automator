@@ -33,6 +33,14 @@ entries:
     type: date
     description: Date the participant was enrolled in the study.
 
+  - name: last_contact_datetime
+    type: datetime
+    description: Timestamp of the most recent participant contact.
+
+  - name: visit_time
+    type: time
+    description: Time of day the participant arrived for the visit.
+
   - name: sex
     type: permissible_values
     description: Self-reported sex of the participant.
@@ -42,6 +50,11 @@ entries:
     type: permissible_values
     description: Source from which this record was derived.
     codes: EHR | Survey | Lab
+
+  - name: race_ethnicity
+    type: permissible_values
+    description: Combined race and ethnicity classification.
+    codes: 1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic
 
   - name: concept_iri
     type: uri
