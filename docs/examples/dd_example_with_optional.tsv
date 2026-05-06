@@ -1,0 +1,15 @@
+name	type	description	codes	unit	min	max	label	multivalued	uri	example_values
+subject_id	string	De-identified study participant identifier.					Subject ID			SUBJ001 | SUBJ002
+age_years	integer	Participant age at enrollment.		years	0	120	Age (years)			
+weight_kg	decimal	Participant body weight at enrollment.		kg	0	500	Weight			
+lab_creatinine	decimal	Serum creatinine measurement.		mg/dL	none	none	Creatinine		LOINC:2160-0	0.6 | 1.0 | 1.4
+is_smoker	boolean	Whether the participant currently smokes.					Current smoker			
+enrollment_date	date	Date the participant was enrolled in the study.					Enrollment date			
+last_contact_datetime	datetime	Timestamp of the most recent participant contact.					Last contact			
+visit_time	time	Time of day the participant arrived for the visit.					Visit time			
+sex	permissible_values	Self-reported sex of the participant.	F, Female | M, Male | O, Other | U, Unknown				Sex			
+data_source	permissible_values	Source from which this record was derived.	EHR | Survey | Lab				Data source			
+race_ethnicity	permissible_values	Combined race and ethnicity classification.	1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic				Race/ethnicity			
+medications	string	List of medications the participant is taking at enrollment.					Current medications	true		
+concept_iri	uri	Reference to a controlled-vocabulary concept describing the participant's primary diagnosis.					Diagnosis concept IRI			
+omop_concept_id	curie	OMOP concept identifier for the primary diagnosis.					OMOP concept			
