@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Dictionary Format &#8212; Schema Automator  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Packages" href="packages/index.html" />
+    <link rel="prev" title="Command Line Interface" href="cli.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="data-dictionary-format">
+<h1>Data Dictionary Format<a class="headerlink" href="#data-dictionary-format" title="Link to this heading">¶</a></h1>
+<p>Schema Automator’s canonical data dictionary format — the format we ask
+new studies to produce when they’re onboarding to a data-sharing pipeline.</p>
+<p>This is a forward-looking, prescriptive target spec. The audience is a data
+owner at a <em>new</em> study, preparing their data for sharing, before any
+inconsistent local conventions have set in. Handling of legacy or messy
+data dictionaries is a separate concern; those are normalized into this
+format by an upstream layer (see <a class="reference external" href="https://github.com/linkml/schema-automator/issues/200">linkml/schema-automator#200</a>).</p>
+<section id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Link to this heading">¶</a></h2>
+<p>The format provides enough computable information for Schema Automator to
+produce maximally-enriched LinkML schemas, while staying simple enough that
+any researcher — clinical, environmental, social, business — can author and
+maintain it without specialized tooling. The format is row-per-variable and
+deliberately minimal.</p>
+</section>
+<section id="substrate">
+<h2>Substrate<a class="headerlink" href="#substrate" title="Link to this heading">¶</a></h2>
+<p>The recommended substrate is <strong>TSV (tab-separated values)</strong>. CSV is also
+accepted; tabs avoid quoting issues when code values contain commas.</p>
+<p>A YAML form is sanctioned for tooling-friendly authoring (e.g., schema
+emission, programmatic generation). YAML and TSV are equivalent — the same
+set of rows, the same fields, the same conformance rules. Tooling consumes
+either.</p>
+<p>The canonical machine-readable definition is the LinkML schema at
+<code class="docutils literal notranslate"><span class="pre">schema_automator/metamodels/data_dictionary.yaml</span></code>.</p>
+</section>
+<section id="two-specs">
+<h2>Two specs<a class="headerlink" href="#two-specs" title="Link to this heading">¶</a></h2>
+<p>The format is structured as two specs:</p>
+<p><strong>Spec A</strong> is the recommended set of fields. This is what we ask researchers
+to produce.</p>
+<p><strong>Spec B</strong> is a set of optional columns that researchers may add
+independently. Adopting one Spec B column does not require adopting any
+other; tooling consumes whichever optional fields are present and ignores
+the rest.</p>
+</section>
+<section id="spec-a-recommended-fields">
+<h2>Spec A: recommended fields<a class="headerlink" href="#spec-a-recommended-fields" title="Link to this heading">¶</a></h2>
+<p>Each row of a data dictionary describes one column of the data file.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 20.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>When required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Column name as it appears in the data file. Accepts a string
+identifier or a URI/CURIE; URI/CURIE forms are preferred when the
+column has a known semantic identity in a controlled vocabulary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>Best-practice required</p></td>
+<td><p>Data type from the canonical type vocabulary (see below).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+<td><p>Best-practice required</p></td>
+<td><p>Prose description of what the variable represents. <strong>Must not
+contain code lists, unit declarations, value ranges, or example
+values</strong> — those have dedicated fields.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">codes</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code></p></td>
+<td><p>The permissible values for this column, encoded as
+<code class="docutils literal notranslate"><span class="pre">code,</span> <span class="pre">label</span> <span class="pre">|</span> <span class="pre">code,</span> <span class="pre">label</span> <span class="pre">|</span> <span class="pre">...</span></code>. Bareword shorthand is
+allowed: a token without a comma is interpreted as
+<code class="docutils literal notranslate"><span class="pre">value,</span> <span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unit</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">integer</span></code> or <code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
+<td><p>Unit of measure. Use the literal token <code class="docutils literal notranslate"><span class="pre">none</span></code> for genuinely
+unitless quantities (counts, ratios). UCUM units are encouraged
+but not required; freeform reasonable units (<code class="docutils literal notranslate"><span class="pre">mg/dL</span></code>,
+<code class="docutils literal notranslate"><span class="pre">servings/week</span></code>) are accepted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">integer</span></code> or <code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
+<td><p>Minimum permissible value. Use <code class="docutils literal notranslate"><span class="pre">none</span></code> for genuinely unbounded
+variables.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">integer</span></code> or <code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
+<td><p>Maximum permissible value. Use <code class="docutils literal notranslate"><span class="pre">none</span></code> for genuinely unbounded
+variables.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">none</span></code> token is distinct from an empty cell. An empty cell means the
+author has not declared the field and is reported as a conformance issue.
+<code class="docutils literal notranslate"><span class="pre">none</span></code> is the explicit declaration that the field is genuinely not
+applicable.</p>
+</section>
+<section id="spec-b-optional-columns">
+<h2>Spec B: optional columns<a class="headerlink" href="#spec-b-optional-columns" title="Link to this heading">¶</a></h2>
+<p>Researchers may add any subset of the following columns to a data
+dictionary. Each is independently adoptable — including <code class="docutils literal notranslate"><span class="pre">label</span></code> does not
+imply including <code class="docutils literal notranslate"><span class="pre">required</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18.0%" />
+<col style="width: 82.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">label</span></code></p></td>
+<td><p>Short human-readable name for the variable. Distinct from
+<code class="docutils literal notranslate"><span class="pre">description</span></code> (prose) and <code class="docutils literal notranslate"><span class="pre">name</span></code> (machine identifier).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">multivalued</span></code></p></td>
+<td><p>Boolean. Whether each cell of this column contains a list of
+values rather than a single value (e.g., multi-select responses).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">required</span></code></p></td>
+<td><p>Boolean. Whether this column requires a value in every row.
+Rarely accurately known at authoring time; if absent, schema
+inference fills the gap.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pattern</span></code></p></td>
+<td><p>Regular expression that all values of this column must match.
+Power-user field; pattern inference may fill the gap if absent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uri</span></code></p></td>
+<td><p>URI or CURIE that semantically anchors this variable in a
+controlled vocabulary (e.g., <code class="docutils literal notranslate"><span class="pre">OMOP:1234567</span></code>). Equivalent to
+LinkML’s <code class="docutils literal notranslate"><span class="pre">slot_uri</span></code> for the emitted slot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">see_also</span></code></p></td>
+<td><p>External references — codebooks, study protocols, standards.
+Multivalued in TSV form: see “Multivalued TSV cells” below.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">example_values</span></code></p></td>
+<td><p>Sample values for this column. Useful as authoring guidance for
+consumers and as a fallback signal for pattern inference when
+<code class="docutils literal notranslate"><span class="pre">pattern</span></code> is not provided. Multivalued in TSV form: see
+“Multivalued TSV cells” below.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="multivalued-tsv-cells">
+<h3>Multivalued TSV cells<a class="headerlink" href="#multivalued-tsv-cells" title="Link to this heading">¶</a></h3>
+<p>Multivalued Spec B fields (<code class="docutils literal notranslate"><span class="pre">see_also</span></code>, <code class="docutils literal notranslate"><span class="pre">example_values</span></code>) encode
+multiple values pipe-separated within a single cell, using the same
+convention as the <code class="docutils literal notranslate"><span class="pre">codes</span></code> field. Whitespace around the <code class="docutils literal notranslate"><span class="pre">|</span></code> separator
+is trimmed; the values themselves are kept verbatim. If a value contains
+a literal pipe, escape it as <code class="docutils literal notranslate"><span class="pre">\|</span></code> (same rule as in codes).</p>
+<p>Example (a <code class="docutils literal notranslate"><span class="pre">see_also</span></code> cell):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LOINC</span><span class="p">:</span><span class="mi">2160</span><span class="o">-</span><span class="mi">0</span> <span class="o">|</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">protocol</span><span class="o">.</span><span class="n">pdf</span>
+</pre></div>
+</div>
+<p>In YAML form, multivalued fields are written as plain YAML lists.</p>
+</section>
+</section>
+<section id="type-vocabulary">
+<h2>Type vocabulary<a class="headerlink" href="#type-vocabulary" title="Link to this heading">¶</a></h2>
+<p>The canonical type vocabulary is fixed at ten values. Anything outside this
+set is disallowed.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Sequence of characters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>Whole number.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
+<td><p>Real number. Covers <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code> at the LinkML
+emission layer; Schema Automator chooses the appropriate LinkML
+primitive based on observed data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>True/false value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>Calendar date, ISO 8601 (<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code>) by default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">datetime</span></code></p></td>
+<td><p>Date and time, ISO 8601 by default.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p>Time of day, ISO 8601 by default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">uri</span></code></p></td>
+<td><p>Uniform Resource Identifier (full IRI form).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">curie</span></code></p></td>
+<td><p>Compact URI (e.g., <code class="docutils literal notranslate"><span class="pre">OMOP:1234567</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">permissible_values</span></code></p></td>
+<td><p>The variable is enumerated. The <code class="docutils literal notranslate"><span class="pre">codes</span></code> field declares its
+permissible values.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The vocabulary is the researcher-comprehensible subset of LinkML’s built-in
+types. Technical LinkML primitives (<code class="docutils literal notranslate"><span class="pre">ncname</span></code>, <code class="docutils literal notranslate"><span class="pre">nodeidentifier</span></code>,
+<code class="docutils literal notranslate"><span class="pre">jsonpath</span></code>, etc.) are excluded — researchers won’t write them, and
+emission can’t honor the distinction usefully without other context.</p>
+<p>Composite or multi-typed declarations (e.g., <code class="docutils literal notranslate"><span class="pre">decimal,</span> <span class="pre">encoded</span></code>) are not
+permitted. Enumerated columns use the <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> type and
+declare their codes in the <code class="docutils literal notranslate"><span class="pre">codes</span></code> field; an integer column whose values
+are codes (e.g., <code class="docutils literal notranslate"><span class="pre">1=Yes,</span> <span class="pre">0=No</span></code>) is declared as <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code>
+with codes, not as <code class="docutils literal notranslate"><span class="pre">integer</span></code> with codes.</p>
+</section>
+<section id="codes-encoding">
+<h2>Codes encoding<a class="headerlink" href="#codes-encoding" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">codes</span></code> field for <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> columns is a single string
+containing pipe-separated tokens. Each token is either:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">code,</span> <span class="pre">label</span></code> — a comma-separated pair, where <code class="docutils literal notranslate"><span class="pre">code</span></code> is the literal
+value as it appears in the data and <code class="docutils literal notranslate"><span class="pre">label</span></code> is the human-readable
+meaning. The first comma in a token separates code from label;
+subsequent commas in the label are literal text. Whitespace around the
+separators is ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> — bareword shorthand, interpreted as <code class="docutils literal notranslate"><span class="pre">value,</span> <span class="pre">value</span></code>. Use
+this when the literal data value is itself the human-readable form
+(e.g., color names, country codes, status strings).</p></li>
+</ul>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">,</span> <span class="n">Yes</span> <span class="o">|</span> <span class="mi">0</span><span class="p">,</span> <span class="n">No</span> <span class="o">|</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Unknown</span>
+<span class="n">EHR</span> <span class="o">|</span> <span class="n">Survey</span> <span class="o">|</span> <span class="n">Lab</span>
+<span class="n">F</span><span class="p">,</span> <span class="n">Female</span> <span class="o">|</span> <span class="n">M</span><span class="p">,</span> <span class="n">Male</span> <span class="o">|</span> <span class="n">O</span><span class="p">,</span> <span class="n">Other</span> <span class="o">|</span> <span class="n">U</span><span class="p">,</span> <span class="n">Unknown</span>
+</pre></div>
+</div>
+<section id="escaping">
+<h3>Escaping<a class="headerlink" href="#escaping" title="Link to this heading">¶</a></h3>
+<p>To include a literal comma, pipe, or backslash in a code, prefix it with
+a backslash:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">\,</span></code> — literal comma</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\|</span></code> — literal pipe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\\</span></code> — literal backslash</p></li>
+</ul>
+<p>Examples with escaping:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic
+&gt;=$50\,000, Middle income | &lt;$50\,000, Low income
+</pre></div>
+</div>
+<p>Note that labels (the part after the first comma in a <code class="docutils literal notranslate"><span class="pre">code,</span> <span class="pre">label</span></code>
+token) may contain unescaped commas — only the first comma per token is
+parsed as the code/label separator. Codes (the part before the comma, or
+the entire bareword) must escape commas because the first unescaped comma
+would otherwise be parsed as the separator.</p>
+<p>Other backslash sequences (e.g., <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code>) are reserved for future
+revisions and are currently invalid.</p>
+</section>
+</section>
+<section id="conformance">
+<h2>Conformance<a class="headerlink" href="#conformance" title="Link to this heading">¶</a></h2>
+<p>The format defines two conformance modes:</p>
+<p><strong>Default mode (warn-only).</strong> All best-practice and conditional
+requirements are reported as warnings. Tooling continues processing; the
+author sees a list of issues to address.</p>
+<p><strong>Strict mode (fail).</strong> Any missing best-practice/conditional field, any
+invalid type vocabulary value, malformed codes encoding, or
+type-inappropriate field (e.g., <code class="docutils literal notranslate"><span class="pre">codes</span></code> on a <code class="docutils literal notranslate"><span class="pre">boolean</span></code> row, <code class="docutils literal notranslate"><span class="pre">unit</span></code>
+on a <code class="docutils literal notranslate"><span class="pre">string</span></code> row) causes validation to fail. Use this in CI or when
+consuming a data dictionary that must be clean.</p>
+<p>Both modes are implemented by the same validator running against the same
+LinkML schema. Strict mode runs <code class="docutils literal notranslate"><span class="pre">linkml-validate</span></code> directly; default mode
+wraps it and downgrades non-fatal issues to warnings.</p>
+<p>A small number of content-quality concerns cannot be expressed in the
+LinkML schema cleanly and are enforced by an additional lint pass:</p>
+<ul class="simple">
+<li><p>Descriptions containing code lists, units, ranges, or example values
+(see “Description content rules” below).</p></li>
+<li><p>Numeric <code class="docutils literal notranslate"><span class="pre">min</span></code>/<code class="docutils literal notranslate"><span class="pre">max</span></code> values whose numeric form does not match the
+declared type — e.g., a fractional <code class="docutils literal notranslate"><span class="pre">0.5</span></code> minimum on an <code class="docutils literal notranslate"><span class="pre">integer</span></code>
+column. The schema accepts any number for <code class="docutils literal notranslate"><span class="pre">min</span></code>/<code class="docutils literal notranslate"><span class="pre">max</span></code>; the lint
+pass catches the type mismatch.</p></li>
+</ul>
+</section>
+<section id="description-content-rules">
+<h2>Description content rules<a class="headerlink" href="#description-content-rules" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">description</span></code> field must contain only prose. The following content
+is disallowed:</p>
+<ul class="simple">
+<li><p>Code lists or enumerated values (use <code class="docutils literal notranslate"><span class="pre">codes</span></code>)</p></li>
+<li><p>Unit declarations (use <code class="docutils literal notranslate"><span class="pre">unit</span></code>)</p></li>
+<li><p>Numeric ranges (use <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code>)</p></li>
+<li><p>Example values (use <code class="docutils literal notranslate"><span class="pre">example_values</span></code>, optional Spec B)</p></li>
+</ul>
+<p>Descriptions polluted with such content are less useful, not more, and
+indicate the author put information in the wrong place. Enforcement is
+performed by a content-quality lint (separate from structural validation)
+that flags suspicious description content.</p>
+</section>
+<section id="document-level-metadata">
+<h2>Document-level metadata<a class="headerlink" href="#document-level-metadata" title="Link to this heading">¶</a></h2>
+<p>The format intentionally has no document-level metadata in v1. There is no
+header section, no sidecar metadata file, and no filename convention.
+Every productive option (header that breaks CSV/TSV format, sidecar that
+adds coupling, filename encoding that’s fragile to parse) has worse
+trade-offs than dropping document-level metadata entirely. If a future
+revision adds it, the substrate decision will need to be revisited.</p>
+</section>
+<section id="relationship-to-existing-formats">
+<h2>Relationship to existing formats<a class="headerlink" href="#relationship-to-existing-formats" title="Link to this heading">¶</a></h2>
+<p>Across communities, real-world data dictionaries converge on a small core:
+<strong>name, description, and (sometimes, partially) type information</strong>. That
+common ground is what nearly every author actually writes, regardless of
+which format they nominally produce. This spec is a deliberately small
+extension of that core — adding the structure needed to validate and
+enrich, while staying close to what people already draft in the wild.</p>
+<p>The flat-file shape is a deliberate alignment, not an oversight. Every
+format below (with the partial exception of XML codebook standards) starts
+from row-per-variable, columns-of-attributes. That’s how data dictionaries
+naturally exist in researcher hands — a spreadsheet, a CSV, a few columns
+deep. Adding hierarchy, sidecar files, or required tooling would make
+authoring harder <em>and</em> make conversion from existing formats harder. We
+chose simplicity at this layer in exchange for keeping the
+existing-format-to-this-format adapters tractable.</p>
+<p>We are implementing the core of the formats listed below. If our spec ever
+diverges substantially from that core, that’s a signal we’ve over-rotated
+on novelty and should re-examine the divergence rather than ship it.</p>
+<p><strong>Frictionless Table Schema</strong> (data.gov, OpenML, the <code class="docutils literal notranslate"><span class="pre">datasets</span></code> package).
+Our type vocabulary is a researcher-comprehensible subset of Frictionless’s;
+<code class="docutils literal notranslate"><span class="pre">pattern</span></code> and per-column structure align directly. Where we diverge: we
+treat enumerated values as a primary type (<code class="docutils literal notranslate"><span class="pre">permissible_values</span></code>) rather
+than a string-with-enum-constraint, matching how researchers think about
+multiple-choice columns. We intend to ship a Frictionless adapter
+(translator in both directions).</p>
+<p><strong>REDCap data dictionary</strong> (de facto standard in clinical research). Our
+codes encoding (<code class="docutils literal notranslate"><span class="pre">code,</span> <span class="pre">label</span> <span class="pre">|</span> <span class="pre">code,</span> <span class="pre">label</span> <span class="pre">|</span> <span class="pre">...</span></code> with bareword
+shorthand) is taken directly from REDCap. Our type-as-major-axis approach
+mirrors REDCap’s Field Type. We diverge by collapsing REDCap’s UI-flavored
+types (<code class="docutils literal notranslate"><span class="pre">radio</span></code>, <code class="docutils literal notranslate"><span class="pre">dropdown</span></code>, <code class="docutils literal notranslate"><span class="pre">checkbox</span></code>) into the single semantic
+type <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> — a data dictionary describes data, not the
+form widget that produced it. We intend to ship a REDCap adapter.</p>
+<p><strong>SchemaSheets</strong> (LinkML community). This format supersedes SchemaSheets
+for the data-dictionary use case. Where SchemaSheets requires authors to
+work with LinkML conventions (slot/class distinctions, slot URIs, mixin
+semantics), we present a researcher-comprehensible flat surface.
+SchemaSheets capabilities not directly expressible here will be addressed
+during the migration period. A SchemaSheets adapter is part of the
+planned tooling.</p>
+<p><strong>DDI / CDISC</strong> (heavyweight institutional standards). These describe a
+different scope — full study lifecycle, regulatory submission. Not
+displaced; complementary in cases where they apply.</p>
+</section>
+<section id="out-of-scope">
+<h2>Out of scope<a class="headerlink" href="#out-of-scope" title="Link to this heading">¶</a></h2>
+<p>This format intentionally covers a single, flat tabular dataset described
+by a single data dictionary. The following use cases need a higher-order
+artifact on top of, or alongside, this format, and are explicitly out of
+scope:</p>
+<ul class="simple">
+<li><p><strong>Hierarchical or nested data.</strong> Columns containing JSON-shaped
+structures, repeated groups, document trees. Authoring as a flat
+row-per-column descriptor doesn’t fit. Use a structured data model
+(LinkML class definitions, JSON Schema, Avro) for the nesting and
+reference this format for leaf-level columns where applicable.</p></li>
+<li><p><strong>Multi-table datasets with relationships.</strong> Several related tables
+sharing keys (e.g., dbGaP’s phs/pht/phv structure, relational
+databases). Each table can have its own data dictionary in this format,
+but the relational structure between them — foreign keys, joins, shared
+dimensions — is the job of a higher-order schema artifact. A simple
+manifest pattern (a list of data dictionaries plus a relations file)
+would address this without burdening per-DD authoring.</p></li>
+<li><p><strong>Variable versioning and lineage.</strong> “This variable was renamed from
+<code class="docutils literal notranslate"><span class="pre">old_name</span></code> in v3,” “valid from 2020-01 to 2023-06,” provenance chains.
+Versioning concerns belong at the dataset/schema level, not per-row.</p></li>
+<li><p><strong>Cross-column constraints.</strong> Conditional required-fields, dependencies
+(“field A is required only if field B is X”), value relationships
+across columns. The general case needs a real expression language, not
+a small format extension.</p></li>
+<li><p><strong>Domain-specific metadata.</strong> Clinical (codeset versions, encounter
+types), survey (question wording, branching logic), environmental
+(sensor calibration, measurement uncertainty). The format is
+intentionally domain-naive. Domain extensions can live in optional
+Spec B columns by convention, but defining them is the responsibility
+of domain communities, not this spec.</p></li>
+</ul>
+</section>
+<section id="future-revisions">
+<h2>Future revisions<a class="headerlink" href="#future-revisions" title="Link to this heading">¶</a></h2>
+<p>The following are deferred from v1 but may be added as small additive
+extensions to <em>this</em> format in future revisions:</p>
+<ul class="simple">
+<li><p>Named, reusable enum definitions (e.g., declaring an enum once and
+referencing it from multiple <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> columns).</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">format</span></code> field for refining types (<code class="docutils literal notranslate"><span class="pre">string</span></code> + <code class="docutils literal notranslate"><span class="pre">format:</span> <span class="pre">email</span></code>,
+date format strings, etc.).</p></li>
+<li><p>Document-level metadata and file-level conventions.</p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<p>Worked examples are provided in <code class="docutils literal notranslate"><span class="pre">docs/examples/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dd_example_minimal.tsv</span></code> — Spec A only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dd_example_with_optional.tsv</span></code> — Spec A plus selected Spec B columns.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dd_example_minimal.yaml</span></code> — Spec A in YAML form.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Schema Automator</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Dictionary Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#substrate">Substrate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-specs">Two specs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spec-a-recommended-fields">Spec A: recommended fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spec-b-optional-columns">Spec B: optional columns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multivalued-tsv-cells">Multivalued TSV cells</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#type-vocabulary">Type vocabulary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#codes-encoding">Codes encoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#escaping">Escaping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conformance">Conformance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description-content-rules">Description content rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#document-level-metadata">Document-level metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relationship-to-existing-formats">Relationship to existing formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#out-of-scope">Out of scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#future-revisions">Future revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metamodels/index.html">Source Metamodels</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cli.html" title="previous chapter">Command Line Interface</a></li>
+      <li>Next: <a href="packages/index.html" title="next chapter">Packages</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2022, LinkML Developers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/data_dictionary_format.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
