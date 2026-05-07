@@ -9,8 +9,12 @@ The reverse trans-spec uses linkml-map's ``is_*`` type predicates
 (``is_str``, ``is_bool``, ``is_list``, ``is_numeric``) to filter
 linkml-map's null-safe wrapper sentinel — each constraint slot has a
 known semantic type, so the predicates double as sentinel-filter and
-type-correctness check. This idiom requires the type predicates added
-post-linkml-map 0.5.2.
+type-correctness check.
+
+The full set of type predicates lands in linkml-map 0.5.3. The current
+released version (0.5.2) only has ``is_numeric``. The forward adapter
+and codes utility work on 0.5.2; the reverse adapter raises a clear
+error on 0.5.2 and works on 0.5.3+.
 """
 
 from __future__ import annotations
@@ -19,8 +23,25 @@ from pathlib import Path
 from typing import Any
 
 from linkml_map.transformer.object_transformer import ObjectTransformer
+from linkml_map.utils.eval_utils import FUNCTIONS as _LINKML_MAP_FUNCTIONS
 from linkml_map.utils.loaders import load_specification
 from linkml_runtime.utils.schemaview import SchemaView
+
+
+_REVERSE_REQUIRED_PREDICATES = ("is_str", "is_bool", "is_list")
+
+
+def _check_reverse_supported() -> None:
+    """Raise a clear error if the installed linkml-map lacks the type
+    predicates the reverse trans-spec depends on (i.e., on 0.5.2)."""
+    missing = [p for p in _REVERSE_REQUIRED_PREDICATES if p not in _LINKML_MAP_FUNCTIONS]
+    if missing:
+        raise RuntimeError(
+            "The DD → Frictionless reverse adapter requires linkml-map "
+            f">= 0.5.3 for the {', '.join(missing)} type predicate(s). "
+            "Installed linkml-map is missing those. Upgrade with "
+            "`pip install --upgrade linkml-map` once 0.5.3 ships."
+        )
 
 
 _PKG_ROOT = Path(__file__).resolve().parents[2]
@@ -76,6 +97,10 @@ def frictionless_to_dd(table_schema: dict) -> dict:
 def dd_to_frictionless(data_dictionary: dict) -> dict:
     """Translate a canonical DD into a Frictionless Table Schema.
 
+    Requires linkml-map >= 0.5.3 (for the is_str / is_bool / is_list type
+    predicates the reverse trans-spec uses). Raises ``RuntimeError`` on
+    earlier linkml-map releases with a message pointing at the upgrade.
+
     Lossy in several places: per-code labels and per-code metadata are
     dropped (Frictionless ``enum`` is just an array of values); DD
     ``unit`` has no Frictionless equivalent; DD type values
@@ -92,5 +117,6 @@ def dd_to_frictionless(data_dictionary: dict) -> dict:
     dict
         A Frictionless Table Schema document with ``fields``.
     """
+    _check_reverse_supported()
     tr = _make_transformer(_DD_TO_FRICTIONLESS_SPEC, _DD_SCHEMA, _FRICTIONLESS_SCHEMA)
     return _strip_nulls(tr.map_object(data_dictionary, source_type="DataDictionary"))

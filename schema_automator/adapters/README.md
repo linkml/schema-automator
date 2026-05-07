@@ -59,8 +59,13 @@ post-processing in `adapter.py` strips nulls. This idiom is preferred
 over reaching for `callable(x)` (which would couple to a `linkml-map`
 implementation detail) and over a Python-side fallback.
 
-The full set of `is_*` predicates is available in `linkml-map`
-versions after 0.5.2.
+The full set of `is_*` predicates is available in `linkml-map` 0.5.3
+and later. The currently released version (0.5.2) only has
+`is_numeric`. The Frictionless adapter's *forward* direction works on
+0.5.2 (it uses only `is_numeric`); the *reverse* direction needs 0.5.3
+and raises a clear `RuntimeError` on earlier versions. The
+reverse-direction tests are marked `xfail` until the dep can be bumped
+to `>= 0.5.3`.
 
 ## Import boundary
 

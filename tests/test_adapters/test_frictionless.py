@@ -4,10 +4,26 @@ import json
 from pathlib import Path
 
 import pytest
+from linkml_map.utils.eval_utils import FUNCTIONS as _LINKML_MAP_FUNCTIONS
 
 from schema_automator.adapters.frictionless.adapter import (
     dd_to_frictionless,
     frictionless_to_dd,
+)
+
+
+# The reverse adapter's trans-spec uses linkml-map's is_str / is_bool /
+# is_list type predicates, which land in linkml-map 0.5.3. On 0.5.2 (the
+# current PyPI release) the reverse trans-spec raises FunctionNotDefined
+# at evaluation time. xfail the reverse-direction tests until the dep
+# constraint can be bumped to >= 0.5.3.
+_HAS_TYPE_PREDICATES = "is_str" in _LINKML_MAP_FUNCTIONS
+_REVERSE_REQUIRES_LINKML_MAP_053 = pytest.mark.xfail(
+    not _HAS_TYPE_PREDICATES,
+    reason="Reverse adapter trans-spec requires linkml-map >= 0.5.3 "
+    "(is_str / is_bool / is_list type predicates)",
+    strict=True,
+    raises=Exception,
 )
 
 
@@ -177,6 +193,7 @@ class TestFrictionlessToDD:
 # ----------------------------------------------------------------------
 
 
+@_REVERSE_REQUIRES_LINKML_MAP_053
 class TestDDToFrictionless:
     def test_minimal_field(self):
         source = {"entries": [{"name": "x", "type": "string", "description": "y"}]}
