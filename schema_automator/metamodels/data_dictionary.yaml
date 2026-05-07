@@ -79,17 +79,13 @@ classes:
       codes:
         description: >-
           Permissible values for this variable when its type is
-          `permissible_values`. Encoded as `code, label | code, label | ...`.
-          Bareword shorthand is allowed: a token without a comma is
-          interpreted as `value, value` (the literal value serves as both the
-          code and its meaning). The first comma in a token separates code
-          from label; subsequent commas in the label are literal text.
-          Special characters (`,`, `|`, `\`) are escaped with a backslash:
-          `\,` for a literal comma, `\|` for a literal pipe, `\\` for a
-          literal backslash. Other backslash sequences are reserved for
-          future revisions.
-        range: string
-        pattern: '^(?:[^,|\\\s]|\\[,|\\])(?:[^,|\\]|\\[,|\\])*(?:,(?:[^|\\]|\\[,|\\])+)?(?:\s*\|\s*(?:[^,|\\\s]|\\[,|\\])(?:[^,|\\]|\\[,|\\])*(?:,(?:[^|\\]|\\[,|\\])+)?)*$'
+          `permissible_values`. Each entry is a structured record with at
+          least a code; in TSV form the list is serialized as
+          `code, label | code, label | ...` per the codes encoding
+          grammar (see the prose spec).
+        range: PermissibleValueDefinition
+        multivalued: true
+        inlined_as_list: true
 
       unit:
         description: >-
@@ -187,7 +183,8 @@ classes:
     rules:
 
       - description: >-
-          When type is `permissible_values`, the `codes` field is required.
+          When type is `permissible_values`, the `codes` field is required
+          (at least one entry).
         preconditions:
           slot_conditions:
             type:
@@ -270,6 +267,37 @@ classes:
           slot_conditions:
             max:
               value_presence: ABSENT
+
+  PermissibleValueDefinition:
+    description: >-
+      A single permissible value entry within a `permissible_values`
+      column's `codes` list. Carries the literal data value (`code`),
+      its human-readable label, and optional per-code metadata
+      (description, semantic URI). In TSV form, the codes list is
+      serialized as `code, label | code, label | ...` per the codes
+      encoding grammar; this class is the canonical structured form.
+    attributes:
+      code:
+        description: >-
+          The literal value as it appears in the data file.
+        required: true
+        range: string
+      label:
+        description: >-
+          Human-readable label for this code. When omitted, the code
+          itself serves as the label (the bareword shorthand case in
+          TSV serialization).
+        range: string
+      description:
+        description: >-
+          Optional longer prose describing what this code represents,
+          for cases where the label alone is insufficient.
+        range: string
+      uri:
+        description: >-
+          URI or CURIE that semantically anchors this code in a
+          controlled vocabulary (e.g., an OMOP concept, an OBA term).
+        range: uriorcurie
 
 enums:
 

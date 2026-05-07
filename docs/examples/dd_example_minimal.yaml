@@ -44,17 +44,27 @@ entries:
   - name: sex
     type: permissible_values
     description: Self-reported sex of the participant.
-    codes: F, Female | M, Male | O, Other | U, Unknown
+    codes:
+      - {code: F, label: Female}
+      - {code: M, label: Male}
+      - {code: O, label: Other}
+      - {code: U, label: Unknown}
 
   - name: data_source
     type: permissible_values
     description: Source from which this record was derived.
-    codes: EHR | Survey | Lab
+    codes:
+      - {code: EHR}
+      - {code: Survey}
+      - {code: Lab}
 
   - name: race_ethnicity
     type: permissible_values
     description: Combined race and ethnicity classification.
-    codes: 1, Black\, non-Hispanic | 2, White\, non-Hispanic | 3, Hispanic
+    codes:
+      - {code: "1", label: "Black, non-Hispanic"}
+      - {code: "2", label: "White, non-Hispanic"}
+      - {code: "3", label: Hispanic}
 
   - name: concept_iri
     type: uri
