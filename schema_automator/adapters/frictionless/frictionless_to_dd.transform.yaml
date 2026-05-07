@@ -1,0 +1,88 @@
+id: https://w3id.org/linkml/schema-automator/adapters/frictionless-to-dd
+title: Frictionless Table Schema to canonical Data Dictionary
+description: >-
+  linkml-map trans-spec translating a Frictionless Table Schema (source)
+  into the canonical schema-automator Data Dictionary (target). Used by
+  the Frictionless adapter; see umbrella issue #202.
+
+  Lossy with respect to:
+  - `format` (Frictionless format refinements have no v1 equivalent in DD;
+    dropped).
+  - Nested type semantics for `object`, `array`, `geopoint`, `geojson`,
+    `duration`, `yearmonth` (collapsed to `string`).
+  - `unique`, `minLength`, `maxLength` constraints (no DD equivalent).
+  - Foreign keys, `missingValues`, `primaryKey` (drop; out of DD scope).
+
+source_schema: https://specs.frictionlessdata.io/table-schema
+target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+
+class_derivations:
+
+  DataDictionary:
+    populated_from: TableSchema
+    slot_derivations:
+      entries:
+        populated_from: fields
+
+  DataDictionaryEntry:
+    populated_from: Field
+    slot_derivations:
+
+      name:
+
+      label:
+        populated_from: title
+
+      description:
+
+      uri:
+        populated_from: rdfType
+
+      type:
+        expr: |
+          case(
+            (constraints is not None and constraints.enum, 'permissible_values'),
+            (type == 'number', 'decimal'),
+            (type in ('integer', 'year'), 'integer'),
+            (type == 'boolean', 'boolean'),
+            (type == 'date', 'date'),
+            (type == 'time', 'time'),
+            (type == 'datetime', 'datetime'),
+            (True, 'string')
+          )
+
+      pattern:
+        expr: "constraints.pattern if constraints else None"
+
+      required:
+        expr: "constraints.required if constraints else None"
+
+      # case() values evaluate eagerly in linkml-map's evaluator, so each
+      # branch's value must be safe to compute regardless of whether its
+      # condition matches. We guard the int/float coercions with
+      # `is_numeric` so non-numeric source values produce None rather
+      # than raising.
+      min:
+        expr: |
+          case(
+            (constraints is None or constraints.minimum is None, None),
+            (type in ('integer', 'year'), int(float(constraints.minimum)) if is_numeric(constraints.minimum) else None),
+            (type == 'number', float(constraints.minimum) if is_numeric(constraints.minimum) else None),
+            (True, None)
+          )
+
+      max:
+        expr: |
+          case(
+            (constraints is None or constraints.maximum is None, None),
+            (type in ('integer', 'year'), int(float(constraints.maximum)) if is_numeric(constraints.maximum) else None),
+            (type == 'number', float(constraints.maximum) if is_numeric(constraints.maximum) else None),
+            (True, None)
+          )
+
+      codes:
+        expr: |
+          [{'code': v} for v in constraints.enum] if (constraints is not None and constraints.enum) else None
+
+      example_values:
+        expr: "[example] if example else None"
