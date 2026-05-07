@@ -13,37 +13,54 @@ for design context.
 ## Layout
 
 - `codes.py` — utility for serializing the canonical `codes` list to
-  the TSV grammar and parsing it back. Used by every adapter as the
-  parse/serialize bookend, and by canonical-format TSV ↔ YAML
-  conversion.
+  the TSV grammar and parsing it back. Used by adapters that consume
+  TSV-form codes, and by canonical-format TSV ↔ YAML conversion.
 - `<format>/` — one subdirectory per source format. Source-format
   LinkML schemas live in `schema_automator/metamodels/` (alongside
   cadsr, frictionless, etc.), keeping the metamodel directory as the
-  canonical home for declarative artifacts. The format directory holds:
-  - `<format>_to_dd.transform.yaml` — `linkml-map` trans-spec for the
-    forward direction (foreign format → DD).
-  - `adapter.py` — Python entry points: forward function (driven by
-    the trans-spec) and reverse function (DD → foreign format).
+  canonical home for declarative schema artifacts. The format directory
+  holds:
+  - `<format>_to_dd.transform.yaml` — `linkml-map` trans-spec, foreign
+    format → DD.
+  - `dd_to_<format>.transform.yaml` — `linkml-map` trans-spec, DD →
+    foreign format.
+  - `adapter.py` — thin Python wrappers that wire the trans-specs to
+    `linkml-map`'s `ObjectTransformer` and post-process (strip nulls,
+    drop empty constraint blocks).
 
-## Why the reverse is Python rather than a trans-spec
+## Idiom: type predicates filter the null sentinel
 
-The forward direction maps cleanly to a `linkml-map` trans-spec —
-`linkml-map` handles structural conversion, type-vocabulary translation
-via `case()`, and nested-class population well.
+`linkml-map` binds unset source slots to a callable wrapper rather
+than `None`, to allow chained attribute access without raising.
+That sentinel is callable and truthy, so naive `if x:` and
+`x is not None` checks let it through.
 
-The reverse direction (DD → foreign format) is implemented as a Python
-helper instead. `linkml-map`'s expression evaluator is built on
-simpleeval with a curated function set that doesn't expose `callable`
-or `isinstance`, making it hard to disambiguate "slot is unbound"
-(bound as a `_null_safe.wrapper`) from "slot is None" or "slot is 0"
-when constructing nested target objects from flat DD slots. The
-reverse mapping is structurally simple, so a Python function is
-cleaner than 30 lines of escaped guard expressions. Forward is the
-more common adapter use case (importing existing format data) and
-where the trans-spec wins are biggest.
+The clean filter is `linkml-map`'s `is_*` type predicates
+(`is_str`, `is_int`, `is_float`, `is_bool`, `is_list`, `is_numeric`).
+The wrapper isn't an instance of any concrete type, so all of these
+return False on it. Each target slot in the trans-spec has a known
+semantic type, so the predicate doubles as both sentinel-filter and
+type-correctness check:
 
-If a future `linkml-map` exposes richer type introspection, reverse
-adapters can migrate to trans-specs without changing public APIs.
+```yaml
+constraints:
+  expr: >
+    {
+      'required': case((is_bool(required), required)),
+      'pattern':  case((is_str(pattern),   pattern)),
+      'enum':     case((is_list(codes),    [c.code for c in codes])),
+      'minimum':  case((is_numeric(min),   str(min))),
+      'maximum':  case((is_numeric(max),   str(max))),
+    }
+```
+
+`case((cond, value))` returns `None` when `cond` is False, and the
+post-processing in `adapter.py` strips nulls. This idiom is preferred
+over reaching for `callable(x)` (which would couple to a `linkml-map`
+implementation detail) and over a Python-side fallback.
+
+The full set of `is_*` predicates is available in `linkml-map`
+versions after 0.5.2.
 
 ## Import boundary
 

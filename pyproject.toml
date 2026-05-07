@@ -48,7 +48,10 @@ dependencies = [
     "tomlkit >= 0.11.4",
     "inflect >= 6.0.0",
     "linkml-runtime >= 1.10.0, < 2",
-    "linkml-map >= 0.3.0, < 1",
+    # The reverse Frictionless adapter trans-spec relies on the
+    # is_str / is_bool / is_list type predicates, which land in the
+    # next linkml-map release after 0.5.2.
+    "linkml-map >= 0.6.0, < 1",
     "click >= 8.1.7, < 9",
     "deprecated >= 1.2.15, < 2",
     "sqlalchemy >= 2.0.36, < 3",

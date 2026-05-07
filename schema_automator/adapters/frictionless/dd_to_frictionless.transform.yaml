@@ -1,0 +1,84 @@
+id: https://w3id.org/linkml/schema-automator/adapters/dd-to-frictionless
+title: Canonical Data Dictionary to Frictionless Table Schema
+description: >-
+  linkml-map trans-spec translating the canonical schema-automator Data
+  Dictionary (source) into a Frictionless Table Schema (target). Used by
+  the Frictionless adapter; see umbrella issue #202.
+
+  Lossy with respect to:
+  - DD `permissible_values` codes carry per-code label / description /
+    uri; Frictionless `enum` is just an array of allowed values, so
+    labels and per-code metadata are dropped.
+  - DD per-column `uri` maps to Frictionless `rdfType` cleanly; per-code
+    URIs in `codes[i].uri` are dropped.
+  - DD `unit` has no Frictionless equivalent and is dropped (units are
+    typically encoded in human description in Frictionless).
+  - The DD type vocabulary value `curie` collapses to Frictionless
+    `string` (Frictionless has no curie type).
+
+  Implementation notes: linkml-map binds unset source slots as a
+  callable wrapper (for safe chained attribute access) rather than
+  None. We use the `is_*` type predicates to filter the wrapper —
+  the wrapper isn't an instance of any concrete type, so `is_bool`,
+  `is_str`, `is_list`, `is_numeric` all return False on it. Each
+  constraint slot has a known semantic type, so the predicates
+  double as both sentinel-filter and type-correctness check.
+
+source_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+target_schema: https://specs.frictionlessdata.io/table-schema
+
+class_derivations:
+
+  TableSchema:
+    populated_from: DataDictionary
+    slot_derivations:
+      fields:
+        populated_from: entries
+
+  Field:
+    populated_from: DataDictionaryEntry
+    slot_derivations:
+
+      name:
+
+      title:
+        populated_from: label
+
+      description:
+
+      example:
+        # Frictionless `example` is a scalar; DD `example_values` is a list.
+        # Take the first element when present.
+        expr: "example_values[0] if is_list(example_values) and len(example_values) > 0 else None"
+
+      rdfType:
+        populated_from: uri
+
+      type:
+        expr: |
+          case(
+            (type == 'permissible_values', 'string'),
+            (type == 'decimal', 'number'),
+            (type == 'integer', 'integer'),
+            (type == 'boolean', 'boolean'),
+            (type == 'date', 'date'),
+            (type == 'time', 'time'),
+            (type == 'datetime', 'datetime'),
+            (type == 'uri', 'string'),
+            (type == 'curie', 'string'),
+            (True, 'string')
+          )
+
+      constraints:
+        # Each constraint slot uses the type predicate that matches its
+        # documented type. The predicate filters linkml-map's null-safe
+        # wrapper (which is callable but not an instance of any concrete
+        # type) and also catches author-side type errors.
+        expr: >
+          {
+            'required': case((is_bool(required), required)),
+            'pattern': case((is_str(pattern), pattern)),
+            'enum': case((is_list(codes), [c.code for c in (codes if is_list(codes) else [])])),
+            'minimum': case((is_numeric(min), str(min))),
+            'maximum': case((is_numeric(max), str(max)))
+          }
