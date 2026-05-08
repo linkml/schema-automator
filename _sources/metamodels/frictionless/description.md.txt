@@ -3,8 +3,13 @@
 # Slot: description 
 
 
+_Markdown-flavored description of what the field represents._
 
-URI: [linkml:description](https://w3id.org/linkml/description)
+
+
+
+
+URI: [fts:description](https://specs.frictionlessdata.io/table-schema/description)
 Alias: description
 
 <!-- no inheritance hierarchy -->
@@ -17,8 +22,7 @@ Alias: description
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Resource](Resource.md) |  |  no  |
-| [Field](Field.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -32,14 +36,17 @@ Alias: description
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [Field](Field.md), [Resource](Resource.md) |
-| Slot URI | [linkml:description](https://w3id.org/linkml/description) |
+| Domain Of | [Field](Field.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
-| Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
 
 
 
@@ -49,11 +56,6 @@ Alias: description
 
 
 
-## Examples
-
-| Value |
-| --- |
-| A human-readable description of this identifier namespace |
 
 
 
@@ -66,7 +68,7 @@ Alias: description
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -75,8 +77,8 @@ Alias: description
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:description |
-| native | frictionless:description |
+| self | fts:description |
+| native | fts:description |
 
 
 
@@ -86,17 +88,14 @@ Alias: description
 <details>
 ```yaml
 name: description
-examples:
-- value: A human-readable description of this identifier namespace
-from_schema: https://w3id.org/linkml/frictionless
+description: Markdown-flavored description of what the field represents.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:description
 alias: description
+owner: Field
 domain_of:
 - Field
-- Resource
 range: string
-multivalued: true
 
 ```
 </details>

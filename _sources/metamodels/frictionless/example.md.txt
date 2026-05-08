@@ -1,0 +1,101 @@
+
+
+# Slot: example 
+
+
+_Example value for the field, useful for human readers and some tools._
+
+
+
+
+
+URI: [fts:example](https://specs.frictionlessdata.io/table-schema/example)
+Alias: example
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
+
+
+
+
+
+
+## Properties
+
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Field](Field.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:example |
+| native | fts:example |
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: example
+description: Example value for the field, useful for human readers and some tools.
+from_schema: https://specs.frictionlessdata.io/table-schema
+rank: 1000
+alias: example
+owner: Field
+domain_of:
+- Field
+range: string
+
+```
+</details>

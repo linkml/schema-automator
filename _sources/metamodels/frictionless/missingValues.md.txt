@@ -3,8 +3,13 @@
 # Slot: missingValues 
 
 
+_String values to interpret as missing data when reading the tabular resource. Default is the empty string._
 
-URI: [frictionless:missingValues](https://w3id.org/linkml/frictionless/missingValues)
+
+
+
+
+URI: [fts:missingValues](https://specs.frictionlessdata.io/table-schema/missingValues)
 Alias: missingValues
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: missingValues
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Schema](Schema.md) |  |  no  |
+| [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |  no  |
 
 
 
@@ -30,14 +35,21 @@ Alias: missingValues
 
 | Property | Value |
 | --- | --- |
-| Range | NONE |
-| Domain Of | [Schema](Schema.md) |
+| Range | [String](String.md) |
+| Domain Of | [TableSchema](TableSchema.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
 | Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [TableSchema](TableSchema.md) |
+
+
 
 
 
@@ -57,7 +69,7 @@ Alias: missingValues
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -66,8 +78,8 @@ Alias: missingValues
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:missingValues |
-| native | frictionless:missingValues |
+| self | fts:missingValues |
+| native | fts:missingValues |
 
 
 
@@ -77,11 +89,15 @@ Alias: missingValues
 <details>
 ```yaml
 name: missingValues
-from_schema: https://w3id.org/linkml/frictionless
+description: String values to interpret as missing data when reading the tabular resource.
+  Default is the empty string.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: missingValues
+owner: TableSchema
 domain_of:
-- Schema
+- TableSchema
+range: string
 multivalued: true
 
 ```

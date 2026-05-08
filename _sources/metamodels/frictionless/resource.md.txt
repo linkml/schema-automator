@@ -3,8 +3,13 @@
 # Slot: resource 
 
 
+_Name of the resource being referenced. Empty string refers to the current resource (self-reference)._
 
-URI: [frictionless:resource](https://w3id.org/linkml/frictionless/resource)
+
+
+
+
+URI: [fts:resource](https://specs.frictionlessdata.io/table-schema/resource)
 Alias: resource
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: resource
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Reference](Reference.md) |  |  no  |
+| [ForeignKeyReference](ForeignKeyReference.md) | The target side of a foreign-key constraint |  no  |
 
 
 
@@ -31,12 +36,17 @@ Alias: resource
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [Reference](Reference.md) |
+| Domain Of | [ForeignKeyReference](ForeignKeyReference.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [ForeignKeyReference](ForeignKeyReference.md) |
 
 
 
@@ -46,11 +56,6 @@ Alias: resource
 
 
 
-## Examples
-
-| Value |
-| --- |
-| gene |
 
 
 
@@ -63,7 +68,7 @@ Alias: resource
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -72,8 +77,8 @@ Alias: resource
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:resource |
-| native | frictionless:resource |
+| self | fts:resource |
+| native | fts:resource |
 
 
 
@@ -83,13 +88,14 @@ Alias: resource
 <details>
 ```yaml
 name: resource
-examples:
-- value: gene
-from_schema: https://w3id.org/linkml/frictionless
+description: Name of the resource being referenced. Empty string refers to the current
+  resource (self-reference).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: resource
+owner: ForeignKeyReference
 domain_of:
-- Reference
+- ForeignKeyReference
 range: string
 
 ```

@@ -3,8 +3,13 @@
 # Slot: pattern 
 
 
+_Regular expression that all values must match (XML Schema regex syntax)._
 
-URI: [linkml:pattern](https://w3id.org/linkml/pattern)
+
+
+
+
+URI: [fts:pattern](https://specs.frictionlessdata.io/table-schema/pattern)
 Alias: pattern
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: pattern
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
 
 
 
@@ -30,14 +35,20 @@ Alias: pattern
 
 | Property | Value |
 | --- | --- |
-| Range | NONE |
+| Range | [String](String.md) |
 | Domain Of | [Constraints](Constraints.md) |
-| Slot URI | [linkml:pattern](https://w3id.org/linkml/pattern) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
 
 
 
@@ -57,7 +68,7 @@ Alias: pattern
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -66,8 +77,8 @@ Alias: pattern
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:pattern |
-| native | frictionless:pattern |
+| self | fts:pattern |
+| native | fts:pattern |
 
 
 
@@ -77,12 +88,14 @@ Alias: pattern
 <details>
 ```yaml
 name: pattern
-from_schema: https://w3id.org/linkml/frictionless
+description: Regular expression that all values must match (XML Schema regex syntax).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:pattern
 alias: pattern
+owner: Constraints
 domain_of:
 - Constraints
+range: string
 
 ```
 </details>

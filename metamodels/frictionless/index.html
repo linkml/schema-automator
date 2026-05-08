@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>frictionless &#8212; Schema Automator  documentation</title>
+    <title>Frictionless Table Schema (LinkML representation) &#8212; Schema Automator  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -32,11 +32,11 @@
 
           <div class="body" role="main">
             
-  <section id="frictionless">
-<h1>frictionless<a class="headerlink" href="#frictionless" title="Link to this heading">¶</a></h1>
-<p>frictionless</p>
-<p>URI: https://w3id.org/linkml/frictionless</p>
-<p>Name: frictionless</p>
+  <section id="frictionless-table-schema-linkml-representation">
+<h1>Frictionless Table Schema (LinkML representation)<a class="headerlink" href="#frictionless-table-schema-linkml-representation" title="Link to this heading">¶</a></h1>
+<p>LinkML representation of the Frictionless Table Schema specification (https://specs.frictionlessdata.io/table-schema/), as consumed by the schema-automator Frictionless adapter. Covers the column-descriptor layer of a Frictionless data package (the <code class="docutils literal notranslate"><span class="pre">schema</span></code> block), not the surrounding data-package metadata. Used as the source schema for linkml-map trans-specs that translate to the canonical data dictionary format.</p>
+<p>URI: https://specs.frictionlessdata.io/table-schema</p>
+<p>Name: frictionless_table_schema</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <table class="docutils align-default">
@@ -46,32 +46,20 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Any.html"><span class="std std-doc">Any</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="Dialect.html"><span class="std std-doc">Dialect</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
+<td><p>Validation constraints attached to a field</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
-<td><p></p></td>
+<td><p>Descriptor for a single column of the tabular resource</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ForeignKeys.html"><span class="std std-doc">ForeignKeys</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ForeignKey.html"><span class="std std-doc">ForeignKey</span></a></p></td>
+<td><p>Foreign-key constraint linking field(s) in this resource to field(s) in anoth…</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Package.html"><span class="std std-doc">Package</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ForeignKeyReference.html"><span class="std std-doc">ForeignKeyReference</span></a></p></td>
+<td><p>The target side of a foreign-key constraint</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="Reference.html"><span class="std std-doc">Reference</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Resource.html"><span class="std std-doc">Resource</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
+<td><p>A Frictionless Table Schema document — the column descriptors for a single ta…</p></td>
 </tr>
 </tbody>
 </table>
@@ -85,86 +73,71 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="constraint_name.html"><span class="std std-doc">constraint_name</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="constraints.html"><span class="std std-doc">constraints</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="delimiter.html"><span class="std std-doc">delimiter</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="constraints.html"><span class="std std-doc">constraints</span></a></p></td>
+<td><p>Validation constraints on field values</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="description.html"><span class="std std-doc">description</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="dialect.html"><span class="std std-doc">dialect</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="doubleQuote.html"><span class="std std-doc">doubleQuote</span></a></p></td>
-<td><p></p></td>
+<td><p>Markdown-flavored description of what the field represents</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="enum.html"><span class="std std-doc">enum</span></a></p></td>
-<td><p></p></td>
+<td><p>Closed list of allowed values</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="example.html"><span class="std std-doc">example</span></a></p></td>
+<td><p>Example value for the field, useful for human readers and some tools</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="foreignKeys.html"><span class="std std-doc">foreignKeys</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
+<td><p>Ordered list of field (column) descriptors</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="format.html"><span class="std std-doc">format</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="foreignKeys.html"><span class="std std-doc">foreignKeys</span></a></p></td>
+<td><p>Foreign key constraints linking fields in this resource to fields in another …</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="header.html"><span class="std std-doc">header</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="format.html"><span class="std std-doc">format</span></a></p></td>
+<td><p>Format refinement of the field type</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="lineTerminator.html"><span class="std std-doc">lineTerminator</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="maximum.html"><span class="std std-doc">maximum</span></a></p></td>
+<td><p>Maximum permissible value (matches <code class="docutils literal notranslate"><span class="pre">minimum</span></code> semantics)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="missingValues.html"><span class="std std-doc">missingValues</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="maxLength.html"><span class="std std-doc">maxLength</span></a></p></td>
+<td><p>Maximum length for string values (or item count for arrays)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="name.html"><span class="std std-doc">name</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="minimum.html"><span class="std std-doc">minimum</span></a></p></td>
+<td><p>Minimum permissible value for numeric, date, datetime, time, year, and yearmo…</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="path.html"><span class="std std-doc">path</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="minLength.html"><span class="std std-doc">minLength</span></a></p></td>
+<td><p>Minimum length for string values (or item count for arrays)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="missingValues.html"><span class="std std-doc">missingValues</span></a></p></td>
+<td><p>String values to interpret as missing data when reading the tabular resource</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="name.html"><span class="std std-doc">name</span></a></p></td>
+<td><p>Machine-readable name of the field</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern.html"><span class="std std-doc">pattern</span></a></p></td>
-<td><p></p></td>
+<td><p>Regular expression that all values must match (XML Schema regex syntax)</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="primaryKey.html"><span class="std std-doc">primaryKey</span></a></p></td>
-<td><p></p></td>
+<td><p>Field name(s) that together identify each row</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="profile.html"><span class="std std-doc">profile</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="rdfType.html"><span class="std std-doc">rdfType</span></a></p></td>
+<td><p>URI or CURIE naming a class in a controlled vocabulary that this field’s valu…</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="reference.html"><span class="std std-doc">reference</span></a></p></td>
-<td><p></p></td>
+<td><p>The target of the reference</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="required.html"><span class="std std-doc">required</span></a></p></td>
-<td><p></p></td>
+<td><p>Whether the field must have a value in every row</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="resource.html"><span class="std std-doc">resource</span></a></p></td>
-<td><p></p></td>
+<td><p>Name of the resource being referenced</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="resources.html"><span class="std std-doc">resources</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="title.html"><span class="std std-doc">title</span></a></p></td>
+<td><p>Human-readable title for the field</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="schema.html"><span class="std std-doc">schema</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="type.html"><span class="std std-doc">type</span></a></p></td>
+<td><p>Logical type of values in the field</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="skipInitialSpace.html"><span class="std std-doc">skipInitialSpace</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="title.html"><span class="std std-doc">title</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="type.html"><span class="std std-doc">type</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="unique.html"><span class="std std-doc">unique</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="unique.html"><span class="std std-doc">unique</span></a></p></td>
+<td><p>Whether each value of this field must be distinct across rows</p></td>
 </tr>
 </tbody>
 </table>
@@ -178,14 +151,8 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="FormatEnum.html"><span class="std std-doc">FormatEnum</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ProfileEnum.html"><span class="std std-doc">ProfileEnum</span></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="TypeEnum.html"><span class="std std-doc">TypeEnum</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="FrictionlessType.html"><span class="std std-doc">FrictionlessType</span></a></p></td>
+<td><p>The Frictionless Table Schema type vocabulary (https://specs</p></td>
 </tr>
 </tbody>
 </table>
@@ -306,7 +273,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../packages/index.html">Packages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Source Metamodels</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../cadsr/index.html">cadsr</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">frictionless</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Frictionless Table Schema (LinkML representation)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slots">Slots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#enumerations">Enumerations</a></li>

@@ -1,0 +1,101 @@
+
+
+# Slot: maxLength 
+
+
+_Maximum length for string values (or item count for arrays)._
+
+
+
+
+
+URI: [fts:maxLength](https://specs.frictionlessdata.io/table-schema/maxLength)
+Alias: maxLength
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
+
+
+
+
+
+
+## Properties
+
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Integer](Integer.md) |
+| Domain Of | [Constraints](Constraints.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:maxLength |
+| native | fts:maxLength |
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: maxLength
+description: Maximum length for string values (or item count for arrays).
+from_schema: https://specs.frictionlessdata.io/table-schema
+rank: 1000
+alias: maxLength
+owner: Constraints
+domain_of:
+- Constraints
+range: integer
+
+```
+</details>

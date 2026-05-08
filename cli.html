@@ -85,6 +85,45 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Show the version and exit.</p>
 </dd></dl>
 
+<section id="schemauto-adapt-frictionless">
+<h4>adapt-frictionless<a class="headerlink" href="#schemauto-adapt-frictionless" title="Link to this heading">¶</a></h4>
+<p>Translate between Frictionless Table Schema and the canonical
+schema-automator data dictionary format.</p>
+<p>INPUT is a path to a JSON or YAML file. By default the input is a
+Frictionless Table Schema and the output is a canonical data
+dictionary (YAML). With –reverse, the input is a data dictionary
+and the output is a Frictionless Table Schema (JSON).</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>adapt-frictionless<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-frictionless-o">
+<span id="cmdoption-schemauto-adapt-frictionless-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-adapt-frictionless-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-frictionless-reverse">
+<span id="cmdoption-schemauto-adapt-frictionless-no-reverse"></span><span class="sig-name descname"><span class="pre">--reverse</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reverse</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-frictionless-reverse" title="Link to this definition">¶</a></dt>
+<dd><p>Reverse direction: read a canonical DD and emit a Frictionless Table Schema. Default reads Frictionless and emits DD.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-frictionless-from-package">
+<span id="cmdoption-schemauto-adapt-frictionless-from-schema"></span><span class="sig-name descname"><span class="pre">--from-package</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--from-schema</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-frictionless-from-package" title="Link to this definition">¶</a></dt>
+<dd><p>Treat input as a full Frictionless Data Package (datapackage.json) and extract the first resource’s schema. Default treats input as a standalone Table Schema.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-frictionless-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-frictionless-arg-INPUT" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-annotate-schema">
 <h4>annotate-schema<a class="headerlink" href="#schemauto-annotate-schema" title="Link to this heading">¶</a></h4>
 <p>Annotate all elements of a schema.</p>

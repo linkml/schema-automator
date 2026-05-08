@@ -33,7 +33,8 @@
             
   <section id="slot-description">
 <h1>Slot: description<a class="headerlink" href="#slot-description" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/description">linkml:description</a>
+<p><em>Markdown-flavored description of what the field represents.</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/description">fts:description</a>
 Alias: description</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
@@ -46,12 +47,8 @@ Alias: description</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Resource.html"><span class="std std-doc">Resource</span></a></p></td>
-<td><p></p></td>
-<td><p>no</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
+<td><p>Descriptor for a single column of the tabular resource</p></td>
 <td><p>no</p></td>
 </tr>
 </tbody>
@@ -72,10 +69,7 @@ Alias: description</p>
 <td><p><a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Domain Of</p></td>
-<td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a>, <a class="reference internal" href="Resource.html"><span class="std std-doc">Resource</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>Slot URI</p></td>
-<td><p><a class="reference external" href="https://w3id.org/linkml/description">linkml:description</a></p></td>
+<td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -88,33 +82,30 @@ Alias: description</p>
 <th class="head"><p>Value</p></th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>Multivalued</p></td>
-<td><p>Yes</p></td>
-</tr>
-</tbody>
 </table>
 </section>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<section id="slot-characteristics">
+<h3>Slot Characteristics<a class="headerlink" href="#slot-characteristics" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>A human-readable description of this identifier namespace</p></td>
+<tr class="row-even"><td><p>Owner</p></td>
+<td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="identifier-and-mapping-information">
 <h2>Identifier and Mapping Information<a class="headerlink" href="#identifier-and-mapping-information" title="Link to this heading">¶</a></h2>
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -128,10 +119,10 @@ Alias: description</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>linkml:description</p></td>
+<td><p>fts:description</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:description</p></td>
+<td><p>fts:description</p></td>
 </tr>
 </tbody>
 </table>
@@ -141,17 +132,14 @@ Alias: description</p>
 <details>
 ```yaml
 name: description
-examples:
-- value: A human-readable description of this identifier namespace
-from_schema: https://w3id.org/linkml/frictionless
+description: Markdown-flavored description of what the field represents.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:description
 alias: description
+owner: Field
 domain_of:
 - Field
-- Resource
 range: string
-multivalued: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>

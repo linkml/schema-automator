@@ -3,8 +3,13 @@
 # Slot: unique 
 
 
+_Whether each value of this field must be distinct across rows._
 
-URI: [linkml:identifier](https://w3id.org/linkml/identifier)
+
+
+
+
+URI: [fts:unique](https://specs.frictionlessdata.io/table-schema/unique)
 Alias: unique
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: unique
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
 
 
 
@@ -32,12 +37,18 @@ Alias: unique
 | --- | --- |
 | Range | [Boolean](Boolean.md) |
 | Domain Of | [Constraints](Constraints.md) |
-| Slot URI | [linkml:identifier](https://w3id.org/linkml/identifier) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
 
 
 
@@ -57,7 +68,7 @@ Alias: unique
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -66,8 +77,8 @@ Alias: unique
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:identifier |
-| native | frictionless:unique |
+| self | fts:unique |
+| native | fts:unique |
 
 
 
@@ -77,10 +88,11 @@ Alias: unique
 <details>
 ```yaml
 name: unique
-from_schema: https://w3id.org/linkml/frictionless
+description: Whether each value of this field must be distinct across rows.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:identifier
 alias: unique
+owner: Constraints
 domain_of:
 - Constraints
 range: boolean

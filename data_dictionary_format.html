@@ -258,19 +258,57 @@ declare their codes in the <code class="docutils literal notranslate"><span clas
 are codes (e.g., <code class="docutils literal notranslate"><span class="pre">1=Yes,</span> <span class="pre">0=No</span></code>) is declared as <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code>
 with codes, not as <code class="docutils literal notranslate"><span class="pre">integer</span></code> with codes.</p>
 </section>
-<section id="codes-encoding">
-<h2>Codes encoding<a class="headerlink" href="#codes-encoding" title="Link to this heading">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">codes</span></code> field for <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> columns is a single string
-containing pipe-separated tokens. Each token is either:</p>
+<section id="codes">
+<h2>Codes<a class="headerlink" href="#codes" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">codes</span></code> field for <code class="docutils literal notranslate"><span class="pre">permissible_values</span></code> columns is a list of
+<code class="docutils literal notranslate"><span class="pre">PermissibleValueDefinition</span></code> records — each carrying a code, an
+optional label, and optional per-code metadata (description, semantic
+URI). The canonical structured form is used in YAML; TSV authors use a
+compact serialization grammar described below.</p>
+<section id="canonical-structured-form">
+<h3>Canonical (structured) form<a class="headerlink" href="#canonical-structured-form" title="Link to this heading">¶</a></h3>
+<p>In YAML, <code class="docutils literal notranslate"><span class="pre">codes</span></code> is a list of mappings. Each mapping has at least a
+<code class="docutils literal notranslate"><span class="pre">code</span></code> (the literal data value); <code class="docutils literal notranslate"><span class="pre">label</span></code> is recommended; <code class="docutils literal notranslate"><span class="pre">description</span></code>
+and <code class="docutils literal notranslate"><span class="pre">uri</span></code> are optional Spec B-style additions for richer per-code
+metadata.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span><span class="p">:</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">F</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">Female</span><span class="p">}</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">M</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">Male</span><span class="p">}</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">O</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">Other</span><span class="p">}</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">U</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">Unknown</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>For the bareword case (where the literal data value is itself the
+human-readable form), the <code class="docutils literal notranslate"><span class="pre">label</span></code> is omitted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span><span class="p">:</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">EHR</span><span class="p">}</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">Survey</span><span class="p">}</span>
+  <span class="o">-</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">Lab</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Per-code metadata example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">code</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">Current</span> <span class="n">smoker</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Self</span><span class="o">-</span><span class="n">reported</span> <span class="n">current</span> <span class="n">daily</span> <span class="ow">or</span> <span class="n">occasional</span> <span class="n">smoker</span><span class="o">.</span>
+    <span class="n">uri</span><span class="p">:</span> <span class="n">SCTID</span><span class="p">:</span><span class="mi">77176002</span>
+</pre></div>
+</div>
+</section>
+<section id="tsv-serialization">
+<h3>TSV serialization<a class="headerlink" href="#tsv-serialization" title="Link to this heading">¶</a></h3>
+<p>In TSV form, the <code class="docutils literal notranslate"><span class="pre">codes</span></code> list is serialized as a single string of
+pipe-separated tokens. Each token is either:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">code,</span> <span class="pre">label</span></code> — a comma-separated pair, where <code class="docutils literal notranslate"><span class="pre">code</span></code> is the literal
 value as it appears in the data and <code class="docutils literal notranslate"><span class="pre">label</span></code> is the human-readable
 meaning. The first comma in a token separates code from label;
 subsequent commas in the label are literal text. Whitespace around the
 separators is ignored.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> — bareword shorthand, interpreted as <code class="docutils literal notranslate"><span class="pre">value,</span> <span class="pre">value</span></code>. Use
-this when the literal data value is itself the human-readable form
-(e.g., color names, country codes, status strings).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> — bareword shorthand, interpreted as a code with no label
+(the literal value serves as both code and meaning). Use this when the
+literal data value is itself the human-readable form (e.g., color
+names, country codes, status strings).</p></li>
 </ul>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">,</span> <span class="n">Yes</span> <span class="o">|</span> <span class="mi">0</span><span class="p">,</span> <span class="n">No</span> <span class="o">|</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Unknown</span>
@@ -278,6 +316,11 @@ this when the literal data value is itself the human-readable form
 <span class="n">F</span><span class="p">,</span> <span class="n">Female</span> <span class="o">|</span> <span class="n">M</span><span class="p">,</span> <span class="n">Male</span> <span class="o">|</span> <span class="n">O</span><span class="p">,</span> <span class="n">Other</span> <span class="o">|</span> <span class="n">U</span><span class="p">,</span> <span class="n">Unknown</span>
 </pre></div>
 </div>
+<p>The TSV serialization is lossy with respect to the canonical structured
+form — only <code class="docutils literal notranslate"><span class="pre">code</span></code> and <code class="docutils literal notranslate"><span class="pre">label</span></code> survive the round-trip. Per-code
+<code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">uri</span></code> cannot be expressed in the TSV grammar; if
+those fields matter, use YAML or write them in a sibling YAML file.</p>
+</section>
 <section id="escaping">
 <h3>Escaping<a class="headerlink" href="#escaping" title="Link to this heading">¶</a></h3>
 <p>To include a literal comma, pipe, or backslash in a code, prefix it with
@@ -492,7 +535,9 @@ date format strings, etc.).</p></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#type-vocabulary">Type vocabulary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#codes-encoding">Codes encoding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#codes">Codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#canonical-structured-form">Canonical (structured) form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tsv-serialization">TSV serialization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#escaping">Escaping</a></li>
 </ul>
 </li>

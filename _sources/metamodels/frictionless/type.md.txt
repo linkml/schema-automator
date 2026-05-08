@@ -3,8 +3,13 @@
 # Slot: type 
 
 
+_Logical type of values in the field. The default if absent is `string`._
 
-URI: [frictionless:type](https://w3id.org/linkml/frictionless/type)
+
+
+
+
+URI: [fts:type](https://specs.frictionlessdata.io/table-schema/type)
 Alias: type
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: type
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Field](Field.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -30,13 +35,18 @@ Alias: type
 
 | Property | Value |
 | --- | --- |
-| Range | [TypeEnum](TypeEnum.md) |
+| Range | [FrictionlessType](FrictionlessType.md) |
 | Domain Of | [Field](Field.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
 
 
 
@@ -46,11 +56,6 @@ Alias: type
 
 
 
-## Examples
-
-| Value |
-| --- |
-| string |
 
 
 
@@ -63,7 +68,7 @@ Alias: type
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -72,8 +77,8 @@ Alias: type
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:type |
-| native | frictionless:type |
+| self | fts:type |
+| native | fts:type |
 
 
 
@@ -83,14 +88,14 @@ Alias: type
 <details>
 ```yaml
 name: type
-examples:
-- value: string
-from_schema: https://w3id.org/linkml/frictionless
+description: Logical type of values in the field. The default if absent is `string`.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: type
+owner: Field
 domain_of:
 - Field
-range: type_enum
+range: FrictionlessType
 
 ```
 </details>

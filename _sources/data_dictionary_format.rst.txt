@@ -199,26 +199,75 @@ declare their codes in the ``codes`` field; an integer column whose values
 are codes (e.g., ``1=Yes, 0=No``) is declared as ``permissible_values``
 with codes, not as ``integer`` with codes.
 
-Codes encoding
---------------
+Codes
+-----
 
-The ``codes`` field for ``permissible_values`` columns is a single string
-containing pipe-separated tokens. Each token is either:
+The ``codes`` field for ``permissible_values`` columns is a list of
+``PermissibleValueDefinition`` records — each carrying a code, an
+optional label, and optional per-code metadata (description, semantic
+URI). The canonical structured form is used in YAML; TSV authors use a
+compact serialization grammar described below.
+
+Canonical (structured) form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In YAML, ``codes`` is a list of mappings. Each mapping has at least a
+``code`` (the literal data value); ``label`` is recommended; ``description``
+and ``uri`` are optional Spec B-style additions for richer per-code
+metadata.
+
+::
+
+    codes:
+      - {code: F, label: Female}
+      - {code: M, label: Male}
+      - {code: O, label: Other}
+      - {code: U, label: Unknown}
+
+For the bareword case (where the literal data value is itself the
+human-readable form), the ``label`` is omitted:
+
+::
+
+    codes:
+      - {code: EHR}
+      - {code: Survey}
+      - {code: Lab}
+
+Per-code metadata example::
+
+    codes:
+      - code: "1"
+        label: Current smoker
+        description: Self-reported current daily or occasional smoker.
+        uri: SCTID:77176002
+
+TSV serialization
+~~~~~~~~~~~~~~~~~
+
+In TSV form, the ``codes`` list is serialized as a single string of
+pipe-separated tokens. Each token is either:
 
 - ``code, label`` — a comma-separated pair, where ``code`` is the literal
   value as it appears in the data and ``label`` is the human-readable
   meaning. The first comma in a token separates code from label;
   subsequent commas in the label are literal text. Whitespace around the
   separators is ignored.
-- ``value`` — bareword shorthand, interpreted as ``value, value``. Use
-  this when the literal data value is itself the human-readable form
-  (e.g., color names, country codes, status strings).
+- ``value`` — bareword shorthand, interpreted as a code with no label
+  (the literal value serves as both code and meaning). Use this when the
+  literal data value is itself the human-readable form (e.g., color
+  names, country codes, status strings).
 
 Examples::
 
     1, Yes | 0, No | 2, Unknown
     EHR | Survey | Lab
     F, Female | M, Male | O, Other | U, Unknown
+
+The TSV serialization is lossy with respect to the canonical structured
+form — only ``code`` and ``label`` survive the round-trip. Per-code
+``description`` and ``uri`` cannot be expressed in the TSV grammar; if
+those fields matter, use YAML or write them in a sibling YAML file.
 
 Escaping
 ~~~~~~~~

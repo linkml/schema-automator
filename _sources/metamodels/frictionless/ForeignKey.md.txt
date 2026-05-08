@@ -1,0 +1,171 @@
+
+
+# Class: ForeignKey 
+
+
+_Foreign-key constraint linking field(s) in this resource to field(s) in another resource._
+
+
+
+
+
+URI: [fts:ForeignKey](https://specs.frictionlessdata.io/table-schema/ForeignKey)
+
+
+
+
+
+```mermaid
+ classDiagram
+    class ForeignKey
+    click ForeignKey href "../ForeignKey/"
+      ForeignKey : fields
+        
+      ForeignKey : reference
+        
+          
+    
+        
+        
+        ForeignKey --> "1" ForeignKeyReference : reference
+        click ForeignKeyReference href "../ForeignKeyReference/"
+    
+
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [fields](fields.md) | 1..* <br/> [String](String.md) | Field name(s) in this resource that participate in the key | direct |
+| [reference](reference.md) | 1 <br/> [ForeignKeyReference](ForeignKeyReference.md) | The target of the reference | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [TableSchema](TableSchema.md) | [foreignKeys](foreignKeys.md) | range | [ForeignKey](ForeignKey.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:ForeignKey |
+| native | fts:ForeignKey |
+
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: ForeignKey
+description: Foreign-key constraint linking field(s) in this resource to field(s)
+  in another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  fields:
+    name: fields
+    description: Field name(s) in this resource that participate in the key.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
+    multivalued: true
+  reference:
+    name: reference
+    description: The target of the reference.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - ForeignKey
+    range: ForeignKeyReference
+    required: true
+    inlined: true
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: ForeignKey
+description: Foreign-key constraint linking field(s) in this resource to field(s)
+  in another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  fields:
+    name: fields
+    description: Field name(s) in this resource that participate in the key.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    alias: fields
+    owner: ForeignKey
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
+    multivalued: true
+  reference:
+    name: reference
+    description: The target of the reference.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: reference
+    owner: ForeignKey
+    domain_of:
+    - ForeignKey
+    range: ForeignKeyReference
+    required: true
+    inlined: true
+
+```
+</details>

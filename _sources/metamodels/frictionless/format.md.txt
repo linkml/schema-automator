@@ -3,8 +3,13 @@
 # Slot: format 
 
 
+_Format refinement of the field type. Format vocabulary is type-specific (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime)._
 
-URI: [frictionless:format](https://w3id.org/linkml/frictionless/format)
+
+
+
+
+URI: [fts:format](https://specs.frictionlessdata.io/table-schema/format)
 Alias: format
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: format
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Field](Field.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -30,13 +35,18 @@ Alias: format
 
 | Property | Value |
 | --- | --- |
-| Range | [FormatEnum](FormatEnum.md) |
+| Range | [String](String.md) |
 | Domain Of | [Field](Field.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
 
 
 
@@ -46,11 +56,6 @@ Alias: format
 
 
 
-## Examples
-
-| Value |
-| --- |
-| any |
 
 
 
@@ -63,7 +68,7 @@ Alias: format
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -72,8 +77,8 @@ Alias: format
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:format |
-| native | frictionless:format |
+| self | fts:format |
+| native | fts:format |
 
 
 
@@ -83,14 +88,15 @@ Alias: format
 <details>
 ```yaml
 name: format
-examples:
-- value: any
-from_schema: https://w3id.org/linkml/frictionless
+description: Format refinement of the field type. Format vocabulary is type-specific
+  (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: format
+owner: Field
 domain_of:
 - Field
-range: format_enum
+range: string
 
 ```
 </details>

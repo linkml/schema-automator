@@ -3,8 +3,13 @@
 # Slot: title 
 
 
+_Human-readable title for the field._
 
-URI: [linkml:title](https://w3id.org/linkml/title)
+
+
+
+
+URI: [fts:title](https://specs.frictionlessdata.io/table-schema/title)
 Alias: title
 
 <!-- no inheritance hierarchy -->
@@ -17,8 +22,7 @@ Alias: title
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Resource](Resource.md) |  |  no  |
-| [Package](Package.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -32,13 +36,17 @@ Alias: title
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [Resource](Resource.md), [Package](Package.md) |
-| Slot URI | [linkml:title](https://w3id.org/linkml/title) |
+| Domain Of | [Field](Field.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
 
 
 
@@ -48,11 +56,6 @@ Alias: title
 
 
 
-## Examples
-
-| Value |
-| --- |
-| id_namespace |
 
 
 
@@ -65,7 +68,7 @@ Alias: title
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -74,8 +77,8 @@ Alias: title
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:title |
-| native | frictionless:title |
+| self | fts:title |
+| native | fts:title |
 
 
 
@@ -85,15 +88,13 @@ Alias: title
 <details>
 ```yaml
 name: title
-examples:
-- value: id_namespace
-from_schema: https://w3id.org/linkml/frictionless
+description: Human-readable title for the field.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:title
 alias: title
+owner: Field
 domain_of:
-- Resource
-- Package
+- Field
 range: string
 
 ```

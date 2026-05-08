@@ -3,8 +3,13 @@
 # Slot: reference 
 
 
+_The target of the reference._
 
-URI: [frictionless:reference](https://w3id.org/linkml/frictionless/reference)
+
+
+
+
+URI: [fts:reference](https://specs.frictionlessdata.io/table-schema/reference)
 Alias: reference
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: reference
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ForeignKeys](ForeignKeys.md) |  |  no  |
+| [ForeignKey](ForeignKey.md) | Foreign-key constraint linking field(s) in this resource to field(s) in anoth... |  no  |
 
 
 
@@ -30,13 +35,21 @@ Alias: reference
 
 | Property | Value |
 | --- | --- |
-| Range | [Reference](Reference.md) |
-| Domain Of | [ForeignKeys](ForeignKeys.md) |
+| Range | [ForeignKeyReference](ForeignKeyReference.md) |
+| Domain Of | [ForeignKey](ForeignKey.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+| Required | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [ForeignKey](ForeignKey.md) |
+
+
 
 
 
@@ -56,7 +69,7 @@ Alias: reference
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -65,8 +78,8 @@ Alias: reference
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:reference |
-| native | frictionless:reference |
+| self | fts:reference |
+| native | fts:reference |
 
 
 
@@ -76,12 +89,16 @@ Alias: reference
 <details>
 ```yaml
 name: reference
-from_schema: https://w3id.org/linkml/frictionless
+description: The target of the reference.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: reference
+owner: ForeignKey
 domain_of:
-- ForeignKeys
-range: Reference
+- ForeignKey
+range: ForeignKeyReference
+required: true
+inlined: true
 
 ```
 </details>

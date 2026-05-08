@@ -33,7 +33,8 @@
             
   <section id="class-field">
 <h1>Class: Field<a class="headerlink" href="#class-field" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/Field">frictionless:Field</a></p>
+<p><em>Descriptor for a single column of the tabular resource.</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/Field">fts:Field</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class Field
     click Field href &quot;../Field/&quot;
@@ -50,20 +51,15 @@
         
       Field : description
         
-      Field : enum
+      Field : example
         
       Field : format
         
-          
-    
-        
-        
-        Field --&gt; &quot;0..1&quot; FormatEnum : format
-        click FormatEnum href &quot;../FormatEnum/&quot;
-    
-
-        
       Field : name
+        
+      Field : rdfType
+        
+      Field : title
         
       Field : type
         
@@ -71,8 +67,8 @@
     
         
         
-        Field --&gt; &quot;0..1&quot; TypeEnum : type
-        click TypeEnum href &quot;../TypeEnum/&quot;
+        Field --&gt; &quot;0..1&quot; FrictionlessType : type
+        click FrictionlessType href &quot;../FrictionlessType/&quot;
     
 
         
@@ -93,32 +89,42 @@
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="name.html"><span class="std std-doc">name</span></a></p></td>
 <td><p>1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
-<td><p></p></td>
+<td><p>Machine-readable name of the field</p></td>
 <td><p>direct</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="description.html"><span class="std std-doc">description</span></a></p></td>
-<td><p>* <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="title.html"><span class="std std-doc">title</span></a></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
+<td><p>Human-readable title for the field</p></td>
+<td><p>direct</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="description.html"><span class="std std-doc">description</span></a></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
+<td><p>Markdown-flavored description of what the field represents</p></td>
+<td><p>direct</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="example.html"><span class="std std-doc">example</span></a></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
+<td><p>Example value for the field, useful for human readers and some tools</p></td>
 <td><p>direct</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="type.html"><span class="std std-doc">type</span></a></p></td>
-<td><p>0..1 <br/> <a class="reference internal" href="TypeEnum.html"><span class="std std-doc">TypeEnum</span></a></p></td>
-<td><p></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="FrictionlessType.html"><span class="std std-doc">FrictionlessType</span></a></p></td>
+<td><p>Logical type of values in the field</p></td>
+<td><p>direct</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="format.html"><span class="std std-doc">format</span></a></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
+<td><p>Format refinement of the field type</p></td>
+<td><p>direct</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rdfType.html"><span class="std std-doc">rdfType</span></a></p></td>
+<td><p>0..1 <br/> <a class="reference internal" href="Uriorcurie.html"><span class="std std-doc">Uriorcurie</span></a></p></td>
+<td><p>URI or CURIE naming a class in a controlled vocabulary that this field’s valu…</p></td>
 <td><p>direct</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="constraints.html"><span class="std std-doc">constraints</span></a></p></td>
 <td><p>0..1 <br/> <a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
-<td><p></p></td>
-<td><p>direct</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="format.html"><span class="std std-doc">format</span></a></p></td>
-<td><p>0..1 <br/> <a class="reference internal" href="FormatEnum.html"><span class="std std-doc">FormatEnum</span></a></p></td>
-<td><p></p></td>
-<td><p>direct</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="enum.html"><span class="std std-doc">enum</span></a></p></td>
-<td><p>* <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
-<td><p></p></td>
+<td><p>Validation constraints on field values</p></td>
 <td><p>direct</p></td>
 </tr>
 </tbody>
@@ -135,23 +141,8 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Reference.html"><span class="std std-doc">Reference</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
 <td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
-<td><p>range</p></td>
-<td><p><a class="reference internal" href="#"><span class="std std-doc">Field</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ForeignKeys.html"><span class="std std-doc">ForeignKeys</span></a></p></td>
-<td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
-<td><p>range</p></td>
-<td><p><a class="reference internal" href="#"><span class="std std-doc">Field</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
-<td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
-<td><p>range</p></td>
-<td><p><a class="reference internal" href="#"><span class="std std-doc">Field</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
-<td><p><a class="reference internal" href="primaryKey.html"><span class="std std-doc">primaryKey</span></a></p></td>
 <td><p>range</p></td>
 <td><p><a class="reference internal" href="#"><span class="std std-doc">Field</span></a></p></td>
 </tr>
@@ -163,7 +154,7 @@
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -177,10 +168,10 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:Field</p></td>
+<td><p>fts:Field</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:Field</p></td>
+<td><p>fts:Field</p></td>
 </tr>
 </tbody>
 </table>
@@ -193,14 +184,81 @@
 <details>
 ```yaml
 name: Field
-from_schema: https://w3id.org/linkml/frictionless
-slots:
-- name
-- description
-- type
-- constraints
-- format
-- enum
+description: Descriptor for a single column of the tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  name:
+    name: name
+    description: Machine-readable name of the field. Should match the column header
+      in the tabular data.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    identifier: true
+    domain_of:
+    - Field
+    range: string
+    required: true
+  title:
+    name: title
+    description: Human-readable title for the field.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  description:
+    name: description
+    description: Markdown-flavored description of what the field represents.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  example:
+    name: example
+    description: Example value for the field, useful for human readers and some tools.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  type:
+    name: type
+    description: Logical type of values in the field. The default if absent is `string`.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: FrictionlessType
+  format:
+    name: format
+    description: Format refinement of the field type. Format vocabulary is type-specific
+      (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  rdfType:
+    name: rdfType
+    description: URI or CURIE naming a class in a controlled vocabulary that this
+      field's values instantiate. Used for semantic anchoring. Frictionless's spec
+      calls this a URL, but in practice consumers (and the schema-automator DD `uri`
+      slot it pairs with) accept CURIEs as well.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: uriorcurie
+  constraints:
+    name: constraints
+    description: Validation constraints on field values.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: Constraints
+    inlined: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;/details&gt;
 
 ### Induced
@@ -208,81 +266,97 @@ slots:
 &lt;details&gt;
 ```yaml
 name: Field
-from_schema: https://w3id.org/linkml/frictionless
+description: Descriptor for a single column of the tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
 attributes:
   name:
     name: name
-    examples:
-    - value: description
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Machine-readable name of the field. Should match the column header
+      in the tabular data.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:name
     identifier: true
     alias: name
     owner: Field
     domain_of:
     - Field
-    - Resource
-    - Package
     range: string
     required: true
+  title:
+    name: title
+    description: Human-readable title for the field.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: title
+    owner: Field
+    domain_of:
+    - Field
+    range: string
   description:
     name: description
-    examples:
-    - value: A human-readable description of this identifier namespace
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Markdown-flavored description of what the field represents.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:description
     alias: description
     owner: Field
     domain_of:
     - Field
-    - Resource
     range: string
-    multivalued: true
+  example:
+    name: example
+    description: Example value for the field, useful for human readers and some tools.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: example
+    owner: Field
+    domain_of:
+    - Field
+    range: string
   type:
     name: type
-    examples:
-    - value: string
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Logical type of values in the field. The default if absent is `string`.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     alias: type
     owner: Field
     domain_of:
     - Field
-    range: type_enum
+    range: FrictionlessType
+  format:
+    name: format
+    description: Format refinement of the field type. Format vocabulary is type-specific
+      (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: format
+    owner: Field
+    domain_of:
+    - Field
+    range: string
+  rdfType:
+    name: rdfType
+    description: URI or CURIE naming a class in a controlled vocabulary that this
+      field&#39;s values instantiate. Used for semantic anchoring. Frictionless&#39;s spec
+      calls this a URL, but in practice consumers (and the schema-automator DD `uri`
+      slot it pairs with) accept CURIEs as well.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: rdfType
+    owner: Field
+    domain_of:
+    - Field
+    range: uriorcurie
   constraints:
     name: constraints
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Validation constraints on field values.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     alias: constraints
     owner: Field
     domain_of:
     - Field
     range: Constraints
-  format:
-    name: format
-    examples:
-    - value: any
-    from_schema: https://w3id.org/linkml/frictionless
-    rank: 1000
-    alias: format
-    owner: Field
-    domain_of:
-    - Field
-    range: format_enum
-  enum:
-    name: enum
-    from_schema: https://w3id.org/linkml/frictionless
-    close_mappings:
-    - linkml:range
-    rank: 1000
-    alias: enum
-    owner: Field
-    domain_of:
-    - Field
-    range: string
-    multivalued: true
+    inlined: true
 
 </pre></div>
 </div>

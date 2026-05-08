@@ -1,0 +1,158 @@
+
+
+# Class: ForeignKeyReference 
+
+
+_The target side of a foreign-key constraint._
+
+
+
+
+
+URI: [fts:ForeignKeyReference](https://specs.frictionlessdata.io/table-schema/ForeignKeyReference)
+
+
+
+
+
+```mermaid
+ classDiagram
+    class ForeignKeyReference
+    click ForeignKeyReference href "../ForeignKeyReference/"
+      ForeignKeyReference : fields
+        
+      ForeignKeyReference : resource
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [resource](resource.md) | 0..1 <br/> [String](String.md) | Name of the resource being referenced | direct |
+| [fields](fields.md) | 1..* <br/> [String](String.md) | Field name(s) in the target resource that the key references | direct |
+
+
+
+
+
+## Usages
+
+| used by | used in | type | used |
+| ---  | --- | --- | --- |
+| [ForeignKey](ForeignKey.md) | [reference](reference.md) | range | [ForeignKeyReference](ForeignKeyReference.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:ForeignKeyReference |
+| native | fts:ForeignKeyReference |
+
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: ForeignKeyReference
+description: The target side of a foreign-key constraint.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  resource:
+    name: resource
+    description: Name of the resource being referenced. Empty string refers to the
+      current resource (self-reference).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - ForeignKeyReference
+    range: string
+  fields:
+    name: fields
+    description: Field name(s) in the target resource that the key references.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
+    multivalued: true
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: ForeignKeyReference
+description: The target side of a foreign-key constraint.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  resource:
+    name: resource
+    description: Name of the resource being referenced. Empty string refers to the
+      current resource (self-reference).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: resource
+    owner: ForeignKeyReference
+    domain_of:
+    - ForeignKeyReference
+    range: string
+  fields:
+    name: fields
+    description: Field name(s) in the target resource that the key references.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    alias: fields
+    owner: ForeignKeyReference
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
+    multivalued: true
+
+```
+</details>

@@ -3,8 +3,13 @@
 # Slot: name 
 
 
+_Machine-readable name of the field. Should match the column header in the tabular data._
 
-URI: [linkml:name](https://w3id.org/linkml/name)
+
+
+
+
+URI: [fts:name](https://specs.frictionlessdata.io/table-schema/name)
 Alias: name
 
 <!-- no inheritance hierarchy -->
@@ -17,9 +22,7 @@ Alias: name
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Resource](Resource.md) |  |  no  |
-| [Field](Field.md) |  |  no  |
-| [Package](Package.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -33,8 +36,7 @@ Alias: name
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [Field](Field.md), [Resource](Resource.md), [Package](Package.md) |
-| Slot URI | [linkml:name](https://w3id.org/linkml/name) |
+| Domain Of | [Field](Field.md) |
 
 ### Cardinality and Requirements
 
@@ -46,6 +48,7 @@ Alias: name
 | Property | Value |
 | --- | --- |
 | Identifier | Yes |
+| Owner | [Field](Field.md) |
 
 
 
@@ -55,13 +58,6 @@ Alias: name
 
 
 
-
-
-## Examples
-
-| Value |
-| --- |
-| description |
 
 
 
@@ -74,7 +70,7 @@ Alias: name
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -83,8 +79,8 @@ Alias: name
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:name |
-| native | frictionless:name |
+| self | fts:name |
+| native | fts:name |
 
 
 
@@ -94,17 +90,15 @@ Alias: name
 <details>
 ```yaml
 name: name
-examples:
-- value: description
-from_schema: https://w3id.org/linkml/frictionless
+description: Machine-readable name of the field. Should match the column header in
+  the tabular data.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:name
 identifier: true
 alias: name
+owner: Field
 domain_of:
 - Field
-- Resource
-- Package
 range: string
 required: true
 

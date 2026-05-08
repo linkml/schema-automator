@@ -1,0 +1,104 @@
+
+
+# Slot: rdfType 
+
+
+_URI or CURIE naming a class in a controlled vocabulary that this field's values instantiate. Used for semantic anchoring. Frictionless's spec calls this a URL, but in practice consumers (and the schema-automator DD `uri` slot it pairs with) accept CURIEs as well._
+
+
+
+
+
+URI: [fts:rdfType](https://specs.frictionlessdata.io/table-schema/rdfType)
+Alias: rdfType
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
+
+
+
+
+
+
+## Properties
+
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [Uriorcurie](Uriorcurie.md) |
+| Domain Of | [Field](Field.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:rdfType |
+| native | fts:rdfType |
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: rdfType
+description: URI or CURIE naming a class in a controlled vocabulary that this field's
+  values instantiate. Used for semantic anchoring. Frictionless's spec calls this
+  a URL, but in practice consumers (and the schema-automator DD `uri` slot it pairs
+  with) accept CURIEs as well.
+from_schema: https://specs.frictionlessdata.io/table-schema
+rank: 1000
+alias: rdfType
+owner: Field
+domain_of:
+- Field
+range: uriorcurie
+
+```
+</details>

@@ -3,8 +3,13 @@
 # Slot: primaryKey 
 
 
+_Field name(s) that together identify each row. May be a single name (string) or a list; modeled as a list here._
 
-URI: [frictionless:primaryKey](https://w3id.org/linkml/frictionless/primaryKey)
+
+
+
+
+URI: [fts:primaryKey](https://specs.frictionlessdata.io/table-schema/primaryKey)
 Alias: primaryKey
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: primaryKey
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Schema](Schema.md) |  |  no  |
+| [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |  no  |
 
 
 
@@ -30,14 +35,19 @@ Alias: primaryKey
 
 | Property | Value |
 | --- | --- |
-| Range | [Field](Field.md) |
-| Domain Of | [Schema](Schema.md) |
+| Range | [String](String.md) |
+| Domain Of | [TableSchema](TableSchema.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
 | Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [TableSchema](TableSchema.md) |
 
 
 
@@ -47,11 +57,6 @@ Alias: primaryKey
 
 
 
-## Examples
-
-| Value |
-| --- |
-| id |
 
 
 
@@ -64,7 +69,7 @@ Alias: primaryKey
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -73,9 +78,8 @@ Alias: primaryKey
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:primaryKey |
-| native | frictionless:primaryKey |
-| close | linkml:identifier, linkml:unique_keys |
+| self | fts:primaryKey |
+| native | fts:primaryKey |
 
 
 
@@ -85,17 +89,15 @@ Alias: primaryKey
 <details>
 ```yaml
 name: primaryKey
-examples:
-- value: id
-from_schema: https://w3id.org/linkml/frictionless
-close_mappings:
-- linkml:identifier
-- linkml:unique_keys
+description: Field name(s) that together identify each row. May be a single name (string)
+  or a list; modeled as a list here.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: primaryKey
+owner: TableSchema
 domain_of:
-- Schema
-range: Field
+- TableSchema
+range: string
 multivalued: true
 
 ```

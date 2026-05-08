@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Enum: TypeEnum &#8212; Schema Automator  documentation</title>
+    <title>Enum: FrictionlessType &#8212; Schema Automator  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -31,9 +31,10 @@
 
           <div class="body" role="main">
             
-  <section id="enum-typeenum">
-<h1>Enum: TypeEnum<a class="headerlink" href="#enum-typeenum" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/type_enum">frictionless:type_enum</a></p>
+  <section id="enum-frictionlesstype">
+<h1>Enum: FrictionlessType<a class="headerlink" href="#enum-frictionlesstype" title="Link to this heading">¶</a></h1>
+<p><em>The Frictionless Table Schema type vocabulary (https://specs.frictionlessdata.io/table-schema/#types-and-formats).</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/FrictionlessType">fts:FrictionlessType</a></p>
 <section id="permissible-values">
 <h2>Permissible Values<a class="headerlink" href="#permissible-values" title="Link to this heading">¶</a></h2>
 <table class="docutils align-default">
@@ -46,27 +47,63 @@
 <tbody>
 <tr class="row-even"><td><p>string</p></td>
 <td><p>None</p></td>
-<td><p>string</p></td>
-</tr>
-<tr class="row-odd"><td><p>datetime</p></td>
-<td><p>None</p></td>
-<td><p>datetime</p></td>
-</tr>
-<tr class="row-even"><td><p>boolean</p></td>
-<td><p>None</p></td>
-<td><p>boolean</p></td>
-</tr>
-<tr class="row-odd"><td><p>integer</p></td>
-<td><p>None</p></td>
-<td><p>integer</p></td>
-</tr>
-<tr class="row-even"><td><p>array</p></td>
-<td><p>None</p></td>
-<td><p>array</p></td>
+<td><p>A sequence of characters</p></td>
 </tr>
 <tr class="row-odd"><td><p>number</p></td>
 <td><p>None</p></td>
-<td><p>number</p></td>
+<td><p>A real (floating-point) number</p></td>
+</tr>
+<tr class="row-even"><td><p>integer</p></td>
+<td><p>None</p></td>
+<td><p>A whole number</p></td>
+</tr>
+<tr class="row-odd"><td><p>boolean</p></td>
+<td><p>None</p></td>
+<td><p>A true/false value</p></td>
+</tr>
+<tr class="row-even"><td><p>object</p></td>
+<td><p>None</p></td>
+<td><p>A JSON object (key-value mapping)</p></td>
+</tr>
+<tr class="row-odd"><td><p>array</p></td>
+<td><p>None</p></td>
+<td><p>A JSON array</p></td>
+</tr>
+<tr class="row-even"><td><p>date</p></td>
+<td><p>None</p></td>
+<td><p>A calendar date (no time)</p></td>
+</tr>
+<tr class="row-odd"><td><p>time</p></td>
+<td><p>None</p></td>
+<td><p>A time of day (no date)</p></td>
+</tr>
+<tr class="row-even"><td><p>datetime</p></td>
+<td><p>None</p></td>
+<td><p>A date and time</p></td>
+</tr>
+<tr class="row-odd"><td><p>year</p></td>
+<td><p>None</p></td>
+<td><p>A calendar year (e</p></td>
+</tr>
+<tr class="row-even"><td><p>yearmonth</p></td>
+<td><p>None</p></td>
+<td><p>A calendar year and month (e</p></td>
+</tr>
+<tr class="row-odd"><td><p>duration</p></td>
+<td><p>None</p></td>
+<td><p>A duration expressed in ISO 8601 format</p></td>
+</tr>
+<tr class="row-even"><td><p>geopoint</p></td>
+<td><p>None</p></td>
+<td><p>A geographic point (latitude/longitude pair)</p></td>
+</tr>
+<tr class="row-odd"><td><p>geojson</p></td>
+<td><p>None</p></td>
+<td><p>A GeoJSON object</p></td>
+</tr>
+<tr class="row-even"><td><p>any</p></td>
+<td><p>None</p></td>
+<td><p>Unconstrained value type; any value is permitted</p></td>
 </tr>
 </tbody>
 </table>
@@ -81,7 +118,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="type.html"><span class="std std-doc">type</span></a></p></td>
-<td><p></p></td>
+<td><p>Logical type of values in the field</p></td>
 </tr>
 </tbody>
 </table>
@@ -91,7 +128,7 @@
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -99,28 +136,56 @@
 <h2>LinkML Source<a class="headerlink" href="#linkml-source" title="Link to this heading">¶</a></h2>
 <details>
 ```yaml
-name: type_enum
-from_schema: https://w3id.org/linkml/frictionless
+name: FrictionlessType
+description: The Frictionless Table Schema type vocabulary (https://specs.frictionlessdata.io/table-schema/#types-and-formats).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 permissible_values:
   string:
     text: string
-    description: string
-  datetime:
-    text: datetime
-    description: datetime
-  boolean:
-    text: boolean
-    description: boolean
-  integer:
-    text: integer
-    description: integer
-  array:
-    text: array
-    description: array
+    description: A sequence of characters.
   number:
     text: number
-    description: number
+    description: A real (floating-point) number.
+  integer:
+    text: integer
+    description: A whole number.
+  boolean:
+    text: boolean
+    description: A true/false value.
+  object:
+    text: object
+    description: A JSON object (key-value mapping).
+  array:
+    text: array
+    description: A JSON array.
+  date:
+    text: date
+    description: A calendar date (no time).
+  time:
+    text: time
+    description: A time of day (no date).
+  datetime:
+    text: datetime
+    description: A date and time.
+  year:
+    text: year
+    description: A calendar year (e.g., 2026).
+  yearmonth:
+    text: yearmonth
+    description: A calendar year and month (e.g., 2026-05).
+  duration:
+    text: duration
+    description: A duration expressed in ISO 8601 format.
+  geopoint:
+    text: geopoint
+    description: A geographic point (latitude/longitude pair).
+  geojson:
+    text: geojson
+    description: A GeoJSON object.
+  any:
+    text: any
+    description: Unconstrained value type; any value is permitted.
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -190,7 +255,7 @@ permissible_values:
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
-      <a href="../../_sources/metamodels/frictionless/TypeEnum.md.txt"
+      <a href="../../_sources/metamodels/frictionless/FrictionlessType.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

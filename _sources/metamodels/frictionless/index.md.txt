@@ -1,10 +1,10 @@
-# frictionless
+# Frictionless Table Schema (LinkML representation)
 
-frictionless
+LinkML representation of the Frictionless Table Schema specification (https://specs.frictionlessdata.io/table-schema/), as consumed by the schema-automator Frictionless adapter. Covers the column-descriptor layer of a Frictionless data package (the `schema` block), not the surrounding data-package metadata. Used as the source schema for linkml-map trans-specs that translate to the canonical data dictionary format.
 
-URI: https://w3id.org/linkml/frictionless
+URI: https://specs.frictionlessdata.io/table-schema
 
-Name: frictionless
+Name: frictionless_table_schema
 
 
 
@@ -12,15 +12,11 @@ Name: frictionless
 
 | Class | Description |
 | --- | --- |
-| [Any](Any.md) |  |
-| [Constraints](Constraints.md) |  |
-| [Dialect](Dialect.md) |  |
-| [Field](Field.md) |  |
-| [ForeignKeys](ForeignKeys.md) |  |
-| [Package](Package.md) |  |
-| [Reference](Reference.md) |  |
-| [Resource](Resource.md) |  |
-| [Schema](Schema.md) |  |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |
+| [ForeignKey](ForeignKey.md) | Foreign-key constraint linking field(s) in this resource to field(s) in anoth... |
+| [ForeignKeyReference](ForeignKeyReference.md) | The target side of a foreign-key constraint |
+| [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |
 
 
 
@@ -28,42 +24,35 @@ Name: frictionless
 
 | Slot | Description |
 | --- | --- |
-| [constraint_name](constraint_name.md) |  |
-| [constraints](constraints.md) |  |
-| [delimiter](delimiter.md) |  |
-| [description](description.md) |  |
-| [dialect](dialect.md) |  |
-| [doubleQuote](doubleQuote.md) |  |
-| [enum](enum.md) |  |
-| [fields](fields.md) |  |
-| [foreignKeys](foreignKeys.md) |  |
-| [format](format.md) |  |
-| [header](header.md) |  |
-| [lineTerminator](lineTerminator.md) |  |
-| [missingValues](missingValues.md) |  |
-| [name](name.md) |  |
-| [path](path.md) |  |
-| [pattern](pattern.md) |  |
-| [primaryKey](primaryKey.md) |  |
-| [profile](profile.md) |  |
-| [reference](reference.md) |  |
-| [required](required.md) |  |
-| [resource](resource.md) |  |
-| [resources](resources.md) |  |
-| [schema](schema.md) |  |
-| [skipInitialSpace](skipInitialSpace.md) |  |
-| [title](title.md) |  |
-| [type](type.md) |  |
-| [unique](unique.md) |  |
+| [constraints](constraints.md) | Validation constraints on field values |
+| [description](description.md) | Markdown-flavored description of what the field represents |
+| [enum](enum.md) | Closed list of allowed values |
+| [example](example.md) | Example value for the field, useful for human readers and some tools |
+| [fields](fields.md) | Ordered list of field (column) descriptors |
+| [foreignKeys](foreignKeys.md) | Foreign key constraints linking fields in this resource to fields in another ... |
+| [format](format.md) | Format refinement of the field type |
+| [maximum](maximum.md) | Maximum permissible value (matches `minimum` semantics) |
+| [maxLength](maxLength.md) | Maximum length for string values (or item count for arrays) |
+| [minimum](minimum.md) | Minimum permissible value for numeric, date, datetime, time, year, and yearmo... |
+| [minLength](minLength.md) | Minimum length for string values (or item count for arrays) |
+| [missingValues](missingValues.md) | String values to interpret as missing data when reading the tabular resource |
+| [name](name.md) | Machine-readable name of the field |
+| [pattern](pattern.md) | Regular expression that all values must match (XML Schema regex syntax) |
+| [primaryKey](primaryKey.md) | Field name(s) that together identify each row |
+| [rdfType](rdfType.md) | URI or CURIE naming a class in a controlled vocabulary that this field's valu... |
+| [reference](reference.md) | The target of the reference |
+| [required](required.md) | Whether the field must have a value in every row |
+| [resource](resource.md) | Name of the resource being referenced |
+| [title](title.md) | Human-readable title for the field |
+| [type](type.md) | Logical type of values in the field |
+| [unique](unique.md) | Whether each value of this field must be distinct across rows |
 
 
 ## Enumerations
 
 | Enumeration | Description |
 | --- | --- |
-| [FormatEnum](FormatEnum.md) |  |
-| [ProfileEnum](ProfileEnum.md) |  |
-| [TypeEnum](TypeEnum.md) |  |
+| [FrictionlessType](FrictionlessType.md) | The Frictionless Table Schema type vocabulary (https://specs |
 
 
 ## Types

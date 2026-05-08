@@ -3,8 +3,13 @@
 # Class: Constraints 
 
 
+_Validation constraints attached to a field._
 
-URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints)
+
+
+
+
+URI: [fts:Constraints](https://specs.frictionlessdata.io/table-schema/Constraints)
 
 
 
@@ -14,6 +19,16 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
  classDiagram
     class Constraints
     click Constraints href "../Constraints/"
+      Constraints : enum
+        
+      Constraints : maximum
+        
+      Constraints : maxLength
+        
+      Constraints : minimum
+        
+      Constraints : minLength
+        
       Constraints : pattern
         
       Constraints : required
@@ -32,9 +47,14 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [required](required.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
-| [pattern](pattern.md) | 0..1 <br/> [String](String.md) |  | direct |
-| [unique](unique.md) | 0..1 <br/> [Boolean](Boolean.md) |  | direct |
+| [required](required.md) | 0..1 <br/> [Boolean](Boolean.md) | Whether the field must have a value in every row | direct |
+| [unique](unique.md) | 0..1 <br/> [Boolean](Boolean.md) | Whether each value of this field must be distinct across rows | direct |
+| [pattern](pattern.md) | 0..1 <br/> [String](String.md) | Regular expression that all values must match (XML Schema regex syntax) | direct |
+| [enum](enum.md) | * <br/> [String](String.md) | Closed list of allowed values | direct |
+| [minLength](minLength.md) | 0..1 <br/> [Integer](Integer.md) | Minimum length for string values (or item count for arrays) | direct |
+| [maxLength](maxLength.md) | 0..1 <br/> [Integer](Integer.md) | Maximum length for string values (or item count for arrays) | direct |
+| [minimum](minimum.md) | 0..1 <br/> [String](String.md) | Minimum permissible value for numeric, date, datetime, time, year, and yearmo... | direct |
+| [maximum](maximum.md) | 0..1 <br/> [String](String.md) | Maximum permissible value (matches `minimum` semantics) | direct |
 
 
 
@@ -66,7 +86,7 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -75,8 +95,8 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:Constraints |
-| native | frictionless:Constraints |
+| self | fts:Constraints |
+| native | fts:Constraints |
 
 
 
@@ -92,11 +112,77 @@ URI: [frictionless:Constraints](https://w3id.org/linkml/frictionless/Constraints
 <details>
 ```yaml
 name: Constraints
-from_schema: https://w3id.org/linkml/frictionless
-slots:
-- required
-- pattern
-- unique
+description: Validation constraints attached to a field.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  required:
+    name: required
+    description: Whether the field must have a value in every row. An empty string
+      is considered missing per Frictionless conventions.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: boolean
+  unique:
+    name: unique
+    description: Whether each value of this field must be distinct across rows.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: boolean
+  pattern:
+    name: pattern
+    description: Regular expression that all values must match (XML Schema regex syntax).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: string
+  enum:
+    name: enum
+    description: Closed list of allowed values. Treated as an enumeration in target
+      schemas that distinguish that case.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: string
+    multivalued: true
+  minLength:
+    name: minLength
+    description: Minimum length for string values (or item count for arrays).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: integer
+  maxLength:
+    name: maxLength
+    description: Maximum length for string values (or item count for arrays).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: integer
+  minimum:
+    name: minimum
+    description: Minimum permissible value for numeric, date, datetime, time, year,
+      and yearmonth types. The literal type matches the field's type.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: string
+  maximum:
+    name: maximum
+    description: Maximum permissible value (matches `minimum` semantics).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Constraints
+    range: string
 
 ```
 </details>
@@ -106,37 +192,93 @@ slots:
 <details>
 ```yaml
 name: Constraints
-from_schema: https://w3id.org/linkml/frictionless
+description: Validation constraints attached to a field.
+from_schema: https://specs.frictionlessdata.io/table-schema
 attributes:
   required:
     name: required
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Whether the field must have a value in every row. An empty string
+      is considered missing per Frictionless conventions.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:required
     alias: required
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: boolean
+  unique:
+    name: unique
+    description: Whether each value of this field must be distinct across rows.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: unique
     owner: Constraints
     domain_of:
     - Constraints
     range: boolean
   pattern:
     name: pattern
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Regular expression that all values must match (XML Schema regex syntax).
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:pattern
     alias: pattern
     owner: Constraints
     domain_of:
     - Constraints
-  unique:
-    name: unique
-    from_schema: https://w3id.org/linkml/frictionless
+    range: string
+  enum:
+    name: enum
+    description: Closed list of allowed values. Treated as an enumeration in target
+      schemas that distinguish that case.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:identifier
-    alias: unique
+    alias: enum
     owner: Constraints
     domain_of:
     - Constraints
-    range: boolean
+    range: string
+    multivalued: true
+  minLength:
+    name: minLength
+    description: Minimum length for string values (or item count for arrays).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: minLength
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: integer
+  maxLength:
+    name: maxLength
+    description: Maximum length for string values (or item count for arrays).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: maxLength
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: integer
+  minimum:
+    name: minimum
+    description: Minimum permissible value for numeric, date, datetime, time, year,
+      and yearmonth types. The literal type matches the field's type.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: minimum
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: string
+  maximum:
+    name: maximum
+    description: Maximum permissible value (matches `minimum` semantics).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: maximum
+    owner: Constraints
+    domain_of:
+    - Constraints
+    range: string
 
 ```
 </details>

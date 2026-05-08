@@ -3,8 +3,13 @@
 # Slot: enum 
 
 
+_Closed list of allowed values. Treated as an enumeration in target schemas that distinguish that case._
 
-URI: [frictionless:enum](https://w3id.org/linkml/frictionless/enum)
+
+
+
+
+URI: [fts:enum](https://specs.frictionlessdata.io/table-schema/enum)
 Alias: enum
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: enum
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Field](Field.md) |  |  no  |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
 
 
 
@@ -31,13 +36,20 @@ Alias: enum
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [Field](Field.md) |
+| Domain Of | [Constraints](Constraints.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
 | Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
 
 
 
@@ -57,7 +69,7 @@ Alias: enum
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -66,9 +78,8 @@ Alias: enum
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:enum |
-| native | frictionless:enum |
-| close | linkml:range |
+| self | fts:enum |
+| native | fts:enum |
 
 
 
@@ -78,13 +89,14 @@ Alias: enum
 <details>
 ```yaml
 name: enum
-from_schema: https://w3id.org/linkml/frictionless
-close_mappings:
-- linkml:range
+description: Closed list of allowed values. Treated as an enumeration in target schemas
+  that distinguish that case.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: enum
+owner: Constraints
 domain_of:
-- Field
+- Constraints
 range: string
 multivalued: true
 

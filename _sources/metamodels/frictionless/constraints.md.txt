@@ -3,8 +3,13 @@
 # Slot: constraints 
 
 
+_Validation constraints on field values._
 
-URI: [frictionless:constraints](https://w3id.org/linkml/frictionless/constraints)
+
+
+
+
+URI: [fts:constraints](https://specs.frictionlessdata.io/table-schema/constraints)
 Alias: constraints
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: constraints
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Field](Field.md) |  |  no  |
+| [Field](Field.md) | Descriptor for a single column of the tabular resource |  no  |
 
 
 
@@ -37,6 +42,13 @@ Alias: constraints
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Field](Field.md) |
+
+
 
 
 
@@ -56,7 +68,7 @@ Alias: constraints
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -65,8 +77,8 @@ Alias: constraints
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:constraints |
-| native | frictionless:constraints |
+| self | fts:constraints |
+| native | fts:constraints |
 
 
 
@@ -76,12 +88,15 @@ Alias: constraints
 <details>
 ```yaml
 name: constraints
-from_schema: https://w3id.org/linkml/frictionless
+description: Validation constraints on field values.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: constraints
+owner: Field
 domain_of:
 - Field
 range: Constraints
+inlined: true
 
 ```
 </details>

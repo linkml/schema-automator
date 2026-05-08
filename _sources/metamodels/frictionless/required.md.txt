@@ -3,8 +3,13 @@
 # Slot: required 
 
 
+_Whether the field must have a value in every row. An empty string is considered missing per Frictionless conventions._
 
-URI: [linkml:required](https://w3id.org/linkml/required)
+
+
+
+
+URI: [fts:required](https://specs.frictionlessdata.io/table-schema/required)
 Alias: required
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: required
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Constraints](Constraints.md) |  |  no  |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
 
 
 
@@ -32,12 +37,18 @@ Alias: required
 | --- | --- |
 | Range | [Boolean](Boolean.md) |
 | Domain Of | [Constraints](Constraints.md) |
-| Slot URI | [linkml:required](https://w3id.org/linkml/required) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
 
 
 
@@ -57,7 +68,7 @@ Alias: required
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -66,8 +77,8 @@ Alias: required
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | linkml:required |
-| native | frictionless:required |
+| self | fts:required |
+| native | fts:required |
 
 
 
@@ -77,10 +88,12 @@ Alias: required
 <details>
 ```yaml
 name: required
-from_schema: https://w3id.org/linkml/frictionless
+description: Whether the field must have a value in every row. An empty string is
+  considered missing per Frictionless conventions.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-slot_uri: linkml:required
 alias: required
+owner: Constraints
 domain_of:
 - Constraints
 range: boolean

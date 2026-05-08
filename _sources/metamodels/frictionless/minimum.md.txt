@@ -1,0 +1,102 @@
+
+
+# Slot: minimum 
+
+
+_Minimum permissible value for numeric, date, datetime, time, year, and yearmonth types. The literal type matches the field's type._
+
+
+
+
+
+URI: [fts:minimum](https://specs.frictionlessdata.io/table-schema/minimum)
+Alias: minimum
+
+<!-- no inheritance hierarchy -->
+
+
+
+
+
+## Applicable Classes
+
+| Name | Description | Modifies Slot |
+| --- | --- | --- |
+| [Constraints](Constraints.md) | Validation constraints attached to a field |  no  |
+
+
+
+
+
+
+## Properties
+
+### Type and Range
+
+| Property | Value |
+| --- | --- |
+| Range | [String](String.md) |
+| Domain Of | [Constraints](Constraints.md) |
+
+### Cardinality and Requirements
+
+| Property | Value |
+| --- | --- |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [Constraints](Constraints.md) |
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:minimum |
+| native | fts:minimum |
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: minimum
+description: Minimum permissible value for numeric, date, datetime, time, year, and
+  yearmonth types. The literal type matches the field's type.
+from_schema: https://specs.frictionlessdata.io/table-schema
+rank: 1000
+alias: minimum
+owner: Constraints
+domain_of:
+- Constraints
+range: string
+
+```
+</details>

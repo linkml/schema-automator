@@ -3,8 +3,13 @@
 # Slot: foreignKeys 
 
 
+_Foreign key constraints linking fields in this resource to fields in another resource._
 
-URI: [frictionless:foreignKeys](https://w3id.org/linkml/frictionless/foreignKeys)
+
+
+
+
+URI: [fts:foreignKeys](https://specs.frictionlessdata.io/table-schema/foreignKeys)
 Alias: foreignKeys
 
 <!-- no inheritance hierarchy -->
@@ -17,7 +22,7 @@ Alias: foreignKeys
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Schema](Schema.md) |  |  no  |
+| [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |  no  |
 
 
 
@@ -30,14 +35,19 @@ Alias: foreignKeys
 
 | Property | Value |
 | --- | --- |
-| Range | [ForeignKeys](ForeignKeys.md) |
-| Domain Of | [Schema](Schema.md) |
+| Range | [ForeignKey](ForeignKey.md) |
+| Domain Of | [TableSchema](TableSchema.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
 | Multivalued | Yes |
+### Slot Characteristics
+
+| Property | Value |
+| --- | --- |
+| Owner | [TableSchema](TableSchema.md) |
 
 
 
@@ -47,11 +57,6 @@ Alias: foreignKeys
 
 
 
-## Examples
-
-| Value |
-| --- |
-| ['$ref:ForeignKeys', '$ref:ForeignKeys'] |
 
 
 
@@ -64,7 +69,7 @@ Alias: foreignKeys
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -73,8 +78,8 @@ Alias: foreignKeys
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:foreignKeys |
-| native | frictionless:foreignKeys |
+| self | fts:foreignKeys |
+| native | fts:foreignKeys |
 
 
 
@@ -84,15 +89,18 @@ Alias: foreignKeys
 <details>
 ```yaml
 name: foreignKeys
-examples:
-- value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
-from_schema: https://w3id.org/linkml/frictionless
+description: Foreign key constraints linking fields in this resource to fields in
+  another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: foreignKeys
+owner: TableSchema
 domain_of:
-- Schema
-range: ForeignKeys
+- TableSchema
+range: ForeignKey
 multivalued: true
+inlined: true
+inlined_as_list: true
 
 ```
 </details>

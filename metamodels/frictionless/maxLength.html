@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Slot: resources &#8212; Schema Automator  documentation</title>
+    <title>Slot: maxLength &#8212; Schema Automator  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -31,10 +31,11 @@
 
           <div class="body" role="main">
             
-  <section id="slot-resources">
-<h1>Slot: resources<a class="headerlink" href="#slot-resources" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/resources">frictionless:resources</a>
-Alias: resources</p>
+  <section id="slot-maxlength">
+<h1>Slot: maxLength<a class="headerlink" href="#slot-maxlength" title="Link to this heading">¶</a></h1>
+<p><em>Maximum length for string values (or item count for arrays).</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/maxLength">fts:maxLength</a>
+Alias: maxLength</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
 <h2>Applicable Classes<a class="headerlink" href="#applicable-classes" title="Link to this heading">¶</a></h2>
@@ -46,8 +47,8 @@ Alias: resources</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Package.html"><span class="std std-doc">Package</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
+<td><p>Validation constraints attached to a field</p></td>
 <td><p>no</p></td>
 </tr>
 </tbody>
@@ -65,10 +66,10 @@ Alias: resources</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Range</p></td>
-<td><p><a class="reference internal" href="Resource.html"><span class="std std-doc">Resource</span></a></p></td>
+<td><p><a class="reference internal" href="Integer.html"><span class="std std-doc">Integer</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Domain Of</p></td>
-<td><p><a class="reference internal" href="Package.html"><span class="std std-doc">Package</span></a></p></td>
+<td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -81,9 +82,19 @@ Alias: resources</p>
 <th class="head"><p>Value</p></th>
 </tr>
 </thead>
+</table>
+</section>
+<section id="slot-characteristics">
+<h3>Slot Characteristics<a class="headerlink" href="#slot-characteristics" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
 <tbody>
-<tr class="row-even"><td><p>Multivalued</p></td>
-<td><p>Yes</p></td>
+<tr class="row-even"><td><p>Owner</p></td>
+<td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -94,7 +105,7 @@ Alias: resources</p>
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -108,10 +119,10 @@ Alias: resources</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:resources</p></td>
+<td><p>fts:maxLength</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:resources</p></td>
+<td><p>fts:maxLength</p></td>
 </tr>
 </tbody>
 </table>
@@ -120,16 +131,15 @@ Alias: resources</p>
 <h2>LinkML Source<a class="headerlink" href="#linkml-source" title="Link to this heading">¶</a></h2>
 <details>
 ```yaml
-name: resources
-from_schema: https://w3id.org/linkml/frictionless
+name: maxLength
+description: Maximum length for string values (or item count for arrays).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: resources
+alias: maxLength
+owner: Constraints
 domain_of:
-- Package
-range: Resource
-multivalued: true
-inlined: true
-inlined_as_list: true
+- Constraints
+range: integer
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>
@@ -199,7 +209,7 @@ inlined_as_list: true
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
-      <a href="../../_sources/metamodels/frictionless/resources.md.txt"
+      <a href="../../_sources/metamodels/frictionless/maxLength.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

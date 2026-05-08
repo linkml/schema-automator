@@ -1,0 +1,240 @@
+
+
+# Class: TableSchema 
+
+
+_A Frictionless Table Schema document — the column descriptors for a single tabular resource._
+
+
+
+
+
+URI: [fts:TableSchema](https://specs.frictionlessdata.io/table-schema/TableSchema)
+
+
+
+
+
+```mermaid
+ classDiagram
+    class TableSchema
+    click TableSchema href "../TableSchema/"
+      TableSchema : fields
+        
+          
+    
+        
+        
+        TableSchema --> "1..*" Field : fields
+        click Field href "../Field/"
+    
+
+        
+      TableSchema : foreignKeys
+        
+          
+    
+        
+        
+        TableSchema --> "*" ForeignKey : foreignKeys
+        click ForeignKey href "../ForeignKey/"
+    
+
+        
+      TableSchema : missingValues
+        
+      TableSchema : primaryKey
+        
+      
+```
+
+
+
+
+<!-- no inheritance hierarchy -->
+
+## Class Properties
+
+| Property | Value |
+| --- | --- |
+| Tree Root | Yes |
+
+
+## Slots
+
+| Name | Cardinality and Range | Description | Inheritance |
+| ---  | --- | --- | --- |
+| [fields](fields.md) | 1..* <br/> [Field](Field.md) | Ordered list of field (column) descriptors | direct |
+| [missingValues](missingValues.md) | * <br/> [String](String.md) | String values to interpret as missing data when reading the tabular resource | direct |
+| [primaryKey](primaryKey.md) | * <br/> [String](String.md) | Field name(s) that together identify each row | direct |
+| [foreignKeys](foreignKeys.md) | * <br/> [ForeignKey](ForeignKey.md) | Foreign key constraints linking fields in this resource to fields in another ... | direct |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+## Mappings
+
+| Mapping Type | Mapped Value |
+| ---  | ---  |
+| self | fts:TableSchema |
+| native | fts:TableSchema |
+
+
+
+
+
+
+## LinkML Source
+
+<!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
+
+### Direct
+
+<details>
+```yaml
+name: TableSchema
+description: A Frictionless Table Schema document — the column descriptors for a single
+  tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  fields:
+    name: fields
+    description: Ordered list of field (column) descriptors.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: Field
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  missingValues:
+    name: missingValues
+    description: String values to interpret as missing data when reading the tabular
+      resource. Default is the empty string.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - TableSchema
+    range: string
+    multivalued: true
+  primaryKey:
+    name: primaryKey
+    description: Field name(s) that together identify each row. May be a single name
+      (string) or a list; modeled as a list here.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - TableSchema
+    range: string
+    multivalued: true
+  foreignKeys:
+    name: foreignKeys
+    description: Foreign key constraints linking fields in this resource to fields
+      in another resource.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - TableSchema
+    range: ForeignKey
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+tree_root: true
+
+```
+</details>
+
+### Induced
+
+<details>
+```yaml
+name: TableSchema
+description: A Frictionless Table Schema document — the column descriptors for a single
+  tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  fields:
+    name: fields
+    description: Ordered list of field (column) descriptors.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: fields
+    owner: TableSchema
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: Field
+    required: true
+    multivalued: true
+    inlined_as_list: true
+  missingValues:
+    name: missingValues
+    description: String values to interpret as missing data when reading the tabular
+      resource. Default is the empty string.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: missingValues
+    owner: TableSchema
+    domain_of:
+    - TableSchema
+    range: string
+    multivalued: true
+  primaryKey:
+    name: primaryKey
+    description: Field name(s) that together identify each row. May be a single name
+      (string) or a list; modeled as a list here.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: primaryKey
+    owner: TableSchema
+    domain_of:
+    - TableSchema
+    range: string
+    multivalued: true
+  foreignKeys:
+    name: foreignKeys
+    description: Foreign key constraints linking fields in this resource to fields
+      in another resource.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: foreignKeys
+    owner: TableSchema
+    domain_of:
+    - TableSchema
+    range: ForeignKey
+    multivalued: true
+    inlined_as_list: true
+tree_root: true
+
+```
+</details>

@@ -33,7 +33,8 @@
             
   <section id="slot-resource">
 <h1>Slot: resource<a class="headerlink" href="#slot-resource" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/resource">frictionless:resource</a>
+<p><em>Name of the resource being referenced. Empty string refers to the current resource (self-reference).</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/resource">fts:resource</a>
 Alias: resource</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
@@ -46,8 +47,8 @@ Alias: resource</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Reference.html"><span class="std std-doc">Reference</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ForeignKeyReference.html"><span class="std std-doc">ForeignKeyReference</span></a></p></td>
+<td><p>The target side of a foreign-key constraint</p></td>
 <td><p>no</p></td>
 </tr>
 </tbody>
@@ -68,7 +69,7 @@ Alias: resource</p>
 <td><p><a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Domain Of</p></td>
-<td><p><a class="reference internal" href="Reference.html"><span class="std std-doc">Reference</span></a></p></td>
+<td><p><a class="reference internal" href="ForeignKeyReference.html"><span class="std std-doc">ForeignKeyReference</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -83,26 +84,28 @@ Alias: resource</p>
 </thead>
 </table>
 </section>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<section id="slot-characteristics">
+<h3>Slot Characteristics<a class="headerlink" href="#slot-characteristics" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>gene</p></td>
+<tr class="row-even"><td><p>Owner</p></td>
+<td><p><a class="reference internal" href="ForeignKeyReference.html"><span class="std std-doc">ForeignKeyReference</span></a></p></td>
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="identifier-and-mapping-information">
 <h2>Identifier and Mapping Information<a class="headerlink" href="#identifier-and-mapping-information" title="Link to this heading">¶</a></h2>
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -116,10 +119,10 @@ Alias: resource</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:resource</p></td>
+<td><p>fts:resource</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:resource</p></td>
+<td><p>fts:resource</p></td>
 </tr>
 </tbody>
 </table>
@@ -129,13 +132,14 @@ Alias: resource</p>
 <details>
 ```yaml
 name: resource
-examples:
-- value: gene
-from_schema: https://w3id.org/linkml/frictionless
+description: Name of the resource being referenced. Empty string refers to the current
+  resource (self-reference).
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: resource
+owner: ForeignKeyReference
 domain_of:
-- Reference
+- ForeignKeyReference
 range: string
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>

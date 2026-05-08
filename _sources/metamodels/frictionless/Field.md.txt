@@ -3,8 +3,13 @@
 # Class: Field 
 
 
+_Descriptor for a single column of the tabular resource._
 
-URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
+
+
+
+
+URI: [fts:Field](https://specs.frictionlessdata.io/table-schema/Field)
 
 
 
@@ -27,20 +32,15 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
         
       Field : description
         
-      Field : enum
+      Field : example
         
       Field : format
         
-          
-    
-        
-        
-        Field --> "0..1" FormatEnum : format
-        click FormatEnum href "../FormatEnum/"
-    
-
-        
       Field : name
+        
+      Field : rdfType
+        
+      Field : title
         
       Field : type
         
@@ -48,8 +48,8 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
     
         
         
-        Field --> "0..1" TypeEnum : type
-        click TypeEnum href "../TypeEnum/"
+        Field --> "0..1" FrictionlessType : type
+        click FrictionlessType href "../FrictionlessType/"
     
 
         
@@ -65,12 +65,14 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 | Name | Cardinality and Range | Description | Inheritance |
 | ---  | --- | --- | --- |
-| [name](name.md) | 1 <br/> [String](String.md) |  | direct |
-| [description](description.md) | * <br/> [String](String.md) |  | direct |
-| [type](type.md) | 0..1 <br/> [TypeEnum](TypeEnum.md) |  | direct |
-| [constraints](constraints.md) | 0..1 <br/> [Constraints](Constraints.md) |  | direct |
-| [format](format.md) | 0..1 <br/> [FormatEnum](FormatEnum.md) |  | direct |
-| [enum](enum.md) | * <br/> [String](String.md) |  | direct |
+| [name](name.md) | 1 <br/> [String](String.md) | Machine-readable name of the field | direct |
+| [title](title.md) | 0..1 <br/> [String](String.md) | Human-readable title for the field | direct |
+| [description](description.md) | 0..1 <br/> [String](String.md) | Markdown-flavored description of what the field represents | direct |
+| [example](example.md) | 0..1 <br/> [String](String.md) | Example value for the field, useful for human readers and some tools | direct |
+| [type](type.md) | 0..1 <br/> [FrictionlessType](FrictionlessType.md) | Logical type of values in the field | direct |
+| [format](format.md) | 0..1 <br/> [String](String.md) | Format refinement of the field type | direct |
+| [rdfType](rdfType.md) | 0..1 <br/> [Uriorcurie](Uriorcurie.md) | URI or CURIE naming a class in a controlled vocabulary that this field's valu... | direct |
+| [constraints](constraints.md) | 0..1 <br/> [Constraints](Constraints.md) | Validation constraints on field values | direct |
 
 
 
@@ -80,10 +82,7 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 | used by | used in | type | used |
 | ---  | --- | --- | --- |
-| [Reference](Reference.md) | [fields](fields.md) | range | [Field](Field.md) |
-| [ForeignKeys](ForeignKeys.md) | [fields](fields.md) | range | [Field](Field.md) |
-| [Schema](Schema.md) | [fields](fields.md) | range | [Field](Field.md) |
-| [Schema](Schema.md) | [primaryKey](primaryKey.md) | range | [Field](Field.md) |
+| [TableSchema](TableSchema.md) | [fields](fields.md) | range | [Field](Field.md) |
 
 
 
@@ -105,7 +104,7 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 ### Schema Source
 
 
-* from schema: https://w3id.org/linkml/frictionless
+* from schema: https://specs.frictionlessdata.io/table-schema
 
 
 
@@ -114,8 +113,8 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:Field |
-| native | frictionless:Field |
+| self | fts:Field |
+| native | fts:Field |
 
 
 
@@ -131,14 +130,81 @@ URI: [frictionless:Field](https://w3id.org/linkml/frictionless/Field)
 <details>
 ```yaml
 name: Field
-from_schema: https://w3id.org/linkml/frictionless
-slots:
-- name
-- description
-- type
-- constraints
-- format
-- enum
+description: Descriptor for a single column of the tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
+  name:
+    name: name
+    description: Machine-readable name of the field. Should match the column header
+      in the tabular data.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    identifier: true
+    domain_of:
+    - Field
+    range: string
+    required: true
+  title:
+    name: title
+    description: Human-readable title for the field.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  description:
+    name: description
+    description: Markdown-flavored description of what the field represents.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  example:
+    name: example
+    description: Example value for the field, useful for human readers and some tools.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  type:
+    name: type
+    description: Logical type of values in the field. The default if absent is `string`.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: FrictionlessType
+  format:
+    name: format
+    description: Format refinement of the field type. Format vocabulary is type-specific
+      (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: string
+  rdfType:
+    name: rdfType
+    description: URI or CURIE naming a class in a controlled vocabulary that this
+      field's values instantiate. Used for semantic anchoring. Frictionless's spec
+      calls this a URL, but in practice consumers (and the schema-automator DD `uri`
+      slot it pairs with) accept CURIEs as well.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: uriorcurie
+  constraints:
+    name: constraints
+    description: Validation constraints on field values.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - Field
+    range: Constraints
+    inlined: true
 
 ```
 </details>
@@ -148,81 +214,97 @@ slots:
 <details>
 ```yaml
 name: Field
-from_schema: https://w3id.org/linkml/frictionless
+description: Descriptor for a single column of the tabular resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
 attributes:
   name:
     name: name
-    examples:
-    - value: description
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Machine-readable name of the field. Should match the column header
+      in the tabular data.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:name
     identifier: true
     alias: name
     owner: Field
     domain_of:
     - Field
-    - Resource
-    - Package
     range: string
     required: true
+  title:
+    name: title
+    description: Human-readable title for the field.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: title
+    owner: Field
+    domain_of:
+    - Field
+    range: string
   description:
     name: description
-    examples:
-    - value: A human-readable description of this identifier namespace
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Markdown-flavored description of what the field represents.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    slot_uri: linkml:description
     alias: description
     owner: Field
     domain_of:
     - Field
-    - Resource
     range: string
-    multivalued: true
+  example:
+    name: example
+    description: Example value for the field, useful for human readers and some tools.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: example
+    owner: Field
+    domain_of:
+    - Field
+    range: string
   type:
     name: type
-    examples:
-    - value: string
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Logical type of values in the field. The default if absent is `string`.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     alias: type
     owner: Field
     domain_of:
     - Field
-    range: type_enum
+    range: FrictionlessType
+  format:
+    name: format
+    description: Format refinement of the field type. Format vocabulary is type-specific
+      (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: format
+    owner: Field
+    domain_of:
+    - Field
+    range: string
+  rdfType:
+    name: rdfType
+    description: URI or CURIE naming a class in a controlled vocabulary that this
+      field's values instantiate. Used for semantic anchoring. Frictionless's spec
+      calls this a URL, but in practice consumers (and the schema-automator DD `uri`
+      slot it pairs with) accept CURIEs as well.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    alias: rdfType
+    owner: Field
+    domain_of:
+    - Field
+    range: uriorcurie
   constraints:
     name: constraints
-    from_schema: https://w3id.org/linkml/frictionless
+    description: Validation constraints on field values.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     alias: constraints
     owner: Field
     domain_of:
     - Field
     range: Constraints
-  format:
-    name: format
-    examples:
-    - value: any
-    from_schema: https://w3id.org/linkml/frictionless
-    rank: 1000
-    alias: format
-    owner: Field
-    domain_of:
-    - Field
-    range: format_enum
-  enum:
-    name: enum
-    from_schema: https://w3id.org/linkml/frictionless
-    close_mappings:
-    - linkml:range
-    rank: 1000
-    alias: enum
-    owner: Field
-    domain_of:
-    - Field
-    range: string
-    multivalued: true
+    inlined: true
 
 ```
 </details>

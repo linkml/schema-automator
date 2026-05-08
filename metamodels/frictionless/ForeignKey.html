@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Class: ForeignKeys &#8212; Schema Automator  documentation</title>
+    <title>Class: ForeignKey &#8212; Schema Automator  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -31,33 +31,23 @@
 
           <div class="body" role="main">
             
-  <section id="class-foreignkeys">
-<h1>Class: ForeignKeys<a class="headerlink" href="#class-foreignkeys" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/ForeignKeys">frictionless:ForeignKeys</a></p>
+  <section id="class-foreignkey">
+<h1>Class: ForeignKey<a class="headerlink" href="#class-foreignkey" title="Link to this heading">¶</a></h1>
+<p><em>Foreign-key constraint linking field(s) in this resource to field(s) in another resource.</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/ForeignKey">fts:ForeignKey</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
-    class ForeignKeys
-    click ForeignKeys href &quot;../ForeignKeys/&quot;
-      ForeignKeys : constraint_name
+    class ForeignKey
+    click ForeignKey href &quot;../ForeignKey/&quot;
+      ForeignKey : fields
         
-      ForeignKeys : fields
-        
-          
-    
-        
-        
-        ForeignKeys --&gt; &quot;*&quot; Field : fields
-        click Field href &quot;../Field/&quot;
-    
-
-        
-      ForeignKeys : reference
+      ForeignKey : reference
         
           
     
         
         
-        ForeignKeys --&gt; &quot;0..1&quot; Reference : reference
-        click Reference href &quot;../Reference/&quot;
+        ForeignKey --&gt; &quot;1&quot; ForeignKeyReference : reference
+        click ForeignKeyReference href &quot;../ForeignKeyReference/&quot;
     
 
         
@@ -77,18 +67,13 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="fields.html"><span class="std std-doc">fields</span></a></p></td>
-<td><p>* <br/> <a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
-<td><p></p></td>
+<td><p>1..* <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
+<td><p>Field name(s) in this resource that participate in the key</p></td>
 <td><p>direct</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="reference.html"><span class="std std-doc">reference</span></a></p></td>
-<td><p>0..1 <br/> <a class="reference internal" href="Reference.html"><span class="std std-doc">Reference</span></a></p></td>
-<td><p></p></td>
-<td><p>direct</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="constraint_name.html"><span class="std std-doc">constraint_name</span></a></p></td>
-<td><p>0..1 <br/> <a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
-<td><p></p></td>
+<td><p>1 <br/> <a class="reference internal" href="ForeignKeyReference.html"><span class="std std-doc">ForeignKeyReference</span></a></p></td>
+<td><p>The target of the reference</p></td>
 <td><p>direct</p></td>
 </tr>
 </tbody>
@@ -105,10 +90,10 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
 <td><p><a class="reference internal" href="foreignKeys.html"><span class="std std-doc">foreignKeys</span></a></p></td>
 <td><p>range</p></td>
-<td><p><a class="reference internal" href="#"><span class="std std-doc">ForeignKeys</span></a></p></td>
+<td><p><a class="reference internal" href="#"><span class="std std-doc">ForeignKey</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -118,7 +103,7 @@
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -132,10 +117,10 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:ForeignKeys</p></td>
+<td><p>fts:ForeignKey</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:ForeignKeys</p></td>
+<td><p>fts:ForeignKey</p></td>
 </tr>
 </tbody>
 </table>
@@ -147,71 +132,68 @@
 <h3>Direct<a class="headerlink" href="#direct" title="Link to this heading">¶</a></h3>
 <details>
 ```yaml
-name: ForeignKeys
-from_schema: https://w3id.org/linkml/frictionless
-slots:
-- fields
-- reference
-- constraint_name
-slot_usage:
+name: ForeignKey
+description: Foreign-key constraint linking field(s) in this resource to field(s)
+  in another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
+attributes:
   fields:
     name: fields
-    inlined: false
-  range:
-    name: range
-    id_prefixes:
-    - Any
+    description: Field name(s) in this resource that participate in the key.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    domain_of:
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
+    multivalued: true
+  reference:
+    name: reference
+    description: The target of the reference.
+    from_schema: https://specs.frictionlessdata.io/table-schema
+    rank: 1000
+    domain_of:
+    - ForeignKey
+    range: ForeignKeyReference
+    required: true
+    inlined: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;/details&gt;
 
 ### Induced
 
 &lt;details&gt;
 ```yaml
-name: ForeignKeys
-from_schema: https://w3id.org/linkml/frictionless
-slot_usage:
-  fields:
-    name: fields
-    inlined: false
-  range:
-    name: range
-    id_prefixes:
-    - Any
+name: ForeignKey
+description: Foreign-key constraint linking field(s) in this resource to field(s)
+  in another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
 attributes:
   fields:
     name: fields
-    examples:
-    - value: id
-    from_schema: https://w3id.org/linkml/frictionless
-    rank: 1000
+    description: Field name(s) in this resource that participate in the key.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     alias: fields
-    owner: ForeignKeys
+    owner: ForeignKey
     domain_of:
-    - Reference
-    - ForeignKeys
-    - Schema
-    range: Field
+    - TableSchema
+    - ForeignKey
+    - ForeignKeyReference
+    range: string
+    required: true
     multivalued: true
-    inlined: false
   reference:
     name: reference
-    from_schema: https://w3id.org/linkml/frictionless
+    description: The target of the reference.
+    from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     alias: reference
-    owner: ForeignKeys
+    owner: ForeignKey
     domain_of:
-    - ForeignKeys
-    range: Reference
-  constraint_name:
-    name: constraint_name
-    examples:
-    - value: dcc_project_fkey
-    from_schema: https://w3id.org/linkml/frictionless
-    rank: 1000
-    alias: constraint_name
-    owner: ForeignKeys
-    domain_of:
-    - ForeignKeys
+    - ForeignKey
+    range: ForeignKeyReference
+    required: true
+    inlined: true
 
 </pre></div>
 </div>
@@ -282,7 +264,7 @@ attributes:
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
-      <a href="../../_sources/metamodels/frictionless/ForeignKeys.md.txt"
+      <a href="../../_sources/metamodels/frictionless/ForeignKey.md.txt"
           rel="nofollow">Page source</a>
     </div>
 

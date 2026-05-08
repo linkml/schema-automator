@@ -1,0 +1,5 @@
+# frictionless_table_schema 
+
+LinkML representation of the Frictionless Table Schema specification (https://specs.frictionlessdata.io/table-schema/), as consumed by the schema-automator Frictionless adapter. Covers the column-descriptor layer of a Frictionless data package (the `schema` block), not the surrounding data-package metadata. Used as the source schema for linkml-map trans-specs that translate to the canonical data dictionary format.
+
+URI: https://specs.frictionlessdata.io/table-schema

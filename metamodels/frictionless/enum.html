@@ -33,7 +33,8 @@
             
   <section id="slot-enum">
 <h1>Slot: enum<a class="headerlink" href="#slot-enum" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/enum">frictionless:enum</a>
+<p><em>Closed list of allowed values. Treated as an enumeration in target schemas that distinguish that case.</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/enum">fts:enum</a>
 Alias: enum</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
@@ -46,8 +47,8 @@ Alias: enum</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
+<td><p>Validation constraints attached to a field</p></td>
 <td><p>no</p></td>
 </tr>
 </tbody>
@@ -68,7 +69,7 @@ Alias: enum</p>
 <td><p><a class="reference internal" href="String.html"><span class="std std-doc">String</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Domain Of</p></td>
-<td><p><a class="reference internal" href="Field.html"><span class="std std-doc">Field</span></a></p></td>
+<td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -88,13 +89,28 @@ Alias: enum</p>
 </tbody>
 </table>
 </section>
+<section id="slot-characteristics">
+<h3>Slot Characteristics<a class="headerlink" href="#slot-characteristics" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Owner</p></td>
+<td><p><a class="reference internal" href="Constraints.html"><span class="std std-doc">Constraints</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="identifier-and-mapping-information">
 <h2>Identifier and Mapping Information<a class="headerlink" href="#identifier-and-mapping-information" title="Link to this heading">¶</a></h2>
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -108,13 +124,10 @@ Alias: enum</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:enum</p></td>
+<td><p>fts:enum</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:enum</p></td>
-</tr>
-<tr class="row-even"><td><p>close</p></td>
-<td><p>linkml:range</p></td>
+<td><p>fts:enum</p></td>
 </tr>
 </tbody>
 </table>
@@ -124,13 +137,14 @@ Alias: enum</p>
 <details>
 ```yaml
 name: enum
-from_schema: https://w3id.org/linkml/frictionless
-close_mappings:
-- linkml:range
+description: Closed list of allowed values. Treated as an enumeration in target schemas
+  that distinguish that case.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: enum
+owner: Constraints
 domain_of:
-- Field
+- Constraints
 range: string
 multivalued: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>

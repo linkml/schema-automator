@@ -33,7 +33,8 @@
             
   <section id="slot-foreignkeys">
 <h1>Slot: foreignKeys<a class="headerlink" href="#slot-foreignkeys" title="Link to this heading">¶</a></h1>
-<p>URI: <a class="reference external" href="https://w3id.org/linkml/frictionless/foreignKeys">frictionless:foreignKeys</a>
+<p><em>Foreign key constraints linking fields in this resource to fields in another resource.</em></p>
+<p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/foreignKeys">fts:foreignKeys</a>
 Alias: foreignKeys</p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
@@ -46,8 +47,8 @@ Alias: foreignKeys</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
+<td><p>A Frictionless Table Schema document — the column descriptors for a single ta…</p></td>
 <td><p>no</p></td>
 </tr>
 </tbody>
@@ -65,10 +66,10 @@ Alias: foreignKeys</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Range</p></td>
-<td><p><a class="reference internal" href="ForeignKeys.html"><span class="std std-doc">ForeignKeys</span></a></p></td>
+<td><p><a class="reference internal" href="ForeignKey.html"><span class="std std-doc">ForeignKey</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Domain Of</p></td>
-<td><p><a class="reference internal" href="Schema.html"><span class="std std-doc">Schema</span></a></p></td>
+<td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -88,26 +89,28 @@ Alias: foreignKeys</p>
 </tbody>
 </table>
 </section>
-</section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<section id="slot-characteristics">
+<h3>Slot Characteristics<a class="headerlink" href="#slot-characteristics" title="Link to this heading">¶</a></h3>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>[‘$ref:ForeignKeys’, ‘$ref:ForeignKeys’]</p></td>
+<tr class="row-even"><td><p>Owner</p></td>
+<td><p><a class="reference internal" href="TableSchema.html"><span class="std std-doc">TableSchema</span></a></p></td>
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="identifier-and-mapping-information">
 <h2>Identifier and Mapping Information<a class="headerlink" href="#identifier-and-mapping-information" title="Link to this heading">¶</a></h2>
 <section id="schema-source">
 <h3>Schema Source<a class="headerlink" href="#schema-source" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>from schema: https://w3id.org/linkml/frictionless</p></li>
+<li><p>from schema: https://specs.frictionlessdata.io/table-schema</p></li>
 </ul>
 </section>
 </section>
@@ -121,10 +124,10 @@ Alias: foreignKeys</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>self</p></td>
-<td><p>frictionless:foreignKeys</p></td>
+<td><p>fts:foreignKeys</p></td>
 </tr>
 <tr class="row-odd"><td><p>native</p></td>
-<td><p>frictionless:foreignKeys</p></td>
+<td><p>fts:foreignKeys</p></td>
 </tr>
 </tbody>
 </table>
@@ -134,15 +137,18 @@ Alias: foreignKeys</p>
 <details>
 ```yaml
 name: foreignKeys
-examples:
-- value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
-from_schema: https://w3id.org/linkml/frictionless
+description: Foreign key constraints linking fields in this resource to fields in
+  another resource.
+from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 alias: foreignKeys
+owner: TableSchema
 domain_of:
-- Schema
-range: ForeignKeys
+- TableSchema
+range: ForeignKey
 multivalued: true
+inlined: true
+inlined_as_list: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>

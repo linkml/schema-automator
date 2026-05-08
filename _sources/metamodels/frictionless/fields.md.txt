@@ -4,7 +4,7 @@
 
 
 
-URI: [frictionless:fields](https://w3id.org/linkml/frictionless/fields)
+URI: [fts:fields](https://specs.frictionlessdata.io/table-schema/fields)
 Alias: fields
 
 <!-- no inheritance hierarchy -->
@@ -17,9 +17,9 @@ Alias: fields
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ForeignKeys](ForeignKeys.md) |  |  yes  |
-| [Reference](Reference.md) |  |  yes  |
-| [Schema](Schema.md) |  |  yes  |
+| [ForeignKey](ForeignKey.md) | Foreign-key constraint linking field(s) in this resource to field(s) in anoth... |  no  |
+| [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |  no  |
+| [ForeignKeyReference](ForeignKeyReference.md) | The target side of a foreign-key constraint |  no  |
 
 
 
@@ -32,14 +32,13 @@ Alias: fields
 
 | Property | Value |
 | --- | --- |
-| Range | [Field](Field.md) |
-| Domain Of | [Reference](Reference.md), [ForeignKeys](ForeignKeys.md), [Schema](Schema.md) |
+| Range | NONE |
+| Domain Of | [TableSchema](TableSchema.md), [ForeignKey](ForeignKey.md), [ForeignKeyReference](ForeignKeyReference.md) |
 
 ### Cardinality and Requirements
 
 | Property | Value |
 | --- | --- |
-| Multivalued | Yes |
 
 
 
@@ -47,13 +46,6 @@ Alias: fields
 
 
 
-
-
-## Examples
-
-| Value |
-| --- |
-| id |
 
 
 
@@ -63,20 +55,13 @@ Alias: fields
 
 
 
-### Schema Source
-
-
-* from schema: https://w3id.org/linkml/frictionless
-
-
-
 
 ## Mappings
 
 | Mapping Type | Mapped Value |
 | ---  | ---  |
-| self | frictionless:fields |
-| native | frictionless:fields |
+| self | fts:fields |
+| native | fts:fields |
 
 
 
@@ -86,17 +71,11 @@ Alias: fields
 <details>
 ```yaml
 name: fields
-examples:
-- value: id
-from_schema: https://w3id.org/linkml/frictionless
-rank: 1000
 alias: fields
 domain_of:
-- Reference
-- ForeignKeys
-- Schema
-range: Field
-multivalued: true
+- TableSchema
+- ForeignKey
+- ForeignKeyReference
 
 ```
 </details>

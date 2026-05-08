@@ -1,0 +1,121 @@
+# Enum: FrictionlessType 
+
+
+
+
+_The Frictionless Table Schema type vocabulary (https://specs.frictionlessdata.io/table-schema/#types-and-formats)._
+
+
+
+URI: [fts:FrictionlessType](https://specs.frictionlessdata.io/table-schema/FrictionlessType)
+
+## Permissible Values
+| Value | Meaning | Description |
+| --- | --- | --- |
+| string | None | A sequence of characters |
+| number | None | A real (floating-point) number |
+| integer | None | A whole number |
+| boolean | None | A true/false value |
+| object | None | A JSON object (key-value mapping) |
+| array | None | A JSON array |
+| date | None | A calendar date (no time) |
+| time | None | A time of day (no date) |
+| datetime | None | A date and time |
+| year | None | A calendar year (e |
+| yearmonth | None | A calendar year and month (e |
+| duration | None | A duration expressed in ISO 8601 format |
+| geopoint | None | A geographic point (latitude/longitude pair) |
+| geojson | None | A GeoJSON object |
+| any | None | Unconstrained value type; any value is permitted |
+
+
+
+
+## Slots
+
+| Name | Description |
+| ---  | --- |
+| [type](type.md) | Logical type of values in the field |
+
+
+
+
+
+
+
+
+
+
+## Identifier and Mapping Information
+
+
+
+
+
+### Schema Source
+
+
+* from schema: https://specs.frictionlessdata.io/table-schema
+
+
+
+
+
+
+## LinkML Source
+
+<details>
+```yaml
+name: FrictionlessType
+description: The Frictionless Table Schema type vocabulary (https://specs.frictionlessdata.io/table-schema/#types-and-formats).
+from_schema: https://specs.frictionlessdata.io/table-schema
+rank: 1000
+permissible_values:
+  string:
+    text: string
+    description: A sequence of characters.
+  number:
+    text: number
+    description: A real (floating-point) number.
+  integer:
+    text: integer
+    description: A whole number.
+  boolean:
+    text: boolean
+    description: A true/false value.
+  object:
+    text: object
+    description: A JSON object (key-value mapping).
+  array:
+    text: array
+    description: A JSON array.
+  date:
+    text: date
+    description: A calendar date (no time).
+  time:
+    text: time
+    description: A time of day (no date).
+  datetime:
+    text: datetime
+    description: A date and time.
+  year:
+    text: year
+    description: A calendar year (e.g., 2026).
+  yearmonth:
+    text: yearmonth
+    description: A calendar year and month (e.g., 2026-05).
+  duration:
+    text: duration
+    description: A duration expressed in ISO 8601 format.
+  geopoint:
+    text: geopoint
+    description: A geographic point (latitude/longitude pair).
+  geojson:
+    text: geojson
+    description: A GeoJSON object.
+  any:
+    text: any
+    description: Unconstrained value type; any value is permitted.
+
+```
+</details>
