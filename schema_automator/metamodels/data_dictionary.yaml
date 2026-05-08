@@ -183,8 +183,7 @@ classes:
     rules:
 
       - description: >-
-          When type is `permissible_values`, the `codes` field is required
-          (at least one entry).
+          When type is `permissible_values`, the `codes` field is required.
         preconditions:
           slot_conditions:
             type:

@@ -1,0 +1,25 @@
+{
+  "fields": [
+    {
+      "name": "DATE",
+      "type": "date",
+      "format": "%m/%d/%Y"
+    },
+    {
+      "name": "OPEN",
+      "type": "number"
+    },
+    {
+      "name": "HIGH",
+      "type": "number"
+    },
+    {
+      "name": "LOW",
+      "type": "number"
+    },
+    {
+      "name": "CLOSE",
+      "type": "number"
+    }
+  ]
+}

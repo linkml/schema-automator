@@ -175,12 +175,20 @@ class TestFrictionlessToDD:
         assert result["entries"][0]["example_values"] == ["foo"]
 
     def test_real_world_finance_vix(self):
-        """Validate against a real public Frictionless data package."""
-        pkg_path = Path("/tmp/finance-vix/datapackage.json")
-        if not pkg_path.exists():
-            pytest.skip("finance-vix fixture not present at /tmp")
-        pkg = json.load(open(pkg_path))
-        schema = next(r["schema"] for r in pkg["resources"] if r["name"] == "vix-daily")
+        """Validate against the real-world finance-vix Frictionless schema.
+
+        Fixture is the `vix-daily` resource's table schema extracted from
+        the public datasets/finance-vix data package; checked into
+        ``tests/resources/`` so the test runs deterministically in CI.
+        """
+        fixture = (
+            Path(__file__).resolve().parents[1]
+            / "resources"
+            / "frictionless"
+            / "finance-vix-daily-tableschema.json"
+        )
+        with fixture.open() as f:
+            schema = json.load(f)
         result = frictionless_to_dd(schema)
         names = [e["name"] for e in result["entries"]]
         assert names == ["DATE", "OPEN", "HIGH", "LOW", "CLOSE"]

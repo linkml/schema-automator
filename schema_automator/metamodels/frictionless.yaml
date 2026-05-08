@@ -93,9 +93,12 @@ classes:
         range: string
       rdfType:
         description: >-
-          URI naming a class in a controlled vocabulary that this
-          field's values instantiate. Used for semantic anchoring.
-        range: uri
+          URI or CURIE naming a class in a controlled vocabulary that
+          this field's values instantiate. Used for semantic anchoring.
+          Frictionless's spec calls this a URL, but in practice
+          consumers (and the schema-automator DD `uri` slot it pairs
+          with) accept CURIEs as well.
+        range: uriorcurie
       constraints:
         description: >-
           Validation constraints on field values.
