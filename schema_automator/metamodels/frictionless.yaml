@@ -1,204 +1,223 @@
-name: frictionless
-description: frictionless
-id: https://w3id.org/linkml/frictionless
-imports:
-- linkml:types
+id: https://specs.frictionlessdata.io/table-schema
+name: frictionless_table_schema
+title: Frictionless Table Schema (LinkML representation)
+description: >-
+  LinkML representation of the Frictionless Table Schema specification
+  (https://specs.frictionlessdata.io/table-schema/), as consumed by the
+  schema-automator Frictionless adapter. Covers the column-descriptor
+  layer of a Frictionless data package (the `schema` block), not the
+  surrounding data-package metadata. Used as the source schema for
+  linkml-map trans-specs that translate to the canonical data
+  dictionary format.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
 prefixes:
   linkml: https://w3id.org/linkml/
-  frictionless: https://w3id.org/linkml/frictionless/
-default_prefix: frictionless
+  fts: https://specs.frictionlessdata.io/table-schema/
+
+default_prefix: fts
+
+imports:
+  - linkml:types
+
+classes:
+
+  TableSchema:
+    description: >-
+      A Frictionless Table Schema document — the column descriptors for
+      a single tabular resource.
+    tree_root: true
+    attributes:
+      fields:
+        description: >-
+          Ordered list of field (column) descriptors.
+        range: Field
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      missingValues:
+        description: >-
+          String values to interpret as missing data when reading the
+          tabular resource. Default is the empty string.
+        range: string
+        multivalued: true
+      primaryKey:
+        description: >-
+          Field name(s) that together identify each row. May be a
+          single name (string) or a list; modeled as a list here.
+        range: string
+        multivalued: true
+      foreignKeys:
+        description: >-
+          Foreign key constraints linking fields in this resource to
+          fields in another resource.
+        range: ForeignKey
+        multivalued: true
+        inlined_as_list: true
+
+  Field:
+    description: >-
+      Descriptor for a single column of the tabular resource.
+    attributes:
+      name:
+        description: >-
+          Machine-readable name of the field. Should match the column
+          header in the tabular data.
+        required: true
+        identifier: true
+        range: string
+      title:
+        description: >-
+          Human-readable title for the field.
+        range: string
+      description:
+        description: >-
+          Markdown-flavored description of what the field represents.
+        range: string
+      example:
+        description: >-
+          Example value for the field, useful for human readers and
+          some tools.
+        range: string
+      type:
+        description: >-
+          Logical type of values in the field. The default if absent
+          is `string`.
+        range: FrictionlessType
+      format:
+        description: >-
+          Format refinement of the field type. Format vocabulary is
+          type-specific (e.g., `email`, `uri`, `binary`, `uuid` for
+          string; strftime patterns for date/datetime).
+        range: string
+      rdfType:
+        description: >-
+          URI or CURIE naming a class in a controlled vocabulary that
+          this field's values instantiate. Used for semantic anchoring.
+          Frictionless's spec calls this a URL, but in practice
+          consumers (and the schema-automator DD `uri` slot it pairs
+          with) accept CURIEs as well.
+        range: uriorcurie
+      constraints:
+        description: >-
+          Validation constraints on field values.
+        range: Constraints
+        inlined: true
+
+  Constraints:
+    description: >-
+      Validation constraints attached to a field.
+    attributes:
+      required:
+        description: >-
+          Whether the field must have a value in every row. An empty
+          string is considered missing per Frictionless conventions.
+        range: boolean
+      unique:
+        description: >-
+          Whether each value of this field must be distinct across
+          rows.
+        range: boolean
+      pattern:
+        description: >-
+          Regular expression that all values must match (XML Schema
+          regex syntax).
+        range: string
+      enum:
+        description: >-
+          Closed list of allowed values. Treated as an enumeration in
+          target schemas that distinguish that case.
+        range: string
+        multivalued: true
+      minLength:
+        description: >-
+          Minimum length for string values (or item count for arrays).
+        range: integer
+      maxLength:
+        description: >-
+          Maximum length for string values (or item count for arrays).
+        range: integer
+      minimum:
+        description: >-
+          Minimum permissible value for numeric, date, datetime, time,
+          year, and yearmonth types. The literal type matches the
+          field's type.
+        range: string
+      maximum:
+        description: >-
+          Maximum permissible value (matches `minimum` semantics).
+        range: string
+
+  ForeignKey:
+    description: >-
+      Foreign-key constraint linking field(s) in this resource to
+      field(s) in another resource.
+    attributes:
+      fields:
+        description: >-
+          Field name(s) in this resource that participate in the key.
+        range: string
+        multivalued: true
+        required: true
+      reference:
+        description: >-
+          The target of the reference.
+        range: ForeignKeyReference
+        inlined: true
+        required: true
+
+  ForeignKeyReference:
+    description: >-
+      The target side of a foreign-key constraint.
+    attributes:
+      resource:
+        description: >-
+          Name of the resource being referenced. Empty string refers
+          to the current resource (self-reference).
+        range: string
+      fields:
+        description: >-
+          Field name(s) in the target resource that the key references.
+        range: string
+        multivalued: true
+        required: true
+
 enums:
-  type_enum:
+
+  FrictionlessType:
+    description: >-
+      The Frictionless Table Schema type vocabulary
+      (https://specs.frictionlessdata.io/table-schema/#types-and-formats).
     permissible_values:
       string:
-        description: string
-      datetime:
-        description: datetime
-      boolean:
-        description: boolean
-      integer:
-        description: integer
-      array:
-        description: array
+        description: A sequence of characters.
       number:
-        description: number
-  format_enum:
-    permissible_values:
+        description: A real (floating-point) number.
+      integer:
+        description: A whole number.
+      boolean:
+        description: A true/false value.
+      object:
+        description: A JSON object (key-value mapping).
+      array:
+        description: A JSON array.
+      date:
+        description: A calendar date (no time).
+      time:
+        description: A time of day (no date).
+      datetime:
+        description: A date and time.
+      year:
+        description: A calendar year (e.g., 2026).
+      yearmonth:
+        description: A calendar year and month (e.g., 2026-05).
+      duration:
+        description: A duration expressed in ISO 8601 format.
+      geopoint:
+        description: A geographic point (latitude/longitude pair).
+      geojson:
+        description: A GeoJSON object.
       any:
-        description: any
-      email:
-        description: email
-      binary:
-        description: binary
-  profile_enum:
-    permissible_values:
-      tabular-data-resource:
-      tabular-data-package:
-slots:
-  delimiter:
-    range: string
-  doubleQuote:
-    range: boolean
-  lineTerminator:
-    range: string
-  skipInitialSpace:
-    range: boolean
-  header:
-    range: boolean
-  required:
-    slot_uri: linkml:required
-    range: boolean
-  pattern:
-    slot_uri: linkml:pattern
-  unique:
-    slot_uri: linkml:identifier
-    range: boolean
-  name:
-    identifier: true
-    slot_uri: linkml:name
-    examples:
-    - value: description
-    range: string
-  description:
-    slot_uri: linkml:description
-    examples:
-    - value: A human-readable description of this identifier namespace
-    multivalued: true
-    range: string
-  type:
-    examples:
-    - value: string
-    range: type_enum
-  constraints:
-    range: Constraints
-  format:
-    examples:
-    - value: any
-    range: format_enum
-  enum:
-    close_mappings:
-      - linkml:range
-    multivalued: true
-    range: string
-  resource:
-    examples:
-    - value: gene
-    range: string
-  fields:
-    examples:
-    - value: id
-    multivalued: true
-    range: Field
-    #inlined: true
-    #inlined_as_list: true
-  reference:
-    range: Reference
-  constraint_name:
-    examples:
-    - value: dcc_project_fkey
-  missingValues:
-    multivalued: true
-  primaryKey:
-    close_mappings:
-      - linkml:identifier
-      - linkml:unique_keys
-    examples:
-    - value: id
-    multivalued: true
-    range: Field
-  foreignKeys:
-    examples:
-    - value: '[''$ref:ForeignKeys'', ''$ref:ForeignKeys'']'
-    multivalued: true
-    range: ForeignKeys
-  profile:
-    examples:
-    - value: tabular-data-resource
-    range: profile_enum
-  title:
-    slot_uri: linkml:title
-    examples:
-    - value: id_namespace
-    range: string
-  path:
-    examples:
-    - value: id_namespace.tsv
-    range: string
-  dialect:
-    range: string
-  schema:
-    range: Schema
-    close_mappings:
-      - linkml:ClassDefinition
-  resources:
-    multivalued: true
-    range: Resource
-    inlined: true
-    inlined_as_list: true
-classes:
-  Any:
-    class_uri: linkml:Any
-  Dialect:
-    slots:
-    - delimiter
-    - doubleQuote
-    - lineTerminator
-    - skipInitialSpace
-    - header
-  Constraints:
-    slots:
-    - required
-    - pattern
-    - unique
-  Field:
-    slots:
-    - name
-    - description
-    - type
-    - constraints
-    - format
-    - enum
-  Reference:
-    slots:
-    - resource
-    - fields
-    slot_usage:
-      fields:
-        inlined: false
-      range: Any
-  ForeignKeys:
-    slots:
-    - fields
-    - reference
-    - constraint_name
-    slot_usage:
-      fields:
-        inlined: false
-      range: Any
-  Schema:
-    slots:
-    - fields
-    - missingValues
-    - primaryKey
-    - foreignKeys
-    slot_usage:
-      fields:
-        inlined: true
-        inlined_as_list: true
-  Resource:
-    slots:
-    - profile
-    - name
-    - title
-    - path
-    - dialect
-    - description
-    - schema
-  Package:
-    slots:
-    - profile
-    - name
-    - title
-    - resources
-    tree_root: true
-
+        description: >-
+          Unconstrained value type; any value is permitted.

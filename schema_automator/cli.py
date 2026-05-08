@@ -649,5 +649,61 @@ def annotate_using_jsonld(schema: str, output: str, **args):
     write_schema(schemadef, output)
 
 
+@main.command()
+@click.argument('input_path', metavar='INPUT')
+@output_option
+@click.option(
+    '--reverse/--no-reverse',
+    default=False,
+    help='Reverse direction: read a canonical DD and emit a Frictionless Table Schema. Default reads Frictionless and emits DD.',
+)
+@click.option(
+    '--from-package/--from-schema',
+    default=False,
+    help='Treat input as a full Frictionless Data Package (datapackage.json) and extract the first resource\'s schema. Default treats input as a standalone Table Schema.',
+)
+def adapt_frictionless(input_path: str, output: str, reverse: bool, from_package: bool):
+    """
+    Translate between Frictionless Table Schema and the canonical
+    schema-automator data dictionary format.
+
+    INPUT is a path to a JSON or YAML file. By default the input is a
+    Frictionless Table Schema and the output is a canonical data
+    dictionary (YAML). With --reverse, the input is a data dictionary
+    and the output is a Frictionless Table Schema (JSON).
+    """
+    import json
+    from schema_automator.adapters.frictionless import (
+        dd_to_frictionless,
+        frictionless_to_dd,
+    )
+
+    with open(input_path) as f:
+        data = yaml.safe_load(f)
+
+    if from_package and not reverse:
+        resources = data.get('resources') or []
+        if not resources:
+            raise click.ClickException(f'No resources found in package {input_path}')
+        data = resources[0].get('schema')
+        if not data:
+            raise click.ClickException(
+                f'First resource in {input_path} has no schema block'
+            )
+
+    if reverse:
+        result = dd_to_frictionless(data)
+        out_text = json.dumps(result, indent=2)
+    else:
+        result = frictionless_to_dd(data)
+        out_text = yaml.safe_dump(result, sort_keys=False, allow_unicode=True)
+
+    if output:
+        with open(output, 'w') as f:
+            f.write(out_text)
+    else:
+        click.echo(out_text)
+
+
 if __name__ == "__main__":
     main()
