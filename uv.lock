@@ -4063,6 +4063,7 @@ source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "click-log" },
+    { name = "defusedxml" },
     { name = "deprecated" },
     { name = "funowl" },
     { name = "inflect" },
@@ -4131,13 +4132,14 @@ dev = [
 requires-dist = [
     { name = "click", specifier = ">=8.1.7,<9" },
     { name = "click-log", specifier = ">=0.4.0" },
+    { name = "defusedxml", specifier = ">=0.7.1" },
     { name = "deprecated", specifier = ">=1.2.15,<2" },
     { name = "duckdb", marker = "extra == 'duckdb'", specifier = ">=0.10.1,<2" },
     { name = "funowl", specifier = ">=0.2.3" },
     { name = "inflect", specifier = ">=6.0.0" },
     { name = "jsonasobj2", specifier = ">=1.0.4,<2" },
     { name = "linkml", specifier = ">=1.10.0,<2" },
-    { name = "linkml-map", specifier = ">=0.3.0,<1" },
+    { name = "linkml-map", specifier = ">=0.5.2,<1" },
     { name = "linkml-runtime", specifier = ">=1.10.0,<2" },
     { name = "llm", marker = "extra == 'llm'", specifier = ">=0.21,<1" },
     { name = "lxml", specifier = ">=5.3.0" },

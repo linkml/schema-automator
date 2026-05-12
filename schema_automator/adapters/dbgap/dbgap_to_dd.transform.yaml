@@ -1,0 +1,105 @@
+id: https://w3id.org/linkml/schema-automator/adapters/dbgap-to-dd
+title: dbGaP variable digest to canonical Data Dictionary
+description: >-
+  linkml-map trans-spec translating a dbGaP variable digest (data_dict.xml
+  merged with optional var_report.xml) into the canonical schema-automator
+  Data Dictionary. The Python wrapper at ``adapter.py`` parses the XML
+  files into the structured ``VariableDigest`` form before invoking this
+  spec. See issue #206.
+
+  Lossy with respect to:
+
+  - Empirical enum value counts and per-consent-group breakdowns from
+    var_report.xml — not carried into DD.
+  - Per-variable null counts from var_report.xml — could in principle
+    inform DD `required: false` but the signal is too weak in practice
+    (a column with one null doesn't mean the schema permits nulls).
+  - Composite type strings (e.g., ``decimal, encoded``) are collapsed to
+    ``permissible_values`` when codes are present — losing the numeric
+    semantics of the non-encoded values. This is the "integer with
+    sentinel codes" pattern (age with codes -9=missing, -3=age>75); a
+    cleaner representation needs a sentinel-values field in DD that we
+    don't yet have. Tracked as future work in #206.
+  - Empirical observed enum values for non-enumerated string columns
+    (e.g., ``SUBJECT_SOURCE`` is type=string but var_report reports
+    observed values Geneva/Coriell with counts) — could populate
+    ``example_values`` but it would mix "examples" with "exhaustive
+    observed values" and confuse the slot's purpose.
+
+source_schema: https://w3id.org/linkml/schema-automator/dbgap
+target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+
+class_derivations:
+
+  DataDictionary:
+    populated_from: VariableDigest
+    slot_derivations:
+      entries:
+        populated_from: variables
+
+  DataDictionaryEntry:
+    populated_from: Variable
+    slot_derivations:
+
+      name:
+
+      description:
+
+      # Per-variable URI: retain the dbGaP variable identity as a CURIE.
+      # This survives round-trips and lets downstream tooling resolve
+      # back to the source variable record.
+      uri:
+        expr: "'dbgap:' + id if id else None"
+
+      # Type vocabulary mapping. Strategy:
+      # - If codes (values) are present → permissible_values (the codes
+      #   are what the data actually contains, regardless of declared
+      #   numeric type — option (a) from the #206 scope discussion).
+      # - Else use calculated_type from var_report when available (more
+      #   reliable than the data_dict reported_type).
+      # - Else map reported_type via the dbGaP corpus catalogue (36
+      #   variants → our 10 canonical types).
+      # - Empty / unrecognized → string (with the rule that this is a
+      #   conformance warning — the consuming layer should surface it).
+      # Note: the Python wrapper guarantees `values` is always a list
+      # (possibly empty), so `len(values) > 0` is safe without a guard.
+      type:
+        expr: |
+          case(
+            (len(values) > 0, 'permissible_values'),
+            (calculated_type in ('enum_integer', 'enum_string', 'enumerated integer'), 'permissible_values'),
+            (calculated_type == 'integer', 'integer'),
+            (calculated_type == 'decimal', 'decimal'),
+            (calculated_type == 'string', 'string'),
+            (reported_type in ('string', 'String', 'char', 'text', 'sting', 'strin'), 'string'),
+            (reported_type in ('integer', 'Integer', 'num', 'continuous integer'), 'integer'),
+            (reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal'), 'decimal'),
+            (reported_type in ('encoded', 'encoded value', 'encoded values', 'enumerated integer', 'encoded integer'), 'permissible_values'),
+            (reported_type == 'boolean', 'boolean'),
+            (reported_type == 'date', 'date'),
+            (reported_type == 'datetime', 'datetime'),
+            (reported_type == 'time', 'time'),
+            (True, 'string')
+          )
+
+      codes:
+        # Inlined PermissibleValueDefinition list from dbGaP encoded
+        # values. Each <value code="X">label</value> becomes a
+        # {code, label} record.
+        populated_from: values
+
+      # Empirical bounds from var_report.xml's <stat min=... max=...>.
+      # Forwarded only when the source provided them (var_report present
+      # AND numeric type). Stored as strings in the source schema; DD
+      # accepts string-or-numeric-or-"none" via any_of.
+      min:
+        populated_from: min
+
+      max:
+        populated_from: max
+
+  PermissibleValueDefinition:
+    populated_from: EncodedValue
+    slot_derivations:
+      code:
+      label:

@@ -10,6 +10,12 @@ mapping it to/from the canonical DD, and any small per-format helpers.
 See umbrella issue [#202](https://github.com/linkml/schema-automator/issues/202)
 for design context.
 
+## Adapters
+
+- `frictionless/` — Frictionless Table Schema ↔ canonical DD (issue [#203](https://github.com/linkml/schema-automator/issues/203)).
+- `dbgap/` — dbGaP variable digest XML (data_dict.xml + optional var_report.xml) → canonical DD (issue [#206](https://github.com/linkml/schema-automator/issues/206)). Forward-only for v1; dbGaP isn't really a writable target format. Pairs with dm-bip's fetcher (dm-bip PR #320).
+- `redcap/` — REDCap data dictionary ↔ canonical DD (issue [#204](https://github.com/linkml/schema-automator/issues/204), open).
+
 ## Layout
 
 - `codes.py` — utility for serializing the canonical `codes` list to
