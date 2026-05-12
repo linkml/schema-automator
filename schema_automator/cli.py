@@ -699,8 +699,9 @@ def adapt_frictionless(input_path: str, output: str, reverse: bool, from_package
         out_text = yaml.safe_dump(result, sort_keys=False, allow_unicode=True)
 
     if output:
-        with open(output, 'w') as f:
-            f.write(out_text)
+        out_path = Path(output)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(out_text)
     else:
         click.echo(out_text)
 
@@ -756,8 +757,9 @@ def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, t
         out_text = yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
 
     if output:
-        with open(output, 'w') as f:
-            f.write(out_text)
+        out_path = Path(output)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(out_text)
     else:
         click.echo(out_text)
 
