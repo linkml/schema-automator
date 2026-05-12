@@ -1,0 +1,146 @@
+id: https://w3id.org/linkml/schema-automator/dbgap
+name: dbgap_variable_digest
+title: dbGaP variable digest XML (LinkML representation)
+description: >-
+  LinkML representation of the dbGaP variable digest XML formats —
+  `data_dict.xml` (the declared data dictionary for one pheno table)
+  and `var_report.xml` (the empirical summary report for the same
+  table). Used as the source schema for the linkml-map trans-spec
+  that translates dbGaP variable digests into the canonical
+  schema-automator data dictionary format.
+
+  Two XML formats are modeled here. They're complementary: a typical
+  dbGaP digest pair has the data_dict providing declared type and
+  encoded values, and the var_report providing empirical statistics
+  (min/max for numerics, enum value counts, per-consent-group
+  breakdowns). The Python wrapper merges the two into a single
+  source instance before invoking linkml-map.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dbgap: https://w3id.org/linkml/schema-automator/dbgap/
+
+default_prefix: dbgap
+
+imports:
+  - linkml:types
+
+classes:
+
+  VariableDigest:
+    description: >-
+      Merged representation of one pheno table's variable digest —
+      data_dict.xml content plus optional var_report.xml enrichment.
+      The Python wrapper constructs this from one or two source XML
+      files before invoking linkml-map.
+    tree_root: true
+    attributes:
+      data_table_id:
+        description: The pht identifier (e.g., `pht001920.v6`).
+        range: string
+        required: true
+      study_id:
+        description: The phs identifier (e.g., `phs000286.v7`).
+        range: string
+        required: true
+      participant_set:
+        description: dbGaP participant set number (often `2`).
+        range: string
+      date_created:
+        description: Date the digest was created at NCBI.
+        range: string
+      data_table_name:
+        description: >-
+          Table name from var_report.xml (e.g., `JHS_Subject`); not
+          present in data_dict.xml.
+        range: string
+      study_name:
+        description: >-
+          Full study name from var_report.xml (e.g., `Jackson Heart
+          Study (JHS) Cohort`); not present in data_dict.xml.
+        range: string
+      description:
+        description: Free-text description of the data table; often empty.
+        range: string
+      variables:
+        description: >-
+          Merged list of variable records — one per phv in the data
+          table, with var_report enrichment when available.
+        range: Variable
+        multivalued: true
+        inlined_as_list: true
+        required: true
+
+  Variable:
+    description: >-
+      One variable record. Merged from a data_dict.xml `<variable>`
+      element (declared) and optionally the matching `<variable>`
+      element from var_report.xml (empirical, total-set row).
+    attributes:
+      id:
+        description: >-
+          The phv identifier (e.g., `phv00124545.v4`). Used as
+          the per-variable identity in the emitted DD as
+          `dbgap:<phv-id>`.
+        range: string
+        required: true
+        identifier: true
+      name:
+        description: Variable column name (e.g., `SUBJECT_ID`, `CONSENT`).
+        range: string
+        required: true
+      description:
+        description: >-
+          Variable description. Sourced from data_dict.xml when
+          present; falls back to var_report.xml's description; may be
+          empty.
+        range: string
+      reported_type:
+        description: >-
+          The dbGaP-reported type string. From data_dict.xml's
+          `<type>` element, or var_report.xml's `reported_type`
+          attribute. dbGaP type vocabulary is messy — see the
+          schema-automator survey for the full corpus of 36 distinct
+          values across 11 studies.
+        range: string
+      calculated_type:
+        description: >-
+          The dbGaP-calculated type from var_report.xml's
+          `calculated_type` attribute. Often more reliable than
+          `reported_type` (e.g., `enum_integer` when reported is
+          `encoded value`).
+        range: string
+      values:
+        description: >-
+          Encoded value list from data_dict.xml's `<value>` children.
+          Each carries a code attribute and a human-readable label.
+        range: EncodedValue
+        multivalued: true
+        inlined_as_list: true
+      min:
+        description: >-
+          Empirical minimum from var_report.xml's `<stat>` element,
+          when present for a numeric variable. String-typed because
+          dbGaP doesn't reliably normalize numeric formatting.
+        range: string
+      max:
+        description: >-
+          Empirical maximum from var_report.xml's `<stat>` element,
+          when present for a numeric variable.
+        range: string
+
+  EncodedValue:
+    description: >-
+      One entry in a variable's encoded value list. dbGaP
+      data_dict.xml represents these as
+      ``<value code="X">human label</value>``.
+    attributes:
+      code:
+        description: The literal code as it appears in the data.
+        range: string
+        required: true
+      label:
+        description: The human-readable label for this code.
+        range: string

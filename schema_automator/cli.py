@@ -705,5 +705,62 @@ def adapt_frictionless(input_path: str, output: str, reverse: bool, from_package
         click.echo(out_text)
 
 
+@main.command()
+@click.argument('data_dict_path', metavar='DATA_DICT_XML')
+@click.option(
+    '--var-report',
+    'var_report_path',
+    type=click.Path(exists=True, dir_okay=False),
+    default=None,
+    help='Optional path to the matching var_report.xml. Provides empirical min/max for numeric variables and the calculated_type fallback used when the data_dict <type> element is empty or ambiguous.',
+)
+@output_option
+@click.option(
+    '--tsv/--yaml',
+    default=False,
+    help='Output format. Default is YAML (lossless structured codes). --tsv emits the canonical DD TSV serialization grammar.',
+)
+def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, tsv: bool):
+    """
+    Translate a dbGaP variable digest (data_dict.xml, optionally with the
+    matching var_report.xml) into the canonical schema-automator data
+    dictionary format.
+
+    DATA_DICT_XML is the path to a dbGaP *.data_dict.xml file. The
+    optional --var-report enriches the output with empirical signals
+    (numeric min/max, calculated_type fallback). Output defaults to
+    YAML on stdout; --tsv emits the canonical TSV serialization;
+    -o writes to a file.
+    """
+    from schema_automator.adapters.codes import serialize_codes
+    from schema_automator.adapters.dbgap import dbgap_to_dd
+
+    dd = dbgap_to_dd(data_dict_path, var_report_path)
+
+    if tsv:
+        columns = [
+            'name', 'type', 'description', 'codes',
+            'unit', 'min', 'max', 'uri',
+        ]
+        lines = ['\t'.join(columns)]
+        for entry in dd.get('entries', []):
+            row = []
+            for col in columns:
+                v = entry.get(col, '')
+                if col == 'codes' and isinstance(v, list):
+                    v = serialize_codes(v)
+                row.append(str(v) if v is not None else '')
+            lines.append('\t'.join(row))
+        out_text = '\n'.join(lines) + '\n'
+    else:
+        out_text = yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
+
+    if output:
+        with open(output, 'w') as f:
+            f.write(out_text)
+    else:
+        click.echo(out_text)
+
+
 if __name__ == "__main__":
     main()
