@@ -89,14 +89,28 @@ class_derivations:
         populated_from: values
 
       # Empirical bounds from var_report.xml's <stat min=... max=...>.
-      # Forwarded only when the source provided them (var_report present
-      # AND numeric type). Stored as strings in the source schema; DD
-      # accepts string-or-numeric-or-"none" via any_of.
+      # dbGaP emits these as XML string attributes; coerce to numeric
+      # for DD conformance (matches the Frictionless adapter pattern).
+      # case() evaluates values eagerly, so each branch's coercion is
+      # guarded by an inner is_numeric() check too — protects against
+      # raises on empty strings when conditions don't match.
       min:
-        populated_from: min
+        expr: |
+          case(
+            (len(values) > 0, None),
+            (is_numeric(min) and (calculated_type == 'integer' or reported_type in ('integer', 'Integer', 'num', 'continuous integer')), int(float(min)) if is_numeric(min) else None),
+            (is_numeric(min) and (calculated_type == 'decimal' or reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal')), float(min) if is_numeric(min) else None),
+            (True, None)
+          )
 
       max:
-        populated_from: max
+        expr: |
+          case(
+            (len(values) > 0, None),
+            (is_numeric(max) and (calculated_type == 'integer' or reported_type in ('integer', 'Integer', 'num', 'continuous integer')), int(float(max)) if is_numeric(max) else None),
+            (is_numeric(max) and (calculated_type == 'decimal' or reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal')), float(max) if is_numeric(max) else None),
+            (True, None)
+          )
 
   PermissibleValueDefinition:
     populated_from: EncodedValue

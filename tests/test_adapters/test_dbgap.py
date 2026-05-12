@@ -114,14 +114,17 @@ class TestDbgapToDdSynthetic:
     def test_numeric_min_max_from_var_report(self, dd):
         age = _entry(dd, "age_years")
         assert age["type"] == "integer"
-        assert age["min"] == "18"
-        assert age["max"] == "89"
+        # Integer columns get int min/max (not strings) so the DD output
+        # conforms to the schema's any_of(decimal, "none") on min/max.
+        assert age["min"] == 18
+        assert age["max"] == 89
 
     def test_decimal_min_max(self, dd):
         weight = _entry(dd, "weight_kg")
         assert weight["type"] == "decimal"
-        assert weight["min"] == "42.5"
-        assert weight["max"] == "178.3"
+        # Decimal columns get float min/max.
+        assert weight["min"] == 42.5
+        assert weight["max"] == 178.3
 
     def test_num_type_normalizes_to_integer_via_calculated_type(self, dd):
         # data_dict says "num" (non-canonical); var_report calculated_type is
