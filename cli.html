@@ -85,6 +85,47 @@ flag should be specified BEFORE the subcommand:</p>
 <dd><p>Show the version and exit.</p>
 </dd></dl>
 
+<section id="schemauto-adapt-dbgap">
+<h4>adapt-dbgap<a class="headerlink" href="#schemauto-adapt-dbgap" title="Link to this heading">¶</a></h4>
+<p>Translate a dbGaP variable digest (data_dict.xml, optionally with the
+matching var_report.xml) into the canonical schema-automator data
+dictionary format.</p>
+<p>DATA_DICT_XML is the path to a dbGaP <a href="#id1"><span class="problematic" id="id2">*</span></a>.data_dict.xml file. The
+optional –var-report enriches the output with empirical signals
+(numeric min/max, calculated_type fallback). Output defaults to
+YAML on stdout; –tsv emits the canonical TSV serialization;
+-o writes to a file.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>adapt-dbgap<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DATA_DICT_XML
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-dbgap-var-report">
+<span class="sig-name descname"><span class="pre">--var-report</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;var_report_path&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-adapt-dbgap-var-report" title="Link to this definition">¶</a></dt>
+<dd><p>Optional path to the matching var_report.xml. Provides empirical min/max for numeric variables and the calculated_type fallback used when the data_dict &lt;type&gt; element is empty or ambiguous.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-dbgap-o">
+<span id="cmdoption-schemauto-adapt-dbgap-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-adapt-dbgap-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-dbgap-tsv">
+<span id="cmdoption-schemauto-adapt-dbgap-yaml"></span><span class="sig-name descname"><span class="pre">--tsv</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yaml</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-dbgap-tsv" title="Link to this definition">¶</a></dt>
+<dd><p>Output format. Default is YAML (lossless structured codes). –tsv emits the canonical DD TSV serialization grammar.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-dbgap-arg-DATA_DICT_XML">
+<span class="sig-name descname"><span class="pre">DATA_DICT_XML</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-dbgap-arg-DATA_DICT_XML" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-adapt-frictionless">
 <h4>adapt-frictionless<a class="headerlink" href="#schemauto-adapt-frictionless" title="Link to this heading">¶</a></h4>
 <p>Translate between Frictionless Table Schema and the canonical
