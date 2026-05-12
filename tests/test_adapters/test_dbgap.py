@@ -141,7 +141,7 @@ class TestDbgapToDdSynthetic:
         assert entry["type"] == "string"
 
     def test_typo_in_reported_type_normalizes(self, dd):
-        # "sting" is a known dbGaP typo cataloged in the corpus survey;
+        # "sting" is a known dbGaP typo cataloged in the corpus survey;  # codespell:ignore
         # the trans-spec collapses it to "string".
         entry = _entry(dd, "typo_type")
         assert entry["type"] == "string"
