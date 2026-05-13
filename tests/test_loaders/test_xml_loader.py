@@ -713,3 +713,148 @@ class TestStrictMode:
         assert len(msgs) == 2
         assert any("wrong" in m and "expected" in m for m in msgs)
         assert any("stray" in m for m in msgs)
+
+
+class TestStrictWithXmlPath:
+    """xml_path intermediate elements shouldn't be flagged as unknown."""
+
+    def test_strict_does_not_flag_xml_path_ancestors(self, make_schema):
+        # When a slot uses xml_path: total/stats/stat/@min, the
+        # direct child <total> is NOT in element_slots and would
+        # otherwise be reported as unknown in strict mode. Verify the
+        # path-aware exemption kicks in.
+        sv = make_schema(
+            """
+            id: https://example.org/t
+            name: t
+            prefixes: {linkml: https://w3id.org/linkml/}
+            imports: [linkml:types]
+            classes:
+              Variable:
+                attributes:
+                  min:
+                    range: string
+                    annotations:
+                      xml_path: total/stats/stat/@min
+            """
+        )
+        xml = (
+            "<variable>"
+            "<total><stats><stat min=\"18\"/></stats></total>"
+            "</variable>"
+        )
+        result = xml_loader.load_as_dict(
+            xml, target_class="Variable", schemaview=sv, strict=True
+        )
+        assert result == {"min": "18"}
+
+
+class TestXmlPathNamespaces:
+    """xml_path should be namespace-agnostic, matching the loader's
+    overall local-name contract."""
+
+    def test_resolve_path_through_namespaced_elements(self, make_schema):
+        sv = make_schema(
+            """
+            id: https://example.org/t
+            name: t
+            prefixes: {linkml: https://w3id.org/linkml/}
+            imports: [linkml:types]
+            classes:
+              Variable:
+                attributes:
+                  min:
+                    range: string
+                    annotations:
+                      xml_path: total/stats/stat/@min
+            """
+        )
+        xml = (
+            '<variable xmlns:ns="http://example.org/ns">'
+            '<ns:total><ns:stats><ns:stat min="18"/></ns:stats></ns:total>'
+            "</variable>"
+        )
+        result = xml_loader.load_as_dict(
+            xml, target_class="Variable", schemaview=sv
+        )
+        assert result == {"min": "18"}
+
+    def test_resolve_path_with_namespaced_attribute(self, make_schema):
+        sv = make_schema(
+            """
+            id: https://example.org/t
+            name: t
+            prefixes: {linkml: https://w3id.org/linkml/}
+            imports: [linkml:types]
+            classes:
+              Variable:
+                attributes:
+                  kind:
+                    range: string
+                    annotations:
+                      xml_path: meta/@type
+            """
+        )
+        xml = (
+            '<variable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            '<meta xsi:type="numeric"/>'
+            "</variable>"
+        )
+        result = xml_loader.load_as_dict(
+            xml, target_class="Variable", schemaview=sv
+        )
+        assert result == {"kind": "numeric"}
+
+
+class TestSourceDetectionEdgeCases:
+    """Source-type detection: inline content vs path, on edge inputs."""
+
+    def test_long_inline_xml_does_not_check_filesystem(self, make_schema):
+        # Pre-fix, long single-line XML would have triggered
+        # Path(source).exists() which can raise on path-length limits.
+        # Content-based detection avoids that path entirely.
+        sv = make_schema(
+            """
+            id: https://example.org/t
+            name: t
+            prefixes: {linkml: https://w3id.org/linkml/}
+            imports: [linkml:types]
+            classes:
+              Thing:
+                attributes:
+                  code:
+                    range: string
+                    annotations:
+                      xml_attribute: true
+            """
+        )
+        # Construct >4 KB of inline XML on a single line.
+        big = '<thing code="' + ("x" * 5000) + '"/>'
+        result = xml_loader.load_as_dict(
+            big, target_class="Thing", schemaview=sv
+        )
+        assert result["code"] == "x" * 5000
+
+    def test_inline_xml_with_leading_whitespace(self, make_schema):
+        sv = make_schema(
+            """
+            id: https://example.org/t
+            name: t
+            prefixes: {linkml: https://w3id.org/linkml/}
+            imports: [linkml:types]
+            classes:
+              Thing:
+                attributes:
+                  code:
+                    range: string
+                    annotations:
+                      xml_attribute: true
+            """
+        )
+        # Leading whitespace before '<' should still be detected as inline.
+        result = xml_loader.load_as_dict(
+            '   \n  <thing code="42"/>',
+            target_class="Thing",
+            schemaview=sv,
+        )
+        assert result == {"code": "42"}

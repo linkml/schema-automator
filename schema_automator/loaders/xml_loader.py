@@ -68,17 +68,21 @@ annotations.
 Out of scope for v1
 -------------------
 
-- Full XPath in ``xml_path`` (predicates, wildcards): only ``/`` and
-  ``/@`` supported.
+- Full XPath in ``xml_path``: only ``/`` step traversal and a trailing
+  ``/@attr`` are supported. Predicates (``[1]``), wildcards (``*``),
+  and other XPath features behave per ElementTree's default
+  ``Element.find`` semantics — undefined for special characters; treat
+  as plain-step names only.
 - Mixed content (text interleaved with elements).
 - Processing instructions, comments, DTD entities (ElementTree drops
   these transparently).
 - ``xsi:type`` polymorphism (choosing which LinkML class to recurse
   into based on a runtime type tag). Tackle when the first consumer
   needs it.
-- Fail-fast strict mode (``strict=True`` collects all errors). Add a
-  ``fail_fast=True`` sub-flag later if gigabyte-scale documents
-  surface the need.
+- A fail-fast variant of strict mode. The current ``strict=True``
+  always collects all errors and raises at end; a ``fail_fast=True``
+  sub-flag is deferred until gigabyte-scale documents surface the
+  need.
 
 These are noted because real-world XML uses them; explicit deferral
 is honest scoping rather than promised support.
@@ -87,16 +91,22 @@ is honest scoping rather than promised support.
 from __future__ import annotations
 
 import logging
+from functools import lru_cache
 from pathlib import Path
-from typing import Any, Optional, TextIO, Union
+from typing import TYPE_CHECKING, Any, Optional, TextIO, Union
 
 from defusedxml import ElementTree as ET
-from hbreader import FileInfo
-from pydantic import BaseModel
 
 from linkml_runtime.loaders.loader_root import Loader
 from linkml_runtime.utils.schemaview import SchemaView
-from linkml_runtime.utils.yamlutils import YAMLRoot
+
+if TYPE_CHECKING:
+    # These are transitive (via linkml-runtime) and only used in type
+    # hints; importing under TYPE_CHECKING keeps deptry happy without
+    # pulling them into our direct dep list.
+    from hbreader import FileInfo
+    from pydantic import BaseModel
+    from linkml_runtime.utils.yamlutils import YAMLRoot
 
 logger = logging.getLogger(__name__)
 
@@ -237,6 +247,9 @@ class XMLLoader(Loader):
         strict: bool = False,
         **kwargs,
     ) -> dict:
+        # `base_dir` and `metadata` are accepted (and ignored) to match
+        # the linkml-runtime Loader signature for cross-loader API
+        # uniformity. They'd matter if we ever supported URL fetches.
         if schemaview is None:
             raise ValueError("XMLLoader.load_as_dict requires schemaview=")
         if target_class is None:
@@ -282,7 +295,7 @@ class XMLLoader(Loader):
         schemaview: Optional[SchemaView] = None,
         strict: bool = False,
         **_,
-    ) -> Union[BaseModel, YAMLRoot, list[BaseModel], list[YAMLRoot]]:
+    ) -> Union[BaseModel, YAMLRoot]:
         data = self.load_as_dict(
             source,
             base_dir=base_dir,
@@ -345,13 +358,23 @@ class XMLLoader(Loader):
             element_name = _annotation_value(slot, "xml_element") or slot.name
             element_slots[element_name] = slot
 
+        # In strict mode, xml_path slots reach into descendants whose
+        # immediate-child ancestor (e.g. `<total>` for a path of
+        # `total/stats/stat/@min`) would otherwise be flagged as an
+        # unknown element. Pre-compute the top-level child names that
+        # path slots descend through so we can exempt them from the
+        # unknown-element accounting.
+        path_consumed_children = {
+            p.split("/", 1)[0] for p, _ in path_slots if p
+        }
+
         if errors is not None:
             errors.push(_strip_namespace(elem.tag))
         try:
             # XML attributes
             for attr_name, attr_value in elem.attrib.items():
                 local = _strip_namespace(attr_name)
-                slot = attribute_slots.get(local) or attribute_slots.get(attr_name)
+                slot = attribute_slots.get(local)
                 if slot is None:
                     if errors is not None:
                         errors.add_unknown_attribute(
@@ -382,9 +405,9 @@ class XMLLoader(Loader):
             }
             for child in elem:
                 tag = _strip_namespace(child.tag)
-                slot = element_slots.get(tag) or element_slots.get(child.tag)
+                slot = element_slots.get(tag)
                 if slot is None:
-                    if errors is not None:
+                    if errors is not None and tag not in path_consumed_children:
                         errors.add_unknown_element(tag, class_name)
                     # else: silent (could be source for a path-based
                     # slot resolved below, or just noise we ignore)
@@ -433,15 +456,21 @@ class XMLLoader(Loader):
 
 
 def _parse_to_element(source: Union[str, Path, TextIO]):
-    """Read source into an ElementTree root element."""
+    """Read source into an ElementTree root element.
+
+    Strings starting with ``<`` (after whitespace) are treated as inline
+    XML; everything else as a path. Detecting by content avoids calling
+    ``Path.exists()`` on strings that aren't valid paths (long inputs,
+    NUL bytes, OS-specific illegal characters) which can raise OSError.
+    """
     if hasattr(source, "read"):
         return ET.parse(source).getroot()
-    if isinstance(source, Path) or (
-        isinstance(source, str) and ("\n" not in source) and Path(source).exists()
-    ):
+    if isinstance(source, Path):
         return ET.parse(str(source)).getroot()
     if isinstance(source, str):
-        return ET.fromstring(source)
+        if source.lstrip().startswith("<"):
+            return ET.fromstring(source)
+        return ET.parse(source).getroot()
     raise ValueError(f"XMLLoader: cannot read source of type {type(source).__name__}")
 
 
@@ -465,6 +494,11 @@ def _resolve_path(elem, path: str):
       ``a/b/c``         → text content of element at ``a/b/c``
       ``a/b/c/@attr``   → attribute ``attr`` on element at ``a/b/c``
 
+    Step matching is local-name based (namespace-agnostic), matching
+    the rest of the loader's contract — ``a/b/c`` will traverse into
+    ``<ns:a>``/``<ns:b>``/``<ns:c>`` as well as the unprefixed form.
+    For attributes, both ``attr`` and ``{ns}attr`` keys are checked.
+
     No XPath predicates, no wildcards. Returns None when the path
     doesn't resolve.
     """
@@ -477,12 +511,22 @@ def _resolve_path(elem, path: str):
     for step in elem_path.split("/"):
         if not step:
             continue
-        target = target.find(step)
-        if target is None:
+        found = next(
+            (child for child in target if _strip_namespace(child.tag) == step),
+            None,
+        )
+        if found is None:
             return None
+        target = found
 
     if attr_name is not None:
-        return target.attrib.get(attr_name)
+        # Try local name first, then any namespaced form ending in /attr_name.
+        if attr_name in target.attrib:
+            return target.attrib[attr_name]
+        for key, value in target.attrib.items():
+            if _strip_namespace(key) == attr_name:
+                return value
+        return None
     text = (target.text or "").strip()
     return text or None
 

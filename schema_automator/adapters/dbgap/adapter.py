@@ -34,6 +34,8 @@ from typing import Any
 from defusedxml import ElementTree as ET
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils.loaders import load_specification
+from functools import lru_cache
+
 from linkml_runtime.utils.schemaview import SchemaView
 
 from schema_automator.loaders.xml_loader import xml_loader
@@ -44,15 +46,15 @@ _DD_SCHEMA = _PKG_ROOT / "metamodels" / "data_dictionary.yaml"
 _DBGAP_SCHEMA = _PKG_ROOT / "metamodels" / "dbgap.yaml"
 _DBGAP_TO_DD_SPEC = _PKG_ROOT / "adapters" / "dbgap" / "dbgap_to_dd.transform.yaml"
 
-# Reused across calls; SchemaView load is non-trivial.
-_DBGAP_SV: SchemaView | None = None
 
-
+@lru_cache(maxsize=1)
 def _dbgap_schemaview() -> SchemaView:
-    global _DBGAP_SV
-    if _DBGAP_SV is None:
-        _DBGAP_SV = SchemaView(str(_DBGAP_SCHEMA))
-    return _DBGAP_SV
+    """Cached SchemaView for the dbGaP source schema.
+
+    Construction is non-trivial; lru_cache provides thread-safe lazy
+    initialization (atomic in CPython under the GIL).
+    """
+    return SchemaView(str(_DBGAP_SCHEMA))
 
 
 # A var_report variable ID per-consent-group is ``<phv>.v<N>.p<M>.c<K>``;
@@ -71,7 +73,7 @@ def _text(elem) -> str | None:
 def _parse_data_dict(path: Path) -> dict:
     """Parse a dbGaP data_dict.xml file into a structured dict.
 
-    Schema-driven via :mod:`schema_automator.utils.xml_loader` —
+    Schema-driven via :mod:`schema_automator.loaders.xml_loader` —
     the dbGaP LinkML schema's annotations on ``VariableDigest``,
     ``Variable`` and ``EncodedValue`` describe how the XML maps to
     slots. Output shape matches the ``data_dict`` portion of the
