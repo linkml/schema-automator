@@ -34,13 +34,27 @@ from typing import Any
 from defusedxml import ElementTree as ET
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils.loaders import load_specification
+from functools import lru_cache
+
 from linkml_runtime.utils.schemaview import SchemaView
+
+from schema_automator.loaders.xml_loader import xml_loader
 
 
 _PKG_ROOT = Path(__file__).resolve().parents[2]
 _DD_SCHEMA = _PKG_ROOT / "metamodels" / "data_dictionary.yaml"
 _DBGAP_SCHEMA = _PKG_ROOT / "metamodels" / "dbgap.yaml"
 _DBGAP_TO_DD_SPEC = _PKG_ROOT / "adapters" / "dbgap" / "dbgap_to_dd.transform.yaml"
+
+
+@lru_cache(maxsize=1)
+def _dbgap_schemaview() -> SchemaView:
+    """Cached SchemaView for the dbGaP source schema.
+
+    Construction is non-trivial; lru_cache provides thread-safe lazy
+    initialization (atomic in CPython under the GIL).
+    """
+    return SchemaView(str(_DBGAP_SCHEMA))
 
 
 # A var_report variable ID per-consent-group is ``<phv>.v<N>.p<M>.c<K>``;
@@ -59,37 +73,17 @@ def _text(elem) -> str | None:
 def _parse_data_dict(path: Path) -> dict:
     """Parse a dbGaP data_dict.xml file into a structured dict.
 
-    Output shape matches the ``data_dict`` portion of the merged
-    ``VariableDigest`` form expected by the trans-spec.
+    Schema-driven via :mod:`schema_automator.loaders.xml_loader` —
+    the dbGaP LinkML schema's annotations on ``VariableDigest``,
+    ``Variable`` and ``EncodedValue`` describe how the XML maps to
+    slots. Output shape matches the ``data_dict`` portion of the
+    merged ``VariableDigest`` form expected by the trans-spec.
     """
-    root = ET.parse(path).getroot()
-    if root.tag != "data_table":
-        raise ValueError(
-            f"{path}: expected <data_table> root, got <{root.tag}>"
-        )
-    variables = []
-    for v_elem in root.findall("variable"):
-        values = [
-            {"code": val.get("code", ""), "label": (val.text or "").strip()}
-            for val in v_elem.findall("value")
-        ]
-        variables.append(
-            {
-                "id": v_elem.get("id", ""),
-                "name": _text(v_elem.find("name")) or "",
-                "description": _text(v_elem.find("description")),
-                "reported_type": _text(v_elem.find("type")),
-                "values": values,
-            }
-        )
-    return {
-        "data_table_id": root.get("id", ""),
-        "study_id": root.get("study_id", ""),
-        "participant_set": root.get("participant_set"),
-        "date_created": root.get("date_created"),
-        "description": _text(root.find("description")),
-        "variables": variables,
-    }
+    return xml_loader.load_as_dict(
+        path,
+        target_class="VariableDigest",
+        schemaview=_dbgap_schemaview(),
+    )
 
 
 def _parse_var_report(path: Path) -> dict:

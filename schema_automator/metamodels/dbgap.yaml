@@ -34,32 +34,47 @@ classes:
       Merged representation of one pheno table's variable digest —
       data_dict.xml content plus optional var_report.xml enrichment.
       The Python wrapper constructs this from one or two source XML
-      files before invoking linkml-map.
+      files before invoking linkml-map. XML annotations below describe
+      the data_dict.xml shape only; var_report.xml fields
+      (`data_table_name`, `study_name`) are filled in by the Python
+      merge step rather than the loader.
     tree_root: true
+    annotations:
+      xml_element: data_table
     attributes:
       data_table_id:
         description: The pht identifier (e.g., `pht001920.v6`).
         range: string
         required: true
+        annotations:
+          xml_attribute: id
       study_id:
         description: The phs identifier (e.g., `phs000286.v7`).
         range: string
         required: true
+        annotations:
+          xml_attribute: true
       participant_set:
         description: dbGaP participant set number (often `2`).
         range: string
+        annotations:
+          xml_attribute: true
       date_created:
         description: Date the digest was created at NCBI.
         range: string
+        annotations:
+          xml_attribute: true
       data_table_name:
         description: >-
           Table name from var_report.xml (e.g., `JHS_Subject`); not
-          present in data_dict.xml.
+          present in data_dict.xml. Populated by the Python merge
+          step, not by the XML loader.
         range: string
       study_name:
         description: >-
           Full study name from var_report.xml (e.g., `Jackson Heart
           Study (JHS) Cohort`); not present in data_dict.xml.
+          Populated by the Python merge step, not by the XML loader.
         range: string
       description:
         description: Free-text description of the data table; often empty.
@@ -72,12 +87,17 @@ classes:
         multivalued: true
         inlined_as_list: true
         required: true
+        annotations:
+          xml_element: variable
 
   Variable:
     description: >-
       One variable record. Merged from a data_dict.xml `<variable>`
       element (declared) and optionally the matching `<variable>`
-      element from var_report.xml (empirical, total-set row).
+      element from var_report.xml (empirical, total-set row). XML
+      annotations below describe the data_dict.xml shape only;
+      `calculated_type`, `min`, `max` are filled in by the Python
+      merge step from var_report.xml.
     attributes:
       id:
         description: >-
@@ -87,6 +107,8 @@ classes:
         range: string
         required: true
         identifier: true
+        annotations:
+          xml_attribute: true
       name:
         description: Variable column name (e.g., `SUBJECT_ID`, `CONSENT`).
         range: string
@@ -105,12 +127,15 @@ classes:
           schema-automator survey for the full corpus of 36 distinct
           values across 11 studies.
         range: string
+        annotations:
+          xml_element: type
       calculated_type:
         description: >-
           The dbGaP-calculated type from var_report.xml's
           `calculated_type` attribute. Often more reliable than
           `reported_type` (e.g., `enum_integer` when reported is
-          `encoded value`).
+          `encoded value`). Populated by the Python merge step, not
+          by the XML loader.
         range: string
       values:
         description: >-
@@ -119,16 +144,20 @@ classes:
         range: EncodedValue
         multivalued: true
         inlined_as_list: true
+        annotations:
+          xml_element: value
       min:
         description: >-
           Empirical minimum from var_report.xml's `<stat>` element,
           when present for a numeric variable. String-typed because
           dbGaP doesn't reliably normalize numeric formatting.
+          Populated by the Python merge step, not by the XML loader.
         range: string
       max:
         description: >-
           Empirical maximum from var_report.xml's `<stat>` element,
-          when present for a numeric variable.
+          when present for a numeric variable. Populated by the
+          Python merge step, not by the XML loader.
         range: string
 
   EncodedValue:
@@ -141,6 +170,10 @@ classes:
         description: The literal code as it appears in the data.
         range: string
         required: true
+        annotations:
+          xml_attribute: true
       label:
         description: The human-readable label for this code.
         range: string
+        annotations:
+          xml_text: true
