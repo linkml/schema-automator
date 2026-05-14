@@ -25,6 +25,7 @@ from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAUL
 from schema_automator.generalizers.pandas_generalizer import PandasDataGeneralizer
 from schema_automator.importers.cadsr_import_engine import CADSRImportEngine
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
+from schema_automator.importers.eml_import_engine import EmlImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
@@ -419,13 +420,13 @@ def import_cadsr(input, output, schema_name, schema_id, **kwargs):
 
 
 @main.command()
-@click.argument('owlfile')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--identifier', '-I', help="Slot to use as identifier")
 @click.option('--model-uri', help="Model URI prefix")
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_owl(owlfile, output, **args):
+def import_owl(input, output, **args):
     """
     Import an OWL ontology to LinkML
 
@@ -444,12 +445,12 @@ def import_owl(owlfile, output, **args):
         ``schemauto import-owl prov.ofn -o my.yaml``
     """
     sie = OwlImportEngine()
-    schema = sie.convert(owlfile, **args)
+    schema = sie.convert(input, **args)
     write_schema(schema, output)
 
 
 @main.command()
-@click.argument('rdfsfile')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--format', '-f',
@@ -460,7 +461,7 @@ def import_owl(owlfile, output, **args):
 @click.option('--metamodel-mappings',
               help="Path to metamodel mappings YAML dictionary")
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_rdfs(rdfsfile: str, output: str, metamodel_mappings: str, schema_name: str, **args):
+def import_rdfs(input: str, output: str, metamodel_mappings: str, schema_name: str, **args):
     """
     Import an RDFS schema to LinkML
 
@@ -473,15 +474,15 @@ def import_rdfs(rdfsfile: str, output: str, metamodel_mappings: str, schema_name
         with open(metamodel_mappings) as f:
             mappings_obj = yaml.safe_load(f)
     sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
-    schema = sie.convert(rdfsfile, name=schema_name, **args)
+    schema = sie.convert(input, name=schema_name, **args)
     write_schema(schema, output)
 
 @main.command()
-@click.argument('xsd')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_xsd(xsd: str, output: str, **kwargs):
+def import_xsd(input: str, output: str, **kwargs):
     """
     Import an XML Schema Definition Language (XSD) schema to LinkML
 
@@ -490,7 +491,28 @@ def import_xsd(xsd: str, output: str, **kwargs):
         schemauto import-xsd schema.xml -o prov.yaml
     """
     engine = XsdImportEngine()
-    schema = engine.convert(xsd, **kwargs)
+    schema = engine.convert(input, **kwargs)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.argument('input')
+@output_option
+def import_eml(input: str, output: str, **kwargs):
+    """
+    Import an Ecological Metadata Language (EML) XML document to LinkML.
+
+    Each <dataTable> in the EML document becomes a LinkML class; each
+    <attribute> becomes a slot. The measurementScale variant
+    (nominal/ordinal/interval/ratio/dateTime) dispatches to the
+    appropriate LinkML range (string, integer, or float).
+
+    Example:
+
+        schemauto import-eml dataset.eml -o dataset.yaml
+    """
+    engine = EmlImportEngine()
+    schema = engine.convert(input)
     write_schema(schema, output)
 
 @main.command()

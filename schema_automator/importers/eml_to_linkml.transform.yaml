@@ -1,0 +1,89 @@
+id: https://w3id.org/linkml/schema-automator/eml-to-linkml
+title: EML to LinkML schema trans-spec
+description: >-
+  Transforms a parsed EML document (matching
+  schema_automator/metamodels/eml.yaml) into a LinkML SchemaDefinition.
+  Consumed by EmlImportEngine in the load+map+dump pipeline.
+
+  Architecture note: linkml-map's populated_from dot-paths walk FK joins
+  via ObjectIndex, not inlined nested data; expr returns raw values
+  without invoking nested class_derivations. So this spec stays to
+  three independent single-level class_derivations — Python in
+  EmlImportEngine.convert() orchestrates iteration over inlined nested
+  collections (dataset.dataTable[], attributeList.attribute[]).
+
+  Open gaps tracked upstream:
+    * linkml/linkml-map#236 — descendant iteration (needed to lift
+      EnumeratedDomain from anywhere in the source tree).
+    * linkml/linkml-map#239 — multi-artifact emission (needed so one
+      EML <attribute> with <enumeratedDomain> can emit both a
+      slot_definition and an enum_definition).
+    * linkml/linkml-map#237 — cross-class references (needed to wire
+      a slot's range to the name of a co-emitted enum).
+    * linkml/linkml-map#242 — slugify safe builtin (would replace the
+      replace-chain name sanitization in this spec).
+    * linkml/linkml-map#241 — transform-time validation (would catch
+      None values for required target slots with source provenance).
+    * Inlined-nested traversal in populated_from (not yet filed):
+      currently only FK-joined dot-paths work; inlined hierarchy
+      requires Python orchestration or pre-flattening.
+
+source_schema:
+  name: eml_data_dictionary
+target_schema:
+  name: https://w3id.org/linkml/meta
+
+class_derivations:
+
+  SchemaDefinition:
+    populated_from: EMLDocument
+    slot_derivations:
+      id:
+        populated_from: packageId
+      name:
+        populated_from: packageId
+      title:
+        expr: "dataset.title"
+      description:
+        expr: "dataset.shortName"
+
+  ClassDefinition:
+    populated_from: DataTable
+    slot_derivations:
+      name:
+        # TODO(linkml-map#242): use slugify(entityName) when available.
+        # Replace-chain folds common EML punctuation to underscores;
+        # not robust for arbitrary input but adequate for typical
+        # EML entityName values seen in practice.
+        expr: "replace(replace(replace(replace(replace(replace(entityName, ' ', '_'), ':', ''), '(', ''), ')', ''), ',', ''), '/', '_')"
+      description:
+        populated_from: entityDescription
+
+  SlotDefinition:
+    populated_from: Attribute
+    slot_derivations:
+      name:
+        # TODO(linkml-map#242): same slugify gap as above.
+        expr: "replace(replace(replace(replace(attributeName, ' ', '_'), '(', ''), ')', ''), '/', '_')"
+      description:
+        populated_from: attributeDefinition
+      title:
+        populated_from: attributeLabel
+      range:
+        # Dispatch on which measurementScale variant is populated.
+        # case() takes truthiness — absent variants resolve to None
+        # (falsy) via _distributed_getattr. numberType drives integer
+        # vs float for numeric scales.
+        # nominal/ordinal with enumeratedDomain would emit a co-named
+        # enum reference here, but multi-artifact emission isn't
+        # supported (linkml-map#239) — for now those degrade to
+        # 'string' and the slot loses the closed-list signal.
+        expr: |
+          case(
+            (measurementScale.dateTime, 'string'),
+            (measurementScale.ratio and measurementScale.ratio.numericDomain.numberType in ['integer', 'natural', 'whole'], 'integer'),
+            (measurementScale.ratio, 'float'),
+            (measurementScale.interval and measurementScale.interval.numericDomain.numberType in ['integer', 'natural', 'whole'], 'integer'),
+            (measurementScale.interval, 'float'),
+            (True, 'string')
+          )

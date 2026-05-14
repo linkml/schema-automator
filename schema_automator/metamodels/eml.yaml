@@ -1,0 +1,262 @@
+id: https://eml.ecoinformatics.org/eml-2.2.0
+name: eml_data_dictionary
+title: Ecological Metadata Language (EML) — data-dictionary subset
+description: >-
+  LinkML representation of the data-dictionary-relevant subset of the
+  Ecological Metadata Language (EML) XML schema. Consumed by
+  :mod:`schema_automator.importers.eml_import_engine` to drive XML
+  parsing of EML documents, before linkml-map transforms the result
+  into a LinkML SchemaDefinition.
+
+  Scope is deliberately narrow: just enough of EML to model
+  ``<dataTable>`` blocks, their ``<attribute>`` children, and the
+  measurement-scale / domain / unit / enum structures attached to each
+  attribute. The rest of EML (bibliographic, geographic / temporal /
+  taxonomic coverage, methods, software, intellectual rights, etc.) is
+  intentionally not modeled. Add it when a real consumer needs it.
+
+  See issue #208 for the design discussion. Mapping to the LinkML
+  meta-schema is done by the trans-spec at
+  ``schema_automator/importers/eml_to_linkml.transform.yaml``.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  eml: https://eml.ecoinformatics.org/eml-2.2.0/
+
+default_prefix: eml
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  EMLDocument:
+    description: >-
+      Root of an EML XML document (``<eml:eml>``). Carries one
+      ``<dataset>`` (or other resource type, not modeled here).
+    tree_root: true
+    annotations:
+      xml_element: eml
+    attributes:
+      packageId:
+        description: Stable identifier for the EML package.
+        annotations:
+          xml_attribute: true
+      system:
+        description: The system in which the packageId is unique.
+        annotations:
+          xml_attribute: true
+      dataset:
+        description: The dataset described by this EML document.
+        range: Dataset
+        inlined: true
+
+  Dataset:
+    description: >-
+      An EML dataset. Carries the data-table descriptors that the
+      importer cares about; other dataset-level metadata
+      (bibliographic, coverage, methods) is unmodeled.
+    attributes:
+      title:
+        description: Human-readable dataset title.
+      shortName:
+        description: Short identifier-style name for the dataset.
+      dataTable:
+        description: One descriptor per tabular data file.
+        range: DataTable
+        multivalued: true
+        inlined_as_list: true
+
+  DataTable:
+    description: >-
+      One ``<dataTable>`` block — describes the structure of a single
+      tabular data resource.
+    attributes:
+      entityName:
+        description: Name of the table (often a filename or descriptor).
+      entityDescription:
+        description: Free-text description of the table.
+      attributeList:
+        description: The list of columns (attributes) in the table.
+        range: AttributeList
+        inlined: true
+
+  AttributeList:
+    description: Container for the ``<attribute>`` entries of a dataTable.
+    attributes:
+      attribute:
+        description: One descriptor per column.
+        range: Attribute
+        multivalued: true
+        inlined_as_list: true
+
+  Attribute:
+    description: One column in a dataTable.
+    attributes:
+      attributeName:
+        description: Machine-readable column name (matches CSV header).
+      attributeLabel:
+        description: Optional human-readable label.
+      attributeDefinition:
+        description: Prose description of what the column represents.
+      measurementScale:
+        description: >-
+          Container for one of the five EML measurement-scale variants.
+          Exactly one child element is populated; the trans-spec
+          dispatches on which.
+        range: MeasurementScale
+        inlined: true
+
+  MeasurementScale:
+    description: >-
+      Union over EML's five measurement-scale variants. Exactly one
+      child slot is populated per attribute. The variant determines
+      the LinkML range emitted by the trans-spec.
+    attributes:
+      nominal:
+        description: Unordered categorical values.
+        range: NominalScale
+        inlined: true
+      ordinal:
+        description: Ordered categorical values.
+        range: OrdinalScale
+        inlined: true
+      interval:
+        description: >-
+          Numeric on an interval scale (e.g., temperature in Celsius —
+          ratios not meaningful).
+        range: IntervalScale
+        inlined: true
+      ratio:
+        description: >-
+          Numeric on a ratio scale (e.g., mass in kg — ratios
+          meaningful).
+        range: RatioScale
+        inlined: true
+      dateTime:
+        description: Calendar dates and times.
+        range: DateTimeScale
+        inlined: true
+
+  NominalScale:
+    description: >-
+      Nominal (unordered categorical) measurement scale. Domain is
+      either ``<textDomain>`` (any string) or ``<enumeratedDomain>``
+      (closed list of codes).
+    attributes:
+      nonNumericDomain:
+        range: NonNumericDomain
+        inlined: true
+
+  OrdinalScale:
+    description: >-
+      Ordinal (ordered categorical) measurement scale. Same domain
+      structure as nominal.
+    attributes:
+      nonNumericDomain:
+        range: NonNumericDomain
+        inlined: true
+
+  IntervalScale:
+    description: >-
+      Interval-scale numeric. Carries unit + numeric domain.
+    attributes:
+      unit:
+        range: Unit
+        inlined: true
+      precision:
+        description: Numeric precision.
+      numericDomain:
+        range: NumericDomain
+        inlined: true
+
+  RatioScale:
+    description: >-
+      Ratio-scale numeric. Same structure as IntervalScale.
+    attributes:
+      unit:
+        range: Unit
+        inlined: true
+      precision:
+        description: Numeric precision.
+      numericDomain:
+        range: NumericDomain
+        inlined: true
+
+  DateTimeScale:
+    description: Date/time column with format string.
+    attributes:
+      formatString:
+        description: >-
+          Format pattern (e.g., ``YYYY-MM-DD``, ``YYYY-MM-DD hh:mm:ss``).
+      dateTimePrecision:
+        description: Smallest distinguishable time unit (e.g., second).
+
+  NonNumericDomain:
+    description: >-
+      Container for either an open text domain or a closed
+      enumerated-value list.
+    attributes:
+      textDomain:
+        description: >-
+          Open-ended text values matching an optional pattern.
+        range: TextDomain
+        inlined: true
+      enumeratedDomain:
+        description: Closed list of permissible coded values.
+        range: EnumeratedDomain
+        inlined: true
+
+  TextDomain:
+    description: Free-text domain with optional pattern constraint.
+    attributes:
+      definition:
+        description: Description of what valid values look like.
+      pattern:
+        description: Regex constraint, when given.
+
+  EnumeratedDomain:
+    description: Closed list of coded values.
+    attributes:
+      codeDefinition:
+        description: One entry per permissible value.
+        range: CodeDefinition
+        multivalued: true
+        inlined_as_list: true
+
+  CodeDefinition:
+    description: One permissible value within an enumerated domain.
+    attributes:
+      code:
+        description: The literal value as it appears in the data.
+      definition:
+        description: Human-readable meaning of the code.
+      source:
+        description: Optional source / authority for this code.
+
+  NumericDomain:
+    description: >-
+      Numeric domain — declares the underlying number type and any
+      bounds. Bounds are not modeled in detail in v1 (rarely populated
+      in real EML).
+    attributes:
+      numberType:
+        description: >-
+          Underlying numeric type (e.g., ``integer``, ``real``,
+          ``natural``, ``whole``). Drives the LinkML range emitted by
+          the trans-spec.
+
+  Unit:
+    description: >-
+      Container for either a standard unit reference or a custom unit
+      description.
+    attributes:
+      standardUnit:
+        description: >-
+          A standard unit name from EML's unit dictionary (e.g.,
+          ``meter``, ``celsius``, ``dimensionless``).
+      customUnit:
+        description: Free-form custom unit name.

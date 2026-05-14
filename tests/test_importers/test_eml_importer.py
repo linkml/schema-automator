@@ -1,0 +1,70 @@
+"""Tests for the EML XML → LinkML schema importer."""
+
+from __future__ import annotations
+
+import os
+
+import pytest
+from linkml_runtime import SchemaView
+from linkml_runtime.dumpers import yaml_dumper
+
+from schema_automator.importers.eml_import_engine import EmlImportEngine
+from tests import INPUT_DIR, OUTPUT_DIR
+
+GLBRC_193 = os.path.join(INPUT_DIR, "eml", "glbrc-193.eml")
+OUT = os.path.join(OUTPUT_DIR, "glbrc-193.yaml")
+
+
+@pytest.fixture(scope="module")
+def converted_schema():
+    schema = EmlImportEngine().convert(GLBRC_193)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    with open(OUT, "w") as f:
+        f.write(yaml_dumper.dumps(schema))
+    return schema
+
+
+def test_top_level_metadata(converted_schema):
+    assert converted_schema.id == "knb-lter-kbs.193.123"
+    assert converted_schema.name == "knb-lter-kbs.193.123"
+    assert "Marginal Land Rainfall Exclusion Experiment" in converted_schema.title
+
+
+def test_class_per_data_table(converted_schema):
+    """glbrc-193.eml has 9 <dataTable> blocks → 9 classes."""
+    assert len(converted_schema.classes) == 9
+
+
+def test_attribute_totals(converted_schema):
+    """glbrc-193.eml has 96 <attribute> elements across all tables."""
+    total = sum(len(c.attributes) for c in converted_schema.classes.values())
+    assert total == 96
+
+
+def test_measurementscale_dispatch(converted_schema):
+    """case() dispatch maps each variant to a LinkML range.
+
+    The test resource has: 42 nominal (textDomain) + 9 dateTime → 51
+    string ranges; 7 numeric attributes with numberType ∈
+    {integer, natural, whole} → integer; the remaining 38 numeric
+    attributes → float.
+    """
+    ranges = {}
+    for c in converted_schema.classes.values():
+        for slot in c.attributes.values():
+            ranges[slot.range] = ranges.get(slot.range, 0) + 1
+    assert ranges == {"string": 51, "integer": 7, "float": 38}
+
+
+def test_no_unnamed_classes_or_slots(converted_schema):
+    """Every class and slot must have a derived name."""
+    for cls in converted_schema.classes.values():
+        assert cls.name, "class missing name"
+        for slot in cls.attributes.values():
+            assert slot.name, f"slot in class {cls.name} missing name"
+
+
+def test_schema_loads_back_via_schemaview(converted_schema):
+    """Output must be parseable as a real LinkML schema."""
+    sv = SchemaView(converted_schema)
+    assert len(sv.all_classes()) == 9
