@@ -71,6 +71,83 @@ def test_schema_loads_back_via_schemaview(converted_schema):
     assert len(sv.all_classes()) == 9
 
 
+def test_class_name_collision_raises_with_both_sources():
+    """Two dataTables whose entityNames sanitize to the same LinkML
+    class name must raise rather than silently overwrite, and the
+    error must name both colliding source values.
+    """
+    eml = """<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="example.collision.classes"
+         system="example"
+         xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0">
+  <dataset>
+    <title>Class-name collision fixture</title>
+    <dataTable>
+      <entityName>Soil moisture (auto)</entityName>
+      <entityDescription>Automated readings</entityDescription>
+      <attributeList>
+        <attribute><attributeName>x</attributeName>
+          <measurementScale><nominal><nonNumericDomain><textDomain><definition>x</definition></textDomain></nonNumericDomain></nominal></measurementScale>
+        </attribute>
+      </attributeList>
+    </dataTable>
+    <dataTable>
+      <entityName>Soil moisture, auto</entityName>
+      <entityDescription>Same thing, different punctuation</entityDescription>
+      <attributeList>
+        <attribute><attributeName>y</attributeName>
+          <measurementScale><nominal><nonNumericDomain><textDomain><definition>y</definition></textDomain></nonNumericDomain></nominal></measurementScale>
+        </attribute>
+      </attributeList>
+    </dataTable>
+  </dataset>
+</eml:eml>"""
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".eml", delete=False) as f:
+        f.write(eml)
+        path = f.name
+    with pytest.raises(ValueError) as exc:
+        EmlImportEngine().convert(path)
+    msg = str(exc.value)
+    assert "Soil moisture (auto)" in msg
+    assert "Soil moisture, auto" in msg
+    assert "linkml-map#242" in msg
+
+
+def test_attribute_name_collision_raises_with_both_sources():
+    """Two attributes in the same dataTable that sanitize to the same
+    name must raise and name both colliding source values.
+    """
+    eml = """<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="example.collision.attrs"
+         system="example"
+         xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0">
+  <dataset>
+    <title>Attr-name collision fixture</title>
+    <dataTable>
+      <entityName>SampleTable</entityName>
+      <entityDescription>...</entityDescription>
+      <attributeList>
+        <attribute><attributeName>depth (m)</attributeName>
+          <measurementScale><ratio><unit><standardUnit>meter</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale>
+        </attribute>
+        <attribute><attributeName>depth m</attributeName>
+          <measurementScale><ratio><unit><standardUnit>meter</standardUnit></unit><numericDomain><numberType>real</numberType></numericDomain></ratio></measurementScale>
+        </attribute>
+      </attributeList>
+    </dataTable>
+  </dataset>
+</eml:eml>"""
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".eml", delete=False) as f:
+        f.write(eml)
+        path = f.name
+    with pytest.raises(ValueError) as exc:
+        EmlImportEngine().convert(path)
+    msg = str(exc.value)
+    assert "depth (m)" in msg
+    assert "depth m" in msg
+    assert "linkml-map#242" in msg
+
+
 def test_metadata_only_eml_produces_empty_classes_map():
     """An EML document with no ``<dataTable>`` elements is valid and
     should convert to a schema carrying the top-level metadata with an

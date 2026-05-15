@@ -99,15 +99,47 @@ class EmlImportEngine(ImportEngine):
         )
         schema = tr.map_object(src, source_type="EMLDocument")
         schema["classes"] = {}
+        # Track sanitized → source name to surface collisions explicitly
+        # instead of silently overwriting. The replace-chain in the
+        # trans-spec is lossy (e.g. parens, commas, slashes all fold to
+        # underscores or nothing), so distinct EML names with only
+        # punctuation differences can collide.
+        seen_classes: dict[str, str] = {}
         for dt in (src.get("dataset") or {}).get("dataTable", []):
             cls = tr.map_object(dt, source_type="DataTable")
+            cls_name = cls.get("name")
+            if cls_name:
+                if cls_name in seen_classes:
+                    raise ValueError(
+                        f"EML name collision: both "
+                        f"{seen_classes[cls_name]!r} and "
+                        f"{dt.get('entityName')!r} sanitize to "
+                        f"{cls_name!r}. Rename one of the entities in "
+                        f"the source EML, or wait for upstream slugify "
+                        f"support (linkml/linkml-map#242)."
+                    )
+                seen_classes[cls_name] = dt.get("entityName")
             cls["attributes"] = {}
+            seen_attrs: dict[str, str] = {}
             for attr in (dt.get("attributeList") or {}).get("attribute", []):
                 slot = tr.map_object(attr, source_type="Attribute")
-                if slot.get("name"):
-                    cls["attributes"][slot["name"]] = slot
-            if cls.get("name"):
-                schema["classes"][cls["name"]] = cls
+                slot_name = slot.get("name")
+                if slot_name:
+                    if slot_name in seen_attrs:
+                        raise ValueError(
+                            f"EML name collision in dataTable "
+                            f"{dt.get('entityName')!r}: both "
+                            f"{seen_attrs[slot_name]!r} and "
+                            f"{attr.get('attributeName')!r} sanitize "
+                            f"to {slot_name!r}. Rename one of the "
+                            f"attributes in the source EML, or wait "
+                            f"for upstream slugify support "
+                            f"(linkml/linkml-map#242)."
+                        )
+                    seen_attrs[slot_name] = attr.get("attributeName")
+                    cls["attributes"][slot_name] = slot
+            if cls_name:
+                schema["classes"][cls_name] = cls
         return schema
 
     def _materialize(self, d: dict) -> SchemaDefinition:
