@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import tempfile
 
 import pytest
 from linkml_runtime import SchemaView
@@ -68,3 +69,26 @@ def test_schema_loads_back_via_schemaview(converted_schema):
     """Output must be parseable as a real LinkML schema."""
     sv = SchemaView(converted_schema)
     assert len(sv.all_classes()) == 9
+
+
+def test_metadata_only_eml_produces_empty_classes_map():
+    """An EML document with no ``<dataTable>`` elements is valid and
+    should convert to a schema carrying the top-level metadata with an
+    empty ``classes`` map, not raise.
+    """
+    eml = """<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="example.metadata.only.1"
+         system="example"
+         xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0">
+  <dataset>
+    <title>A metadata-only dataset</title>
+  </dataset>
+</eml:eml>"""
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".eml", delete=False) as f:
+        f.write(eml)
+        path = f.name
+
+    schema = EmlImportEngine().convert(path)
+    assert schema.id == "example.metadata.only.1"
+    assert schema.title == "A metadata-only dataset"
+    assert len(schema.classes) == 0
