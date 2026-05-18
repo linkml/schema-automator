@@ -1,0 +1,308 @@
+id: https://projectredcap.org/data-dictionary
+name: redcap_data_dictionary
+title: REDCap Data Dictionary (LinkML representation)
+description: >-
+  LinkML representation of the REDCap data dictionary CSV format, as
+  consumed by the schema-automator REDCap adapter. REDCap exports a
+  per-project data dictionary CSV with one row per variable; this schema
+  models the documented column set as a list of `RedcapField` records
+  wrapped in a `RedcapDataDictionary` root.
+
+  Note: the source CSV column "Choices, Calculations, OR Slider Labels"
+  is multi-purpose — for radio / dropdown / checkbox field types it
+  carries a `code, label | code, label | ...` choices string; for `calc`
+  it carries a calculation formula; for `slider` it carries label hints.
+  The adapter pre-parses the choices form into the structured `choices`
+  slot below before invoking the trans-spec, leaving the raw column
+  available on `choices_calculations_or_slider_labels` for non-choice
+  field types. v1 drops calc and slider content (lossy onto DD).
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  redcap: https://projectredcap.org/data-dictionary/
+
+default_prefix: redcap
+
+imports:
+  - linkml:types
+
+classes:
+
+  RedcapDataDictionary:
+    description: >-
+      A REDCap data dictionary — the ordered list of variable
+      declarations exported from a REDCap project.
+    tree_root: true
+    attributes:
+      entries:
+        description: >-
+          Ordered list of variable declarations (one CSV row per entry).
+        range: RedcapField
+        multivalued: true
+        inlined_as_list: true
+        required: true
+
+  RedcapField:
+    description: >-
+      A single REDCap variable declaration — one row of the data
+      dictionary CSV.
+    attributes:
+
+      field_name:
+        description: >-
+          Machine-readable variable name. CSV column "Variable / Field
+          Name". Must be unique within the dictionary.
+        required: true
+        identifier: true
+        range: string
+
+      form_name:
+        description: >-
+          Name of the instrument (form) the field belongs to. CSV column
+          "Form Name". Used to group fields in REDCap's UI; carries no
+          DD-equivalent in v1 and is dropped on translation.
+        range: string
+
+      section_header:
+        description: >-
+          Optional section header text displayed above this field in the
+          form. CSV column "Section Header". UI hint with no DD
+          equivalent; dropped on translation.
+        range: string
+
+      field_type:
+        description: >-
+          The REDCap field type — controls UI widget and downstream
+          validation. CSV column "Field Type".
+        range: RedcapFieldType
+
+      field_label:
+        description: >-
+          Human-readable label / question text shown in the form. CSV
+          column "Field Label". Maps to DD `label`.
+        range: string
+
+      choices_calculations_or_slider_labels:
+        description: >-
+          Raw text of the multi-purpose CSV column "Choices,
+          Calculations, OR Slider Labels". Adapters pre-parse this into
+          `choices` for choice-type fields (radio, dropdown, checkbox)
+          and leave the raw value on this slot for `calc` and `slider`
+          field types. v1 drops calc/slider content; only the parsed
+          `choices` are carried forward.
+        range: string
+
+      choices:
+        description: >-
+          Structured form of the choices encoded in
+          `choices_calculations_or_slider_labels`, populated by the
+          adapter when `field_type` is a choice variant (radio,
+          dropdown, checkbox, yesno, truefalse). For yesno and truefalse
+          the adapter synthesizes the standard pair.
+        range: RedcapChoice
+        multivalued: true
+        inlined_as_list: true
+
+      field_note:
+        description: >-
+          Optional descriptive note shown to data entry users. CSV
+          column "Field Note". Maps to DD `description`.
+        range: string
+
+      text_validation_type:
+        description: >-
+          Text validation refinement for `text` field type. CSV column
+          "Text Validation Type OR Show Slider Number". One of REDCap's
+          validation tokens (email, integer, number, date_*, datetime_*,
+          time, phone, zipcode, etc.). Lossy onto DD's
+          `string`/`integer`/`decimal`/`date`/`datetime`/`time` because
+          DD v1 has no `format` refinement field.
+        range: RedcapValidationType
+
+      text_validation_min:
+        description: >-
+          Minimum value for validated text fields. CSV column "Text
+          Validation Min". Maps to DD `min` for numeric validation
+          types; dropped for non-numeric (date / datetime / time min
+          is not expressible in DD v1).
+        range: string
+
+      text_validation_max:
+        description: >-
+          Maximum value for validated text fields. CSV column "Text
+          Validation Max". Maps to DD `max` for numeric validation
+          types; dropped otherwise.
+        range: string
+
+      identifier:
+        description: >-
+          Whether the field is flagged as a personal identifier (PHI).
+          CSV column "Identifier?". Truthy values in REDCap are "y"; the
+          column is empty otherwise. No DD equivalent in v1; dropped.
+        range: string
+
+      branching_logic:
+        description: >-
+          Boolean expression controlling whether the field is displayed.
+          CSV column "Branching Logic (Show field only if...)". No DD
+          equivalent in v1; dropped (lossy).
+        range: string
+
+      required_field:
+        description: >-
+          Whether the field must have a value on form submission. CSV
+          column "Required Field?". Truthy values in REDCap are "y"; the
+          column is empty otherwise. Maps to DD `required` (boolean) at
+          adapter level.
+        range: string
+
+      custom_alignment:
+        description: >-
+          UI alignment hint. CSV column "Custom Alignment". No DD
+          equivalent; dropped.
+        range: string
+
+      question_number:
+        description: >-
+          Optional question number used by REDCap surveys. CSV column
+          "Question Number (surveys only)". Survey-specific; dropped.
+        range: string
+
+      matrix_group_name:
+        description: >-
+          Matrix group name for grouping fields into a matrix question.
+          CSV column "Matrix Group Name". Survey-specific; dropped.
+        range: string
+
+      matrix_ranking:
+        description: >-
+          Whether matrix entries are ranked rather than chosen
+          independently. CSV column "Matrix Ranking?". Survey-specific;
+          dropped.
+        range: string
+
+      field_annotation:
+        description: >-
+          Free-form action-tag annotations (e.g., `@HIDDEN`, `@CALCTEXT`).
+          CSV column "Field Annotation". No DD equivalent; dropped.
+        range: string
+
+  RedcapChoice:
+    description: >-
+      A single permissible value parsed from REDCap's `code, label`
+      choices grammar.
+    attributes:
+      code:
+        description: >-
+          The literal value stored in data.
+        required: true
+        range: string
+      label:
+        description: >-
+          Human-readable label for the choice as shown in the form.
+        range: string
+
+enums:
+
+  RedcapFieldType:
+    description: >-
+      The REDCap field type vocabulary. Determines UI widget and how the
+      adapter interprets the multi-purpose choices column.
+    permissible_values:
+      text:
+        description: >-
+          Single-line text input. Refined by `text_validation_type`.
+      notes:
+        description: >-
+          Multi-line text input.
+      radio:
+        description: >-
+          Single-select choice rendered as radio buttons. Maps to DD
+          `permissible_values`.
+      dropdown:
+        description: >-
+          Single-select choice rendered as a dropdown. Maps to DD
+          `permissible_values`.
+      checkbox:
+        description: >-
+          Multi-select choice rendered as checkboxes. Maps to DD
+          `permissible_values` with `multivalued: true`.
+      yesno:
+        description: >-
+          Yes/No selection. Synthesized to a two-code permissible-values
+          set (`1, Yes | 0, No`) per REDCap's exported encoding.
+      truefalse:
+        description: >-
+          True/False selection. Synthesized to a two-code
+          permissible-values set (`1, True | 0, False`).
+      calc:
+        description: >-
+          Calculated field (formula-driven). Lossy onto DD; collapses
+          to `decimal` with no expression carried forward.
+      slider:
+        description: >-
+          Continuous slider input. Lossy onto DD; collapses to
+          `integer` (REDCap sliders are integer-valued by default).
+      file:
+        description: >-
+          File upload. Lossy onto DD; collapses to `string`.
+      descriptive:
+        description: >-
+          Non-data informational text shown in the form. No DD
+          equivalent; the row is skipped on translation.
+      sql:
+        description: >-
+          Choices populated from a SQL query at runtime. Lossy onto DD;
+          collapses to `string` with no choices carried forward.
+
+  RedcapValidationType:
+    description: >-
+      REDCap's text-validation token vocabulary
+      (https://kb.redcap.vumc.org/). The tokens collapse to a small set
+      of DD types; format refinements (which date format, which phone
+      format) are not expressible in DD v1.
+    permissible_values:
+      integer:
+        description: Integer values.
+      number:
+        description: Floating-point values.
+      number_1dp:
+        description: Number with one decimal place.
+      number_2dp:
+        description: Number with two decimal places.
+      number_3dp:
+        description: Number with three decimal places.
+      number_4dp:
+        description: Number with four decimal places.
+      email:
+        description: Email address (collapses to DD `string`).
+      phone:
+        description: Phone number (collapses to DD `string`).
+      zipcode:
+        description: US zip code (collapses to DD `string`).
+      date_ymd:
+        description: Date in YYYY-MM-DD form.
+      date_mdy:
+        description: Date in MM-DD-YYYY form.
+      date_dmy:
+        description: Date in DD-MM-YYYY form.
+      datetime_ymd:
+        description: Datetime in YYYY-MM-DD HH:MM form.
+      datetime_mdy:
+        description: Datetime in MM-DD-YYYY HH:MM form.
+      datetime_dmy:
+        description: Datetime in DD-MM-YYYY HH:MM form.
+      datetime_seconds_ymd:
+        description: Datetime with seconds in YYYY-MM-DD form.
+      datetime_seconds_mdy:
+        description: Datetime with seconds in MM-DD-YYYY form.
+      datetime_seconds_dmy:
+        description: Datetime with seconds in DD-MM-YYYY form.
+      time:
+        description: Time of day (HH:MM).
+      time_mm_ss:
+        description: Time as minutes:seconds.
+      alpha_only:
+        description: Alphabetic characters only (collapses to DD `string`).

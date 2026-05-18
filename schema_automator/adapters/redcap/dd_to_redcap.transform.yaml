@@ -1,0 +1,103 @@
+id: https://w3id.org/linkml/schema-automator/adapters/dd-to-redcap
+title: Canonical Data Dictionary to REDCap Data Dictionary
+description: >-
+  linkml-map trans-spec translating the canonical schema-automator Data
+  Dictionary (source) into a REDCap data dictionary (target). Used by
+  the REDCap adapter; see umbrella issue #202.
+
+  The structured `choices` list is emitted directly on the target side;
+  the Python adapter serializes it back to REDCap's
+  `code, label | code, label | ...` string under
+  `choices_calculations_or_slider_labels` before the result is written
+  to CSV.
+
+  Lossy with respect to:
+  - DD `unit` — REDCap has no native unit field; dropped.
+  - DD `pattern` — REDCap doesn't support arbitrary regex on the
+    dictionary side; dropped.
+  - DD `uri`, `see_also`, `example_values` — no REDCap equivalents.
+  - Per-code `description` and `uri` on `PermissibleValueDefinition` —
+    REDCap's choices grammar is `code, label` only.
+  - DD `type` value `curie` and `uri` collapse to REDCap `text`
+    (no validation refinement).
+  - DD `type` value `boolean` collapses to REDCap `text` (REDCap's
+    boolean-flavored field types `yesno`/`truefalse` are reached only
+    via `permissible_values`, not directly from DD `boolean`).
+
+  Implementation notes: linkml-map binds unset source slots as a
+  callable wrapper rather than None. We use the `is_*` type predicates
+  to filter the wrapper — each constraint slot has a known semantic
+  type, so the predicates double as both sentinel-filter and
+  type-correctness check.
+
+source_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+target_schema: https://projectredcap.org/data-dictionary
+
+class_derivations:
+
+  RedcapDataDictionary:
+    populated_from: DataDictionary
+    slot_derivations:
+      entries:
+        populated_from: entries
+
+  RedcapField:
+    populated_from: DataDictionaryEntry
+    slot_derivations:
+
+      field_name:
+        populated_from: name
+
+      field_label:
+        populated_from: label
+
+      field_note:
+        populated_from: description
+
+      # Field type dispatch. `permissible_values` + multivalued becomes
+      # checkbox; permissible_values alone becomes radio. Numeric and
+      # temporal DD types become `text` with a validation refinement;
+      # everything else collapses to `text`.
+      field_type:
+        expr: |
+          case(
+            (type == 'permissible_values' and is_bool(multivalued) and multivalued, 'checkbox'),
+            (type == 'permissible_values', 'radio'),
+            (True, 'text')
+          )
+
+      # Validation refinement is set only on `text`-bearing types.
+      text_validation_type:
+        expr: |
+          case(
+            (type == 'integer', 'integer'),
+            (type == 'decimal', 'number'),
+            (type == 'date', 'date_ymd'),
+            (type == 'datetime', 'datetime_ymd'),
+            (type == 'time', 'time'),
+            (True, None)
+          )
+
+      # min/max are serialized as REDCap-style strings, and only when
+      # they're real numeric values (the literal "none" sentinel from
+      # DD fails `is_numeric` and is dropped). Date/datetime/time min /
+      # max from DD have no native REDCap dictionary slot and are
+      # dropped (DD v1 doesn't carry them anyway).
+      text_validation_min:
+        expr: "case((is_numeric(min), str(min)))"
+
+      text_validation_max:
+        expr: "case((is_numeric(max), str(max)))"
+
+      # `required: True` → `y`; missing or False → omit (REDCap's CSV
+      # column is empty for not-required).
+      required_field:
+        expr: "case((is_bool(required) and required, 'y'))"
+
+      # Pass the structured codes through; the Python adapter serializes
+      # them to the REDCap CSV string form after the transform.
+      choices:
+        expr: |
+          case(
+            (is_list(codes), [{'code': c.code, 'label': c.label} for c in (codes if is_list(codes) else [])])
+          )
