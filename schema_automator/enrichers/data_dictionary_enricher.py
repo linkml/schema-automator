@@ -50,9 +50,11 @@ machine-readable form behind the warnings.
 Known limitation: the enricher matches DD entries against
 ``schema.slots[name]``. Schemas produced by ``PandasDataGeneralizer``
 (``--pandera`` path) put inferred slots on each class's ``attributes``
-inline, leaving ``schema.slots`` empty — so the enricher silently no-ops
-on pandera output. The default ``CsvDataGeneralizer`` path is fully
-supported. Pandera support is tracked as a follow-up.
+inline, leaving ``schema.slots`` empty — so the enricher detects the
+shape up-front, emits a single warning, and returns without enrichment
+(rather than logging one "unmatched" warning per DD entry). The default
+``CsvDataGeneralizer`` path is fully supported. Pandera support is
+tracked as a follow-up.
 """
 
 from __future__ import annotations
@@ -166,6 +168,21 @@ def enrich_with_data_dictionary(
     report = EnrichmentReport()
     entries = data_dictionary.get("entries", [])
 
+    # Pandera-shaped schemas put slots on each class's ``attributes``
+    # inline and leave ``schema.slots`` empty. Without this guard, every
+    # DD entry would log as "unmatched" — noisy and misleading. Detect
+    # the shape up-front and emit a single, clear warning instead.
+    if not schema.slots and any(
+        getattr(cls, "attributes", None) for cls in (schema.classes or {}).values()
+    ):
+        logger.warning(
+            "Schema has no top-level slots but classes carry inline "
+            "attributes (PandasDataGeneralizer / pandera shape). The "
+            "enricher does not yet support attributes-on-class form; "
+            "no enrichment applied."
+        )
+        return report
+
     for entry in entries:
         name = entry.get("name")
         if name is None:
@@ -242,7 +259,7 @@ def _enrich_slot(
     if declared_type == "permissible_values":
         _enrich_permissible_values(schema, slot, entry, report)
     elif declared_type is not None:
-        _check_type_consistency(slot, declared_type, report)
+        _check_type_consistency(schema, slot, declared_type, report)
 
 
 def _read_num_distinct_values(slot: SlotDefinition) -> int | None:
@@ -254,11 +271,9 @@ def _read_num_distinct_values(slot: SlotDefinition) -> int | None:
     ``CsvDataGeneralizer`` attaches the value as
     ``slot.annotations['num_distinct_values'].value`` (string-cast int).
     """
-    if not slot.annotations:
+    if not slot.annotations or "num_distinct_values" not in slot.annotations:
         return None
-    ann = slot.annotations.get("num_distinct_values")
-    if ann is None:
-        return None
+    ann = slot.annotations["num_distinct_values"]
     try:
         return int(ann.value)
     except (TypeError, ValueError):
@@ -295,6 +310,7 @@ def _apply_if_absent(slot: SlotDefinition, attr: str, value: Any) -> None:
 
 
 def _check_type_consistency(
+    schema: SchemaDefinition,
     slot: SlotDefinition,
     declared_type: str,
     report: EnrichmentReport,
@@ -311,9 +327,13 @@ def _check_type_consistency(
     if expected_range is None:
         return
     inferred_range = slot.range
-    # Slots with enum ranges (inferred enum) are skipped here — they're
-    # the territory of _enrich_permissible_values.
-    if inferred_range and inferred_range.endswith("_enum"):
+    # Slots whose range points at an enum (regardless of naming
+    # convention) are skipped here — they're the territory of
+    # _enrich_permissible_values. Membership in schema.enums is the
+    # authoritative check; the prior heuristic of matching ``_enum``
+    # suffix would false-positive on importers that use different
+    # naming (e.g., ``*_options`` from jsonschema_import_engine).
+    if inferred_range and inferred_range in schema.enums:
         return
     if inferred_range and inferred_range != expected_range:
         report.type_conflicts.append((slot.name, inferred_range, declared_type))

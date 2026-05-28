@@ -7,6 +7,7 @@ import logging
 import pytest
 from linkml_runtime.linkml_model import (
     Annotation,
+    ClassDefinition,
     EnumDefinition,
     PermissibleValue,
     SchemaDefinition,
@@ -152,6 +153,24 @@ class TestTypeConsistency:
         # DD's 'decimal' maps to LinkML 'float' in this codebase.
         schema = _schema_with_slots(w=SlotDefinition("w", range="float"))
         dd = {"entries": [{"name": "w", "type": "decimal"}]}
+        report = enrich_with_data_dictionary(schema, dd)
+        assert report.type_conflicts == []
+
+    def test_non_enum_suffix_enum_range_skipped(self):
+        # Importers don't all suffix enum names with ``_enum``;
+        # ``jsonschema_import_engine``, for instance, uses ``_options``.
+        # The check that "this slot's range is an enum" must use
+        # schema.enums membership, not name-suffix heuristics.
+        schema = SchemaDefinition(id="ex", name="ex")
+        schema.slots["color"] = SlotDefinition("color", range="color_options")
+        schema.enums["color_options"] = EnumDefinition(
+            name="color_options",
+            permissible_values={"red": PermissibleValue(text="red")},
+        )
+        # DD declares the slot as 'string'. Old suffix-based check
+        # would log a spurious type conflict; new membership-based
+        # check correctly recognizes the range as an enum.
+        dd = {"entries": [{"name": "color", "type": "string"}]}
         report = enrich_with_data_dictionary(schema, dd)
         assert report.type_conflicts == []
 
@@ -446,6 +465,33 @@ class TestUnmatched:
             report = enrich_with_data_dictionary(schema, dd)
         assert report.unmatched_dd_entries == ["missing"]
         assert any("'missing'" in r.message for r in caplog.records)
+
+    def test_pandera_shape_short_circuits_with_single_warning(self, caplog):
+        # PandasDataGeneralizer leaves schema.slots empty and puts
+        # inferred slots on each class's `attributes` inline. The
+        # enricher should detect this shape, emit one explanatory
+        # warning, and return without enrichment — not log "unmatched"
+        # warnings for every DD entry.
+        schema = SchemaDefinition(id="ex", name="ex")
+        cls = ClassDefinition(name="Obs")
+        cls.attributes["age"] = SlotDefinition("age", range="integer")
+        cls.attributes["sex"] = SlotDefinition("sex", range="integer")
+        schema.classes["Obs"] = cls
+        dd = {
+            "entries": [
+                {"name": "age", "type": "integer", "description": "Age"},
+                {"name": "sex", "type": "integer", "description": "Sex"},
+            ]
+        }
+        with caplog.at_level(logging.WARNING):
+            report = enrich_with_data_dictionary(schema, dd)
+        # Empty report — no entries were processed.
+        assert report.unmatched_dd_entries == []
+        assert report.is_clean
+        # One warning, not per-entry noise.
+        warns = [r for r in caplog.records if r.levelname == "WARNING"]
+        assert len(warns) == 1
+        assert "pandera" in warns[0].message.lower() or "attributes" in warns[0].message.lower()
 
 
 # ----------------------------------------------------------------------
