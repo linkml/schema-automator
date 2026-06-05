@@ -14,7 +14,7 @@ dbGaP publishes two complementary XML files per pheno table:
 
 This adapter:
 
-1. Parses one or both XML files with ``defusedxml``.
+1. Parses one or both XML files with ``lxml``.
 2. Merges them by phv-id into a structured ``VariableDigest`` dict —
    data_dict provides declared name/type/codes, var_report provides
    empirical bounds and the ``calculated_type`` fallback.
@@ -31,14 +31,14 @@ import re
 from pathlib import Path
 from typing import Any
 
-from defusedxml import ElementTree as ET
+from lxml import etree
 from linkml_map.transformer.object_transformer import ObjectTransformer
 from linkml_map.utils.loaders import load_specification
 from functools import lru_cache
 
 from linkml_runtime.utils.schemaview import SchemaView
 
-from schema_automator.loaders.xml_loader import xml_loader
+from schema_automator.loaders.xml_loader import safe_xml_parser, xml_loader
 
 
 _PKG_ROOT = Path(__file__).resolve().parents[2]
@@ -94,7 +94,7 @@ def _parse_var_report(path: Path) -> dict:
     ignored — they're useful for slicing studies but mix poorly with
     the generic DD format.
     """
-    root = ET.parse(path).getroot()
+    root = etree.parse(str(path), safe_xml_parser()).getroot()
     if root.tag != "data_table":
         raise ValueError(
             f"{path}: expected <data_table> root, got <{root.tag}>"

@@ -60,7 +60,6 @@ dependencies = [
     "rdflib >= 7.1.1, < 8",
     "jsonasobj2 >= 1.0.4, < 2",
     "lxml >= 5.3.0",
-    "defusedxml >= 0.7.1",
     "pydbml >= 1.1.2, < 2",
     "pyyaml >= 6.0.2, < 7",
     "setuptools < 82; python_version < '3.12'",

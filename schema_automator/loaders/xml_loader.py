@@ -43,8 +43,8 @@ Namespaces
 
 XML namespaces (``<eml:dataTable xmlns:eml="...">``) are handled by
 *local-name matching*: the loader strips the ``{namespace}`` prefix
-that ElementTree adds and matches against slot annotations using the
-local name. This means schema authors don't need to declare prefixes
+that lxml carries on tags and matches against slot annotations using
+the local name. This means schema authors don't need to declare prefixes
 to parse namespaced XML; ``xml_element: dataTable`` will match
 ``<eml:dataTable>`` and ``<dataTable>`` equally. The same applies to
 attribute names (so ``xsi:type`` matches a slot annotated as
@@ -69,13 +69,16 @@ Out of scope for v1
 -------------------
 
 - Full XPath in ``xml_path``: only ``/`` step traversal and a trailing
-  ``/@attr`` are supported. Predicates (``[1]``), wildcards (``*``),
-  and other XPath features behave per ElementTree's default
-  ``Element.find`` semantics — undefined for special characters; treat
-  as plain-step names only.
+  ``/@attr`` are supported. Steps are matched namespace-agnostically via
+  an lxml ``local-name()`` XPath; predicates (``[1]``), wildcards
+  (``*``), and other XPath syntax are not supported — treat steps as
+  plain element/attribute names.
 - Mixed content (text interleaved with elements).
-- Processing instructions, comments, DTD entities (ElementTree drops
-  these transparently).
+- Processing instructions and comments are stripped at parse
+  (``remove_pis``/``remove_comments``); DTD loading and external/custom
+  entity resolution are disabled (``load_dtd=False``,
+  ``resolve_entities=False``, ``no_network=True``) so a user-pointed
+  document can't trigger entity-expansion or external fetches.
 - ``xsi:type`` polymorphism (choosing which LinkML class to recurse
   into based on a runtime type tag). Tackle when the first consumer
   needs it.
@@ -95,7 +98,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional, TextIO, Union
 
-from defusedxml import ElementTree as ET
+from lxml import etree
 
 from linkml_runtime.loaders.loader_root import Loader
 from linkml_runtime.utils.schemaview import SchemaView
@@ -455,22 +458,43 @@ class XMLLoader(Loader):
 # ----------------------------------------------------------------------
 
 
+def safe_xml_parser() -> "etree.XMLParser":
+    """Return an lxml parser configured for untrusted-but-user-pointed XML.
+
+    Disables the dangerous defaults — no external/custom entity
+    resolution, no DTD loading, no network access — and strips comments
+    and processing instructions so traversal only sees element nodes.
+    Returns a fresh instance per call (lxml parsers are not safe to
+    share across threads).
+    """
+    return etree.XMLParser(
+        resolve_entities=False,
+        no_network=True,
+        load_dtd=False,
+        remove_comments=True,
+        remove_pis=True,
+    )
+
+
 def _parse_to_element(source: Union[str, Path, TextIO]):
-    """Read source into an ElementTree root element.
+    """Read source into an lxml root element.
 
     Strings starting with ``<`` (after whitespace) are treated as inline
     XML; everything else as a path. Detecting by content avoids calling
     ``Path.exists()`` on strings that aren't valid paths (long inputs,
     NUL bytes, OS-specific illegal characters) which can raise OSError.
     """
+    parser = safe_xml_parser()
     if hasattr(source, "read"):
-        return ET.parse(source).getroot()
+        return etree.parse(source, parser).getroot()
     if isinstance(source, Path):
-        return ET.parse(str(source)).getroot()
+        return etree.parse(str(source), parser).getroot()
     if isinstance(source, str):
         if source.lstrip().startswith("<"):
-            return ET.fromstring(source)
-        return ET.parse(source).getroot()
+            # Encode so lxml accepts inline strings that carry an XML
+            # declaration (it rejects unicode str with encoding decls).
+            return etree.fromstring(source.encode("utf-8"), parser)
+        return etree.parse(source, parser).getroot()
     raise ValueError(f"XMLLoader: cannot read source of type {type(source).__name__}")
 
 
@@ -494,10 +518,11 @@ def _resolve_path(elem, path: str):
       ``a/b/c``         → text content of element at ``a/b/c``
       ``a/b/c/@attr``   → attribute ``attr`` on element at ``a/b/c``
 
-    Step matching is local-name based (namespace-agnostic), matching
-    the rest of the loader's contract — ``a/b/c`` will traverse into
-    ``<ns:a>``/``<ns:b>``/``<ns:c>`` as well as the unprefixed form.
-    For attributes, both ``attr`` and ``{ns}attr`` keys are checked.
+    Steps are matched namespace-agnostically with an lxml ``local-name()``
+    XPath, matching the rest of the loader's contract — ``a/b/c`` will
+    traverse into ``<ns:a>``/``<ns:b>``/``<ns:c>`` as well as the
+    unprefixed form, and ``@attr`` matches ``attr`` and ``{ns}attr``
+    alike.
 
     No XPath predicates, no wildcards. Returns None when the path
     doesn't resolve.
@@ -507,28 +532,32 @@ def _resolve_path(elem, path: str):
     else:
         elem_path, attr_name = path, None
 
+    steps = [s for s in elem_path.split("/") if s]
     target = elem
-    for step in elem_path.split("/"):
-        if not step:
-            continue
-        found = next(
-            (child for child in target if _strip_namespace(child.tag) == step),
-            None,
+    if steps:
+        element_xpath = "/".join(
+            f"*[local-name()={_xpath_literal(s)}]" for s in steps
         )
-        if found is None:
+        matches = elem.xpath(f"./{element_xpath}")
+        if not matches:
             return None
-        target = found
+        target = matches[0]
 
     if attr_name is not None:
-        # Try local name first, then any namespaced form ending in /attr_name.
-        if attr_name in target.attrib:
-            return target.attrib[attr_name]
-        for key, value in target.attrib.items():
-            if _strip_namespace(key) == attr_name:
-                return value
-        return None
+        values = target.xpath(f"@*[local-name()={_xpath_literal(attr_name)}]")
+        return values[0] if values else None
     text = (target.text or "").strip()
     return text or None
+
+
+def _xpath_literal(s: str) -> str:
+    """Quote a name as an XPath string literal (handles embedded quotes)."""
+    if "'" not in s:
+        return f"'{s}'"
+    if '"' not in s:
+        return f'"{s}"'
+    parts = s.split("'")
+    return "concat(" + ", \"'\", ".join(f"'{p}'" for p in parts) + ")"
 
 
 # Module-level instance, matching the convention of other linkml loaders.
