@@ -8,17 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
     - name: Set up Python 3.
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: "3.12"
 
     - name: Install uv
-      uses: astral-sh/setup-uv@v6
+      uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39
 
     - name: Install dependencies
       run: uv sync --extra docs
@@ -34,7 +34,7 @@ jobs:
 
     - name: Deploy documentation.
       if: ${{ github.event_name == 'push' }}
-      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
         force: true
