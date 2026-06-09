@@ -786,7 +786,7 @@ def extract_dd(schema_path: str, class_name: str | None, output: str, tsv: bool)
 
     With --class, projects that one class to stdout (or -o). Without it,
     projects every concrete class in batch mode, writing one
-    ``<schema-id>.<class>.dd.{yaml,tsv}`` per class into the -o directory.
+    ``<schema-name>.<class>.dd.{yaml,tsv}`` per class into the -o directory.
     """
     from linkml_runtime.utils.schemaview import SchemaView
 

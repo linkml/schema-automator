@@ -12,16 +12,16 @@ Each class becomes a ``DataDictionary``; each (induced) slot becomes a
 Mapping:
 
 - ``slot.range`` → DD ``type`` via :data:`_RANGE_TO_DD_TYPE`; enum ranges
-  become ``type: permissible_values`` with the enum projected into
-  ``codes``.
-- ``description``, ``title`` → ``label``, ``slot_uri`` → ``uri``,
-  ``pattern``, ``multivalued``, ``required`` (when True), ``see_also``,
-  ``examples`` → ``example_values``, ``minimum_value`` / ``maximum_value``
-  → ``min`` / ``max`` carry through.
-- ``unit`` (a UCUM-flavored object) collapses best-effort to a string.
-- Numeric entries (``integer`` / ``decimal``) get the literal ``none``
-  sentinel for any of ``unit`` / ``min`` / ``max`` not declared, so the
-  output satisfies the canonical DD's numeric-conformance rules.
+  become ``type: permissible_values`` with ``codes`` always present (an
+  empty list for a value-less enum).
+- ``description`` is always emitted (``""`` when the slot has none, since
+  the canonical DD requires it); ``title`` → ``label``, ``slot_uri`` →
+  ``uri``, ``pattern``, ``multivalued``, ``required`` (when True),
+  ``see_also``, and ``examples`` → ``example_values`` carry through.
+- ``unit`` / ``min`` / ``max`` are emitted only for numeric entries
+  (``integer`` / ``decimal``) — where the canonical DD both permits and
+  requires them — using the literal ``none`` sentinel for anything not
+  declared. ``unit`` collapses best-effort from its UCUM-flavored object.
 - Slots whose range is a class are skipped — they aren't flat columns.
 """
 
@@ -137,14 +137,15 @@ def _slot_to_entry(schemaview: SchemaView, slot) -> Optional[dict[str, Any]]:
 
     if rng and rng in schemaview.all_enums():
         entry["type"] = "permissible_values"
-        codes = _enum_codes(schemaview, rng)
-        if codes:
-            entry["codes"] = codes
+        # codes is required whenever type is permissible_values — emit
+        # the key unconditionally (empty list for a value-less enum).
+        entry["codes"] = _enum_codes(schemaview, rng)
     else:
         entry["type"] = _RANGE_TO_DD_TYPE.get(rng, "string")
 
-    if slot.description:
-        entry["description"] = slot.description
+    # description is required by the canonical DD; emit "" when the slot
+    # has none (also a clean signal for a later enrichment pass to fill).
+    entry["description"] = slot.description or ""
     if slot.title:
         entry["label"] = slot.title
     if slot.slot_uri:
@@ -166,20 +167,18 @@ def _slot_to_entry(schemaview: SchemaView, slot) -> Optional[dict[str, Any]]:
     if example_values:
         entry["example_values"] = example_values
 
-    unit = _unit_to_str(slot.unit)
-    if unit:
-        entry["unit"] = unit
-    if slot.minimum_value is not None:
-        entry["min"] = slot.minimum_value
-    if slot.maximum_value is not None:
-        entry["max"] = slot.maximum_value
-
-    # Numeric entries must declare unit/min/max per the canonical DD
-    # rules; use the explicit `none` sentinel for anything undeclared.
+    # unit/min/max are permitted only on numeric types per the canonical
+    # DD rules, and required there — carry declared values through, else
+    # the explicit `none` sentinel. Non-numeric slots never emit them.
     if entry["type"] in _NUMERIC_DD_TYPES:
-        entry.setdefault("unit", "none")
-        entry.setdefault("min", "none")
-        entry.setdefault("max", "none")
+        unit = _unit_to_str(slot.unit)
+        entry["unit"] = unit if unit else "none"
+        entry["min"] = (
+            slot.minimum_value if slot.minimum_value is not None else "none"
+        )
+        entry["max"] = (
+            slot.maximum_value if slot.maximum_value is not None else "none"
+        )
 
     return entry
 

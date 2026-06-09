@@ -105,6 +105,8 @@ def test_inherited_slot_included(person_entries):
     # record_id comes from Base via is_a; class_induced_slots picks it up.
     assert "record_id" in person_entries
     assert person_entries["record_id"]["type"] == "string"
+    # description is required by the DD; a slot without one gets "".
+    assert person_entries["record_id"]["description"] == ""
 
 
 def test_metadata_carried(person_entries):
@@ -112,6 +114,8 @@ def test_metadata_carried(person_entries):
     assert e["type"] == "string"
     assert e["description"] == "The person's full name"
     assert e["label"] == "Full Name"
+    # unit/min/max are numeric-only; a string slot must not carry them.
+    assert "unit" not in e and "min" not in e and "max" not in e
 
 
 def test_numeric_with_bounds_gets_none_unit(person_entries):
@@ -172,6 +176,31 @@ def test_projectable_classes_excludes_mixin_and_abstract(sv):
 def test_unknown_class_raises(sv):
     with pytest.raises(ValueError, match="not in schema"):
         schema_to_dd(sv, "NotAClass")
+
+
+def test_empty_enum_still_emits_codes_key(tmp_path):
+    # codes is required whenever type is permissible_values — even a
+    # value-less enum must emit the key (as an empty list).
+    schema = """
+    id: https://example.org/e
+    name: e
+    prefixes: {linkml: https://w3id.org/linkml/}
+    imports: [linkml:types]
+    classes:
+      Thing:
+        slots: [kind]
+    slots:
+      kind:
+        range: EmptyEnum
+    enums:
+      EmptyEnum: {}
+    """
+    path = tmp_path / "e.yaml"
+    path.write_text(dedent(schema).strip() + "\n")
+    sv_e = SchemaView(str(path))
+    entry = schema_to_dd(sv_e, "Thing")["entries"][0]
+    assert entry["type"] == "permissible_values"
+    assert entry["codes"] == []
 
 
 def test_dd_to_tsv_header_and_codes(sv):
