@@ -350,6 +350,46 @@ then the definition of that will be copied to the class description.</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-extract-dd">
+<h4>extract-dd<a class="headerlink" href="#schemauto-extract-dd" title="Link to this heading">¶</a></h4>
+<p>Project a LinkML schema into the canonical data dictionary format.</p>
+<p>SCHEMA is a path to a LinkML schema (including importer output:
+XSD, JSON Schema, OWL, RDFS, SQL DDL, EML). Each class becomes a
+data dictionary; each slot becomes an entry.</p>
+<p>With –class, projects that one class to stdout (or -o). Without it,
+projects every concrete class in batch mode, writing one
+<code class="docutils literal notranslate"><span class="pre">&lt;schema-name&gt;.&lt;class&gt;.dd.{yaml,tsv}</span></code> per class into the -o directory.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>extract-dd<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SCHEMA
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-extract-dd-class">
+<span class="sig-name descname"><span class="pre">--class</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;class_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-extract-dd-class" title="Link to this definition">¶</a></dt>
+<dd><p>Project just this class. Omit to project all concrete classes (batch mode; requires -o to be a directory).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-extract-dd-o">
+<span id="cmdoption-schemauto-extract-dd-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-extract-dd-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-extract-dd-tsv">
+<span id="cmdoption-schemauto-extract-dd-yaml"></span><span class="sig-name descname"><span class="pre">--tsv</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--yaml</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-extract-dd-tsv" title="Link to this definition">¶</a></dt>
+<dd><p>Output format. Default is YAML (lossless structured codes). –tsv emits the canonical DD TSV serialization grammar.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-extract-dd-arg-SCHEMA">
+<span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-extract-dd-arg-SCHEMA" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-generalize-htmltable">
 <h4>generalize-htmltable<a class="headerlink" href="#schemauto-generalize-htmltable" title="Link to this heading">¶</a></h4>
 <p>Generalizes from a table parsed from a URL</p>

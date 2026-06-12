@@ -17,9 +17,9 @@ Alias: fields
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ForeignKey](ForeignKey.md) | Foreign-key constraint linking field(s) in this resource to field(s) in anoth... |  no  |
-| [ForeignKeyReference](ForeignKeyReference.md) | The target side of a foreign-key constraint |  no  |
 | [TableSchema](TableSchema.md) | A Frictionless Table Schema document — the column descriptors for a single ta... |  no  |
+| [ForeignKeyReference](ForeignKeyReference.md) | The target side of a foreign-key constraint |  no  |
+| [ForeignKey](ForeignKey.md) | Foreign-key constraint linking field(s) in this resource to field(s) in anoth... |  no  |
 
 
 
