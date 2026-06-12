@@ -762,5 +762,72 @@ def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, t
         click.echo(out_text)
 
 
+@main.command()
+@click.argument('schema_path', metavar='SCHEMA')
+@click.option(
+    '--class',
+    'class_name',
+    default=None,
+    help='Project just this class. Omit to project all concrete classes (batch mode; requires -o to be a directory).',
+)
+@output_option
+@click.option(
+    '--tsv/--yaml',
+    default=False,
+    help='Output format. Default is YAML (lossless structured codes). --tsv emits the canonical DD TSV serialization grammar.',
+)
+def extract_dd(schema_path: str, class_name: str | None, output: str, tsv: bool):
+    """
+    Project a LinkML schema into the canonical data dictionary format.
+
+    SCHEMA is a path to a LinkML schema (including importer output:
+    XSD, JSON Schema, OWL, RDFS, SQL DDL, EML). Each class becomes a
+    data dictionary; each slot becomes an entry.
+
+    With --class, projects that one class to stdout (or -o). Without it,
+    projects every concrete class in batch mode, writing one
+    ``<schema-name>.<class>.dd.{yaml,tsv}`` per class into the -o directory.
+    """
+    from linkml_runtime.utils.schemaview import SchemaView
+
+    from schema_automator.utils.extract_dd import (
+        dd_to_tsv,
+        projectable_classes,
+        schema_to_dd,
+    )
+
+    sv = SchemaView(schema_path)
+
+    def render(dd: dict) -> str:
+        if tsv:
+            return dd_to_tsv(dd)
+        return yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
+
+    if class_name:
+        out_text = render(schema_to_dd(sv, class_name))
+        if output:
+            Path(output).parent.mkdir(parents=True, exist_ok=True)
+            with open(output, 'w') as f:
+                f.write(out_text)
+        else:
+            click.echo(out_text)
+        return
+
+    if not output:
+        raise click.ClickException(
+            "batch mode (no --class) requires -o <directory> to write one DD per class"
+        )
+    os.makedirs(output, exist_ok=True)
+    ext = 'tsv' if tsv else 'yaml'
+    schema_id = sv.schema.name or 'schema'
+    classes = projectable_classes(sv)
+    for cname in classes:
+        dd = schema_to_dd(sv, cname)
+        out_path = os.path.join(output, f"{schema_id}.{cname}.dd.{ext}")
+        with open(out_path, 'w') as f:
+            f.write(render(dd))
+    click.echo(f"Wrote {len(classes)} data dictionaries to {output}")
+
+
 if __name__ == "__main__":
     main()
