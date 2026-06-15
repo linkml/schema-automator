@@ -763,6 +763,57 @@ def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, t
 
 
 @main.command()
+@click.argument('input_path', metavar='INPUT')
+@output_option
+@click.option(
+    '--reverse/--no-reverse',
+    default=False,
+    help='Reverse direction: read a canonical DD and emit a REDCap data dictionary CSV. Default reads REDCap CSV and emits DD.',
+)
+def adapt_redcap(input_path: str, output: str, reverse: bool):
+    """
+    Translate between a REDCap data dictionary CSV and the canonical
+    schema-automator data dictionary format.
+
+    INPUT is a path to a REDCap data dictionary CSV (default direction)
+    or a canonical DD YAML/JSON file (--reverse). Default output is the
+    canonical DD as YAML; with --reverse the output is a REDCap CSV.
+    """
+    import io
+    import sys
+
+    from schema_automator.adapters.redcap import (
+        dd_to_redcap,
+        load_redcap_csv,
+        redcap_to_dd,
+    )
+    from schema_automator.adapters.redcap.adapter import (
+        dump_redcap_csv,
+        write_redcap_csv,
+    )
+
+    if reverse:
+        with open(input_path) as f:
+            dd = yaml.safe_load(f)
+        result = dd_to_redcap(dd)
+        if output:
+            write_redcap_csv(result, output)
+        else:
+            buf = io.StringIO()
+            dump_redcap_csv(result, buf)
+            sys.stdout.write(buf.getvalue())
+    else:
+        source = load_redcap_csv(input_path)
+        dd = redcap_to_dd(source)
+        out_text = yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
+        if output:
+            with open(output, 'w') as f:
+                f.write(out_text)
+        else:
+            click.echo(out_text)
+
+
+@main.command()
 @click.argument('schema_path', metavar='SCHEMA')
 @click.option(
     '--class',
