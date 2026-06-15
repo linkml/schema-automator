@@ -165,6 +165,38 @@ and the output is a Frictionless Table Schema (JSON).</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-adapt-redcap">
+<h4>adapt-redcap<a class="headerlink" href="#schemauto-adapt-redcap" title="Link to this heading">¶</a></h4>
+<p>Translate between a REDCap data dictionary CSV and the canonical
+schema-automator data dictionary format.</p>
+<p>INPUT is a path to a REDCap data dictionary CSV (default direction)
+or a canonical DD YAML/JSON file (–reverse). Default output is the
+canonical DD as YAML; with –reverse the output is a REDCap CSV.</p>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>adapt-redcap<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-redcap-o">
+<span id="cmdoption-schemauto-adapt-redcap-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-adapt-redcap-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-redcap-reverse">
+<span id="cmdoption-schemauto-adapt-redcap-no-reverse"></span><span class="sig-name descname"><span class="pre">--reverse</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-reverse</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-redcap-reverse" title="Link to this definition">¶</a></dt>
+<dd><p>Reverse direction: read a canonical DD and emit a REDCap data dictionary CSV. Default reads REDCap CSV and emits DD.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-adapt-redcap-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-adapt-redcap-arg-INPUT" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-annotate-schema">
 <h4>annotate-schema<a class="headerlink" href="#schemauto-annotate-schema" title="Link to this heading">¶</a></h4>
 <p>Annotate all elements of a schema.</p>
