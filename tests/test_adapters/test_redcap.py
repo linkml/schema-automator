@@ -7,8 +7,10 @@ from linkml_map.utils.eval_utils import FUNCTIONS as _LINKML_MAP_FUNCTIONS
 
 from schema_automator.adapters.redcap.adapter import (
     dd_to_redcap,
+    dump_redcap_csv,
     load_redcap_csv,
     redcap_to_dd,
+    write_redcap_csv,
 )
 
 
@@ -329,3 +331,76 @@ class TestDDToRedcap:
         source = {"entries": [{"name": "x", "type": "string"}]}
         entry = dd_to_redcap(source)["entries"][0]
         assert "required_field" not in entry
+
+
+# ----------------------------------------------------------------------
+# CSV writer (RedcapDataDictionary dict → REDCap CSV). This is the
+# reverse CLI's output path; it's independent of linkml-map, so it runs
+# on any version.
+# ----------------------------------------------------------------------
+
+
+class TestRedcapCsvWriter:
+    def test_write_then_load_preserves_raw_slots(self, tmp_path):
+        redcap = {
+            "entries": [
+                {
+                    "field_name": "record_id",
+                    "form_name": "demographics",
+                    "field_type": "text",
+                    "field_label": "Record ID",
+                    "required_field": "y",
+                },
+                {
+                    "field_name": "age",
+                    "field_type": "text",
+                    "field_label": "Age in years",
+                    "text_validation_type": "integer",
+                    "text_validation_min": "0",
+                    "text_validation_max": "120",
+                },
+                {
+                    "field_name": "sex",
+                    "field_type": "radio",
+                    "field_label": "Biological sex",
+                    "choices_calculations_or_slider_labels": "0, Female | 1, Male",
+                },
+            ]
+        }
+        out = tmp_path / "out.csv"
+        write_redcap_csv(redcap, out)
+
+        reloaded = load_redcap_csv(out)
+        by_name = {e["field_name"]: e for e in reloaded["entries"]}
+
+        assert list(by_name) == ["record_id", "age", "sex"]
+        assert by_name["record_id"]["form_name"] == "demographics"
+        assert by_name["record_id"]["required_field"] == "y"
+
+        age = by_name["age"]
+        assert age["text_validation_type"] == "integer"
+        assert age["text_validation_min"] == "0"
+        assert age["text_validation_max"] == "120"
+
+        # The raw choices column survives verbatim, and the loader
+        # re-parses it into the structured `choices` slot.
+        sex = by_name["sex"]
+        assert (
+            sex["choices_calculations_or_slider_labels"] == "0, Female | 1, Male"
+        )
+        assert sex["choices"] == [
+            {"code": "0", "label": "Female"},
+            {"code": "1", "label": "Male"},
+        ]
+
+    def test_dump_emits_full_redcap_header(self):
+        import csv as _csv
+        import io
+
+        buf = io.StringIO()
+        dump_redcap_csv({"entries": []}, buf)
+        buf.seek(0)
+        header = next(_csv.reader(buf))
+        assert header[0] == "Variable / Field Name"
+        assert "Choices, Calculations, OR Slider Labels" in header
+        assert "Field Annotation" in header
