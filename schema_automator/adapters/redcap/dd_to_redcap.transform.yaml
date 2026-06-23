@@ -30,8 +30,10 @@ description: >-
   type, so the predicates double as both sentinel-filter and
   type-correctness check.
 
-source_schema: https://w3id.org/linkml/schema-automator/data-dictionary
-target_schema: https://projectredcap.org/data-dictionary
+source_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
+target_schema:
+  name: https://projectredcap.org/data-dictionary
 
 class_derivations:
 

@@ -24,8 +24,10 @@ description: >-
   - `descriptive` field type — these rows are filtered out by the
     adapter before the trans-spec runs (they aren't variables).
 
-source_schema: https://projectredcap.org/data-dictionary
-target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+source_schema:
+  name: https://projectredcap.org/data-dictionary
+target_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
 
 class_derivations:
 
