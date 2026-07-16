@@ -52,9 +52,8 @@ dependencies = [
     # populated_from, safe-builtin functions, dictionary_key, strict
     # expression mode, the SchemaReference shape for source/target_schema,
     # and the is_str / is_bool / is_list predicates the *reverse*
-    # Frictionless adapter trans-spec relies on. First shipped in the
-    # 0.5.3rc1 pre-release; tighten to ">= 0.5.3, < 1" when final lands.
-    "linkml-map >= 0.5.3rc1, < 1",
+    # Frictionless adapter trans-spec relies on.
+    "linkml-map >= 0.5.3, < 1",
     "click >= 8.1.7, < 9",
     "deprecated >= 1.2.15, < 2",
     "sqlalchemy >= 2.0.36, < 3",
