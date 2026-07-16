@@ -80,7 +80,7 @@ class_derivations:
           {
             'required': case((is_bool(required), required)),
             'pattern': case((is_str(pattern), pattern)),
-            'enum': case((is_list(codes), [c.code for c in (codes if is_list(codes) else [])])),
+            'enum': case((is_list(codes), codes.code)),
             'minimum': case((is_numeric(min), str(min))),
             'maximum': case((is_numeric(max), str(max)))
           }

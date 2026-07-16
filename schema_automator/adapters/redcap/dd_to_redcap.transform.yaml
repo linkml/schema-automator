@@ -43,6 +43,17 @@ class_derivations:
       entries:
         populated_from: entries
 
+  # Each `codes` entry maps to a structured RedcapChoice. The Python
+  # adapter serializes these to REDCap's `code, label | ...` string form
+  # after the transform runs.
+  RedcapChoice:
+    populated_from: PermissibleValueDefinition
+    slot_derivations:
+      code:
+        populated_from: code
+      label:
+        populated_from: label
+
   RedcapField:
     populated_from: DataDictionaryEntry
     slot_derivations:
@@ -99,7 +110,4 @@ class_derivations:
       # Pass the structured codes through; the Python adapter serializes
       # them to the REDCap CSV string form after the transform.
       choices:
-        expr: |
-          case(
-            (is_list(codes), [{'code': c.code, 'label': c.label} for c in (codes if is_list(codes) else [])])
-          )
+        populated_from: codes
