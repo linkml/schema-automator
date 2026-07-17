@@ -34,6 +34,7 @@
   <section id="class-field">
 <h1>Class: Field<a class="headerlink" href="#class-field" title="Link to this heading">¶</a></h1>
 <p><em>Descriptor for a single column of the tabular resource.</em></p>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/Field">fts:Field</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class Field
@@ -276,7 +277,6 @@ attributes:
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
     identifier: true
-    alias: name
     owner: Field
     domain_of:
     - Field
@@ -287,7 +287,6 @@ attributes:
     description: Human-readable title for the field.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: title
     owner: Field
     domain_of:
     - Field
@@ -297,7 +296,6 @@ attributes:
     description: Markdown-flavored description of what the field represents.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: description
     owner: Field
     domain_of:
     - Field
@@ -307,7 +305,6 @@ attributes:
     description: Example value for the field, useful for human readers and some tools.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: example
     owner: Field
     domain_of:
     - Field
@@ -317,7 +314,6 @@ attributes:
     description: Logical type of values in the field. The default if absent is `string`.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: type
     owner: Field
     domain_of:
     - Field
@@ -328,7 +324,6 @@ attributes:
       (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: format
     owner: Field
     domain_of:
     - Field
@@ -341,7 +336,6 @@ attributes:
       slot it pairs with) accept CURIEs as well.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: rdfType
     owner: Field
     domain_of:
     - Field
@@ -351,7 +345,6 @@ attributes:
     description: Validation constraints on field values.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: constraints
     owner: Field
     domain_of:
     - Field
@@ -360,7 +353,7 @@ attributes:
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

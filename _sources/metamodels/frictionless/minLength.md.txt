@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: minLength 
 
@@ -7,11 +10,11 @@ _Minimum length for string values (or item count for arrays)._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:minLength](https://specs.frictionlessdata.io/table-schema/minLength)
-Alias: minLength
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: minLength
 description: Minimum length for string values (or item count for arrays).
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: minLength
 owner: Constraints
 domain_of:
 - Constraints
 range: integer
 
 ```
-</details>
+</details></div>

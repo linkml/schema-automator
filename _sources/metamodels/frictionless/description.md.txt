@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: description 
 
@@ -7,11 +10,11 @@ _Markdown-flavored description of what the field represents._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:description](https://specs.frictionlessdata.io/table-schema/description)
-Alias: description
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: description
 description: Markdown-flavored description of what the field represents.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: description
 owner: Field
 domain_of:
 - Field
 range: string
 
 ```
-</details>
+</details></div>

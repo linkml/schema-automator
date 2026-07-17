@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: type 
 
@@ -7,11 +10,11 @@ _Logical type of values in the field. The default if absent is `string`._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:type](https://specs.frictionlessdata.io/table-schema/type)
-Alias: type
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: type
 description: Logical type of values in the field. The default if absent is `string`.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: type
 owner: Field
 domain_of:
 - Field
 range: FrictionlessType
 
 ```
-</details>
+</details></div>

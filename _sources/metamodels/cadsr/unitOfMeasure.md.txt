@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: unitOfMeasure 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:unitOfMeasure](https://example.org/cadsrunitOfMeasure)
-Alias: unitOfMeasure
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: unitOfMeasure
 name: unitOfMeasure
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: unitOfMeasure
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

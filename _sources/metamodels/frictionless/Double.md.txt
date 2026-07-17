@@ -1,4 +1,7 @@
-# Type: Double 
+---
+search:
+  boost: 1.0
+---# Type: Double 
 
 
 
@@ -6,6 +9,8 @@
 _A real number that conforms to the xsd:double specification_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:double](http://www.w3.org/2001/XMLSchema#double)
 
@@ -50,3 +55,6 @@ URI: [xsd:double](http://www.w3.org/2001/XMLSchema#double)
 | close | schema:Float |
 
 
+
+
+</div>

@@ -1,4 +1,7 @@
-# Type: Time 
+---
+search:
+  boost: 1.0
+---# Type: Time 
 
 
 
@@ -6,6 +9,8 @@
 _A time object represents a (local) time of day, independent of any particular day_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:time](http://www.w3.org/2001/XMLSchema#time)
 
@@ -52,3 +57,6 @@ URI: [xsd:time](http://www.w3.org/2001/XMLSchema#time)
 | exact | schema:Time |
 
 
+
+
+</div>

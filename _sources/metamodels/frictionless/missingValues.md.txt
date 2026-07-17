@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: missingValues 
 
@@ -7,11 +10,11 @@ _String values to interpret as missing data when reading the tabular resource. D
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:missingValues](https://specs.frictionlessdata.io/table-schema/missingValues)
-Alias: missingValues
-
 <!-- no inheritance hierarchy -->
 
 
@@ -93,7 +96,6 @@ description: String values to interpret as missing data when reading the tabular
   Default is the empty string.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: missingValues
 owner: TableSchema
 domain_of:
 - TableSchema
@@ -101,4 +103,4 @@ range: string
 multivalued: true
 
 ```
-</details>
+</details></div>

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: contextName 
 
@@ -7,11 +10,11 @@ _A 30 character limit name by which an Administered Item is designated within a 
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:contextName](https://example.org/cadsrcontextName)
-Alias: contextName
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,9 +88,8 @@ description: A 30 character limit name by which an Administered Item is designat
   within a specific Context.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: contextName
 domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

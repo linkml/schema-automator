@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: maximum 
 
@@ -7,11 +10,11 @@ _Maximum permissible value (matches `minimum` semantics)._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:maximum](https://specs.frictionlessdata.io/table-schema/maximum)
-Alias: maximum
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: maximum
 description: Maximum permissible value (matches `minimum` semantics).
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: maximum
 owner: Constraints
 domain_of:
 - Constraints
 range: string
 
 ```
-</details>
+</details></div>

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: enum 
 
@@ -7,11 +10,11 @@ _Closed list of allowed values. Treated as an enumeration in target schemas that
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:enum](https://specs.frictionlessdata.io/table-schema/enum)
-Alias: enum
-
 <!-- no inheritance hierarchy -->
 
 
@@ -93,7 +96,6 @@ description: Closed list of allowed values. Treated as an enumeration in target 
   that distinguish that case.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: enum
 owner: Constraints
 domain_of:
 - Constraints
@@ -101,4 +103,4 @@ range: string
 multivalued: true
 
 ```
-</details>
+</details></div>

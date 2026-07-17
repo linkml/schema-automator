@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: description 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:description](https://example.org/cadsrdescription)
-Alias: description
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,9 +81,8 @@ Alias: description
 name: description
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: description
 domain_of:
 - ReferenceDocument
 
 ```
-</details>
+</details></div>

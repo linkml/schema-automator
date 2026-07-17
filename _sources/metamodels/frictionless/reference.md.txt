@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: reference 
 
@@ -7,11 +10,11 @@ _The target of the reference._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:reference](https://specs.frictionlessdata.io/table-schema/reference)
-Alias: reference
-
 <!-- no inheritance hierarchy -->
 
 
@@ -92,7 +95,6 @@ name: reference
 description: The target of the reference.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: reference
 owner: ForeignKey
 domain_of:
 - ForeignKey
@@ -101,4 +103,4 @@ required: true
 inlined: true
 
 ```
-</details>
+</details></div>

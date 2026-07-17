@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: CRDCDataElements 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:CRDCDataElements](https://example.org/cadsrCRDCDataElements)
-Alias: CRDCDataElements
-
 <!-- no inheritance hierarchy -->
 
 
@@ -79,7 +82,6 @@ Alias: CRDCDataElements
 name: CRDCDataElements
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: CRDCDataElements
 domain_of:
 - DataElementgetCRDCList_GET_response
 range: CRDCDataElement
@@ -87,4 +89,4 @@ required: false
 multivalued: true
 
 ```
-</details>
+</details></div>

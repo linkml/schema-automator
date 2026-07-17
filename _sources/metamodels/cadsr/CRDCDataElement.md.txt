@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: CRDCDataElement 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -288,7 +293,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: Version
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
@@ -315,7 +319,6 @@ attributes:
     description: CRDC Example
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: Example
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
@@ -342,7 +345,6 @@ attributes:
     description: CRDC Instructions
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: Instructions
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
@@ -414,7 +416,6 @@ attributes:
     name: permissibleValues
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: permissibleValues
     owner: CRDCDataElement
     domain_of:
     - CRDCDataElement
@@ -422,4 +423,4 @@ attributes:
     multivalued: true
 
 ```
-</details>
+</details></div>

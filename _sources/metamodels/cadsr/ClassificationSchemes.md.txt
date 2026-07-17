@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: ClassificationSchemes 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:ClassificationSchemes](https://example.org/cadsrClassificationSchemes)
-Alias: ClassificationSchemes
-
 <!-- no inheritance hierarchy -->
 
 
@@ -79,7 +82,6 @@ Alias: ClassificationSchemes
 name: ClassificationSchemes
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: ClassificationSchemes
 domain_of:
 - DataElement
 range: ClassificationScheme
@@ -87,4 +89,4 @@ required: false
 multivalued: true
 
 ```
-</details>
+</details></div>

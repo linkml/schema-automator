@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: minimum 
 
@@ -7,11 +10,11 @@ _Minimum permissible value for numeric, date, datetime, time, year, and yearmont
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:minimum](https://specs.frictionlessdata.io/table-schema/minimum)
-Alias: minimum
-
 <!-- no inheritance hierarchy -->
 
 
@@ -92,11 +95,10 @@ description: Minimum permissible value for numeric, date, datetime, time, year, 
   yearmonth types. The literal type matches the field's type.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: minimum
 owner: Constraints
 domain_of:
 - Constraints
 range: string
 
 ```
-</details>
+</details></div>

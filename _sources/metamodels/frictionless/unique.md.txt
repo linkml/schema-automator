@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: unique 
 
@@ -7,11 +10,11 @@ _Whether each value of this field must be distinct across rows._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:unique](https://specs.frictionlessdata.io/table-schema/unique)
-Alias: unique
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: unique
 description: Whether each value of this field must be distinct across rows.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: unique
 owner: Constraints
 domain_of:
 - Constraints
 range: boolean
 
 ```
-</details>
+</details></div>

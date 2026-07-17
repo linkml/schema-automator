@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: permissibleValues 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:permissibleValues](https://example.org/cadsrpermissibleValues)
-Alias: permissibleValues
-
 <!-- no inheritance hierarchy -->
 
 
@@ -79,11 +82,10 @@ Alias: permissibleValues
 name: permissibleValues
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: permissibleValues
 domain_of:
 - CRDCDataElement
 range: permissibleValue
 multivalued: true
 
 ```
-</details>
+</details></div>

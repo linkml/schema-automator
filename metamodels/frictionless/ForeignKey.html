@@ -34,6 +34,7 @@
   <section id="class-foreignkey">
 <h1>Class: ForeignKey<a class="headerlink" href="#class-foreignkey" title="Link to this heading">¶</a></h1>
 <p><em>Foreign-key constraint linking field(s) in this resource to field(s) in another resource.</em></p>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/ForeignKey">fts:ForeignKey</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class ForeignKey
@@ -173,7 +174,6 @@ attributes:
     name: fields
     description: Field name(s) in this resource that participate in the key.
     from_schema: https://specs.frictionlessdata.io/table-schema
-    alias: fields
     owner: ForeignKey
     domain_of:
     - TableSchema
@@ -187,7 +187,6 @@ attributes:
     description: The target of the reference.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: reference
     owner: ForeignKey
     domain_of:
     - ForeignKey
@@ -197,7 +196,7 @@ attributes:
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: valueDescription 
 
@@ -7,11 +10,11 @@ _The text of the most desirable meaning for Value_
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:valueDescription](https://example.org/cadsrvalueDescription)
-Alias: valueDescription
-
 <!-- no inheritance hierarchy -->
 
 
@@ -84,10 +87,9 @@ name: valueDescription
 description: The text of the most desirable meaning for Value
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: valueDescription
 domain_of:
 - CDEPermissibleValue
 required: false
 
 ```
-</details>
+</details></div>

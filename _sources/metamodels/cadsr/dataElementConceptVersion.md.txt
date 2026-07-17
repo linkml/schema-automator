@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: dataElementConceptVersion 
 
@@ -7,11 +10,11 @@ _The unique version identifier of the Administered Item._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:dataElementConceptVersion](https://example.org/cadsrdataElementConceptVersion)
-Alias: dataElementConceptVersion
-
 <!-- no inheritance hierarchy -->
 
 
@@ -84,9 +87,8 @@ name: dataElementConceptVersion
 description: The unique version identifier of the Administered Item.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: dataElementConceptVersion
 domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

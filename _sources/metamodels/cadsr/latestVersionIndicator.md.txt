@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: latestVersionIndicator 
 
@@ -7,11 +10,11 @@ _The present form of an Administered Item._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:latestVersionIndicator](https://example.org/cadsrlatestVersionIndicator)
-Alias: latestVersionIndicator
-
 <!-- no inheritance hierarchy -->
 
 
@@ -22,15 +25,15 @@ Alias: latestVersionIndicator
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -92,7 +95,6 @@ name: latestVersionIndicator
 description: The present form of an Administered Item.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: latestVersionIndicator
 domain_of:
 - Property
 - ConceptualDomain
@@ -105,4 +107,4 @@ domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

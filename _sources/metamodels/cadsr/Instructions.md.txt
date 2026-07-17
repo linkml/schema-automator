@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Instructions 
 
@@ -7,11 +10,11 @@ _CRDC Instructions_
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:Instructions](https://example.org/cadsrInstructions)
-Alias: Instructions
-
 <!-- no inheritance hierarchy -->
 
 
@@ -84,9 +87,8 @@ name: Instructions
 description: CRDC Instructions
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: Instructions
 domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

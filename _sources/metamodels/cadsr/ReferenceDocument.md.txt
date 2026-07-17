@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: ReferenceDocument 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -138,7 +143,6 @@ attributes:
     name: name
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: name
     owner: ReferenceDocument
     domain_of:
     - AlternateName
@@ -147,7 +151,6 @@ attributes:
     name: type
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: type
     owner: ReferenceDocument
     domain_of:
     - AlternateName
@@ -157,7 +160,6 @@ attributes:
     name: description
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: description
     owner: ReferenceDocument
     domain_of:
     - ReferenceDocument
@@ -165,7 +167,6 @@ attributes:
     name: url
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: url
     owner: ReferenceDocument
     domain_of:
     - ReferenceDocument
@@ -173,7 +174,6 @@ attributes:
     name: context
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: context
     owner: ReferenceDocument
     domain_of:
     - ClassificationScheme
@@ -190,4 +190,4 @@ attributes:
     - ReferenceDocument
 
 ```
-</details>
+</details></div>

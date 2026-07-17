@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: DataElementqueryGETResponse 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -128,7 +133,6 @@ attributes:
     name: numRecords
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: numRecords
     owner: DataElementquery_GET_response
     domain_of:
     - DataElementqueryContext_GET_response
@@ -139,7 +143,6 @@ attributes:
     name: DataElementQueryResults
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: DataElementQueryResults
     owner: DataElementquery_GET_response
     domain_of:
     - DataElementqueryContext_GET_response
@@ -150,4 +153,4 @@ attributes:
     multivalued: true
 
 ```
-</details>
+</details></div>

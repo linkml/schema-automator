@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: ClassificationSchemeItem 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -150,7 +155,6 @@ attributes:
     - note this can appear at different levels
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: publicId
     owner: ClassificationSchemeItem
     domain_of:
     - ClassificationScheme
@@ -172,7 +176,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: version
     owner: ClassificationSchemeItem
     domain_of:
     - ClassificationScheme
@@ -192,7 +195,6 @@ attributes:
     description: A 255 character limit name for an item in the registry.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: longName
     owner: ClassificationSchemeItem
     domain_of:
     - ClassificationScheme
@@ -212,7 +214,6 @@ attributes:
     name: context
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: context
     owner: ClassificationSchemeItem
     domain_of:
     - ClassificationScheme
@@ -230,4 +231,4 @@ attributes:
     required: false
 
 ```
-</details>
+</details></div>

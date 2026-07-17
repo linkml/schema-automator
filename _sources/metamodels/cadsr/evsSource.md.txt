@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: evsSource 
 
@@ -7,11 +10,11 @@ _The name of the EVS concept code that was the source for the concept identifier
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:evsSource](https://example.org/cadsrevsSource)
-Alias: evsSource
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,9 +88,8 @@ description: The name of the EVS concept code that was the source for the concep
   identifier.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: evsSource
 domain_of:
 - Concept
 
 ```
-</details>
+</details></div>

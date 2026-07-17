@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: example 
 
@@ -7,11 +10,11 @@ _Example value for the field, useful for human readers and some tools._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:example](https://specs.frictionlessdata.io/table-schema/example)
-Alias: example
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: example
 description: Example value for the field, useful for human readers and some tools.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: example
 owner: Field
 domain_of:
 - Field
 range: string
 
 ```
-</details>
+</details></div>

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: TableSchema 
 
@@ -6,6 +9,8 @@
 _A Frictionless Table Schema document — the column descriptors for a single tabular resource._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -134,7 +139,6 @@ attributes:
     range: Field
     required: true
     multivalued: true
-    inlined: true
     inlined_as_list: true
   missingValues:
     name: missingValues
@@ -166,7 +170,6 @@ attributes:
     - TableSchema
     range: ForeignKey
     multivalued: true
-    inlined: true
     inlined_as_list: true
 tree_root: true
 
@@ -187,7 +190,6 @@ attributes:
     description: Ordered list of field (column) descriptors.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: fields
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -196,6 +198,7 @@ attributes:
     range: Field
     required: true
     multivalued: true
+    inlined: true
     inlined_as_list: true
   missingValues:
     name: missingValues
@@ -203,7 +206,6 @@ attributes:
       resource. Default is the empty string.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: missingValues
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -215,7 +217,6 @@ attributes:
       (string) or a list; modeled as a list here.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: primaryKey
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -227,14 +228,14 @@ attributes:
       in another resource.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: foreignKeys
     owner: TableSchema
     domain_of:
     - TableSchema
     range: ForeignKey
     multivalued: true
+    inlined: true
     inlined_as_list: true
 tree_root: true
 
 ```
-</details>
+</details></div>

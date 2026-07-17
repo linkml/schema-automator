@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: resource 
 
@@ -7,11 +10,11 @@ _Name of the resource being referenced. Empty string refers to the current resou
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:resource](https://specs.frictionlessdata.io/table-schema/resource)
-Alias: resource
-
 <!-- no inheritance hierarchy -->
 
 
@@ -92,11 +95,10 @@ description: Name of the resource being referenced. Empty string refers to the c
   resource (self-reference).
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: resource
 owner: ForeignKeyReference
 domain_of:
 - ForeignKeyReference
 range: string
 
 ```
-</details>
+</details></div>

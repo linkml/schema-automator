@@ -1,4 +1,7 @@
-# Type: Date 
+---
+search:
+  boost: 1.0
+---# Type: Date 
 
 
 
@@ -6,6 +9,8 @@
 _a date (year, month and day) in an idealized calendar_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 
@@ -52,3 +57,6 @@ URI: [xsd:date](http://www.w3.org/2001/XMLSchema#date)
 | exact | schema:Date |
 
 
+
+
+</div>

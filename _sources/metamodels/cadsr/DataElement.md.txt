@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: DataElement 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:DataElement](https://example.org/cadsrDataElement)
-Alias: DataElement
-
 <!-- no inheritance hierarchy -->
 
 
@@ -17,8 +20,8 @@ Alias: DataElement
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |  |  yes  |
 | [DataElementContainer](DataElementContainer.md) |  |  no  |
+| [DataElementpublicIdGETResponse](DataElementpublicIdGETResponse.md) |  |  yes  |
 
 
 
@@ -88,7 +91,6 @@ Alias: DataElement
 name: DataElement
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: DataElement
 domain_of:
 - DataElementContainer
 - DataElementpublicId_GET_response
@@ -96,4 +98,4 @@ range: DataElement
 required: false
 
 ```
-</details>
+</details></div>

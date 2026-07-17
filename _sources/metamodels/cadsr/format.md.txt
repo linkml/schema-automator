@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: format 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:format](https://example.org/cadsrformat)
-Alias: format
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: format
 name: format
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: format
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

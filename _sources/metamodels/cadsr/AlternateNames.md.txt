@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: AlternateNames 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:AlternateNames](https://example.org/cadsrAlternateNames)
-Alias: AlternateNames
-
 <!-- no inheritance hierarchy -->
 
 
@@ -79,7 +82,6 @@ Alias: AlternateNames
 name: AlternateNames
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: AlternateNames
 domain_of:
 - DataElement
 range: AlternateName
@@ -87,4 +89,4 @@ required: false
 multivalued: true
 
 ```
-</details>
+</details></div>

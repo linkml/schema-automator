@@ -1,4 +1,7 @@
-# Type: Integer 
+---
+search:
+  boost: 1.0
+---# Type: Integer 
 
 
 
@@ -6,6 +9,8 @@
 _An integer_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:integer](http://www.w3.org/2001/XMLSchema#integer)
 
@@ -50,3 +55,6 @@ URI: [xsd:integer](http://www.w3.org/2001/XMLSchema#integer)
 | exact | schema:Integer |
 
 
+
+
+</div>

@@ -1,4 +1,7 @@
-# Type: Curie 
+---
+search:
+  boost: 1.0
+---# Type: Curie 
 
 
 
@@ -6,6 +9,8 @@
 _a compact URI_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
 
@@ -55,3 +60,6 @@ URI: [xsd:string](http://www.w3.org/2001/XMLSchema#string)
 | native | cadsr:curie |
 
 
+
+
+</div>

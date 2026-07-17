@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: longName 
 
@@ -7,11 +10,11 @@ _A 255 character limit name for an item in the registry._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:longName](https://example.org/cadsrlongName)
-Alias: longName
-
 <!-- no inheritance hierarchy -->
 
 
@@ -22,18 +25,18 @@ Alias: longName
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [Concept](Concept.md) |  |  yes  |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
-| [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
-| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
-| [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
-| [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ClassificationScheme](ClassificationScheme.md) |  |  yes  |
+| [Property](Property.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ClassificationSchemeItem](ClassificationSchemeItem.md) |  |  yes  |
+| [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
+| [ValueDomain](ValueDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [Concept](Concept.md) |  |  yes  |
+| [DataElementConcept](DataElementConcept.md) |  |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -95,7 +98,6 @@ name: longName
 description: A 255 character limit name for an item in the registry.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: longName
 domain_of:
 - ClassificationScheme
 - Property
@@ -111,4 +113,4 @@ domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

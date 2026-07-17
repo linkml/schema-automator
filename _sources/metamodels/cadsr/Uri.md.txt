@@ -1,4 +1,7 @@
-# Type: Uri 
+---
+search:
+  boost: 1.0
+---# Type: Uri 
 
 
 
@@ -6,6 +9,8 @@
 _a complete URI_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI)
 
@@ -55,3 +60,6 @@ URI: [xsd:anyURI](http://www.w3.org/2001/XMLSchema#anyURI)
 | close | schema:URL |
 
 
+
+
+</div>

@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: DataElementgetCRDCListGETResponse 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -118,7 +123,6 @@ attributes:
     name: CRDCDataElements
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: CRDCDataElements
     owner: DataElementgetCRDCList_GET_response
     domain_of:
     - DataElementgetCRDCList_GET_response
@@ -127,4 +131,4 @@ attributes:
     multivalued: true
 
 ```
-</details>
+</details></div>

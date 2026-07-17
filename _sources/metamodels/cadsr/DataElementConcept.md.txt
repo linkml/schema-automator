@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: DataElementConcept 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:DataElementConcept](https://example.org/cadsrDataElementConcept)
-Alias: DataElementConcept
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,11 +88,10 @@ Alias: DataElementConcept
 name: DataElementConcept
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: DataElementConcept
 domain_of:
 - DataElement
 range: DataElementConcept
 required: false
 
 ```
-</details>
+</details></div>

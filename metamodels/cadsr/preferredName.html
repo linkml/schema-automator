@@ -34,8 +34,8 @@
   <section id="slot-preferredname">
 <h1>Slot: preferredName<a class="headerlink" href="#slot-preferredname" title="Link to this heading">¶</a></h1>
 <p><em>A 30 character limit name by which an Administered Item is designated within a specific Context. Referred to as Short Name.</em></p>
-<p>URI: <a class="reference external" href="https://example.org/cadsrpreferredName">cadsr:preferredName</a>
-Alias: preferredName</p>
+<div data-search-exclude markdown="1">
+<p>URI: <a class="reference external" href="https://example.org/cadsrpreferredName">cadsr:preferredName</a></p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
 <h2>Applicable Classes<a class="headerlink" href="#applicable-classes" title="Link to this heading">¶</a></h2>
@@ -47,19 +47,11 @@ Alias: preferredName</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="DataElementQuery.html"><span class="std std-doc">DataElementQuery</span></a></p></td>
-<td><p></p></td>
-<td><p>yes</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ObjectClass.html"><span class="std std-doc">ObjectClass</span></a></p></td>
-<td><p>Class or class expression used to annotated a DataElementConcept (DEC)</p></td>
-<td><p>yes</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="Property.html"><span class="std std-doc">Property</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="RepresentationTerm.html"><span class="std std-doc">RepresentationTerm</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ConceptualDomain.html"><span class="std std-doc">ConceptualDomain</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
@@ -71,8 +63,8 @@ Alias: preferredName</p>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ConceptualDomain.html"><span class="std std-doc">ConceptualDomain</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ObjectClass.html"><span class="std std-doc">ObjectClass</span></a></p></td>
+<td><p>Class or class expression used to annotated a DataElementConcept (DEC)</p></td>
 <td><p>yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="DataElementConcept.html"><span class="std std-doc">DataElementConcept</span></a></p></td>
@@ -80,6 +72,14 @@ Alias: preferredName</p>
 <td><p>yes</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="ValueMeaning.html"><span class="std std-doc">ValueMeaning</span></a></p></td>
+<td><p></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="RepresentationTerm.html"><span class="std std-doc">RepresentationTerm</span></a></p></td>
+<td><p></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DataElementQuery.html"><span class="std std-doc">DataElementQuery</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
@@ -153,7 +153,6 @@ description: A 30 character limit name by which an Administered Item is designat
   within a specific Context. Referred to as Short Name.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: preferredName
 domain_of:
 - Property
 - ConceptualDomain
@@ -164,7 +163,7 @@ domain_of:
 - ValueMeaning
 - RepresentationTerm
 - DataElementQuery
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </section>

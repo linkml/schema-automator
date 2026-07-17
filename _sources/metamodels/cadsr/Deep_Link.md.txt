@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Deep_Link 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -83,4 +88,4 @@ domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

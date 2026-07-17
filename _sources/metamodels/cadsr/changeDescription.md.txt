@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: changeDescription 
 
@@ -7,11 +10,11 @@ _The description of what has changed in the Administered Item since the prior ve
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:changeDescription](https://example.org/cadsrchangeDescription)
-Alias: changeDescription
-
 <!-- no inheritance hierarchy -->
 
 
@@ -22,14 +25,14 @@ Alias: changeDescription
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
 
 
 
@@ -92,7 +95,6 @@ description: The description of what has changed in the Administered Item since 
   prior version of the Administered Item.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: changeDescription
 domain_of:
 - Property
 - ConceptualDomain
@@ -104,4 +106,4 @@ domain_of:
 - RepresentationTerm
 
 ```
-</details>
+</details></div>

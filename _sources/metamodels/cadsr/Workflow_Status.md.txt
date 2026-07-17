@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Workflow_Status 
 
@@ -6,6 +9,8 @@
 _A name of a designation of the status in the administrative life-cycle of a Context Owner for handling new administered items._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -90,4 +95,4 @@ domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

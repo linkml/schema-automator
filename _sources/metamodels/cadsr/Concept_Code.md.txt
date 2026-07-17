@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Concept_Code 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -83,4 +88,4 @@ domain_of:
 - permissibleValue
 
 ```
-</details>
+</details></div>

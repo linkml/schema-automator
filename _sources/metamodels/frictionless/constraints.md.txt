@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: constraints 
 
@@ -7,11 +10,11 @@ _Validation constraints on field values._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:constraints](https://specs.frictionlessdata.io/table-schema/constraints)
-Alias: constraints
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,7 +94,6 @@ name: constraints
 description: Validation constraints on field values.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: constraints
 owner: Field
 domain_of:
 - Field
@@ -99,4 +101,4 @@ range: Constraints
 inlined: true
 
 ```
-</details>
+</details></div>

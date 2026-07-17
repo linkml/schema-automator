@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: primaryKey 
 
@@ -7,11 +10,11 @@ _Field name(s) that together identify each row. May be a single name (string) or
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:primaryKey](https://specs.frictionlessdata.io/table-schema/primaryKey)
-Alias: primaryKey
-
 <!-- no inheritance hierarchy -->
 
 
@@ -93,7 +96,6 @@ description: Field name(s) that together identify each row. May be a single name
   or a list; modeled as a list here.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: primaryKey
 owner: TableSchema
 domain_of:
 - TableSchema
@@ -101,4 +103,4 @@ range: string
 multivalued: true
 
 ```
-</details>
+</details></div>

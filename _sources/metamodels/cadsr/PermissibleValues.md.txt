@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: PermissibleValues 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:PermissibleValues](https://example.org/cadsrPermissibleValues)
-Alias: PermissibleValues
-
 <!-- no inheritance hierarchy -->
 
 
@@ -79,7 +82,6 @@ Alias: PermissibleValues
 name: PermissibleValues
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: PermissibleValues
 domain_of:
 - ValueDomain
 range: CDEPermissibleValue
@@ -87,4 +89,4 @@ required: false
 multivalued: true
 
 ```
-</details>
+</details></div>

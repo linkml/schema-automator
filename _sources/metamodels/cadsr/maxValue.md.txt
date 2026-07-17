@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: maxValue 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:maxValue](https://example.org/cadsrmaxValue)
-Alias: maxValue
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: maxValue
 name: maxValue
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: maxValue
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

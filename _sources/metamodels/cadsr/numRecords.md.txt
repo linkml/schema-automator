@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: numRecords 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:numRecords](https://example.org/cadsrnumRecords)
-Alias: numRecords
-
 <!-- no inheritance hierarchy -->
 
 
@@ -17,9 +20,9 @@ Alias: numRecords
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 | [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 
 
 
@@ -80,7 +83,6 @@ Alias: numRecords
 name: numRecords
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: numRecords
 domain_of:
 - DataElementqueryContext_GET_response
 - DataElementqueryConcept_GET_response
@@ -88,4 +90,4 @@ domain_of:
 required: false
 
 ```
-</details>
+</details></div>

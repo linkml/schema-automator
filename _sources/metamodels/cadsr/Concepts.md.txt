@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Concepts 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:Concepts](https://example.org/cadsrConcepts)
-Alias: Concepts
-
 <!-- no inheritance hierarchy -->
 
 
@@ -18,9 +21,9 @@ Alias: Concepts
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
 | [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
-| [ValueMeaning](ValueMeaning.md) |  |  yes  |
 | [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
+| [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
 
 
 
@@ -82,7 +85,6 @@ Alias: Concepts
 name: Concepts
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: Concepts
 domain_of:
 - Property
 - ObjectClass
@@ -92,4 +94,4 @@ range: Concept
 multivalued: true
 
 ```
-</details>
+</details></div>

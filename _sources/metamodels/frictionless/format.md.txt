@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: format 
 
@@ -7,11 +10,11 @@ _Format refinement of the field type. Format vocabulary is type-specific (e.g., 
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:format](https://specs.frictionlessdata.io/table-schema/format)
-Alias: format
-
 <!-- no inheritance hierarchy -->
 
 
@@ -92,11 +95,10 @@ description: Format refinement of the field type. Format vocabulary is type-spec
   (e.g., `email`, `uri`, `binary`, `uuid` for string; strftime patterns for date/datetime).
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: format
 owner: Field
 domain_of:
 - Field
 range: string
 
 ```
-</details>
+</details></div>

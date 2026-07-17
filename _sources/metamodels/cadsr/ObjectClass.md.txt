@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: ObjectClass 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:ObjectClass](https://example.org/cadsrObjectClass)
-Alias: ObjectClass
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,11 +88,10 @@ Alias: ObjectClass
 name: ObjectClass
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: ObjectClass
 domain_of:
 - DataElementConcept
 range: ObjectClass
 required: false
 
 ```
-</details>
+</details></div>

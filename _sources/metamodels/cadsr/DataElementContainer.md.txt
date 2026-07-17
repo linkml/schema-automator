@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: DataElementContainer 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -106,7 +111,6 @@ attributes:
     name: DataElement
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: DataElement
     owner: DataElementContainer
     domain_of:
     - DataElementContainer
@@ -115,4 +119,4 @@ attributes:
     required: false
 
 ```
-</details>
+</details></div>

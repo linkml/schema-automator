@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: ForeignKey 
 
@@ -6,6 +9,8 @@
 _Foreign-key constraint linking field(s) in this resource to field(s) in another resource._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -145,7 +150,6 @@ attributes:
     name: fields
     description: Field name(s) in this resource that participate in the key.
     from_schema: https://specs.frictionlessdata.io/table-schema
-    alias: fields
     owner: ForeignKey
     domain_of:
     - TableSchema
@@ -159,7 +163,6 @@ attributes:
     description: The target of the reference.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: reference
     owner: ForeignKey
     domain_of:
     - ForeignKey
@@ -168,4 +171,4 @@ attributes:
     inlined: true
 
 ```
-</details>
+</details></div>

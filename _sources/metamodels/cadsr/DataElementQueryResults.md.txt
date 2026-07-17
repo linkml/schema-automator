@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: DataElementQueryResults 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:DataElementQueryResults](https://example.org/cadsrDataElementQueryResults)
-Alias: DataElementQueryResults
-
 <!-- no inheritance hierarchy -->
 
 
@@ -17,9 +20,9 @@ Alias: DataElementQueryResults
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 | [DataElementqueryContextGETResponse](DataElementqueryContextGETResponse.md) |  |  yes  |
 | [DataElementqueryConceptGETResponse](DataElementqueryConceptGETResponse.md) |  |  yes  |
+| [DataElementqueryGETResponse](DataElementqueryGETResponse.md) |  |  yes  |
 
 
 
@@ -81,7 +84,6 @@ Alias: DataElementQueryResults
 name: DataElementQueryResults
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: DataElementQueryResults
 domain_of:
 - DataElementqueryContext_GET_response
 - DataElementqueryConcept_GET_response
@@ -91,4 +93,4 @@ required: false
 multivalued: true
 
 ```
-</details>
+</details></div>

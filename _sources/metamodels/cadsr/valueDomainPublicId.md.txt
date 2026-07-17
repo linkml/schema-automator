@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: valueDomainPublicId 
 
@@ -7,11 +10,11 @@ _The unique identifier for an Administered Item within a Registration Authority.
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:valueDomainPublicId](https://example.org/cadsrvalueDomainPublicId)
-Alias: valueDomainPublicId
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,9 +88,8 @@ description: The unique identifier for an Administered Item within a Registratio
   Authority.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: valueDomainPublicId
 domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

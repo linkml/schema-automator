@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: characterSet 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:characterSet](https://example.org/cadsrcharacterSet)
-Alias: characterSet
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: characterSet
 name: characterSet
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: characterSet
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

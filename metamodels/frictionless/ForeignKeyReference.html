@@ -34,6 +34,7 @@
   <section id="class-foreignkeyreference">
 <h1>Class: ForeignKeyReference<a class="headerlink" href="#class-foreignkeyreference" title="Link to this heading">¶</a></h1>
 <p><em>The target side of a foreign-key constraint.</em></p>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/ForeignKeyReference">fts:ForeignKeyReference</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class ForeignKeyReference
@@ -163,7 +164,6 @@ attributes:
       current resource (self-reference).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: resource
     owner: ForeignKeyReference
     domain_of:
     - ForeignKeyReference
@@ -172,7 +172,6 @@ attributes:
     name: fields
     description: Field name(s) in the target resource that the key references.
     from_schema: https://specs.frictionlessdata.io/table-schema
-    alias: fields
     owner: ForeignKeyReference
     domain_of:
     - TableSchema
@@ -184,7 +183,7 @@ attributes:
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

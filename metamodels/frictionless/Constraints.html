@@ -34,6 +34,7 @@
   <section id="class-constraints">
 <h1>Class: Constraints<a class="headerlink" href="#class-constraints" title="Link to this heading">¶</a></h1>
 <p><em>Validation constraints attached to a field.</em></p>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/Constraints">fts:Constraints</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class Constraints
@@ -253,7 +254,6 @@ attributes:
       is considered missing per Frictionless conventions.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: required
     owner: Constraints
     domain_of:
     - Constraints
@@ -263,7 +263,6 @@ attributes:
     description: Whether each value of this field must be distinct across rows.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: unique
     owner: Constraints
     domain_of:
     - Constraints
@@ -273,7 +272,6 @@ attributes:
     description: Regular expression that all values must match (XML Schema regex syntax).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: pattern
     owner: Constraints
     domain_of:
     - Constraints
@@ -284,7 +282,6 @@ attributes:
       schemas that distinguish that case.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: enum
     owner: Constraints
     domain_of:
     - Constraints
@@ -295,7 +292,6 @@ attributes:
     description: Minimum length for string values (or item count for arrays).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: minLength
     owner: Constraints
     domain_of:
     - Constraints
@@ -305,7 +301,6 @@ attributes:
     description: Maximum length for string values (or item count for arrays).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: maxLength
     owner: Constraints
     domain_of:
     - Constraints
@@ -316,7 +311,6 @@ attributes:
       and yearmonth types. The literal type matches the field&#39;s type.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: minimum
     owner: Constraints
     domain_of:
     - Constraints
@@ -326,7 +320,6 @@ attributes:
     description: Maximum permissible value (matches `minimum` semantics).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: maximum
     owner: Constraints
     domain_of:
     - Constraints
@@ -334,7 +327,7 @@ attributes:
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

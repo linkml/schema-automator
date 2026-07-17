@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: dataType 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:dataType](https://example.org/cadsrdataType)
-Alias: dataType
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: dataType
 name: dataType
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: dataType
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: VM_Description 
 
@@ -6,6 +9,8 @@
 _The text of the most desirable meaning for the Administered Item._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -89,4 +94,4 @@ domain_of:
 - permissibleValue
 
 ```
-</details>
+</details></div>

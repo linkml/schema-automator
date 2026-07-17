@@ -1,3 +1,9 @@
+---
+search:
+  boost: 2.0
+---
+
+
 # Enum: FrictionlessType 
 
 
@@ -6,6 +12,8 @@
 _The Frictionless Table Schema type vocabulary (https://specs.frictionlessdata.io/table-schema/#types-and-formats)._
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [fts:FrictionlessType](https://specs.frictionlessdata.io/table-schema/FrictionlessType)
 
@@ -119,3 +127,5 @@ permissible_values:
 
 ```
 </details>
+
+</div>

@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: ConceptualDomain 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:ConceptualDomain](https://example.org/cadsrConceptualDomain)
-Alias: ConceptualDomain
-
 <!-- no inheritance hierarchy -->
 
 
@@ -87,7 +90,6 @@ Alias: ConceptualDomain
 name: ConceptualDomain
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: ConceptualDomain
 domain_of:
 - ValueDomain
 - DataElementConcept
@@ -95,4 +97,4 @@ range: ConceptualDomain
 required: false
 
 ```
-</details>
+</details></div>

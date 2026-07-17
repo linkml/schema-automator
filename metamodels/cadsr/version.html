@@ -34,8 +34,8 @@
   <section id="slot-version">
 <h1>Slot: version<a class="headerlink" href="#slot-version" title="Link to this heading">¶</a></h1>
 <p><em>The unique version identifier of the Administered Item.</em></p>
-<p>URI: <a class="reference external" href="https://example.org/cadsrversion">cadsr:version</a>
-Alias: version</p>
+<div data-search-exclude markdown="1">
+<p>URI: <a class="reference external" href="https://example.org/cadsrversion">cadsr:version</a></p>
 <!-- no inheritance hierarchy -->
 <section id="applicable-classes">
 <h2>Applicable Classes<a class="headerlink" href="#applicable-classes" title="Link to this heading">¶</a></h2>
@@ -47,15 +47,7 @@ Alias: version</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="ValueMeaning.html"><span class="std std-doc">ValueMeaning</span></a></p></td>
-<td><p></p></td>
-<td><p>yes</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="ObjectClass.html"><span class="std std-doc">ObjectClass</span></a></p></td>
-<td><p>Class or class expression used to annotated a DataElementConcept (DEC)</p></td>
-<td><p>yes</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="DataElementQuery.html"><span class="std std-doc">DataElementQuery</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ClassificationScheme.html"><span class="std std-doc">ClassificationScheme</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
@@ -63,31 +55,39 @@ Alias: version</p>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="RepresentationTerm.html"><span class="std std-doc">RepresentationTerm</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ConceptualDomain.html"><span class="std std-doc">ConceptualDomain</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="DataElement.html"><span class="std std-doc">DataElement</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ClassificationSchemeItem.html"><span class="std std-doc">ClassificationSchemeItem</span></a></p></td>
+<td><p></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DataElement.html"><span class="std std-doc">DataElement</span></a></p></td>
 <td><p>An element representing a specific metadata element</p></td>
-<td><p>yes</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ClassificationSchemeItem.html"><span class="std std-doc">ClassificationSchemeItem</span></a></p></td>
-<td><p></p></td>
 <td><p>yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="ValueDomain.html"><span class="std std-doc">ValueDomain</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ConceptualDomain.html"><span class="std std-doc">ConceptualDomain</span></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ObjectClass.html"><span class="std std-doc">ObjectClass</span></a></p></td>
+<td><p>Class or class expression used to annotated a DataElementConcept (DEC)</p></td>
 <td><p>yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="DataElementConcept.html"><span class="std std-doc">DataElementConcept</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="ClassificationScheme.html"><span class="std std-doc">ClassificationScheme</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ValueMeaning.html"><span class="std std-doc">ValueMeaning</span></a></p></td>
+<td><p></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="RepresentationTerm.html"><span class="std std-doc">RepresentationTerm</span></a></p></td>
+<td><p></p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DataElementQuery.html"><span class="std std-doc">DataElementQuery</span></a></p></td>
 <td><p></p></td>
 <td><p>yes</p></td>
 </tr>
@@ -160,7 +160,6 @@ name: version
 description: The unique version identifier of the Administered Item.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: version
 domain_of:
 - ClassificationScheme
 - Property
@@ -174,7 +173,7 @@ domain_of:
 - RepresentationTerm
 - DataElementQuery
 required: false
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </section>

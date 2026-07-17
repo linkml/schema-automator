@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: PermissibleValue 
 
@@ -6,6 +9,8 @@
 _List of Permissible Values_
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -243,4 +248,4 @@ attributes:
     - permissibleValue
 
 ```
-</details>
+</details></div>

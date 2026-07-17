@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Registration_Status 
 
@@ -6,6 +9,8 @@
 _A designation of the status in the registration life-cycle of an Administered Item._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -90,4 +95,4 @@ domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

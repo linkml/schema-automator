@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: ForeignKeyReference 
 
@@ -6,6 +9,8 @@
 _The target side of a foreign-key constraint._
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -135,7 +140,6 @@ attributes:
       current resource (self-reference).
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: resource
     owner: ForeignKeyReference
     domain_of:
     - ForeignKeyReference
@@ -144,7 +148,6 @@ attributes:
     name: fields
     description: Field name(s) in the target resource that the key references.
     from_schema: https://specs.frictionlessdata.io/table-schema
-    alias: fields
     owner: ForeignKeyReference
     domain_of:
     - TableSchema
@@ -155,4 +158,4 @@ attributes:
     multivalued: true
 
 ```
-</details>
+</details></div>

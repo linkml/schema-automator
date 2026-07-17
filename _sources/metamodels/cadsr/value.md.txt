@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: value 
 
@@ -7,11 +10,11 @@ _A representation of a Value Meaning in a specific Value Domain the actual Value
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:value](https://example.org/cadsrvalue)
-Alias: value
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,10 +88,9 @@ description: A representation of a Value Meaning in a specific Value Domain the 
   Value.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: value
 domain_of:
 - CDEPermissibleValue
 required: false
 
 ```
-</details>
+</details></div>

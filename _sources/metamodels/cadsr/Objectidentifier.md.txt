@@ -1,4 +1,7 @@
-# Type: Objectidentifier 
+---
+search:
+  boost: 1.0
+---# Type: Objectidentifier 
 
 
 
@@ -6,6 +9,8 @@
 _A URI or CURIE that represents an object in the model._
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [shex:iri](http://www.w3.org/ns/shex#iri)
 
@@ -54,3 +59,6 @@ URI: [shex:iri](http://www.w3.org/ns/shex#iri)
 | native | cadsr:objectidentifier |
 
 
+
+
+</div>

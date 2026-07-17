@@ -1,4 +1,7 @@
-# Type: Datetime 
+---
+search:
+  boost: 1.0
+---# Type: Datetime 
 
 
 
@@ -6,6 +9,8 @@
 _The combination of a date and time_
 
 
+
+<div data-search-exclude markdown="1">
 
 URI: [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime)
 
@@ -51,3 +56,6 @@ URI: [xsd:dateTime](http://www.w3.org/2001/XMLSchema#dateTime)
 | exact | schema:DateTime |
 
 
+
+
+</div>

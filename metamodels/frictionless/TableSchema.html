@@ -34,6 +34,7 @@
   <section id="class-tableschema">
 <h1>Class: TableSchema<a class="headerlink" href="#class-tableschema" title="Link to this heading">¶</a></h1>
 <p><em>A Frictionless Table Schema document — the column descriptors for a single tabular resource.</em></p>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://specs.frictionlessdata.io/table-schema/TableSchema">fts:TableSchema</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class TableSchema
@@ -168,7 +169,6 @@ attributes:
     range: Field
     required: true
     multivalued: true
-    inlined: true
     inlined_as_list: true
   missingValues:
     name: missingValues
@@ -200,7 +200,6 @@ attributes:
     - TableSchema
     range: ForeignKey
     multivalued: true
-    inlined: true
     inlined_as_list: true
 tree_root: true
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;/details&gt;
@@ -219,7 +218,6 @@ attributes:
     description: Ordered list of field (column) descriptors.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: fields
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -228,6 +226,7 @@ attributes:
     range: Field
     required: true
     multivalued: true
+    inlined: true
     inlined_as_list: true
   missingValues:
     name: missingValues
@@ -235,7 +234,6 @@ attributes:
       resource. Default is the empty string.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: missingValues
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -247,7 +245,6 @@ attributes:
       (string) or a list; modeled as a list here.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: primaryKey
     owner: TableSchema
     domain_of:
     - TableSchema
@@ -259,18 +256,18 @@ attributes:
       in another resource.
     from_schema: https://specs.frictionlessdata.io/table-schema
     rank: 1000
-    alias: foreignKeys
     owner: TableSchema
     domain_of:
     - TableSchema
     range: ForeignKey
     multivalued: true
+    inlined: true
     inlined_as_list: true
 tree_root: true
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

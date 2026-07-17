@@ -33,6 +33,7 @@
             
   <section id="class-dataelementquery">
 <h1>Class: DataElementQuery<a class="headerlink" href="#class-dataelementquery" title="Link to this heading">¶</a></h1>
+<div data-search-exclude markdown="1">
 <p>URI: <a class="reference external" href="https://example.org/cadsrDataElementQuery">cadsr:DataElementQuery</a></p>
 <div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span> classDiagram
     class DataElementQuery
@@ -528,7 +529,6 @@ attributes:
     - note this can appear at different levels
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: publicId
     owner: DataElementQuery
     domain_of:
     - ClassificationScheme
@@ -550,7 +550,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: version
     owner: DataElementQuery
     domain_of:
     - ClassificationScheme
@@ -571,7 +570,6 @@ attributes:
       within a specific Context. Referred to as Short Name.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: preferredName
     owner: DataElementQuery
     domain_of:
     - Property
@@ -588,7 +586,6 @@ attributes:
     description: The text of the most desirable meaning for the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: preferredDefinition
     owner: DataElementQuery
     domain_of:
     - Property
@@ -605,7 +602,6 @@ attributes:
     description: A 255 character limit name for an item in the registry.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: longName
     owner: DataElementQuery
     domain_of:
     - ClassificationScheme
@@ -626,7 +622,6 @@ attributes:
       within a specific Context.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: contextName
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -635,7 +630,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: contextVersion
     owner: DataElementQuery
     domain_of:
     - Property
@@ -653,7 +647,6 @@ attributes:
       Authority.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: dataElementConceptPublicId
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -662,7 +655,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: dataElementConceptVersion
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -672,7 +664,6 @@ attributes:
       Authority.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: valueDomainPublicId
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -681,7 +672,6 @@ attributes:
     description: The unique version identifier of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: valueDomainVersion
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -691,7 +681,6 @@ attributes:
       Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: origin
     owner: DataElementQuery
     domain_of:
     - Property
@@ -710,7 +699,6 @@ attributes:
       of a Context Owner for handling new administered items.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: workflowStatus
     owner: DataElementQuery
     domain_of:
     - Property
@@ -728,7 +716,6 @@ attributes:
       Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: registrationStatus
     owner: DataElementQuery
     domain_of:
     - Property
@@ -745,7 +732,6 @@ attributes:
     description: The 36 character caDSR database identifier.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: id
     owner: DataElementQuery
     domain_of:
     - Property
@@ -763,7 +749,6 @@ attributes:
     description: The present form of an Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: latestVersionIndicator
     owner: DataElementQuery
     domain_of:
     - Property
@@ -780,7 +765,6 @@ attributes:
     description: The particular day, month and year this item became allowed.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: beginDate
     owner: DataElementQuery
     domain_of:
     - Property
@@ -798,7 +782,6 @@ attributes:
     description: The day, month and year this item becomes no longer allowed.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: endDate
     owner: DataElementQuery
     domain_of:
     - Property
@@ -816,7 +799,6 @@ attributes:
     description: This is a description of createdBy.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: createdBy
     owner: DataElementQuery
     domain_of:
     - Property
@@ -834,7 +816,6 @@ attributes:
     description: The date the Administered Item was created.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: dateCreated
     owner: DataElementQuery
     domain_of:
     - Property
@@ -852,7 +833,6 @@ attributes:
     description: Username of the person who modified the record
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: modifiedBy
     owner: DataElementQuery
     domain_of:
     - Property
@@ -870,7 +850,6 @@ attributes:
     description: Date on which the record was modified; last date the object was modified
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: dateModified
     owner: DataElementQuery
     domain_of:
     - Property
@@ -889,7 +868,6 @@ attributes:
       the prior version of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: changeNote
     owner: DataElementQuery
     domain_of:
     - DataElementQuery
@@ -897,7 +875,6 @@ attributes:
     name: administrativeNotes
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: administrativeNotes
     owner: DataElementQuery
     domain_of:
     - Property
@@ -915,7 +892,6 @@ attributes:
       of the Administered Item.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: unresolvedIssues
     owner: DataElementQuery
     domain_of:
     - Property
@@ -933,7 +909,6 @@ attributes:
       thought the physical record still exists.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: deletedIndicator
     owner: DataElementQuery
     domain_of:
     - Property
@@ -949,7 +924,7 @@ attributes:
 
 </pre></div>
 </div>
-</details></section>
+</details></div></section>
 </section>
 </section>
 

@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: ValueMeaning 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:ValueMeaning](https://example.org/cadsrValueMeaning)
-Alias: ValueMeaning
-
 <!-- no inheritance hierarchy -->
 
 
@@ -85,11 +88,10 @@ Alias: ValueMeaning
 name: ValueMeaning
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: ValueMeaning
 domain_of:
 - CDEPermissibleValue
 range: ValueMeaning
 required: false
 
 ```
-</details>
+</details></div>

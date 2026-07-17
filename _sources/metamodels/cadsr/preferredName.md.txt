@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: preferredName 
 
@@ -7,11 +10,11 @@ _A 30 character limit name by which an Administered Item is designated within a 
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:preferredName](https://example.org/cadsrpreferredName)
-Alias: preferredName
-
 <!-- no inheritance hierarchy -->
 
 
@@ -22,15 +25,15 @@ Alias: preferredName
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -93,7 +96,6 @@ description: A 30 character limit name by which an Administered Item is designat
   within a specific Context. Referred to as Short Name.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: preferredName
 domain_of:
 - Property
 - ConceptualDomain
@@ -106,4 +108,4 @@ domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

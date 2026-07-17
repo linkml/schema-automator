@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: CRD_Domain 
 
@@ -6,6 +9,8 @@
 _CRDC Domain_
 
 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -89,4 +94,4 @@ domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

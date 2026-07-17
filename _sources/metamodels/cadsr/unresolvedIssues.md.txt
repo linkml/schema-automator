@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: unresolvedIssues 
 
@@ -7,11 +10,11 @@ _Any problem that remains unresolved regarding proper documentation of the Admin
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:unresolvedIssues](https://example.org/cadsrunresolvedIssues)
-Alias: unresolvedIssues
-
 <!-- no inheritance hierarchy -->
 
 
@@ -22,15 +25,15 @@ Alias: unresolvedIssues
 
 | Name | Description | Modifies Slot |
 | --- | --- | --- |
-| [DataElementQuery](DataElementQuery.md) |  |  yes  |
-| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [Property](Property.md) |  |  yes  |
-| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
 | [DataElement](DataElement.md) | An element representing a specific metadata element |  yes  |
 | [ValueDomain](ValueDomain.md) |  |  yes  |
-| [ConceptualDomain](ConceptualDomain.md) |  |  yes  |
+| [ObjectClass](ObjectClass.md) | Class or class expression used to annotated a DataElementConcept (DEC) |  yes  |
 | [DataElementConcept](DataElementConcept.md) |  |  yes  |
 | [ValueMeaning](ValueMeaning.md) |  |  yes  |
+| [RepresentationTerm](RepresentationTerm.md) |  |  yes  |
+| [DataElementQuery](DataElementQuery.md) |  |  yes  |
 
 
 
@@ -93,7 +96,6 @@ description: Any problem that remains unresolved regarding proper documentation 
   the Administered Item.
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: unresolvedIssues
 domain_of:
 - Property
 - ConceptualDomain
@@ -106,4 +108,4 @@ domain_of:
 - DataElementQuery
 
 ```
-</details>
+</details></div>

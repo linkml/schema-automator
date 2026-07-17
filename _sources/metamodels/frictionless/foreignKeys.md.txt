@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: foreignKeys 
 
@@ -7,11 +10,11 @@ _Foreign key constraints linking fields in this resource to fields in another re
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:foreignKeys](https://specs.frictionlessdata.io/table-schema/foreignKeys)
-Alias: foreignKeys
-
 <!-- no inheritance hierarchy -->
 
 
@@ -93,7 +96,6 @@ description: Foreign key constraints linking fields in this resource to fields i
   another resource.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: foreignKeys
 owner: TableSchema
 domain_of:
 - TableSchema
@@ -103,4 +105,4 @@ inlined: true
 inlined_as_list: true
 
 ```
-</details>
+</details></div>

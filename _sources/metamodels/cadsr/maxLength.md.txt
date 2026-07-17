@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: maxLength 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:maxLength](https://example.org/cadsrmaxLength)
-Alias: maxLength
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,10 +81,9 @@ Alias: maxLength
 name: maxLength
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: maxLength
 domain_of:
 - ValueDomain
 required: false
 
 ```
-</details>
+</details></div>

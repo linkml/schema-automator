@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: Example 
 
@@ -7,11 +10,11 @@ _CRDC Example_
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [cadsr:Example](https://example.org/cadsrExample)
-Alias: Example
-
 <!-- no inheritance hierarchy -->
 
 
@@ -84,9 +87,8 @@ name: Example
 description: CRDC Example
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: Example
 domain_of:
 - CRDCDataElement
 
 ```
-</details>
+</details></div>

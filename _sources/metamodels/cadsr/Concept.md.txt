@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: Concept 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -179,7 +184,6 @@ attributes:
     - value: Nucleic Acid Amplification Test
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: longName
     owner: Concept
     domain_of:
     - ClassificationScheme
@@ -200,7 +204,6 @@ attributes:
     - value: C20055
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: conceptCode
     owner: Concept
     domain_of:
     - Concept
@@ -208,7 +211,6 @@ attributes:
     name: definition
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: definition
     owner: Concept
     domain_of:
     - Concept
@@ -218,7 +220,6 @@ attributes:
       identifier.
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: evsSource
     owner: Concept
     domain_of:
     - Concept
@@ -226,7 +227,6 @@ attributes:
     name: primaryIndicator
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: primaryIndicator
     owner: Concept
     domain_of:
     - Concept
@@ -234,10 +234,9 @@ attributes:
     name: displayOrder
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: displayOrder
     owner: Concept
     domain_of:
     - Concept
 
 ```
-</details>
+</details></div>

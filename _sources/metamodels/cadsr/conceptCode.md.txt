@@ -1,12 +1,15 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: conceptCode 
+
+<div data-search-exclude markdown="1">
 
 
 
 URI: [cadsr:conceptCode](https://example.org/cadsrconceptCode)
-Alias: conceptCode
-
 <!-- no inheritance hierarchy -->
 
 
@@ -78,9 +81,8 @@ Alias: conceptCode
 name: conceptCode
 from_schema: https://example.org/cadsr
 rank: 1000
-alias: conceptCode
 domain_of:
 - Concept
 
 ```
-</details>
+</details></div>

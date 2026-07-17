@@ -1,6 +1,11 @@
-
+---
+search:
+  boost: 10.0
+---
 
 # Class: DataElementpublicIdGETResponse 
+
+<div data-search-exclude markdown="1">
 
 
 
@@ -116,7 +121,6 @@ attributes:
     name: DataElement
     from_schema: https://example.org/cadsr
     rank: 1000
-    alias: DataElement
     owner: DataElementpublicId_GET_response
     domain_of:
     - DataElementContainer
@@ -125,4 +129,4 @@ attributes:
     required: false
 
 ```
-</details>
+</details></div>

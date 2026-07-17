@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: pattern 
 
@@ -7,11 +10,11 @@ _Regular expression that all values must match (XML Schema regex syntax)._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:pattern](https://specs.frictionlessdata.io/table-schema/pattern)
-Alias: pattern
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: pattern
 description: Regular expression that all values must match (XML Schema regex syntax).
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: pattern
 owner: Constraints
 domain_of:
 - Constraints
 range: string
 
 ```
-</details>
+</details></div>

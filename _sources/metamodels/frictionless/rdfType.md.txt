@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: rdfType 
 
@@ -7,11 +10,11 @@ _URI or CURIE naming a class in a controlled vocabulary that this field's values
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:rdfType](https://specs.frictionlessdata.io/table-schema/rdfType)
-Alias: rdfType
-
 <!-- no inheritance hierarchy -->
 
 
@@ -94,11 +97,10 @@ description: URI or CURIE naming a class in a controlled vocabulary that this fi
   with) accept CURIEs as well.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: rdfType
 owner: Field
 domain_of:
 - Field
 range: uriorcurie
 
 ```
-</details>
+</details></div>

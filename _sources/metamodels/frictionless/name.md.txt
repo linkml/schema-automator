@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: name 
 
@@ -7,11 +10,11 @@ _Machine-readable name of the field. Should match the column header in the tabul
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:name](https://specs.frictionlessdata.io/table-schema/name)
-Alias: name
-
 <!-- no inheritance hierarchy -->
 
 
@@ -95,7 +98,6 @@ description: Machine-readable name of the field. Should match the column header 
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
 identifier: true
-alias: name
 owner: Field
 domain_of:
 - Field
@@ -103,4 +105,4 @@ range: string
 required: true
 
 ```
-</details>
+</details></div>

@@ -1,4 +1,7 @@
-
+---
+search:
+  boost: 5.0
+---
 
 # Slot: title 
 
@@ -7,11 +10,11 @@ _Human-readable title for the field._
 
 
 
+<div data-search-exclude markdown="1">
+
 
 
 URI: [fts:title](https://specs.frictionlessdata.io/table-schema/title)
-Alias: title
-
 <!-- no inheritance hierarchy -->
 
 
@@ -91,11 +94,10 @@ name: title
 description: Human-readable title for the field.
 from_schema: https://specs.frictionlessdata.io/table-schema
 rank: 1000
-alias: title
 owner: Field
 domain_of:
 - Field
 range: string
 
 ```
-</details>
+</details></div>
