@@ -25,6 +25,7 @@ from schema_automator.generalizers.generalizer import DEFAULT_CLASS_NAME, DEFAUL
 from schema_automator.generalizers.pandas_generalizer import PandasDataGeneralizer
 from schema_automator.importers.cadsr_import_engine import CADSRImportEngine
 from schema_automator.importers.dosdp_import_engine import DOSDPImportEngine
+from schema_automator.importers.eml_import_engine import EmlImportEngine
 from schema_automator.generalizers.json_instance_generalizer import JsonDataGeneralizer
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
 from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
@@ -128,9 +129,13 @@ def main(verbose: int, quiet: bool):
 @click.option('--data-dictionary-row-count',
               type=click.INT,
               help='rows that provide metadata about columns')
+@click.option('--data-dictionary',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              help='Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata (descriptions, labels, codes, units, semantic URIs). Pass multiple times to overlay several DDs in order. See schema_automator/metamodels/data_dictionary.yaml for the format.')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 @click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
-def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, **kwargs):
+def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, data_dictionary, **kwargs):
     """
     Generalizes from a single TSV file to a single-class schema
 
@@ -146,6 +151,12 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
     else:
         ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
+    if data_dictionary:
+        from schema_automator.enrichers import enrich_with_data_dictionary
+        for dd_path in data_dictionary:
+            with open(dd_path) as f:
+                dd = yaml.safe_load(f)
+            enrich_with_data_dictionary(schema, dd)
     if annotator:
         impl = get_implementation_from_shorthand(annotator)
         sa = SchemaAnnotator(impl)
@@ -166,8 +177,12 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 @infer_optional_option
 @infer_mixed_types_option
 @infer_enum_from_integers_option
+@click.option('--data-dictionary',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              help='Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata. Pass multiple times to overlay several DDs against the multi-class schema; each DD is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
+def generalize_tsvs(tsvfiles, output, schema_name, data_dictionary, **kwargs):
     """
     Generalizes from a multiple TSV files to a multi-class schema
 
@@ -181,6 +196,12 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
     ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
+    if data_dictionary:
+        from schema_automator.enrichers import enrich_with_data_dictionary
+        for dd_path in data_dictionary:
+            with open(dd_path) as f:
+                dd = yaml.safe_load(f)
+            enrich_with_data_dictionary(schema, dd)
     write_schema(schema, output)
 
 
@@ -419,13 +440,13 @@ def import_cadsr(input, output, schema_name, schema_id, **kwargs):
 
 
 @main.command()
-@click.argument('owlfile')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--identifier', '-I', help="Slot to use as identifier")
 @click.option('--model-uri', help="Model URI prefix")
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_owl(owlfile, output, **args):
+def import_owl(input, output, **args):
     """
     Import an OWL ontology to LinkML
 
@@ -444,12 +465,12 @@ def import_owl(owlfile, output, **args):
         ``schemauto import-owl prov.ofn -o my.yaml``
     """
     sie = OwlImportEngine()
-    schema = sie.convert(owlfile, **args)
+    schema = sie.convert(input, **args)
     write_schema(schema, output)
 
 
 @main.command()
-@click.argument('rdfsfile')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--format', '-f',
@@ -460,7 +481,7 @@ def import_owl(owlfile, output, **args):
 @click.option('--metamodel-mappings',
               help="Path to metamodel mappings YAML dictionary")
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_rdfs(rdfsfile: str, output: str, metamodel_mappings: str, schema_name: str, **args):
+def import_rdfs(input: str, output: str, metamodel_mappings: str, schema_name: str, **args):
     """
     Import an RDFS schema to LinkML
 
@@ -473,15 +494,15 @@ def import_rdfs(rdfsfile: str, output: str, metamodel_mappings: str, schema_name
         with open(metamodel_mappings) as f:
             mappings_obj = yaml.safe_load(f)
     sie = RdfsImportEngine(initial_metamodel_mappings=mappings_obj)
-    schema = sie.convert(rdfsfile, name=schema_name, **args)
+    schema = sie.convert(input, name=schema_name, **args)
     write_schema(schema, output)
 
 @main.command()
-@click.argument('xsd')
+@click.argument('input')
 @output_option
 @schema_name_option
 @click.option('--output', '-o', help="Path to saved yaml schema")
-def import_xsd(xsd: str, output: str, **kwargs):
+def import_xsd(input: str, output: str, **kwargs):
     """
     Import an XML Schema Definition Language (XSD) schema to LinkML
 
@@ -490,7 +511,39 @@ def import_xsd(xsd: str, output: str, **kwargs):
         schemauto import-xsd schema.xml -o prov.yaml
     """
     engine = XsdImportEngine()
-    schema = engine.convert(xsd, **kwargs)
+    schema = engine.convert(input, **kwargs)
+    write_schema(schema, output)
+
+
+@main.command()
+@click.argument('input')
+@output_option
+# Not schema_name_option: its DEFAULT_SCHEMA_NAME default would always win
+# over the packageId this importer derives the name from.
+@click.option(
+    '--schema-name',
+    '-n',
+    default=None,
+    help='Schema name [default: the EML packageId]')
+@schema_id_option
+def import_eml(input: str, output: str, schema_name, schema_id, **kwargs):
+    """
+    Import an Ecological Metadata Language (EML) XML document to LinkML.
+
+    Each <dataTable> in the EML document becomes a LinkML class; each
+    <attribute> becomes a slot. The measurementScale variant
+    (nominal/ordinal/interval/ratio/dateTime) dispatches to the
+    appropriate LinkML range (string, integer, or float).
+
+    The schema name and id default to the EML packageId; --schema-name
+    and --schema-id override them.
+
+    Example:
+
+        schemauto import-eml dataset.eml -o dataset.yaml
+    """
+    engine = EmlImportEngine()
+    schema = engine.convert(input, name=schema_name, id=schema_id)
     write_schema(schema, output)
 
 @main.command()
@@ -760,6 +813,166 @@ def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, t
             f.write(out_text)
     else:
         click.echo(out_text)
+
+
+@main.command()
+@click.argument('input_path', metavar='INPUT')
+@output_option
+@click.option(
+    '--reverse/--no-reverse',
+    default=False,
+    help='Reverse direction: read a canonical DD and emit a REDCap data dictionary CSV. Default reads REDCap CSV and emits DD.',
+)
+def adapt_redcap(input_path: str, output: str, reverse: bool):
+    """
+    Translate between a REDCap data dictionary CSV and the canonical
+    schema-automator data dictionary format.
+
+    INPUT is a path to a REDCap data dictionary CSV (default direction)
+    or a canonical DD YAML/JSON file (--reverse). Default output is the
+    canonical DD as YAML; with --reverse the output is a REDCap CSV.
+    """
+    import io
+    import sys
+
+    from schema_automator.adapters.redcap import (
+        dd_to_redcap,
+        load_redcap_csv,
+        redcap_to_dd,
+    )
+    from schema_automator.adapters.redcap.adapter import (
+        dump_redcap_csv,
+        write_redcap_csv,
+    )
+
+    if reverse:
+        with open(input_path) as f:
+            dd = yaml.safe_load(f)
+        result = dd_to_redcap(dd)
+        if output:
+            write_redcap_csv(result, output)
+        else:
+            buf = io.StringIO()
+            dump_redcap_csv(result, buf)
+            sys.stdout.write(buf.getvalue())
+    else:
+        source = load_redcap_csv(input_path)
+        dd = redcap_to_dd(source)
+        out_text = yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
+        if output:
+            with open(output, 'w') as f:
+                f.write(out_text)
+        else:
+            click.echo(out_text)
+
+
+@main.command()
+@click.argument('schema_path', metavar='SCHEMA')
+@click.option(
+    '--class',
+    'class_name',
+    default=None,
+    help='Project just this class. Omit to project all concrete classes (batch mode; requires -o to be a directory).',
+)
+@output_option
+@click.option(
+    '--tsv/--yaml',
+    default=False,
+    help='Output format. Default is YAML (lossless structured codes). --tsv emits the canonical DD TSV serialization grammar.',
+)
+def extract_dd(schema_path: str, class_name: str | None, output: str, tsv: bool):
+    """
+    Project a LinkML schema into the canonical data dictionary format.
+
+    SCHEMA is a path to a LinkML schema (including importer output:
+    XSD, JSON Schema, OWL, RDFS, SQL DDL, EML). Each class becomes a
+    data dictionary; each slot becomes an entry.
+
+    With --class, projects that one class to stdout (or -o). Without it,
+    projects every concrete class in batch mode, writing one
+    ``<schema-name>.<class>.dd.{yaml,tsv}`` per class into the -o directory.
+    """
+    from linkml_runtime.utils.schemaview import SchemaView
+
+    from schema_automator.utils.extract_dd import (
+        dd_to_tsv,
+        projectable_classes,
+        schema_to_dd,
+    )
+
+    sv = SchemaView(schema_path)
+
+    def render(dd: dict) -> str:
+        if tsv:
+            return dd_to_tsv(dd)
+        return yaml.safe_dump(dd, sort_keys=False, allow_unicode=True)
+
+    if class_name:
+        out_text = render(schema_to_dd(sv, class_name))
+        if output:
+            Path(output).parent.mkdir(parents=True, exist_ok=True)
+            with open(output, 'w') as f:
+                f.write(out_text)
+        else:
+            click.echo(out_text)
+        return
+
+    if not output:
+        raise click.ClickException(
+            "batch mode (no --class) requires -o <directory> to write one DD per class"
+        )
+    os.makedirs(output, exist_ok=True)
+    ext = 'tsv' if tsv else 'yaml'
+    schema_id = sv.schema.name or 'schema'
+    classes = projectable_classes(sv)
+    for cname in classes:
+        dd = schema_to_dd(sv, cname)
+        out_path = os.path.join(output, f"{schema_id}.{cname}.dd.{ext}")
+        with open(out_path, 'w') as f:
+            f.write(render(dd))
+    click.echo(f"Wrote {len(classes)} data dictionaries to {output}")
+
+
+@main.command()
+@click.option('--schema', '-s',
+              required=True,
+              type=click.Path(exists=True, dir_okay=False),
+              help='Path to a LinkML schema YAML to enrich (typically produced by generalize-tsv/generalize-tsvs).')
+@click.option('--data-dictionary', '-d',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              required=True,
+              help='Path to a canonical data dictionary YAML/JSON. Pass multiple times to overlay several DDs in order; each is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.')
+@output_option
+def enrich(schema: str, data_dictionary: tuple[str, ...], output: str):
+    """
+    Enrich a LinkML schema with one or more canonical data dictionaries.
+
+    Each DD is overlaid against the schema by slot name: descriptions,
+    labels (→ slot title), semantic URIs (→ slot_uri), units, codes,
+    min/max, required, multivalued, and patterns flow from the DD into
+    the schema. Conflicts (type mismatch, undeclared codes in data,
+    DD codes inference can't verify) are logged as warnings.
+
+    Multi-DD: DDs apply in the order given; later DDs see metadata
+    already written by earlier ones. Matching is by global slot name —
+    no per-class targeting yet. See issue #192.
+
+    Example:
+
+        ``schemauto enrich -s inferred.yaml -d subject.dd.yaml -d sample.dd.yaml -o enriched.yaml``
+    """
+    from linkml_runtime.loaders import yaml_loader
+    from linkml_runtime.linkml_model import SchemaDefinition
+    from schema_automator.enrichers import enrich_with_data_dictionary
+
+    with open(schema) as f:
+        sch = yaml_loader.load(f.read(), SchemaDefinition)
+    for dd_path in data_dictionary:
+        with open(dd_path) as f:
+            dd = yaml.safe_load(f)
+        enrich_with_data_dictionary(sch, dd)
+    write_schema(sch, output)
 
 
 if __name__ == "__main__":

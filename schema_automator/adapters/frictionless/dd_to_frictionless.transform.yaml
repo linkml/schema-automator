@@ -24,8 +24,10 @@ description: >-
   constraint slot has a known semantic type, so the predicates
   double as both sentinel-filter and type-correctness check.
 
-source_schema: https://w3id.org/linkml/schema-automator/data-dictionary
-target_schema: https://specs.frictionlessdata.io/table-schema
+source_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
+target_schema:
+  name: https://specs.frictionlessdata.io/table-schema
 
 class_derivations:
 
@@ -78,7 +80,7 @@ class_derivations:
           {
             'required': case((is_bool(required), required)),
             'pattern': case((is_str(pattern), pattern)),
-            'enum': case((is_list(codes), [c.code for c in (codes if is_list(codes) else [])])),
+            'enum': case((is_list(codes), codes.code)),
             'minimum': case((is_numeric(min), str(min))),
             'maximum': case((is_numeric(max), str(max)))
           }

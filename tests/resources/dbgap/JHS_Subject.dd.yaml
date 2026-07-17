@@ -1,0 +1,42 @@
+entries:
+- name: SUBJECT_ID
+  description: Subject ID
+  uri: dbgap:phv00124545.v4
+  type: string
+- name: CONSENT
+  description: Consent group as determined by DAC
+  uri: dbgap:phv00124546.v4
+  type: permissible_values
+  codes:
+  - code: '0'
+    label: Subjects did not participate in the study, did not complete a consent document
+      and are included only for the pedigree structure and/or genotype controls, such
+      as HapMap subjects
+  - code: '1'
+    label: Health/Medical/Biomedical (IRB, NPU) (HMB-IRB-NPU)
+  - code: '2'
+    label: Disease-Specific (Focused Disease Only, IRB, NPU) (DS-FDO-IRB-NPU)
+  - code: '3'
+    label: Health/Medical/Biomedical (IRB) (HMB-IRB)
+  - code: '4'
+    label: Disease-Specific (Focused Disease Only, IRB) (DS-FDO-IRB)
+- name: SUBJECT_SOURCE
+  description: Source repository where subjects originate
+  uri: dbgap:phv00124547.v5
+  type: string
+- name: SOURCE_SUBJECT_ID
+  description: Subject ID used in the Source Repository
+  uri: dbgap:phv00124548.v5
+  type: integer
+- name: SUBJECT_SOURCE2
+  description: Source repository where subjects originate2
+  uri: dbgap:phv00400680.v1
+  type: string
+- name: SOURCE_SUBJECT_ID2
+  description: Subject ID used in the Source Repository2
+  uri: dbgap:phv00400681.v1
+  type: string
+- name: SEX
+  description: Participant Sex
+  uri: dbgap:phv00541325.v1
+  type: string

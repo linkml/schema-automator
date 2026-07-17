@@ -14,7 +14,7 @@ for design context.
 
 - `frictionless/` — Frictionless Table Schema ↔ canonical DD (issue [#203](https://github.com/linkml/schema-automator/issues/203)).
 - `dbgap/` — dbGaP variable digest XML (data_dict.xml + optional var_report.xml) → canonical DD (issue [#206](https://github.com/linkml/schema-automator/issues/206)). Forward-only for v1; dbGaP isn't really a writable target format. Pairs with dm-bip's fetcher (dm-bip PR #320).
-- `redcap/` — REDCap data dictionary ↔ canonical DD (issue [#204](https://github.com/linkml/schema-automator/issues/204), open).
+- `redcap/` — REDCap data dictionary CSV ↔ canonical DD (issue [#204](https://github.com/linkml/schema-automator/issues/204)). Source CSV is pre-parsed by `load_redcap_csv`: the multi-purpose "Choices, Calculations, OR Slider Labels" column is split into the structured `choices` slot for radio / dropdown / checkbox fields, and `yesno` / `truefalse` synthesize their standard two-code sets. Lossy on UI/survey hints (branching logic, matrix groups, section headers), format refinements (`date_mdy` vs `date_ymd`), and `calc` / `slider` formulas.
 
 ## Layout
 

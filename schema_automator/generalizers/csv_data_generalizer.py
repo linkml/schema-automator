@@ -446,6 +446,15 @@ class CsvDataGeneralizer(Generalizer):
             elif is_unique:
                 unique_keys.append(sn)
             vals = slot_distinct_values[sn]
+            # Empirical cardinality — load-bearing for downstream
+            # enrichment (see schema_automator.enrichers): when a DD
+            # declares fewer codes than were observed, the enricher
+            # treats the DD's enum as incomplete and refuses to
+            # collapse the inferred range.
+            s.setdefault('annotations', {})['num_distinct_values'] = {
+                'tag': 'num_distinct_values',
+                'value': str(len(vals)),
+            }
             if self.source_schema:
                 if sn in self.source_schema.slots:
                     s['description'] = self.source_schema.slots[sn].description

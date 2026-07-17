@@ -1,0 +1,128 @@
+id: https://w3id.org/linkml/schema-automator/adapters/redcap-to-dd
+title: REDCap Data Dictionary to canonical Data Dictionary
+description: >-
+  linkml-map trans-spec translating a REDCap data dictionary (source)
+  into the canonical schema-automator Data Dictionary (target). Used by
+  the REDCap adapter; see umbrella issue #202.
+
+  The adapter parses the REDCap CSV into the source structure before
+  this trans-spec runs, so the multi-purpose "Choices, Calculations, OR
+  Slider Labels" column is already split into the structured `choices`
+  slot for radio / dropdown / checkbox / yesno / truefalse field types.
+
+  Lossy with respect to:
+  - REDCap's `form_name`, `section_header`, `custom_alignment`,
+    `question_number`, `matrix_*`, `field_annotation` — UI/survey hints
+    with no DD equivalent.
+  - `branching_logic` — conditional display rules; no DD equivalent.
+  - `identifier` (PHI flag) — no DD equivalent in v1.
+  - `text_validation_type` format refinements — REDCap distinguishes
+    `date_ymd` vs `date_mdy` etc.; DD v1 collapses to `date`.
+  - `calc`, `slider`, `file`, `sql` field types — content carried in
+    the multi-purpose column is dropped; the variable maps to a base
+    type with no expression / no choices.
+  - `descriptive` field type — these rows are filtered out by the
+    adapter before the trans-spec runs (they aren't variables).
+
+source_schema:
+  name: https://projectredcap.org/data-dictionary
+target_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
+
+class_derivations:
+
+  DataDictionary:
+    populated_from: RedcapDataDictionary
+    slot_derivations:
+      entries:
+        populated_from: entries
+
+  # Each parsed RedcapChoice becomes a structured permissible value.
+  PermissibleValueDefinition:
+    populated_from: RedcapChoice
+    slot_derivations:
+      code:
+        populated_from: code
+      label:
+        populated_from: label
+
+  DataDictionaryEntry:
+    populated_from: RedcapField
+    slot_derivations:
+
+      name:
+        populated_from: field_name
+
+      label:
+        populated_from: field_label
+
+      description:
+        populated_from: field_note
+
+      # REDCap's required column is "y" (truthy) or empty. case() returns
+      # True only on "y"; empty / absent collapses to None and is dropped
+      # by the adapter's null-strip. We deliberately don't emit
+      # `required: false` for empty cells because REDCap's empty cell
+      # means "not declared required," not "explicitly optional."
+      required:
+        expr: |
+          case(
+            (required_field == 'y', True),
+            (True, None)
+          )
+
+      # multivalued is True only for the checkbox field type (REDCap's
+      # only multi-select widget). All other types map to scalar.
+      multivalued:
+        expr: |
+          case(
+            (field_type == 'checkbox', True),
+            (True, None)
+          )
+
+      # Type dispatch. Order matters: choice types first, then
+      # validation-driven `text` types, then the rest.
+      type:
+        expr: |
+          case(
+            (field_type in ('radio', 'dropdown', 'checkbox', 'yesno', 'truefalse'), 'permissible_values'),
+            (field_type == 'calc', 'decimal'),
+            (field_type == 'slider', 'integer'),
+            (field_type == 'file', 'string'),
+            (field_type == 'sql', 'string'),
+            (field_type == 'notes', 'string'),
+            (field_type == 'text' and text_validation_type == 'integer', 'integer'),
+            (field_type == 'text' and text_validation_type in ('number', 'number_1dp', 'number_2dp', 'number_3dp', 'number_4dp'), 'decimal'),
+            (field_type == 'text' and text_validation_type in ('date_ymd', 'date_mdy', 'date_dmy'), 'date'),
+            (field_type == 'text' and text_validation_type in ('datetime_ymd', 'datetime_mdy', 'datetime_dmy', 'datetime_seconds_ymd', 'datetime_seconds_mdy', 'datetime_seconds_dmy'), 'datetime'),
+            (field_type == 'text' and text_validation_type in ('time', 'time_mm_ss'), 'time'),
+            (True, 'string')
+          )
+
+      # Choices flow through as structured records: the adapter has
+      # already parsed REDCap's `code, label | ...` string into a list
+      # of {code, label} dicts on the source side. Each one maps to a
+      # PermissibleValueDefinition via its own class derivation.
+      codes:
+        populated_from: choices
+
+      # Min/max only meaningful for numeric validations. REDCap stores
+      # them as strings on the CSV; coerce to int / float based on the
+      # validation type. is_numeric guards non-numeric inputs.
+      min:
+        expr: |
+          case(
+            (text_validation_min is None, None),
+            (text_validation_type == 'integer', int(float(text_validation_min)) if is_numeric(text_validation_min) else None),
+            (text_validation_type in ('number', 'number_1dp', 'number_2dp', 'number_3dp', 'number_4dp'), float(text_validation_min) if is_numeric(text_validation_min) else None),
+            (True, None)
+          )
+
+      max:
+        expr: |
+          case(
+            (text_validation_max is None, None),
+            (text_validation_type == 'integer', int(float(text_validation_max)) if is_numeric(text_validation_max) else None),
+            (text_validation_type in ('number', 'number_1dp', 'number_2dp', 'number_3dp', 'number_4dp'), float(text_validation_max) if is_numeric(text_validation_max) else None),
+            (True, None)
+          )

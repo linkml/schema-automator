@@ -13,8 +13,10 @@ description: >-
   - `unique`, `minLength`, `maxLength` constraints (no DD equivalent).
   - Foreign keys, `missingValues`, `primaryKey` (drop; out of DD scope).
 
-source_schema: https://specs.frictionlessdata.io/table-schema
-target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+source_schema:
+  name: https://specs.frictionlessdata.io/table-schema
+target_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
 
 class_derivations:
 

@@ -26,8 +26,10 @@ description: >-
     ``example_values`` but it would mix "examples" with "exhaustive
     observed values" and confuse the slot's purpose.
 
-source_schema: https://w3id.org/linkml/schema-automator/dbgap
-target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+source_schema:
+  name: https://w3id.org/linkml/schema-automator/dbgap
+target_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
 
 class_derivations:
 
