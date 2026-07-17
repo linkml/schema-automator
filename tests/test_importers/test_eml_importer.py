@@ -31,6 +31,39 @@ def test_top_level_metadata(converted_schema):
     assert "Marginal Land Rainfall Exclusion Experiment" in converted_schema.title
 
 
+def test_name_and_id_overrides_win_over_package_id():
+    """Explicit name/id override the packageId-derived defaults.
+
+    A packageId is not required to be a URI (this one isn't), so an
+    override is the only way to get a well-formed schema id.
+    """
+    schema = EmlImportEngine().convert(
+        GLBRC_193, name="rainfall_exclusion", id="https://example.org/rainfall"
+    )
+    assert schema.name == "rainfall_exclusion"
+    assert schema.id == "https://example.org/rainfall"
+
+
+def test_cli_leaves_package_id_intact_when_overrides_omitted():
+    """Omitted CLI options must not clobber the packageId-derived name.
+
+    Exercised through the CLI rather than the engine: a click option
+    carrying a non-None default would silently override packageId, which
+    calling convert() directly cannot catch.
+    """
+    from click.testing import CliRunner
+
+    from schema_automator.cli import main
+
+    with tempfile.TemporaryDirectory() as d:
+        out = os.path.join(d, "out.yaml")
+        result = CliRunner().invoke(main, ["import-eml", GLBRC_193, "-o", out])
+        assert result.exit_code == 0, result.output
+        schema = SchemaView(out).schema
+    assert schema.name == "knb-lter-kbs.193.123"
+    assert schema.id == "knb-lter-kbs.193.123"
+
+
 def test_class_per_data_table(converted_schema):
     """glbrc-193.eml has 9 <dataTable> blocks → 9 classes."""
     assert len(converted_schema.classes) == 9

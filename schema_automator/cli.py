@@ -498,7 +498,15 @@ def import_xsd(input: str, output: str, **kwargs):
 @main.command()
 @click.argument('input')
 @output_option
-def import_eml(input: str, output: str, **kwargs):
+# Not schema_name_option: its DEFAULT_SCHEMA_NAME default would always win
+# over the packageId this importer derives the name from.
+@click.option(
+    '--schema-name',
+    '-n',
+    default=None,
+    help='Schema name [default: the EML packageId]')
+@schema_id_option
+def import_eml(input: str, output: str, schema_name, schema_id, **kwargs):
     """
     Import an Ecological Metadata Language (EML) XML document to LinkML.
 
@@ -507,12 +515,15 @@ def import_eml(input: str, output: str, **kwargs):
     (nominal/ordinal/interval/ratio/dateTime) dispatches to the
     appropriate LinkML range (string, integer, or float).
 
+    The schema name and id default to the EML packageId; --schema-name
+    and --schema-id override them.
+
     Example:
 
         schemauto import-eml dataset.eml -o dataset.yaml
     """
     engine = EmlImportEngine()
-    schema = engine.convert(input)
+    schema = engine.convert(input, name=schema_name, id=schema_id)
     write_schema(schema, output)
 
 @main.command()

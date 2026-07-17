@@ -74,16 +74,32 @@ class EmlImportEngine(ImportEngine):
           ``<formatString>`` but not surfaced beyond ``range: string``.
     """
 
-    def convert(self, file: str, **kwargs: Any) -> SchemaDefinition:
+    def convert(
+        self,
+        file: str,
+        name: str | None = None,
+        id: str | None = None,  # noqa: A002
+        **kwargs: Any,
+    ) -> SchemaDefinition:
         """Parse an EML document and return a LinkML SchemaDefinition.
 
         :param file: Path to an EML XML document.
+        :param name: Overrides the schema name, which otherwise derives
+            from the EML ``packageId``.
+        :param id: Overrides the schema id, which otherwise derives from
+            the EML ``packageId``. A packageId is not required to be a
+            URI, so callers needing a well-formed schema id must set it.
         :returns: A SchemaDefinition with one class per ``<dataTable>``
             and one attribute per ``<attribute>``.
         """
         src = self._load(Path(file))
         target = self._transform(src)
-        return self._materialize(target)
+        schema = self._materialize(target)
+        if name is not None:
+            schema.name = name
+        if id is not None:
+            schema.id = id
+        return schema
 
     def _load(self, path: Path) -> dict:
         return XMLLoader().load_as_dict(
