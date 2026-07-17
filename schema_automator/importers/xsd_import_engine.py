@@ -228,9 +228,13 @@ class XsdImportEngine(ImportEngine):
                     name=cls_name,
                     class_uri=urljoin(self.target_ns, cls_name) if self.target_ns else None
                 )
-                self.sb.add_class(cls)
                 slot.range = cls_name
                 self.visit_complex_type(child, cls)
+                # In linkml-runtime >=1.11 add_class() pydantic-validates
+                # its input, so the registered class is a copy; later
+                # mutations to the local `cls` don't reach it. Register
+                # after populating attributes.
+                self.sb.add_class(cls)
             elif child.tag == SIMPLE_TYPE:
                 # If we find a simple type, the range is a restriction of a primitive type
                 self.visit_simple_type(child, slot)

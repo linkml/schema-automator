@@ -52,7 +52,10 @@ class InstanceView:
         elif isinstance(obj, YAMLRoot):
             cn = type(obj).class_name
             for slot in sv.class_induced_slots(cn):
-                v = getattr(obj, slot.alias, None)
+                # slot.alias is None unless explicitly set in the schema;
+                # linkml-runtime <1.11 used to fall back to slot.name on
+                # access, 1.11 returns None. Mirror the old behavior.
+                v = getattr(obj, slot.alias or slot.name, None)
                 if v is not None:
                     if slot.identifier:
                         self.references.append((parent, v))
@@ -69,7 +72,7 @@ class InstanceView:
                         if slot.range in sv.all_classes():
                             if isinstance(v, str):
                                 self.references.append((parent, v))
-                        self.create_index(v, path=path+[slot.alias], parent=obj)
+                        self.create_index(v, path=path+[slot.alias or slot.name], parent=obj)
         logging.debug(f'Created index')
 
     def fetch_object(self, id_ref: ID_REF, default_val = None) -> Optional[YAMLRoot]:
@@ -133,7 +136,7 @@ class InstanceView:
         root_cls = type(self.root)
         for slot in self.schemaview.class_induced_slots(root_cls.class_name):
             if slot.required:
-                preserve_slots.append(slot.alias)
+                preserve_slots.append(slot.alias or slot.name)
         for slot in preserve_slots:
             xdict[slot] = getattr(self.root, slot)
         #print(f'VISITED={visited}')
@@ -156,7 +159,7 @@ class InstanceView:
             obj = seeds.pop()
             if isinstance(obj, YAMLRoot):
                 for slot in sv.class_induced_slots(type(obj).class_name):
-                    v = getattr(obj, slot.alias, None)
+                    v = getattr(obj, slot.alias or slot.name, None)
                     if v is not None:
                         if slot.identifier:
                             refs.append(v)

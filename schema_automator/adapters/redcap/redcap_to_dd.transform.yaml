@@ -24,8 +24,10 @@ description: >-
   - `descriptive` field type — these rows are filtered out by the
     adapter before the trans-spec runs (they aren't variables).
 
-source_schema: https://projectredcap.org/data-dictionary
-target_schema: https://w3id.org/linkml/schema-automator/data-dictionary
+source_schema:
+  name: https://projectredcap.org/data-dictionary
+target_schema:
+  name: https://w3id.org/linkml/schema-automator/data-dictionary
 
 class_derivations:
 
@@ -34,6 +36,15 @@ class_derivations:
     slot_derivations:
       entries:
         populated_from: entries
+
+  # Each parsed RedcapChoice becomes a structured permissible value.
+  PermissibleValueDefinition:
+    populated_from: RedcapChoice
+    slot_derivations:
+      code:
+        populated_from: code
+      label:
+        populated_from: label
 
   DataDictionaryEntry:
     populated_from: RedcapField
@@ -90,10 +101,10 @@ class_derivations:
 
       # Choices flow through as structured records: the adapter has
       # already parsed REDCap's `code, label | ...` string into a list
-      # of {code, label} dicts on the source side. The trans-spec just
-      # copies the list into the target slot when it's non-empty.
+      # of {code, label} dicts on the source side. Each one maps to a
+      # PermissibleValueDefinition via its own class derivation.
       codes:
-        expr: "[{'code': c.code, 'label': c.label} for c in choices] if choices else None"
+        populated_from: choices
 
       # Min/max only meaningful for numeric validations. REDCap stores
       # them as strings on the CSV; coerce to int / float based on the

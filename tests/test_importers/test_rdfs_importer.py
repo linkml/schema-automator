@@ -61,7 +61,7 @@ def test_infer_prefix():
     """
     rdf = StringIO("""
     @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-    @prefix foo: <https://foo.com> .
+    @prefix foo: <https://foo.com/> .
 
     foo:Class a rdfs:Class ;
         rdfs:comment "A class." .
@@ -73,7 +73,7 @@ def test_infer_prefix():
     schema = engine.convert(rdf)
     # Although not explicitly provided, the importer should realise that the prefix is "foo"
     assert schema.default_prefix == "foo"
-    assert schema.id == "https://foo.com"
+    assert schema.id == "https://foo.com/"
     assert schema.name == "foo"
 
 def test_from_rdfs():

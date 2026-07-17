@@ -48,12 +48,12 @@ dependencies = [
     "tomlkit >= 0.11.4",
     "inflect >= 6.0.0",
     "linkml-runtime >= 1.10.0, < 2",
-    # NB: the *reverse* Frictionless adapter trans-spec needs the
-    # is_str / is_bool / is_list type predicates, which land in
-    # linkml-map 0.5.3. Forward adapter and codes utility work on
-    # 0.5.2. Bump this and remove the xfail in
-    # tests/test_adapters/test_frictionless.py once 0.5.3 ships.
-    "linkml-map >= 0.5.2, < 1",
+    # 0.5.3 adds the features this batch of work needs: dot-path
+    # populated_from, safe-builtin functions, dictionary_key, strict
+    # expression mode, the SchemaReference shape for source/target_schema,
+    # and the is_str / is_bool / is_list predicates the *reverse*
+    # Frictionless adapter trans-spec relies on.
+    "linkml-map >= 0.5.3, < 1",
     "click >= 8.1.7, < 9",
     "deprecated >= 1.2.15, < 2",
     "sqlalchemy >= 2.0.36, < 3",
