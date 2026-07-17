@@ -285,6 +285,45 @@ and you can provide any OAK backend that supports text annotation.</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-enrich">
+<h4>enrich<a class="headerlink" href="#schemauto-enrich" title="Link to this heading">¶</a></h4>
+<p>Enrich a LinkML schema with one or more canonical data dictionaries.</p>
+<p>Each DD is overlaid against the schema by slot name: descriptions,
+labels (→ slot title), semantic URIs (→ slot_uri), units, codes,
+min/max, required, multivalued, and patterns flow from the DD into
+the schema. Conflicts (type mismatch, undeclared codes in data,
+DD codes inference can’t verify) are logged as warnings.</p>
+<p>Multi-DD: DDs apply in the order given; later DDs see metadata
+already written by earlier ones. Matching is by global slot name —
+no per-class targeting yet. See issue #192.</p>
+<p>Example:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">enrich</span> <span class="pre">-s</span> <span class="pre">inferred.yaml</span> <span class="pre">-d</span> <span class="pre">subject.dd.yaml</span> <span class="pre">-d</span> <span class="pre">sample.dd.yaml</span> <span class="pre">-o</span> <span class="pre">enriched.yaml</span></code></p>
+</div></blockquote>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>enrich<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-s">
+<span id="cmdoption-schemauto-enrich-schema"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-s" title="Link to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Path to a LinkML schema YAML to enrich (typically produced by generalize-tsv/generalize-tsvs).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-d">
+<span id="cmdoption-schemauto-enrich-data-dictionary"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--data-dictionary</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_dictionary&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-d" title="Link to this definition">¶</a></dt>
+<dd><p><strong>Required</strong> Path to a canonical data dictionary YAML/JSON. Pass multiple times to overlay several DDs in order; each is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-enrich-o">
+<span id="cmdoption-schemauto-enrich-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-enrich-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-enrich-using-llm">
 <h4>enrich-using-llm<a class="headerlink" href="#schemauto-enrich-using-llm" title="Link to this heading">¶</a></h4>
 <p>Enrich a schema using an LLM.</p>
@@ -849,6 +888,12 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 <dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-data-dictionary">
+<span class="sig-name descname"><span class="pre">--data-dictionary</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_dictionary&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-data-dictionary" title="Link to this definition">¶</a></dt>
+<dd><p>Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata (descriptions, labels, codes, units, semantic URIs). Pass multiple times to overlay several DDs in order. See schema_automator/metamodels/data_dictionary.yaml for the format.</p>
+</dd></dl>
+
+<dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsv-robot">
 <span id="cmdoption-schemauto-generalize-tsv-no-robot"></span><span class="sig-name descname"><span class="pre">--robot</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-robot</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsv-robot" title="Link to this definition">¶</a></dt>
 <dd><p>set if the TSV is a ROBOT template</p>
@@ -951,6 +996,12 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-infer-enum-from-integers">
 <span id="cmdoption-schemauto-generalize-tsvs-no-infer-enum-from-integers"></span><span class="sig-name descname"><span class="pre">--infer-enum-from-integers</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-infer-enum-from-integers</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-infer-enum-from-integers" title="Link to this definition">¶</a></dt>
 <dd><p>treat low-cardinality integer columns as enum candidates</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-generalize-tsvs-data-dictionary">
+<span class="sig-name descname"><span class="pre">--data-dictionary</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;data_dictionary&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-generalize-tsvs-data-dictionary" title="Link to this definition">¶</a></dt>
+<dd><p>Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata. Pass multiple times to overlay several DDs against the multi-class schema; each DD is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.</p>
 </dd></dl>
 
 <dl class="std option">

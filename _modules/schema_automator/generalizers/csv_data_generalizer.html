@@ -934,6 +934,15 @@ window.runMermaid = runMermaid;</script>
             <span class="k">elif</span> <span class="n">is_unique</span><span class="p">:</span>
                 <span class="n">unique_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sn</span><span class="p">)</span>
             <span class="n">vals</span> <span class="o">=</span> <span class="n">slot_distinct_values</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span>
+            <span class="c1"># Empirical cardinality — load-bearing for downstream</span>
+            <span class="c1"># enrichment (see schema_automator.enrichers): when a DD</span>
+            <span class="c1"># declares fewer codes than were observed, the enricher</span>
+            <span class="c1"># treats the DD&#39;s enum as incomplete and refuses to</span>
+            <span class="c1"># collapse the inferred range.</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;annotations&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;num_distinct_values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;num_distinct_values&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)),</span>
+            <span class="p">}</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">sn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">:</span>
                     <span class="n">s</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">sn</span><span class="p">]</span><span class="o">.</span><span class="n">description</span>
