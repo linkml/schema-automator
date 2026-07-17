@@ -129,9 +129,13 @@ def main(verbose: int, quiet: bool):
 @click.option('--data-dictionary-row-count',
               type=click.INT,
               help='rows that provide metadata about columns')
+@click.option('--data-dictionary',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              help='Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata (descriptions, labels, codes, units, semantic URIs). Pass multiple times to overlay several DDs in order. See schema_automator/metamodels/data_dictionary.yaml for the format.')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
 @click.option('--pandera/--no-pandera', default=False, help='set to use panderas as inference engine')
-def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, **kwargs):
+def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, annotator, data_dictionary, **kwargs):
     """
     Generalizes from a single TSV file to a single-class schema
 
@@ -147,6 +151,12 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
     else:
         ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert(tsvfile, class_name=class_name, schema_name=schema_name)
+    if data_dictionary:
+        from schema_automator.enrichers import enrich_with_data_dictionary
+        for dd_path in data_dictionary:
+            with open(dd_path) as f:
+                dd = yaml.safe_load(f)
+            enrich_with_data_dictionary(schema, dd)
     if annotator:
         impl = get_implementation_from_shorthand(annotator)
         sa = SchemaAnnotator(impl)
@@ -167,8 +177,12 @@ def generalize_tsv(tsvfile, output, class_name, schema_name, pandera: bool, anno
 @infer_optional_option
 @infer_mixed_types_option
 @infer_enum_from_integers_option
+@click.option('--data-dictionary',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              help='Path to a canonical data dictionary YAML/JSON to enrich the inferred schema with declared metadata. Pass multiple times to overlay several DDs against the multi-class schema; each DD is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.')
 @click.option('--robot/--no-robot', default=False, help='set if the TSV is a ROBOT template')
-def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
+def generalize_tsvs(tsvfiles, output, schema_name, data_dictionary, **kwargs):
     """
     Generalizes from a multiple TSV files to a multi-class schema
 
@@ -182,6 +196,12 @@ def generalize_tsvs(tsvfiles, output, schema_name, **kwargs):
     """
     ie = CsvDataGeneralizer(**kwargs)
     schema = ie.convert_multiple(tsvfiles, schema_name=schema_name)
+    if data_dictionary:
+        from schema_automator.enrichers import enrich_with_data_dictionary
+        for dd_path in data_dictionary:
+            with open(dd_path) as f:
+                dd = yaml.safe_load(f)
+            enrich_with_data_dictionary(schema, dd)
     write_schema(schema, output)
 
 
@@ -911,6 +931,48 @@ def extract_dd(schema_path: str, class_name: str | None, output: str, tsv: bool)
         with open(out_path, 'w') as f:
             f.write(render(dd))
     click.echo(f"Wrote {len(classes)} data dictionaries to {output}")
+
+
+@main.command()
+@click.option('--schema', '-s',
+              required=True,
+              type=click.Path(exists=True, dir_okay=False),
+              help='Path to a LinkML schema YAML to enrich (typically produced by generalize-tsv/generalize-tsvs).')
+@click.option('--data-dictionary', '-d',
+              type=click.Path(exists=True, dir_okay=False),
+              multiple=True,
+              required=True,
+              help='Path to a canonical data dictionary YAML/JSON. Pass multiple times to overlay several DDs in order; each is applied globally by slot name. See schema_automator/metamodels/data_dictionary.yaml for the format.')
+@output_option
+def enrich(schema: str, data_dictionary: tuple[str, ...], output: str):
+    """
+    Enrich a LinkML schema with one or more canonical data dictionaries.
+
+    Each DD is overlaid against the schema by slot name: descriptions,
+    labels (→ slot title), semantic URIs (→ slot_uri), units, codes,
+    min/max, required, multivalued, and patterns flow from the DD into
+    the schema. Conflicts (type mismatch, undeclared codes in data,
+    DD codes inference can't verify) are logged as warnings.
+
+    Multi-DD: DDs apply in the order given; later DDs see metadata
+    already written by earlier ones. Matching is by global slot name —
+    no per-class targeting yet. See issue #192.
+
+    Example:
+
+        ``schemauto enrich -s inferred.yaml -d subject.dd.yaml -d sample.dd.yaml -o enriched.yaml``
+    """
+    from linkml_runtime.loaders import yaml_loader
+    from linkml_runtime.linkml_model import SchemaDefinition
+    from schema_automator.enrichers import enrich_with_data_dictionary
+
+    with open(schema) as f:
+        sch = yaml_loader.load(f.read(), SchemaDefinition)
+    for dd_path in data_dictionary:
+        with open(dd_path) as f:
+            dd = yaml.safe_load(f)
+        enrich_with_data_dictionary(sch, dd)
+    write_schema(sch, output)
 
 
 if __name__ == "__main__":
