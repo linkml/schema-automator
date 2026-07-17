@@ -1055,6 +1055,50 @@ and pass in an argument of the form <a class="reference external" href="file:///
 </dd></dl>
 
 </section>
+<section id="schemauto-import-eml">
+<h4>import-eml<a class="headerlink" href="#schemauto-import-eml" title="Link to this heading">¶</a></h4>
+<p>Import an Ecological Metadata Language (EML) XML document to LinkML.</p>
+<p>Each &lt;dataTable&gt; in the EML document becomes a LinkML class; each
+&lt;attribute&gt; becomes a slot. The measurementScale variant
+(nominal/ordinal/interval/ratio/dateTime) dispatches to the
+appropriate LinkML range (string, integer, or float).</p>
+<p>The schema name and id default to the EML packageId; –schema-name
+and –schema-id override them.</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto import-eml dataset.eml -o dataset.yaml</p>
+</div></blockquote>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-eml<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-eml-o">
+<span id="cmdoption-schemauto-import-eml-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-eml-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-eml-n">
+<span id="cmdoption-schemauto-import-eml-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-eml-n" title="Link to this definition">¶</a></dt>
+<dd><p>Schema name [default: the EML packageId]</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-eml-schema-id">
+<span class="sig-name descname"><span class="pre">--schema-id</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_id&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-eml-schema-id" title="Link to this definition">¶</a></dt>
+<dd><p>Schema id</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-eml-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-eml-arg-INPUT" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-import-frictionless">
 <h4>import-frictionless<a class="headerlink" href="#schemauto-import-frictionless" title="Link to this heading">¶</a></h4>
 <p>Imports from Frictionless data package to LinkML</p>
@@ -1230,7 +1274,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p><code class="docutils literal notranslate"><span class="pre">schemauto</span> <span class="pre">import-owl</span> <span class="pre">prov.ofn</span> <span class="pre">-o</span> <span class="pre">my.yaml</span></code></p>
 </div></blockquote>
 <p class="rubric">Usage</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-owl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>OWLFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-owl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -1271,8 +1315,8 @@ and pass in an argument of the form <a class="reference external" href="file:///
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-arg-OWLFILE">
-<span class="sig-name descname"><span class="pre">OWLFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-arg-OWLFILE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-owl-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-owl-arg-INPUT" title="Link to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -1285,7 +1329,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-rdfs prov.rdfs.ttl -o prov.yaml</p>
 </div></blockquote>
 <p class="rubric">Usage</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-rdfs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RDFSFILE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-rdfs<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -1338,8 +1382,8 @@ and pass in an argument of the form <a class="reference external" href="file:///
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-arg-RDFSFILE">
-<span class="sig-name descname"><span class="pre">RDFSFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-arg-RDFSFILE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-rdfs-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-rdfs-arg-INPUT" title="Link to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -1386,7 +1430,7 @@ and pass in an argument of the form <a class="reference external" href="file:///
 <div><p>schemauto import-xsd schema.xml -o prov.yaml</p>
 </div></blockquote>
 <p class="rubric">Usage</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-xsd<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>XSD
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-xsd<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 </pre></div>
 </div>
 <p class="rubric">Options</p>
@@ -1415,8 +1459,8 @@ and pass in an argument of the form <a class="reference external" href="file:///
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-schemauto-import-xsd-arg-XSD">
-<span class="sig-name descname"><span class="pre">XSD</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-xsd-arg-XSD" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-xsd-arg-INPUT">
+<span class="sig-name descname"><span class="pre">INPUT</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-xsd-arg-INPUT" title="Link to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
