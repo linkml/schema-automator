@@ -4086,7 +4086,6 @@ source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "click-log" },
-    { name = "defusedxml" },
     { name = "deprecated" },
     { name = "funowl" },
     { name = "inflect" },
@@ -4155,7 +4154,6 @@ dev = [
 requires-dist = [
     { name = "click", specifier = ">=8.1.7,<9" },
     { name = "click-log", specifier = ">=0.4.0" },
-    { name = "defusedxml", specifier = ">=0.7.1" },
     { name = "deprecated", specifier = ">=1.2.15,<2" },
     { name = "duckdb", marker = "extra == 'duckdb'", specifier = ">=0.10.1,<2" },
     { name = "funowl", specifier = ">=0.2.3" },
