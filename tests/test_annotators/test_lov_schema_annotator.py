@@ -4,7 +4,7 @@ import logging
 import unittest
 import os
 import yaml
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition, EnumDefinition, PermissibleValue
 from oaklib import OntologyResource

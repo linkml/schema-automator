@@ -7,7 +7,7 @@ import yaml
 import logging
 from typing import Any, Tuple, Dict, List, Optional
 
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, \
     SlotDefinition, EnumDefinition, \
     ClassDefinitionName, Prefix

@@ -6,7 +6,7 @@ from collections import defaultdict, Counter
 import warnings
 
 from jsonasobj2 import JsonObj
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
