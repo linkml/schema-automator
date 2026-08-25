@@ -7,7 +7,7 @@ import os
 import yaml
 from linkml.generators.pythongen import PythonGenerator
 from linkml.utils import sqlutils
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml.utils.sqlutils import SQLStore
 from linkml_runtime import SchemaView
 from linkml_runtime.dumpers import yaml_dumper

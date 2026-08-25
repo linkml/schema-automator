@@ -4,7 +4,7 @@ import re
 from types import GenericAlias
 from typing import Any, Iterable, Type, cast, TypeVar
 from urllib.parse import urljoin
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model import (
     SchemaDefinition,
     SlotDefinition,

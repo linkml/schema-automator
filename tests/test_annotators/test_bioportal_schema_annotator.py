@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import unittest
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.dumpers import yaml_dumper
 from linkml_runtime.linkml_model import SchemaDefinition, EnumDefinition, PermissibleValue
 from oaklib.implementations import BioPortalImplementation

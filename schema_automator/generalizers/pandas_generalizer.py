@@ -5,7 +5,7 @@ import pandas as pd
 import pandera as pa
 from dataclasses import dataclass
 
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml.utils.schema_fixer import SchemaFixer
 from linkml_runtime.linkml_model import SchemaDefinition, ClassDefinition, SlotDefinition
 from pandera import Column

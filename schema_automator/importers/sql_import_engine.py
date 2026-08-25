@@ -3,7 +3,7 @@ from pathlib import Path
 
 from typing import Union, Dict, Tuple, List, Any, Type
 
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model import SchemaDefinition, SlotDefinition
 
 from dataclasses import dataclass

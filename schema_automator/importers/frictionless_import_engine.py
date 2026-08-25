@@ -3,7 +3,7 @@ from typing import Union, Dict, Tuple, List, Any, Optional
 
 from dataclasses import dataclass
 
-from linkml.utils.schema_builder import SchemaBuilder
+from linkml_runtime.utils.schema_builder import SchemaBuilder
 from linkml_runtime.linkml_model.meta import SchemaDefinition, SlotDefinition, EnumDefinition, \
     PermissibleValue, UniqueKey, ClassDefinition
 from linkml_runtime.loaders import json_loader
