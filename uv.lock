@@ -586,18 +586,6 @@ wheels = [
 ]
 
 [[package]]
-name = "deepdiff"
-version = "9.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "orderly-set" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/24/20/63dd34163ed07393968128dc8c7ab948c96e47c4ce76976ea533de64909d/deepdiff-9.0.0.tar.gz", hash = "sha256:4872005306237b5b50829803feff58a1dfd20b2b357a55de22e7ded65b2008a7", size = 151952, upload-time = "2026-03-30T05:52:23.769Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/c4/da7089cd7aa4ab554f56e18a7fb08dcfed8fd2ae91fa528f5b1be207a148/deepdiff-9.0.0-py3-none-any.whl", hash = "sha256:b1ae0dd86290d86a03de5fbee728fde43095c1472ae4974bdab23ab4656305bd", size = 170540, upload-time = "2026-03-30T05:52:22.008Z" },
-]
-
-[[package]]
 name = "defusedxml"
 version = "0.7.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1861,18 +1849,18 @@ wheels = [
 
 [[package]]
 name = "linkml-map"
-version = "0.5.3"
+version = "0.5.4rc1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asteval" },
     { name = "click" },
     { name = "curies" },
-    { name = "deepdiff" },
     { name = "duckdb" },
     { name = "flatten-dict" },
     { name = "graphviz" },
     { name = "inflection" },
     { name = "jinja2" },
+    { name = "jsonschema" },
     { name = "lark" },
     { name = "linkml" },
     { name = "linkml-runtime" },
@@ -1886,9 +1874,9 @@ dependencies = [
     { name = "ucumvert", version = "0.2.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "ucumvert", version = "0.3.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/21/65/92e03bbaa3f70c215b44729e1adc37795a01ace438f44a99f30af84f4e8b/linkml_map-0.5.3.tar.gz", hash = "sha256:2bdb16bc9546280cf03bbe9476ed3460795d612004b61e810d4206d7830093b4", size = 585678, upload-time = "2026-07-16T19:18:50.466Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4c/f8/f825b7d91771c0a62ba79b6e9179c3813c933da4a45846802afe738eaa47/linkml_map-0.5.4rc1.tar.gz", hash = "sha256:129a8a13646410709c13f1cc11dce4a1fecad068d5b973bd5de1f6dd1e0dce85", size = 653993, upload-time = "2026-08-25T17:56:35.497Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/01/1d8e9f0c1e51475275d9393154a69e86170e7d4a7ab17fa568935d1c24ed/linkml_map-0.5.3-py3-none-any.whl", hash = "sha256:937beba0e2ce54f669e873f80166dda9e198068eed2338e032d5a1309251556c", size = 151142, upload-time = "2026-07-16T19:18:48.621Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/5b/3dde3c47647d769921485dc7fea7563e77426f51542c64a1493945a70959/linkml_map-0.5.4rc1-py3-none-any.whl", hash = "sha256:76a238e3f637a63d7c23a9bd42c86666a9623f4f7dcafca7450a5c2ae799a5ed", size = 149693, upload-time = "2026-08-25T17:56:33.957Z" },
 ]
 
 [[package]]
@@ -2782,15 +2770,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/3d/f9/88d94a75de065ea32619465d2f77b29a0469500e99012523b91cc4141cd1/openpyxl-3.1.5.tar.gz", hash = "sha256:cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050", size = 186464, upload-time = "2024-06-28T14:03:44.161Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl", hash = "sha256:5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2", size = 250910, upload-time = "2024-06-28T14:03:41.161Z" },
-]
-
-[[package]]
-name = "orderly-set"
-version = "5.5.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/4a/88/39c83c35d5e97cc203e9e77a4f93bf87ec89cf6a22ac4818fdcc65d66584/orderly_set-5.5.0.tar.gz", hash = "sha256:e87185c8e4d8afa64e7f8160ee2c542a475b738bc891dc3f58102e654125e6ce", size = 27414, upload-time = "2025-07-10T20:10:55.885Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/27/fb8d7338b4d551900fa3e580acbe7a0cf655d940e164cb5c00ec31961094/orderly_set-5.5.0-py3-none-any.whl", hash = "sha256:46f0b801948e98f427b412fcabb831677194c05c3b699b80de260374baa0b1e7", size = 13068, upload-time = "2025-07-10T20:10:54.377Z" },
 ]
 
 [[package]]
@@ -4160,7 +4139,7 @@ requires-dist = [
     { name = "inflect", specifier = ">=6.0.0" },
     { name = "jsonasobj2", specifier = ">=1.0.4,<2" },
     { name = "linkml", specifier = ">=1.10.0,<2" },
-    { name = "linkml-map", specifier = ">=0.5.3,<1" },
+    { name = "linkml-map", specifier = ">=0.5.4rc1,<1" },
     { name = "linkml-runtime", specifier = ">=1.10.0,<2" },
     { name = "llm", marker = "extra == 'llm'", specifier = ">=0.21,<1" },
     { name = "lxml", specifier = ">=5.3.0" },
