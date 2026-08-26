@@ -1849,7 +1849,7 @@ wheels = [
 
 [[package]]
 name = "linkml-map"
-version = "0.5.4rc1"
+version = "0.5.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asteval" },
@@ -1874,9 +1874,9 @@ dependencies = [
     { name = "ucumvert", version = "0.2.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "ucumvert", version = "0.3.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4c/f8/f825b7d91771c0a62ba79b6e9179c3813c933da4a45846802afe738eaa47/linkml_map-0.5.4rc1.tar.gz", hash = "sha256:129a8a13646410709c13f1cc11dce4a1fecad068d5b973bd5de1f6dd1e0dce85", size = 653993, upload-time = "2026-08-25T17:56:35.497Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/48/7b/cca78afe9a3fa1ee2ddd1edf3f26f9021f99eb6778769adfff5a1dd32cb2/linkml_map-0.5.4.tar.gz", hash = "sha256:08b5c7f8011036ad9acbb271baf5c3a23964bc15132ad33184b0eb5aa82d9277", size = 653825, upload-time = "2026-08-26T21:04:59.616Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4f/5b/3dde3c47647d769921485dc7fea7563e77426f51542c64a1493945a70959/linkml_map-0.5.4rc1-py3-none-any.whl", hash = "sha256:76a238e3f637a63d7c23a9bd42c86666a9623f4f7dcafca7450a5c2ae799a5ed", size = 149693, upload-time = "2026-08-25T17:56:33.957Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/43/c65215a4aa4f2670c4887df471fde96a59d406f363224ed7fa0264712a1a/linkml_map-0.5.4-py3-none-any.whl", hash = "sha256:316429deb753568937eb73a173723a3edfb8ce744a61f0ca05a2d91752c05d8b", size = 149661, upload-time = "2026-08-26T21:04:58.36Z" },
 ]
 
 [[package]]
@@ -4139,7 +4139,7 @@ requires-dist = [
     { name = "inflect", specifier = ">=6.0.0" },
     { name = "jsonasobj2", specifier = ">=1.0.4,<2" },
     { name = "linkml", specifier = ">=1.10.0,<2" },
-    { name = "linkml-map", specifier = ">=0.5.4rc1,<1" },
+    { name = "linkml-map", specifier = ">=0.5.4,<1" },
     { name = "linkml-runtime", specifier = ">=1.10.0,<2" },
     { name = "llm", marker = "extra == 'llm'", specifier = ">=0.21,<1" },
     { name = "lxml", specifier = ">=5.3.0" },
