@@ -54,7 +54,7 @@ dependencies = [
     # is_bool / is_list predicates the *reverse* Frictionless adapter
     # trans-spec relies on. 0.5.4 drops linkml-map's requires-python
     # <3.14 cap, which otherwise blocks installing us on 3.14.
-    "linkml-map >= 0.5.4rc1, < 1",
+    "linkml-map >= 0.5.4, < 1",
     "click >= 8.1.7, < 9",
     "deprecated >= 1.2.15, < 2",
     "sqlalchemy >= 2.0.36, < 3",
