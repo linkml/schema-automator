@@ -1,0 +1,25 @@
+@prefix ex:  <http://example.org/> .
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Same class as profile_a, but this profile does not require ratedS.
+ex:TerminalB a sh:NodeShape ;
+    sh:targetClass ex:Terminal ;
+    sh:property ex:name-cardinality , ex:name-datatype , ex:Terminal.Equip-valueType .
+
+ex:TopologicalNodeB a sh:NodeShape ;
+    sh:targetClass ex:TopologicalNode ;
+    sh:property ex:name-cardinality , ex:kind-datatype .
+
+ex:name-cardinality a sh:PropertyShape ;
+    sh:path ex:name ; sh:minCount 1 ; sh:maxCount 1 .
+ex:name-datatype a sh:PropertyShape ;
+    sh:path ex:name ; sh:datatype xsd:string .
+ex:kind-datatype a sh:PropertyShape ;
+    sh:path ex:kind ; sh:in ( "a" "b" ) .
+
+# Multi-member sh:in -- a union of ranges, not an enum.
+ex:Terminal.Equip-valueType a sh:PropertyShape ;
+    sh:path ( ex:equip rdf:type ) ;
+    sh:in ( ex:Equipment ex:TopologicalNode ) .

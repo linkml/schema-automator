@@ -216,3 +216,109 @@ def test_mode_is_detected_by_majority():
     engine = ShaclImportEngine()
     engine.convert(SIMPLE, default_prefix="usr")
     assert engine.use_target_class is True
+
+
+# ---------------------------------------------------------------------------
+# Shapes split across node shapes and files
+# ---------------------------------------------------------------------------
+#
+# The CGMES conformity-assessment shapes are built this way: a class's
+# constraints are spread over a main node shape plus supplementary
+# ``*-valueTypeNodeShape`` shapes, and spread again over one file per profile
+# (301 of its 396 classes appear in more than one file). Importing a single file
+# therefore cannot see a whole class, and importing shapes one-per-class raises a
+# duplicate-name error.
+
+SPLIT = os.path.join(INPUT_DIR, "shacl_split_profiles")
+
+
+@pytest.fixture(scope="module")
+def split_schema():
+    """A directory of two profiles that both constrain ex:Terminal."""
+    return ShaclImportEngine().convert(
+        SPLIT, default_prefix="ex", model_uri="http://example.org/"
+    )
+
+
+def test_a_directory_loads_every_file_into_one_graph(split_schema):
+    assert {"Terminal", "Equipment", "TopologicalNode"} <= set(split_schema.classes)
+
+
+def test_shapes_for_one_class_merge_instead_of_colliding(split_schema):
+    """Three node shapes target ex:Terminal; adding each as a class would raise.
+
+    The merged class must carry the union of their properties -- ``ratedS`` from
+    profile_a's main shape, ``node`` from its supplementary value-type shape, and
+    ``equip`` from profile_b.
+    """
+    attributes = split_schema.classes["Terminal"].attributes
+    assert {"name", "ratedS", "node", "equip"} <= set(attributes)
+
+
+def test_required_relaxes_to_the_laxest_profile(split_schema):
+    """A property required by one profile but absent from another is optional.
+
+    CGMES requires ``RotatingMachine.ratedS`` in Equipment but not in
+    ShortCircuit or SteadyStateHypothesis. Unioning ``required`` across profiles
+    would reject a valid file of the laxer profile for omitting it.
+    """
+    assert not split_schema.classes["Terminal"].attributes["ratedS"].required
+
+
+def test_required_still_holds_when_every_profile_agrees(split_schema):
+    """Relaxing across profiles must not discard a constraint they all state."""
+    assert split_schema.classes["Terminal"].attributes["name"].required
+
+
+def test_value_type_sequence_path_becomes_a_range(split_schema):
+    """``sh:path ( ex:node rdf:type )`` with ``sh:in`` states a range.
+
+    This is the only way the CGMES corpus records the permitted classes of an
+    association; skipping it as an unmappable complex path leaves every
+    association untyped.
+    """
+    assert split_schema.classes["Terminal"].attributes["node"].range == (
+        "TopologicalNode"
+    )
+
+
+def test_multi_member_value_type_becomes_a_union(split_schema):
+    """Several permitted classes are a union of ranges, not an enum of values."""
+    slot = split_schema.classes["Terminal"].attributes["equip"]
+    assert {option["range"] for option in slot.any_of} == {
+        "Equipment",
+        "TopologicalNode",
+    }
+
+
+def test_a_union_range_does_not_also_carry_a_scalar_range(split_schema):
+    """``range`` and ``any_of`` are mutually exclusive; the union is the specific one."""
+    assert not split_schema.classes["Terminal"].attributes["equip"].range
+
+
+def test_a_value_type_shape_does_not_impose_cardinality(split_schema):
+    """Its counts bound the rdf:type hop, not the property.
+
+    The sibling ``*-cardinality`` shape carries the property's own bounds.
+    """
+    assert not split_schema.classes["Terminal"].attributes["node"].required
+
+
+def test_a_shared_sh_in_shape_registers_its_enum_once(split_schema):
+    """One property shape is reached through many node shapes.
+
+    CGMES declares ``Measurement.phases-datatype`` once and references it from
+    Analog, Discrete, Accumulator and StringMeasurement; registering its enum
+    per reference raises a duplicate-name error.
+    """
+    assert "kind_enum" in split_schema.enums
+    assert set(split_schema.enums["kind_enum"].permissible_values) == {"a", "b"}
+    assert split_schema.classes["Equipment"].attributes["kind"].range == "kind_enum"
+
+
+def test_split_schema_is_valid(split_schema, tmp_path):
+    output = tmp_path / "split.yaml"
+    write_schema(split_schema, str(output))
+    view = SchemaView(str(output))
+    assert view.get_class("Terminal")
+    assert [s.name for s in view.class_induced_slots("Terminal")]

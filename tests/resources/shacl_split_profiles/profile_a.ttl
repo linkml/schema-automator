@@ -1,0 +1,38 @@
+# Two profiles constraining one class, in the CGMES style: constraints split
+# across node shapes and files, association ranges stated as (path rdf:type)
+# sequence paths, and one property shape shared by several node shapes.
+@prefix ex:  <http://example.org/> .
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:TerminalA a sh:NodeShape ;
+    sh:targetClass ex:Terminal ;
+    sh:property ex:name-cardinality , ex:name-datatype , ex:ratedS-cardinality .
+
+# A supplementary shape for the same class -- must merge, not collide.
+ex:Terminal.Node-valueTypeNodeShape a sh:NodeShape ;
+    sh:targetClass ex:Terminal ;
+    sh:property ex:Terminal.Node-valueType .
+
+ex:EquipA a sh:NodeShape ;
+    sh:targetClass ex:Equipment ;
+    sh:property ex:name-cardinality , ex:name-datatype , ex:kind-datatype .
+
+ex:name-cardinality a sh:PropertyShape ;
+    sh:path ex:name ; sh:minCount 1 ; sh:maxCount 1 .
+ex:name-datatype a sh:PropertyShape ;
+    sh:path ex:name ; sh:datatype xsd:string .
+
+# Required here; profile_b's shape for Terminal omits it entirely.
+ex:ratedS-cardinality a sh:PropertyShape ;
+    sh:path ex:ratedS ; sh:minCount 1 ; sh:maxCount 1 .
+
+# Association range via a (property rdf:type) sequence path.
+ex:Terminal.Node-valueType a sh:PropertyShape ;
+    sh:path ( ex:node rdf:type ) ;
+    sh:in ( ex:TopologicalNode ) .
+
+# One sh:in shape shared by two node shapes -- the enum must register once.
+ex:kind-datatype a sh:PropertyShape ;
+    sh:path ex:kind ; sh:in ( "a" "b" ) .

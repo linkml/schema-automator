@@ -22,16 +22,98 @@ ontologies such as ASHRAE 223P and Brick::
         rdfs:subClassOf s223:Connectable ;
         sh:property [ sh:path s223:hasProperty ; sh:class s223:Property ] .
 
-What is deliberately not imported: ``sh:sparql`` constraints, ``sh:severity`` and
-``sh:message``. These are validation concerns with no LinkML equivalent, and a shape
-carrying only ``sh:sparql`` contributes no range or cardinality -- emitting a slot
-for it invents an untyped attribute that then shadows the real one on subclasses.
+*Split* -- one class's constraints spread over several shapes, and over several
+files, which is the style used by the IEC/ENTSO-E CGMES conformity-assessment
+shapes. A main shape carries the bulk, supplementary shapes add one constraint
+each, and each profile restates the class::
+
+    eq:Terminal a sh:NodeShape ; sh:targetClass cim:Terminal ;
+        sh:property ido:IdentifiedObject.name-cardinality , ... .
+    eq:Terminal.Node-valueTypeNodeShape a sh:NodeShape ; sh:targetClass cim:Terminal ;
+        sh:property eq:Terminal.Node-valueType .
+
+Shapes therefore merge rather than collide, in two tiers: within a file they are
+conjunctive, across files the laxest bound wins -- see
+:meth:`ShaclImportEngine.merge_classes`. Passing a directory to
+:meth:`ShaclImportEngine.convert` loads every file into one graph, which is what
+makes the second tier possible.
+
+Limitations
+-----------
+
+A LinkML schema is a data model; a shapes graph is a validation program. The
+overlap is large but proper, so an import is lossy by construction and does not
+round-trip -- neither byte-for-byte nor shape-for-shape. What is dropped:
+
+``sh:sparql`` constraints
+    Nothing in LinkML corresponds. Some are ordinary predicates awkwardly
+    expressed (a ``STRLEN`` bound is close to ``pattern``); most are genuinely
+    beyond a schema. CGMES 3.0.2 carries 194 of them, and the majority are
+    multi-hop invariants over several objects -- "this ACLineSegment has a
+    different ``BaseVoltage.nominalVoltage`` at its two ends" traverses terminal
+    to topological node to base voltage. A schema language cannot state that, and
+    should not try.
+
+    A related case is worth knowing about because it is a *source* defect rather
+    than an expressiveness gap. Some published shapes encode exclusive-choice
+    ("exactly one of these 13 associations") as a combinatorial
+    ``BIND(EXISTS{...})`` filter over every pair -- 6 files in CGMES 3.0.2 use the
+    pattern. Standard SHACL states the same thing as an ``sh:alternativePath``
+    carrying ``sh:minCount``/``sh:maxCount``. ENTSO-E is correcting these upstream
+    (entsoe/application-profiles-library#142). Supporting the corrected form is a
+    bounded change to :meth:`ShaclImportEngine.visit_property_shape` -- an
+    alternative path over N predicates is an ``any_of`` of N slots -- and is a
+    better use of effort than parsing the SPARQL.
+
+``sh:severity``, ``sh:message``, ``sh:name``, ``sh:order``, ``sh:group``
+    Diagnostics and presentation. CGMES 3.0.2 attaches a message and a severity to
+    all 8,738 of its constraints; they describe how a validator should report, not
+    what the data is. ``rdfs:comment`` and ``sh:description`` are kept as
+    ``description``.
+
+Sequence and alternative property paths
+    Skipped, with one exception: a two-step path ending in ``rdf:type`` is
+    recognised as a value-type constraint, because it is the only way CGMES states
+    the permitted classes of an association (see
+    :meth:`ShaclImportEngine._value_type_path`). Longer sequences, general
+    alternatives and ``sh:zeroOrMorePath`` have no LinkML equivalent.
+
+Per-profile constraint variation
+    Collapsed. Where profiles disagree on whether a property is required, the
+    merge keeps the laxest bound, so the distinction between "Equipment requires
+    ``ratedS``" and "SteadyStateHypothesis does not" is not recoverable from the
+    output. Representing it would need a schema per profile.
+
+Class hierarchy, when the shapes omit it
+    Taken from ``rdfs:subClassOf`` where present, so 223P and Brick import with
+    ``is_a`` intact. CGMES states no hierarchy in its shapes at all -- it lives in
+    separate RDFS vocabulary files -- so that corpus imports flat, with inherited
+    constraints repeated on each class as the shapes themselves repeat them.
+
+Validation therefore stays with ``pyshacl`` against the original shapes graph. The
+imported schema is for generation and documentation, not a replacement for it.
+
+To do
+-----
+
+* No override for mode detection; a graph evenly split between explicit and
+  implicit shapes is decided by a coin toss.
+* ``sh:node`` is treated as a class range like ``sh:class``, which is right for the
+  vocabularies tested but wrong in general -- it may name an arbitrary shape.
+* ``sh:minInclusive``/``sh:maxInclusive`` are not read, though LinkML has
+  ``minimum_value``/``maximum_value``. The clearest gap of the four: CGMES 3.0.2
+  states 853 of them, all currently dropped.
+* ``sh:pattern`` counts as substantive but is not carried onto the slot, though
+  LinkML has ``pattern``.
+* A directory is parsed with a single ``format``, so mixed serialisations need
+  separate runs.
 """
 
 from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Iterable
 
 from linkml_runtime.utils.schema_builder import SchemaBuilder
@@ -93,6 +175,36 @@ SUBSTANTIVE = (
 )
 
 
+#: Extensions treated as shapes files when loading a directory.
+SHAPE_SUFFIXES = (".ttl", ".n3", ".nt", ".rdf", ".xml", ".owl", ".jsonld")
+
+
+def _expand_sources(file: str) -> list[str]:
+    """The shapes files *file* names: itself, or the contents of a directory.
+
+    A directory is loaded into a single graph, which is what lets constraints for
+    one class merge across files -- CGMES splits 301 of its 396 classes over
+    several profile files, so importing them one at a time cannot see the whole
+    class. Sorted so a run is reproducible, and non-shape files are skipped rather
+    than handed to the parser.
+
+    Every file in a directory is parsed with the same *format* as the caller
+    passed, so a directory must hold one serialisation.
+    """
+    path = Path(file)
+    if not path.is_dir():
+        return [file]
+    sources = sorted(
+        str(child)
+        for child in path.rglob("*")
+        if child.is_file() and child.suffix.lower() in SHAPE_SUFFIXES
+    )
+    if not sources:
+        raise ValueError(f"no shapes files found in {file}")
+    logger.info("loading %d shapes file(s) from %s", len(sources), file)
+    return sources
+
+
 def _local_name(term: Node) -> str:
     """Last path or fragment component of a URI."""
     text = str(term)
@@ -121,6 +233,8 @@ class ShaclImportEngine(ImportEngine):
     graph: Graph = field(default_factory=Graph)
 
     _prefixes: dict[str, str] = field(default_factory=dict)
+    #: Source file each node shape was first seen in; see :meth:`_profile_of`.
+    _profiles: dict[Node, str] = field(default_factory=dict)
     _enums: dict[URIRef, str] = field(default_factory=dict)
 
     # ------------------------------------------------------------------ naming
@@ -231,12 +345,20 @@ class ShaclImportEngine(ImportEngine):
             return None
 
         inverse = None
+        value_type_of = None
         if isinstance(path, BNode):
             inverse = self.graph.value(path, SH.inversePath)
             if inverse is None:
-                # Sequence and alternative paths have no LinkML equivalent.
+                value_type_of = self._value_type_path(path)
+            if inverse is None and value_type_of is None:
+                # Other sequence and alternative paths have no LinkML equivalent.
                 logger.debug("skipping complex property path on %s", property_shape)
                 return None
+
+        if value_type_of is not None:
+            # A value-type shape states the range of the property it follows, so it
+            # merges into that property's slot rather than becoming one of its own.
+            path = value_type_of
 
         if not self._is_substantive(property_shape):
             # A shape with only sh:sparql states a rule, not a property.
@@ -255,14 +377,48 @@ class ShaclImportEngine(ImportEngine):
         )
         if inverse is not None:
             slot.annotations["inverse_of"] = self.element_name(inverse)
-        self.apply_range(property_shape, path, slot)
-        self.apply_cardinality(property_shape, slot)
+        self.apply_range(
+            property_shape, path, slot, value_type=value_type_of is not None
+        )
+        if value_type_of is None:
+            # A value-type shape's counts bound the rdf:type hop, not the property;
+            # the sibling *-cardinality shape carries the property's own bounds.
+            self.apply_cardinality(property_shape, slot)
         return slot
+
+    def _value_type_path(self, path: BNode) -> URIRef | None:
+        """The property a ``(property rdf:type)`` value-type path constrains.
+
+        CGMES states the class of an association's target with a two-step sequence
+        path ending in ``rdf:type``, listing the permitted classes in ``sh:in``::
+
+            sh:path ( cim:Terminal.TopologicalNode rdf:type ) ;
+            sh:in   ( cim:TopologicalNode ) .
+
+        This is the only place CGMES records association ranges, so skipping it as
+        an unmappable complex path leaves every association untyped. Returns None
+        for any other sequence path, which stays unmapped.
+        """
+        items = list(self.graph.items(path))
+        if len(items) != 2 or items[-1] != RDF.type:
+            return None
+        return items[0] if isinstance(items[0], URIRef) else None
 
     # ------------------------------------------------------------------ ranges
 
-    def apply_range(self, property_shape: Node, path: Node, slot: SlotDefinition) -> None:
-        """Set ``range`` or ``any_of`` from the shape's type constraints."""
+    def apply_range(
+        self,
+        property_shape: Node,
+        path: Node,
+        slot: SlotDefinition,
+        value_type: bool = False,
+    ) -> None:
+        """Set ``range`` or ``any_of`` from the shape's type constraints.
+
+        When *value_type* is set the shape reached its target through a
+        ``(property rdf:type)`` path, so its ``sh:in`` list names classes rather
+        than literal values.
+        """
         if isinstance(path, URIRef) and path in LITERAL_PREDICATES:
             slot.range = LITERAL_PREDICATES[path]
             return
@@ -298,10 +454,26 @@ class ShaclImportEngine(ImportEngine):
                 slot.range = options[0]
                 return
 
-        if self.graph.value(property_shape, SH["in"]) is not None:
-            # An inline sh:in list becomes an enum on the slot itself.
-            slot.range = self.visit_inline_enum(property_shape, slot)
-            return
+        collection = self.graph.value(property_shape, SH["in"])
+        if collection is not None:
+            if value_type:
+                # Here sh:in lists the permitted classes of the association, so it
+                # is a range (or a union of them), not a set of literal values.
+                options = [
+                    self.range_for(member)
+                    for member in self.graph.items(collection)
+                    if isinstance(member, URIRef)
+                ]
+                if len(options) > 1:
+                    slot.any_of = [{"range": option} for option in options]
+                    return
+                if options:
+                    slot.range = options[0]
+                    return
+            else:
+                # An inline sh:in list becomes an enum on the slot itself.
+                slot.range = self.visit_inline_enum(property_shape, slot)
+                return
 
         # Deliberately left unset rather than defaulted: several shapes may
         # describe one property, and a premature default would win the merge.
@@ -327,8 +499,18 @@ class ShaclImportEngine(ImportEngine):
         return self.class_name(target)
 
     def visit_inline_enum(self, property_shape: Node, slot: SlotDefinition) -> str:
-        """Turn an ``sh:in`` list into an enum named after the slot."""
+        """Turn an ``sh:in`` list into an enum named after the slot.
+
+        One property shape is often shared by many node shapes -- CGMES declares
+        ``Measurement.phases-datatype`` once and references it from Analog,
+        Discrete, Accumulator and StringMeasurement -- so the same enum is reached
+        repeatedly. Registering it again raises a duplicate-name error, and the
+        second registration would be identical anyway, so the enum is built once
+        and reused.
+        """
         name = f"{slot.name}_enum"
+        if name in self.sb.schema.enums:
+            return name
         enum = EnumDefinition(name=name)
         for member in self.graph.items(self.graph.value(property_shape, SH["in"])):
             text = str(member) if isinstance(member, Literal) else _local_name(member)
@@ -358,22 +540,85 @@ class ShaclImportEngine(ImportEngine):
                 maximum = self.graph.value(property_shape, SH.qualifiedMaxCount)
         slot.multivalued = not (maximum is not None and int(maximum) == 1)
 
+    def merge_classes(
+        self,
+        existing: ClassDefinition,
+        addition: ClassDefinition,
+        across_profiles: bool,
+    ) -> ClassDefinition:
+        """Fold two node shapes that constrain the same class into one.
+
+        Several shapes may target one class -- CGMES splits a class's constraints
+        across a main shape and supplementary ``*-valueTypeNodeShape`` shapes, and
+        does so again across profile files. Adding each as its own class raises a
+        duplicate-name error, so shapes accumulate here the way
+        :meth:`merge_slots` accumulates property shapes.
+
+        *across_profiles* says which boundary is being crossed. Within a profile
+        the shapes are conjunctive and ``required`` accumulates: a supplementary
+        ``*-valueTypeNodeShape`` carries one property and says nothing about the
+        rest, so its silence must not relax them. Across profiles the laxest bound
+        wins, and a property a profile omits entirely is the laxest case of all --
+        CGMES requires ``RotatingMachine.ratedS`` in Equipment but not in
+        SteadyStateHypothesis, and demanding it everywhere would reject a valid SSH
+        file. See :meth:`merge_slots`.
+        """
+        existing.description = existing.description or addition.description
+        existing.is_a = existing.is_a or addition.is_a
+        for mixin in addition.mixins or []:
+            if mixin != existing.is_a and mixin not in existing.mixins:
+                existing.mixins.append(mixin)
+        for name, slot in addition.attributes.items():
+            present = existing.attributes.get(name)
+            if present is None:
+                if across_profiles:
+                    slot.required = False
+                existing.attributes[name] = slot
+            else:
+                existing.attributes[name] = self.merge_slots(
+                    present, slot, across_shapes=across_profiles
+                )
+        if across_profiles:
+            for name, slot in existing.attributes.items():
+                if name not in addition.attributes:
+                    slot.required = False
+        return existing
+
     def merge_slots(
-        self, existing: SlotDefinition, addition: SlotDefinition
+        self,
+        existing: SlotDefinition,
+        addition: SlotDefinition,
+        across_shapes: bool = False,
     ) -> SlotDefinition:
         """Fold two shapes for the same path into one slot.
 
         Shape graphs routinely split a property across several shapes -- one
         carrying the range, another the cardinality, others pure SPARQL rules --
         so shapes must accumulate. A concrete range always beats the fallback,
-        whichever shape happened to be visited first, and the strictest
-        cardinality wins.
+        whichever shape happened to be visited first.
+
+        ``required`` depends on where the two shapes met, which is what
+        *across_shapes* distinguishes. Within one node shape SHACL constraints are
+        conjunctive, so any shape demanding the property makes it required. Across
+        node shapes -- separate profiles constraining the same class -- the laxest
+        bound wins instead: CGMES requires ``RotatingMachine.ratedS`` in Equipment
+        but not in ShortCircuit or SteadyStateHypothesis, and unioning would reject
+        a valid SSH file for omitting it. ``multivalued`` takes the strictest bound
+        either way, because an upper bound holds wherever it is stated.
         """
-        if existing.range in (None, DEFAULT_RANGE):
-            existing.range = addition.range or existing.range
-        existing.required = bool(existing.required or addition.required)
-        existing.multivalued = bool(existing.multivalued and addition.multivalued)
+        # A union range supersedes a scalar one: the scalar came from a shape naming
+        # a single class, and a slot cannot state both a range and a union of ranges.
         existing.any_of = existing.any_of or addition.any_of
+        if existing.any_of:
+            existing.range = None
+        elif existing.range in (None, DEFAULT_RANGE):
+            existing.range = addition.range or existing.range
+        existing.required = (
+            bool(existing.required and addition.required)
+            if across_shapes
+            else bool(existing.required or addition.required)
+        )
+        existing.multivalued = bool(existing.multivalued and addition.multivalued)
         existing.description = existing.description or addition.description
         return existing
 
@@ -425,6 +670,17 @@ class ShaclImportEngine(ImportEngine):
 
     # ------------------------------------------------------------------- utils
 
+    def _profile_of(self, shape: Node) -> str:
+        """The file *shape* came from, which is the profile boundary.
+
+        CGMES publishes one file per profile, and a class's shapes within a file --
+        a main shape plus supplementary ``*-valueTypeNodeShape`` shapes -- jointly
+        describe it. The file is therefore the unit across which a missing property
+        means "this profile does not constrain it" rather than "this shape happens
+        not to mention it".
+        """
+        return self._profiles.get(shape, "")
+
     def _comment(self, subject: Node) -> str | None:
         value = self.graph.value(subject, RDFS.comment)
         return str(value).strip() if isinstance(value, Literal) else None
@@ -450,11 +706,6 @@ class ShaclImportEngine(ImportEngine):
         dangling: set[str] = set()
         for cls in schema.classes.values():
             for slot in cls.attributes.values():
-                if slot.range is None:
-                    slot.range = DEFAULT_RANGE
-                elif slot.range not in known:
-                    dangling.add(slot.range)
-                    slot.range = DEFAULT_RANGE
                 kept = [
                     option
                     for option in (slot.any_of or [])
@@ -465,6 +716,16 @@ class ShaclImportEngine(ImportEngine):
                         str(_option_range(o)) for o in slot.any_of if o not in kept
                     )
                     slot.any_of = kept
+                if slot.any_of:
+                    # A union range and a scalar one are mutually exclusive, and
+                    # the union is the more specific of the two.
+                    slot.range = None
+                    continue
+                if slot.range is None:
+                    slot.range = DEFAULT_RANGE
+                elif slot.range not in known:
+                    dangling.add(slot.range)
+                    slot.range = DEFAULT_RANGE
         return sorted(dangling)
 
     def inherit_constraints(self) -> int:
@@ -526,7 +787,10 @@ class ShaclImportEngine(ImportEngine):
         """Convert a SHACL shapes file to a LinkML schema.
 
         Args:
-            file: Path or URL of the shapes graph.
+            file: Path or URL of the shapes graph, or a directory of them.
+                A directory loads every shapes file inside it into one graph,
+                which is what lets constraints for a class that are split across
+                several files merge into a single class.
             name: Schema name; defaults to *default_prefix*, else ``example``.
             format: rdflib parser name.
             default_prefix: Prefix treated as the schema's own namespace.
@@ -537,7 +801,12 @@ class ShaclImportEngine(ImportEngine):
                 ontologies that pun class and instance to model enums.
         """
         self.graph = Graph()
-        self.graph.parse(file, format=format)
+        self._profiles = {}
+        for source in _expand_sources(file):
+            before = set(self.graph.subjects(RDF.type, SH.NodeShape))
+            self.graph.parse(source, format=format)
+            for shape in set(self.graph.subjects(RDF.type, SH.NodeShape)) - before:
+                self._profiles[shape] = source
         self._prefixes = {
             str(prefix): str(namespace) for prefix, namespace in self.graph.namespaces()
         }
@@ -568,8 +837,31 @@ class ShaclImportEngine(ImportEngine):
         if enum_root is not None:
             self.collect_enums(URIRef(self._expand(enum_root)))
 
+        # Two tiers, because the two levels carry different meaning. Shapes within
+        # one profile are conjunctive -- a main shape plus its supplementary
+        # value-type shapes jointly describe the class. Separate profiles are
+        # separate documents, and a property one profile omits is optional there.
+        per_profile: dict[str, dict[str, ClassDefinition]] = {}
         for shape in self.node_shapes():
-            self.sb.add_class(self.visit_shape(shape))
+            cls = self.visit_shape(shape)
+            profile = per_profile.setdefault(self._profile_of(shape), {})
+            existing = profile.get(cls.name)
+            profile[cls.name] = (
+                self.merge_classes(existing, cls, across_profiles=False)
+                if existing
+                else cls
+            )
+        classes: dict[str, ClassDefinition] = {}
+        for profile in per_profile.values():
+            for name, cls in profile.items():
+                existing = classes.get(name)
+                classes[name] = (
+                    self.merge_classes(existing, cls, across_profiles=True)
+                    if existing
+                    else cls
+                )
+        for cls in classes.values():
+            self.sb.add_class(cls)
 
         narrowed = self.inherit_constraints()
         dangling = self.prune_dangling_ranges()
