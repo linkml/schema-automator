@@ -32,6 +32,7 @@ from schema_automator.importers.kwalify_import_engine import KwalifyImportEngine
 from schema_automator.importers.owl_import_engine import OwlImportEngine
 from schema_automator.generalizers.rdf_data_generalizer import RdfDataGeneralizer
 from schema_automator.importers.rdfs_import_engine import RdfsImportEngine
+from schema_automator.importers.shacl_import_engine import ShaclImportEngine
 from schema_automator.importers.sql_import_engine import SqlImportEngine
 from schema_automator.importers.xsd_import_engine import XsdImportEngine
 from schema_automator.utils.schemautils import write_schema
@@ -544,6 +545,44 @@ def import_eml(input: str, output: str, schema_name, schema_id, **kwargs):
     """
     engine = EmlImportEngine()
     schema = engine.convert(input, name=schema_name, id=schema_id)
+    write_schema(schema, output)
+
+@main.command()
+@click.argument('shaclfile')
+@output_option
+@schema_name_option
+@click.option('--format', '-f',
+              default='turtle',
+              show_default=True,
+              help="RDF input format, eg. turtle, xml, json-ld")
+@click.option('--default-prefix',
+              help="Prefix treated as the schema's own namespace")
+@click.option('--model-uri',
+              help="Namespace for --default-prefix, if the graph does not declare it")
+@click.option('--identifier',
+              help="Add an identifier slot of this name to root classes. SHACL models "
+                   "no notion of identity, so this is opt-in")
+@click.option('--enum-root',
+              help="Class whose rdfs:subClassOf tree is imported as enumerations, for "
+                   "ontologies that pun class and instance to model enums, "
+                   "eg. s223:EnumerationKind")
+def import_shacl(shaclfile, output, schema_name, **args):
+    """
+    Import a SHACL shapes graph to LinkML
+
+    Both conventions for relating shapes to classes are supported: sh:targetClass,
+    and implicit-class where the shape is itself the class.
+
+    Example:
+
+        schemauto import-shacl mymodel.shacl.ttl -o mymodel.yaml
+
+        schemauto import-shacl 223p.ttl --default-prefix s223 \
+            --model-uri http://data.ashrae.org/standard223# \
+            --enum-root s223:EnumerationKind --identifier id -o s223.yaml
+    """
+    sie = ShaclImportEngine()
+    schema = sie.convert(shaclfile, name=schema_name, **args)
     write_schema(schema, output)
 
 @main.command()
