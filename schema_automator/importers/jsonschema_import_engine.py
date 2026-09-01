@@ -272,6 +272,7 @@ class JsonSchemaImportEngine(ImportEngine):
             s.range = 'integer'
             self.translate_numeric_constraints(obj, s)
         elif t == 'string':
+            s.pattern = obj.get('pattern', None)
             if 'enum' in obj:
                 pvs = obj['enum']
                 if self.use_attributes and class_name:

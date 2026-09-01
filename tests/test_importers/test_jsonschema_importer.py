@@ -63,6 +63,23 @@ def test_numeric_constraints(js_obj, expected):
     assert expected == (slot.minimum_value, slot.maximum_value)
 
 
+@pytest.mark.parametrize('js_obj,expected', [
+    pytest.param({'type': 'string', 'pattern': '^[0-9]{4}$'}, '^[0-9]{4}$', id='pattern'),
+    pytest.param({'type': 'string'}, None, id='no_pattern'),
+    # a constrained enum still records its pattern
+    pytest.param({'type': 'string', 'enum': ['a1', 'b2'], 'pattern': '^[ab][0-9]$'},
+                 '^[ab][0-9]$', id='pattern_with_enum'),
+    # pattern is a string-only keyword and is ignored elsewhere
+    pytest.param({'type': 'integer', 'pattern': '^[0-9]+$'}, None, id='pattern_on_integer'),
+])
+def test_string_pattern(js_obj, expected):
+    """A jsonschema `pattern` becomes the linkml `pattern` on the slot."""
+    ie = JsonSchemaImportEngine()
+    ie.schema = SchemaDefinition(id='https://example.org/test', name='test')
+    slot = ie.translate_property(js_obj, 'test_slot')
+    assert expected == slot.pattern
+
+
 class TestJsonSchemaImporter(unittest.TestCase):
     """JSONSchema """
 
@@ -147,6 +164,14 @@ class TestJsonSchemaImporter(unittest.TestCase):
         self.assertEqual("float", bmi.range)
         self.assertEqual(5, bmi.minimum_value)
         self.assertEqual(100, bmi.maximum_value)
+
+    def test_hca_string_pattern(self):
+        """A `pattern` survives a full conversion."""
+        ie = JsonSchemaImportEngine(use_attributes=True)
+        path = Path(INPUT_DIR) / "hca" / "module" / "biomaterial" / "human_specific.json"
+        schema = ie.convert(str(path), name="human_specific")
+        version = schema.classes["HumanSpecific"].attributes["schema_version"]
+        self.assertEqual("^[0-9]{1,}.[0-9]{1,}.[0-9]{1,}$", version.pattern)
 
     def test_import_hca_project(self):
         """This also tests the ability to import a whole project.
