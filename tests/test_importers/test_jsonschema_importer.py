@@ -4,9 +4,12 @@
 
 import unittest
 import os
+
+import pytest
 from pathlib import Path
 
 from linkml_runtime import SchemaView
+from linkml_runtime.linkml_model import SchemaDefinition
 from linkml_runtime.utils.compile_python import compile_python
 
 from schema_automator.importers.jsonschema_import_engine import JsonSchemaImportEngine
@@ -19,6 +22,45 @@ from tests import INPUT_DIR, OUTPUT_DIR
 
 #PP = os.path.join(INPUT_DIR, 'phenopackets/phenopackets.schema.json')
 #OUTSCHEMA = os.path.join(OUTPUT_DIR, 'phenopackets.yaml')
+
+
+@pytest.mark.parametrize('js_obj,expected', [
+    pytest.param({'type': 'integer', 'minimum': 0, 'maximum': 10}, (0, 10),
+                 id='inclusive_integer'),
+    pytest.param({'type': 'number', 'minimum': 0.01, 'maximum': 100}, (0.01, 100),
+                 id='inclusive_number'),
+    # draft-6 and later: exclusive bounds are numbers
+    pytest.param({'type': 'integer', 'exclusiveMinimum': 0, 'exclusiveMaximum': 10}, (1, 9),
+                 id='exclusive_integer'),
+    # the shape pydantic emits for `Field(gt=0, lt=100)` on an int
+    pytest.param({'type': 'integer', 'exclusiveMinimum': 0, 'exclusiveMaximum': 100}, (1, 99),
+                 id='pydantic_style'),
+    # draft-4: exclusive bounds are booleans modifying minimum/maximum
+    pytest.param({'type': 'integer', 'minimum': 0, 'maximum': 10,
+                  'exclusiveMinimum': True, 'exclusiveMaximum': True}, (1, 9),
+                 id='exclusive_integer_draft4'),
+    # draft-4: a false flag leaves minimum/maximum inclusive
+    pytest.param({'type': 'integer', 'minimum': 0, 'maximum': 10,
+                  'exclusiveMinimum': False, 'exclusiveMaximum': False}, (0, 10),
+                 id='inclusive_integer_draft4'),
+    # where both forms are present the tighter bound wins
+    pytest.param({'type': 'integer', 'minimum': 5, 'exclusiveMinimum': 1}, (5, None),
+                 id='inclusive_is_tighter'),
+    pytest.param({'type': 'integer', 'minimum': 1, 'exclusiveMinimum': 5}, (6, None),
+                 id='exclusive_is_tighter'),
+    pytest.param({'type': 'integer', 'maximum': 20, 'exclusiveMaximum': 5}, (None, 4),
+                 id='exclusive_is_tighter_maximum'),
+    # linkml has no exclusive bounds, so a float one is approximated as inclusive
+    pytest.param({'type': 'number', 'exclusiveMinimum': 0.0, 'maximum': 1.0}, (0.0, 1.0),
+                 id='exclusive_number'),
+    pytest.param({'type': 'integer'}, (None, None), id='unconstrained'),
+])
+def test_numeric_constraints(js_obj, expected):
+    """minimum/maximum (and their exclusive variants) become minimum_value/maximum_value."""
+    ie = JsonSchemaImportEngine()
+    ie.schema = SchemaDefinition(id='https://example.org/test', name='test')
+    slot = ie.translate_property(js_obj, 'test_slot')
+    assert expected == (slot.minimum_value, slot.maximum_value)
 
 
 class TestJsonSchemaImporter(unittest.TestCase):
@@ -95,6 +137,16 @@ class TestJsonSchemaImporter(unittest.TestCase):
         self.assertIn('active', schema.enums['activity_status_options'].permissible_values)
         self.assertIn('activity_status', schema.slots)
         self.assertEqual('activity_status_options', schema.slots['activity_status'].range)
+
+    def test_hca_numeric_constraints(self):
+        """Bounds on a `number` property survive a full conversion."""
+        ie = JsonSchemaImportEngine(use_attributes=True)
+        path = Path(INPUT_DIR) / "hca" / "module" / "biomaterial" / "human_specific.json"
+        schema = ie.convert(str(path), name="human_specific")
+        bmi = schema.classes["HumanSpecific"].attributes["body_mass_index"]
+        self.assertEqual("float", bmi.range)
+        self.assertEqual(5, bmi.minimum_value)
+        self.assertEqual(100, bmi.maximum_value)
 
     def test_import_hca_project(self):
         """This also tests the ability to import a whole project.

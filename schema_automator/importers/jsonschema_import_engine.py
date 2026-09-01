@@ -262,14 +262,15 @@ class JsonSchemaImportEngine(ImportEngine):
                 raise ValueError(f'Cannot translate array {name} {obj}')
         elif t == 'number':
             s.range = 'float'
+            self.translate_numeric_constraints(obj, s)
         elif t == 'boolean':
             s.range = 'boolean'
         elif t == 'float':
             s.range = 'float'
+            self.translate_numeric_constraints(obj, s)
         elif t == 'integer':
             s.range = 'integer'
-            s.minimum_value = obj.get('minimum_value', None)
-            s.maximum_value = obj.get('maximum_value', None)
+            self.translate_numeric_constraints(obj, s)
         elif t == 'string':
             if 'enum' in obj:
                 pvs = obj['enum']
@@ -287,6 +288,64 @@ class JsonSchemaImportEngine(ImportEngine):
         if not self.use_attributes:
             schema.slots[s.name] = s
         return s
+
+    def translate_numeric_constraints(self, obj: Dict, slot: SlotDefinition) -> None:
+        """
+        Translates jsonschema numeric range keywords onto a slot
+
+        LinkML ``minimum_value``/``maximum_value`` are always inclusive, so an exclusive
+        jsonschema bound is converted to the equivalent inclusive one. That conversion is
+        exact for integers, where "greater than 0" is simply "at least 1". Floats have no
+        equivalent, so the bound is widened to the inclusive one and a warning is logged.
+
+        Both spellings of exclusivity are accepted: the draft-4 form, where
+        ``exclusiveMinimum`` is a boolean making ``minimum`` exclusive, and the draft-6
+        and later form, where ``exclusiveMinimum`` is itself a number. The latter turns up
+        on integers more often than hand-written schemas would suggest, since generators
+        such as pydantic map ``gt``/``lt`` onto it regardless of the type.
+
+        :param obj: jsonschema object for a numeric property
+        :param slot: slot to be modified in place
+        """
+        is_integer = obj.get('type', None) == 'integer'
+
+        minimum = obj.get('minimum', None)
+        exclusive_minimum = obj.get('exclusiveMinimum', None)
+        if isinstance(exclusive_minimum, bool):
+            # draft-4: the boolean makes `minimum` itself exclusive
+            exclusive_minimum, minimum = (minimum, None) if exclusive_minimum else (None, minimum)
+        if exclusive_minimum is not None:
+            if is_integer:
+                exclusive_minimum = int(exclusive_minimum) + 1
+            else:
+                logging.warning(
+                    f'Exclusive minimum {exclusive_minimum} on non-integer slot '
+                    f'{slot.name} treated as inclusive'
+                )
+            # a lower bound is tighter the larger it is
+            if minimum is None or exclusive_minimum > minimum:
+                minimum = exclusive_minimum
+        if minimum is not None:
+            slot.minimum_value = minimum
+
+        maximum = obj.get('maximum', None)
+        exclusive_maximum = obj.get('exclusiveMaximum', None)
+        if isinstance(exclusive_maximum, bool):
+            # draft-4: the boolean makes `maximum` itself exclusive
+            exclusive_maximum, maximum = (maximum, None) if exclusive_maximum else (None, maximum)
+        if exclusive_maximum is not None:
+            if is_integer:
+                exclusive_maximum = int(exclusive_maximum) - 1
+            else:
+                logging.warning(
+                    f'Exclusive maximum {exclusive_maximum} on non-integer slot '
+                    f'{slot.name} treated as inclusive'
+                )
+            # an upper bound is tighter the smaller it is
+            if maximum is None or exclusive_maximum < maximum:
+                maximum = exclusive_maximum
+        if maximum is not None:
+            slot.maximum_value = maximum
 
     def _enum_from_ontology_extension(self, slot: SlotDefinition, js_obj: dict, name: str, class_name: str = None):
         gr = js_obj.get("graph_restriction", None)
