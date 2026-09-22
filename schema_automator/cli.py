@@ -502,6 +502,8 @@ def import_rdfs(input: str, output: str, metamodel_mappings: str, schema_name: s
 @output_option
 @schema_name_option
 @click.option('--output', '-o', help="Path to saved yaml schema")
+@click.option('--preserve-casing', is_flag=True, default=False,
+              help="Keep original XSD element/attribute casing for slot names instead of lowercasing the first letter")
 def import_xsd(input: str, output: str, **kwargs):
     """
     Import an XML Schema Definition Language (XSD) schema to LinkML
