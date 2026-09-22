@@ -253,7 +253,7 @@ class XsdImportEngine(ImportEngine):
             slot.range = assert_type(el.attrib["ref"], str)
 
             if slot.name == PLACEHOLDER_NAME:
-                slot.name = formatutils.lcamelcase(assert_type(el.attrib["ref"], str))
+                slot.name = self._name(assert_type(el.attrib["ref"], str))
         
         # Second pass, to add annotations
         for child in el:
