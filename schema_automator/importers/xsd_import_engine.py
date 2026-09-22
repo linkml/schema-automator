@@ -185,10 +185,14 @@ def get_value_element(cls: ClassDefinition) -> SlotDefinition:
 class XsdImportEngine(ImportEngine):
     sb: SchemaBuilder = field(default_factory=lambda: SchemaBuilder())
     target_ns: str | None = None
+    preserve_casing: bool = False
 
     def __post_init__(self):
         self.sb.add_defaults()
         self.sb.add_prefix("xsd", XSD)
+
+    def _name(self, raw: str) -> str:
+        return raw if self.preserve_casing else formatutils.lcamelcase(raw)
 
     def visit_element(self, el: etree._Element) -> SlotDefinition:
         """
@@ -197,9 +201,9 @@ class XsdImportEngine(ImportEngine):
         See 3.3.2 XML Representation of Element Declaration Schema Components: https://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/structures.html#declare-element
         """
 
-        slot_name = formatutils.lcamelcase(assert_type(el.attrib["name"], str)) if "name" in el.attrib else PLACEHOLDER_NAME
+        slot_name = self._name(assert_type(el.attrib["name"], str)) if "name" in el.attrib else PLACEHOLDER_NAME
         slot = SlotDefinition(
-            name=formatutils.lcamelcase(slot_name) if "name" in el.attrib else PLACEHOLDER_NAME,
+            name=slot_name,
             slot_uri=urljoin(self.target_ns, slot_name) if self.target_ns else None,
             instantiates=["xsd:element"],
             range = "boolean"
@@ -469,7 +473,7 @@ class XsdImportEngine(ImportEngine):
                 description = self.visit_annotation(child)
 
         return SlotDefinition(
-            name=formatutils.lcamelcase(assert_type(el.attrib["name"], str)),
+            name=self._name(assert_type(el.attrib["name"], str)),
             slot_uri=(
                 urljoin(self.target_ns, assert_type(el.attrib["name"], str)) if self.target_ns else None
             ),
@@ -630,7 +634,8 @@ class XsdImportEngine(ImportEngine):
         )
         self.sb.add_class(schema_root)
 
-    def convert(self, file: str, **kwargs: Any) -> SchemaDefinition:
+    def convert(self, file: str, preserve_casing: bool = False, **kwargs: Any) -> SchemaDefinition:
+        self.preserve_casing = preserve_casing
         parser = etree.XMLParser(remove_blank_text=True)
         tree = etree.parse(file, parser=parser)
         self.visit_schema(tree.getroot())
