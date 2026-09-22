@@ -60,34 +60,34 @@ def test_complex_type():
 
 
 def test_preserve_casing_false_is_lcamelcase():
-    schema = parse_string('<xsd:element name="PowersystemUnit" type="xsd:dateTime"/>')
+    schema = parse_string('<xsd:element name="SomeNamespaceValue" type="xsd:dateTime"/>')
     root = schema.get_class("SchemaRoot")
-    assert list(root.attributes) == ["powersystemUnit"]
+    assert list(root.attributes) == ["someNamespaceValue"]
 
 
 def test_preserve_casing_true_keeps_source_case():
     schema = parse_string(
-        '<xsd:element name="PowersystemUnit" type="xsd:dateTime"/>',
+        '<xsd:element name="SomeNamespaceValue" type="xsd:dateTime"/>',
         preserve_casing=True,
     )
     root = schema.get_class("SchemaRoot")
-    assert list(root.attributes) == ["PowersystemUnit"]
+    assert list(root.attributes) == ["SomeNamespaceValue"]
 
 
 def test_preserve_casing_true_applies_to_attribute_and_element():
     schema = parse_string(
         '''
-        <xsd:element name="AnlageEegBiomasse">
+        <xsd:element name="SomeRecord">
             <xsd:complexType>
                 <xsd:sequence>
-                    <xsd:element name="Registrierungsdatum" type="xsd:date"/>
+                    <xsd:element name="RegistrationDate" type="xsd:date"/>
                 </xsd:sequence>
-                <xsd:attribute name="AnlagenkennzifferAnlagenregister" type="xsd:string"/>
+                <xsd:attribute name="RegistryIdentifier" type="xsd:string"/>
             </xsd:complexType>
         </xsd:element>
         ''',
         preserve_casing=True,
     )
-    cls = schema.get_class("AnlageEegBiomasse")
-    assert cls.attributes["Registrierungsdatum"]
-    assert cls.attributes["AnlagenkennzifferAnlagenregister"]
+    cls = schema.get_class("SomeRecord")
+    assert cls.attributes["RegistrationDate"]
+    assert cls.attributes["RegistryIdentifier"]
