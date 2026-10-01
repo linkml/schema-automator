@@ -566,6 +566,13 @@ def import_eml(input: str, output: str, schema_name, schema_id, **kwargs):
               help="Class whose rdfs:subClassOf tree is imported as enumerations, for "
                    "ontologies that pun class and instance to model enums, "
                    "eg. s223:EnumerationKind")
+@click.option('--mode',
+              type=click.Choice(['auto', 'target-class', 'implicit']),
+              default='auto',
+              show_default=True,
+              help="How shapes relate to classes: target-class when a shape names its "
+                   "class with sh:targetClass, implicit when the shape is itself the "
+                   "class, auto to decide by majority")
 def import_shacl(shaclfile, output, schema_name, **args):
     """
     Import a SHACL shapes graph to LinkML
