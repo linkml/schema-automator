@@ -153,7 +153,9 @@ def test_disjoint_qualified_max_count_does_not_cap_the_slot(implicit_schema):
     qualified shape -- otherwise a property with two disjoint qualified shapes
     (at most one A *and* at most one B) would wrongly become single-valued.
     """
-    assert implicit_schema.classes["Device"].attributes["hasPort"].multivalued
+    attributes = implicit_schema.classes["Device"].attributes
+    assert attributes["hasConnectionPoint"].multivalued
+    assert not attributes["hasController"].multivalued
 
 
 def test_inverse_path_becomes_its_own_slot(implicit_schema):
@@ -216,6 +218,79 @@ def test_mode_is_detected_by_majority():
     engine = ShaclImportEngine()
     engine.convert(SIMPLE, default_prefix="usr")
     assert engine.use_target_class is True
+
+
+@pytest.mark.parametrize(
+    "path, mode, expected",
+    [(IMPLICIT, "target-class", True), (SIMPLE, "implicit", False)],
+)
+def test_mode_overrides_detection(path, mode, expected):
+    """--mode wins over the majority, for graphs that mix the styles evenly."""
+    engine = ShaclImportEngine()
+    engine.convert(path, default_prefix="ex", mode=mode)
+    assert engine.use_target_class is expected
+
+
+def test_an_unknown_mode_is_rejected():
+    with pytest.raises(ValueError, match="mode"):
+        ShaclImportEngine().convert(SIMPLE, mode="targetclass")
+
+
+COLLIDING_ENUMS = """
+@prefix ex: <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ex:Car a rdfs:Class, sh:NodeShape ;
+    sh:property [ sh:path ex:color ; sh:in ( "red" "blue" ) ] .
+ex:Horse a rdfs:Class, sh:NodeShape ;
+    sh:property [ sh:path ex:color ; sh:in ( "bay" "grey" ) ] .
+ex:Truck a rdfs:Class, sh:NodeShape ;
+    sh:property [ sh:path ex:color ; sh:in ( "red" "blue" ) ] .
+"""
+
+
+def test_inline_enums_sharing_a_slot_name_keep_their_own_values(tmp_path):
+    """Two sh:in lists on same-named slots must not share one list of values."""
+    source = tmp_path / "colors.ttl"
+    source.write_text(COLLIDING_ENUMS)
+    schema = ShaclImportEngine().convert(str(source), default_prefix="ex")
+
+    def values(cls):
+        enum = schema.enums[schema.classes[cls].attributes["color"].range]
+        return set(enum.permissible_values)
+
+    assert values("Car") == {"red", "blue"}
+    assert values("Horse") == {"bay", "grey"}
+    # Identical lists still share one enum.
+    assert (
+        schema.classes["Car"].attributes["color"].range
+        == schema.classes["Truck"].attributes["color"].range
+    )
+
+
+UNION_WITH_IN = """
+@prefix ex: <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Thing a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path ex:size ;
+        sh:or ( [ sh:datatype xsd:integer ] [ sh:in ( "small" "large" ) ] ) ;
+    ] .
+"""
+
+
+def test_a_union_member_without_a_range_is_logged(tmp_path, caplog):
+    """sh:or can only carry members that name a range; others are dropped visibly."""
+    source = tmp_path / "union.ttl"
+    source.write_text(UNION_WITH_IN)
+    with caplog.at_level("DEBUG", logger="schema_automator.importers.shacl_import_engine"):
+        schema = ShaclImportEngine().convert(str(source), default_prefix="ex")
+    assert schema.classes["Thing"].attributes["size"].range == "integer"
+    assert "dropping union member" in caplog.text
 
 
 # ---------------------------------------------------------------------------

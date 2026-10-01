@@ -96,8 +96,6 @@ imported schema is for generation and documentation, not a replacement for it.
 To do
 -----
 
-* No override for mode detection; a graph evenly split between explicit and
-  implicit shapes is decided by a coin toss.
 * ``sh:node`` is treated as a class range like ``sh:class``, which is right for the
   vocabularies tested but wrong in general -- it may name an arbitrary shape.
 * ``sh:minInclusive``/``sh:maxInclusive`` are not read, though LinkML has
@@ -174,6 +172,9 @@ SUBSTANTIVE = (
     SH.pattern,
 )
 
+
+#: Values for the ``mode`` argument of :meth:`ShaclImportEngine.convert`.
+MODES = ("auto", "target-class", "implicit")
 
 #: Extensions treated as shapes files when loading a directory.
 SHAPE_SUFFIXES = (".ttl", ".n3", ".nt", ".rdf", ".xml", ".owl", ".jsonld")
@@ -491,6 +492,12 @@ class ShaclImportEngine(ImportEngine):
             datatype = self.graph.value(member, SH.datatype)
             if datatype is not None:
                 yield TYPE_MAP.get(_local_name(datatype), "string")
+                continue
+            # Members such as an sh:in list name no range, so they cannot join
+            # the union.
+            logger.debug(
+                "dropping union member %s with no class, node or datatype", member
+            )
 
     def range_for(self, target: URIRef) -> str:
         """The LinkML range naming *target*: an enum, a class, or a built-in."""
@@ -507,19 +514,28 @@ class ShaclImportEngine(ImportEngine):
         repeatedly. Registering it again raises a duplicate-name error, and the
         second registration would be identical anyway, so the enum is built once
         and reused.
+
+        Unrelated shapes can also share a slot name while listing different
+        values; those get a numbered name rather than silently reusing the first
+        shape's values.
         """
-        name = f"{slot.name}_enum"
-        if name in self.sb.schema.enums:
-            return name
-        enum = EnumDefinition(name=name)
+        enum = EnumDefinition(name=f"{slot.name}_enum")
         for member in self.graph.items(self.graph.value(property_shape, SH["in"])):
             text = str(member) if isinstance(member, Literal) else _local_name(member)
             value = PermissibleValue(text=text)
             if isinstance(member, URIRef):
                 value.meaning = self.curie(member)
             enum.permissible_values[text] = value
+
+        base, suffix = enum.name, 1
+        while enum.name in self.sb.schema.enums:
+            existing = self.sb.schema.enums[enum.name]
+            if list(existing.permissible_values) == list(enum.permissible_values):
+                return enum.name
+            suffix += 1
+            enum.name = f"{base}_{suffix}"
         self.sb.add_enum(enum)
-        return name
+        return enum.name
 
     # ------------------------------------------------------------- cardinality
 
@@ -782,6 +798,7 @@ class ShaclImportEngine(ImportEngine):
         model_uri: str | None = None,
         identifier: str | None = None,
         enum_root: str | None = None,
+        mode: str = "auto",
         **kwargs: Any,
     ) -> SchemaDefinition:
         """Convert a SHACL shapes file to a LinkML schema.
@@ -799,7 +816,13 @@ class ShaclImportEngine(ImportEngine):
                 has no identifier concept, so this is opt-in.
             enum_root: Class whose subclass tree is imported as enumerations, for
                 ontologies that pun class and instance to model enums.
+            mode: ``target-class`` or ``implicit`` to say how shapes relate to
+                classes, or ``auto`` to decide by majority. A graph split evenly
+                between the two styles cannot be decided reliably, so this is the
+                override.
         """
+        if mode not in MODES:
+            raise ValueError(f"mode must be one of {', '.join(MODES)}, not {mode!r}")
         self.graph = Graph()
         self._profiles = {}
         for source in _expand_sources(file):
@@ -827,7 +850,10 @@ class ShaclImportEngine(ImportEngine):
                 schema.id = schema.prefixes[default_prefix].prefix_reference
                 self.default_namespace = str(schema.id)
 
-        self.use_target_class = self._detect_target_class_mode()
+        if mode == "auto":
+            self.use_target_class = self._detect_target_class_mode()
+        else:
+            self.use_target_class = mode == "target-class"
         logger.info(
             "importing %d node shape(s) in %s mode",
             len(self.node_shapes()),
