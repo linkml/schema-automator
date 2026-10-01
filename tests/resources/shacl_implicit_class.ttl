@@ -1,0 +1,70 @@
+# Implicit-class SHACL: the shape IS the class, with no sh:targetClass. This is
+# the style used by large published ontologies such as ASHRAE 223P and Brick,
+# where a term is declared rdfs:Class and sh:NodeShape at once and the hierarchy
+# is carried by rdfs:subClassOf.
+#
+# Also exercises the constructs those ontologies rely on and simpler shape files
+# never use: sh:qualifiedValueShape for cardinality, sh:inversePath, a
+# SPARQL-only shape that must NOT become a slot, and enumerations modelled by
+# punning class and instance.
+
+@prefix ex:   <http://example.org/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Device a rdfs:Class, sh:NodeShape ;
+    rdfs:comment "A thing that does something." ;
+    sh:property [
+        sh:path ex:label ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ,
+    [
+        sh:path ex:connectsTo ;
+        sh:class ex:Device ;
+    ] ,
+    [
+        # Cardinality via a qualified shape, not sh:maxCount.
+        sh:path ex:hasPort ;
+        sh:qualifiedValueShape [ sh:class ex:Port ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ,
+    [
+        # SPARQL-only: a rule, not a property. Must not produce a slot.
+        sh:path ex:forbidden ;
+        sh:sparql [
+            a sh:SPARQLConstraint ;
+            sh:select "SELECT $this WHERE { $this ex:forbidden ?x }" ;
+        ] ;
+    ] .
+
+ex:Pump a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf ex:Device ;
+    sh:property [
+        sh:path ex:medium ;
+        sh:class ex:Medium ;
+        sh:maxCount 1 ;
+    ] .
+
+ex:Port a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        # An inverse path: the triple lives on the Device.
+        sh:path [ sh:inversePath ex:hasPort ] ;
+        sh:class ex:Device ;
+        sh:maxCount 1 ;
+    ] .
+
+# Enumeration by class/instance punning: members are rdfs:subClassOf their kind
+# and typed as themselves, never rdf:type instances of the kind.
+ex:Medium a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf ex:Enumeration .
+
+ex:Medium-Air a ex:Medium-Air, rdfs:Class ;
+    rdfs:subClassOf ex:Medium ;
+    rdfs:comment "Air." .
+
+ex:Medium-Water a ex:Medium-Water, rdfs:Class ;
+    rdfs:subClassOf ex:Medium ;
+    rdfs:comment "Water." .
