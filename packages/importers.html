@@ -67,6 +67,58 @@ will be created.</p>
 </pre></div>
 </div>
 </section>
+<section id="importing-from-shacl">
+<h2>Importing from SHACL<a class="headerlink" href="#importing-from-shacl" title="Link to this heading">¶</a></h2>
+<p>You can import from a SHACL shapes graph. SHACL expresses a data model the way
+LinkML does – classes with typed, cardinality-constrained slots – so shapes map
+onto classes and their <code class="docutils literal notranslate"><span class="pre">sh:property</span></code> shapes onto attributes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">shacl</span> <span class="n">tests</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">shacl_simple</span><span class="o">.</span><span class="n">ttl</span> \
+    <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">prefix</span> <span class="n">usr</span> <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">uri</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span> <span class="o">-</span><span class="n">o</span> <span class="n">user</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>Two conventions for relating shapes to classes are both supported, and the mode is
+detected automatically.</p>
+<p><em>Explicit</em>, where a shape names the class it constrains. This is the style used by
+DCAT-AP and by most hand-written shape files:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">ex</span><span class="p">:</span><span class="nt">UserShape</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">User</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">name</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">datatype</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><em>Implicit</em>, where the shape is itself the class. This is the style used by large
+published ontologies such as ASHRAE 223P and Brick, which declare a term
+<code class="docutils literal notranslate"><span class="pre">rdfs:Class</span></code> and <code class="docutils literal notranslate"><span class="pre">sh:NodeShape</span></code> at once and carry the hierarchy on
+<code class="docutils literal notranslate"><span class="pre">rdfs:subClassOf</span></code>:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">s223</span><span class="p">:</span><span class="nt">Equipment</span> <span class="kt">a</span> <span class="nn">rdfs</span><span class="p">:</span><span class="nt">Class</span><span class="p">,</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">subClassOf</span> <span class="nn">s223</span><span class="p">:</span><span class="nt">Connectable</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">s223</span><span class="p">:</span><span class="nt">hasProperty</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">class</span> <span class="nn">s223</span><span class="p">:</span><span class="nt">Property</span> <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<section id="options">
+<h3>Options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--default-prefix</span></code> and <code class="docutils literal notranslate"><span class="pre">--model-uri</span></code> together say which namespace is the
+schema’s own. Terms from any other namespace are prefixed, so a vocabulary that
+redeclares an imported name does not silently lose one of the two.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--identifier</span></code> adds an identifier slot to root classes. SHACL models no notion of
+identity, so this is opt-in rather than assumed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--enum-root</span></code> imports a subclass tree as enumerations. Some ontologies model
+enumerations by punning class and instance – a member is <code class="docutils literal notranslate"><span class="pre">rdfs:subClassOf</span></code> its
+kind and typed as itself, never an <code class="docutils literal notranslate"><span class="pre">rdf:type</span></code> instance of the kind – so
+membership has to be read from the subclass closure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">schemauto</span> <span class="n">import</span><span class="o">-</span><span class="n">shacl</span> <span class="mi">223</span><span class="n">p</span><span class="o">.</span><span class="n">ttl</span> <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">prefix</span> <span class="n">s223</span> \
+    <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">uri</span> <span class="s1">&#39;http://data.ashrae.org/standard223#&#39;</span> \
+    <span class="o">--</span><span class="n">enum</span><span class="o">-</span><span class="n">root</span> <span class="n">s223</span><span class="p">:</span><span class="n">EnumerationKind</span> <span class="o">--</span><span class="n">identifier</span> <span class="nb">id</span> <span class="o">-</span><span class="n">o</span> <span class="n">s223</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</section>
+<section id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sh:sparql</span></code> constraints, <code class="docutils literal notranslate"><span class="pre">sh:severity</span></code> and <code class="docutils literal notranslate"><span class="pre">sh:message</span></code> are not imported.
+These are validation concerns with no LinkML equivalent, and a shape carrying only
+<code class="docutils literal notranslate"><span class="pre">sh:sparql</span></code> contributes neither a range nor a cardinality. Sequence and
+alternative property paths are skipped for the same reason; <code class="docutils literal notranslate"><span class="pre">sh:inversePath</span></code>
+becomes an <code class="docutils literal notranslate"><span class="pre">inverseOf_</span></code> slot.</p>
+</section>
+</section>
 <section id="importing-from-sql">
 <h2>Importing from SQL<a class="headerlink" href="#importing-from-sql" title="Link to this heading">¶</a></h2>
 <p>You can import a schema from a SQL database</p>
@@ -306,6 +358,7 @@ attempt to group concepts. However, this is not always the case.</p>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-json-schema">Importing from JSON-Schema</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-kwalify">Importing from Kwalify</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-owl">Importing from OWL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-shacl">Importing from SHACL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-sql">Importing from SQL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-cadsr">Importing from caDSR</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-from-dbml">Importing from DBML</a></li>

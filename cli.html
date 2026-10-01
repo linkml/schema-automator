@@ -1439,6 +1439,81 @@ and –schema-id override them.</p>
 </dd></dl>
 
 </section>
+<section id="schemauto-import-shacl">
+<h4>import-shacl<a class="headerlink" href="#schemauto-import-shacl" title="Link to this heading">¶</a></h4>
+<p>Import a SHACL shapes graph to LinkML</p>
+<p>Both conventions for relating shapes to classes are supported: sh:targetClass,
+and implicit-class where the shape is itself the class.</p>
+<p>Example:</p>
+<blockquote>
+<div><p>schemauto import-shacl mymodel.shacl.ttl -o mymodel.yaml</p>
+<p>schemauto import-shacl 223p.ttl –default-prefix s223             –model-uri <a class="reference external" href="http://data.ashrae.org">http://data.ashrae.org</a>/standard223#             –enum-root s223:EnumerationKind –identifier id -o s223.yaml</p>
+</div></blockquote>
+<p class="rubric">Usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>schemauto<span class="w"> </span>import-shacl<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>SHACLFILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-o">
+<span id="cmdoption-schemauto-import-shacl-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-o" title="Link to this definition">¶</a></dt>
+<dd><p>path to output file or directory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-n">
+<span id="cmdoption-schemauto-import-shacl-schema-name"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--schema-name</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;schema_name&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-n" title="Link to this definition">¶</a></dt>
+<dd><p>Schema name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'MySchema'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-f">
+<span id="cmdoption-schemauto-import-shacl-format"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--format</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;format&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-f" title="Link to this definition">¶</a></dt>
+<dd><p>RDF input format, eg. turtle, xml, json-ld</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'turtle'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-default-prefix">
+<span class="sig-name descname"><span class="pre">--default-prefix</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;default_prefix&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-default-prefix" title="Link to this definition">¶</a></dt>
+<dd><p>Prefix treated as the schema’s own namespace</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-model-uri">
+<span class="sig-name descname"><span class="pre">--model-uri</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;model_uri&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-model-uri" title="Link to this definition">¶</a></dt>
+<dd><p>Namespace for –default-prefix, if the graph does not declare it</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-identifier">
+<span class="sig-name descname"><span class="pre">--identifier</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;identifier&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-identifier" title="Link to this definition">¶</a></dt>
+<dd><p>Add an identifier slot of this name to root classes. SHACL models no notion of identity, so this is opt-in</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-enum-root">
+<span class="sig-name descname"><span class="pre">--enum-root</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;enum_root&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-enum-root" title="Link to this definition">¶</a></dt>
+<dd><p>Class whose rdfs:subClassOf tree is imported as enumerations, for ontologies that pun class and instance to model enums, eg. s223:EnumerationKind</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-arg-SHACLFILE">
+<span class="sig-name descname"><span class="pre">SHACLFILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-arg-SHACLFILE" title="Link to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
 <section id="schemauto-import-sql">
 <h4>import-sql<a class="headerlink" href="#schemauto-import-sql" title="Link to this heading">¶</a></h4>
 <p>Imports a schema by introspecting a relational database</p>

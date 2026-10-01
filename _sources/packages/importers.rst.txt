@@ -42,6 +42,71 @@ Use robot to convert ahead of time:
     robot convert -i schemaorg.ttl -o schemaorg.ofn
     schemauto import-owl schemaorg.ofn
 
+Importing from SHACL
+--------------------
+
+You can import from a SHACL shapes graph. SHACL expresses a data model the way
+LinkML does -- classes with typed, cardinality-constrained slots -- so shapes map
+onto classes and their ``sh:property`` shapes onto attributes.
+
+.. code-block::
+
+    schemauto import-shacl tests/resources/shacl_simple.ttl \
+        --default-prefix usr --model-uri http://example.org/ -o user.yaml
+
+Two conventions for relating shapes to classes are both supported, and the mode is
+detected automatically.
+
+*Explicit*, where a shape names the class it constrains. This is the style used by
+DCAT-AP and by most hand-written shape files:
+
+.. code-block:: turtle
+
+    ex:UserShape a sh:NodeShape ; sh:targetClass ex:User ;
+        sh:property [ sh:path schema:name ; sh:datatype xsd:string ] .
+
+*Implicit*, where the shape is itself the class. This is the style used by large
+published ontologies such as ASHRAE 223P and Brick, which declare a term
+``rdfs:Class`` and ``sh:NodeShape`` at once and carry the hierarchy on
+``rdfs:subClassOf``:
+
+.. code-block:: turtle
+
+    s223:Equipment a rdfs:Class, sh:NodeShape ;
+        rdfs:subClassOf s223:Connectable ;
+        sh:property [ sh:path s223:hasProperty ; sh:class s223:Property ] .
+
+Options
+^^^^^^^
+
+``--default-prefix`` and ``--model-uri`` together say which namespace is the
+schema's own. Terms from any other namespace are prefixed, so a vocabulary that
+redeclares an imported name does not silently lose one of the two.
+
+``--identifier`` adds an identifier slot to root classes. SHACL models no notion of
+identity, so this is opt-in rather than assumed.
+
+``--enum-root`` imports a subclass tree as enumerations. Some ontologies model
+enumerations by punning class and instance -- a member is ``rdfs:subClassOf`` its
+kind and typed as itself, never an ``rdf:type`` instance of the kind -- so
+membership has to be read from the subclass closure:
+
+.. code-block::
+
+    schemauto import-shacl 223p.ttl --default-prefix s223 \
+        --model-uri 'http://data.ashrae.org/standard223#' \
+        --enum-root s223:EnumerationKind --identifier id -o s223.yaml
+
+Limitations
+^^^^^^^^^^^
+
+``sh:sparql`` constraints, ``sh:severity`` and ``sh:message`` are not imported.
+These are validation concerns with no LinkML equivalent, and a shape carrying only
+``sh:sparql`` contributes neither a range nor a cardinality. Sequence and
+alternative property paths are skipped for the same reason; ``sh:inversePath``
+becomes an ``inverseOf_`` slot.
+
+
 Importing from SQL
 ------------------
 

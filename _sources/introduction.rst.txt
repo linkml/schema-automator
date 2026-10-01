@@ -27,10 +27,11 @@ Importing from alternative modeling frameworks
 See :ref:`importers`
 
 * OWL (but this only works for schema-style OWL)
+* SHACL (in progress)
 * JSON-Schema
 * SQL DDL
 
-In future other frameworks will be supported
+In future other frameworks will be supported.
 
 Annotating schemas
 ------------------
