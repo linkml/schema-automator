@@ -173,6 +173,29 @@ canonical mapping maps a CDE onto a LinkML <em>slot</em>.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.translate_numeric_constraints">
+<span class="sig-name descname"><span class="pre">translate_numeric_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SlotDefinition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.translate_numeric_constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.translate_numeric_constraints" title="Link to this definition">¶</a></dt>
+<dd><p>Translates jsonschema numeric range keywords onto a slot</p>
+<p>LinkML <code class="docutils literal notranslate"><span class="pre">minimum_value</span></code>/<code class="docutils literal notranslate"><span class="pre">maximum_value</span></code> are always inclusive, so an exclusive
+jsonschema bound is converted to the equivalent inclusive one. That conversion is
+exact for integers, where “greater than 0” is simply “at least 1”. Floats have no
+equivalent, so the bound is widened to the inclusive one and a warning is logged.</p>
+<p>Both spellings of exclusivity are accepted: the draft-4 form, where
+<code class="docutils literal notranslate"><span class="pre">exclusiveMinimum</span></code> is a boolean making <code class="docutils literal notranslate"><span class="pre">minimum</span></code> exclusive, and the draft-6
+and later form, where <code class="docutils literal notranslate"><span class="pre">exclusiveMinimum</span></code> is itself a number. The latter turns up
+on integers more often than hand-written schemas would suggest, since generators
+such as pydantic map <code class="docutils literal notranslate"><span class="pre">gt</span></code>/<code class="docutils literal notranslate"><span class="pre">lt</span></code> onto it regardless of the type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – jsonschema object for a numeric property</p></li>
+<li><p><strong>slot</strong> – slot to be modified in place</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="schema_automator.importers.JsonSchemaImportEngine.translate_object">
 <span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ClassDefinitionName</span></span></span><a class="reference internal" href="../_modules/schema_automator/importers/jsonschema_import_engine.html#JsonSchemaImportEngine.translate_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schema_automator.importers.JsonSchemaImportEngine.translate_object" title="Link to this definition">¶</a></dt>
 <dd><p>Translates jsonschema obj of type object</p>

@@ -736,15 +736,17 @@ window.runMermaid = runMermaid;</script>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot translate array </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;number&#39;</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">translate_numeric_constraints</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;boolean&#39;</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="s1">&#39;boolean&#39;</span>
         <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">translate_numeric_constraints</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;integer&#39;</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="s1">&#39;integer&#39;</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">minimum_value</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;minimum_value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">maximum_value</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;maximum_value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">translate_numeric_constraints</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pattern&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="s1">&#39;enum&#39;</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
                 <span class="n">pvs</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;enum&#39;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_attributes</span> <span class="ow">and</span> <span class="n">class_name</span><span class="p">:</span>
@@ -761,6 +763,67 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_attributes</span><span class="p">:</span>
             <span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
         <span class="k">return</span> <span class="n">s</span>
+
+<div class="viewcode-block" id="JsonSchemaImportEngine.translate_numeric_constraints">
+<a class="viewcode-back" href="../../../packages/importers.html#schema_automator.importers.JsonSchemaImportEngine.translate_numeric_constraints">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate_numeric_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translates jsonschema numeric range keywords onto a slot</span>
+
+<span class="sd">        LinkML ``minimum_value``/``maximum_value`` are always inclusive, so an exclusive</span>
+<span class="sd">        jsonschema bound is converted to the equivalent inclusive one. That conversion is</span>
+<span class="sd">        exact for integers, where &quot;greater than 0&quot; is simply &quot;at least 1&quot;. Floats have no</span>
+<span class="sd">        equivalent, so the bound is widened to the inclusive one and a warning is logged.</span>
+
+<span class="sd">        Both spellings of exclusivity are accepted: the draft-4 form, where</span>
+<span class="sd">        ``exclusiveMinimum`` is a boolean making ``minimum`` exclusive, and the draft-6</span>
+<span class="sd">        and later form, where ``exclusiveMinimum`` is itself a number. The latter turns up</span>
+<span class="sd">        on integers more often than hand-written schemas would suggest, since generators</span>
+<span class="sd">        such as pydantic map ``gt``/``lt`` onto it regardless of the type.</span>
+
+<span class="sd">        :param obj: jsonschema object for a numeric property</span>
+<span class="sd">        :param slot: slot to be modified in place</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">is_integer</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;integer&#39;</span>
+
+        <span class="n">minimum</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;minimum&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">exclusive_minimum</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exclusiveMinimum&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exclusive_minimum</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="c1"># draft-4: the boolean makes `minimum` itself exclusive</span>
+            <span class="n">exclusive_minimum</span><span class="p">,</span> <span class="n">minimum</span> <span class="o">=</span> <span class="p">(</span><span class="n">minimum</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">exclusive_minimum</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">minimum</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exclusive_minimum</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_integer</span><span class="p">:</span>
+                <span class="n">exclusive_minimum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exclusive_minimum</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Exclusive minimum </span><span class="si">{</span><span class="n">exclusive_minimum</span><span class="si">}</span><span class="s1"> on non-integer slot &#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> treated as inclusive&#39;</span>
+                <span class="p">)</span>
+            <span class="c1"># a lower bound is tighter the larger it is</span>
+            <span class="k">if</span> <span class="n">minimum</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">exclusive_minimum</span> <span class="o">&gt;</span> <span class="n">minimum</span><span class="p">:</span>
+                <span class="n">minimum</span> <span class="o">=</span> <span class="n">exclusive_minimum</span>
+        <span class="k">if</span> <span class="n">minimum</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">slot</span><span class="o">.</span><span class="n">minimum_value</span> <span class="o">=</span> <span class="n">minimum</span>
+
+        <span class="n">maximum</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;maximum&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">exclusive_maximum</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exclusiveMaximum&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exclusive_maximum</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="c1"># draft-4: the boolean makes `maximum` itself exclusive</span>
+            <span class="n">exclusive_maximum</span><span class="p">,</span> <span class="n">maximum</span> <span class="o">=</span> <span class="p">(</span><span class="n">maximum</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">exclusive_maximum</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">maximum</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exclusive_maximum</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_integer</span><span class="p">:</span>
+                <span class="n">exclusive_maximum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exclusive_maximum</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Exclusive maximum </span><span class="si">{</span><span class="n">exclusive_maximum</span><span class="si">}</span><span class="s1"> on non-integer slot &#39;</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">slot</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> treated as inclusive&#39;</span>
+                <span class="p">)</span>
+            <span class="c1"># an upper bound is tighter the smaller it is</span>
+            <span class="k">if</span> <span class="n">maximum</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">exclusive_maximum</span> <span class="o">&lt;</span> <span class="n">maximum</span><span class="p">:</span>
+                <span class="n">maximum</span> <span class="o">=</span> <span class="n">exclusive_maximum</span>
+        <span class="k">if</span> <span class="n">maximum</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">slot</span><span class="o">.</span><span class="n">maximum_value</span> <span class="o">=</span> <span class="n">maximum</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_enum_from_ontology_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">,</span> <span class="n">js_obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">class_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">gr</span> <span class="o">=</span> <span class="n">js_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;graph_restriction&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
