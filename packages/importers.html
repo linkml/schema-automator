@@ -76,8 +76,9 @@ onto classes and their <code class="docutils literal notranslate"><span class="p
     <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">prefix</span> <span class="n">usr</span> <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">uri</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span> <span class="o">-</span><span class="n">o</span> <span class="n">user</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-<p>Two conventions for relating shapes to classes are both supported, and the mode is
-detected automatically.</p>
+<p>Two conventions for relating shapes to classes are both supported. The mode is
+detected by majority, or set explicitly with <code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">target-class</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">implicit</span></code> when a graph mixes the two styles evenly.</p>
 <p><em>Explicit</em>, where a shape names the class it constrains. This is the style used by
 DCAT-AP and by most hand-written shape files:</p>
 <div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">ex</span><span class="p">:</span><span class="nt">UserShape</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">User</span> <span class="p">;</span>

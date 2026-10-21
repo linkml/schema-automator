@@ -1506,6 +1506,20 @@ and implicit-class where the shape is itself the class.</p>
 <dd><p>Class whose rdfs:subClassOf tree is imported as enumerations, for ontologies that pun class and instance to model enums, eg. s223:EnumerationKind</p>
 </dd></dl>
 
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-mode">
+<span class="sig-name descname"><span class="pre">--mode</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mode&gt;</span></span><a class="headerlink" href="#cmdoption-schemauto-import-shacl-mode" title="Link to this definition">¶</a></dt>
+<dd><p>How shapes relate to classes: target-class when a shape names its class with sh:targetClass, implicit when the shape is itself the class, auto to decide by majority</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'auto'</span></code></p>
+</dd>
+<dt class="field-even">Options<span class="colon">:</span></dt>
+<dd class="field-even"><p>auto | target-class | implicit</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-schemauto-import-shacl-arg-SHACLFILE">
