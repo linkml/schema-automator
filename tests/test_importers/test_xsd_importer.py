@@ -2,7 +2,7 @@ from linkml_runtime import SchemaView
 from schema_automator.importers import XsdImportEngine
 import tempfile
 
-def parse_string(xsd: str) -> SchemaView:
+def parse_string(xsd: str, preserve_casing: bool = False) -> SchemaView:
     engine = XsdImportEngine()
     with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
         f.write('''<xsd:schema
@@ -15,7 +15,7 @@ def parse_string(xsd: str) -> SchemaView:
         ''')
         f.write(xsd)
         f.write("</xsd:schema>")
-    schema = engine.convert(f.name)
+    schema = engine.convert(f.name, preserve_casing=preserve_casing)
     return SchemaView(schema)
 
 def test_embedded_type():
@@ -57,3 +57,37 @@ def test_complex_type():
     assert len(root.attributes) == 1
     assert root.attributes["myClass"].range == "MyClass"
     assert root.attributes["myClass"].description == "Some docs"
+
+
+def test_preserve_casing_false_is_lcamelcase():
+    schema = parse_string('<xsd:element name="SomeNamespaceValue" type="xsd:dateTime"/>')
+    root = schema.get_class("SchemaRoot")
+    assert list(root.attributes) == ["someNamespaceValue"]
+
+
+def test_preserve_casing_true_keeps_source_case():
+    schema = parse_string(
+        '<xsd:element name="SomeNamespaceValue" type="xsd:dateTime"/>',
+        preserve_casing=True,
+    )
+    root = schema.get_class("SchemaRoot")
+    assert list(root.attributes) == ["SomeNamespaceValue"]
+
+
+def test_preserve_casing_true_applies_to_attribute_and_element():
+    schema = parse_string(
+        '''
+        <xsd:element name="SomeRecord">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="RegistrationDate" type="xsd:date"/>
+                </xsd:sequence>
+                <xsd:attribute name="RegistryIdentifier" type="xsd:string"/>
+            </xsd:complexType>
+        </xsd:element>
+        ''',
+        preserve_casing=True,
+    )
+    cls = schema.get_class("SomeRecord")
+    assert cls.attributes["RegistrationDate"]
+    assert cls.attributes["RegistryIdentifier"]
