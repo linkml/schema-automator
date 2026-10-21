@@ -105,8 +105,6 @@ To do
   LinkML has ``pattern``.
 * A directory is parsed with a single ``format``, so mixed serialisations need
   separate runs.
-* Shapes on one path naming different classes keep only the first range, so
-  223P's ``hasConnectionPoint`` imports as ``Inlet`` alone (#232).
 """
 
 from __future__ import annotations
@@ -239,6 +237,9 @@ class ShaclImportEngine(ImportEngine):
     #: Source file each node shape was first seen in; see :meth:`_profile_of`.
     _profiles: dict[Node, str] = field(default_factory=dict)
     _enums: dict[URIRef, str] = field(default_factory=dict)
+    #: Slots whose range came from an ``sh:qualifiedValueShape``, keyed by id. The
+    #: slot is held as the value so its id cannot be reused; see :meth:`merge_slots`.
+    _qualified: dict[int, SlotDefinition] = field(default_factory=dict)
 
     # ------------------------------------------------------------------ naming
 
@@ -429,16 +430,20 @@ class ShaclImportEngine(ImportEngine):
         target = self.graph.value(property_shape, SH["class"]) or self.graph.value(
             property_shape, SH.node
         )
-        if target is None:
-            # sh:qualifiedValueShape nests the type inside another shape.
-            qualified = self.graph.value(property_shape, SH.qualifiedValueShape)
-            if qualified is not None:
-                target = self.graph.value(qualified, SH["class"]) or self.graph.value(
-                    qualified, SH.node
-                )
         if isinstance(target, URIRef):
             slot.range = self.range_for(target)
             return
+
+        # sh:qualifiedValueShape nests the type inside another shape.
+        qualified = self.graph.value(property_shape, SH.qualifiedValueShape)
+        if qualified is not None:
+            target = self.graph.value(qualified, SH["class"]) or self.graph.value(
+                qualified, SH.node
+            )
+            if isinstance(target, URIRef):
+                slot.range = self.range_for(target)
+                self._qualified[id(slot)] = slot
+                return
 
         datatype = self.graph.value(property_shape, SH.datatype)
         if datatype is not None:
@@ -629,13 +634,7 @@ class ShaclImportEngine(ImportEngine):
         a valid SSH file for omitting it. ``multivalued`` takes the strictest bound
         either way, because an upper bound holds wherever it is stated.
         """
-        # A union range supersedes a scalar one: the scalar came from a shape naming
-        # a single class, and a slot cannot state both a range and a union of ranges.
-        existing.any_of = existing.any_of or addition.any_of
-        if existing.any_of:
-            existing.range = None
-        elif existing.range in (None, DEFAULT_RANGE):
-            existing.range = addition.range or existing.range
+        self.merge_ranges(existing, addition)
         existing.required = (
             bool(existing.required and addition.required)
             if across_shapes
@@ -644,6 +643,43 @@ class ShaclImportEngine(ImportEngine):
         existing.multivalued = bool(existing.multivalued and addition.multivalued)
         existing.description = existing.description or addition.description
         return existing
+
+    def merge_ranges(self, existing: SlotDefinition, addition: SlotDefinition) -> None:
+        """Fold *addition*'s range into *existing*.
+
+        A range from ``sh:qualifiedValueShape`` bounds only the values of one
+        class, so several on a path together say what the slot holds: 223P gives
+        ``hasConnectionPoint`` one for inlets and one for outlets, and the slot
+        takes either. They become a union. A plain ``sh:class`` or ``sh:or``
+        constrains every value, so it replaces them.
+        """
+        existing_qualified = id(existing) in self._qualified
+        addition_qualified = id(addition) in self._qualified
+        if existing_qualified and addition_qualified:
+            ranges = [_option_range(o) for o in existing.any_of] or [existing.range]
+            if addition.range not in ranges:
+                existing.any_of = [{"range": r} for r in [*ranges, addition.range]]
+                existing.range = None
+            return
+        if addition_qualified:
+            if existing.range in (None, DEFAULT_RANGE) and not existing.any_of:
+                existing.range = addition.range
+                self._qualified[id(existing)] = existing
+            return
+        if existing_qualified and (
+            addition.any_of or addition.range not in (None, DEFAULT_RANGE)
+        ):
+            existing.range, existing.any_of = addition.range, addition.any_of
+            del self._qualified[id(existing)]
+            return
+
+        # A union range supersedes a scalar one: the scalar came from a shape naming
+        # a single class, and a slot cannot state both a range and a union of ranges.
+        existing.any_of = existing.any_of or addition.any_of
+        if existing.any_of:
+            existing.range = None
+        elif existing.range in (None, DEFAULT_RANGE):
+            existing.range = addition.range or existing.range
 
     # ------------------------------------------------------------------- enums
 
@@ -832,6 +868,7 @@ class ShaclImportEngine(ImportEngine):
             raise ValueError(f"mode must be one of {', '.join(MODES)}, not {mode!r}")
         self.graph = Graph()
         self._profiles = {}
+        self._qualified = {}
         for source in _expand_sources(file):
             before = set(self.graph.subjects(RDF.type, SH.NodeShape))
             self.graph.parse(source, format=format)
