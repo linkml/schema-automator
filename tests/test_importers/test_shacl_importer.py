@@ -246,7 +246,9 @@ ex:Car a rdfs:Class, sh:NodeShape ;
 ex:Horse a rdfs:Class, sh:NodeShape ;
     sh:property [ sh:path ex:color ; sh:in ( "bay" "grey" ) ] .
 ex:Truck a rdfs:Class, sh:NodeShape ;
-    sh:property [ sh:path ex:color ; sh:in ( "red" "blue" ) ] .
+    sh:property [ sh:path ex:color ; sh:in ( "blue" "red" ) ] .
+ex:Bike a rdfs:Class, sh:NodeShape ;
+    sh:property [ sh:path ex:color ; sh:in ( ex:red ex:blue ) ] .
 """
 
 
@@ -256,17 +258,18 @@ def test_inline_enums_sharing_a_slot_name_keep_their_own_values(tmp_path):
     source.write_text(COLLIDING_ENUMS)
     schema = ShaclImportEngine().convert(str(source), default_prefix="ex")
 
-    def values(cls):
-        enum = schema.enums[schema.classes[cls].attributes["color"].range]
-        return set(enum.permissible_values)
+    def range_of(cls):
+        return schema.classes[cls].attributes["color"].range
 
-    assert values("Car") == {"red", "blue"}
-    assert values("Horse") == {"bay", "grey"}
-    # Identical lists still share one enum.
-    assert (
-        schema.classes["Car"].attributes["color"].range
-        == schema.classes["Truck"].attributes["color"].range
-    )
+    def values(cls):
+        enum = schema.enums[range_of(cls)]
+        return {text: pv.meaning for text, pv in enum.permissible_values.items()}
+
+    assert values("Car") == {"red": None, "blue": None}
+    assert values("Horse") == {"bay": None, "grey": None}
+    assert values("Bike") == {"red": "ex:red", "blue": "ex:blue"}
+    # The same set of literals shares one enum, whatever the order.
+    assert range_of("Car") == range_of("Truck")
 
 
 UNION_WITH_IN = """
@@ -287,7 +290,7 @@ def test_a_union_member_without_a_range_is_logged(tmp_path, caplog):
     """sh:or can only carry members that name a range; others are dropped visibly."""
     source = tmp_path / "union.ttl"
     source.write_text(UNION_WITH_IN)
-    with caplog.at_level("DEBUG", logger="schema_automator.importers.shacl_import_engine"):
+    with caplog.at_level("WARNING", logger="schema_automator.importers.shacl_import_engine"):
         schema = ShaclImportEngine().convert(str(source), default_prefix="ex")
     assert schema.classes["Thing"].attributes["size"].range == "integer"
     assert "dropping union member" in caplog.text

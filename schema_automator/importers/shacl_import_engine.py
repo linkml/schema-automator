@@ -105,6 +105,8 @@ To do
   LinkML has ``pattern``.
 * A directory is parsed with a single ``format``, so mixed serialisations need
   separate runs.
+* Shapes on one path naming different classes keep only the first range, so
+  223P's ``hasConnectionPoint`` imports as ``Inlet`` alone (#232).
 """
 
 from __future__ import annotations
@@ -495,7 +497,7 @@ class ShaclImportEngine(ImportEngine):
                 continue
             # Members such as an sh:in list name no range, so they cannot join
             # the union.
-            logger.debug(
+            logger.warning(
                 "dropping union member %s with no class, node or datatype", member
             )
 
@@ -527,10 +529,15 @@ class ShaclImportEngine(ImportEngine):
                 value.meaning = self.curie(member)
             enum.permissible_values[text] = value
 
+        # sh:in is a set, so order does not matter; meanings do, since a literal
+        # "red" and the IRI ex:red are different values.
+        def signature(e: EnumDefinition) -> dict[str, str | None]:
+            return {text: pv.meaning for text, pv in e.permissible_values.items()}
+
         base, suffix = enum.name, 1
         while enum.name in self.sb.schema.enums:
             existing = self.sb.schema.enums[enum.name]
-            if list(existing.permissible_values) == list(enum.permissible_values):
+            if signature(existing) == signature(enum):
                 return enum.name
             suffix += 1
             enum.name = f"{base}_{suffix}"
