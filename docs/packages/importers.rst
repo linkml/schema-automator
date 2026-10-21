@@ -54,8 +54,9 @@ onto classes and their ``sh:property`` shapes onto attributes.
     schemauto import-shacl tests/resources/shacl_simple.ttl \
         --default-prefix usr --model-uri http://example.org/ -o user.yaml
 
-Two conventions for relating shapes to classes are both supported, and the mode is
-detected automatically.
+Two conventions for relating shapes to classes are both supported. The mode is
+detected by majority, or set explicitly with ``--mode target-class`` or
+``--mode implicit`` when a graph mixes the two styles evenly.
 
 *Explicit*, where a shape names the class it constrains. This is the style used by
 DCAT-AP and by most hand-written shape files:

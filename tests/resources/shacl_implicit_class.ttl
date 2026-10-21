@@ -32,6 +32,26 @@ ex:Device a rdfs:Class, sh:NodeShape ;
         sh:qualifiedMinCount 1 ;
     ] ,
     [
+        # Two disjoint qualified shapes on one path: at most one Inlet AND at
+        # most one Outlet, so the slot as a whole stays multivalued.
+        sh:path ex:hasConnectionPoint ;
+        sh:qualifiedValueShape [ sh:class ex:Inlet ] ;
+        sh:qualifiedValueShapesDisjoint true ;
+        sh:qualifiedMaxCount 1 ;
+    ] ,
+    [
+        sh:path ex:hasConnectionPoint ;
+        sh:qualifiedValueShape [ sh:class ex:Outlet ] ;
+        sh:qualifiedValueShapesDisjoint true ;
+        sh:qualifiedMaxCount 1 ;
+    ] ,
+    [
+        # A single, non-disjoint qualified shape does cap the slot.
+        sh:path ex:hasController ;
+        sh:qualifiedValueShape [ sh:class ex:Device ] ;
+        sh:qualifiedMaxCount 1 ;
+    ] ,
+    [
         # SPARQL-only: a rule, not a property. Must not produce a slot.
         sh:path ex:forbidden ;
         sh:sparql [
@@ -55,6 +75,12 @@ ex:Port a rdfs:Class, sh:NodeShape ;
         sh:class ex:Device ;
         sh:maxCount 1 ;
     ] .
+
+ex:Inlet a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf ex:Port .
+
+ex:Outlet a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf ex:Port .
 
 # Enumeration by class/instance punning: members are rdfs:subClassOf their kind
 # and typed as themselves, never rdf:type instances of the kind.
