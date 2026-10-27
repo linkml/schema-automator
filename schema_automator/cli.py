@@ -841,7 +841,7 @@ def adapt_dbgap(data_dict_path: str, var_report_path: str | None, output: str, t
     if tsv:
         columns = [
             'name', 'type', 'description', 'codes',
-            'unit', 'min', 'max', 'uri',
+            'unit', 'min', 'max', 'uri', 'comment',
         ]
         lines = ['\t'.join(columns)]
         for entry in dd.get('entries', []):

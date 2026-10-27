@@ -90,18 +90,36 @@ class_derivations:
         # {code, label} record.
         populated_from: values
 
-      # Empirical bounds from var_report.xml's <stat min=... max=...>.
-      # dbGaP emits these as XML string attributes; coerce to numeric
-      # for DD conformance (matches the Frictionless adapter pattern).
-      # case() evaluates values eagerly, so each branch's coercion is
-      # guarded by an inner is_numeric() check too — protects against
-      # raises on empty strings when conditions don't match.
+      # Numeric-only fields (unit, min, max). Each repeats the numeric
+      # branches of the `type` case above — codes first, then
+      # calculated_type, then reported_type — so they appear exactly
+      # when the entry is typed integer or decimal.
+      #
+      # Bounds: the declared <logical_min>/<logical_max> from data_dict.xml
+      # win over the empirical <stat min=... max=...> from var_report.xml,
+      # since DD min/max are the permissible range. Both arrive as XML
+      # strings; coerce to numeric for DD conformance. case() evaluates
+      # values eagerly, so each coercion is guarded by its own
+      # is_numeric() check.
+      unit:
+        expr: |
+          case(
+            (len(values) > 0, None),
+            (calculated_type in ('enum_integer', 'enum_string', 'enumerated integer', 'string'), None),
+            (calculated_type in ('integer', 'decimal'), unit),
+            (reported_type in ('integer', 'Integer', 'num', 'continuous integer', 'decimal', 'Decimal', 'numeric', 'continuous decimal'), unit),
+            (True, None)
+          )
+
       min:
         expr: |
           case(
             (len(values) > 0, None),
-            (is_numeric(min) and (calculated_type == 'integer' or reported_type in ('integer', 'Integer', 'num', 'continuous integer')), int(float(min)) if is_numeric(min) else None),
-            (is_numeric(min) and (calculated_type == 'decimal' or reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal')), float(min) if is_numeric(min) else None),
+            (calculated_type in ('enum_integer', 'enum_string', 'enumerated integer', 'string'), None),
+            (is_numeric(logical_min) and (calculated_type == 'integer' or (calculated_type != 'decimal' and reported_type in ('integer', 'Integer', 'num', 'continuous integer'))), int(float(logical_min)) if is_numeric(logical_min) else None),
+            (is_numeric(logical_min) and (calculated_type == 'decimal' or (calculated_type != 'integer' and reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal'))), float(logical_min) if is_numeric(logical_min) else None),
+            (is_numeric(min) and (calculated_type == 'integer' or (calculated_type != 'decimal' and reported_type in ('integer', 'Integer', 'num', 'continuous integer'))), int(float(min)) if is_numeric(min) else None),
+            (is_numeric(min) and (calculated_type == 'decimal' or (calculated_type != 'integer' and reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal'))), float(min) if is_numeric(min) else None),
             (True, None)
           )
 
@@ -109,10 +127,15 @@ class_derivations:
         expr: |
           case(
             (len(values) > 0, None),
-            (is_numeric(max) and (calculated_type == 'integer' or reported_type in ('integer', 'Integer', 'num', 'continuous integer')), int(float(max)) if is_numeric(max) else None),
-            (is_numeric(max) and (calculated_type == 'decimal' or reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal')), float(max) if is_numeric(max) else None),
+            (calculated_type in ('enum_integer', 'enum_string', 'enumerated integer', 'string'), None),
+            (is_numeric(logical_max) and (calculated_type == 'integer' or (calculated_type != 'decimal' and reported_type in ('integer', 'Integer', 'num', 'continuous integer'))), int(float(logical_max)) if is_numeric(logical_max) else None),
+            (is_numeric(logical_max) and (calculated_type == 'decimal' or (calculated_type != 'integer' and reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal'))), float(logical_max) if is_numeric(logical_max) else None),
+            (is_numeric(max) and (calculated_type == 'integer' or (calculated_type != 'decimal' and reported_type in ('integer', 'Integer', 'num', 'continuous integer'))), int(float(max)) if is_numeric(max) else None),
+            (is_numeric(max) and (calculated_type == 'decimal' or (calculated_type != 'integer' and reported_type in ('decimal', 'Decimal', 'numeric', 'continuous decimal'))), float(max) if is_numeric(max) else None),
             (True, None)
           )
+
+      comment:
 
   PermissibleValueDefinition:
     populated_from: EncodedValue

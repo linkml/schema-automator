@@ -180,6 +180,15 @@ classes:
         range: string
         multivalued: true
 
+      comment:
+        description: >-
+          Free-text notes about the variable that are not part of its
+          definition — collection or measurement notes, caveats, provenance
+          remarks. Kept separate from `description` so the definition stays
+          clean and sources that distinguish the two (e.g., dbGaP's
+          `<comment>`) round-trip without merging.
+        range: string
+
     rules:
 
       - description: >-

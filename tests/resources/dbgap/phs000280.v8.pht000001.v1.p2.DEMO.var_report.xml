@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data_table name="DEMO" dataset_id="pht000001.v1" study_name="Test Study" study_id="phs000280.v8" participant_set="2" date_created="2023/01/19">
+  <variable id="phv00000001.v1.p2" var_name="HEIGHT" calculated_type="integer" reported_type="string">
+    <description>Standing height, declared string but measured integer.</description>
+    <total><stats><stat n="15045" nulls="2" mean="168.5" min="125" max="199" /></stats></total>
+  </variable>
+  <variable id="phv00000001.v1.p2.c1" var_name="HEIGHT" calculated_type="integer" reported_type="string">
+    <total><stats><stat n="7000" nulls="0" min="130" max="190" /></stats></total>
+  </variable>
+  <variable id="phv00000001.v1.p2.c2" var_name="HEIGHT" calculated_type="integer" reported_type="string">
+    <total><stats><stat n="8045" nulls="2" min="125" max="199" /></stats></total>
+  </variable>
+  <variable id="phv00000002.v1.p2" var_name="SEX" calculated_type="enum_integer" reported_type="encoded value">
+    <total><stats><stat n="15047" nulls="0" /></stats></total>
+  </variable>
+  <variable id="phv00000005.v1.p2" var_name="BOUNDED" calculated_type="integer" reported_type="integer">
+    <total><stats /></total>
+  </variable>
+  <variable id="phv00009999.v1.p2" var_name="GHOST" calculated_type="string" reported_type="string">
+    <description>Reported but never declared in the data dictionary.</description>
+  </variable>
+  <variable id="phv00000006.v1.p2" var_name="SENTINEL" calculated_type="integer" reported_type="integer">
+    <total><stats><stat n="900" nulls="1" min="126" max="155" /></stats></total>
+  </variable>
+</data_table>

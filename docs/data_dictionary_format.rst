@@ -136,6 +136,10 @@ imply including ``required``.
        consumers and as a fallback signal for pattern inference when
        ``pattern`` is not provided. Multivalued in TSV form: see
        "Multivalued TSV cells" below.
+   * - ``comment``
+     - Free-text notes about the variable that are not part of its
+       definition, such as measurement notes or caveats. Kept separate
+       from ``description`` so the definition stays clean.
 
 Multivalued TSV cells
 ~~~~~~~~~~~~~~~~~~~~~

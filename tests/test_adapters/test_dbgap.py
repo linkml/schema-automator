@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from schema_automator.adapters.codes import serialize_codes
 from schema_automator.adapters.dbgap import dbgap_to_dd, parse_dbgap_digest
 
 
@@ -168,3 +169,119 @@ class TestDbgapToDdNoVarReport:
         for entry in dd["entries"]:
             assert "min" not in entry
             assert "max" not in entry
+
+
+_DEMO_DD = _FIXTURES / "phs000280.v8.pht000001.v1.DEMO.data_dict.xml"
+_DEMO_VR = _FIXTURES / "phs000280.v8.pht000001.v1.p2.DEMO.var_report.xml"
+
+
+class TestDbgapToDdDemo:
+    """Fixture pair from linkml/dm-bip#376 covering issue #231."""
+
+    @pytest.fixture(scope="class")
+    def dd(self):
+        return dbgap_to_dd(_DEMO_DD, _DEMO_VR)
+
+    def test_bare_value_becomes_code(self, dd):
+        entry = _entry(dd, "YEAR")
+        assert entry["type"] == "permissible_values"
+        assert entry["codes"] == [{"code": "1986"}]
+
+    def test_bare_value_serializes_to_tsv(self, dd):
+        assert serialize_codes(_entry(dd, "YEAR")["codes"]) == "1986"
+
+    def test_unit_carries_through(self, dd):
+        assert _entry(dd, "HEIGHT")["unit"] == "cm"
+
+    def test_undeclared_unit_is_left_empty(self, dd):
+        assert "unit" not in _entry(dd, "BOUNDED")
+
+    def test_unit_absent_on_non_numeric(self, dd):
+        # SENTINEL declares <unit> but is typed permissible_values for now.
+        assert "unit" not in _entry(dd, "SENTINEL")
+
+    def test_logical_bounds_used_without_stats(self, dd):
+        entry = _entry(dd, "BOUNDED")
+        assert entry["type"] == "integer"
+        assert entry["min"] == 10
+        assert entry["max"] == 99
+
+    def test_comment_carries_through(self, dd):
+        assert _entry(dd, "HEIGHT")["comment"] == "Measured to the nearest cm."
+
+    def test_duplicate_codes_pass_through(self, dd):
+        codes = _entry(dd, "DUPCODE")["codes"]
+        assert [c["code"] for c in codes] == ["1", "1"]
+
+    def test_data_dict_only(self):
+        dd = dbgap_to_dd(_DEMO_DD)
+        entry = _entry(dd, "BOUNDED")
+        assert (entry["min"], entry["max"]) == (10, 99)
+        assert _entry(dd, "YEAR")["codes"] == [{"code": "1986"}]
+
+
+_BOUNDS_DD = """<?xml version="1.0" encoding="UTF-8"?>
+<data_table id="pht000002.v1" study_id="phs000280.v8">
+  <variable id="phv00000010.v1">
+    <name>AGE</name>
+    <description>Age at exam.</description>
+    <type>decimal</type>
+    <logical_min>0</logical_min>
+    <logical_max>120</logical_max>
+  </variable>
+  <variable id="phv00000012.v1">
+    <name>WEIGHT</name>
+    <description>Only a declared minimum.</description>
+    <type>integer</type>
+    <logical_min>1</logical_min>
+  </variable>
+  <variable id="phv00000011.v1">
+    <name>CODE_TEXT</name>
+    <description>Declared integer, calculated string.</description>
+    <type>integer</type>
+    <unit>mg</unit>
+    <logical_min>1</logical_min>
+  </variable>
+</data_table>
+"""
+
+_BOUNDS_VR = """<?xml version="1.0" encoding="UTF-8"?>
+<data_table name="BOUNDS" dataset_id="pht000002.v1" study_id="phs000280.v8">
+  <variable id="phv00000010.v1.p1" var_name="AGE" calculated_type="decimal" reported_type="decimal">
+    <total><stats><stat n="10" nulls="0" min="18.5" max="89.25" /></stats></total>
+  </variable>
+  <variable id="phv00000012.v1.p1" var_name="WEIGHT" calculated_type="integer" reported_type="integer">
+    <total><stats><stat n="10" nulls="0" min="40" max="150" /></stats></total>
+  </variable>
+  <variable id="phv00000011.v1.p1" var_name="CODE_TEXT" calculated_type="string" reported_type="integer">
+    <total><stats><stat n="10" nulls="0" min="1" max="9" /></stats></total>
+  </variable>
+</data_table>
+"""
+
+
+class TestDbgapBounds:
+    @pytest.fixture(scope="class")
+    def dd(self, tmp_path_factory):
+        d = tmp_path_factory.mktemp("bounds")
+        (d / "b.data_dict.xml").write_text(_BOUNDS_DD)
+        (d / "b.var_report.xml").write_text(_BOUNDS_VR)
+        return dbgap_to_dd(d / "b.data_dict.xml", d / "b.var_report.xml")
+
+    def test_declared_bounds_win_over_observed(self, dd):
+        entry = _entry(dd, "AGE")
+        assert entry["min"] == 0.0
+        assert entry["max"] == 120.0
+
+    def test_observed_bound_fills_missing_declared_side(self, dd):
+        entry = _entry(dd, "WEIGHT")
+        assert entry["min"] == 1
+        assert entry["max"] == 150
+
+    def test_calculated_string_suppresses_numeric_fields(self, dd):
+        # reported_type says integer, but calculated_type string wins for
+        # `type`, so unit/min/max must not appear either.
+        entry = _entry(dd, "CODE_TEXT")
+        assert entry["type"] == "string"
+        for field in ("unit", "min", "max"):
+            assert field not in entry

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data_table id="pht000001.v1" study_id="phs000280.v8" participant_set="2" date_created="Thu Jan 19 13:42:14 2023">
+  <description>A stand-in pheno table covering the digest shapes the reader has to handle.</description>
+  <variable id="phv00000001.v1">
+    <name>HEIGHT</name>
+    <description>Standing height, declared string but measured integer.</description>
+    <type>string</type>
+    <unit>cm</unit>
+    <comment>Measured to the nearest cm.</comment>
+  </variable>
+  <variable id="phv00000002.v1">
+    <name>SEX</name>
+    <description>Reported sex.</description>
+    <type>encoded value</type>
+    <value code="2">Female</value>
+    <value code="1">Male</value>
+  </variable>
+  <variable id="phv00000003.v1">
+    <name>YEAR</name>
+    <description>Year of the exam; dbGaP emits the value with no code attribute.</description>
+    <type>integer</type>
+    <value>1986</value>
+  </variable>
+  <variable id="phv00000004.v1">
+    <name>DUPCODE</name>
+    <description>Two values sharing one code, as dbGaP sometimes publishes.</description>
+    <type>encoded value</type>
+    <value code="1">Yes</value>
+    <value code="1">Affirmative</value>
+  </variable>
+  <variable id="phv00000005.v1">
+    <name>BOUNDED</name>
+    <description>Declares logical bounds; its var_report row carries no stat element.</description>
+    <type>integer</type>
+    <logical_min>10</logical_min>
+    <logical_max>99</logical_max>
+  </variable>
+  <variable id="phv00000006.v1">
+    <name>SENTINEL</name>
+    <description>A numeric measurement carrying one out-of-band marker among its values.</description>
+    <type>integer</type>
+    <unit>Years</unit>
+    <value code="5">Transport condition</value>
+  </variable>
+</data_table>
