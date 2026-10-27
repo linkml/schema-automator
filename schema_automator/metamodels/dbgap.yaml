@@ -159,12 +159,30 @@ classes:
           when present for a numeric variable. Populated by the
           Python merge step, not by the XML loader.
         range: string
+      unit:
+        description: Unit of measure from data_dict.xml's `<unit>` element.
+        range: string
+      logical_min:
+        description: >-
+          Declared minimum from data_dict.xml's `<logical_min>` element.
+          Takes precedence over the empirical `min` when both are present.
+        range: string
+      logical_max:
+        description: >-
+          Declared maximum from data_dict.xml's `<logical_max>` element.
+          Takes precedence over the empirical `max` when both are present.
+        range: string
+      comment:
+        description: Free-text note from data_dict.xml's `<comment>` element.
+        range: string
 
   EncodedValue:
     description: >-
       One entry in a variable's encoded value list. dbGaP
       data_dict.xml represents these as
-      ``<value code="X">human label</value>``.
+      ``<value code="X">human label</value>``. A bare
+      ``<value>X</value>`` with no code attribute declares the value
+      itself; the adapter normalizes it to a code with no label.
     attributes:
       code:
         description: The literal code as it appears in the data.

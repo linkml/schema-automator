@@ -79,11 +79,24 @@ def _parse_data_dict(path: Path) -> dict:
     slots. Output shape matches the ``data_dict`` portion of the
     merged ``VariableDigest`` form expected by the trans-spec.
     """
-    return xml_loader.load_as_dict(
+    digest = xml_loader.load_as_dict(
         path,
         target_class="VariableDigest",
         schemaview=_dbgap_schemaview(),
     )
+    for variable in digest.get("variables", []):
+        variable["values"] = [
+            _normalize_value(v) for v in variable.get("values") or []
+        ]
+    return digest
+
+
+def _normalize_value(value: dict) -> dict:
+    """A bare ``<value>1986</value>`` declares the value itself: the
+    loader reads its text as ``label``, so move it to ``code``."""
+    if value.get("code") is None and value.get("label") is not None:
+        return {"code": value["label"]}
+    return value
 
 
 def _parse_var_report(path: Path) -> dict:
@@ -172,6 +185,10 @@ def _merge(data_dict: dict, var_report: dict | None) -> dict:
             "reported_type": dv.get("reported_type") or vr.get("reported_type"),
             "calculated_type": vr.get("calculated_type"),
             "values": dv.get("values", []),
+            "unit": dv.get("unit"),
+            "comment": dv.get("comment"),
+            "logical_min": dv.get("logical_min"),
+            "logical_max": dv.get("logical_max"),
             "min": vr.get("min"),
             "max": vr.get("max"),
         }
