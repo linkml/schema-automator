@@ -158,6 +158,41 @@ def test_disjoint_qualified_max_count_does_not_cap_the_slot(implicit_schema):
     assert not attributes["hasController"].multivalued
 
 
+def test_qualified_shapes_on_one_path_union_their_ranges(implicit_schema):
+    """Each qualified shape names one class the slot holds, so the slot takes any."""
+    slot = implicit_schema.classes["Device"].attributes["hasConnectionPoint"]
+    assert slot.range is None
+    assert {option["range"] for option in slot.any_of} == {"Inlet", "Outlet"}
+
+
+QUALIFIED_WITH_CLASS = """
+@prefix ex: <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ex:Device a rdfs:Class, sh:NodeShape ;
+    sh:property
+        [ sh:path ex:hasPort ; sh:qualifiedValueShape [ sh:class ex:Inlet ] ;
+          sh:qualifiedMinCount 1 ] ,
+        [ sh:path ex:hasPort ; sh:class ex:Port ] ,
+        [ sh:path ex:hasPort ; sh:qualifiedValueShape [ sh:class ex:Outlet ] ;
+          sh:qualifiedMinCount 1 ] .
+ex:Port a rdfs:Class, sh:NodeShape .
+ex:Inlet a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ex:Port .
+ex:Outlet a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ex:Port .
+"""
+
+
+def test_a_plain_class_beats_qualified_ranges(tmp_path):
+    """sh:class constrains every value; qualified shapes only some of them."""
+    source = tmp_path / "ports.ttl"
+    source.write_text(QUALIFIED_WITH_CLASS)
+    schema = ShaclImportEngine().convert(str(source), default_prefix="ex")
+    slot = schema.classes["Device"].attributes["hasPort"]
+    assert slot.range == "Port"
+    assert not slot.any_of
+
+
 def test_inverse_path_becomes_its_own_slot(implicit_schema):
     """sh:inversePath states the triple on the other node."""
     attributes = implicit_schema.classes["Port"].attributes
